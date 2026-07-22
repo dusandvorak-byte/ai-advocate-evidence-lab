@@ -1,6 +1,11 @@
 const isEnglish = document.documentElement.lang === 'en';
 
 const known = {
+  '8a9c36a16571439260e87bb58cfc18a508763331f9627f0fd15f71fe751c0d6b': {
+    score: '9/9', tone: 'red',
+    cs: ['Franz Kafka dnes — retrospektivní důkaz kontinuity', 'Kontinuita příběhu 9/9: listina spojuje legislativní návrhy od roku 2008, petice, řízení 2 T 104/2010, II. ÚS 664/12 a pozvánku státním orgánům z dubna 2025. Procesní význam samotné pozvánky je nižší: nejde o rozhodnutí orgánu ani důkaz pravdivosti všech tvrzení autora. Originál se kvůli údajům dalších osob nezveřejňuje.'],
+    en: ['Franz Kafka Today — retrospective evidence of continuity', 'Story continuity 9/9: the record links legislative proposals since 2008, petitions, case 2 T 104/2010, II. ÚS 664/12 and an April 2025 invitation to state authorities. The invitation itself has lower procedural weight: it is neither an authority decision nor proof of every authorial allegation. The original is not published because it contains other people\'s data.']
+  },
   '1038a80c8e57a4e4ecd3fb4f511ce9e7a6cf129634f5b193397391f9295966c7': {
     score: '9/9', tone: 'red',
     cs: ['Policejní sdělení z 20. 7. 2026', 'Extrémní vazba na předžalobní větev NSZ. Listina nepřináší věcnou odpověď ani nevysvětluje cestu podání.'],
