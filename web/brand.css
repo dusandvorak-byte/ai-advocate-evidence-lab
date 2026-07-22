@@ -11,6 +11,11 @@ main img { filter: grayscale(1); }
   letter-spacing: -.065em;
 }
 
+.church-site .masthead .brand b,
+.church-site footer .brand b {
+  font-size: clamp(2rem, 4.2vw, 3.5rem);
+}
+
 .brand-promise {
   display: grid;
   grid-template-columns: minmax(220px, 420px) 92px;
