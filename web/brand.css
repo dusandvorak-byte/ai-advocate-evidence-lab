@@ -43,3 +43,33 @@ main img { filter: grayscale(1); }
   .brand-promise p { text-align: left; }
   .heart-logo { width: 76px; height: 76px; }
 }
+
+/* Keep the native chooser visible and reliable in every supported browser. */
+.upload {
+  display: block;
+  background: transparent;
+  padding: 0;
+  color: #fff;
+}
+
+.upload input {
+  position: static;
+  inline-size: auto;
+  block-size: auto;
+  max-width: 100%;
+  opacity: 1;
+  color: #fff;
+  font: 700 13px/1.4 var(--sans);
+}
+
+.upload input::file-selector-button {
+  margin-right: 12px;
+  padding: 12px 18px;
+  border: 0;
+  background: #fff;
+  color: #111;
+  font: 800 13px/1 var(--sans);
+  cursor: pointer;
+}
+
+.upload span { display: none; }
