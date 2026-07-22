@@ -49,6 +49,42 @@ main img { filter: grayscale(1); }
   .heart-logo { width: 76px; height: 76px; }
 }
 
+@media (max-width: 560px) {
+  .masthead .brand {
+    display: block;
+    overflow-wrap: anywhere;
+  }
+  .masthead .brand b,
+  .church-site .masthead .brand b {
+    font-size: clamp(2rem, 11vw, 2.6rem);
+    line-height: .95;
+  }
+  .masthead .brand span {
+    display: block;
+    margin-top: 9px;
+    letter-spacing: .08em;
+  }
+  .brand-promise {
+    grid-template-columns: minmax(0, 1fr) 64px;
+    gap: 10px;
+  }
+  .heart-logo { width: 64px; height: 64px; }
+  .breaking { align-items: flex-start; flex-wrap: wrap; }
+  .score { max-width: 100%; }
+  .score span { overflow-wrap: anywhere; }
+  .links { flex-wrap: wrap; }
+  .upload input { width: 100%; }
+  footer a,
+  footer p { overflow-wrap: anywhere; }
+}
+
+@media (max-width: 390px) {
+  .analysis-result {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
 /* Keep the native chooser visible and reliable in every supported browser. */
 .upload {
   display: block;
