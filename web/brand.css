@@ -1,0 +1,45 @@
+/* CannaInsider.EU visual identity: monochrome newsroom, one red heart. */
+main img { filter: grayscale(1); }
+
+.masthead .brand {
+  max-width: 68%;
+  flex-wrap: wrap;
+}
+
+.masthead .brand b {
+  font-size: clamp(38px, 5.5vw, 68px);
+  letter-spacing: -.065em;
+}
+
+.brand-promise {
+  display: grid;
+  grid-template-columns: minmax(220px, 420px) 92px;
+  gap: 14px;
+  align-items: center;
+  justify-items: end;
+}
+
+.brand-promise p {
+  max-width: 420px;
+  text-align: right;
+  font: bold italic 17px/1.25 var(--serif);
+}
+
+.heart-logo {
+  width: 92px;
+  height: 92px;
+  object-fit: cover;
+  object-position: center 45%;
+  filter: none;
+  border: 1px solid #111;
+}
+
+@media (max-width: 760px) {
+  .masthead .brand { max-width: none; }
+  .brand-promise {
+    grid-template-columns: 1fr 76px;
+    margin-top: 16px;
+  }
+  .brand-promise p { text-align: left; }
+  .heart-logo { width: 76px; height: 76px; }
+}
