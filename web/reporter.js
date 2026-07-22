@@ -8,8 +8,8 @@ const known = {
   },
   '1038a80c8e57a4e4ecd3fb4f511ce9e7a6cf129634f5b193397391f9295966c7': {
     score: '9/9', tone: 'red',
-    cs: ['Policejní sdělení z 20. 7. 2026', 'Extrémní vazba na předžalobní větev NSZ. Listina nepřináší věcnou odpověď ani nevysvětluje cestu podání.'],
-    en: ['Police communication of 20 July 2026', 'Extreme link to the pre-action Supreme Public Prosecutor branch. The record gives no merits answer and does not explain the referral path.']
+    cs: ['Policejní sdělení z 20. 7. 2026', 'Extrémní vazba na preventivní podání z 12. července. Autor zaslal výzvu policii sám jako důkaz jeho naléhavosti; policie potvrzuje přijetí 14. července a uložení bez dalšího opatření.'],
+    en: ['Police communication of 20 July 2026', 'Extreme link to the preventive filing of 12 July. The creator sent the demand to the Police himself as evidence of urgency; the Police confirm receipt on 14 July and filing without further action.']
   },
   '745e82be7dcc991de3e64c22609ae63f0f1bed20892b41ae9a454861cc8cf408': {
     score: '9/9', tone: 'red',
@@ -21,6 +21,11 @@ const known = {
   },
   '0f75ba79968a7a3f7e1487c9f9469558aeab419999e9a597da84f3c818035810': {
     score: '7/9', tone: 'orange', cs: ['Anonymizované doplnění stížnosti G. F.', 'Vysoká vazba na stížnost a důkazní chronologii; samo nezaručuje změnu rozhodnutí.'], en: ['Anonymised supplement by G. F.', 'High link to the complaint and evidence chronology; it does not guarantee a changed decision.']
+  },
+  '96b232c921b5c17c9cab604eac0954a8fce57c7327bc0727f5ac80e4bdb39e73': {
+    score: '9/9', tone: 'red',
+    cs: ['Zásahová žaloba proti Ministerstvu vnitra z 23. 7. 2026', 'Nově podaná žaloba napadá souhrnné vyřízení dvou odlišných stížností sdělením č. j. MV-114818-2/TP-2026. Podání žaloby samo neprokazuje nezákonný zásah; rozhodne Městský soud v Praze.'],
+    en: ['Intervention action against the Ministry of the Interior, 23 July 2026', 'The newly filed action challenges the combined handling of two distinct complaints in communication MV-114818-2/TP-2026. Filing the action does not itself prove an unlawful intervention; the Prague Municipal Court will decide.']
   }
 };
 
