@@ -16,11 +16,11 @@ const known = {
     cs: ['Podnět aliance ve věci 45 T 1/2024', 'Přímá relevance k metodice THC/THCA, nejistotě měření a soudnímu dokazování; nikoli předpověď výsledku.'],
     en: ['Alliance filing in case 45 T 1/2024', 'Direct relevance to THC/THCA methodology, measurement uncertainty and judicial evidence; not an outcome prediction.']
   },
-  '96661462bc5c4e0149d847319864512db68000a83127223aa94354c08dbe483c': {
-    score: '7/9', tone: 'orange', cs: ['Anonymizovaná stížnost G. F. a J. K.', 'Vysoká procesní relevance. Vyžaduje kontrolu přípustnosti, lhůt a oprávněné osoby.'], en: ['Anonymised complaint by G. F. and J. K.', 'High procedural relevance. Admissibility, deadlines and standing require human review.']
+  '394a819a0580869fd220d426a837ba5128c01f5f2d1fb06a17528fa4201fb470': {
+    score: '7/9', tone: 'orange', cs: ['Anonymizovaná opravená stížnost G. F. a J. K.', 'Opravená listina uvádí tři společně pěstované rostoucí rostliny a jednu sušící se rostlinu. Procesní přípustnost a účinky podání vyžadují lidskou právní kontrolu.'], en: ['Anonymised corrected complaint by G. F. and J. K.', 'The corrected record states three jointly grown plants and one drying plant. Procedural admissibility and effects require human legal review.']
   },
-  '0f75ba79968a7a3f7e1487c9f9469558aeab419999e9a597da84f3c818035810': {
-    score: '7/9', tone: 'orange', cs: ['Anonymizované doplnění stížnosti G. F.', 'Vysoká vazba na stížnost a důkazní chronologii; samo nezaručuje změnu rozhodnutí.'], en: ['Anonymised supplement by G. F.', 'High link to the complaint and evidence chronology; it does not guarantee a changed decision.']
+  'd139801a1c8ff34142d705c9c5d1d8bad4df9c409096f21562ae09a7c314ba20': {
+    score: '7/9', tone: 'orange', cs: ['Anonymizovaný dodatek stížnosti G. F. a J. K.', 'Dodatek bere zpět text společné stížnosti ze dne 22. 7. 2026 s výjimkou již zaslaných důkazních příloh a předkládá nové společné podání. Jeho procesní účinky posoudí soud.'], en: ['Anonymised complaint supplement by G. F. and J. K.', 'The supplement withdraws the text of the joint complaint dated 22 July 2026 except for evidence already submitted, and makes a new joint filing. The court will determine its procedural effects.']
   },
   '96b232c921b5c17c9cab604eac0954a8fce57c7327bc0727f5ac80e4bdb39e73': {
     score: '9/9', tone: 'red',
