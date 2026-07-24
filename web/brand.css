@@ -6,6 +6,56 @@ main img { filter: grayscale(1); }
   flex-wrap: wrap;
 }
 
+.civil-brand {
+  display: grid;
+  grid-template-columns: 78px minmax(0, 1fr);
+  column-gap: 16px;
+  align-items: center;
+}
+
+.civil-brand .site-logo {
+  grid-row: 1 / span 2;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: none;
+}
+
+body:not(.church-site) .masthead .brand:not(.civil-brand) {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  column-gap: 14px;
+  align-items: center;
+}
+
+body:not(.church-site) .masthead .brand:not(.civil-brand)::before {
+  content: "";
+  grid-row: 1 / span 2;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #fff url("assets/konopi-je-lek-logo.jpg") center / cover no-repeat;
+}
+
+html[lang="cs"] body:not(.church-site) .brand-promise p {
+  font-size: 0;
+}
+
+html[lang="cs"] body:not(.church-site) .brand-promise p::before {
+  content: "Bude nad Pražským hradem vlát konopná standarta?";
+  font-size: 17px;
+}
+
+html[lang="en"] body:not(.church-site) .brand-promise p {
+  font-size: 0;
+}
+
+html[lang="en"] body:not(.church-site) .brand-promise p::before {
+  content: "Will a cannabis standard fly above Prague Castle?";
+  font-size: 17px;
+}
+
 .masthead .brand b {
   font-size: clamp(38px, 5.5vw, 68px);
   letter-spacing: -.065em;
@@ -39,6 +89,142 @@ main img { filter: grayscale(1); }
   border: 1px solid #111;
 }
 
+/* Konopná církev: a distinct dark-blue edition using the shared newsroom. */
+.church-site {
+  --church-blue: #071a33;
+  --church-blue-soft: #0d2a4d;
+  --church-blue-line: #52749a;
+  background: #f7f8fa;
+  color: #0b1624;
+}
+
+.church-site .topline,
+.church-site .masthead,
+.church-site .nav,
+.church-site footer {
+  background: var(--church-blue);
+  color: #fff;
+  border-color: var(--church-blue-line);
+}
+
+.church-site .topline a,
+.church-site .masthead a,
+.church-site .nav a,
+.church-site footer a {
+  color: #fff;
+}
+
+.church-site .masthead {
+  min-height: 154px;
+  gap: 24px;
+}
+
+.church-brand {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: min(760px, 72%);
+  color: #fff;
+  text-decoration: none;
+}
+
+.church-logo {
+  width: 116px;
+  height: 116px;
+  flex: 0 0 116px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  background: #fff;
+  object-fit: cover;
+  filter: none;
+  box-shadow: 0 0 0 5px rgba(255,255,255,.12);
+}
+
+.church-brand-copy {
+  display: grid;
+  gap: 5px;
+}
+
+.church-brand-copy b {
+  font: 900 clamp(2rem, 4.2vw, 3.5rem)/.92 var(--sans);
+  letter-spacing: -.045em;
+}
+
+.church-brand-copy span {
+  font: 800 12px/1.2 var(--sans);
+  letter-spacing: .14em;
+}
+
+.church-site .brand-promise p {
+  color: #fff;
+}
+
+.church-site .nav a:hover,
+.church-site .nav a:focus-visible {
+  background: var(--church-blue-soft);
+}
+
+.church-site .breaking,
+.church-site .newsroom-alert {
+  border-color: var(--church-blue);
+}
+
+.church-site .newsroom-alert b,
+.church-site .breaking b {
+  background: var(--church-blue);
+}
+
+.church-site .lead-story,
+.church-site .news-rail article,
+.church-site .quick-memory,
+.church-site .source {
+  border-color: var(--church-blue-line);
+}
+
+.church-site .score-red {
+  background: var(--church-blue);
+}
+
+.church-site .section-label,
+.church-site .kicker {
+  color: var(--church-blue-soft);
+}
+
+footer {
+  position: relative;
+  padding-right: 140px;
+}
+
+footer::after {
+  content: "";
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: #fff url("assets/konopi-je-lek-logo.jpg") center / cover no-repeat;
+}
+
+.church-site footer::after {
+  background-image: url("assets/konopna-cirkev-logo.jpg");
+  border: 2px solid #fff;
+}
+
+.shared-news-feed {
+  padding: 28px 0;
+  border-bottom: 4px solid #111;
+}
+
+.shared-news-feed .news-section-head {
+  margin-bottom: 18px;
+}
+
+.church-site .shared-news-feed,
+.church-site .shared-news-feed .news-section-head {
+  border-color: var(--church-blue);
+}
+
 @media (max-width: 760px) {
   .masthead .brand { max-width: none; }
   .brand-promise {
@@ -47,6 +233,20 @@ main img { filter: grayscale(1); }
   }
   .brand-promise p { text-align: left; }
   .heart-logo { width: 76px; height: 76px; }
+  .civil-brand {
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+  .civil-brand .site-logo {
+    width: 64px;
+    height: 64px;
+  }
+  .church-site .masthead { align-items: flex-start; }
+  .church-brand { max-width: none; }
+  .church-logo {
+    width: 88px;
+    height: 88px;
+    flex-basis: 88px;
+  }
 }
 
 @media (max-width: 560px) {
@@ -76,6 +276,34 @@ main img { filter: grayscale(1); }
   .upload input { width: 100%; }
   footer a,
   footer p { overflow-wrap: anywhere; }
+  footer {
+    padding-right: 18px;
+    padding-bottom: 112px;
+  }
+  footer::after {
+    left: 18px;
+    right: auto;
+    top: auto;
+    bottom: 18px;
+    width: 72px;
+    height: 72px;
+  }
+  .church-brand {
+    gap: 13px;
+    align-items: center;
+  }
+  .church-logo {
+    width: 72px;
+    height: 72px;
+    flex-basis: 72px;
+  }
+  .church-brand-copy b {
+    font-size: clamp(1.7rem, 9vw, 2.35rem);
+  }
+  .church-site .brand-promise {
+    border-top: 1px solid var(--church-blue-line);
+    padding-top: 12px;
+  }
 }
 
 @media (max-width: 390px) {
@@ -363,9 +591,22 @@ main img { filter: grayscale(1); }
 }
 
 .article-header {
+  position: relative;
+  padding-right: 120px;
   padding-bottom: 22px;
   margin-bottom: 22px;
   border-bottom: 1px solid #111;
+}
+
+.article-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 88px;
+  height: 88px;
+  border: 1px solid #111;
+  background: #fff url("assets/votruba/heart-red-grayscale.png") center 45% / cover no-repeat;
 }
 
 .article-header h1 {
@@ -504,5 +745,15 @@ main img { filter: grayscale(1); }
   }
   .news-card figure img { height: 105px; }
   .article-header .standfirst { font-size: 20px; }
+  .article-header {
+    padding-right: 0;
+    padding-top: 84px;
+  }
+  .article-header::after {
+    left: 0;
+    right: auto;
+    width: 68px;
+    height: 68px;
+  }
   .article-body { font-size: 17px; }
 }
