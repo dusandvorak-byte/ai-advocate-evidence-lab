@@ -1,0 +1,11 @@
+{
+  "site": "CannaInsider.EU / AI Advocate Evidence Lab",
+  "created_on": "2026-07-20",
+  "created_on_display_cs": "20. července 2026",
+  "timezone": "Europe/Prague",
+  "date_policy": {
+    "homepage_header": "current visitor date rendered in Europe/Prague",
+    "news_items": "fixed publication date",
+    "archive": "fixed publication chronology"
+  }
+}

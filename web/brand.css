@@ -1,41 +1,15 @@
 /* CannaInsider.EU visual identity: monochrome newsroom, one red heart. */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 main img { filter: grayscale(1); }
 
 .masthead .brand {
   max-width: 68%;
   flex-wrap: wrap;
-}
-
-.civil-brand {
-  display: grid;
-  grid-template-columns: 78px minmax(0, 1fr);
-  column-gap: 16px;
-  align-items: center;
-}
-
-.civil-brand .site-logo {
-  grid-row: 1 / span 2;
-  width: 78px;
-  height: 78px;
-  border-radius: 50%;
-  object-fit: cover;
-  filter: none;
-}
-
-body:not(.church-site) .masthead .brand:not(.civil-brand) {
-  display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
-  column-gap: 14px;
-  align-items: center;
-}
-
-body:not(.church-site) .masthead .brand:not(.civil-brand)::before {
-  content: "";
-  grid-row: 1 / span 2;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: #fff url("assets/konopi-je-lek-logo.jpg") center / cover no-repeat;
 }
 
 html[lang="cs"] body:not(.church-site) .brand-promise p {
@@ -225,6 +199,141 @@ footer::after {
   border-color: var(--church-blue);
 }
 
+.site-search {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 14px 18px 16px;
+  border-bottom: 1px solid #111;
+  font-family: var(--sans);
+}
+
+.site-search > label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.site-search-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.site-search input {
+  width: 100%;
+  min-height: 46px;
+  border: 2px solid #111;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  padding: 10px 13px;
+  font: 700 16px/1.3 var(--sans);
+}
+
+.site-search input:focus {
+  outline: 4px solid rgba(201, 0, 32, .22);
+  outline-offset: 1px;
+}
+
+.site-search-count {
+  min-width: 86px;
+  color: var(--muted);
+  text-align: right;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.site-search-results {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 24px;
+  margin-top: 13px;
+  border-top: 4px solid #111;
+}
+
+.site-search-results[hidden] { display: none; }
+
+.site-search-results article,
+.site-search-empty {
+  margin: 0;
+  padding: 14px 0;
+  border-bottom: 1px solid #aaa;
+}
+
+.site-search-results h2 {
+  margin: 0 0 6px;
+  font: 900 21px/1.08 var(--sans);
+}
+
+.site-search-results h2 a { text-decoration: none; }
+.site-search-results h2 a:hover { text-decoration: underline; }
+.site-search-results p:not(.kicker) { margin: 0; line-height: 1.4; }
+
+.church-site .site-search {
+  background: var(--church-blue-soft);
+  border-color: var(--church-blue-line);
+  color: #fff;
+}
+
+.church-site .site-search-count { color: #dbe7f4; }
+.church-site .site-search-results { border-color: #fff; }
+.church-site .site-search-results article { border-color: var(--church-blue-line); }
+
+.support-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 42px;
+  align-items: center;
+  margin: 8px 0 40px;
+  padding: 30px;
+  border: 5px solid #111;
+  background: #fff;
+}
+
+.support-panel h2 {
+  max-width: 780px;
+  margin: 0 0 14px;
+  font: 900 clamp(30px, 4vw, 48px)/.98 var(--sans);
+  letter-spacing: -.035em;
+}
+
+.support-panel p {
+  max-width: 760px;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.support-account {
+  border-top: 1px solid #aaa;
+  padding-top: 12px;
+  overflow-wrap: anywhere;
+  font-family: var(--sans);
+}
+
+.support-panel figure { margin: 0; }
+
+.support-panel figure img {
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+  filter: none;
+}
+
+.support-panel figcaption {
+  margin-top: 8px;
+  text-align: center;
+  font: 700 11px/1.4 var(--sans);
+}
+
+.church-site .support-panel {
+  border-color: var(--church-blue);
+  box-shadow: inset 0 0 0 1px var(--church-blue-line);
+}
+
 @media (max-width: 760px) {
   .masthead .brand { max-width: none; }
   .brand-promise {
@@ -233,13 +342,6 @@ footer::after {
   }
   .brand-promise p { text-align: left; }
   .heart-logo { width: 76px; height: 76px; }
-  .civil-brand {
-    grid-template-columns: 64px minmax(0, 1fr);
-  }
-  .civil-brand .site-logo {
-    width: 64px;
-    height: 64px;
-  }
   .church-site .masthead { align-items: flex-start; }
   .church-brand { max-width: none; }
   .church-logo {
@@ -247,6 +349,15 @@ footer::after {
     height: 88px;
     flex-basis: 88px;
   }
+  .site-search-results,
+  .support-panel {
+    grid-template-columns: 1fr;
+  }
+  .support-panel {
+    gap: 20px;
+    padding: 22px;
+  }
+  .support-panel figure img { max-width: 230px; }
 }
 
 @media (max-width: 560px) {
@@ -304,6 +415,17 @@ footer::after {
     border-top: 1px solid var(--church-blue-line);
     padding-top: 12px;
   }
+  .site-search-controls {
+    grid-template-columns: 1fr;
+  }
+  .site-search-count {
+    min-width: 0;
+    text-align: left;
+  }
+  .site-search-results h2 { font-size: 19px; }
+  .support-panel { margin-bottom: 24px; padding: 18px; }
+  .support-panel h2 { font-size: 29px; }
+  .support-panel p { font-size: 15px; }
 }
 
 @media (max-width: 390px) {
@@ -576,6 +698,33 @@ footer::after {
 .quick-memory article:first-of-type { border-top: 3px solid var(--red); }
 .quick-memory h3 { margin: 4px 0; font-size: 21px; }
 .quick-memory p { margin: 0; font-size: 14px; line-height: 1.4; }
+
+.relevance-explainer {
+  margin-top: 20px;
+  border-top: 3px solid #111;
+  padding-top: 15px;
+}
+
+.relevance-explainer h2 {
+  margin: 0 0 8px;
+  font: 900 25px/1 var(--sans);
+}
+
+.relevance-explainer p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.result-score.yellow {
+  background: var(--yellow);
+  color: #111;
+}
+
+.result-score.green {
+  background: var(--green);
+  color: #fff;
+}
 
 .article-shell {
   max-width: 1240px;

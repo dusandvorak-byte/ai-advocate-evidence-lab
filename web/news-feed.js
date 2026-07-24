@@ -35,6 +35,8 @@ const cannaNews = [
   }
 ];
 
+window.cannaNews = cannaNews;
+
 const feed = document.querySelector('[data-shared-news-feed]');
 if (feed) {
   const english = document.documentElement.lang === 'en';
