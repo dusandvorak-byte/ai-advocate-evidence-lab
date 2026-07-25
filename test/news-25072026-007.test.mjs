@@ -17,6 +17,12 @@ assert.match(article, /3 VZN 239\/2026-27/, 'The VSZ Olomouc source reference mu
 assert.match(article, /1 KZT 475\/2026-32/, 'The KSZ Brno source reference must be exact');
 assert.match(article, /4 KZN 7116\/2026-45/, 'The KSZ Ostrava source reference must be exact');
 assert.match(article, /1 ZT 11\/2010-752/, 'The OSZ Prostějov source reference must be exact');
+assert.match(article, /Balík NSZ a NCOZ/, 'Cumulative filings must be grouped by procedural branch');
+assert.match(article, /20\. 4\..*25\. 4\..*8\. 5\..*12\. 5\. 2026/s, 'The cumulative NSZ filing dates must remain visible');
+assert.match(article, /2 KZN 55\/2025-122/, 'The reference shown in the MSZ letter header must remain visible');
+assert.match(article, /2 KZN 55\/2026/, 'The different reference shown in the MSZ letter body must remain visible');
+assert.match(article, /KRPM-100092-2\/ČJ-2026-1412UO/, 'The police notice reference must be exact');
+assert.match(article, /zaslaná Dušanem Dvořákem policii dne 14\. 7\./, 'The police branch must not invent an NSZ referral');
 assert.match(article, /Neurčuje vinu a nezaručuje výsledek/, 'The relevance boundary must remain visible');
 assert.match(article, /automaticky neprokazují trestný čin/, 'The procedural-action safety boundary must remain visible');
 assert.doesNotMatch(article, /předžalobni-vyzva.*href=/i, 'The privacy-unchecked pre-action demand must not be linked');
