@@ -23,6 +23,11 @@ assert.match(article, /2 KZN 55\/2025-122/, 'The reference shown in the MSZ lett
 assert.match(article, /2 KZN 55\/2026/, 'The different reference shown in the MSZ letter body must remain visible');
 assert.match(article, /KRPM-100092-2\/ČJ-2026-1412UO/, 'The police notice reference must be exact');
 assert.match(article, /zaslaná Dušanem Dvořákem policii dne 14\. 7\./, 'The police branch must not invent an NSZ referral');
+assert.match(article, /01-podnet-nsz-2026-07-25-original\.pdf/, 'The complete primary source must be publicly linked');
+assert.match(article, /02-predzalobni-vyzva-nsz-2026-07-14-original\.pdf/, 'The complete pre-action source must be publicly linked');
+assert.match(article, /18-vsz-praha-1-vzn-1678-2026-70-2026-07-23\.pdf/, 'The key VSZ response must be publicly linked');
+assert.match(article, /SHA256SUMS\.txt/, 'Independent readers must receive a file-integrity manifest');
+assert.doesNotMatch(article, /Úplné právní PDF není/, 'The article must not promise a primary source later');
 assert.match(article, /Neurčuje vinu a nezaručuje výsledek/, 'The relevance boundary must remain visible');
 assert.match(article, /automaticky neprokazují trestný čin/, 'The procedural-action safety boundary must remain visible');
 assert.doesNotMatch(article, /předžalobni-vyzva.*href=/i, 'The privacy-unchecked pre-action demand must not be linked');
