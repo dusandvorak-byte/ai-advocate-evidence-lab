@@ -4,6 +4,16 @@
  */
 const cannaNews = [
   {
+    id: '25072026-007',
+    date: '25. 7. 2026',
+    score: '9/9',
+    titleCs: 'Lence Bradáčové s láskou',
+    titleEn: 'To Lenka Bradáčová, with love',
+    summaryCs: 'Kytici nahradila evidenční mapa: podnět žádá přezkoumat dohled vykonaný nad neúplným spisem a přesně spojit rozdělené větve řízení.',
+    summaryEn: 'An evidence map replaces the flowers: the filing asks for review of supervision conducted on an incomplete file and for an exact map of the divided proceedings.',
+    href: 'zpravy/25072026-007.html'
+  },
+  {
     id: '24072026-006',
     date: '24. 7. 2026',
     score: '8/9',
