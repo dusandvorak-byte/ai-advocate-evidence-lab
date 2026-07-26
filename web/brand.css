@@ -17,7 +17,7 @@ html[lang="cs"] body:not(.church-site) .brand-promise p {
 }
 
 html[lang="cs"] body:not(.church-site) .brand-promise p::before {
-  content: "Bude nad Pražským hradem vlát konopná standarta?";
+  content: "Bude konopná amnestie?";
   font-size: 17px;
 }
 
@@ -26,8 +26,140 @@ html[lang="en"] body:not(.church-site) .brand-promise p {
 }
 
 html[lang="en"] body:not(.church-site) .brand-promise p::before {
-  content: "Will a cannabis standard fly above Prague Castle?";
+  content: "Will there be a cannabis amnesty?";
   font-size: 17px;
+}
+
+/* Honest, compact product roadmap for readers on every screen size. */
+.capabilities-panel {
+  margin: 0 0 40px;
+  border: 1px solid #111;
+  border-top: 6px solid var(--red);
+  background: #fff;
+}
+
+.capabilities-panel summary {
+  min-height: 72px;
+  padding: 18px 22px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--sans);
+}
+
+.capabilities-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.capabilities-panel summary::after {
+  content: "+";
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #111;
+  font: 800 24px/1 var(--sans);
+}
+
+.capabilities-panel details[open] summary::after {
+  content: "−";
+}
+
+.capabilities-summary {
+  display: grid;
+  gap: 4px;
+}
+
+.capabilities-summary b {
+  font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+  line-height: 1.12;
+}
+
+.capabilities-summary span {
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.4;
+}
+
+.capability-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid #111;
+}
+
+.capability-group {
+  min-width: 0;
+  padding: 24px 22px 26px;
+}
+
+.capability-group + .capability-group {
+  border-left: 1px solid #111;
+}
+
+.capability-group h3 {
+  margin: 0 0 14px;
+  font: 800 1.15rem/1.2 var(--sans);
+}
+
+.capability-group ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.capability-group li {
+  margin: 0 0 .72em;
+  line-height: 1.48;
+}
+
+.capability-status {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 5px 8px;
+  color: #fff;
+  background: #111;
+  font: 800 11px/1 var(--sans);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.capability-group.is-planned .capability-status {
+  color: #111;
+  background: var(--yellow);
+}
+
+@media (max-width: 900px) {
+  .capability-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .capability-group + .capability-group {
+    border-top: 1px solid #111;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .capabilities-panel {
+    margin-bottom: 30px;
+  }
+
+  .capabilities-panel summary,
+  .capability-group {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .capabilities-panel summary {
+    min-height: 80px;
+  }
+
+  .capabilities-summary span {
+    font-size: .84rem;
+  }
 }
 
 .masthead .brand b {
