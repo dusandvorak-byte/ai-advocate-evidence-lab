@@ -25,6 +25,16 @@ assert.match(
   /footer::after[\s\S]*konopi-je-lek-logo\.jpg/,
   'The alliance logo must remain in the CannaInsider footer'
 );
+assert.match(pages[0], /class="capabilities-panel"/, 'The Czech front page must disclose the platform roadmap');
+assert.match(pages[0], /Na webu funguje dnes/, 'Current functions must be distinguished from the roadmap');
+assert.match(pages[0], /Přidaná hodnota ve vývoji/, 'Planned functions must be labelled as in development');
+assert.match(pages[1], /class="capabilities-panel"/, 'The English front page must disclose the platform roadmap');
+assert.match(pages[1], /Available today/, 'The English page must distinguish current functions');
+assert.match(pages[1], /Added value in development/, 'The English page must distinguish planned functions');
+assert.doesNotMatch(pages[0], /href="kc\/index\.html"/, 'The Czech CannaInsider navigation must not link to Cannabis Church');
+assert.doesNotMatch(pages[1], /href="kc\/en\.html"/, 'The English CannaInsider navigation must not link to Cannabis Church');
+assert.match(pages[0], /Bude konopná amnestie\?/, 'The Czech CannaInsider masthead must use the amnesty question');
+assert.match(pages[1], /Will there be a cannabis amnesty\?/, 'The English CannaInsider masthead must use the amnesty question');
 await access('web/assets/qr-dar-educational-cannabis-clinic.png');
 
 const workflow = await readFile('.github/workflows/pages.yml', 'utf8');
