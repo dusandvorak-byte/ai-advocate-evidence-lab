@@ -20,10 +20,16 @@ assert.doesNotMatch(
   /class="site-logo"/,
   'The alliance logo must not appear in the CannaInsider masthead'
 );
+const css = await readFile('web/brand.css', 'utf8');
 assert.match(
-  await readFile('web/brand.css', 'utf8'),
+  css,
   /footer::after[\s\S]*konopi-je-lek-logo\.jpg/,
   'The alliance logo must remain in the CannaInsider footer'
+);
+assert.doesNotMatch(
+  css,
+  /body:not\(\.church-site\) \.brand-promise p::before/,
+  'The masthead question must come from HTML once, not be duplicated by generated CSS content'
 );
 assert.match(pages[0], /class="capabilities-panel"/, 'The Czech front page must disclose the platform roadmap');
 assert.match(pages[0], /Na webu funguje dnes/, 'Current functions must be distinguished from the roadmap');
