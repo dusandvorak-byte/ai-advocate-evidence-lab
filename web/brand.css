@@ -12,24 +12,6 @@ main img { filter: grayscale(1); }
   flex-wrap: wrap;
 }
 
-html[lang="cs"] body:not(.church-site) .brand-promise p {
-  font-size: 0;
-}
-
-html[lang="cs"] body:not(.church-site) .brand-promise p::before {
-  content: "Bude konopná amnestie?";
-  font-size: 17px;
-}
-
-html[lang="en"] body:not(.church-site) .brand-promise p {
-  font-size: 0;
-}
-
-html[lang="en"] body:not(.church-site) .brand-promise p::before {
-  content: "Will there be a cannabis amnesty?";
-  font-size: 17px;
-}
-
 /* Honest, compact product roadmap for readers on every screen size. */
 .capabilities-panel {
   margin: 0 0 40px;
@@ -1893,9 +1875,7 @@ html {
     margin-top: 16px;
   }
 
-  .brand-promise p,
-  html[lang="cs"] body:not(.church-site) .brand-promise p::before,
-  html[lang="en"] body:not(.church-site) .brand-promise p::before {
+  .brand-promise p {
     font-size: 1rem;
     line-height: 1.42;
     text-align: left;
