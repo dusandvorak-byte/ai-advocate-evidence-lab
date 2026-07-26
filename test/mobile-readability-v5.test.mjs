@@ -1,16 +1,21 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
+import path from 'node:path';
 
 const css = await readFile('web/brand.css', 'utf8');
-const phonePages = [
-  'web/index.html',
-  'web/en.html',
-  'web/kc/index.html',
-  'web/kc/en.html',
-  'web/zpravy/index.html',
-  'web/news/index.html',
-  'web/zpravy/25072026-007.html',
-];
+
+async function walk(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    const full = path.join(directory, entry.name);
+    if (entry.isDirectory()) files.push(...await walk(full));
+    else files.push(full);
+  }
+  return files;
+}
+
+const phonePages = (await walk('web')).filter(file => file.endsWith('.html'));
 
 assert.match(css, /Newsroom v5 — genuinely readable phone layout from 320px upward/);
 assert.match(css, /-webkit-text-size-adjust:\s*100%/);
