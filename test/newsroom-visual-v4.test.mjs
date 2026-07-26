@@ -13,6 +13,6 @@ assert.match(css, /\.church-site \.article-body \.source[\s\S]*var\(--church-blu
 
 assert.match(report, /class="article-body"/);
 assert.match(report, /class="source"/);
-assert.match(report, /SHA256SUMS\.txt/);
+assert.doesNotMatch(report, /SHA256SUMS\.txt/, 'The reader-facing article must not expose technical checksum copy');
 
 console.log('Newsroom visual v4: source clarity, mobile navigation and focus states passed');
