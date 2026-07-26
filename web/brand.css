@@ -1692,3 +1692,396 @@ details.source summary {
     box-shadow: none;
   }
 }
+
+/* Newsroom v5 — genuinely readable phone layout from 320px upward. */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (max-width: 720px) {
+  body {
+    font-size: 17px;
+    line-height: 1.62;
+  }
+
+  :where(main, section, article, aside, header, footer, nav, div) {
+    min-width: 0;
+  }
+
+  :where(p, li, h1, h2, h3, a, strong, span, time, code) {
+    overflow-wrap: anywhere;
+  }
+
+  .topline {
+    min-height: 42px;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 16px;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .topline span:nth-child(2) {
+    display: none;
+  }
+
+  .masthead {
+    display: block;
+    padding: 20px 16px 17px;
+  }
+
+  .masthead .brand {
+    display: block;
+    max-width: 100%;
+  }
+
+  .masthead .brand b,
+  .church-site .masthead .brand b {
+    display: block;
+    font-size: clamp(2rem, 10vw, 2.75rem);
+    line-height: .98;
+    letter-spacing: -.055em;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .masthead .brand span {
+    display: block;
+    margin-top: 9px;
+    font-size: .82rem;
+    line-height: 1.3;
+    letter-spacing: .08em;
+  }
+
+  .brand-promise {
+    grid-template-columns: minmax(0, 1fr) 68px;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .brand-promise p,
+  html[lang="cs"] body:not(.church-site) .brand-promise p::before,
+  html[lang="en"] body:not(.church-site) .brand-promise p::before {
+    font-size: 1rem;
+    line-height: 1.42;
+    text-align: left;
+  }
+
+  .heart-logo {
+    width: 68px;
+    height: 68px;
+  }
+
+  .church-site .masthead {
+    min-height: 0;
+  }
+
+  .church-brand {
+    max-width: 100%;
+    gap: 13px;
+  }
+
+  .church-logo {
+    width: 72px;
+    height: 72px;
+    flex-basis: 72px;
+  }
+
+  .church-brand-copy {
+    min-width: 0;
+  }
+
+  .church-brand-copy b {
+    font-size: clamp(1.8rem, 8.5vw, 2.3rem);
+    line-height: 1;
+  }
+
+  .nav {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 100%;
+    padding: 0 14px;
+    overflow: visible;
+    white-space: normal;
+    box-shadow: none;
+  }
+
+  .nav a {
+    min-height: 48px;
+    margin: 0;
+    padding: 12px 8px;
+    border-bottom: 1px solid rgba(17, 17, 17, .22);
+    font-size: 13px;
+    line-height: 1.28;
+    white-space: normal;
+  }
+
+  .church-site .nav a {
+    border-bottom-color: rgba(255, 255, 255, .24);
+  }
+
+  .nav a::after {
+    right: 8px;
+    left: 8px;
+  }
+
+  .edition-bar {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    padding: 11px 16px;
+    font-size: 12px;
+    line-height: 1.35;
+    letter-spacing: .045em;
+  }
+
+  .newsroom-alert {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    margin-top: 16px;
+    padding: 0 0 12px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .newsroom-alert b {
+    place-items: center start;
+    width: 100%;
+    padding: 10px 13px;
+  }
+
+  .newsroom-alert span,
+  .newsroom-alert a {
+    grid-column: 1;
+    padding: 11px 13px 0;
+  }
+
+  .newsroom-alert a {
+    min-height: 44px;
+  }
+
+  .lead-card h1,
+  .story-copy h1 {
+    max-width: none;
+    font-size: clamp(2.05rem, 9.5vw, 2.6rem);
+    line-height: 1.02;
+    letter-spacing: -.035em;
+  }
+
+  .article-header h1 {
+    max-width: none;
+    font-size: clamp(2.05rem, 9vw, 2.45rem);
+    line-height: 1.06;
+    letter-spacing: -.035em;
+  }
+
+  .lead-card .standfirst,
+  .story-copy .standfirst,
+  .article-header .standfirst {
+    font-size: 1.12rem;
+    line-height: 1.55;
+  }
+
+  .news-card h2,
+  .news-card h3,
+  .archive-item h2 {
+    font-size: 1.55rem;
+    line-height: 1.13;
+    letter-spacing: -.02em;
+  }
+
+  .news-card p,
+  .archive-item p,
+  .quick-memory p,
+  .relevance-explainer p,
+  .support-panel p,
+  .about > p,
+  .voices p {
+    font-size: 1.03rem;
+    line-height: 1.62;
+  }
+
+  .kicker,
+  .section-label,
+  .news-meta,
+  .article-byline,
+  .archive-item time,
+  .archive-item .archive-score,
+  .boundary {
+    font-size: .78rem;
+    line-height: 1.5;
+  }
+
+  .news-section-head {
+    display: block;
+  }
+
+  .news-section-head h2 {
+    margin-bottom: 12px;
+    font-size: 2rem;
+    line-height: 1.03;
+  }
+
+  .news-section-head a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    font-size: .85rem;
+    line-height: 1.35;
+  }
+
+  .desk h2,
+  .quick-memory h2,
+  .voices h2,
+  .about h2,
+  .support-panel h2 {
+    font-size: 2rem;
+    line-height: 1.08;
+  }
+
+  .desk p,
+  .article-aside,
+  .article-aside li {
+    font-size: 1rem;
+    line-height: 1.58;
+  }
+
+  .score {
+    max-width: 100%;
+    align-items: flex-start;
+  }
+
+  .score span {
+    line-height: 1.4;
+  }
+
+  .article-shell {
+    width: 100%;
+    padding: 24px 16px 42px;
+  }
+
+  .article-header {
+    margin-bottom: 24px;
+  }
+
+  .article-body {
+    font-size: 1.125rem;
+    line-height: 1.72;
+  }
+
+  .article-body p {
+    margin: 0 0 1.25em;
+  }
+
+  .article-body h2,
+  .article-body .source h2 {
+    max-width: none;
+    margin-top: 1.9em;
+    font-size: 1.6rem;
+    line-height: 1.18;
+  }
+
+  .article-body :where(ol, ul) {
+    padding-left: 1.35em;
+  }
+
+  .article-body li {
+    margin-bottom: .62em;
+  }
+
+  .article-body blockquote {
+    margin: 26px 0;
+    padding: 18px;
+    border-left-width: 6px;
+    font-size: 1.08em;
+    line-height: 1.48;
+  }
+
+  .article-body .source {
+    margin-right: 0;
+    margin-left: 0;
+    padding: 20px 16px;
+  }
+
+  .article-body .source li {
+    padding: 14px 12px;
+  }
+
+  .article-body :where(table, pre) {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .article-aside {
+    margin-top: 28px;
+  }
+
+  .archive-item {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .site-search input,
+  .upload input {
+    font-size: 16px;
+  }
+
+  .analysis-result {
+    min-width: 0;
+  }
+
+  footer {
+    padding-right: 16px;
+    padding-left: 16px;
+    font-size: 15px;
+    line-height: 1.62;
+  }
+}
+
+@media (max-width: 390px) {
+  .topline,
+  .masthead,
+  .edition-bar,
+  .article-shell,
+  footer {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  main:not(.article-shell) {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .nav {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .nav a {
+    padding-right: 7px;
+    padding-left: 7px;
+    font-size: 12px;
+  }
+
+  .article-header h1,
+  .lead-card h1,
+  .story-copy h1 {
+    font-size: 2rem;
+  }
+
+  .article-body {
+    font-size: 1.08rem;
+  }
+
+  .article-body .source {
+    margin-right: -2px;
+    margin-left: -2px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+}
