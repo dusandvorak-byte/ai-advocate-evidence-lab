@@ -23,10 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Test evidence boundaries and public UI
-        run: |
-          node test/evidence-analyzer.test.mjs
-          node test/web-ui.test.mjs
-          node test/public-links.test.mjs
+        run: node --test test/*.test.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

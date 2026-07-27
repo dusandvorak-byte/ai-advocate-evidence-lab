@@ -22,12 +22,10 @@ The project is a separate post-submission evidence laboratory. It does not modif
 ## Kontroly
 
 ```text
-node test/evidence-analyzer.test.mjs
-node test/web-ui.test.mjs
-node test/public-links.test.mjs
+node --test test/*.test.mjs
 ```
 
-Stejné kontroly běží před nasazením GitHub Pages. Ověřují zejména hranici mezi přesnou totožností a orientační relevancí, neutrální zacházení s procesním postoupením, nepřítomnost nezveřejněné kauzy L. CH., společný vyhledávač, QR sekci a nasazení pouze adresáře `web`.
+Stejné kontroly běží před nasazením GitHub Pages. Ověřují zejména hranici mezi přesnou totožností a orientační relevancí, neutrální zacházení s procesním postoupením, nepřítomnost nezveřejněné kauzy L. CH., úplnost společného vyhledávače, neduplikování hlavních zpráv, bezpečné označení sledovaných termínů, mobilní čitelnost, QR sekci a nasazení pouze adresáře `web`.
 
 ## Historie webu
 

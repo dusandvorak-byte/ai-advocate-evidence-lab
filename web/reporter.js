@@ -22,6 +22,25 @@ document.querySelectorAll('[data-updated-date]').forEach(element => {
   element.textContent = `${isEnglish ? 'Updated' : 'Aktualizováno'} ${updatedDateText}`;
 });
 
+document.querySelectorAll('[data-watch-until]').forEach(element => {
+  const until = new Date(element.dataset.watchUntil);
+  const remainingDays = Math.ceil((until.getTime() - currentDate.getTime()) / 86_400_000);
+  if (!Number.isFinite(remainingDays)) return;
+
+  if (remainingDays < 0) {
+    element.textContent = isEnglish
+      ? 'Date passed — check the current status'
+      : 'Termín uplynul — ověřte aktuální stav';
+  } else if (remainingDays === 0) {
+    element.textContent = isEnglish ? 'Expected today' : 'Očekáváno dnes';
+  } else if (isEnglish) {
+    element.textContent = `${remainingDays} ${remainingDays === 1 ? 'day' : 'days'} remaining`;
+  } else {
+    const noun = remainingDays === 1 ? 'den' : remainingDays < 5 ? 'dny' : 'dnů';
+    element.textContent = `Zbývá ${remainingDays} ${noun}`;
+  }
+});
+
 const known = {
   '8a9c36a16571439260e87bb58cfc18a508763331f9627f0fd15f71fe751c0d6b': {
     score: '9/9', tone: 'red',

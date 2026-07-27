@@ -2197,3 +2197,167 @@ html {
     padding-left: 12px;
   }
 }
+
+/* Newsroom v6 — complete report discovery and source-bound date tracking. */
+.context-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.deadline-watch {
+  margin: 38px 0 0;
+  padding: 28px;
+  border-top: 8px solid var(--red);
+  background: #fff;
+  box-shadow: var(--news-shadow);
+}
+
+.deadline-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+  gap: 36px;
+  align-items: end;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--news-rule);
+}
+
+.deadline-head h2 {
+  margin: 0;
+  font: 900 clamp(2rem, 4vw, 3rem)/1 var(--sans);
+  letter-spacing: -.035em;
+}
+
+.deadline-head > p {
+  margin: 0;
+  color: var(--muted);
+  font: 15px/1.55 var(--sans);
+}
+
+.deadline-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.deadline-grid article {
+  min-width: 0;
+  padding: 26px 24px 22px 0;
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 4px 20px;
+}
+
+.deadline-grid article + article {
+  padding-right: 0;
+  padding-left: 24px;
+  border-left: 1px solid var(--news-rule);
+}
+
+.deadline-grid time {
+  grid-row: 1 / span 4;
+  color: var(--red);
+  font: 900 1.65rem/1 var(--sans);
+  letter-spacing: -.035em;
+}
+
+.deadline-grid h3 {
+  margin: 0 0 9px;
+  font: 900 1.3rem/1.08 var(--sans);
+  letter-spacing: -.02em;
+}
+
+.deadline-grid p:not(.kicker) {
+  margin: 0 0 12px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.deadline-grid a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  font: 800 .84rem/1.35 var(--sans);
+}
+
+.deadline-grid strong {
+  grid-column: 2;
+  width: fit-content;
+  margin-top: 8px;
+  padding: 7px 9px;
+  background: #111;
+  color: #fff;
+  font: 800 .75rem/1.25 var(--sans);
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+
+.deadline-watch > .boundary {
+  margin: 2px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--news-rule);
+}
+
+@media (max-width: 980px) {
+  .deadline-head,
+  .deadline-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .deadline-head {
+    gap: 14px;
+  }
+
+  .deadline-grid article,
+  .deadline-grid article + article {
+    padding: 22px 0;
+    border-left: 0;
+  }
+
+  .deadline-grid article + article {
+    border-top: 1px solid var(--news-rule);
+  }
+}
+
+@media (max-width: 720px) {
+  .deadline-watch {
+    margin: 30px -18px 0;
+    padding: 24px 18px;
+    box-shadow: none;
+  }
+
+  .deadline-grid article {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .deadline-grid time,
+  .deadline-grid strong {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .deadline-grid time {
+    margin-bottom: 14px;
+    font-size: 1.55rem;
+  }
+
+  .deadline-grid h3 {
+    font-size: 1.38rem;
+    line-height: 1.16;
+  }
+
+  .deadline-grid strong {
+    margin-top: 10px;
+  }
+
+  .context-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 390px) {
+  .deadline-watch {
+    margin-right: -14px;
+    margin-left: -14px;
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+}
