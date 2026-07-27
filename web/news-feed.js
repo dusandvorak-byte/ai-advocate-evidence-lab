@@ -4,6 +4,20 @@
  */
 const cannaNews = [
   {
+    id: '27072026-008',
+    dateCs: '27. 7. 2026',
+    dateEn: '27 July 2026',
+    score: '9/9',
+    titleCs: 'Pavouk český křižák z Branibor již více než 15 let splétá síť na trase Praha–Brno–Praha a zpět. Kdo tu síť rozmotá?',
+    titleEn: 'The Czech orb-weaver from Branibor has been spinning a web along Prague–Brno–Prague and back for more than fifteen years. Who will untangle it?',
+    summaryCs: 'Praha označila za příslušné Brno, Brno vrátilo věc Praze a tři podání ze dne 27. července žádají určit jediný odpovědný orgán.',
+    summaryEn: 'Prague identified Brno as competent, Brno returned the matter, and three filings of 27 July ask for one responsible authority to be identified.',
+    keywordsCs: 'NSZ MSZ Praha MSZ Brno KSZ Brno VSZ Praha 6 NZN 1737/2026 3 KZN 197/2026 3 ZN 140/2026 1 VZN 1678/2026 pavouk příslušnost',
+    keywordsEn: 'Supreme Public Prosecutor Prague Brno 6 NZN 1737/2026 3 KZN 197/2026 3 ZN 140/2026 1 VZN 1678/2026 jurisdiction web',
+    href: 'zpravy/27072026-008.html',
+    hrefEn: 'news/27072026-008.html'
+  },
+  {
     id: '25072026-007',
     dateCs: '25. 7. 2026',
     dateEn: '25 July 2026',
