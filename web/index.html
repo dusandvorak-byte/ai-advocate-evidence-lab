@@ -76,27 +76,53 @@
 
     <section class="shared-news-feed" aria-labelledby="shared-news-heading">
       <div class="news-section-head">
-        <h2 id="shared-news-heading">Společné novinky</h2>
+        <h2 id="shared-news-heading">Další aktuální zprávy</h2>
         <a href="zpravy/index.html">Chronologický archiv →</a>
       </div>
-      <div class="news-grid" data-shared-news-feed>
+      <div class="news-grid" data-shared-news-feed data-exclude-ids="25072026-007 24072026-006 24072026-005">
         <article class="news-card"><p class="kicker">25. 7. 2026 · REPORT 25072026-007</p><h2><a href="zpravy/25072026-007.html">Lence Bradáčové s láskou</a></h2><p>Kytici nahradila evidenční mapa. Podnět žádá přesně spojit rozdělené větve řízení.</p><div class="news-meta"><span>9/9</span></div></article>
       </div>
     </section>
 
-    <section class="news-section">
-      <div class="news-section-head">
-        <h2>Nejnovější zprávy</h2>
-        <a href="zpravy/index.html">Chronologický archiv →</a>
-      </div>
-      <div class="news-grid">
-        <article class="news-card">
-          <figure><img src="assets/votruba/write-lawmakers.jpg" alt="Černobílá kresba Jiřího Votruby"><figcaption>Jiří Votruba</figcaption></figure>
-          <p class="kicker">20. 7. 2026 · SAMUEL BECKETT DNES</p>
-          <h2><a href="zpravy/20072026-001.html">Policie výzvu uložila. Jinými slovy: šuplík se opět zavřel</a></h2>
-          <p>Policie potvrdila přijetí a uložení podání bez dalšího opatření. Věcná odpověď nepřišla.</p>
-          <div class="news-meta"><span>KRPM-100092-2/ČJ-2026-1412UO</span></div>
+    <section class="deadline-watch" aria-labelledby="deadline-heading">
+      <header class="deadline-head">
+        <div>
+          <p class="section-label">SLEDOVANÉ TERMÍNY</p>
+          <h2 id="deadline-heading">Co mají úřady sdělit dál</h2>
+        </div>
+        <p>Termíny jsou převzaté z publikovaných listin. Po jejich uplynutí panel upozorní, že je třeba ověřit aktuální stav.</p>
+      </header>
+      <div class="deadline-grid">
+        <article>
+          <time datetime="2026-08-20">20. 8. 2026</time>
+          <div>
+            <p class="kicker">MSZ V PRAZE</p>
+            <h3>Vyřízení rozsáhlých podání předaných přes NSZ</h3>
+            <p>Zveřejněné sdělení uvádí, že podání mají být kvůli rozsahu vyřízena do 20. srpna 2026.</p>
+            <a href="zpravy/25072026-007.html">Report a veřejný zdroj →</a>
+          </div>
+          <strong data-watch-until="2026-08-20T23:59:59+02:00">Do 20. srpna 2026</strong>
         </article>
+        <article>
+          <time datetime="2026-08-31">31. 8. 2026</time>
+          <div>
+            <p class="kicker">MINISTERSTVO KULTURY</p>
+            <h3>Zjištěné skutečnosti a další postup</h3>
+            <p>Vyrozumění ministerstva uvádí, že zjištěné skutečnosti a další postup sdělí nejpozději do 31. srpna 2026.</p>
+            <a href="zpravy/24072026-006.html">Report a čtyři veřejné zdroje →</a>
+          </div>
+          <strong data-watch-until="2026-08-31T23:59:59+02:00">Do 31. srpna 2026</strong>
+        </article>
+      </div>
+      <p class="boundary">Jde o termíny uvedené v listinách, nikoli automaticky o zákonné lhůty. Panel nepředjímá obsah odpovědi ani výsledek řízení.</p>
+    </section>
+
+    <section class="news-section context-section">
+      <div class="news-section-head">
+        <h2>Kontext a paměť</h2>
+        <a href="#pamet">Otevřít paměť případu →</a>
+      </div>
+      <div class="news-grid context-grid">
         <article class="news-card">
           <figure><img src="assets/votruba/sing.jpg" alt="Černobílá kresba Jiřího Votruby"><figcaption>Jiří Votruba</figcaption></figure>
           <p class="kicker">PAMĚŤ · NELSON MANDELA DNES</p>

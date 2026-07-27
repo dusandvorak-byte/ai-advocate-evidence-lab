@@ -2,49 +2,14 @@
   const english = document.documentElement.lang === 'en';
   const news = Array.isArray(window.cannaNews) ? window.cannaNews : [];
   const entries = news.map(item => ({
-    href: item.href,
-    date: item.date,
+    href: english ? (item.hrefEn || item.href) : item.href,
+    date: english ? item.dateEn : item.dateCs,
     score: item.score,
     title: english ? item.titleEn : item.titleCs,
     summary: english ? item.summaryEn : item.summaryCs,
-    keywords: `${item.id} ${item.date} ${item.score}`
+    keywords: `${item.id} ${item.dateCs} ${item.dateEn} ${item.score} ${english ? item.keywordsEn : item.keywordsCs}`,
+    isCzechOnly: english && !item.hrefEn
   }));
-
-  entries.push(...(english ? [
-    {
-      href: 'zpravy/22072026-002.html',
-      date: '22 July 2026',
-      score: '9/9',
-      title: 'Show the sample, method and measurement uncertainty',
-      summary: 'Alliance filing in Prague Municipal Court case 45 T 1/2024.',
-      keywords: '22072026-002 45 T 1/2024 THC THCA measurement court'
-    },
-    {
-      href: 'zpravy/20072026-001.html',
-      date: '20 July 2026',
-      score: '9/9',
-      title: 'The Police filed the demand. The drawer closed again',
-      summary: 'Police communication KRPM-100092-2/ČJ-2026-1412UO.',
-      keywords: '20072026-001 police KRPM 100092 preventive filing'
-    }
-  ] : [
-    {
-      href: 'zpravy/22072026-002.html',
-      date: '22. 7. 2026',
-      score: '9/9',
-      title: 'Ukažte vzorek, metodu i nejistotu měření',
-      summary: 'Podnět aliance ve věci Městského soudu v Praze 45 T 1/2024.',
-      keywords: '22072026-002 45 T 1/2024 THC THCA měření soud'
-    },
-    {
-      href: 'zpravy/20072026-001.html',
-      date: '20. 7. 2026',
-      score: '9/9',
-      title: 'Policie výzvu uložila. Šuplík se opět zavřel',
-      summary: 'Policejní sdělení KRPM-100092-2/ČJ-2026-1412UO.',
-      keywords: '20072026-001 policie KRPM 100092 preventivní podání'
-    }
-  ]));
 
   const normalise = value => String(value || '')
     .normalize('NFD')
@@ -79,8 +44,13 @@
   results.hidden = true;
   shell.append(label, controls, results);
 
+  const discoveryAnchor = document.querySelector('.news-lead, .lead-grid');
   const nav = document.querySelector('.nav');
-  nav?.insertAdjacentElement('afterend', shell);
+  if (discoveryAnchor) {
+    discoveryAnchor.insertAdjacentElement('afterend', shell);
+  } else {
+    nav?.insertAdjacentElement('afterend', shell);
+  }
 
   const render = () => {
     const query = normalise(input.value).trim();
@@ -116,11 +86,12 @@
       const article = document.createElement('article');
       const meta = document.createElement('p');
       meta.className = 'kicker';
-      meta.textContent = `${item.date} · ${item.score}`;
+      meta.textContent = `${item.date} · ${item.score}${item.isCzechOnly ? ' · Czech report' : ''}`;
       const heading = document.createElement('h2');
       const link = document.createElement('a');
       link.href = item.href;
       link.textContent = item.title;
+      if (item.isCzechOnly) link.hreflang = 'cs';
       heading.append(link);
       const summary = document.createElement('p');
       summary.textContent = item.summary;
@@ -130,4 +101,11 @@
   };
 
   input.addEventListener('input', render);
+
+  const hash = english ? '#search' : '#vyhledat';
+  document.querySelectorAll(`.nav a[href="${hash}"]`).forEach(link => {
+    link.addEventListener('click', () => {
+      window.setTimeout(() => input.focus(), 0);
+    });
+  });
 })();
