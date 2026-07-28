@@ -15,13 +15,17 @@ const [articleCs, articleEn, homeCs, homeEn, churchCs, churchEn, feed, archiveCs
   readFile('web/news/index.html', 'utf8')
 ]);
 
-for (const page of [articleCs, homeCs, churchCs, feed, archiveCs]) {
+for (const page of [articleCs, feed, archiveCs]) {
   assert.match(page, /27072026-008/, 'REPORT 27072026-008 must be present in every Czech news surface');
   assert.match(page, /Pavouk český křižák z Branibor/, 'The approved Czech headline must be preserved');
 }
-for (const page of [articleEn, homeEn, churchEn, feed, archiveEn]) {
+for (const page of [articleEn, feed, archiveEn]) {
   assert.match(page, /27072026-008/, 'REPORT 27072026-008 must be present in every English news surface');
   assert.match(page, /orb-weaver from Branibor/, 'The English report title must remain discoverable');
+}
+for (const [page, label] of [[homeCs, 'Czech CannaInsider'], [homeEn, 'English CannaInsider'], [churchCs, 'Czech Cannabis Church'], [churchEn, 'English Cannabis Church']]) {
+  assert.match(page, /data-shared-news-feed/, `${label} must expose the shared report feed`);
+  assert.match(page, /news-feed\.js/, `${label} must load the canonical feed containing REPORT 27072026-008`);
 }
 
 assert.match(articleCs, /Praha → Brno → Praha/);
