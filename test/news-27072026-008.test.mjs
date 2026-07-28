@@ -31,6 +31,7 @@ assert.match(articleCs, /1 VZN 1678\/2026/);
 assert.match(articleCs, /včetně všech \(3\)/, 'The exact Brno return quotation must remain visible');
 assert.match(articleCs, /Neobsahuje/, 'The exact incomplete-file quotation must remain visible');
 assert.match(articleCs, /Nejde o nový izolovaný podnět/, 'The exact NSZ supplement quotation must remain visible');
+assert.match(articleCs, /Pět listin za jediný den/, 'All five records dated 27 July must be presented together');
 assert.match(articleCs, /nedokládá nezákonnost, trestný čin ani odpovědnost/, 'The procedural evidence boundary must remain prominent');
 assert.match(articleCs, /Nejde o redakční závěr, že zákon právě takovou lhůtu ukládá/, 'The author-set period must not be presented as an automatic statutory deadline');
 assert.match(articleCs, /38 jedinečných zdrojových PDF/);
@@ -38,6 +39,7 @@ assert.match(articleCs, /39\. dokument/);
 assert.match(articleEn, /does not designate an individual/);
 assert.match(articleEn, /does not automatically establish that the outcome was unlawful/);
 assert.match(articleEn, /does not treat that period as an automatically applicable statutory deadline/);
+assert.match(articleEn, /Five records in one day/, 'The English report must present all five records dated 27 July');
 
 const allPdfLinks = [...articleCs.matchAll(/href="(documents\/[^"]+\.pdf)"/g)].map(match => match[1]);
 const pdfLinks = [...new Set(allPdfLinks)];
