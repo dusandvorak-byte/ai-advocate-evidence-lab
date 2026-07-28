@@ -67,10 +67,14 @@ assert.match(articleCs, /28 nových PDF/);
 assert.match(articleEn, /28 new PDFs/);
 assert.match(articleCs, /Jedenáct dříve zveřejněných/);
 assert.match(articleEn, /Eleven identical records/);
-assert.match(articleCs, /osobní údaje třetích osob/);
-assert.match(articleEn, /third-party personal data/);
+assert.match(articleCs, /osobní a citlivé údaje jiných fyzických osob/);
+assert.match(articleEn, /personal and sensitive data of other natural persons/);
 assert.match(articleCs, /aktivní obsah a vloženou přílohu/);
 assert.match(articleEn, /active content and an embedded attachment/);
+assert.match(articleCs, /Mgr\. Dušan Dvořák a Cannabis is The Cure, z\. s\.[^<]+nejsou anonymizováni/);
+assert.match(articleEn, /Mgr\. Dušan Dvořák and Cannabis is The Cure, z\. s\.[^<]+are not anonymised/);
+assert.match(articleCs, /údajů třetích osob/);
+assert.match(articleEn, /third-party data/);
 
 const report008PdfLink = /href="documents\/report-27072026-008\/[^"]+\.pdf"/;
 assert.doesNotMatch(articleCs, report008PdfLink, 'No new REPORT 008 PDF may be linked before redaction');

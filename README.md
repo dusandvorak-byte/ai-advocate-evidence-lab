@@ -10,6 +10,10 @@ Jde o demonstrační důkazní prototyp, nikoli právní radu, náhradu právní
 
 This is a demonstration evidence prototype, not legal advice, a substitute for a lawyer, or a universal legal AI. Every score, quotation and editorial summary requires human review against the identified source.
 
+Mgr. Dušan Dvořák a Cannabis is The Cure, z. s. jsou v tomto projektu záměrně veřejně identifikováni a nejsou anonymizováni. Ochranná redakce veřejných kopií se vztahuje výhradně na osobní a citlivé údaje jiných fyzických osob a na nebezpečný aktivní obsah souborů.
+
+Mgr. Dušan Dvořák and Cannabis is The Cure, z. s. are intentionally identified publicly in this project and are not anonymised. Protective redaction of public copies applies exclusively to personal and sensitive data of other natural persons and to unsafe active file content.
+
 ## Zpravodajský režim
 
 - Česká titulní strana je `web/index.html`, anglická `web/en.html`.
