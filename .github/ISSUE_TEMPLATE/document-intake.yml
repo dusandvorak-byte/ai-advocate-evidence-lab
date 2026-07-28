@@ -1,0 +1,59 @@
+name: Příjem veřejné listiny
+description: Navrhněte veřejné PDF k citované analýze a redakční kontrole.
+title: "[PŘÍJEM LISTINY] "
+labels:
+  - intake
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Tento formulář i celý repozitář jsou veřejné. Nevkládejte osobní údaje, neveřejnou listinu, přihlašovací odkaz ani URL s tokenem. Formulář zahajuje redakční kontrolu; sám dokument nezveřejňuje a nepotvrzuje jeho právní význam.
+  - type: input
+    id: public_url
+    attributes:
+      label: Přímý veřejný HTTPS odkaz na PDF
+      description: Odkaz musí fungovat bez přihlášení a nesmí obsahovat query parametr, fragment ani token.
+      placeholder: https://example.org/listina.pdf
+    validations:
+      required: true
+  - type: input
+    id: issuer_and_date
+    attributes:
+      label: Původce a datum listiny
+      placeholder: Orgán nebo autor, DD. MM. RRRR
+    validations:
+      required: true
+  - type: input
+    id: case_reference
+    attributes:
+      label: Spisová nebo jednací značka
+      description: Pokud ji listina neobsahuje, napište „neuvedena“.
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Jakou otázku má listina pomoci ověřit
+      description: Popište konkrétní ověřitelnou otázku, nikoli předem hotový právní závěr.
+    validations:
+      required: true
+  - type: textarea
+    id: known_links
+    attributes:
+      label: Předpokládané vazby na řízení
+      description: Uveďte známé spisy nebo uzly. Každá vazba zůstává předběžná do lidské kontroly.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Povinná kontrola před odesláním
+      options:
+        - label: Odkaz i listina jsou veřejné a mám právo navrhnout jejich další zveřejnění.
+          required: true
+        - label: Zkontroloval/a jsem osobní údaje a potřebnou anonymizaci.
+          required: true
+        - label: Odkaz neobsahuje heslo, token, query parametr ani neveřejnou adresu.
+          required: true
+        - label: Beru na vědomí, že postoupení, prověřování ani dohled samy nepotvrzují protiprávnost.
+          required: true
+        - label: Beru na vědomí, že zveřejnění vyžaduje samostatný pull request, testy a lidské schválení.
+          required: true

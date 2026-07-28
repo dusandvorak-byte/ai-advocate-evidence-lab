@@ -688,6 +688,122 @@ footer::after {
   border: 1px solid #777;
 }
 
+.publication-workflow {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #696969;
+  background: #1d1d1d;
+}
+
+.publication-workflow h3 {
+  margin: 0 0 12px;
+  font: 900 17px/1.2 var(--sans);
+}
+
+.workflow-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 15px;
+  padding: 0;
+  list-style: none;
+  counter-reset: workflow;
+}
+
+.workflow-steps li {
+  min-height: 64px;
+  padding: 9px;
+  border: 1px solid #565656;
+  background: #282828;
+  font: 12px/1.35 var(--sans);
+}
+
+.workflow-steps li::before {
+  display: block;
+  width: 22px;
+  height: 22px;
+  margin-bottom: 6px;
+  border-radius: 50%;
+  background: #585858;
+  counter-increment: workflow;
+  content: counter(workflow);
+  text-align: center;
+  font-weight: 900;
+  line-height: 22px;
+}
+
+.workflow-steps li.is-complete::before {
+  content: "✓";
+  color: #fff;
+  background: #247554;
+}
+
+.review-gate {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid #666;
+}
+
+.review-gate legend {
+  padding: 0 6px;
+  font-weight: 900;
+}
+
+.review-gate label {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 8px;
+  align-items: start;
+  font: 13px/1.4 var(--sans);
+}
+
+.review-gate input {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+}
+
+.workflow-status {
+  margin: 13px 0 9px !important;
+  font-weight: 900;
+}
+
+.workflow-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.workflow-actions button,
+.workflow-actions a {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 11px;
+  border: 1px solid #ddd;
+  color: #fff;
+  background: #252525;
+  font: 800 12px/1.3 var(--sans);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.workflow-actions button:disabled {
+  border-color: #666;
+  color: #999;
+  background: #202020;
+  cursor: not-allowed;
+}
+
+.workflow-boundary {
+  margin: 11px 0 0 !important;
+  color: #c8c8c8;
+  font: 11px/1.5 var(--sans);
+}
+
 .analysis-meta {
   display: grid;
   gap: 3px;
@@ -713,6 +829,19 @@ footer::after {
 
   .analysis-result {
     flex-direction: column;
+  }
+
+  .workflow-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .workflow-actions {
+    flex-direction: column;
+  }
+
+  .workflow-actions button,
+  .workflow-actions a {
+    width: 100%;
   }
 
   .black-dot,

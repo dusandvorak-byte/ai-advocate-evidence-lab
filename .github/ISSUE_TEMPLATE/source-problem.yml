@@ -1,0 +1,38 @@
+name: Nefunkční nebo změněný veřejný zdroj
+description: Ohlaste nedostupný odkaz, změnu listiny nebo nesoulad digitálního otisku.
+title: "[VEŘEJNÝ ZDROJ] "
+labels:
+  - source-health
+body:
+  - type: input
+    id: report
+    attributes:
+      label: REPORT nebo adresa článku
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Veřejný odkaz nebo název zdroje
+      description: Nevkládejte neveřejné ani tokenizované odkazy.
+    validations:
+      required: true
+  - type: dropdown
+    id: problem
+    attributes:
+      label: Druh problému
+      options:
+        - Odkaz nefunguje
+        - Zdroj se změnil
+        - Nesouhlasí SHA-256
+        - Zdroj neodpovídá tvrzení v článku
+        - Jiný problém
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Co jste ověřili
+      description: Uveďte datum kontroly a přesný pozorovaný výsledek.
+    validations:
+      required: true

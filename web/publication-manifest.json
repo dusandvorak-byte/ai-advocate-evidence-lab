@@ -1,0 +1,172 @@
+{
+  "schema": "cannainsider-versioned-publications",
+  "schemaVersion": 1,
+  "rule": "Any change to a published article or its source set requires an explicit version bump.",
+  "publications": [
+    {
+      "id": "20072026-001",
+      "version": 1,
+      "publishedDate": "2026-07-20",
+      "article": "zpravy/20072026-001.html",
+      "articleSha256": "31c19b38b6c9f6c455adc328fcdbdccd935df281c0d6a11a318b4940354947a9",
+      "sources": []
+    },
+    {
+      "id": "22072026-002",
+      "version": 1,
+      "publishedDate": "2026-07-22",
+      "article": "zpravy/22072026-002.html",
+      "articleSha256": "63ed2dd9b254bb6ee71179d343b3a5b8d49b0f203183367f666fe56b2662c085",
+      "sources": [
+        {
+          "path": "documents/citc-podnet-45-t-1-2024-2026-07-22-verejna-kopie.pdf",
+          "sha256": "745e82be7dcc991de3e64c22609ae63f0f1bed20892b41ae9a454861cc8cf408"
+        }
+      ]
+    },
+    {
+      "id": "23072026-003",
+      "version": 1,
+      "publishedDate": "2026-07-23",
+      "article": "zpravy/23072026-003.html",
+      "articleSha256": "fb56a38a17caf8f75e45060a7f5703e0a2292064bcfac28c97ed0da5ed16b16a",
+      "sources": []
+    },
+    {
+      "id": "23072026-004",
+      "version": 1,
+      "publishedDate": "2026-07-23",
+      "article": "zpravy/23072026-004.html",
+      "articleSha256": "9a1dca5f708ce7408c27cd92145e4af393fe0fbd5845ee034b9ae57f072ac985",
+      "sources": [
+        {
+          "path": "documents/dusan-dvorak-zasahova-zaloba-mv-2026-07-23-original.pdf",
+          "sha256": "96b232c921b5c17c9cab604eac0954a8fce57c7327bc0727f5ac80e4bdb39e73"
+        }
+      ]
+    },
+    {
+      "id": "24072026-005",
+      "version": 1,
+      "publishedDate": "2026-07-24",
+      "article": "zpravy/24072026-005.html",
+      "articleSha256": "07860022e2fa268320bf72cf97ef7efb960b77b4561cfe1f50c9187e3a752af9",
+      "sources": [
+        {
+          "path": "documents/gf-jk-stiznost-15-t-11-2025-anonymizovano.pdf",
+          "sha256": "394a819a0580869fd220d426a837ba5128c01f5f2d1fb06a17528fa4201fb470"
+        },
+        {
+          "path": "documents/gf-jk-doplneni-stiznosti-2026-07-23-anonymizovano.pdf",
+          "sha256": "d139801a1c8ff34142d705c9c5d1d8bad4df9c409096f21562ae09a7c314ba20"
+        }
+      ]
+    },
+    {
+      "id": "24072026-006",
+      "version": 1,
+      "publishedDate": "2026-07-24",
+      "article": "zpravy/24072026-006.html",
+      "articleSha256": "c945d2e3a8b8d51a1dc72a45794eaec068564f9138ed051807ccb549bf030336",
+      "sources": [
+        {
+          "path": "documents/konopna-cirkev-zadost-mk-2026-06-26-original.pdf",
+          "sha256": "9ab30055cf7f845c675dffb926593798c84bd2e33a846e024c8175c3f1a2bd89"
+        },
+        {
+          "path": "documents/konopna-cirkev-dodatek-2026-07-06-original.pdf",
+          "sha256": "7fab0bdc5d5148497ce8d5cb6425f7278c6ee090a0b76fccc3360484f12d06a7"
+        },
+        {
+          "path": "documents/mk-konopna-cirkev-vyrozumeni-2026-07-22-original.pdf",
+          "sha256": "db53e6ddb0330b573c236d5973a062536fb29b2fe01aff12e4d31e352b77d6d2"
+        },
+        {
+          "path": "documents/konopna-cirkev-procesni-upresneni-2026-07-24-original.pdf",
+          "sha256": "caeef056ffc4f9b9ee823ef760ad02d30b7020e99c13b4d1bed7d29b70f98d9b"
+        }
+      ]
+    },
+    {
+      "id": "25072026-007",
+      "version": 1,
+      "publishedDate": "2026-07-25",
+      "article": "zpravy/25072026-007.html",
+      "articleSha256": "f57fe40858359fb718275f6ca754b9830ba027fdc70f3b15d8f814aa95eb6383",
+      "sources": [
+        {
+          "path": "documents/report-25072026-007/01-podnet-nsz-2026-07-25-original.pdf",
+          "sha256": "145db217cd978c96240ed29b72780333695af539951a4a02f21f8085bcbfcd85"
+        },
+        {
+          "path": "documents/report-25072026-007/03-nsz-6-nzn-1737-2026-32-2026-05-13.pdf",
+          "sha256": "0d5ae743b482ed784855a0c244e4456779624395f9174249c78f0de761b123b2"
+        },
+        {
+          "path": "documents/report-25072026-007/04-msz-podnet-2026-05-27.pdf",
+          "sha256": "58c0be7394583ab1694e335a0ef03bc2e089e3f8fd64781d7aae5bd52c3fec56"
+        },
+        {
+          "path": "documents/report-25072026-007/12-msz-praha-zadost-spis-2026-07-13.pdf",
+          "sha256": "693571e7dc479792b9474fa2d815ec75265daa6fc017468bab20e6375d284b0f"
+        },
+        {
+          "path": "documents/report-25072026-007/14-msz-praha-2-kzn-55-2025-122-2026-07-17.pdf",
+          "sha256": "9e463eae953f94f2a19d0cc77cbc51563207e21e04dc6597094fee78be5aad89"
+        },
+        {
+          "path": "documents/report-25072026-007/05-vsz-praha-podnet-dohled-2026-06-16.pdf",
+          "sha256": "3d6843c1c30566a4e9e1f5e505ea2a8062747b18b0b3a7bafc1a654178cbb0ed"
+        },
+        {
+          "path": "documents/report-25072026-007/07-vsz-msz-praha-doplneni-2026-07-02.pdf",
+          "sha256": "15e126b7a0c770a67184b49513dc50a0670f0c2ef05c3186b1137588d4e3473b"
+        },
+        {
+          "path": "documents/report-25072026-007/06-osz-praha4-1-zn-320-2026-11-2026-06-26.pdf",
+          "sha256": "5da39c7cc7bb97d9df1b238fd2658a8b2e6a4747e3a5cdc8d74e8122eb7c4571"
+        },
+        {
+          "path": "documents/report-25072026-007/18-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf",
+          "sha256": "09610a1713d1cb04643cc241384d2b93eb4673d4f14b90fb2bd3e5c4dcf9dc2a"
+        },
+        {
+          "path": "documents/report-25072026-007/08-osz-prostejov-treti-zadost-2026-07-04.pdf",
+          "sha256": "072b4f82691403c5d2323e91364f3d39838bcc4d65af25bf0f44399c31e59259"
+        },
+        {
+          "path": "documents/report-25072026-007/09-osz-prostejov-1-zt-11-2010-752-2026-07-07.pdf",
+          "sha256": "7c05108f57ea5957aac77ccdc540a24e394ff925a781e957364bbaa14a2dbe67"
+        },
+        {
+          "path": "documents/report-25072026-007/10-ksz-brno-vsz-olomouc-podnet-2026-07-10.pdf",
+          "sha256": "dbdca9c5a414d2c5149be0e7baadf2aaac841b275ec99a28eb1e61ebc14c529b"
+        },
+        {
+          "path": "documents/report-25072026-007/13-vsz-olomouc-3-vzn-239-2026-27-2026-07-16.pdf",
+          "sha256": "519986b068312afbdf22922e3ada49dd0bd23527b6aaaf88c2de351340576b57"
+        },
+        {
+          "path": "documents/report-25072026-007/11-preventivni-podani-os-pcr-prostejov-2026-07-12.pdf",
+          "sha256": "67b3d88af8a2f78f4d9e7fc73fa894f4379e37c57d06663e9ccf0b95bb5d15f5"
+        },
+        {
+          "path": "documents/report-25072026-007/16-pcr-krpm-100092-2-2026-07-20.pdf",
+          "sha256": "1038a80c8e57a4e4ecd3fb4f511ce9e7a6cf129634f5b193397391f9295966c7"
+        },
+        {
+          "path": "documents/report-25072026-007/02-predzalobni-vyzva-nsz-2026-07-14-original.pdf",
+          "sha256": "4ceee59df22788ebe2296a2dc457cc4b7e5f97c624854b90f2bf6ff769591703"
+        },
+        {
+          "path": "documents/report-25072026-007/17-ksz-ostrava-4-kzn-7116-2026-45-2026-07-08.pdf",
+          "sha256": "c551928a4781a604570f5564d21dd13e876ea2985ac5717952faca2d800125ee"
+        },
+        {
+          "path": "documents/report-25072026-007/15-kpr-nalehavost-2026-07-19.pdf",
+          "sha256": "d64721554a39719edbca0df8feaaff9196b9928741f578aa3f290f323f6d6876"
+        }
+      ]
+    }
+  ]
+}

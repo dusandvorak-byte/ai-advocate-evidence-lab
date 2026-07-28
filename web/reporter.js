@@ -89,6 +89,7 @@ const input = document.querySelector('#evidence-file');
 const result = document.querySelector('#analysis-result');
 const urlForm = document.querySelector('#evidence-url-form');
 const urlInput = document.querySelector('#evidence-url');
+let currentPublicationContext = null;
 
 function confidenceLabel(confidence) {
   const labels = {
@@ -111,7 +112,118 @@ function renderGroundedGroup(titleCS, titleEN, items) {
   return `<section class="evidence-group"><h3>${isEnglish ? titleEN : titleCS}</h3><ol>${list}</ol></section>`;
 }
 
-function renderAnalysis(file, fingerprint, analysis, match, sourceMeta = {}) {
+function renderPublicationWorkflow() {
+  const taskUrl = 'https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/new?template=document-intake.yml';
+  return `
+    <section class="publication-workflow" data-publication-workflow>
+      <h3>${isEnglish ? 'Controlled path to a public output' : 'Řízená cesta k veřejnému výstupu'}</h3>
+      <ol class="workflow-steps">
+        <li class="is-complete">${isEnglish ? 'Record received and fingerprinted' : 'Listina přijata a opatřena otiskem'}</li>
+        <li class="is-complete">${isEnglish ? 'Quotation-grounded analysis prepared' : 'Připravena citovaná analýza'}</li>
+        <li>${isEnglish ? 'Human review and privacy check' : 'Lidská kontrola a ochrana soukromí'}</li>
+        <li>${isEnglish ? 'Versioned pull request and publication' : 'Verzovaný pull request a zveřejnění'}</li>
+      </ol>
+      <fieldset class="review-gate">
+        <legend>${isEnglish ? 'Human review gate' : 'Kontrolní brána člověka'}</legend>
+        <label><input type="checkbox" data-review-field="quotationsChecked"> ${isEnglish ? 'I compared every displayed quotation with the source.' : 'Porovnal/a jsem každou zobrazenou citaci se zdrojem.'}</label>
+        <label><input type="checkbox" data-review-field="privacyAndRightsChecked"> ${isEnglish ? 'I checked anonymisation, privacy and publication rights.' : 'Ověřil/a jsem anonymizaci, soukromí a právo ke zveřejnění.'}</label>
+        <label><input type="checkbox" data-review-field="legalReviewChecked"> ${isEnglish ? 'A human reviewed the classification, uncertainty and proposed next steps.' : 'Člověk zkontroloval zařazení, nejistoty a navržené další kroky.'}</label>
+      </fieldset>
+      <p class="workflow-status" data-workflow-status>${isEnglish ? 'Status: human review required.' : 'Stav: nutná lidská kontrola.'}</p>
+      <div class="workflow-actions">
+        <button type="button" data-download-draft>${isEnglish ? 'Download review packet' : 'Stáhnout pracovní balík'}</button>
+        <button type="button" data-download-candidate disabled>${isEnglish ? 'Download publication candidate' : 'Stáhnout kandidáta publikace'}</button>
+        <a href="${taskUrl}" target="_blank" rel="noopener noreferrer">${isEnglish ? 'Open a GitHub editorial task' : 'Otevřít redakční úkol na GitHubu'}</a>
+      </div>
+      <p class="workflow-boundary">${isEnglish
+        ? 'The GitHub repository and its issues are public. Do not attach an unreviewed record or a private link. Downloading a candidate does not publish it; a reviewed pull request and passing tests remain required.'
+        : 'Repozitář i issues na GitHubu jsou veřejné. Nepřikládejte nezkontrolovanou listinu ani neveřejný odkaz. Stažení kandidáta jej nezveřejní; nadále je nutný zkontrolovaný pull request a úspěšné testy.'}</p>
+    </section>`;
+}
+
+function downloadText(filename, text, type) {
+  const blob = new Blob([text], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function reviewState(container) {
+  return Object.fromEntries(
+    [...container.querySelectorAll('[data-review-field]')]
+      .map(field => [field.dataset.reviewField, field.checked])
+  );
+}
+
+function packetFilename(context, extension) {
+  const stem = String(context.file.name || 'document')
+    .replace(/\.[^.]+$/, '')
+    .replace(/[^\p{L}\p{N}._-]+/gu, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 90) || 'document';
+  return `${stem}-publication-candidate.${extension}`;
+}
+
+function bindPublicationWorkflow() {
+  const container = result.querySelector('[data-publication-workflow]');
+  if (!container || !currentPublicationContext) return;
+  const status = container.querySelector('[data-workflow-status]');
+  const candidateButton = container.querySelector('[data-download-candidate]');
+  const draftButton = container.querySelector('[data-download-draft]');
+
+  const buildPacket = review => currentPublicationContext.buildPublicationPacket({
+    analysis: currentPublicationContext.analysis,
+    fingerprint: currentPublicationContext.fingerprint,
+    fileName: currentPublicationContext.file.name,
+    sourceUrl: currentPublicationContext.sourceMeta.sourceUrl,
+    sourceLabel: currentPublicationContext.sourceMeta.sourceLabel,
+    language: isEnglish ? 'en' : 'cs',
+    exactSupportedIdentity: Boolean(currentPublicationContext.match),
+    supportedIdentityLabel: currentPublicationContext.match
+      ? (isEnglish ? currentPublicationContext.match.en : currentPublicationContext.match.cs)[0]
+      : null,
+    review
+  });
+
+  const refresh = () => {
+    const packet = buildPacket(reviewState(container));
+    candidateButton.disabled = packet.status !== 'publication-candidate';
+    status.textContent = packet.status === 'publication-candidate'
+      ? (isEnglish
+          ? 'Status: publication candidate. Repository review and tests are still required.'
+          : 'Stav: kandidát publikace. Stále je nutná kontrola repozitáře a testy.')
+      : (isEnglish ? 'Status: human review required.' : 'Stav: nutná lidská kontrola.');
+  };
+
+  container.querySelectorAll('[data-review-field]').forEach(field => {
+    field.addEventListener('change', refresh);
+  });
+  draftButton.addEventListener('click', () => {
+    const packet = buildPacket(reviewState(container));
+    downloadText(
+      packetFilename(currentPublicationContext, 'json'),
+      `${JSON.stringify(packet, null, 2)}\n`,
+      'application/json'
+    );
+  });
+  candidateButton.addEventListener('click', () => {
+    const packet = buildPacket(reviewState(container));
+    if (packet.status !== 'publication-candidate') return;
+    downloadText(
+      packetFilename(currentPublicationContext, 'md'),
+      `${currentPublicationContext.buildPublicationMarkdown(packet)}\n`,
+      'text/markdown'
+    );
+  });
+  refresh();
+}
+
+function renderAnalysis(file, fingerprint, analysis, match, sourceMeta = {}, analyzerModule = {}) {
   const readingExtent = analysis.pagesRead
     ? `${analysis.pagesRead}/${analysis.pagesTotal} ${isEnglish ? 'pages' : 'stran'}`
     : `${analysis.charactersRead} ${isEnglish ? 'characters' : 'znaků'}`;
@@ -120,6 +232,7 @@ function renderAnalysis(file, fingerprint, analysis, match, sourceMeta = {}) {
     : `<span>${isEnglish ? 'Selected file' : 'Vybraný soubor'}: ${escapeHTML(file.name)}</span>`;
 
   if (analysis.score === null) {
+    currentPublicationContext = null;
     result.innerHTML = `<span class="black-dot">—</span><div class="analysis-body"><b>${escapeHTML(analysis.title)}</b><p>${escapeHTML(analysis.meaning)}</p><p><strong>${isEnglish ? 'Proposed action' : 'Návrh řešení'}:</strong> ${escapeHTML(analysis.next)}</p><div class="analysis-meta">${sourceLabel}<span>${isEnglish ? 'Read locally' : 'Místně přečteno'}: ${readingExtent}</span><span>SHA-256: ${fingerprint}</span></div></div>`;
     return;
   }
@@ -145,10 +258,22 @@ function renderAnalysis(file, fingerprint, analysis, match, sourceMeta = {}) {
       ${renderGroundedGroup('Návrhy řešení a dalších kontrol', 'Proposed solutions and checks', analysis.recommendations)}
       <p class="human-review"><strong>${isEnglish ? 'Human review required:' : 'Nutná lidská kontrola:'}</strong> ${isEnglish ? 'The prototype does not provide legal advice, decide guilt, or predict an authority’s outcome.' : 'Prototyp neposkytuje právní radu, nerozhoduje o vině a nepředpovídá výsledek řízení.'}</p>
       <div class="analysis-meta">${sourceLabel}<span>${isEnglish ? 'Read locally' : 'Místně přečteno'}: ${readingExtent}</span><span>SHA-256: ${fingerprint}</span></div>
+      ${renderPublicationWorkflow()}
     </div>`;
+  currentPublicationContext = {
+    file,
+    fingerprint,
+    analysis,
+    match,
+    sourceMeta,
+    buildPublicationPacket: analyzerModule.buildPublicationPacket,
+    buildPublicationMarkdown: analyzerModule.buildPublicationMarkdown
+  };
+  bindPublicationWorkflow();
 }
 
 function renderError(error, sourceType = 'file') {
+  currentPublicationContext = null;
   const code = error?.message || '';
   const messages = {
     'invalid-url': ['Odkaz není platná webová adresa.', 'The link is not a valid web address.'],
@@ -168,6 +293,7 @@ function renderError(error, sourceType = 'file') {
 }
 
 function renderKnownIdentityFallback(file, fingerprint, match, sourceMeta = {}) {
+  currentPublicationContext = null;
   const title = (isEnglish ? match.en : match.cs)[0];
   const sourceLabel = sourceMeta.sourceLabel || file.name;
   result.innerHTML = `<span class="result-score ${escapeHTML(match.tone)}">${escapeHTML(match.score)}</span><div class="analysis-body"><b>${escapeHTML(title)}</b><p class="identity-status"><strong>${isEnglish ? 'Technical identity confirmed' : 'Technická totožnost potvrzena'}:</strong> ${isEnglish ? 'The whole-file SHA-256 matches a supported record.' : 'SHA-256 celého souboru se shoduje s podporovanou listinou.'}</p><p><strong>${isEnglish ? 'Content boundary' : 'Hranice obsahu'}:</strong> ${isEnglish ? 'The text layer could not be read, so no prepared interpretation or proposed solution is displayed without source quotations.' : 'Textovou vrstvu se nepodařilo přečíst, proto se bez citací ze zdroje nezobrazuje připravený výklad ani návrh řešení.'}</p><div class="analysis-meta"><span>${escapeHTML(sourceLabel)}</span><span>SHA-256: ${fingerprint}</span></div></div>`;
@@ -192,7 +318,7 @@ async function processEvidenceFile(file, sourceMeta = {}) {
     match = known[fingerprint];
     result.innerHTML = `<span class="black-dot">…</span><div><b>${isEnglish ? 'Reading and classifying locally' : 'Místně čtu a zařazuji listinu'}</b><p>${isEnglish ? 'Every displayed conclusion will carry a source quotation.' : 'Každý zobrazený závěr dostane citaci ze zdroje.'}</p></div>`;
     const analysis = await analyzeUnknownFile(file, isEnglish ? 'en' : 'cs');
-    renderAnalysis(file, fingerprint, analysis, match, sourceMeta);
+    renderAnalysis(file, fingerprint, analysis, match, sourceMeta, loaded[0]);
   } catch (error) {
     console.error('Local evidence analysis failed:', error);
     if (match && fingerprint) {

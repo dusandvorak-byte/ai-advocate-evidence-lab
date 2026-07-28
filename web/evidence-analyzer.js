@@ -506,6 +506,230 @@ export function buildEvidenceReport(source, language = 'cs') {
   };
 }
 
+const OUTPUT_GROUPS = ['facts', 'interpretations', 'uncertainties', 'recommendations'];
+const REVIEW_FIELDS = ['quotationsChecked', 'privacyAndRightsChecked', 'legalReviewChecked'];
+
+export function validateEvidenceReport(report) {
+  const errors = [];
+  const sourceText = normalizeSourceText(report?.sourceText);
+  let itemCount = 0;
+
+  if (!sourceText) errors.push('missing-source-text');
+
+  for (const group of OUTPUT_GROUPS) {
+    if (!Array.isArray(report?.[group])) {
+      errors.push(`invalid-group-${group}`);
+      continue;
+    }
+    for (const [index, item] of report[group].entries()) {
+      itemCount += 1;
+      if (!String(item?.claim || '').trim()) errors.push(`${group}-${index}-missing-claim`);
+      if (!String(item?.citation || '').trim()) {
+        errors.push(`${group}-${index}-missing-citation`);
+      } else if (sourceText && !sourceText.includes(normalizeSourceText(item.citation))) {
+        errors.push(`${group}-${index}-citation-not-in-source`);
+      }
+      if (!['high', 'medium', 'low', 'recommendation'].includes(item?.confidence)) {
+        errors.push(`${group}-${index}-invalid-confidence`);
+      }
+    }
+  }
+
+  if (!itemCount) errors.push('no-grounded-items');
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    itemCount
+  };
+}
+
+export function safePublicSourceReference(rawUrl) {
+  if (!rawUrl) return null;
+  const url = validateEvidenceUrl(rawUrl);
+  const removedSensitiveParts = Boolean(url.search || url.hash);
+  url.search = '';
+  url.hash = '';
+  return {
+    url: url.href,
+    removedSensitiveParts
+  };
+}
+
+function safePacketName(value) {
+  const clean = String(value || 'document')
+    .replace(/[\u0000-\u001f\u007f]/g, '')
+    .replace(/[\\/]+/g, '-')
+    .trim();
+  return clean.slice(0, 180) || 'document';
+}
+
+function packetGroups(analysis) {
+  return Object.fromEntries(
+    OUTPUT_GROUPS.map(group => [
+      group,
+      (analysis[group] || []).map(item => ({
+        claim: String(item.claim),
+        citation: String(item.citation),
+        confidence: String(item.confidence),
+        page: Number.isInteger(item.page) ? item.page : null
+      }))
+    ])
+  );
+}
+
+export function buildPublicationPacket({
+  analysis,
+  fingerprint,
+  fileName,
+  sourceUrl = null,
+  sourceLabel = null,
+  language = 'cs',
+  exactSupportedIdentity = false,
+  supportedIdentityLabel = null,
+  review = {},
+  generatedAt = new Date().toISOString()
+}) {
+  const grounding = validateEvidenceReport(analysis);
+  const reviewState = Object.fromEntries(
+    REVIEW_FIELDS.map(field => [field, review[field] === true])
+  );
+  const humanReviewComplete = REVIEW_FIELDS.every(field => reviewState[field]);
+  let sourceReference = null;
+  try {
+    sourceReference = safePublicSourceReference(sourceUrl);
+  } catch {
+    sourceReference = null;
+  }
+
+  const eligible = grounding.valid
+    && analysis?.score !== null
+    && humanReviewComplete;
+  const status = !grounding.valid || analysis?.score === null
+    ? 'blocked'
+    : eligible
+      ? 'publication-candidate'
+      : 'human-review-required';
+
+  return {
+    schema: 'cannainsider-publication-candidate',
+    schemaVersion: 1,
+    generatedAt,
+    language: language === 'en' ? 'en' : 'cs',
+    status,
+    notice: language === 'en'
+      ? 'Demonstration output. It is not legal advice and is not published until a reviewed pull request is merged.'
+      : 'Demonstrační výstup. Nejde o právní radu a není zveřejněn, dokud není sloučen zkontrolovaný pull request.',
+    source: {
+      fileName: safePacketName(fileName),
+      sha256: String(fingerprint || ''),
+      publicUrl: sourceReference?.url || null,
+      sourceLabel: sourceLabel ? safePacketName(sourceLabel) : null,
+      urlQueryOrFragmentRemoved: sourceReference?.removedSensitiveParts || false,
+      charactersRead: Number(analysis?.charactersRead || 0),
+      pagesRead: Number.isInteger(analysis?.pagesRead) ? analysis.pagesRead : null,
+      pagesTotal: Number.isInteger(analysis?.pagesTotal) ? analysis.pagesTotal : null
+    },
+    identity: {
+      exactSupportedFingerprintMatch: exactSupportedIdentity === true,
+      label: supportedIdentityLabel ? String(supportedIdentityLabel) : null,
+      boundary: language === 'en'
+        ? 'A fingerprint match identifies a supported record; it does not prove every statement in it.'
+        : 'Shoda otisku určuje podporovanou listinu; nedokazuje každé tvrzení v ní.'
+    },
+    relevance: {
+      score: analysis?.scoreLabel || '—',
+      level: analysis?.level || 'black',
+      meaning: String(analysis?.meaning || ''),
+      detectedSignals: Array.isArray(analysis?.matches) ? analysis.matches.map(String) : []
+    },
+    mapPlacements: (analysis?.placements || []).map(placement => ({
+      label: String(placement.label || ''),
+      status: 'tentative',
+      citation: String(placement.citation || ''),
+      page: Number.isInteger(placement.page) ? placement.page : null
+    })),
+    analysis: packetGroups(analysis || {}),
+    grounding,
+    humanReview: {
+      ...reviewState,
+      complete: humanReviewComplete,
+      boundary: language === 'en'
+        ? 'These browser checkboxes record an editorial attestation only; repository review and publication tests remain required.'
+        : 'Zaškrtávací pole v prohlížeči zaznamenávají pouze redakční potvrzení; nadále je nutná kontrola repozitáře a publikační testy.'
+    }
+  };
+}
+
+function markdownGroup(title, items, language) {
+  const empty = language === 'en' ? '_No grounded item._' : '_Žádná citovaná položka._';
+  if (!items?.length) return `## ${title}\n\n${empty}`;
+  const rows = items.map((item, index) => {
+    const page = item.page
+      ? ` (${language === 'en' ? 'page' : 'strana'} ${item.page})`
+      : '';
+    return `${index + 1}. ${item.claim}\n\n   > ${item.citation}${page}\n\n   _${item.confidence}_`;
+  });
+  return `## ${title}\n\n${rows.join('\n\n')}`;
+}
+
+export function buildPublicationMarkdown(packet) {
+  const language = packet?.language === 'en' ? 'en' : 'cs';
+  const labels = language === 'en'
+    ? {
+        title: 'Publication candidate — human review required',
+        status: 'Workflow status',
+        source: 'Source',
+        hash: 'SHA-256',
+        facts: 'Source-grounded facts',
+        interpretations: 'Tentative classification and interpretation',
+        uncertainties: 'Uncertainty and boundaries',
+        recommendations: 'Proposed solutions and checks',
+        review: 'Review gate',
+        warning: 'This file is a draft, not a published report or legal advice.'
+      }
+    : {
+        title: 'Kandidát publikace — nutná lidská kontrola',
+        status: 'Stav procesu',
+        source: 'Zdroj',
+        hash: 'SHA-256',
+        facts: 'Doložená fakta',
+        interpretations: 'Pracovní zařazení a výklad',
+        uncertainties: 'Nejistoty a hranice',
+        recommendations: 'Návrhy řešení a dalších kontrol',
+        review: 'Kontrolní brána',
+        warning: 'Tento soubor je návrh, nikoli zveřejněný článek ani právní rada.'
+      };
+  const source = packet?.source || {};
+  const groups = packet?.analysis || {};
+  const review = packet?.humanReview || {};
+  const reviewRows = REVIEW_FIELDS.map(field => `- [${review[field] ? 'x' : ' '}] ${field}`).join('\n');
+
+  return [
+    `# ${labels.title}`,
+    '',
+    `> ${labels.warning}`,
+    '',
+    `- **${labels.status}:** \`${packet?.status || 'blocked'}\``,
+    `- **${labels.source}:** ${source.publicUrl || source.sourceLabel || source.fileName || '—'}`,
+    `- **${labels.hash}:** \`${source.sha256 || '—'}\``,
+    '',
+    markdownGroup(labels.facts, groups.facts, language),
+    '',
+    markdownGroup(labels.interpretations, groups.interpretations, language),
+    '',
+    markdownGroup(labels.uncertainties, groups.uncertainties, language),
+    '',
+    markdownGroup(labels.recommendations, groups.recommendations, language),
+    '',
+    `## ${labels.review}`,
+    '',
+    reviewRows,
+    '',
+    packet?.notice || ''
+  ].join('\n');
+}
+
 function isPrivateOrLocalHost(hostname) {
   const host = hostname.toLowerCase().replace(/^\[|\]$/g, '');
   if (host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.local') || host.endsWith('.internal')) return true;

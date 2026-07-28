@@ -55,6 +55,11 @@ assert.match(reporter, /Nejistoty a hranice/, 'Uncertainty must be visibly separ
 assert.match(reporter, /Návrhy řešení a dalších kontrol/, 'Proposed solutions must be visibly separated');
 assert.match(reporter, /renderKnownIdentityFallback/, 'A known sample must retain exact identity if text extraction is unavailable');
 assert.match(reporter, /bez citací ze zdroje nezobrazuje připravený výklad/, 'The known-sample fallback must not leak uncited interpretation');
+assert.match(reporter, /data-publication-workflow/, 'A grounded analysis must expose the controlled publication path');
+assert.match(reporter, /privacyAndRightsChecked/, 'Publication must require a privacy and publication-rights attestation');
+assert.match(reporter, /legalReviewChecked/, 'Publication must require human legal review');
+assert.match(reporter, /Repository review and tests are still required/, 'Browser approval must not be presented as publication');
+assert.match(reporter, /issues\/new\?template=document-intake\.yml/, 'The workflow must connect to the public editorial intake');
 
 const workflow = await readFile('.github/workflows/pages.yml', 'utf8');
 assert.match(workflow, /path:\s*web/, 'GitHub Pages must publish only web/');

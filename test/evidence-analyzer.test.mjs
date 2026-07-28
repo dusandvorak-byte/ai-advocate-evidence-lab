@@ -1,8 +1,12 @@
 import assert from 'node:assert/strict';
 import {
+  buildPublicationMarkdown,
+  buildPublicationPacket,
   buildEvidenceReport,
   fetchExternalPdf,
+  safePublicSourceReference,
   scoreEvidenceText,
+  validateEvidenceReport,
   validateEvidenceUrl
 } from '../web/evidence-analyzer.js';
 
@@ -70,6 +74,54 @@ for (const group of ['facts', 'interpretations', 'uncertainties', 'recommendatio
     );
   }
 }
+
+const grounding = validateEvidenceReport(structuredReferral);
+assert.equal(grounding.valid, true);
+assert.ok(grounding.itemCount >= 4);
+
+const alteredCitation = structuredClone(structuredReferral);
+alteredCitation.facts[0].citation = 'Tato věta ve zdrojové listině není.';
+assert.equal(validateEvidenceReport(alteredCitation).valid, false);
+assert.ok(validateEvidenceReport(alteredCitation).errors.some(error => /citation-not-in-source/.test(error)));
+
+const sourceReference = safePublicSourceReference(
+  'https://example.org/public/record.pdf?temporary-token=secret#page=2'
+);
+assert.equal(sourceReference.url, 'https://example.org/public/record.pdf');
+assert.equal(sourceReference.removedSensitiveParts, true);
+
+const reviewRequiredPacket = buildPublicationPacket({
+  analysis: structuredReferral,
+  fingerprint: 'a'.repeat(64),
+  fileName: 'NSZ referral.pdf',
+  sourceUrl: 'https://example.org/public/record.pdf?temporary-token=secret',
+  sourceLabel: 'example.org/public/record.pdf',
+  generatedAt: '2026-07-28T08:00:00.000Z'
+});
+assert.equal(reviewRequiredPacket.status, 'human-review-required');
+assert.equal(reviewRequiredPacket.source.publicUrl, 'https://example.org/public/record.pdf');
+assert.equal(reviewRequiredPacket.source.urlQueryOrFragmentRemoved, true);
+assert.equal(reviewRequiredPacket.humanReview.complete, false);
+
+const publicationCandidate = buildPublicationPacket({
+  analysis: structuredReferral,
+  fingerprint: 'a'.repeat(64),
+  fileName: 'NSZ referral.pdf',
+  sourceUrl: 'https://example.org/public/record.pdf',
+  exactSupportedIdentity: false,
+  review: {
+    quotationsChecked: true,
+    privacyAndRightsChecked: true,
+    legalReviewChecked: true
+  },
+  generatedAt: '2026-07-28T08:00:00.000Z'
+});
+assert.equal(publicationCandidate.status, 'publication-candidate');
+assert.equal(publicationCandidate.humanReview.complete, true);
+const publicationMarkdown = buildPublicationMarkdown(publicationCandidate);
+assert.match(publicationMarkdown, /Kandidát publikace/);
+assert.match(publicationMarkdown, /Citovaná formulace o postoupení sama nepotvrzuje protiprávnost/);
+assert.doesNotMatch(publicationMarkdown, /postoupení potvrzuje protiprávnost/i);
 
 const deadlineReport = buildEvidenceReport(
   'Ministerstvo kultury sděluje, že další postup oznámí nejpozději do 31. srpna 2026.'
