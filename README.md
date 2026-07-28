@@ -6,6 +6,10 @@ Veřejný web se nasazuje pouze z adresáře `web` prostřednictvím GitHub Page
 
 The project is a separate post-submission evidence laboratory. It does not modify the original competition repository or submission archive.
 
+Jde o demonstrační důkazní prototyp, nikoli právní radu, náhradu právníka nebo univerzální právní AI. Každé skóre, citace a redakční shrnutí vyžaduje lidskou kontrolu proti označenému zdroji.
+
+This is a demonstration evidence prototype, not legal advice, a substitute for a lawyer, or a universal legal AI. Every score, quotation and editorial summary requires human review against the identified source.
+
 ## Zpravodajský režim
 
 - Česká titulní strana je `web/index.html`, anglická `web/en.html`.
