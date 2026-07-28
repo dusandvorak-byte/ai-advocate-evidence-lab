@@ -25,7 +25,7 @@ for (const id of feedIds) {
 }
 
 const feed = {
-  dataset: { excludeIds: '25072026-007 24072026-006 24072026-005' },
+  dataset: { excludeIds: '27072026-008 25072026-007 24072026-006' },
   innerHTML: ''
 };
 const context = {
@@ -37,10 +37,10 @@ const context = {
 };
 vm.runInNewContext(feedSource, context);
 
-for (const featured of ['25072026-007', '24072026-006', '24072026-005']) {
+for (const featured of ['27072026-008', '25072026-007', '24072026-006']) {
   assert.doesNotMatch(feed.innerHTML, new RegExp(featured), `${featured} must not be duplicated below the lead grid`);
 }
-for (const additional of ['23072026-004', '22072026-002', '20072026-001']) {
+for (const additional of ['24072026-005', '23072026-004', '22072026-002', '20072026-001']) {
   assert.match(feed.innerHTML, new RegExp(additional), `${additional} must remain discoverable below the lead grid`);
 }
 

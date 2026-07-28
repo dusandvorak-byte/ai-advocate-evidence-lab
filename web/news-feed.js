@@ -4,6 +4,20 @@
  */
 const cannaNews = [
   {
+    id: '27072026-008',
+    dateCs: '27. 7. 2026',
+    dateEn: '27 July 2026',
+    score: '9/9',
+    titleCs: 'Praha–Brno–Praha: kdo převezme věcné vyřízení?',
+    titleEn: 'Prague–Brno–Prague: who will take substantive responsibility?',
+    summaryCs: 'Praha označila za příslušné Brno, Brno vrátilo věc Praze a pět listin ze dne 27. července rozšiřuje procesní mapu. Nové veřejné kopie čekají na ochranu údajů třetích osob a odstranění aktivního obsahu.',
+    summaryEn: 'Prague identified Brno as competent, Brno returned the matter, and five records dated 27 July expand the procedural map. New public copies await third-party data protection and removal of active content.',
+    keywordsCs: 'NSZ MSZ Praha MSZ Brno KSZ Brno VSZ Praha 6 NZN 1737/2026 3 KZN 197/2026 3 ZN 140/2026 1 VZN 1678/2026 pavouk příslušnost',
+    keywordsEn: 'Supreme Public Prosecutor Prague Brno 6 NZN 1737/2026 3 KZN 197/2026 3 ZN 140/2026 1 VZN 1678/2026 jurisdiction web',
+    href: 'zpravy/27072026-008.html',
+    hrefEn: 'news/27072026-008.html'
+  },
+  {
     id: '25072026-007',
     dateCs: '25. 7. 2026',
     dateEn: '25 July 2026',
