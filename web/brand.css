@@ -2362,7 +2362,15 @@ html {
   }
 }
 
-/* Report 25072026-007 update — expanded procedural web and 27 July evidence. */
+/* Report 27072026-008 — expanded procedural web and 27 July evidence. */
+
+.article-header .article-subtitle {
+  max-width: 38ch;
+  margin: -4px 0 22px;
+  font: 800 clamp(1.45rem, 3vw, 2.5rem)/1.08 var(--sans);
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
 
 .procedural-web,
 .evidence-burst {

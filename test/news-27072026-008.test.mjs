@@ -17,11 +17,11 @@ const [articleCs, articleEn, homeCs, homeEn, churchCs, churchEn, feed, archiveCs
 
 for (const page of [articleCs, feed, archiveCs]) {
   assert.match(page, /27072026-008/, 'REPORT 27072026-008 must be present in every Czech news surface');
-  assert.match(page, /Pavouk český křižák z Branibor/, 'The approved Czech headline must be preserved');
+  assert.match(page, /Lence Bradáčové s láskou on-line/, 'The approved Czech headline must be preserved');
 }
 for (const page of [articleEn, feed, archiveEn]) {
   assert.match(page, /27072026-008/, 'REPORT 27072026-008 must be present in every English news surface');
-  assert.match(page, /orb-weaver from Branibor/, 'The English report title must remain discoverable');
+  assert.match(page, /To Lenka Bradáčová, with love — online/, 'The English report title must remain discoverable');
 }
 for (const [page, label] of [[homeCs, 'Czech CannaInsider'], [homeEn, 'English CannaInsider'], [churchCs, 'Czech Cannabis Church'], [churchEn, 'English Cannabis Church']]) {
   assert.match(page, /data-shared-news-feed/, `${label} must expose the shared report feed`);
@@ -29,6 +29,14 @@ for (const [page, label] of [[homeCs, 'Czech CannaInsider'], [homeEn, 'English C
 }
 
 assert.match(articleCs, /Praha → Brno → Praha/);
+assert.match(articleCs, /Pavouk český křižák z Branibor/, 'The original spider wording must remain as the Czech subtitle');
+assert.match(articleEn, /orb-weaver from Branibor/, 'The original spider wording must remain as the English subtitle');
+assert.match(articleCs, /id="pavouk"/, 'The new report must contain the expanded procedural web');
+assert.equal(
+  [...articleCs.matchAll(/class="web-node"/g)].length,
+  5,
+  'The expanded procedural web must show all five records dated 27 July'
+);
 assert.match(articleCs, /3 KZN 197\/2026/);
 assert.match(articleCs, /3 ZN 140\/2026/);
 assert.match(articleCs, /1 VZN 1678\/2026/);
