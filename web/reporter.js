@@ -87,32 +87,140 @@ function escapeHTML(value) {
 
 const input = document.querySelector('#evidence-file');
 const result = document.querySelector('#analysis-result');
+const urlForm = document.querySelector('#evidence-url-form');
+const urlInput = document.querySelector('#evidence-url');
 
-input?.addEventListener('change', async () => {
-  const file = input.files?.[0];
+function confidenceLabel(confidence) {
+  const labels = {
+    high: isEnglish ? 'source fact' : 'fakt ze zdroje',
+    medium: isEnglish ? 'tentative interpretation' : 'pracovní výklad',
+    low: isEnglish ? 'uncertainty' : 'nejistota',
+    recommendation: isEnglish ? 'proposed action' : 'návrh řešení'
+  };
+  return labels[confidence] || confidence;
+}
+
+function renderGroundedGroup(titleCS, titleEN, items) {
+  if (!items?.length) return '';
+  const list = items.map(item => {
+    const page = item.page
+      ? `<span>${isEnglish ? 'page' : 'strana'} ${item.page}</span>`
+      : '';
+    return `<li><p><strong>${escapeHTML(item.claim)}</strong> <span class="evidence-confidence">${escapeHTML(confidenceLabel(item.confidence))}</span></p><blockquote>${escapeHTML(item.citation)}</blockquote>${page}</li>`;
+  }).join('');
+  return `<section class="evidence-group"><h3>${isEnglish ? titleEN : titleCS}</h3><ol>${list}</ol></section>`;
+}
+
+function renderAnalysis(file, fingerprint, analysis, match, sourceMeta = {}) {
+  const readingExtent = analysis.pagesRead
+    ? `${analysis.pagesRead}/${analysis.pagesTotal} ${isEnglish ? 'pages' : 'stran'}`
+    : `${analysis.charactersRead} ${isEnglish ? 'characters' : 'znaků'}`;
+  const sourceLabel = sourceMeta.sourceLabel
+    ? `<span>${isEnglish ? 'External source' : 'Externí zdroj'}: ${escapeHTML(sourceMeta.sourceLabel)}</span>`
+    : `<span>${isEnglish ? 'Selected file' : 'Vybraný soubor'}: ${escapeHTML(file.name)}</span>`;
+
+  if (analysis.score === null) {
+    result.innerHTML = `<span class="black-dot">—</span><div class="analysis-body"><b>${escapeHTML(analysis.title)}</b><p>${escapeHTML(analysis.meaning)}</p><p><strong>${isEnglish ? 'Proposed action' : 'Návrh řešení'}:</strong> ${escapeHTML(analysis.next)}</p><div class="analysis-meta">${sourceLabel}<span>${isEnglish ? 'Read locally' : 'Místně přečteno'}: ${readingExtent}</span><span>SHA-256: ${fingerprint}</span></div></div>`;
+    return;
+  }
+
+  const identity = match
+    ? `<p class="identity-status"><strong>${isEnglish ? 'Exact supported identity' : 'Přesně podporovaná totožnost'}:</strong> ${escapeHTML((isEnglish ? match.en : match.cs)[0])}. ${isEnglish ? 'The whole-file SHA-256 matches one supported record; this does not verify every statement in it.' : 'SHA-256 celého souboru se shoduje s jednou podporovanou listinou; tím se nepotvrzuje každé její tvrzení.'}</p>`
+    : `<p class="identity-status"><strong>${isEnglish ? 'Identity' : 'Totožnost'}:</strong> ${isEnglish ? 'No exact supported fingerprint match. The following output is a tentative, quotation-grounded reading.' : 'Nebyla nalezena přesná shoda s podporovaným otiskem. Následuje pracovní čtení opřené o citované pasáže.'}</p>`;
+  const matchList = analysis.matches.length
+    ? `<p><strong>${isEnglish ? 'Detected textual signals' : 'Zjištěné textové signály'}:</strong> ${analysis.matches.map(escapeHTML).join(', ')}.</p>`
+    : '';
+  const score = match?.score || analysis.scoreLabel;
+  const tone = match?.tone || analysis.level;
+
+  result.innerHTML = `
+    <span class="result-score ${escapeHTML(tone)}">${escapeHTML(score)}</span>
+    <div class="analysis-body">
+      <b>${escapeHTML(analysis.title)}</b>
+      ${identity}
+      ${matchList}
+      ${renderGroundedGroup('Doložená fakta', 'Source-grounded facts', analysis.facts)}
+      ${renderGroundedGroup('Pracovní zařazení a výklad', 'Tentative classification and interpretation', analysis.interpretations)}
+      ${renderGroundedGroup('Nejistoty a hranice', 'Uncertainty and boundaries', analysis.uncertainties)}
+      ${renderGroundedGroup('Návrhy řešení a dalších kontrol', 'Proposed solutions and checks', analysis.recommendations)}
+      <p class="human-review"><strong>${isEnglish ? 'Human review required:' : 'Nutná lidská kontrola:'}</strong> ${isEnglish ? 'The prototype does not provide legal advice, decide guilt, or predict an authority’s outcome.' : 'Prototyp neposkytuje právní radu, nerozhoduje o vině a nepředpovídá výsledek řízení.'}</p>
+      <div class="analysis-meta">${sourceLabel}<span>${isEnglish ? 'Read locally' : 'Místně přečteno'}: ${readingExtent}</span><span>SHA-256: ${fingerprint}</span></div>
+    </div>`;
+}
+
+function renderError(error, sourceType = 'file') {
+  const code = error?.message || '';
+  const messages = {
+    'invalid-url': ['Odkaz není platná webová adresa.', 'The link is not a valid web address.'],
+    'https-required': ['Použijte přímý odkaz začínající https://.', 'Use a direct link beginning with https://.'],
+    'credentials-not-allowed': ['Odkaz nesmí obsahovat uživatelské jméno ani heslo.', 'The link must not contain a username or password.'],
+    'private-host-not-allowed': ['Místní a neveřejné síťové adresy nelze načítat.', 'Local and private network addresses cannot be fetched.'],
+    'pdf-too-large': ['PDF překračuje bezpečnostní limit 30 MB.', 'The PDF exceeds the 30 MB safety limit.'],
+    'not-a-pdf': ['Stažený obsah není platné PDF.', 'The downloaded content is not a valid PDF.'],
+    'download-timeout': ['Stažení se nepodařilo dokončit včas.', 'The download did not finish in time.'],
+    'download-blocked': ['Zdroj stažení v prohlížeči zablokoval. Uložte PDF a vložte je tlačítkem.', 'The source blocked browser download. Save the PDF and select it with the file button.']
+  };
+  const fallback = sourceType === 'url'
+    ? ['Externí PDF se nepodařilo bezpečně načíst. Zdroj musí povolit stažení z jiného webu (CORS).', 'The external PDF could not be loaded safely. The source must permit cross-site browser download (CORS).']
+    : ['Prohlížeč soubor nepřečetl.', 'The browser could not read the file.'];
+  const message = messages[code] || fallback;
+  result.innerHTML = `<span class="black-dot">!</span><div class="analysis-body"><b>${escapeHTML(isEnglish ? message[1] : message[0])}</b><p>${isEnglish ? 'No document was sent to CannaInsider.' : 'Do CannaInsideru nebyl odeslán žádný dokument.'}</p></div>`;
+}
+
+function renderKnownIdentityFallback(file, fingerprint, match, sourceMeta = {}) {
+  const title = (isEnglish ? match.en : match.cs)[0];
+  const sourceLabel = sourceMeta.sourceLabel || file.name;
+  result.innerHTML = `<span class="result-score ${escapeHTML(match.tone)}">${escapeHTML(match.score)}</span><div class="analysis-body"><b>${escapeHTML(title)}</b><p class="identity-status"><strong>${isEnglish ? 'Technical identity confirmed' : 'Technická totožnost potvrzena'}:</strong> ${isEnglish ? 'The whole-file SHA-256 matches a supported record.' : 'SHA-256 celého souboru se shoduje s podporovanou listinou.'}</p><p><strong>${isEnglish ? 'Content boundary' : 'Hranice obsahu'}:</strong> ${isEnglish ? 'The text layer could not be read, so no prepared interpretation or proposed solution is displayed without source quotations.' : 'Textovou vrstvu se nepodařilo přečíst, proto se bez citací ze zdroje nezobrazuje připravený výklad ani návrh řešení.'}</p><div class="analysis-meta"><span>${escapeHTML(sourceLabel)}</span><span>SHA-256: ${fingerprint}</span></div></div>`;
+}
+
+async function processEvidenceFile(file, sourceMeta = {}) {
   if (!file) return;
+  if (file.size > 30 * 1024 * 1024) {
+    renderError(new Error('pdf-too-large'), sourceMeta.sourceLabel ? 'url' : 'file');
+    return;
+  }
   result.innerHTML = `<span class="black-dot">…</span><div><b>${isEnglish ? 'Calculating fingerprint' : 'Počítám digitální otisk'}</b><p>${escapeHTML(file.name)}</p></div>`;
+  let fingerprint;
+  let match;
   try {
-    const fingerprint = await sha256(file);
-    const match = known[fingerprint];
-    if (!match) {
-      result.innerHTML = `<span class="black-dot">…</span><div><b>${isEnglish ? 'Reading the document locally' : 'Čtu dokument místně v prohlížeči'}</b><p>${isEnglish ? 'No exact fingerprint match; I am now checking textual links.' : 'Přesný otisk se neshoduje; nyní kontroluji textové vazby.'}</p></div>`;
-      const { analyzeUnknownFile } = await import('./evidence-analyzer.js');
-      const analysis = await analyzeUnknownFile(file, isEnglish ? 'en' : 'cs');
-      const matchList = analysis.matches.length
-        ? `<p><b>${isEnglish ? 'Detected textual signals' : 'Zjištěné textové signály'}:</b> ${analysis.matches.map(escapeHTML).join(', ')}.</p>`
-        : '';
-      const readingExtent = analysis.pagesRead
-        ? `${analysis.pagesRead}/${analysis.pagesTotal} ${isEnglish ? 'pages' : 'stran'}`
-        : `${analysis.charactersRead} ${isEnglish ? 'characters' : 'znaků'}`;
-      const scoreClass = analysis.score ? `result-score ${analysis.level}` : 'black-dot';
-      result.innerHTML = `<span class="${scoreClass}">${analysis.scoreLabel}</span><div><b>${escapeHTML(analysis.title)}</b>${matchList}<p><strong>${isEnglish ? 'Meaning in this matter' : 'Význam relevance v této kauze'}:</strong> ${escapeHTML(analysis.meaning)}</p><p><strong>${isEnglish ? 'Suggested review' : 'Navržená kontrola'}:</strong> ${escapeHTML(analysis.next)}</p><p><strong>${isEnglish ? 'Boundary' : 'Hranice'}:</strong> ${isEnglish ? 'This is a transparent keyword and case-reference match, not a legal conclusion or an outcome prediction.' : 'Jde o průhlednou shodu klíčových slov a spisových značek, nikoli o právní závěr nebo předpověď výsledku.'}</p><small>${isEnglish ? 'Read locally' : 'Místně přečteno'}: ${readingExtent} · SHA-256: ${fingerprint}</small></div>`;
-      return;
-    }
-    const text = isEnglish ? match.en : match.cs;
-    result.innerHTML = `<span class="result-score ${match.tone}">${match.score}</span><div><b>${escapeHTML(text[0])}</b><p><strong>${isEnglish ? 'Verified fact' : 'Ověřený fakt'}:</strong> ${isEnglish ? 'The whole-file SHA-256 exactly matches one explicitly supported record.' : 'SHA-256 celého souboru se přesně shoduje s jednou výslovně podporovanou listinou.'}</p><p><strong>${isEnglish ? 'Memory interpretation' : 'Výklad paměti'}:</strong> ${escapeHTML(text[1])}</p><p><strong>${isEnglish ? 'Uncertainty' : 'Nejistota'}:</strong> ${isEnglish ? 'Identity does not verify every allegation in the record or predict any authority’s decision.' : 'Shoda totožnosti nepotvrzuje každé tvrzení listiny ani nepředpovídá rozhodnutí orgánu.'}</p><p><strong>${isEnglish ? 'Next step' : 'Další krok'}:</strong> ${isEnglish ? 'Check the issuer, date, case reference, exact passages and any current deadline before use.' : 'Před použitím ověřte původce, datum, spisovou značku, přesné pasáže a případnou aktuální lhůtu.'}</p><small>${isEnglish ? 'Identity basis' : 'Podklad totožnosti'} — SHA-256: ${fingerprint}</small></div>`;
+    const loaded = await Promise.all([
+      import('./evidence-analyzer.js'),
+      sha256(file)
+    ]);
+    const { analyzeUnknownFile } = loaded[0];
+    fingerprint = loaded[1];
+    match = known[fingerprint];
+    result.innerHTML = `<span class="black-dot">…</span><div><b>${isEnglish ? 'Reading and classifying locally' : 'Místně čtu a zařazuji listinu'}</b><p>${isEnglish ? 'Every displayed conclusion will carry a source quotation.' : 'Každý zobrazený závěr dostane citaci ze zdroje.'}</p></div>`;
+    const analysis = await analyzeUnknownFile(file, isEnglish ? 'en' : 'cs');
+    renderAnalysis(file, fingerprint, analysis, match, sourceMeta);
   } catch (error) {
     console.error('Local evidence analysis failed:', error);
-    result.innerHTML = `<span class="black-dot">!</span><div><b>${isEnglish ? 'The browser could not read the file' : 'Prohlížeč soubor nepřečetl'}</b><p>${isEnglish ? 'Nothing was uploaded.' : 'Nic nebylo odesláno.'}</p></div>`;
+    if (match && fingerprint) {
+      renderKnownIdentityFallback(file, fingerprint, match, sourceMeta);
+      return;
+    }
+    renderError(error, sourceMeta.sourceLabel ? 'url' : 'file');
+  }
+}
+
+input?.addEventListener('change', async () => {
+  await processEvidenceFile(input.files?.[0]);
+});
+
+urlForm?.addEventListener('submit', async event => {
+  event.preventDefault();
+  const rawUrl = urlInput?.value;
+  if (!rawUrl) return;
+  result.innerHTML = `<span class="black-dot">↓</span><div><b>${isEnglish ? 'Loading the external PDF' : 'Načítám externí PDF'}</b><p>${isEnglish ? 'The source server is contacted directly by your browser.' : 'Se zdrojovým serverem se spojuje přímo váš prohlížeč.'}</p></div>`;
+  try {
+    const { fetchExternalPdf } = await import('./evidence-analyzer.js');
+    const remote = await fetchExternalPdf(rawUrl);
+    await processEvidenceFile(remote.file, {
+      sourceLabel: remote.sourceLabel,
+      sourceUrl: remote.sourceUrl
+    });
+  } catch (error) {
+    console.error('External evidence download failed:', error);
+    renderError(error, 'url');
   }
 });
