@@ -4,6 +4,19 @@
  */
 const cannaNews = [
   {
+    id: '28072026-009',
+    dateCs: '28. 7. 2026',
+    dateEn: '28 July 2026',
+    score: '9/9',
+    titleCs: 'Lence Bradáčové s láskou on-line',
+    titleEn: 'To Lenka Bradáčová, with love — online',
+    summaryCs: 'Pět podání, cesta Praha–Brno–Praha a dohled nad spisem bez podstatných listin: autorský on-line důkazní deník.',
+    summaryEn: 'Five filings, the Prague–Brno–Prague route and supervision of a file missing material records: an authorial online evidence diary.',
+    keywordsCs: 'Lenka Bradáčová NSZ MSZ Praha MSZ Brno VSZ Praha 6 NZN 1737/2026 1 VZN 1678/2026 on-line důkazní deník',
+    keywordsEn: 'Lenka Bradáčová Supreme Public Prosecutor Prague Brno 6 NZN 1737/2026 1 VZN 1678/2026 online evidence diary',
+    href: 'zpravy/28072026-009.html'
+  },
+  {
     id: '25072026-007',
     dateCs: '25. 7. 2026',
     dateEn: '25 July 2026',
