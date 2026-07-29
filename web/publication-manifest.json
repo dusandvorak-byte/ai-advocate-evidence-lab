@@ -167,6 +167,27 @@
           "sha256": "d64721554a39719edbca0df8feaaff9196b9928741f578aa3f290f323f6d6876"
         }
       ]
+    },
+    {
+      "id": "28072026-009",
+      "version": 1,
+      "publishedDate": "2026-07-28",
+      "article": "zpravy/28072026-009.html",
+      "articleSha256": "1e0e3ef8067de2291c3a89fc62a562c9228742c453e04538091a3fcf68e3c1ab",
+      "sources": [
+        {
+          "path": "documents/report-25072026-007/18-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf",
+          "sha256": "09610a1713d1cb04643cc241384d2b93eb4673d4f14b90fb2bd3e5c4dcf9dc2a"
+        },
+        {
+          "path": "documents/report-25072026-007/02-predzalobni-vyzva-nsz-2026-07-14-original.pdf",
+          "sha256": "4ceee59df22788ebe2296a2dc457cc4b7e5f97c624854b90f2bf6ff769591703"
+        },
+        {
+          "path": "documents/report-25072026-007/03-nsz-6-nzn-1737-2026-32-2026-05-13.pdf",
+          "sha256": "0d5ae743b482ed784855a0c244e4456779624395f9174249c78f0de761b123b2"
+        }
+      ]
     }
   ]
 }
