@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { lookup } from 'node:dns/promises';
-import { readdir, readFile, stat, writeFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { isIP } from 'node:net';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -101,10 +101,9 @@ for (const htmlPath of await htmlFiles(webRoot)) {
 
 for (const [relative, absolute] of [...localSources].sort()) {
   try {
-    const details = await stat(absolute);
     const bytes = await readFile(absolute);
     if (bytes.subarray(0, 5).toString('ascii') !== '%PDF-') throw new Error('invalid PDF signature');
-    record('local-pdf', relative, true, `${details.size} bytes; sha256 ${createHash('sha256').update(bytes).digest('hex')}`);
+    record('local-pdf', relative, true, `${bytes.byteLength} bytes; sha256 ${createHash('sha256').update(bytes).digest('hex')}`);
   } catch (error) {
     record('local-pdf', relative, false, error.message);
   }
