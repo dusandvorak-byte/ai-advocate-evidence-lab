@@ -32,6 +32,18 @@ const sourceCheck = spawnSync(
 assert.equal(sourceCheck.status, 0, sourceCheck.stderr || sourceCheck.stdout);
 assert.match(sourceCheck.stdout, /Public source health/);
 
+const sourceCheckImplementation = await readFile('tools/check-public-sources.mjs', 'utf8');
+assert.doesNotMatch(
+  sourceCheckImplementation,
+  /\bstat\s*\([^)]*\)[\s\S]{0,500}\breadFile\s*\(/,
+  'Local source validation must not check a path and then reopen it for reading'
+);
+assert.match(
+  sourceCheckImplementation,
+  /const bytes = await readFile\(absolute\);[\s\S]{0,300}bytes\.byteLength/,
+  'Local PDF size and digest must be derived from the same bytes that were validated'
+);
+
 const releaseOutput = await mkdtemp(path.join(tmpdir(), 'cannainsider-release-test-'));
 try {
   const first = manifest.publications[0];
