@@ -4,6 +4,19 @@
  */
 const cannaNews = [
   {
+    id: '04082026-010',
+    dateCs: '4. 8. 2026',
+    dateEn: '4 August 2026',
+    score: '9/9',
+    titleCs: 'Státu lásky čas',
+    titleEn: 'A time for the state to love',
+    summaryCs: 'Chronologický seznam 55 dokumentů sbírky Godot on-line od 6. května do 3. srpna 2026.',
+    summaryEn: 'A chronological list of 55 documents in the Godot online collection, from 6 May to 3 August 2026.',
+    keywordsCs: 'Státu lásky čas Godot chronologie dokumenty KPR NSZ NCOZ soudy státní zastupitelství 2026',
+    keywordsEn: 'Godot chronology documents KPR public prosecution courts 2026',
+    href: 'zpravy/04082026-010.html'
+  },
+  {
     id: '28072026-009',
     dateCs: '28. 7. 2026',
     dateEn: '28 July 2026',
