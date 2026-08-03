@@ -25,7 +25,7 @@ for (const id of feedIds) {
 }
 
 const feed = {
-  dataset: { excludeIds: '28072026-009 24072026-006 24072026-005' },
+  dataset: { excludeIds: '04082026-010 24072026-006 24072026-005' },
   innerHTML: ''
 };
 const context = {
@@ -37,7 +37,7 @@ const context = {
 };
 vm.runInNewContext(feedSource, context);
 
-for (const featured of ['28072026-009', '24072026-006', '24072026-005']) {
+for (const featured of ['04082026-010', '24072026-006', '24072026-005']) {
   assert.doesNotMatch(feed.innerHTML, new RegExp(featured), `${featured} must not be duplicated below the lead grid`);
 }
 for (const additional of ['25072026-007', '23072026-004', '22072026-002', '20072026-001']) {
@@ -55,8 +55,8 @@ for (const [page, label] of [[archive, 'Czech'], [englishArchive, 'English']]) {
   assert.match(page, /news-feed\.js/, `${label} archive search must use the canonical report source`);
 }
 
-assert.match(home, /HLAVNÍ ZPRÁVA DNE[\s\S]*28072026-009/, 'The Czech front page must feature report 28072026-009 as the main story of the day');
-assert.match(englishHome, /MAIN STORY OF THE DAY[\s\S]*28072026-009/, 'The English front page must mirror the main-story placement');
+assert.match(home, /HLAVNÍ ZPRÁVA DNE[\s\S]*04082026-010/, 'The Czech front page must feature report 04082026-010 as the main story of the day');
+assert.match(englishHome, /MAIN STORY OF THE DAY[\s\S]*04082026-010/, 'The English front page must mirror the main-story placement');
 assert.doesNotMatch(home, /DRUHÁ ZPRÁVA DNE/, 'The second story of the day remains reserved until the Spider article is approved');
 
 for (const page of [home, englishHome]) {
