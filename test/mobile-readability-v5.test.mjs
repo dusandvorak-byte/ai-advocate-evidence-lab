@@ -35,6 +35,16 @@ assert.match(
   css,
   /@media \(max-width: 720px\)[\s\S]*footer\s*\{[\s\S]*font-size:\s*15px[\s\S]*line-height:\s*1\.62/,
 );
+assert.match(
+  css,
+  /@media \(max-width: 720px\)[\s\S]*\.evidence-url-form > div\s*\{[\s\S]*grid-template-columns:\s*1fr/,
+  'The external PDF controls must stack on phone widths',
+);
+assert.match(
+  css,
+  /@media \(max-width: 720px\)[\s\S]*\.analysis-result\s*\{[\s\S]*flex-direction:\s*column/,
+  'The structured analysis must stack on phone widths',
+);
 assert.match(css, /@media \(max-width: 390px\)/);
 
 for (const path of phonePages) {

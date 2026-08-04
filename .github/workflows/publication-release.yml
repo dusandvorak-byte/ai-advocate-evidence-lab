@@ -1,0 +1,48 @@
+name: Create versioned publication release
+
+on:
+  workflow_dispatch:
+    inputs:
+      publication_id:
+        description: "REPORT ID, for example 25072026-007"
+        required: true
+        type: string
+      version:
+        description: "Manifest version"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Verify tests, sources and immutable manifest
+        run: |
+          node --test test/*.test.mjs
+          node tools/build-publication-manifest.mjs --check
+          node tools/check-public-sources.mjs
+      - name: Prepare exact release contents
+        env:
+          PUBLICATION_ID: ${{ inputs.publication_id }}
+          PUBLICATION_VERSION: ${{ inputs.version }}
+        run: |
+          release_root="$(node tools/prepare-publication-release.mjs)"
+          release_name="$(basename "$release_root")"
+          (
+            cd dist
+            zip -r "${release_name}.zip" "$release_name"
+          )
+      - name: Create immutable GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PUBLICATION_ID: ${{ inputs.publication_id }}
+          PUBLICATION_VERSION: ${{ inputs.version }}
+        run: |
+          release_name="publication-${PUBLICATION_ID}-v${PUBLICATION_VERSION}"
+          gh release create "$release_name" "dist/${release_name}.zip" \
+            --title "CannaInsider ${PUBLICATION_ID} v${PUBLICATION_VERSION}" \
+            --notes-file "dist/${release_name}/RELEASE-NOTES.md"

@@ -50,7 +50,7 @@
     </section>
 
     <section class="desk" id="semafor">
-      <div><p class="section-label">MÍSTNÍ DŮKAZNÍ PŘEPÁŽKA</p><h2>Vložte PDF. Dokument neopustí váš počítač.</h2><p>Prohlížeč vypočítá digitální otisk. Přesně podporovaná listina dostane ověřený report. Neznámá listina nepřevezme závěry cizí kauzy.</p><label class="upload"><input id="evidence-file" type="file" accept="application/pdf,text/plain"><span>Vybrat PDF nebo text</span></label></div>
+      <div><p class="section-label">MÍSTNÍ DŮKAZNÍ PŘEPÁŽKA</p><h2>Vložte PDF nebo načtěte přímý odkaz.</h2><p>Analýza probíhá pouze ve vašem prohlížeči. U externího odkazu se váš prohlížeč spojí se zdrojovým serverem; CannaInsider dokument nepřijímá ani neukládá.</p><div class="evidence-inputs"><label class="upload"><input id="evidence-file" type="file" accept="application/pdf,text/plain"><span>Vybrat PDF nebo text</span></label><span class="input-divider">nebo</span><form id="evidence-url-form" class="evidence-url-form"><label for="evidence-url">Přímý HTTPS odkaz na veřejné PDF</label><div><input id="evidence-url" type="url" inputmode="url" placeholder="https://…/listina.pdf" autocomplete="off" required><button type="submit">Načíst a analyzovat</button></div><small>Zdroj musí povolit stažení v prohlížeči (CORS). Limit je 30 MB.</small></form></div></div>
       <output id="analysis-result" class="analysis-result" aria-live="polite"><span class="black-dot">0/0</span><div><b>Zatím žádný dokument</b><p>Černý bod znamená žádnou ověřenou shodu, nikoli bezcenný dokument.</p></div></output>
     </section>
 

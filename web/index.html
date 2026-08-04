@@ -144,9 +144,17 @@
       <section class="desk">
         <div>
           <p class="section-label">MÍSTNÍ DŮKAZNÍ PŘEPÁŽKA</p>
-          <h2>Vložte PDF. Dokument neopustí váš počítač.</h2>
-          <p>Prohlížeč vypočítá digitální otisk. Přesně podporovaná listina dostane ověřený report. Neznámá listina nepřevezme závěry cizí kauzy.</p>
-          <label class="upload"><input id="evidence-file" type="file" accept="application/pdf,text/plain"><span>Vybrat PDF nebo text</span></label>
+          <h2>Vložte PDF nebo načtěte přímý odkaz.</h2>
+          <p>Analýza probíhá pouze ve vašem prohlížeči. U externího odkazu se váš prohlížeč spojí se zdrojovým serverem; CannaInsider dokument nepřijímá ani neukládá.</p>
+          <div class="evidence-inputs">
+            <label class="upload"><input id="evidence-file" type="file" accept="application/pdf,text/plain"><span>Vybrat PDF nebo text</span></label>
+            <span class="input-divider">nebo</span>
+            <form id="evidence-url-form" class="evidence-url-form">
+              <label for="evidence-url">Přímý HTTPS odkaz na veřejné PDF</label>
+              <div><input id="evidence-url" type="url" inputmode="url" placeholder="https://…/listina.pdf" autocomplete="off" required><button type="submit">Načíst a analyzovat</button></div>
+              <small>Zdroj musí povolit stažení v prohlížeči (CORS). Limit je 30 MB; přihlašovací a neveřejné odkazy se odmítají.</small>
+            </form>
+          </div>
         </div>
         <output id="analysis-result" class="analysis-result" aria-live="polite">
           <span class="black-dot">0/0</span>
@@ -199,7 +207,8 @@
             <ul>
               <li>Zprávy založené na zveřejněných listinách s přímými odkazy na zdroje.</li>
               <li>Chronologický archiv a hledání podle názvu, orgánu nebo spisové značky.</li>
-              <li>Místní kontrola vložené listiny: přesně podporovaný vzor lze rozpoznat, neznámá listina nepřevezme cizí právní závěry.</li>
+              <li>Místní kontrola vložené listiny nebo veřejného PDF z přímého HTTPS odkazu; přesně podporovaný vzor lze rozpoznat, neznámá listina nepřevezme cizí právní závěry.</li>
+              <li>Pracovní zařazení do procesní mapy a oddělené výstupy: doložená fakta, výklad, nejistota a návrhy řešení. Každý dílčí závěr ukazuje přesnou citaci z listiny.</li>
               <li>Viditelné oddělení zdroje, redakčního shrnutí, relevance a omezení; dohodnutá anonymizace ostatních fyzických osob.</li>
             </ul>
           </section>
@@ -208,7 +217,7 @@
             <h3>Dlouhodobá důkazní paměť</h3>
             <ul>
               <li>Ukázat, co nová listina mění oproti stavu před jejím doručením a po něm.</li>
-              <li>Propojit důkazní síť, chybějící dokumenty, lhůty a doporučený další krok.</li>
+              <li>Porovnat novou listinu proti úplné verzované důkazní síti a bezpečně ukládat člověkem potvrzené vazby.</li>
               <li>Doplnit OCR a hlasový vstup pro rychlejší zpracování listin.</li>
               <li>Umožnit bezpečné sdílení a různé výstupy pro veřejnost, novináře a právní profesionály.</li>
             </ul>

@@ -1,0 +1,50 @@
+name: Public source health
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 5 * * *"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check public source files and remote links
+        id: source_check
+        continue-on-error: true
+        run: node tools/check-public-sources.mjs --network --json source-health.json
+      - name: Open or update the source-health issue
+        if: steps.source_check.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "Automatická denní kontrola veřejných zdrojů selhala."
+            echo
+            echo '```json'
+            cat source-health.json
+            echo '```'
+          } > source-health-issue.md
+          issue_number="$(gh issue list --state open --search '"Automatická kontrola veřejných zdrojů selhala" in:title' --json number --jq '.[0].number')"
+          if [ -n "$issue_number" ]; then
+            gh issue comment "$issue_number" --body-file source-health-issue.md
+          else
+            gh issue create --title "Automatická kontrola veřejných zdrojů selhala" --body-file source-health-issue.md
+          fi
+      - name: Close a resolved source-health issue
+        if: steps.source_check.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          issue_number="$(gh issue list --state open --search '"Automatická kontrola veřejných zdrojů selhala" in:title' --json number --jq '.[0].number')"
+          if [ -n "$issue_number" ]; then
+            gh issue close "$issue_number" --comment "Denní kontrola znovu prošla; veřejné zdroje jsou dostupné."
+          fi
+      - name: Enforce result
+        if: steps.source_check.outcome == 'failure'
+        run: exit 1
