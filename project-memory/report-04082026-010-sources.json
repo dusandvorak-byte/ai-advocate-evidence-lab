@@ -1,0 +1,66 @@
+{
+  "report": "04082026-010",
+  "updated_on": "2026-08-04",
+  "sources": [
+    {
+      "list_number": 1,
+      "issuer": "Nejvyšší státní zastupitelství",
+      "date": "2026-05-06",
+      "reference": "6 NZN 1737/2026-15",
+      "document_role": "state_record",
+      "status": "original_received",
+      "path": "web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf",
+      "sha256": "fe7c3b3e42c78b0ae5382f21c26a6516fd705652714f2d6f8fbf928f58b18cb9"
+    },
+    {
+      "list_number": 46,
+      "issuer": "Úřad pro ochranu osobních údajů",
+      "date": "2026-07-28",
+      "reference": "UOOU-05058/26-2",
+      "document_role": "state_record",
+      "status": "original_received",
+      "path": "web/documents/report-04082026-010/46-uoou-05058-26-2-2026-07-28.pdf"
+    },
+    {
+      "list_number": 47,
+      "issuer": "Úřad pro ochranu osobních údajů",
+      "date": "2026-07-28",
+      "reference": "UOOU-05093/26-2",
+      "document_role": "state_record",
+      "status": "original_received",
+      "path": "web/documents/report-04082026-010/47-uoou-05093-26-2-2026-07-28.pdf"
+    },
+    {
+      "list_number": 49,
+      "issuer": "Obvodní státní zastupitelství pro Prahu 7",
+      "date": "2026-07-28",
+      "reference": "ZN 87/2026-47",
+      "document_role": "state_record",
+      "status": "original_received",
+      "path": "web/documents/report-04082026-010/49-osz-praha-7-zn-87-2026-47-2026-07-28.pdf"
+    },
+    {
+      "date": "2026-07-15",
+      "reference": "MV-108890-3/TP-2026",
+      "document_role": "follow_up_filing",
+      "status": "original_received",
+      "path": "web/documents/report-04082026-010/podnet-uoou-prezkum-mv-ku-2026-07-15.pdf"
+    },
+    {
+      "date": "2026-07-29",
+      "reference": "ZN 87/2026-47",
+      "document_role": "follow_up_filing",
+      "status": "original_received",
+      "path": "web/documents/report-04082026-010/zadost-msz-prezkum-osz-praha-7-2026-07-29.pdf"
+    },
+    {
+      "issuer": "Kriminalistický ústav Policie České republiky",
+      "date": "2024-08-12",
+      "reference": "KU-6427-4/ČJ-2024-2305KM",
+      "document_role": "state_record",
+      "status": "original_received_outside_list_55",
+      "path": "web/documents/report-04082026-010/ku-6427-4-cj-2024-2305km-2024-08-12.pdf",
+      "sha256": "f84f7227353cab46b2d93646d85e86b097e03b51683ad472d249f58697a7a85a"
+    }
+  ]
+}
