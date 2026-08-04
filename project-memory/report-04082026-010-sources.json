@@ -13,6 +13,86 @@
       "sha256": "fe7c3b3e42c78b0ae5382f21c26a6516fd705652714f2d6f8fbf928f58b18cb9"
     },
     {
+      "list_number": 5,
+      "issuer": "Nejvyšší státní zastupitelství",
+      "date": "2026-05-13",
+      "reference": "6 NZN 1737/2026-32",
+      "document_role": "state_record",
+      "status": "original_received_reused_from_report_25072026_007",
+      "path": "web/documents/report-25072026-007/03-nsz-6-nzn-1737-2026-32-2026-05-13.pdf",
+      "sha256": "0d5ae743b482ed784855a0c244e4456779624395f9174249c78f0de761b123b2"
+    },
+    {
+      "list_number": 27,
+      "issuer": "OSZ pro Prahu 4",
+      "date": "2026-06-26",
+      "reference": "1 ZN 320/2026-11",
+      "document_role": "state_record",
+      "status": "original_received_reused_from_report_25072026_007",
+      "path": "web/documents/report-25072026-007/06-osz-praha4-1-zn-320-2026-11-2026-06-26.pdf",
+      "sha256": "5da39c7cc7bb97d9df1b238fd2658a8b2e6a4747e3a5cdc8d74e8122eb7c4571"
+    },
+    {
+      "list_number": 29,
+      "issuer": "OSZ v Prostějově",
+      "date": "2026-07-07",
+      "reference": "1 ZT 11/2010-752",
+      "document_role": "state_record",
+      "status": "original_received_reused_from_report_25072026_007",
+      "path": "web/documents/report-25072026-007/09-osz-prostejov-1-zt-11-2010-752-2026-07-07.pdf",
+      "sha256": "7c05108f57ea5957aac77ccdc540a24e394ff925a781e957364bbaa14a2dbe67"
+    },
+    {
+      "list_number": 30,
+      "issuer": "KSZ v Ostravě",
+      "date": "2026-07-08",
+      "reference": "4 KZN 7116/2026-45",
+      "document_role": "state_record",
+      "status": "original_received_reused_from_report_25072026_007",
+      "path": "web/documents/report-25072026-007/17-ksz-ostrava-4-kzn-7116-2026-45-2026-07-08.pdf",
+      "sha256": "c551928a4781a604570f5564d21dd13e876ea2985ac5717952faca2d800125ee"
+    },
+    {
+      "list_number": 36,
+      "issuer": "VSZ v Olomouci",
+      "date": "2026-07-16",
+      "reference": "3 VZN 239/2026-27",
+      "document_role": "state_record",
+      "status": "original_received_reused_from_report_25072026_007",
+      "path": "web/documents/report-25072026-007/13-vsz-olomouc-3-vzn-239-2026-27-2026-07-16.pdf",
+      "sha256": "519986b068312afbdf22922e3ada49dd0bd23527b6aaaf88c2de351340576b57"
+    },
+    {
+      "list_number": 39,
+      "issuer": "MSZ v Praze",
+      "date": "2026-07-17",
+      "reference": "2 KZN 55/2025-122 / 2 KZN 55/2026",
+      "document_role": "state_record",
+      "status": "original_received_reused_from_report_25072026_007",
+      "path": "web/documents/report-25072026-007/14-msz-praha-2-kzn-55-2025-122-2026-07-17.pdf",
+      "sha256": "9e463eae953f94f2a19d0cc77cbc51563207e21e04dc6597094fee78be5aad89"
+    },
+    {
+      "list_number": 40,
+      "issuer": "KŘP Olomouckého kraje, ÚO Prostějov",
+      "date": "2026-07-20",
+      "reference": "KRPM-100092-2/ČJ-2026-1412UO",
+      "document_role": "state_record",
+      "status": "original_received_reused_from_report_25072026_007",
+      "path": "web/documents/report-25072026-007/16-pcr-krpm-100092-2-2026-07-20.pdf",
+      "sha256": "1038a80c8e57a4e4ecd3fb4f511ce9e7a6cf129634f5b193397391f9295966c7"
+    },
+    {
+      "list_number": 45,
+      "issuer": "VSZ v Praze",
+      "date": "2026-07-23",
+      "reference": "1 VZN 1678/2026-70",
+      "document_role": "state_record",
+      "status": "original_received_reused_from_report_25072026_007",
+      "path": "web/documents/report-25072026-007/18-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf",
+      "sha256": "09610a1713d1cb04643cc241384d2b93eb4673d4f14b90fb2bd3e5c4dcf9dc2a"
+    },
+    {
       "list_number": 46,
       "issuer": "Úřad pro ochranu osobních údajů",
       "date": "2026-07-28",
@@ -62,5 +142,12 @@
       "path": "web/documents/report-04082026-010/ku-6427-4-cj-2024-2305km-2024-08-12.pdf",
       "sha256": "f84f7227353cab46b2d93646d85e86b097e03b51683ad472d249f58697a7a85a"
     }
-  ]
+  ],
+  "publication_policy": {
+    "public_branch": "main",
+    "evidence_items_total": 55,
+    "verified_public_originals_for_list": 12,
+    "evidence_only_without_standalone_original": 43,
+    "anonymization_axiom": "Podání Mgr. Dušana Dvořáka a Cannabis is The Cure, z. s., se neanonymizují; Dušan Dvořák a název organizace se uvádějí v plném znění. Jiná fyzická osoba se v převodech a redakčních textech označuje pouze iniciálami. Originální státní listiny zůstávají zdrojovými dokumenty ve výslovně schváleném veřejném rozsahu."
+  }
 }
