@@ -26,6 +26,9 @@ jobs:
       - name: Build static chronology and public evidence pages
         run: node scripts/build-dynamic-chronology.mjs
 
+      - name: Ensure visible MSZ Praha document link
+        run: node scripts/ensure-msz-3-kzn-197-link.mjs
+
       - name: Insert three static homepage bars
         run: node scripts/finalize-homepage.mjs
 
@@ -50,11 +53,13 @@ jobs:
           grep -q 'zpravy/04082026-010.html#case-cz-ms-praha-18a17-2026' web/index.html
           grep -q 'zpravy/04082026-010.html#case-cz-nsz-predzalobni-vyzva' web/index.html
           grep -q 'zpravy/04082026-010.html#chronologie' web/index.html
+          grep -q 'id="msz-3-kzn-197-2026-12"' web/index.html
+          grep -q 'listiny/doc-cz-msz-pha-2026-06-11-3-kzn-197-2026-12.html' web/index.html
           grep -q 'id="chronologie-seznam"' web/zpravy/04082026-010.html
           grep -q 'id="case-cz-os-pro-prevence-2026"' web/zpravy/04082026-010.html
           grep -q 'id="lhuty-a-necinnost"' web/zpravy/04082026-010.html
           grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' web/zpravy/04082026-010.html
-          grep -q 'listiny/doc-cz-msz-pha-2026-06-11-3-kzn-197-2026-12.html' web/zpravy/04082026-010.html
+          grep -q 'Otevřít listinu MSZ v Praze, 11. 6. 2026, č. j. 3 KZN 197/2026-12' web/zpravy/04082026-010.html
           ! grep -q 'Načítám chronologii dokumentů' web/zpravy/04082026-010.html
           ! grep -qi 'aktivní originály' web/zpravy/04082026-010.html
           test "$(find web/listiny -type f -name '*.html' | wc -l)" -gt 0
@@ -101,9 +106,11 @@ jobs:
               && grep -q 'zpravy/04082026-010.html#case-cz-ms-praha-18a17-2026' /tmp/home.html \
               && grep -q 'zpravy/04082026-010.html#case-cz-nsz-predzalobni-vyzva' /tmp/home.html \
               && grep -q 'zpravy/04082026-010.html#chronologie' /tmp/home.html \
+              && grep -q 'id="msz-3-kzn-197-2026-12"' /tmp/home.html \
+              && grep -q 'listiny/doc-cz-msz-pha-2026-06-11-3-kzn-197-2026-12.html' /tmp/home.html \
               && grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' /tmp/article.html \
               && grep -q 'id="chronologie-seznam"' /tmp/article.html \
-              && grep -q 'doc-cz-msz-pha-2026-06-11-3-kzn-197-2026-12' /tmp/article.html \
+              && grep -q 'Otevřít listinu MSZ v Praze, 11. 6. 2026, č. j. 3 KZN 197/2026-12' /tmp/article.html \
               && ! grep -q 'Načítám chronologii dokumentů' /tmp/article.html \
               && ! grep -qi 'aktivní originály' /tmp/article.html \
               && grep -q '3 KZN 197/2026-12' /tmp/listina.html; then
@@ -132,7 +139,9 @@ jobs:
               "new_spider_title_visible": true,
               "static_chronology_visible": true,
               "separate_active_originals_block_absent": true,
-              "msz_praha_3_kzn_197_2026_12_page_visible": true
+              "msz_praha_3_kzn_197_2026_12_page_visible": true,
+              "msz_praha_3_kzn_197_2026_12_link_visible_on_homepage": true,
+              "msz_praha_3_kzn_197_2026_12_link_visible_in_spider": true
             }
           }
           EOF
