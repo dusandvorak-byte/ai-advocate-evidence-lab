@@ -29,11 +29,18 @@ await copyFile(registrySource, registryTarget);
 await copyFile(institutionsSource, institutionsTarget);
 
 let article = await readFile(articlePath, 'utf8');
+article = article
+  .replace(/<section class="source-box" id="aktivni">[\s\S]*?<\/section>/, '')
+  .replace(/<a href="#aktivni">Aktivní originály<\/a>/, '')
+  .replace(/\.source-box\{[^}]*\}/g, '')
+  .replace(/\.source-box li\{[^}]*\}/g, '')
+  .replace(/\.pending\{[^}]*\}/g, '');
+
 if (!article.includes(scriptTag)) {
   if (!article.includes('</body>')) throw new Error(`${articlePath} nemá uzavírací značku </body>`);
   article = article.replace('</body>', `${scriptTag}</body>`);
-  await writeFile(articlePath, article, 'utf8');
 }
+await writeFile(articlePath, article, 'utf8');
 
 const registry = JSON.parse(await readFile(registryTarget, 'utf8'));
 const institutions = JSON.parse(await readFile(institutionsTarget, 'utf8'));
@@ -64,4 +71,4 @@ for (const documentItem of registry.documents) {
   generatedPages += 1;
 }
 
-console.log(`Dynamická chronologie připravena: ${registry.documents.length} dokumentů; ${generatedPages} stabilních stránek policie, KPR, státních zastupitelství a ministerstev.`);
+console.log(`Pavouk řízení připraven: ${registry.documents.length} dokumentů; ${generatedPages} stabilních stránek policie, KPR, státních zastupitelství a ministerstev.`);
