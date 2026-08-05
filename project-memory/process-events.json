@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "relation_types": {
+    "challenged_by_complaint": "napadeno stížností",
+    "challenged_by_appeal": "napadeno odvoláním",
+    "challenged_by_remonstrance": "napadeno rozkladem",
+    "challenged_by_action": "napadeno žalobou",
+    "supplemented_by": "doplněno podáním",
+    "forwarded_by": "postoupeno podáním",
+    "replaced_by": "nahrazeno dokumentem",
+    "revoked_by": "zrušeno dokumentem",
+    "cited_by": "citováno v dokumentu",
+    "connected_to_case": "souvisí s řízením"
+  },
+  "events": []
+}
