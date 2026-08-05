@@ -1,17 +1,10 @@
 (() => {
-  const ARTICLE_PATH = 'zpravy/04082026-010.html';
-  const registryUrl = 'data/documents-2026.json';
-  const institutionsUrl = 'data/institutions.json';
+  const ARTICLE_PATH = '/ai-advocate-evidence-lab/zpravy/04082026-010.html';
+  const registryUrl = '../data/documents-2026.json';
+  const institutionsUrl = '../data/institutions.json';
   const MAIN_FROM = '2026-05-01';
   const ARCHIVE_FROM = '2004-01-01';
   const targetInstitutionTypes = new Set(['police', 'police_lab', 'prosecution', 'ministry', 'executive_office']);
-
-  const normalize = value => String(value || '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim();
 
   const formatDate = value => {
     if (!value) return 'datum neuvedeno';
@@ -35,41 +28,23 @@
     return node;
   };
 
-  const collectExistingLinks = list => {
-    const links = new Map();
-    if (!list) return links;
-    for (const item of list.querySelectorAll('li')) {
-      const anchor = item.querySelector('a[href]');
-      if (!anchor) continue;
-      links.set(normalize(item.textContent), {
-        href: anchor.getAttribute('href'),
-        label: anchor.textContent.trim() || 'otevřít dokument'
-      });
-    }
-    return links;
+  const normalizePublicPath = value => {
+    if (!value) return null;
+    if (/^(?:https?:|mailto:|#|\/)/i.test(value)) return value;
+    return `../${value.replace(/^\.\//, '')}`;
   };
 
-  const findExistingLink = (documentItem, existingLinks) => {
-    const reference = normalize(documentItem.reference);
-    for (const [text, link] of existingLinks.entries()) {
-      if (reference && text.includes(reference)) return link;
-    }
-    return null;
-  };
-
-  const resolveLink = (documentItem, institution, existingLinks) => {
+  const resolveLink = (documentItem, institution) => {
     const published = documentItem.public || {};
-    if (published.pdf) return { href: published.pdf, label: 'originál PDF' };
-    if (published.html) return { href: published.html, label: 'stránka listiny' };
-    const existing = findExistingLink(documentItem, existingLinks);
-    if (existing) return existing;
+    if (published.pdf) return { href: normalizePublicPath(published.pdf), label: 'originál PDF' };
+    if (published.html) return { href: normalizePublicPath(published.html), label: 'stránka listiny' };
     if (institution && targetInstitutionTypes.has(institution.type)) {
-      return { href: `listiny/${documentItem.id}.html`, label: 'stránka listiny' };
+      return { href: `../listiny/${documentItem.id}.html`, label: 'stránka listiny' };
     }
     return null;
   };
 
-  const createItem = (documentItem, institution, existingLinks) => {
+  const createItem = (documentItem, institution) => {
     const item = document.createElement('li');
     item.id = documentItem.id;
     item.dataset.issueDate = documentItem.issue_date || '';
@@ -82,7 +57,7 @@
     if (documentItem.reference) item.append(document.createTextNode(`, ${documentItem.reference}`));
     if (documentItem.user_title) item.append(document.createTextNode(` — ${documentItem.user_title}`));
 
-    const link = resolveLink(documentItem, institution, existingLinks);
+    const link = resolveLink(documentItem, institution);
     if (link?.href) {
       item.append(document.createTextNode(' — '));
       const anchor = document.createElement('a');
@@ -101,7 +76,6 @@
     const mainList = findChronologyList();
     if (!mainList || !Array.isArray(registry.documents)) return;
 
-    const existingLinks = collectExistingLinks(mainList);
     const institutionEntries = Array.isArray(institutions.institutions)
       ? institutions.institutions
       : Object.values(institutions.institutions || {});
@@ -114,7 +88,7 @@
 
     mainList.textContent = '';
     for (const documentItem of mainDocuments) {
-      mainList.append(createItem(documentItem, institutionMap.get(documentItem.institution_id), existingLinks));
+      mainList.append(createItem(documentItem, institutionMap.get(documentItem.institution_id)));
     }
 
     const oldHeadingId = 'starsi-dokumenty';
@@ -128,18 +102,13 @@
       oldList.id = `${oldHeadingId}-list`;
       oldList.start = mainDocuments.length + 1;
       for (const documentItem of olderDocuments) {
-        oldList.append(createItem(documentItem, institutionMap.get(documentItem.institution_id), existingLinks));
+        oldList.append(createItem(documentItem, institutionMap.get(documentItem.institution_id)));
       }
       mainList.after(heading, oldList);
     }
 
     const heading = document.getElementById('chronologie');
-    if (heading) heading.textContent = `Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot? — ${mainDocuments.length} dokumentů`;
-
-    const countNodes = document.querySelectorAll('.news-meta span');
-    for (const node of countNodes) {
-      if (/\d+\s+dokument/i.test(node.textContent)) node.textContent = `${mainDocuments.length} dokumentů od 1. 5. 2026`;
-    }
+    if (heading) heading.textContent = 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?';
 
     if (location.hash) {
       const target = document.getElementById(location.hash.slice(1));
