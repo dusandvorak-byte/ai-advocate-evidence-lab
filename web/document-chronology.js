@@ -6,6 +6,29 @@
   const ARCHIVE_FROM = '2004-01-01';
   const targetInstitutionTypes = new Set(['police', 'police_lab', 'prosecution', 'ministry', 'executive_office']);
 
+  const caseAnchors = [
+    ['case-cz-os-pro-2t104-2010-obnova', 'OS Prostějov sp. zn. 2 T 104/2010 – obnova'],
+    ['case-cz-os-pro-prevence-2026', 'OS Prostějov – prevence 2026'],
+    ['case-cz-os-praha4-10c69-2026', 'OS Praha 4 sp. zn. 10 C 69/2026 – Česká televize'],
+    ['case-cz-ms-praha-18a17-2026', 'MS v Praze sp. zn. 18 A 17/2026 – NCOZ'],
+    ['case-cz-ms-praha-18a23-2026', 'MS v Praze sp. zn. 18 A 23/2026 – MSp'],
+    ['case-cz-ms-praha-8ad9-2026', 'MS v Praze sp. zn. 8 Ad 9/2026 – MZ'],
+    ['case-cz-ms-praha-45t1-2024', 'MS v Praze sp. zn. 45 T 1/2024 – vratka VS'],
+    ['case-cz-osz-pro-prevence-2026', 'OSZ Prostějov – prevence 2026'],
+    ['case-cz-pcr-prevence-prostejov-2026', 'Policie ČR – prevence Prostějov 2026'],
+    ['case-cz-pcr-ku-interni-prezkum', 'Policie ČR – interní přezkum Kriminalistického ústavu'],
+    ['case-cz-nsz-predzalobni-vyzva', 'NSZ – předžalobní výzva'],
+    ['case-cz-vsz-praha-dohled-msz', 'VSZ Praha – dohled MSZ'],
+    ['case-cz-msz-praha-prezkumy', 'MSZ Praha – přezkumy'],
+    ['case-cz-vsz-olomouc-dohled-ksz-brno', 'VSZ Olomouc – dohled KSZ Brno'],
+    ['case-cz-ksz-brno-prezkumy', 'KSZ Brno – přezkumy'],
+    ['case-cz-kpr-tri-vetve', 'KPR – tři aktuální větve'],
+    ['instituce-policie', 'Policie České republiky'],
+    ['instituce-statni-zastupitelstvi', 'Státní zastupitelství'],
+    ['instituce-kpr', 'Kancelář prezidenta republiky'],
+    ['instituce-ministerstva', 'Ministerstva']
+  ];
+
   const formatDate = value => {
     if (!value) return 'datum neuvedeno';
     const [year, month, day] = value.split('-');
@@ -72,6 +95,28 @@
     return item;
   };
 
+  const ensureCaseIndex = mainList => {
+    document.getElementById('rizeni-online')?.remove();
+    const section = document.createElement('section');
+    section.id = 'rizeni-online';
+    section.className = 'case-anchor-index';
+    const heading = document.createElement('h3');
+    heading.textContent = 'Aktivní uzly řízení';
+    section.append(heading);
+    for (const [id, label] of caseAnchors) {
+      const node = document.createElement('article');
+      node.id = id;
+      node.className = 'case-anchor-node';
+      const title = document.createElement('h4');
+      title.textContent = label;
+      const note = document.createElement('p');
+      note.textContent = 'Související listiny a procesní kroky jsou průběžně řazeny v chronologii níže.';
+      node.append(title, note);
+      section.append(node);
+    }
+    mainList.before(section);
+  };
+
   const render = (registry, institutions) => {
     const mainList = findChronologyList();
     if (!mainList || !Array.isArray(registry.documents)) return;
@@ -86,6 +131,7 @@
     const mainDocuments = allDocuments.filter(item => item.issue_date >= MAIN_FROM);
     const olderDocuments = allDocuments.filter(item => item.issue_date < MAIN_FROM);
 
+    ensureCaseIndex(mainList);
     mainList.textContent = '';
     for (const documentItem of mainDocuments) {
       mainList.append(createItem(documentItem, institutionMap.get(documentItem.institution_id)));
@@ -111,8 +157,10 @@
     if (heading) heading.textContent = 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?';
 
     if (location.hash) {
-      const target = document.getElementById(location.hash.slice(1));
-      if (target) target.scrollIntoView();
+      requestAnimationFrame(() => {
+        const target = document.getElementById(location.hash.slice(1));
+        if (target) target.scrollIntoView({ block: 'start' });
+      });
     }
   };
 
