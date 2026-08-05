@@ -29,16 +29,23 @@ jobs:
       - name: Build deadlines and inactivity status
         run: node scripts/build-deadlines.mjs
 
-      - name: Verify public chronology before deploy
+      - name: Verify public chronology and homepage before deploy
         run: |
+          test -f web/index.html
+          test -f web/live-dockets.js
+          test -f web/live-dockets.css
           test -f web/zpravy/04082026-010.html
           test -f web/data/documents-2026.json
           test -f web/data/institutions.json
           test -f web/data/deadlines.json
+          grep -q 'live-dockets.css' web/index.html
+          grep -q 'live-dockets.js' web/index.html
           grep -q 'id="chronologie-seznam"' web/zpravy/04082026-010.html
           grep -q 'id="case-cz-os-pro-prevence-2026"' web/zpravy/04082026-010.html
           grep -q 'id="lhuty-a-necinnost"' web/zpravy/04082026-010.html
+          grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' web/zpravy/04082026-010.html
           ! grep -q 'Načítám chronologii dokumentů' web/zpravy/04082026-010.html
+          ! grep -qi 'aktivní originály' web/zpravy/04082026-010.html
           test "$(find web/listiny -type f -name '*.html' | wc -l)" -gt 0
 
       - name: Test evidence boundaries and public UI
@@ -48,7 +55,7 @@ jobs:
 
       - name: Report non-blocking test result
         if: steps.tests.outcome == 'failure'
-        run: echo "Regression tests reported a failure; deployment continues because mandatory chronology and deadline checks passed."
+        run: echo "Regression tests reported a failure; deployment continues because mandatory chronology, homepage and deadline checks passed."
 
       - uses: actions/configure-pages@v5
 
