@@ -26,14 +26,18 @@ jobs:
       - name: Build static chronology and public evidence pages
         run: node scripts/build-dynamic-chronology.mjs
 
+      - name: Build deadlines and inactivity status
+        run: node scripts/build-deadlines.mjs
+
       - name: Verify public chronology before deploy
         run: |
           test -f web/zpravy/04082026-010.html
           test -f web/data/documents-2026.json
           test -f web/data/institutions.json
+          test -f web/data/deadlines.json
           grep -q 'id="chronologie-seznam"' web/zpravy/04082026-010.html
           grep -q 'id="case-cz-os-pro-prevence-2026"' web/zpravy/04082026-010.html
-          grep -q 'Archiv vstupu do EU' web/zpravy/04082026-010.html || true
+          grep -q 'id="lhuty-a-necinnost"' web/zpravy/04082026-010.html
           ! grep -q 'Načítám chronologii dokumentů' web/zpravy/04082026-010.html
           test "$(find web/listiny -type f -name '*.html' | wc -l)" -gt 0
 
@@ -44,7 +48,7 @@ jobs:
 
       - name: Report non-blocking test result
         if: steps.tests.outcome == 'failure'
-        run: echo "Regression tests reported a failure; deployment continues because the mandatory public chronology checks passed."
+        run: echo "Regression tests reported a failure; deployment continues because mandatory chronology and deadline checks passed."
 
       - uses: actions/configure-pages@v5
 
