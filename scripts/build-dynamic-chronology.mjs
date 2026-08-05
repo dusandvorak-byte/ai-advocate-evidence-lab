@@ -46,6 +46,12 @@ if (!article.includes(scriptTag)) {
 await writeFile(articlePath, article, 'utf8');
 
 let home = await readFile(homePath, 'utf8');
+home = home
+  .replace(/\s*<aside class="quick-memory" id="pamet">[\s\S]*?<\/aside>/, '')
+  .replace(/\s*<a href="#pamet">Paměť případu<\/a>/, '')
+  .replace(/<a href="#pamet">Otevřít paměť případu →<\/a>/, '<a href="zpravy/04082026-010.html#chronologie">Otevřít Pavouka řízení →</a>')
+  .replace(/<a href="#pamet">Tři zveřejněné uzly ukazují, jak se jedna otázka dělí mezi více institucí<\/a>/, '<a href="zpravy/04082026-010.html#chronologie">Pavouk řízení ukazuje, jak se jedna otázka dělí mezi více institucí</a>');
+
 let homeChanged = false;
 if (!home.includes(homeStyleTag)) {
   if (!home.includes('</head>')) throw new Error(`${homePath} nemá uzavírací značku </head>`);
@@ -57,7 +63,7 @@ if (!home.includes(homeScriptTag)) {
   home = home.replace('</body>', `  ${homeScriptTag}\n</body>`);
   homeChanged = true;
 }
-if (homeChanged) await writeFile(homePath, home, 'utf8');
+await writeFile(homePath, home, 'utf8');
 
 const registry = JSON.parse(await readFile(registryTarget, 'utf8'));
 const institutions = JSON.parse(await readFile(institutionsTarget, 'utf8'));
@@ -93,4 +99,4 @@ for (const documentItem of registry.documents) {
   generatedPages += 1;
 }
 
-console.log(`Pavouk řízení připraven: ${registry.documents.length} dokumentů; ${generatedPages} stabilních stránek policie, KPR, státních zastupitelství a ministerstev; ${unknownInstitutions} dosud nekatalogizovaných institucí nezablokovalo deploy; tři živé lišty titulní stránky zapojeny.`);
+console.log(`Pavouk řízení připraven: ${registry.documents.length} dokumentů; ${generatedPages} stabilních stránek policie, KPR, státních zastupitelství a ministerstev; ${unknownInstitutions} dosud nekatalogizovaných institucí nezablokovalo deploy; tři živé lišty titulní stránky zapojeny; blok Živá paměť případu odstraněn.`);
