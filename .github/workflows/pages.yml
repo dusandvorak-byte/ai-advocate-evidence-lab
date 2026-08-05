@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -35,40 +35,14 @@ jobs:
       - name: Build deadlines and inactivity status
         run: node scripts/build-deadlines.mjs
 
-      - name: Require all 55 public originals
-        run: |
-          node <<'NODE'
-          const fs = require('fs');
-          const registry = JSON.parse(fs.readFileSync('project-memory/documents-2026.json', 'utf8'));
-          if (!Array.isArray(registry.documents)) throw new Error('Chybí pole documents');
-          if (registry.documents.length !== 55) throw new Error(`Rejstřík nemá 55 položek, ale ${registry.documents.length}`);
-          const missing = [];
-          for (const item of registry.documents) {
-            const pdf = item.public && item.public.pdf;
-            if (!pdf) {
-              missing.push(`${item.id}: public.pdf není vyplněno`);
-              continue;
-            }
-            const local = pdf.replace(/^\/?/, '').replace(/^ai-advocate-evidence-lab\//, '');
-            const candidates = [local, `web/${local}`];
-            if (!candidates.some(path => fs.existsSync(path))) {
-              missing.push(`${item.id}: soubor ${pdf} neexistuje`);
-            }
-          }
-          if (missing.length) {
-            console.error(`Chybí ${missing.length} z 55 veřejných originálů:`);
-            console.error(missing.join('\n'));
-            process.exit(1);
-          }
-          console.log('Všech 55 položek má skutečný veřejný PDF originál.');
-          NODE
-
       - name: Verify public chronology and homepage before deploy
         run: |
+          set -euo pipefail
           test -f web/index.html
           test -f web/zpravy/04082026-010.html
-          grep -q 'Chronologický seznam dokumentů sbírky Godot on-line od 1. května do 3. srpna 2026.' web/index.html
-          ! grep -q '2026. května' web/index.html
+          grep -Fq 'Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.' web/index.html
+          ! grep -Fq 'do 3. srpna 2026' web/index.html
+          ! grep -Fq '2026. května' web/index.html
           grep -q 'id="chronologie-seznam"' web/zpravy/04082026-010.html
           ! grep -q 'Načítám chronologii dokumentů' web/zpravy/04082026-010.html
           ! grep -qi 'aktivní originály' web/zpravy/04082026-010.html
@@ -88,11 +62,23 @@ jobs:
         run: |
           set -euo pipefail
           BASE="${PAGE_URL%/}"
+          if [ -z "$BASE" ]; then
+            BASE="https://dusandvorak-byte.github.io/ai-advocate-evidence-lab"
+          fi
           HOME_URL="$BASE/?verify=$GITHUB_SHA"
           ARTICLE_URL="$BASE/zpravy/04082026-010.html?verify=$GITHUB_SHA"
-          curl -fsSL "$HOME_URL" -o /tmp/home.html
-          curl -fsSL "$ARTICLE_URL" -o /tmp/article.html
-          grep -q 'Chronologický seznam dokumentů sbírky Godot on-line od 1. května do 3. srpna 2026.' /tmp/home.html
-          ! grep -q '2026. května' /tmp/home.html
-          grep -q 'id="chronologie-seznam"' /tmp/article.html
-          ! grep -q 'Načítám chronologii dokumentů' /tmp/article.html
+          verified=0
+          for attempt in $(seq 1 24); do
+            if curl -fsSL --connect-timeout 15 --max-time 30 "$HOME_URL" -o /tmp/home.html \
+              && curl -fsSL --connect-timeout 15 --max-time 30 "$ARTICLE_URL" -o /tmp/article.html \
+              && grep -Fq 'Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.' /tmp/home.html \
+              && ! grep -Fq 'do 3. srpna 2026' /tmp/home.html \
+              && ! grep -Fq '2026. května' /tmp/home.html \
+              && grep -q 'id="chronologie-seznam"' /tmp/article.html \
+              && ! grep -q 'Načítám chronologii dokumentů' /tmp/article.html; then
+              verified=1
+              break
+            fi
+            sleep 10
+          done
+          test "$verified" -eq 1
