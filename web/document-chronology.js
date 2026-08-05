@@ -4,7 +4,6 @@
   const institutionsUrl = 'https://raw.githubusercontent.com/dusandvorak-byte/ai-advocate-evidence-lab/main/project-memory/institutions.json';
   const MAIN_FROM = '2026-05-01';
   const ARCHIVE_FROM = '2004-01-01';
-  const targetInstitutionTypes = new Set(['police', 'police_lab', 'prosecution', 'ministry', 'executive_office']);
 
   const caseAnchors = [
     ['case-cz-os-pro-2t104-2010-obnova', 'OS Prostějov sp. zn. 2 T 104/2010 – obnova'],
@@ -57,14 +56,11 @@
     return value.replace(/^\.\//, '');
   };
 
-  const resolveLink = (documentItem, institution) => {
+  const resolveLink = documentItem => {
     const published = documentItem.public || {};
     if (published.pdf) return { href: normalizePublicPath(published.pdf), label: 'originál PDF' };
     if (published.html) return { href: normalizePublicPath(published.html), label: 'stránka listiny' };
-    if (institution && targetInstitutionTypes.has(institution.type)) {
-      return { href: `listiny/${documentItem.id}.html`, label: 'stránka listiny' };
-    }
-    return null;
+    return { href: `listiny/${documentItem.id}.html`, label: 'evidenční stránka' };
   };
 
   const createItem = (documentItem, institution) => {
@@ -80,18 +76,16 @@
     if (documentItem.reference) item.append(document.createTextNode(`, ${documentItem.reference}`));
     if (documentItem.user_title) item.append(document.createTextNode(` — ${documentItem.user_title}`));
 
-    const link = resolveLink(documentItem, institution);
-    if (link?.href) {
-      item.append(document.createTextNode(' — '));
-      const anchor = document.createElement('a');
-      anchor.href = link.href;
-      anchor.textContent = link.label;
-      if (/\.pdf(?:$|\?)/i.test(link.href)) {
-        anchor.target = '_blank';
-        anchor.rel = 'noopener';
-      }
-      item.append(anchor);
+    const link = resolveLink(documentItem);
+    item.append(document.createTextNode(' — '));
+    const anchor = document.createElement('a');
+    anchor.href = link.href;
+    anchor.textContent = link.label;
+    if (/\.pdf(?:$|\?)/i.test(link.href)) {
+      anchor.target = '_blank';
+      anchor.rel = 'noopener';
     }
+    item.append(anchor);
     return item;
   };
 
