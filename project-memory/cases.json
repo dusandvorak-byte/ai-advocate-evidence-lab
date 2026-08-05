@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "updated_on": "2026-08-05",
+  "cases": [
+    {
+      "id": "CASE-CZ-NSZ-6NZN1737-2026",
+      "institution_id": "CZ-NSZ",
+      "reference": "6 NZN 1737/2026",
+      "title": "Podněty a přezkumy u Nejvyššího státního zastupitelství v roce 2026",
+      "status": "active",
+      "opened_on": "2026-04-27",
+      "topics": ["nečinnost", "NCOZ", "příslušnost", "předávání podání"]
+    },
+    {
+      "id": "CASE-CZ-MSZ-PHA-3KZN197-2026",
+      "institution_id": "CZ-MSZ-PHA",
+      "reference": "3 KZN 197/2026",
+      "title": "Rozdělení podání převzatého od NSZ mezi jednotlivé větve státního zastupitelství",
+      "status": "active",
+      "opened_on": "2026-06-11",
+      "topics": ["rozdělení podání", "příslušnost", "dohled"]
+    },
+    {
+      "id": "CASE-CZ-MSZ-BRN-3ZN140-2026",
+      "institution_id": "CZ-MSZ-BRN",
+      "reference": "3 ZN 140/2026",
+      "title": "Větev podání vrácená MSZ v Praze",
+      "status": "under_review",
+      "opened_on": "2026-07-14",
+      "topics": ["věcná nepříslušnost", "vrácení věci", "přezkum"]
+    },
+    {
+      "id": "CASE-CZ-KSZ-BRN-1KZN1079-2026",
+      "institution_id": "CZ-KSZ-BRN",
+      "reference": "1 KZN 1079/2026",
+      "title": "Přezkum postupu MSZ v Brně ve věci 3 ZN 140/2026",
+      "status": "active",
+      "opened_on": "2026-07-31",
+      "topics": ["dohled", "přezkum", "MSZ Brno", "MSZ Praha"],
+      "related_case_ids": ["CASE-CZ-MSZ-BRN-3ZN140-2026"]
+    },
+    {
+      "id": "CASE-CZ-VSZ-PHA-1VZN1678-2026",
+      "institution_id": "CZ-VSZ-PHA",
+      "reference": "1 VZN 1678/2026",
+      "title": "Dohled nad postupem MSZ v Praze při rozdělení podání",
+      "status": "active",
+      "opened_on": "2026-06-22",
+      "topics": ["dohled", "spisová úplnost", "rozdělení podání"]
+    },
+    {
+      "id": "CASE-CZ-KPR-4093-2026",
+      "institution_id": "CZ-KPR",
+      "reference": "KPR 4093/2026",
+      "title": "Milost Dušana Dvořáka a návrh konopné amnestie",
+      "status": "active",
+      "opened_on": "2026-05-19",
+      "topics": ["milost", "konopná amnestie", "konopná standarta"]
+    },
+    {
+      "id": "CASE-CZ-PCR-KRPT-203594-2026",
+      "institution_id": "CZ-PCR-KRPT",
+      "reference": "KRPT-203594/ČJ-2026-0700KR",
+      "title": "Žádost o SOP a metodiky OKTE Frýdek-Místek 2009–2019",
+      "status": "active",
+      "opened_on": "2026-07-27",
+      "topics": ["OKTE Frýdek-Místek", "SOP", "THC", "THCA", "analytické metody", "zákon 106/1999 Sb."]
+    }
+  ]
+}
