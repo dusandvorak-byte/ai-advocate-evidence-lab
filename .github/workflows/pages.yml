@@ -45,6 +45,8 @@ jobs:
           grep -q 'id="chronologie-seznam"' web/zpravy/04082026-010.html
           ! grep -q 'Načítám chronologii dokumentů' web/zpravy/04082026-010.html
           ! grep -qi 'aktivní originály' web/zpravy/04082026-010.html
+          test "$(grep -o '<li id="doc-[^"]*"' web/zpravy/04082026-010.html | wc -l)" -ge 55
+          test "$(grep -o '<a href="[^"]*"' web/zpravy/04082026-010.html | wc -l)" -ge 55
 
       - uses: actions/configure-pages@v5
 
@@ -74,7 +76,9 @@ jobs:
               && ! grep -q 'do 3. srpna 2026' /tmp/home.html \
               && ! grep -q '2026. května' /tmp/home.html \
               && grep -q 'id="chronologie-seznam"' /tmp/article.html \
-              && ! grep -q 'Načítám chronologii dokumentů' /tmp/article.html; then
+              && ! grep -q 'Načítám chronologii dokumentů' /tmp/article.html \
+              && test "$(grep -o '<li id="doc-[^"]*"' /tmp/article.html | wc -l)" -ge 55 \
+              && test "$(grep -o '<a href="[^"]*"' /tmp/article.html | wc -l)" -ge 55; then
               verified=1
               break
             fi
@@ -93,7 +97,8 @@ jobs:
             "deployed_sha": "$GITHUB_SHA",
             "checked_at": "$checked_at",
             "page_url": "$PAGE_URL",
-            "homepage_summary": "Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026."
+            "homepage_summary": "Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.",
+            "chronology_links_verified": true
           }
           EOF
           git config user.name "github-actions[bot]"
