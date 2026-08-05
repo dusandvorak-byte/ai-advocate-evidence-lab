@@ -134,7 +134,7 @@
     }
 
     const heading = document.getElementById('chronologie');
-    if (heading) heading.textContent = `Pavouk řízení od 1. května 2026 — ${mainDocuments.length} dokumentů`;
+    if (heading) heading.textContent = `Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot? — ${mainDocuments.length} dokumentů`;
 
     const countNodes = document.querySelectorAll('.news-meta span');
     for (const node of countNodes) {
