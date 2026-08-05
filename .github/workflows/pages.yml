@@ -32,17 +32,26 @@ jobs:
       - name: Insert three static homepage bars
         run: node scripts/finalize-homepage.mjs
 
+      - name: Finalize public labels and verify required layout
+        run: node scripts/finalize-public-labels.mjs
+
       - name: Build deadlines and inactivity status
         run: node scripts/build-deadlines.mjs
 
       - name: Verify public chronology and homepage before deploy
         run: |
           test -f web/index.html
+          test -f web/live-dockets.js
+          test -f web/live-dockets.css
           test -f web/zpravy/04082026-010.html
           grep -q 'Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.' web/index.html
+          grep -q 'Aktivní soudní řízení on-line od 1. května 2026' web/index.html
+          grep -q 'Předžalobní řízení on-line od 1. května 2026' web/index.html
+          grep -q 'Státní láska online od 1. května 2026' web/index.html
           ! grep -q 'do 3. srpna 2026' web/index.html
           ! grep -q '2026. května' web/index.html
           grep -q 'id="chronologie-seznam"' web/zpravy/04082026-010.html
+          grep -q 'Pavouk český křižák z Branibor již více než 15 let splétá síť na trase Praha–Brno–Praha a zpět. Kdo tu síť rozmotá?' web/zpravy/04082026-010.html
           ! grep -q 'Načítám chronologii dokumentů' web/zpravy/04082026-010.html
           ! grep -qi 'aktivní originály' web/zpravy/04082026-010.html
           test "$(grep -o '<li id="doc-[^"]*"' web/zpravy/04082026-010.html | wc -l)" -ge 55
@@ -73,10 +82,15 @@ jobs:
             if curl -fsSL --connect-timeout 15 --max-time 30 "$HOME_URL" -o /tmp/home.html \
               && curl -fsSL --connect-timeout 15 --max-time 30 "$ARTICLE_URL" -o /tmp/article.html \
               && grep -q 'Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.' /tmp/home.html \
+              && grep -q 'Aktivní soudní řízení on-line od 1. května 2026' /tmp/home.html \
+              && grep -q 'Předžalobní řízení on-line od 1. května 2026' /tmp/home.html \
+              && grep -q 'Státní láska online od 1. května 2026' /tmp/home.html \
               && ! grep -q 'do 3. srpna 2026' /tmp/home.html \
               && ! grep -q '2026. května' /tmp/home.html \
               && grep -q 'id="chronologie-seznam"' /tmp/article.html \
+              && grep -q 'Pavouk český křižák z Branibor již více než 15 let splétá síť na trase Praha–Brno–Praha a zpět. Kdo tu síť rozmotá?' /tmp/article.html \
               && ! grep -q 'Načítám chronologii dokumentů' /tmp/article.html \
+              && ! grep -qi 'aktivní originály' /tmp/article.html \
               && test "$(grep -o '<li id="doc-[^"]*"' /tmp/article.html | wc -l)" -ge 55 \
               && test "$(grep -o '<a href="[^"]*"' /tmp/article.html | wc -l)" -ge 55; then
               verified=1
@@ -97,7 +111,10 @@ jobs:
             "deployed_sha": "$GITHUB_SHA",
             "checked_at": "$checked_at",
             "page_url": "$PAGE_URL",
-            "homepage_summary": "Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.",
+            "homepage_bars_verified": true,
+            "spider_title_verified": true,
+            "dynamic_chronology_verified": true,
+            "separate_active_originals_block_absent": true,
             "chronology_links_verified": true
           }
           EOF
