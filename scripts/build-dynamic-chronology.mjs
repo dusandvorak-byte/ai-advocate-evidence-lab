@@ -67,6 +67,7 @@ if (!Array.isArray(institutions.institutions)) throw new Error('Rejstřík insti
 const institutionMap = new Map(institutions.institutions.map(item => [item.id, item]));
 const ids = new Set();
 let generatedPages = 0;
+let unknownInstitutions = 0;
 
 for (const documentItem of registry.documents) {
   if (!documentItem.id || !documentItem.issue_date || !documentItem.institution_id) {
@@ -76,7 +77,11 @@ for (const documentItem of registry.documents) {
   ids.add(documentItem.id);
 
   const institution = institutionMap.get(documentItem.institution_id);
-  if (!institution) throw new Error(`Neznámá instituce ${documentItem.institution_id} u ${documentItem.id}`);
+  if (!institution) {
+    unknownInstitutions += 1;
+    console.warn(`Neznámá instituce ${documentItem.institution_id} u ${documentItem.id}; dokument zůstává v chronologii pod kódem instituce.`);
+    continue;
+  }
   if (!targetInstitutionTypes.has(institution.type)) continue;
 
   const publicData = documentItem.public || {};
@@ -88,4 +93,4 @@ for (const documentItem of registry.documents) {
   generatedPages += 1;
 }
 
-console.log(`Pavouk řízení připraven: ${registry.documents.length} dokumentů; ${generatedPages} stabilních stránek policie, KPR, státních zastupitelství a ministerstev; tři živé lišty titulní stránky zapojeny.`);
+console.log(`Pavouk řízení připraven: ${registry.documents.length} dokumentů; ${generatedPages} stabilních stránek policie, KPR, státních zastupitelství a ministerstev; ${unknownInstitutions} dosud nekatalogizovaných institucí nezablokovalo deploy; tři živé lišty titulní stránky zapojeny.`);
