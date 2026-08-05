@@ -8,8 +8,8 @@ const registrySource = 'project-memory/documents-2026.json';
 const institutionsSource = 'project-memory/institutions.json';
 const registryTarget = `${dataDir}/documents-2026.json`;
 const institutionsTarget = `${dataDir}/institutions.json`;
-const scriptTag = '<script src="../document-chronology.js" defer></script>';
-const oldScriptTag = '<script src="document-chronology.js" defer></script>';
+const scriptTag = '<script src="document-chronology.js" defer></script>';
+const badScriptTag = '<script src="../document-chronology.js" defer></script>';
 const homeScriptTag = '<script src="live-dockets.js" defer></script>';
 const homeStyleTag = '<link rel="stylesheet" href="live-dockets.css">';
 const targetInstitutionTypes = new Set(['police', 'police_lab', 'prosecution', 'ministry', 'executive_office']);
@@ -34,7 +34,7 @@ await copyFile(institutionsSource, institutionsTarget);
 
 let article = await readFile(articlePath, 'utf8');
 article = article
-  .replace(oldScriptTag, scriptTag)
+  .replace(badScriptTag, scriptTag)
   .replace(/<meta name="description" content="[^"]*">/, '<meta name="description" content="Státu lásky čas: průběžná chronologická mapa rozhodnutí, vyrozumění, výzev a dalších procesních dokumentů od 1. května 2026.">')
   .replace(/<p class="standfirst">[\s\S]*?<\/p>/, '<p class="standfirst">Průběžná chronologická mapa rozhodnutí, vyrozumění, výzev a dalších procesních dokumentů od 1. května 2026.</p>')
   .replace(/<div class="news-meta"><span>[^<]*<\/span><span>[^<]*<\/span><span>Autor:/, '<div class="news-meta"><span>Od 1. května 2026</span><span>Průběžná evidence</span><span>Autor:')
@@ -47,7 +47,7 @@ article = article
 
 if (!article.includes(scriptTag)) {
   if (!article.includes('</body>')) throw new Error(`${articlePath} nemá uzavírací značku </body>`);
-  article = article.replace('</body>', `${scriptTag}</body>`);
+  article = article.replace('</body>', `  ${scriptTag}\n</body>`);
 }
 await writeFile(articlePath, article, 'utf8');
 
