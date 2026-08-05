@@ -1,7 +1,7 @@
 {
   "status": "verified",
-  "deployed_sha": "723723d1f13b7a14c29b4381369e884d046434cd",
-  "checked_at": "2026-08-05T17:32:53Z",
+  "deployed_sha": "43ae8c035cf8075857266584701e8f0e20654c85",
+  "checked_at": "2026-08-05T18:05:28Z",
   "page_url": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/",
   "checks": {
     "deployment_completed": true,
