@@ -23,6 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Build dynamic document chronology
+        run: node scripts/build-dynamic-chronology.mjs
+
       - name: Test evidence boundaries and public UI
         id: tests
         continue-on-error: true
