@@ -4,6 +4,7 @@ const homePath = 'web/index.html';
 const articlePath = 'web/zpravy/04082026-010.html';
 const archivePath = 'web/zpravy/index.html';
 const feedPath = 'web/news-feed.js';
+const liveDocketsPath = 'web/live-dockets.js';
 const evidencePath = 'web/listiny/doc-cz-msz-pha-2026-06-11-3-kzn-197-2026-12.html';
 const href = 'listiny/doc-cz-msz-pha-2026-06-11-3-kzn-197-2026-12.html';
 const label = 'MSZ v Praze, 11. 6. 2026, č. j. 3 KZN 197/2026-12';
@@ -11,6 +12,7 @@ const correctSummary = 'Chronologický seznam dokumentů sbírky Godot on-line o
 
 const fixSummary = text => text
   .replaceAll('Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026. května do 3. srpna 2026.', correctSummary)
+  .replaceAll('Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.', correctSummary)
   .replaceAll('Chronologický seznam 55 dokumentů sbírky Godot on-line od 6. května do 3. srpna 2026.', correctSummary)
   .replaceAll('Chronologický seznam sbírky Godot on-line od května 2026: 55 rozhodnutí, vyrozumění, výzev a dalších procesních dokumentů do 3. srpna 2026.', correctSummary);
 
@@ -36,11 +38,21 @@ if (!home.includes(`id="msz-3-kzn-197-2026-12"`)) {
 if (!home.includes(`href="${href}"`)) {
   throw new Error('Titulní stránka neobsahuje přímý odkaz na evidenční stránku MSZ Praha');
 }
+if (!home.includes(correctSummary)) {
+  throw new Error('Titulní stránka neobsahuje správné období hlavní zprávy');
+}
+if (/2026\.\s*května do 3\. srpna 2026/i.test(home)) {
+  throw new Error('Na titulní stránce zůstal slepený chybný údaj období');
+}
 await writeFile(homePath, home, 'utf8');
 
-for (const path of [archivePath, feedPath]) {
+for (const path of [archivePath, feedPath, liveDocketsPath]) {
   const current = await readFile(path, 'utf8');
-  await writeFile(path, fixSummary(current), 'utf8');
+  const corrected = fixSummary(current);
+  if (/2026\.\s*května do 3\. srpna 2026/i.test(corrected)) {
+    throw new Error(`V souboru ${path} zůstal slepený chybný údaj období`);
+  }
+  await writeFile(path, corrected, 'utf8');
 }
 
 const evidencePage = `<!doctype html>
@@ -75,4 +87,4 @@ const evidencePage = `<!doctype html>
 </html>`;
 await writeFile(evidencePath, evidencePage, 'utf8');
 
-console.log('Opraven text hlavní zprávy; odkaz na MSZ Praha je přesně označen jako evidenční stránka bez originálního PDF.');
+console.log('Opraveno období hlavní zprávy ve statickém HTML, archivu, feedu i klientském skriptu; MSZ Praha zůstává označeno jako evidenční stránka bez originálního PDF.');
