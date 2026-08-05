@@ -49,6 +49,11 @@
   wrapper.className = 'live-dockets';
   wrapper.setAttribute('aria-label', 'Živá řízení a státní dokumenty');
 
+  const counter = document.createElement('p');
+  counter.className = 'state-decision-counter';
+  counter.innerHTML = '<strong data-state-document-count>…</strong><span>Od 1. května 2026 stát vydal tolik doložených rozhodnutí, sdělení a dalších procesních listin. Počet se téměř každý den zvyšuje.</span>';
+  wrapper.append(counter);
+
   for (const section of sections) {
     const bar = document.createElement('section');
     bar.className = `live-docket-bar ${section.className}`;
@@ -67,4 +72,21 @@
   }
 
   mount.insertAdjacentElement('afterend', wrapper);
+
+  fetch('data/documents-2026.json', { cache: 'no-store' })
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    })
+    .then(registry => {
+      const count = Array.isArray(registry.documents)
+        ? registry.documents.filter(item => item.issue_date >= '2026-05-01' && item.document_type === 'state_record').length
+        : 0;
+      const node = wrapper.querySelector('[data-state-document-count]');
+      if (node) node.textContent = String(count);
+    })
+    .catch(() => {
+      const node = wrapper.querySelector('[data-state-document-count]');
+      if (node) node.textContent = '—';
+    });
 })();
