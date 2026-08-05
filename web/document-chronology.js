@@ -1,7 +1,7 @@
 (() => {
   const ARTICLE_PATH = '/ai-advocate-evidence-lab/zpravy/04082026-010.html';
-  const registryUrl = '../data/documents-2026.json';
-  const institutionsUrl = '../data/institutions.json';
+  const registryUrl = 'data/documents-2026.json';
+  const institutionsUrl = 'data/institutions.json';
   const MAIN_FROM = '2026-05-01';
   const ARCHIVE_FROM = '2004-01-01';
   const targetInstitutionTypes = new Set(['police', 'police_lab', 'prosecution', 'ministry', 'executive_office']);
@@ -31,7 +31,7 @@
   const normalizePublicPath = value => {
     if (!value) return null;
     if (/^(?:https?:|mailto:|#|\/)/i.test(value)) return value;
-    return `../${value.replace(/^\.\//, '')}`;
+    return value.replace(/^\.\//, '');
   };
 
   const resolveLink = (documentItem, institution) => {
@@ -39,7 +39,7 @@
     if (published.pdf) return { href: normalizePublicPath(published.pdf), label: 'originál PDF' };
     if (published.html) return { href: normalizePublicPath(published.html), label: 'stránka listiny' };
     if (institution && targetInstitutionTypes.has(institution.type)) {
-      return { href: `../listiny/${documentItem.id}.html`, label: 'stránka listiny' };
+      return { href: `listiny/${documentItem.id}.html`, label: 'stránka listiny' };
     }
     return null;
   };
@@ -127,5 +127,9 @@
       return response.json();
     })
   ]).then(([registry, institutions]) => render(registry, institutions))
-    .catch(error => console.error('Dynamická chronologie nebyla načtena:', error));
+    .catch(error => {
+      console.error('Dynamická chronologie nebyla načtena:', error);
+      const list = findChronologyList();
+      if (list) list.innerHTML = '<li>Chronologii se nepodařilo načíst. Probíhá oprava datového připojení.</li>';
+    });
 })();
