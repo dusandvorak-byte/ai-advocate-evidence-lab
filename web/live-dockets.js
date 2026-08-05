@@ -1,4 +1,19 @@
 (() => {
+  const alertText = document.querySelector('.newsroom-alert span');
+  if (alertText) {
+    alertText.textContent = 'Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.';
+  }
+
+  const leadStandfirst = document.querySelector('.lead-card .standfirst');
+  if (leadStandfirst) {
+    leadStandfirst.textContent = 'Průběžná chronologická mapa rozhodnutí, vyrozumění, výzev a dalších procesních dokumentů od 1. května 2026.';
+  }
+
+  const leadMeta = document.querySelector('.lead-card .news-meta');
+  if (leadMeta) {
+    leadMeta.innerHTML = '<span>Od 1. 5. 2026</span><span>Průběžná evidence</span><span>Sbírka Godot on-line</span><span>Česká autorská verze</span>';
+  }
+
   const mount = document.querySelector('.edition-bar');
   if (!mount || document.getElementById('live-dockets')) return;
 
