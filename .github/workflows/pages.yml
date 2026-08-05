@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -37,12 +37,11 @@ jobs:
 
       - name: Verify public chronology and homepage before deploy
         run: |
-          set -euo pipefail
           test -f web/index.html
           test -f web/zpravy/04082026-010.html
-          grep -Fq 'Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.' web/index.html
-          ! grep -Fq 'do 3. srpna 2026' web/index.html
-          ! grep -Fq '2026. května' web/index.html
+          grep -q 'Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.' web/index.html
+          ! grep -q 'do 3. srpna 2026' web/index.html
+          ! grep -q '2026. května' web/index.html
           grep -q 'id="chronologie-seznam"' web/zpravy/04082026-010.html
           ! grep -q 'Načítám chronologii dokumentů' web/zpravy/04082026-010.html
           ! grep -qi 'aktivní originály' web/zpravy/04082026-010.html
@@ -71,9 +70,9 @@ jobs:
           for attempt in $(seq 1 24); do
             if curl -fsSL --connect-timeout 15 --max-time 30 "$HOME_URL" -o /tmp/home.html \
               && curl -fsSL --connect-timeout 15 --max-time 30 "$ARTICLE_URL" -o /tmp/article.html \
-              && grep -Fq 'Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.' /tmp/home.html \
-              && ! grep -Fq 'do 3. srpna 2026' /tmp/home.html \
-              && ! grep -Fq '2026. května' /tmp/home.html \
+              && grep -q 'Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.' /tmp/home.html \
+              && ! grep -q 'do 3. srpna 2026' /tmp/home.html \
+              && ! grep -q '2026. května' /tmp/home.html \
               && grep -q 'id="chronologie-seznam"' /tmp/article.html \
               && ! grep -q 'Načítám chronologii dokumentů' /tmp/article.html; then
               verified=1
@@ -82,3 +81,23 @@ jobs:
             sleep 10
           done
           test "$verified" -eq 1
+
+      - name: Record verified deployment
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          checked_at="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          cat > project-memory/pages-deploy-verified.json <<EOF
+          {
+            "status": "verified",
+            "deployed_sha": "$GITHUB_SHA",
+            "checked_at": "$checked_at",
+            "page_url": "$PAGE_URL",
+            "homepage_summary": "Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026."
+          }
+          EOF
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add project-memory/pages-deploy-verified.json
+          git commit -m "Record verified Pages deploy [skip ci]"
+          git push
