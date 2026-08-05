@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -26,6 +26,9 @@ jobs:
       - name: Build static chronology and public evidence pages
         run: node scripts/build-dynamic-chronology.mjs
 
+      - name: Insert three static homepage bars
+        run: node scripts/finalize-homepage.mjs
+
       - name: Build deadlines and inactivity status
         run: node scripts/build-deadlines.mjs
 
@@ -40,10 +43,18 @@ jobs:
           test -f web/data/deadlines.json
           grep -q 'live-dockets.css' web/index.html
           grep -q 'live-dockets.js' web/index.html
+          grep -q 'id="live-dockets"' web/index.html
+          grep -q 'Aktivní soudní řízení on-line od 1. května 2026' web/index.html
+          grep -q 'Předžalobní řízení on-line od 1. května 2026' web/index.html
+          grep -q 'Státní láska online od 1. května 2026' web/index.html
+          grep -q 'zpravy/04082026-010.html#case-cz-ms-praha-18a17-2026' web/index.html
+          grep -q 'zpravy/04082026-010.html#case-cz-nsz-predzalobni-vyzva' web/index.html
+          grep -q 'zpravy/04082026-010.html#chronologie' web/index.html
           grep -q 'id="chronologie-seznam"' web/zpravy/04082026-010.html
           grep -q 'id="case-cz-os-pro-prevence-2026"' web/zpravy/04082026-010.html
           grep -q 'id="lhuty-a-necinnost"' web/zpravy/04082026-010.html
           grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' web/zpravy/04082026-010.html
+          grep -q 'listiny/doc-cz-msz-pha-2026-06-11-3-kzn-197-2026-12.html' web/zpravy/04082026-010.html
           ! grep -q 'Načítám chronologii dokumentů' web/zpravy/04082026-010.html
           ! grep -qi 'aktivní originály' web/zpravy/04082026-010.html
           test "$(find web/listiny -type f -name '*.html' | wc -l)" -gt 0
@@ -65,3 +76,68 @@ jobs:
 
       - id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify the live GitHub Pages deployment
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euo pipefail
+          BASE="${PAGE_URL%/}"
+          if [ -z "$BASE" ]; then
+            BASE="https://dusandvorak-byte.github.io/ai-advocate-evidence-lab"
+          fi
+          HOME_URL="$BASE/?verify=$GITHUB_SHA"
+          ARTICLE_URL="$BASE/zpravy/04082026-010.html?verify=$GITHUB_SHA"
+          LISTINA_URL="$BASE/listiny/doc-cz-msz-pha-2026-06-11-3-kzn-197-2026-12.html?verify=$GITHUB_SHA"
+          verified=0
+          for attempt in $(seq 1 24); do
+            if curl -fsSL --connect-timeout 15 --max-time 30 "$HOME_URL" -o /tmp/home.html \
+              && curl -fsSL --connect-timeout 15 --max-time 30 "$ARTICLE_URL" -o /tmp/article.html \
+              && curl -fsSL --connect-timeout 15 --max-time 30 "$LISTINA_URL" -o /tmp/listina.html \
+              && grep -q 'id="live-dockets"' /tmp/home.html \
+              && grep -q 'Aktivní soudní řízení on-line od 1. května 2026' /tmp/home.html \
+              && grep -q 'Předžalobní řízení on-line od 1. května 2026' /tmp/home.html \
+              && grep -q 'Státní láska online od 1. května 2026' /tmp/home.html \
+              && grep -q 'zpravy/04082026-010.html#case-cz-ms-praha-18a17-2026' /tmp/home.html \
+              && grep -q 'zpravy/04082026-010.html#case-cz-nsz-predzalobni-vyzva' /tmp/home.html \
+              && grep -q 'zpravy/04082026-010.html#chronologie' /tmp/home.html \
+              && grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' /tmp/article.html \
+              && grep -q 'id="chronologie-seznam"' /tmp/article.html \
+              && grep -q 'doc-cz-msz-pha-2026-06-11-3-kzn-197-2026-12' /tmp/article.html \
+              && ! grep -q 'Načítám chronologii dokumentů' /tmp/article.html \
+              && ! grep -qi 'aktivní originály' /tmp/article.html \
+              && grep -q '3 KZN 197/2026-12' /tmp/listina.html; then
+              verified=1
+              break
+            fi
+            sleep 10
+          done
+          test "$verified" -eq 1
+
+      - name: Record verified deployment
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          checked_at="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          cat > project-memory/pages-deploy-verified.json <<EOF
+          {
+            "status": "verified",
+            "deployed_sha": "$GITHUB_SHA",
+            "checked_at": "$checked_at",
+            "page_url": "$PAGE_URL",
+            "checks": {
+              "deployment_completed": true,
+              "three_homepage_bars_visible_in_html": true,
+              "three_homepage_bars_have_active_links": true,
+              "new_spider_title_visible": true,
+              "static_chronology_visible": true,
+              "separate_active_originals_block_absent": true,
+              "msz_praha_3_kzn_197_2026_12_page_visible": true
+            }
+          }
+          EOF
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add project-memory/pages-deploy-verified.json
+          git commit -m "Record verified Pages deploy [skip ci]"
+          git push
