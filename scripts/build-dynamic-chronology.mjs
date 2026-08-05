@@ -35,6 +35,10 @@ await copyFile(institutionsSource, institutionsTarget);
 let article = await readFile(articlePath, 'utf8');
 article = article
   .replace(oldScriptTag, scriptTag)
+  .replace(/<meta name="description" content="[^"]*">/, '<meta name="description" content="Státu lásky čas: průběžná chronologická mapa rozhodnutí, vyrozumění, výzev a dalších procesních dokumentů od 1. května 2026.">')
+  .replace(/<p class="standfirst">[\s\S]*?<\/p>/, '<p class="standfirst">Průběžná chronologická mapa rozhodnutí, vyrozumění, výzev a dalších procesních dokumentů od 1. května 2026.</p>')
+  .replace(/<div class="news-meta"><span>[^<]*<\/span><span>[^<]*<\/span><span>Autor:/, '<div class="news-meta"><span>Od 1. května 2026</span><span>Průběžná evidence</span><span>Autor:')
+  .replace(/<h2 id="chronologie">[\s\S]*?<\/h2>/, '<h2 id="chronologie">Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?</h2>')
   .replace(/<section class="source-box" id="aktivni">[\s\S]*?<\/section>/, '')
   .replace(/<a href="#aktivni">Aktivní originály<\/a>/, '')
   .replace(/\.source-box\{[^}]*\}/g, '')
@@ -49,6 +53,9 @@ await writeFile(articlePath, article, 'utf8');
 
 let home = await readFile(homePath, 'utf8');
 home = home
+  .replace(/Chronologický seznam 55 dokumentů sbírky Godot on-line od 6\. května do 3\. srpna 2026\./g, 'Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.')
+  .replace(/Chronologický seznam sbírky Godot on-line od května 2026: 55 rozhodnutí, vyrozumění, výzev a dalších procesních dokumentů do 3\. srpna 2026\./g, 'Průběžná chronologická mapa rozhodnutí, vyrozumění, výzev a dalších procesních dokumentů od 1. května 2026.')
+  .replace(/<span>6\. 5\.–3\. 8\. 2026<\/span><span>55 dokumentů<\/span>/g, '<span>Od 1. května 2026</span><span>Průběžná evidence</span>')
   .replace(/\s*<aside class="quick-memory" id="pamet">[\s\S]*?<\/aside>/, '')
   .replace(/\s*<a href="#pamet">Paměť případu<\/a>/, '')
   .replace(/<a href="#pamet">Otevřít paměť případu →<\/a>/, '<a href="zpravy/04082026-010.html#chronologie">Otevřít Pavouka řízení →</a>')
