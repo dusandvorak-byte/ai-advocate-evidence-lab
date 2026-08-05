@@ -1,6 +1,7 @@
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 
 const articlePath = 'web/zpravy/04082026-010.html';
+const homePath = 'web/index.html';
 const dataDir = 'web/data';
 const listinyDir = 'web/listiny';
 const registrySource = 'project-memory/documents-2026.json';
@@ -8,6 +9,8 @@ const institutionsSource = 'project-memory/institutions.json';
 const registryTarget = `${dataDir}/documents-2026.json`;
 const institutionsTarget = `${dataDir}/institutions.json`;
 const scriptTag = '<script src="document-chronology.js" defer></script>';
+const homeScriptTag = '<script src="live-dockets.js" defer></script>';
+const homeStyleTag = '<link rel="stylesheet" href="live-dockets.css">';
 const targetInstitutionTypes = new Set(['police', 'police_lab', 'prosecution', 'ministry', 'executive_office']);
 
 const escapeHtml = value => String(value ?? '')
@@ -42,6 +45,20 @@ if (!article.includes(scriptTag)) {
 }
 await writeFile(articlePath, article, 'utf8');
 
+let home = await readFile(homePath, 'utf8');
+let homeChanged = false;
+if (!home.includes(homeStyleTag)) {
+  if (!home.includes('</head>')) throw new Error(`${homePath} nemá uzavírací značku </head>`);
+  home = home.replace('</head>', `  ${homeStyleTag}\n</head>`);
+  homeChanged = true;
+}
+if (!home.includes(homeScriptTag)) {
+  if (!home.includes('</body>')) throw new Error(`${homePath} nemá uzavírací značku </body>`);
+  home = home.replace('</body>', `  ${homeScriptTag}\n</body>`);
+  homeChanged = true;
+}
+if (homeChanged) await writeFile(homePath, home, 'utf8');
+
 const registry = JSON.parse(await readFile(registryTarget, 'utf8'));
 const institutions = JSON.parse(await readFile(institutionsTarget, 'utf8'));
 if (!Array.isArray(registry.documents)) throw new Error('Rejstřík documents-2026.json neobsahuje pole documents');
@@ -71,4 +88,4 @@ for (const documentItem of registry.documents) {
   generatedPages += 1;
 }
 
-console.log(`Pavouk řízení připraven: ${registry.documents.length} dokumentů; ${generatedPages} stabilních stránek policie, KPR, státních zastupitelství a ministerstev.`);
+console.log(`Pavouk řízení připraven: ${registry.documents.length} dokumentů; ${generatedPages} stabilních stránek policie, KPR, státních zastupitelství a ministerstev; tři živé lišty titulní stránky zapojeny.`);
