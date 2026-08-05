@@ -1,17 +1,7 @@
 {
   "status": "verified",
-  "deployed_sha": "450c2b398754d9d1ec51766c4775384597a652a0",
-  "checked_at": "2026-08-05T18:06:05Z",
+  "deployed_sha": "80ef70ff2ecd007dd0d61a37ff99ca2b89de566b",
+  "checked_at": "2026-08-05T19:09:59Z",
   "page_url": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/",
-  "checks": {
-    "deployment_completed": true,
-    "three_homepage_bars_visible_in_html": true,
-    "three_homepage_bars_have_active_links": true,
-    "new_spider_title_visible": true,
-    "static_chronology_visible": true,
-    "separate_active_originals_block_absent": true,
-    "msz_praha_3_kzn_197_2026_12_page_visible": true,
-    "msz_praha_3_kzn_197_2026_12_link_visible_on_homepage": true,
-    "msz_praha_3_kzn_197_2026_12_link_visible_in_spider": true
-  }
+  "homepage_summary": "Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026."
 }
