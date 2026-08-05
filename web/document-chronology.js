@@ -1,7 +1,7 @@
 (() => {
   const ARTICLE_PATH = '/ai-advocate-evidence-lab/zpravy/04082026-010.html';
-  const registryUrl = 'data/documents-2026.json';
-  const institutionsUrl = 'data/institutions.json';
+  const registryUrl = 'https://raw.githubusercontent.com/dusandvorak-byte/ai-advocate-evidence-lab/main/project-memory/documents-2026.json';
+  const institutionsUrl = 'https://raw.githubusercontent.com/dusandvorak-byte/ai-advocate-evidence-lab/main/project-memory/institutions.json';
   const MAIN_FROM = '2026-05-01';
   const ARCHIVE_FROM = '2004-01-01';
   const targetInstitutionTypes = new Set(['police', 'police_lab', 'prosecution', 'ministry', 'executive_office']);
