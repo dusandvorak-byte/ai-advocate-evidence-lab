@@ -2,38 +2,66 @@ import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 
 const articlePath = 'web/zpravy/04082026-010.html';
 const dataDir = 'web/data';
+const listinyDir = 'web/listiny';
 const registrySource = 'project-memory/documents-2026.json';
 const institutionsSource = 'project-memory/institutions.json';
 const registryTarget = `${dataDir}/documents-2026.json`;
 const institutionsTarget = `${dataDir}/institutions.json`;
 const scriptTag = '<script src="document-chronology.js" defer></script>';
+const targetInstitutionTypes = new Set(['police', 'police_lab', 'prosecution', 'ministry', 'executive_office']);
+
+const escapeHtml = value => String(value ?? '')
+  .replaceAll('&', '&amp;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;')
+  .replaceAll('"', '&quot;')
+  .replaceAll("'", '&#39;');
+
+const formatDate = value => {
+  if (!value) return 'datum neuvedeno';
+  const [year, month, day] = value.split('-');
+  return `${Number(day)}. ${Number(month)}. ${year}`;
+};
 
 await mkdir(dataDir, { recursive: true });
+await mkdir(listinyDir, { recursive: true });
 await copyFile(registrySource, registryTarget);
 await copyFile(institutionsSource, institutionsTarget);
 
 let article = await readFile(articlePath, 'utf8');
 if (!article.includes(scriptTag)) {
-  if (!article.includes('</body>')) {
-    throw new Error(`${articlePath} nemá uzavírací značku </body>`);
-  }
+  if (!article.includes('</body>')) throw new Error(`${articlePath} nemá uzavírací značku </body>`);
   article = article.replace('</body>', `${scriptTag}</body>`);
   await writeFile(articlePath, article, 'utf8');
 }
 
 const registry = JSON.parse(await readFile(registryTarget, 'utf8'));
-if (!Array.isArray(registry.documents)) {
-  throw new Error('Rejstřík documents-2026.json neobsahuje pole documents');
-}
+const institutions = JSON.parse(await readFile(institutionsTarget, 'utf8'));
+if (!Array.isArray(registry.documents)) throw new Error('Rejstřík documents-2026.json neobsahuje pole documents');
+if (!Array.isArray(institutions.institutions)) throw new Error('Rejstřík institutions.json neobsahuje pole institutions');
+
+const institutionMap = new Map(institutions.institutions.map(item => [item.id, item]));
 const ids = new Set();
+let generatedPages = 0;
+
 for (const documentItem of registry.documents) {
   if (!documentItem.id || !documentItem.issue_date || !documentItem.institution_id) {
     throw new Error(`Neúplný dokument v rejstříku: ${JSON.stringify(documentItem)}`);
   }
-  if (ids.has(documentItem.id)) {
-    throw new Error(`Duplicitní stabilní ID dokumentu: ${documentItem.id}`);
-  }
+  if (ids.has(documentItem.id)) throw new Error(`Duplicitní stabilní ID dokumentu: ${documentItem.id}`);
   ids.add(documentItem.id);
+
+  const institution = institutionMap.get(documentItem.institution_id);
+  if (!institution) throw new Error(`Neznámá instituce ${documentItem.institution_id} u ${documentItem.id}`);
+  if (!targetInstitutionTypes.has(institution.type)) continue;
+
+  const publicData = documentItem.public || {};
+  const directPdf = publicData.pdf
+    ? `<p><a href="../${escapeHtml(publicData.pdf)}" target="_blank" rel="noopener">Otevřít originální listinu v PDF</a></p>`
+    : '<p><b>Originální PDF:</b> dosud není fyzicky uloženo ve veřejném repozitáři. Tato stránka je stabilním veřejným evidenčním odkazem.</p>';
+  const html = `<!doctype html><html lang="cs"><head><base href="https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(institution.name)} · ${escapeHtml(documentItem.reference || documentItem.id)}</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="brand.css"></head><body><main class="article-shell"><article><header class="article-header"><p class="kicker">${escapeHtml(institution.name)} · EVIDENČNÍ LISTINA</p><h1>${escapeHtml(documentItem.reference || documentItem.user_title || documentItem.id)}</h1><p class="standfirst">${escapeHtml(documentItem.user_title || 'Evidenční záznam dokumentu')}</p></header><div class="article-body"><p><b>Datum dokumentu:</b> ${escapeHtml(formatDate(documentItem.issue_date))}</p><p><b>Instituce:</b> ${escapeHtml(institution.name)}</p><p><b>Stabilní ID:</b> <code>${escapeHtml(documentItem.id)}</code></p>${directPdf}<p><a href="zpravy/04082026-010.html#${escapeHtml(documentItem.id)}">Zpět do chronologie</a></p></div></article></main></body></html>`;
+  await writeFile(`${listinyDir}/${documentItem.id}.html`, html, 'utf8');
+  generatedPages += 1;
 }
 
-console.log(`Dynamická chronologie připravena: ${registry.documents.length} dokumentů.`);
+console.log(`Dynamická chronologie připravena: ${registry.documents.length} dokumentů; ${generatedPages} stabilních stránek policie, KPR, státních zastupitelství a ministerstev.`);
