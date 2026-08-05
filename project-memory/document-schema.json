@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/project-memory/document-schema.json",
+  "title": "Evidence Lab Document Record",
+  "type": "object",
+  "required": [
+    "id",
+    "user_title",
+    "document_date",
+    "received_date",
+    "institution_id",
+    "document_type",
+    "reference",
+    "summary",
+    "public_status",
+    "source"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^DOC-[A-Z0-9-]+$",
+      "description": "Stabilní interní identifikátor; nesmí se měnit při přečíslování chronologie."
+    },
+    "user_title": {
+      "type": "string",
+      "description": "Libovolný pracovní název uživatele, zachovaný beze změny."
+    },
+    "canonical_title": {
+      "type": "string",
+      "description": "Normalizovaný katalogový název vytvářený systémem."
+    },
+    "document_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Datum vydání dokumentu; hlavní klíč chronologického řazení."
+    },
+    "document_time": {
+      "type": ["string", "null"],
+      "pattern": "^([01]\\d|2[0-3]):[0-5]\\d(:[0-5]\\d)?$"
+    },
+    "received_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Datum přijetí nebo vložení do archivu; neovlivňuje primární pořadí."
+    },
+    "institution_id": {
+      "type": "string",
+      "description": "Odkaz na project-memory/institutions.json."
+    },
+    "recipient_institution_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "default": []
+    },
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "state_record",
+        "user_filing",
+        "ngo_filing",
+        "court_decision",
+        "prosecutor_notice",
+        "police_notice",
+        "ministry_notice",
+        "presidential_office_notice",
+        "information_request",
+        "information_decision",
+        "complaint",
+        "appeal",
+        "lawsuit",
+        "evidence_attachment",
+        "other"
+      ]
+    },
+    "reference": {
+      "type": "string",
+      "description": "Číslo jednací nebo hlavní identifikace dokumentu."
+    },
+    "case_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "default": []
+    },
+    "related_document_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "default": []
+    },
+    "topics": {
+      "type": "array",
+      "items": {"type": "string"},
+      "default": []
+    },
+    "summary": {
+      "type": "string"
+    },
+    "process_significance": {
+      "type": "string"
+    },
+    "stable_anchor": {
+      "type": "string",
+      "pattern": "^doc-[a-z0-9-]+$",
+      "description": "Stabilní HTML kotva nezávislá na pořadovém čísle."
+    },
+    "html_path": {
+      "type": ["string", "null"]
+    },
+    "pdf_path": {
+      "type": ["string", "null"]
+    },
+    "sha256": {
+      "type": ["string", "null"],
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "public_status": {
+      "type": "string",
+      "enum": [
+        "private",
+        "evidence_only",
+        "html_public",
+        "pdf_public_unverified",
+        "pdf_public_verified",
+        "superseded",
+        "withdrawn"
+      ]
+    },
+    "anonymization_policy": {
+      "type": "string",
+      "enum": [
+        "state_original_public",
+        "dusan_full",
+        "ngo_full",
+        "third_person_initials",
+        "private"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["uploaded_file", "repository", "email_attachment", "external_url", "manual_record"]
+        },
+        "original_filename": {"type": ["string", "null"]},
+        "repository_path": {"type": ["string", "null"]},
+        "external_url": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "sort_key": {
+      "type": "string",
+      "description": "Odvozený klíč: document_date + document_time + stabilní ID. Pořadové číslo se neukládá."
+    }
+  },
+  "additionalProperties": false
+}
