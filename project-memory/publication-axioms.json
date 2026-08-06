@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "updated_on": "2026-08-06",
+  "axioms": [
+    {
+      "id": "identity-author-organization",
+      "text": "Mgr. Dušan Dvořák a Cannabis is The Cure, z. s., se v jejich podáních, převodech a redakčních textech neanonymizují a uvádějí se v plném znění."
+    },
+    {
+      "id": "third-person-initials",
+      "text": "Jiná fyzická osoba se v převodech a redakčních textech označuje pouze iniciálami; originální státní listiny zůstávají zdrojovými dokumenty ve výslovně schváleném veřejném rozsahu."
+    },
+    {
+      "id": "procedural-boundary",
+      "text": "Existence podání, postoupení, prověřování, přezkumu nebo dohledu sama o sobě nepotvrzuje protiprávnost, vinu ani důvodnost nároku."
+    },
+    {
+      "id": "relevance-boundary",
+      "text": "Relevance vyjadřuje doloženou nebo pracovní vazbu dokumentu k případu, instituci, řízení, právní otázce či důkaznímu uzlu; není právním závěrem."
+    },
+    {
+      "id": "deadline-provenance",
+      "text": "Každá zveřejněná lhůta musí mít konkrétní zdroj a musí být označeno, zda jde o zákonnou lhůtu, lhůtu uvedenou institucí, procesní termín nebo redakční kontrolní datum."
+    },
+    {
+      "id": "unknown-document-boundary",
+      "text": "Neznámý, změněný nebo neověřený dokument nepřebírá skutkové ani právní závěry jiného dokumentu a vyžaduje samostatnou lidskou kontrolu."
+    },
+    {
+      "id": "publication-gates",
+      "text": "Veřejná publikace vyžaduje dohledatelný původ, kontrolu citací, kontrolu oprávnění ke zveřejnění, kontrolu ochrany jiných fyzických osob a lidskou právní či redakční revizi."
+    },
+    {
+      "id": "state-record-preservation",
+      "text": "Listiny státních zastupitelství, policie, ministerstev a Kanceláře prezidenta republiky se v potvrzeném veřejném rozsahu vedou jako aktivní zdrojové dokumenty s trvalým stabilním odkazem."
+    },
+    {
+      "id": "continuous-update",
+      "text": "Článek Státu lásky čas, Pavouk řízení a související evidenční mapa jsou průběžně aktualizovanou pamětí; nové dokumenty se přidávají do registru, nikoli ručním přepisem již vydaných seznamů."
+    },
+    {
+      "id": "source-first",
+      "text": "Každé konkrétní skutkové tvrzení, procesní vazba, lhůta, právní předpis nebo judikatura musí být dohledatelné ke konkrétnímu zdroji a stabilnímu identifikátoru."
+    }
+  ]
+}
