@@ -28,6 +28,7 @@ const run = script => new Promise((resolve, reject) => {
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 
 await run('scripts/validate-architecture.mjs');
+await run('scripts/audit-registries.mjs');
 await run('scripts/reconcile-public-pdfs.mjs');
 
 const documentsRegistry = await readJson(source.documents);
@@ -39,6 +40,7 @@ const goalsRegistry = await readJson(source.goals);
 const operationsRegistry = await readJson(source.operations);
 const generatorsRegistry = await readJson(source.generators);
 const privacyRegistry = await readJson(source.privacy);
+const registryAudit = await readJson(`${output.data}/registry-audit.json`);
 if (!Array.isArray(documentsRegistry.documents)) throw new Error('documents-2026.json neobsahuje pole documents');
 if (!Array.isArray(institutionsRegistry.institutions)) throw new Error('institutions.json neobsahuje pole institutions');
 if (!Array.isArray(deadlinesRegistry.deadlines)) throw new Error('deadlines.json neobsahuje pole deadlines');
@@ -48,6 +50,7 @@ if (goalsRegistry.status !== 'binding') throw new Error('Cíle projektu nejsou z
 if (!operationsRegistry.clock?.no_parallel_clock_registry) throw new Error('Časový systém není jednotný');
 if (generatorsRegistry.single_public_build_entrypoint !== 'scripts/build-site.mjs') throw new Error('Registr generátorů nemá jediný veřejný build');
 if (privacyRegistry.status !== 'binding' || privacyRegistry.alliance_organizations?.length !== 5) throw new Error('Anonymizační výjimky nejsou úplné');
+if (registryAudit.hard_error_count !== 0) throw new Error('Audit kanonických registrů obsahuje tvrdé chyby');
 
 await run('scripts/build-dynamic-chronology.mjs');
 await run('scripts/finalize-homepage.mjs');
@@ -101,15 +104,19 @@ const manifest = {
   privacy_full_name_person: privacyRegistry.persons[0].name,
   privacy_alliance_organizations_count: privacyRegistry.alliance_organizations.length,
   operational_state: 'data/operations-state.json',
+  registry_audit: 'data/registry-audit.json',
   pdf_reconciliation_report: 'data/pdf-reconciliation-report.json',
   counts: {
     documents: documentsRegistry.documents.length,
     institutions: institutionsRegistry.institutions.length,
+    cases: registryAudit.counts.cases,
     deadlines: deadlinesRegistry.deadlines.length,
     chronology_items: chronologyCount,
     public_pdf_links: publicPdfLinks.length,
     physical_pdf_files: documentsRegistry.reconciliation?.physical_pdf_count ?? null,
     unresolved_pdf_matches: documentsRegistry.reconciliation?.unresolved_count ?? null,
+    registry_hard_errors: registryAudit.hard_error_count,
+    registry_human_review_required: registryAudit.human_review_count,
     state_public_submissions: operationalState.counters.state_and_public_institutions,
     our_submissions: operationalState.counters.our_submissions,
     unclassified_submission_side: operationalState.counters.unclassified,
@@ -124,6 +131,7 @@ const manifest = {
     two_derived_submission_counters: true,
     counter_values_are_derived_not_manual: true,
     unclassified_documents_are_not_guessed: true,
+    canonical_registry_audit: true,
     single_public_build_entrypoint: true,
     five_alliance_privacy_exemptions: true,
     lawful_third_person_anonymization: true,
@@ -135,4 +143,4 @@ const manifest = {
   public_pdf_links: publicPdfLinks
 };
 await writeFile(`${output.data}/build-manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
-console.log(`Evidence Lab 2.0 build: ${chronologyCount} položek; stát/veřejné instituce ${operationalState.counters.state_and_public_institutions}; naše podání ${operationalState.counters.our_submissions}; nezařazené ${operationalState.counters.unclassified}; ${publicPdfLinks.length} aktivních PDF.`);
+console.log(`Evidence Lab 2.0 build: audit 0 tvrdých chyb / ${registryAudit.human_review_count} vazeb ke kontrole; stát/veřejné instituce ${operationalState.counters.state_and_public_institutions}; naše podání ${operationalState.counters.our_submissions}; nezařazené ${operationalState.counters.unclassified}; ${publicPdfLinks.length} aktivních PDF.`);
