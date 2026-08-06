@@ -1,0 +1,44 @@
+name: Validate Evidence Lab 2.0
+
+on:
+  push:
+    branches: [agent/evidence-lab-2-architecture]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '24'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Validate architecture and binding goals
+        run: node scripts/validate-architecture.mjs
+      - name: Build complete site without publishing
+        run: node scripts/build-site.mjs
+      - name: Verify Evidence Lab 2.0 manifest
+        run: |
+          set -euo pipefail
+          test -f web/data/build-manifest.json
+          grep -q '"schema_version": "2.2"' web/data/build-manifest.json
+          grep -q '"single_clock_system": true' web/data/build-manifest.json
+          grep -q '"two_derived_submission_counters": true' web/data/build-manifest.json
+          grep -q '"internal_knowledge_not_auto_published": true' web/data/build-manifest.json
+          test -f web/zpravy/04082026-010.html
+          ! grep -qi 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
+          ! grep -qi 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
+      - name: Upload validated site for review only
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-lab-2-validated-site
+          path: web
