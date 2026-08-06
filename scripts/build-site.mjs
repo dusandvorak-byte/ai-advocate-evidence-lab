@@ -15,13 +15,16 @@ const output = {
 const correctTitle = 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?';
 const wrongTitle = 'Pavouk český křižák z Branibor';
 
-const readJson = async path => JSON.parse(await readFile(path, 'utf8'));
-const exists = async path => access(path).then(() => true).catch(() => false);
-const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^web\//, '');
+const readJson = async file => JSON.parse(await readFile(file, 'utf8'));
+const exists = async file => access(file).then(() => true).catch(() => false);
+const publicPath = value => String(value || '')
+  .replace(/^\.\//, '')
+  .replace(/^\/+/, '')
+  .replace(/^web\//, '');
 const run = script => new Promise((resolve, reject) => {
-  const process = spawn(globalThis.process.execPath, [script], { stdio: 'inherit' });
-  process.on('error', reject);
-  process.on('exit', code => code === 0 ? resolve() : reject(new Error(`${script} skončil kódem ${code}`)));
+  const child = spawn(globalThis.process.execPath, [script], { stdio: 'inherit' });
+  child.on('error', reject);
+  child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${script} skončil kódem ${code}`)));
 });
 
 const documentsRegistry = await readJson(source.documents);
@@ -31,7 +34,9 @@ const axiomsRegistry = await readJson(source.axioms);
 
 if (!Array.isArray(documentsRegistry.documents)) throw new Error('documents-2026.json neobsahuje pole documents');
 if (!Array.isArray(deadlinesRegistry.deadlines)) throw new Error('deadlines.json neobsahuje pole deadlines');
-if (axiomsRegistry.status !== 'binding' || !Array.isArray(axiomsRegistry.axioms)) throw new Error('publication-axioms.json není závazný registr axiomů');
+if (axiomsRegistry.status !== 'binding' || !Array.isArray(axiomsRegistry.axioms)) {
+  throw new Error('publication-axioms.json není závazný registr axiomů');
+}
 
 const institutions = Array.isArray(institutionsRegistry.institutions)
   ? institutionsRegistry.institutions
@@ -46,28 +51,31 @@ for (const item of documentsRegistry.documents) {
   if (documentIds.has(item.id)) throw new Error(`Duplicitní stabilní ID: ${item.id}`);
   documentIds.add(item.id);
   if (!institutionIds.has(item.institution_id)) throw new Error(`Neznámá instituce ${item.institution_id} u ${item.id}`);
-  for (const field of ['html', 'pdf']) {
-    const value = item.public?.[field];
-    if (typeof value === 'string' && value.startsWith('web/')) {
-      throw new Error(`Veřejná cesta nesmí začínat web/: ${item.id} → ${value}`);
-    }
-  }
+
   const pdf = item.public?.pdf;
   if (pdf && !/^https?:\/\//i.test(pdf)) {
     const local = `web/${publicPath(pdf)}`;
     if (!(await exists(local))) throw new Error(`Registr odkazuje na chybějící PDF: ${item.id} → ${local}`);
     const bytes = await readFile(local);
-    if (bytes.subarray(0, 5).toString('ascii') !== '%PDF-') throw new Error(`Neplatný PDF podpis: ${item.id} → ${local}`);
+    if (bytes.subarray(0, 5).toString('ascii') !== '%PDF-') {
+      throw new Error(`Neplatný PDF podpis: ${item.id} → ${local}`);
+    }
   }
 }
 
 for (const item of deadlinesRegistry.deadlines) {
-  if (!item.id || !item.trigger_document_id || !item.responsible_institution_id) throw new Error(`Neúplná lhůta: ${JSON.stringify(item)}`);
-  if (!documentIds.has(item.trigger_document_id)) throw new Error(`Lhůta ${item.id} odkazuje na neexistující dokument ${item.trigger_document_id}`);
-  if (item.response_document_id && !documentIds.has(item.response_document_id)) throw new Error(`Lhůta ${item.id} odkazuje na neexistující odpověď ${item.response_document_id}`);
+  if (!item.id || !item.trigger_document_id || !item.responsible_institution_id) {
+    throw new Error(`Neúplná lhůta: ${JSON.stringify(item)}`);
+  }
+  if (!documentIds.has(item.trigger_document_id)) {
+    throw new Error(`Lhůta ${item.id} odkazuje na neexistující dokument ${item.trigger_document_id}`);
+  }
+  if (item.response_document_id && !documentIds.has(item.response_document_id)) {
+    throw new Error(`Lhůta ${item.id} odkazuje na neexistující odpověď ${item.response_document_id}`);
+  }
 }
 
-// Jediné pořadí produkčního sestavení. Starší skripty jsou pouze podřízené renderery.
+// Jediný povolený produkční build. Podřízené skripty už workflow nespouští samostatně.
 await run('scripts/build-dynamic-chronology.mjs');
 await run('scripts/finalize-homepage.mjs');
 await run('scripts/build-deadlines.mjs');
@@ -91,13 +99,18 @@ if (!article.includes(correctTitle)) throw new Error('Článek neobsahuje správ
 if (article.includes(wrongTitle)) throw new Error('Článek obsahuje chybný název s křižákem z Branibor');
 if (!article.includes('id="chronologie-seznam"')) throw new Error('Článek neobsahuje statickou chronologii');
 if (/aktivní originály/i.test(article)) throw new Error('Článek obsahuje samostatný blok aktivních originálů');
-if (/href=["']web\/documents\//i.test(article)) throw new Error('Článek obsahuje repozitářský prefix web/ ve veřejném odkazu');
+if (/href=["']web\/documents\//i.test(article)) throw new Error('Ve veřejném HTML zůstal prefix web/documents/');
 
 const expectedChronology = documentsRegistry.documents.filter(item => item.issue_date >= '2026-05-01').length;
 const chronologyCount = (article.match(/<li id="doc-[^"]*"/g) || []).length;
-if (chronologyCount !== expectedChronology) throw new Error(`Chronologie má ${chronologyCount} položek, registr vyžaduje ${expectedChronology}`);
+if (chronologyCount !== expectedChronology) {
+  throw new Error(`Chronologie má ${chronologyCount} položek, registr vyžaduje ${expectedChronology}`);
+}
 
-const hrefs = [...new Set([...home.matchAll(/href="([^"]+)"/g), ...article.matchAll(/href="([^"]+)"/g)].map(match => match[1]))];
+const hrefs = [...new Set([
+  ...home.matchAll(/href="([^"]+)"/g),
+  ...article.matchAll(/href="([^"]+)"/g)
+].map(match => match[1]))];
 for (const href of hrefs) {
   const clean = href.split('#')[0].split('?')[0];
   if (!clean || /^(?:https?:|mailto:|javascript:|data:)/i.test(clean)) continue;
@@ -105,7 +118,9 @@ for (const href of hrefs) {
   if (!(await exists(target))) throw new Error(`Mrtvý lokální odkaz: ${href} → ${target}`);
   if (/\.pdf$/i.test(target)) {
     const bytes = await readFile(target);
-    if (bytes.subarray(0, 5).toString('ascii') !== '%PDF-') throw new Error(`Odkazovaný soubor není PDF: ${href}`);
+    if (bytes.subarray(0, 5).toString('ascii') !== '%PDF-') {
+      throw new Error(`Odkazovaný soubor není PDF: ${href}`);
+    }
   }
 }
 
@@ -115,7 +130,10 @@ await copyFile(source.institutions, `${output.data}/institutions.json`);
 await copyFile(source.deadlines, `${output.data}/deadlines-source.json`);
 await copyFile(source.axioms, `${output.data}/publication-axioms.json`);
 
-const publicPdfLinks = [...new Set(documentsRegistry.documents.map(item => item.public?.pdf).filter(Boolean).map(publicPath))];
+const publicPdfLinks = [...new Set(documentsRegistry.documents
+  .map(item => item.public?.pdf)
+  .filter(Boolean)
+  .map(publicPath))];
 const manifest = {
   schema_version: '2.0',
   generated_at: new Date().toISOString(),
