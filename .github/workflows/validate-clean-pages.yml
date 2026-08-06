@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 env:
   NODE_VERSION: '24'
@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout test branch
         uses: actions/checkout@v4
+        with:
+          ref: agent/clean-pages-architecture
 
       - name: Use Node.js 24
         uses: actions/setup-node@v4
@@ -90,6 +92,24 @@ jobs:
           if (!/href=["'][^"']+\.pdf["']/i.test(html)) throw new Error('NSZ evidence page has no active PDF link');
           console.log(`NSZ PDF linked as ${doc.public.pdf}`);
           NODE
+
+      - name: Commit validated outputs to test branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add project-memory/documents-2026.json \
+                  project-memory/pdf-reconciliation-report.json \
+                  web/zpravy/04082026-010.html \
+                  web/listiny \
+                  web/data
+          if git diff --cached --quiet; then
+            echo "Validated outputs are already committed."
+          else
+            git commit -m "Uložit ověřený registr PDF a vygenerovaný web [skip ci]"
+            git push origin HEAD:agent/clean-pages-architecture
+          fi
 
       - name: Upload validated static site artifact
         uses: actions/upload-artifact@v4
