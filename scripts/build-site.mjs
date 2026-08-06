@@ -8,7 +8,9 @@ const source = {
   axioms: 'project-memory/publication-axioms.json',
   architecture: 'project-memory/architecture.json',
   goals: 'project-memory/project-goals.json',
-  operations: 'project-memory/operations-ledger.json'
+  operations: 'project-memory/operations-ledger.json',
+  generators: 'project-memory/generators.json',
+  privacy: 'project-memory/privacy-exempt-entities.json'
 };
 const output = {
   article: 'web/zpravy/04082026-010.html',
@@ -25,12 +27,7 @@ const run = script => new Promise((resolve, reject) => {
 });
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 
-// Evidence Lab 2.0: před jakoukoli změnou veřejného výstupu ověřit,
-// že zůstaly zachovány cíle projektu, jediný časový systém, dvě počítadla,
-// anonymizační politika a oddělení interní znalosti od publikace.
 await run('scripts/validate-architecture.mjs');
-
-// Propojit pouze fyzicky ověřená PDF s kanonickým registrem.
 await run('scripts/reconcile-public-pdfs.mjs');
 
 const documentsRegistry = await readJson(source.documents);
@@ -40,6 +37,8 @@ const axiomsRegistry = await readJson(source.axioms);
 const architectureRegistry = await readJson(source.architecture);
 const goalsRegistry = await readJson(source.goals);
 const operationsRegistry = await readJson(source.operations);
+const generatorsRegistry = await readJson(source.generators);
+const privacyRegistry = await readJson(source.privacy);
 if (!Array.isArray(documentsRegistry.documents)) throw new Error('documents-2026.json neobsahuje pole documents');
 if (!Array.isArray(institutionsRegistry.institutions)) throw new Error('institutions.json neobsahuje pole institutions');
 if (!Array.isArray(deadlinesRegistry.deadlines)) throw new Error('deadlines.json neobsahuje pole deadlines');
@@ -47,6 +46,8 @@ if (axiomsRegistry.status !== 'binding' || !Array.isArray(axiomsRegistry.axioms)
 if (architectureRegistry.single_build_entrypoint !== 'scripts/build-site.mjs') throw new Error('Není použit jediný build Evidence Lab 2.0');
 if (goalsRegistry.status !== 'binding') throw new Error('Cíle projektu nejsou závazné');
 if (!operationsRegistry.clock?.no_parallel_clock_registry) throw new Error('Časový systém není jednotný');
+if (generatorsRegistry.single_public_build_entrypoint !== 'scripts/build-site.mjs') throw new Error('Registr generátorů nemá jediný veřejný build');
+if (privacyRegistry.status !== 'binding' || privacyRegistry.alliance_organizations?.length !== 5) throw new Error('Anonymizační výjimky nejsou úplné');
 
 await run('scripts/build-dynamic-chronology.mjs');
 await run('scripts/finalize-homepage.mjs');
@@ -89,6 +90,9 @@ const manifest = {
   canonical_sources: source,
   architecture_version: architectureRegistry.schema_version,
   project_goals_count: goalsRegistry.goals.length,
+  registered_subgenerators_count: generatorsRegistry.subgenerators.length,
+  privacy_full_name_person: privacyRegistry.persons[0].name,
+  privacy_alliance_organizations_count: privacyRegistry.alliance_organizations.length,
   pdf_reconciliation_report: 'data/pdf-reconciliation-report.json',
   counts: {
     documents: documentsRegistry.documents.length,
@@ -106,6 +110,9 @@ const manifest = {
     deadline_and_inactivity_tracking: true,
     single_clock_system: true,
     two_derived_submission_counters: true,
+    single_public_build_entrypoint: true,
+    five_alliance_privacy_exemptions: true,
+    lawful_third_person_anonymization: true,
     interactive_document_case_law_statute_memory: true,
     internal_knowledge_not_auto_published: true,
     axioms_enforced: axiomsRegistry.axioms.map(item => item.id),
@@ -114,4 +121,4 @@ const manifest = {
   public_pdf_links: publicPdfLinks
 };
 await writeFile(`${output.data}/build-manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
-console.log(`Evidence Lab 2.0 build: ${chronologyCount} položek, ${publicPdfLinks.length} aktivních PDF, ${goalsRegistry.goals.length} zachovaných cílů.`);
+console.log(`Evidence Lab 2.0 build: ${chronologyCount} položek, ${publicPdfLinks.length} aktivních PDF, ${goalsRegistry.goals.length} cílů, ${generatorsRegistry.subgenerators.length} podgenerátorů pod jediným buildem.`);
