@@ -1,4 +1,4 @@
-name: Validate Evidence Lab 2.0
+name: Ověřit Evidence Lab 2.0
 
 on:
   push:
@@ -15,30 +15,32 @@ env:
 
 jobs:
   validate:
+    name: Ověřit architekturu a sestavit web bez publikace
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Načíst větev
+        uses: actions/checkout@v4
+      - name: Použít Node.js 24
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Validate architecture and binding goals
-        run: node scripts/validate-architecture.mjs
-      - name: Build complete site without publishing
+      - name: Spustit jediný kanonický build
         run: node scripts/build-site.mjs
-      - name: Verify Evidence Lab 2.0 manifest
+      - name: Ověřit manifest Evidence Lab 2.0
         run: |
           set -euo pipefail
           test -f web/data/build-manifest.json
           grep -q '"schema_version": "2.2"' web/data/build-manifest.json
+          grep -q '"build_entrypoint": "scripts/build-site.mjs"' web/data/build-manifest.json
           grep -q '"single_clock_system": true' web/data/build-manifest.json
           grep -q '"two_derived_submission_counters": true' web/data/build-manifest.json
           grep -q '"internal_knowledge_not_auto_published": true' web/data/build-manifest.json
           test -f web/zpravy/04082026-010.html
           ! grep -qi 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
           ! grep -qi 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
-      - name: Upload validated site for review only
+      - name: Uložit kontrolní artefakt bez publikace
         uses: actions/upload-artifact@v4
         with:
-          name: evidence-lab-2-validated-site
+          name: evidence-lab-2-kontrolni-web
           path: web
