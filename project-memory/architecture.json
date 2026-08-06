@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0",
+  "status": "binding",
+  "single_build_entrypoint": "scripts/build-site.mjs",
+  "canonical_registries": {
+    "documents": "project-memory/documents-2026.json",
+    "institutions": "project-memory/institutions.json",
+    "cases": "project-memory/cases.json",
+    "deadlines": "project-memory/deadlines.json",
+    "operations": "project-memory/operations-ledger.json",
+    "privacy_exceptions": "project-memory/privacy-exempt-entities.json",
+    "axioms": "project-memory/publication-axioms.json",
+    "goals": "project-memory/project-goals.json",
+    "knowledge_sources": "project-memory/knowledge-sources.json"
+  },
+  "public_output_root": "web",
+  "internal_knowledge_is_not_public_by_default": true,
+  "manual_counters_forbidden": true,
+  "parallel_deadline_systems_forbidden": true,
+  "publication_requires_successful_validation": true,
+  "failed_build_keeps_last_verified_public_version": true,
+  "extension_policy": "Instituce, typy dokumentů a funkce se rozšiřují v kanonických registrech bez odstranění schválených cílů."
+}
