@@ -1049,13 +1049,13 @@
     }
   ],
   "reconciliation": {
-    "updated_at": "2026-08-06T15:03:25.618Z",
+    "updated_at": "2026-08-06T15:05:40.139Z",
     "source_manifests": [
       "project-memory/report-04082026-010-sources.json"
     ],
     "physical_pdf_count": 35,
     "linked_pdf_count": 15,
-    "newly_linked_count": 13,
+    "newly_linked_count": 0,
     "unresolved_count": 0
   }
 }
