@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "status": "binding",
   "single_public_build_entrypoint": "scripts/build-site.mjs",
   "rules": {
@@ -9,37 +9,19 @@
     "generated_outputs_must_be_reproducible_from_canonical_registries": true
   },
   "subgenerators": [
-    {
-      "path": "scripts/validate-architecture.mjs",
-      "role": "preflight_validation",
-      "allowed_caller": "scripts/build-site.mjs"
-    },
-    {
-      "path": "scripts/reconcile-public-pdfs.mjs",
-      "role": "pdf_reconciliation",
-      "allowed_caller": "scripts/build-site.mjs"
-    },
-    {
-      "path": "scripts/build-dynamic-chronology.mjs",
-      "role": "chronology_and_evidence_pages",
-      "allowed_caller": "scripts/build-site.mjs"
-    },
-    {
-      "path": "scripts/finalize-homepage.mjs",
-      "role": "homepage_generation",
-      "allowed_caller": "scripts/build-site.mjs"
-    },
-    {
-      "path": "scripts/build-deadlines.mjs",
-      "role": "deadline_view_generation",
-      "allowed_caller": "scripts/build-site.mjs"
-    }
+    {"path":"scripts/validate-architecture.mjs","role":"preflight_validation","allowed_caller":"scripts/build-site.mjs"},
+    {"path":"scripts/reconcile-public-pdfs.mjs","role":"pdf_reconciliation","allowed_caller":"scripts/build-site.mjs"},
+    {"path":"scripts/build-dynamic-chronology.mjs","role":"chronology_and_evidence_pages","allowed_caller":"scripts/build-site.mjs"},
+    {"path":"scripts/finalize-homepage.mjs","role":"homepage_generation","allowed_caller":"scripts/build-site.mjs"},
+    {"path":"scripts/build-deadlines.mjs","role":"deadline_view_generation","allowed_caller":"scripts/build-site.mjs"},
+    {"path":"scripts/build-operational-state.mjs","role":"derived_counters_and_deadline_state","allowed_caller":"scripts/build-site.mjs"}
   ],
   "canonical_generated_outputs": [
     "web/index.html",
     "web/zpravy/04082026-010.html",
     "web/listiny/",
     "web/data/build-manifest.json",
-    "web/data/pdf-reconciliation-report.json"
+    "web/data/pdf-reconciliation-report.json",
+    "web/data/operations-state.json"
   ]
 }
