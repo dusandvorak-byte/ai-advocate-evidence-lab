@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "status": "binding",
+  "updated_at": "2026-08-06",
+  "axioms": [
+    {
+      "id": "AX-ANON-001",
+      "title": "Dušan Dvořák a aliance se neanonymizují",
+      "rule": "Mgr. Dušan Dvořák a Cannabis is The Cure, z. s., se v podáních, převodech, článcích a evidenčních záznamech uvádějí v plném znění."
+    },
+    {
+      "id": "AX-ANON-002",
+      "title": "Jiné fyzické osoby pouze iniciálami",
+      "rule": "Jiná fyzická osoba než Mgr. Dušan Dvořák se v redakčních převodech a odvozených textech označuje pouze iniciálami, pokud není zveřejnění plného jména samostatně doloženo a schváleno."
+    },
+    {
+      "id": "AX-SOURCE-001",
+      "title": "Originální státní listiny zůstávají zdrojem",
+      "rule": "Originální listiny státních institucí se zachovávají a přímo odkazují ve výslovně schváleném veřejném rozsahu; jejich obsah se nepřepisuje za účelem změny významu."
+    },
+    {
+      "id": "AX-ACTIVE-001",
+      "title": "Aktivní institucionální větve",
+      "rule": "Dokumenty Policie České republiky, státních zastupitelství, ministerstev vnitra, spravedlnosti a zdravotnictví a Kanceláře prezidenta republiky se vedou jako aktivní procesní větve, pokud registr výslovně neuvádí jejich ukončení."
+    },
+    {
+      "id": "AX-EVIDENCE-001",
+      "title": "Důkazní hranice",
+      "rule": "Evidence potvrzuje existenci, původ, čas a procesní vazbu dokumentu. Sama neurčuje nezákonnost, vinu ani výsledek řízení."
+    },
+    {
+      "id": "AX-TRUTH-001",
+      "title": "Dokončení se nesmí předstírat",
+      "rule": "Web ani automatizace nesmí označit nasazení nebo odkaz za ověřený, dokud nebyl ověřen živý veřejný výstup a každý publikovaný souborový odkaz."
+    },
+    {
+      "id": "AX-ORDER-001",
+      "title": "Chronologie bez ručně uložených pořadových čísel",
+      "rule": "Pořadí se vždy odvozuje z data dokumentu, data přijetí a stabilního ID. Pořadové číslo není identitou dokumentu."
+    },
+    {
+      "id": "AX-CAPABILITY-001",
+      "title": "Rozšiřitelná důkazní paměť",
+      "rule": "Architektura musí zachovat možnost přijímat dokumenty z uploadu i z externího HTTPS zdroje, počítat jejich otisk, určovat pracovní relevanci, evidovat lhůty a propojovat dokumenty s judikaturou, zákony, řízeními a ověřenou projektovou pamětí."
+    }
+  ]
+}
