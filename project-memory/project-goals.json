@@ -1,6 +1,7 @@
 {
   "schema_version": "2.0",
   "status": "binding",
+  "last_reviewed_on": "2026-08-06",
   "principle": "Žádná technická změna nesmí omezit, odstranit ani předstírat splnění schváleného cíle projektu.",
   "goals": [
     "person_owned_auditable_memory",
