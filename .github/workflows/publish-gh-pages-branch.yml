@@ -46,15 +46,22 @@ jobs:
           test -f web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf
           test "$(head -c 5 web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf)" = '%PDF-'
 
-      - name: Prepare branch root
+      - name: Prepare branch root and legacy /web compatibility copy
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf /tmp/verified-site
-          mkdir -p /tmp/verified-site
+          rm -rf /tmp/verified-site /tmp/verified-site-copy
+          mkdir -p /tmp/verified-site /tmp/verified-site-copy
           cp -a web/. /tmp/verified-site/
+          cp -a web/. /tmp/verified-site-copy/
+          mkdir -p /tmp/verified-site/web
+          cp -a /tmp/verified-site-copy/. /tmp/verified-site/web/
           touch /tmp/verified-site/.nojekyll
+          touch /tmp/verified-site/web/.nojekyll
           printf '%s\n' "$GITHUB_SHA" > /tmp/verified-site/.source-commit
+          printf '%s\n' "$GITHUB_SHA" > /tmp/verified-site/web/.source-commit
+          test -f /tmp/verified-site/documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05.pdf
+          test -f /tmp/verified-site/web/documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05.pdf
 
       - name: Publish verified files to gh-pages branch
         shell: bash
@@ -72,4 +79,4 @@ jobs:
       - name: Summary
         run: |
           echo "Verified site published to branch gh-pages."
-          echo "Set Settings > Pages > Source to Deploy from a branch, branch gh-pages, folder /(root)."
+          echo "Both root URLs and legacy /web/ URLs are present."
