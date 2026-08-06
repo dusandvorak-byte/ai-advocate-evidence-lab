@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "description": "Rejstřík procesních lhůt navázaných na dokumenty a opravné prostředky.",
+  "status_values": [
+    "running",
+    "answered_on_time",
+    "answered_late",
+    "overdue_unanswered",
+    "closed_without_deadline"
+  ],
+  "deadlines": [],
+  "generated_at": "2026-08-06T15:03:25.747Z"
+}
