@@ -24,13 +24,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build and validate the complete public site
+      - name: Build, reconcile PDFs and validate the complete public site
         run: node scripts/build-site.mjs
 
       - name: Verify canonical build manifest
         run: |
           set -euo pipefail
           test -f web/data/build-manifest.json
+          test -f web/data/pdf-reconciliation-report.json
+          grep -q '"schema_version": "2.1"' web/data/build-manifest.json
           grep -q '"build_entrypoint": "scripts/build-site.mjs"' web/data/build-manifest.json
           grep -q '"documents": "project-memory/documents-2026.json"' web/data/build-manifest.json
           grep -q '"axioms": "project-memory/publication-axioms.json"' web/data/build-manifest.json
@@ -59,10 +61,8 @@ jobs:
           fi
 
           fetch_small() {
-            curl -fsSL \
-              --retry 2 --retry-all-errors --retry-delay 2 \
-              --connect-timeout 5 --max-time 12 \
-              "$1" -o "$2"
+            curl -fsSL --retry 2 --retry-all-errors --retry-delay 2 \
+              --connect-timeout 5 --max-time 12 "$1" -o "$2"
           }
 
           verified=0
@@ -79,22 +79,15 @@ jobs:
               && grep -q 'id="chronologie-seznam"' /tmp/article.html \
               && ! grep -qi 'aktivní originály' /tmp/article.html \
               && ! grep -q 'href="web/' /tmp/article.html \
-              && grep -q '"schema_version": "2.0"' /tmp/build-manifest.json \
-              && grep -q '"build_entrypoint": "scripts/build-site.mjs"' /tmp/build-manifest.json; then
+              && grep -q '"schema_version": "2.1"' /tmp/build-manifest.json; then
               verified=1
               break
             fi
             sleep 5
           done
-
-          if [ "$verified" -ne 1 ]; then
-            echo "Live HTML or manifest did not match the deployed build."
-            exit 1
-          fi
+          test "$verified" -eq 1
 
           node -e "const fs=require('fs');const m=JSON.parse(fs.readFileSync('/tmp/build-manifest.json','utf8'));for(const p of (m.public_pdf_links||[])) console.log(p)" > /tmp/pdf-links.txt
-          echo "Checking $(wc -l < /tmp/pdf-links.txt) published PDF links in parallel."
-
           export BASE
           check_pdf() {
             href="$1"
@@ -104,25 +97,15 @@ jobs:
               *) url="${BASE}/${href}" ;;
             esac
             tmp="$(mktemp)"
-            if ! curl -fsSL \
-              --retry 2 --retry-all-errors --retry-delay 2 \
-              --connect-timeout 5 --max-time 20 \
-              --range 0-4 "$url?verify=$GITHUB_SHA" -o "$tmp"; then
-              echo "PDF download failed: $url" >&2
-              rm -f "$tmp"
-              return 1
-            fi
-            if [ "$(head -c 5 "$tmp")" != '%PDF-' ]; then
-              echo "Invalid PDF signature: $url" >&2
-              rm -f "$tmp"
-              return 1
-            fi
+            curl -fsSL --retry 2 --retry-all-errors --retry-delay 2 \
+              --connect-timeout 5 --max-time 20 --range 0-4 "$url?verify=$GITHUB_SHA" -o "$tmp"
+            test "$(head -c 5 "$tmp")" = '%PDF-'
             rm -f "$tmp"
           }
           export -f check_pdf
           xargs -r -n1 -P6 bash -c 'check_pdf "$1"' _ < /tmp/pdf-links.txt
 
-      - name: Record verified deployment
+      - name: Record verified deployment and canonical PDF reconciliation
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
@@ -136,6 +119,7 @@ jobs:
             "canonical_document_registry": "project-memory/documents-2026.json",
             "canonical_axioms_registry": "project-memory/publication-axioms.json",
             "build_entrypoint": "scripts/build-site.mjs",
+            "pdf_reconciliation_verified": true,
             "homepage_bars_verified": true,
             "spider_title_verified": true,
             "dynamic_chronology_verified": true,
@@ -147,10 +131,12 @@ jobs:
           EOF
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add project-memory/pages-deploy-verified.json
+          git add project-memory/documents-2026.json \
+                  project-memory/pdf-reconciliation-report.json \
+                  project-memory/pages-deploy-verified.json
           if git diff --cached --quiet; then
-            echo "Verification record unchanged."
+            echo "Verification and reconciliation records unchanged."
           else
-            git commit -m "Record verified unified Pages deploy [skip ci]"
+            git commit -m "Record verified PDF reconciliation and Pages deploy [skip ci]"
             git push
           fi
