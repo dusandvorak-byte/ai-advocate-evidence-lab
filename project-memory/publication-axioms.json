@@ -1,15 +1,27 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "status": "binding",
   "updated_on": "2026-08-06",
   "axioms": [
     {
-      "id": "identity-author-organization",
-      "text": "Mgr. Dušan Dvořák a Cannabis is The Cure, z. s., se v jejich podáních, převodech a redakčních textech neanonymizují a uvádějí se v plném znění."
+      "id": "identity-author-alliance",
+      "text": "Mgr. Dušan Dvořák a přesně pět uživatelem potvrzených nevládních organizací aliance Cannabis is The Cure vedených v project-memory/privacy-exempt-entities.json se v jejich podáních, převodech a redakčních textech neanonymizují a uvádějí se v plném znění."
     },
     {
-      "id": "third-person-initials",
-      "text": "Jiná fyzická osoba se v převodech a redakčních textech označuje pouze iniciálami; originální státní listiny zůstávají zdrojovými dokumenty ve výslovně schváleném veřejném rozsahu."
+      "id": "third-person-lawful-anonymization",
+      "text": "Jiná fyzická osoba se zveřejňuje pouze v rozsahu dovoleném zákonem. Pokud ji uživatel označil iniciálami, iniciály se zachovají. Pokud ji iniciálami neoznačil, musí před publikací proběhnout zákonná anonymizace a lidská kontrola. Originální státní listiny zůstávají zdrojovými dokumenty pouze ve výslovně schváleném veřejném rozsahu."
+    },
+    {
+      "id": "single-clock-and-deadline-system",
+      "text": "Existuje pouze jeden kanonický počítačový systém času a procesních lhůt definovaný v project-memory/operations-ledger.json a project-memory/deadlines.json. Paralelní ruční nebo odvozené registry lhůt jsou zakázány."
+    },
+    {
+      "id": "two-derived-submission-counters",
+      "text": "Existují pouze dvě automaticky odvozená počítadla: jedno pro podání a listiny státních orgánů a veřejných institucí a jedno pro naše podání. Obě se počítají výhradně z kanonického registru dokumentů a nesmějí mít ručně udržovanou hodnotu."
+    },
+    {
+      "id": "project-goals-preservation",
+      "text": "Žádná technická oprava, změna registru, generátoru, workflow, publikační cesty ani datového modelu nesmí opustit, zúžit nebo nahradit hlavní cíle projektu. Systém musí trvale zachovat příjem dokumentů z uploadu i externích HTTPS zdrojů, výpočet SHA-256, pracovní posouzení relevance s vysvětlením a lidskou kontrolou, hlídání lhůt a nečinnosti, dvě kanonická počítadla podání, propojení dokumentů s řízeními, institucemi, zákony a judikaturou, interaktivní důkazní paměť a průběžnou veřejnou chronologii. Pokud změna některý z těchto cílů porušuje, build a publikace musí být zastaveny."
     },
     {
       "id": "active-state-branches",
