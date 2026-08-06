@@ -52,6 +52,13 @@ if (privacyRegistry.status !== 'binding' || privacyRegistry.alliance_organizatio
 await run('scripts/build-dynamic-chronology.mjs');
 await run('scripts/finalize-homepage.mjs');
 await run('scripts/build-deadlines.mjs');
+await run('scripts/build-operational-state.mjs');
+
+const operationalState = await readJson(`${output.data}/operations-state.json`);
+for (const key of ['state_and_public_institutions', 'our_submissions', 'unclassified', 'total_documents']) {
+  if (!Number.isInteger(operationalState.counters?.[key]) || operationalState.counters[key] < 0) throw new Error(`Neplatné odvozené počítadlo: ${key}`);
+}
+if (operationalState.counters.total_documents !== documentsRegistry.documents.length) throw new Error('Počítadla nepokrývají celý registr dokumentů');
 
 let article = await readFile(output.article, 'utf8');
 article = article
@@ -93,6 +100,7 @@ const manifest = {
   registered_subgenerators_count: generatorsRegistry.subgenerators.length,
   privacy_full_name_person: privacyRegistry.persons[0].name,
   privacy_alliance_organizations_count: privacyRegistry.alliance_organizations.length,
+  operational_state: 'data/operations-state.json',
   pdf_reconciliation_report: 'data/pdf-reconciliation-report.json',
   counts: {
     documents: documentsRegistry.documents.length,
@@ -101,7 +109,11 @@ const manifest = {
     chronology_items: chronologyCount,
     public_pdf_links: publicPdfLinks.length,
     physical_pdf_files: documentsRegistry.reconciliation?.physical_pdf_count ?? null,
-    unresolved_pdf_matches: documentsRegistry.reconciliation?.unresolved_count ?? null
+    unresolved_pdf_matches: documentsRegistry.reconciliation?.unresolved_count ?? null,
+    state_public_submissions: operationalState.counters.state_and_public_institutions,
+    our_submissions: operationalState.counters.our_submissions,
+    unclassified_submission_side: operationalState.counters.unclassified,
+    submission_classification_human_review_required: operationalState.classification_quality.human_review_required
   },
   capabilities_preserved: {
     local_and_external_https_document_ingest: true,
@@ -110,6 +122,8 @@ const manifest = {
     deadline_and_inactivity_tracking: true,
     single_clock_system: true,
     two_derived_submission_counters: true,
+    counter_values_are_derived_not_manual: true,
+    unclassified_documents_are_not_guessed: true,
     single_public_build_entrypoint: true,
     five_alliance_privacy_exemptions: true,
     lawful_third_person_anonymization: true,
@@ -121,4 +135,4 @@ const manifest = {
   public_pdf_links: publicPdfLinks
 };
 await writeFile(`${output.data}/build-manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
-console.log(`Evidence Lab 2.0 build: ${chronologyCount} položek, ${publicPdfLinks.length} aktivních PDF, ${goalsRegistry.goals.length} cílů, ${generatorsRegistry.subgenerators.length} podgenerátorů pod jediným buildem.`);
+console.log(`Evidence Lab 2.0 build: ${chronologyCount} položek; stát/veřejné instituce ${operationalState.counters.state_and_public_institutions}; naše podání ${operationalState.counters.our_submissions}; nezařazené ${operationalState.counters.unclassified}; ${publicPdfLinks.length} aktivních PDF.`);
