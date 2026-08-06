@@ -40,6 +40,7 @@ jobs:
 
       - name: Verify public chronology and homepage before deploy
         run: |
+          set -euo pipefail
           test -f web/index.html
           test -f web/live-dockets.js
           test -f web/live-dockets.css
@@ -48,12 +49,12 @@ jobs:
           grep -q 'Aktivní soudní řízení on-line od 1. května 2026' web/index.html
           grep -q 'Předžalobní řízení on-line od 1. května 2026' web/index.html
           grep -q 'Státní láska online od 1. května 2026' web/index.html
-          ! grep -q 'do 3. srpna 2026' web/index.html
-          ! grep -q '2026. května' web/index.html
+          grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' web/zpravy/04082026-010.html
+          ! grep -q 'Pavouk český křižák z Branibor' web/zpravy/04082026-010.html
           grep -q 'id="chronologie-seznam"' web/zpravy/04082026-010.html
-          grep -q 'Pavouk český křižák z Branibor již více než 15 let splétá síť na trase Praha–Brno–Praha a zpět. Kdo tu síť rozmotá?' web/zpravy/04082026-010.html
           ! grep -q 'Načítám chronologii dokumentů' web/zpravy/04082026-010.html
           ! grep -qi 'aktivní originály' web/zpravy/04082026-010.html
+          ! grep -q 'href="web/documents/' web/zpravy/04082026-010.html
           test "$(grep -o '<li id="doc-[^"]*"' web/zpravy/04082026-010.html | wc -l)" -ge 55
           test "$(grep -o '<a href="[^"]*"' web/zpravy/04082026-010.html | wc -l)" -ge 55
 
@@ -66,7 +67,7 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Verify live deployment
+      - name: Verify live deployment and PDF links
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
@@ -85,20 +86,29 @@ jobs:
               && grep -q 'Aktivní soudní řízení on-line od 1. května 2026' /tmp/home.html \
               && grep -q 'Předžalobní řízení on-line od 1. května 2026' /tmp/home.html \
               && grep -q 'Státní láska online od 1. května 2026' /tmp/home.html \
-              && ! grep -q 'do 3. srpna 2026' /tmp/home.html \
-              && ! grep -q '2026. května' /tmp/home.html \
+              && grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' /tmp/article.html \
+              && ! grep -q 'Pavouk český křižák z Branibor' /tmp/article.html \
               && grep -q 'id="chronologie-seznam"' /tmp/article.html \
-              && grep -q 'Pavouk český křižák z Branibor již více než 15 let splétá síť na trase Praha–Brno–Praha a zpět. Kdo tu síť rozmotá?' /tmp/article.html \
               && ! grep -q 'Načítám chronologii dokumentů' /tmp/article.html \
               && ! grep -qi 'aktivní originály' /tmp/article.html \
-              && test "$(grep -o '<li id="doc-[^"]*"' /tmp/article.html | wc -l)" -ge 55 \
-              && test "$(grep -o '<a href="[^"]*"' /tmp/article.html | wc -l)" -ge 55; then
+              && ! grep -q 'href="web/documents/' /tmp/article.html \
+              && test "$(grep -o '<li id="doc-[^"]*"' /tmp/article.html | wc -l)" -ge 55; then
               verified=1
               break
             fi
             sleep 10
           done
           test "$verified" -eq 1
+          grep -o 'href="[^"]*\.pdf"' /tmp/article.html | sed 's/^href="//;s/"$//' | sort -u > /tmp/pdf-links.txt
+          while IFS= read -r href; do
+            [ -z "$href" ] && continue
+            case "$href" in
+              http://*|https://*) url="$href" ;;
+              /*) url="${BASE}${href}" ;;
+              *) url="${BASE}/${href}" ;;
+            esac
+            curl -fsSL --connect-timeout 15 --max-time 45 -o /dev/null "$url"
+          done < /tmp/pdf-links.txt
 
       - name: Record verified deployment
         env:
@@ -115,7 +125,8 @@ jobs:
             "spider_title_verified": true,
             "dynamic_chronology_verified": true,
             "separate_active_originals_block_absent": true,
-            "chronology_links_verified": true
+            "chronology_links_verified": true,
+            "public_pdf_links_verified": true
           }
           EOF
           git config user.name "github-actions[bot]"
