@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
-const oldTitle = 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?';
-const newTitle = 'Pavouk český křižák z Branibor již více než 15 let splétá síť na trase Praha–Brno–Praha a zpět. Kdo tu síť rozmotá?';
+const wrongTitle = 'Pavouk český křižák z Branibor již více než 15 let splétá síť na trase Praha–Brno–Praha a zpět. Kdo tu síť rozmotá?';
+const correctTitle = 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?';
 
 const files = [
   'web/zpravy/04082026-010.html',
@@ -11,7 +11,11 @@ const files = [
 
 for (const path of files) {
   let content = await readFile(path, 'utf8');
-  content = content.replaceAll(oldTitle, newTitle);
+  content = content.replaceAll(wrongTitle, correctTitle);
+  content = content.replaceAll('href="web/documents/', 'href="documents/');
+  content = content.replaceAll("href = 'web/documents/", "href = 'documents/");
+  content = content.replaceAll('"web/documents/', '"documents/');
+  content = content.replaceAll("'web/documents/", "'documents/");
   await writeFile(path, content, 'utf8');
 }
 
@@ -27,8 +31,10 @@ const requiredBars = [
 for (const label of requiredBars) {
   if (!home.includes(label)) throw new Error(`Na titulní stránce chybí lišta: ${label}`);
 }
-if (!article.includes(newTitle)) throw new Error('Článek neobsahuje nový název Pavouka');
-if (!article.includes('id="chronologie-seznam"')) throw new Error('Článek neobsahuje dynamicky sestavenou chronologii');
+if (!article.includes(correctTitle)) throw new Error('Článek neobsahuje správný název Pavouka s Godotem');
+if (article.includes(wrongTitle)) throw new Error('Článek stále obsahuje chybný název s křižákem z Branibor');
+if (!article.includes('id="chronologie-seznam"')) throw new Error('Článek neobsahuje sestavenou chronologii');
 if (/aktivní originály/i.test(article)) throw new Error('Článek stále obsahuje samostatný blok aktivních originálů');
+if (/href="web\/documents\//i.test(article)) throw new Error('Článek obsahuje nefunkční PDF odkaz s prefixem web/');
 
-console.log('Nový název Pavouka, tři aktivní lišty a chronologie byly ověřeny.');
+console.log('Godotův název, tři lišty, chronologie a veřejné cesty PDF byly ověřeny.');
