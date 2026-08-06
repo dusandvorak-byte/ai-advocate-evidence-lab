@@ -26,15 +26,17 @@ jobs:
       - name: Build and validate the complete public site
         run: node scripts/build-site.mjs
 
-      - name: Verify deterministic build manifest
+      - name: Verify canonical build manifest
         run: |
           set -euo pipefail
           test -f web/data/build-manifest.json
-          grep -q '"canonical_document_registry": "project-memory/documents-2026.json"' web/data/build-manifest.json
           grep -q '"build_entrypoint": "scripts/build-site.mjs"' web/data/build-manifest.json
-          grep -q '"interactive_case_memory": true' web/data/build-manifest.json
-          grep -q '"deadline_tracking": true' web/data/build-manifest.json
-          grep -q '"relevance_analysis": true' web/data/build-manifest.json
+          grep -q '"documents": "project-memory/documents-2026.json"' web/data/build-manifest.json
+          grep -q '"axioms": "project-memory/publication-axioms.json"' web/data/build-manifest.json
+          grep -q '"local_and_external_https_document_ingest": true' web/data/build-manifest.json
+          grep -q '"relevance_with_explanation_and_human_review": true' web/data/build-manifest.json
+          grep -q '"deadline_and_inactivity_tracking": true' web/data/build-manifest.json
+          grep -q '"interactive_document_case_law_statute_memory": true' web/data/build-manifest.json
 
       - uses: actions/configure-pages@v5
 
@@ -70,6 +72,7 @@ jobs:
               && grep -q 'id="chronologie-seznam"' /tmp/article.html \
               && ! grep -qi 'aktivní originály' /tmp/article.html \
               && ! grep -q 'href="web/' /tmp/article.html \
+              && grep -q '"schema_version": "2.0"' /tmp/build-manifest.json \
               && grep -q '"build_entrypoint": "scripts/build-site.mjs"' /tmp/build-manifest.json; then
               verified=1
               break
@@ -102,6 +105,7 @@ jobs:
             "checked_at": "$checked_at",
             "page_url": "$PAGE_URL",
             "canonical_document_registry": "project-memory/documents-2026.json",
+            "canonical_axioms_registry": "project-memory/publication-axioms.json",
             "build_entrypoint": "scripts/build-site.mjs",
             "homepage_bars_verified": true,
             "spider_title_verified": true,
