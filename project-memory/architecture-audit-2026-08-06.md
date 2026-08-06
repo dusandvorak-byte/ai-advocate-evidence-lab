@@ -2,9 +2,9 @@
 
 ## Závěr
 
-Jediným provozním zdrojem pravdy pro dokumenty je `project-memory/documents-2026.json`. Instituce se odkazují výhradně přes `project-memory/institutions.json`, lhůty přes `project-memory/deadlines.json` a závazné zásady přes `project-memory/axioms.json`.
+Jediným provozním zdrojem pravdy pro dokumenty je `project-memory/documents-2026.json`. Instituce se odkazují výhradně přes `project-memory/institutions.json`, lhůty přes `project-memory/deadlines.json` a závazné zásady přes `project-memory/publication-axioms.json`.
 
-`project-memory/report-04082026-010-sources.json` a obdobné reportové seznamy jsou publikační manifesty konkrétních vydání. Nejsou nadřazeným registrem a nesmějí samostatně měnit název, pořadí, veřejnou cestu ani stav dokumentu.
+`project-memory/report-04082026-010-sources.json` a obdobné reportové seznamy jsou pouze historické publikační manifesty konkrétních vydání. Nejsou nadřazeným registrem a nesmějí samostatně měnit název, pořadí, veřejnou cestu ani stav dokumentu.
 
 ## Zjištěné rozpory
 
@@ -13,6 +13,7 @@ Jediným provozním zdrojem pravdy pro dokumenty je `project-memory/documents-20
 3. Reportové manifesty ukládají repozitářské cesty s prefixem `web/`; tento prefix je správný v repozitáři, ale nesmí se objevit ve veřejném URL GitHub Pages.
 4. Ověřovací soubor dříve mohl potvrdit syntaktickou přítomnost odkazu bez kontroly skutečného veřejného souboru.
 5. Ruční opravy výsledného HTML byly při dalším deployi přepsány generátorem.
+6. Existovaly dva registry axiomů; duplicitní `axioms.json` byl odstraněn a závazný zůstává pouze `publication-axioms.json`.
 
 ## Nové pravidlo buildu
 
@@ -21,11 +22,11 @@ Ve workflow smí být jediný vstup: `node scripts/build-site.mjs`.
 Tento vstup:
 
 - načte a ověří čtyři kanonické registry;
-- spustí podřízené generování chronologie, evidenčních stránek, titulní strany a lhůt;
+- spustí pouze podřízené generování chronologie, evidenčních stránek, titulní strany a lhůt;
 - provede jedinou závěrečnou normalizaci názvů a veřejných cest;
 - vytvoří veřejné kopie registrů v `web/data/`;
 - vytvoří strojový manifest buildu;
-- zastaví deploy při duplicitním ID, neznámé instituci, chybějícím lokálním PDF, cestě `web/documents/...`, chybějící chronologii nebo porušení závazných axiomů.
+- zastaví deploy při duplicitním ID, neznámé instituci, chybějícím lokálním PDF, cestě `web/documents/...`, chybějící chronologii, mrtvém lokálním odkazu nebo porušení závazných axiomů.
 
 ## Stav starších generátorů
 
