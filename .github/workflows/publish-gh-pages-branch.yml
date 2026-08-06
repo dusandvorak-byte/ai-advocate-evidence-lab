@@ -1,0 +1,73 @@
+name: Publish Verified Site to gh-pages Branch
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  NODE_VERSION: '24'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Reconcile registries and build verified static site
+        run: node scripts/build-site.mjs
+
+      - name: Validate required article and PDF registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f web/index.html
+          test -f web/zpravy/04082026-010.html
+          test -f web/data/build-manifest.json
+          test -f web/data/pdf-reconciliation-report.json
+          grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' web/zpravy/04082026-010.html
+          ! grep -q 'Pavouk český křižák z Branibor' web/zpravy/04082026-010.html
+          ! grep -q 'href="web/' web/zpravy/04082026-010.html
+          grep -q '"schema_version": "2.1"' web/data/build-manifest.json
+          grep -q 'Otevřít originální listinu v PDF' web/listiny/nsz-6-nzn-1737-2026-15.html
+          test -f web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf
+          test "$(head -c 5 web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf)" = '%PDF-'
+
+      - name: Prepare branch root
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/verified-site
+          mkdir -p /tmp/verified-site
+          cp -a web/. /tmp/verified-site/
+          touch /tmp/verified-site/.nojekyll
+          printf '%s\n' "$GITHUB_SHA" > /tmp/verified-site/.source-commit
+
+      - name: Publish verified files to gh-pages branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan gh-pages-publish
+          git rm -rf .
+          cp -a /tmp/verified-site/. .
+          git add -A
+          git commit -m "Publish verified Evidence Lab site from $GITHUB_SHA"
+          git push --force origin HEAD:gh-pages
+
+      - name: Summary
+        run: |
+          echo "Verified site published to branch gh-pages."
+          echo "Set Settings > Pages > Source to Deploy from a branch, branch gh-pages, folder /(root)."
