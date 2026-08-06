@@ -1,6 +1,8 @@
 name: Publish Verified Site to gh-pages Branch
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
