@@ -1,12 +1,16 @@
 {
   "status": "verified",
-  "deployed_sha": "e281badcd0c0b5ec58576ca43fd1ca08b6f54341",
-  "checked_at": "2026-08-06T08:28:37Z",
+  "deployed_sha": "a186cb63a0723c35452cae4c6f164907aa5e72b9",
+  "checked_at": "2026-08-06T10:10:48Z",
   "page_url": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/",
+  "canonical_document_registry": "project-memory/documents-2026.json",
+  "canonical_axioms_registry": "project-memory/publication-axioms.json",
+  "build_entrypoint": "scripts/build-site.mjs",
   "homepage_bars_verified": true,
   "spider_title_verified": true,
   "dynamic_chronology_verified": true,
   "separate_active_originals_block_absent": true,
   "chronology_links_verified": true,
-  "public_pdf_links_verified": true
+  "public_pdf_links_verified": true,
+  "publication_axioms_verified": true
 }
