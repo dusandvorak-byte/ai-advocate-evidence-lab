@@ -22,6 +22,10 @@ const run = script => new Promise((resolve, reject) => {
 });
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 
+// Nejdřív jednorázově i při každém dalším buildu propojit fyzická PDF
+// s kanonickým registrem podle ověřených manifestů, data a spisové značky.
+await run('scripts/reconcile-public-pdfs.mjs');
+
 const documentsRegistry = await readJson(source.documents);
 const institutionsRegistry = await readJson(source.institutions);
 const deadlinesRegistry = await readJson(source.deadlines);
@@ -62,19 +66,23 @@ await copyFile(source.documents, `${output.data}/documents-2026.json`);
 await copyFile(source.institutions, `${output.data}/institutions.json`);
 await copyFile(source.deadlines, `${output.data}/deadlines-source.json`);
 await copyFile(source.axioms, `${output.data}/publication-axioms.json`);
+await copyFile('project-memory/pdf-reconciliation-report.json', `${output.data}/pdf-reconciliation-report.json`);
 
 const publicPdfLinks = [...new Set(documentsRegistry.documents.map(item => item.public?.pdf).filter(Boolean).map(publicPath))];
 const manifest = {
-  schema_version: '2.0',
+  schema_version: '2.1',
   generated_at: new Date().toISOString(),
   build_entrypoint: 'scripts/build-site.mjs',
   canonical_sources: source,
+  pdf_reconciliation_report: 'data/pdf-reconciliation-report.json',
   counts: {
     documents: documentsRegistry.documents.length,
     institutions: institutionsRegistry.institutions.length,
     deadlines: deadlinesRegistry.deadlines.length,
     chronology_items: chronologyCount,
-    public_pdf_links: publicPdfLinks.length
+    public_pdf_links: publicPdfLinks.length,
+    physical_pdf_files: documentsRegistry.reconciliation?.physical_pdf_count ?? null,
+    unresolved_pdf_matches: documentsRegistry.reconciliation?.unresolved_count ?? null
   },
   capabilities_preserved: {
     local_and_external_https_document_ingest: true,
@@ -87,4 +95,4 @@ const manifest = {
   public_pdf_links: publicPdfLinks
 };
 await writeFile(`${output.data}/build-manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
-console.log(`Jednotný build vytvořen: ${chronologyCount} položek; živé URL a PDF ověří Pages workflow.`);
+console.log(`Jednotný build vytvořen: ${chronologyCount} položek, ${publicPdfLinks.length} aktivních PDF; živé URL ověří Pages workflow.`);
