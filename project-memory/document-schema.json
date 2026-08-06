@@ -1,157 +1,63 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/project-memory/document-schema.json",
-  "title": "Evidence Lab Document Record",
+  "title": "Evidence Lab canonical document record",
   "type": "object",
-  "required": [
-    "id",
-    "user_title",
-    "document_date",
-    "received_date",
-    "institution_id",
-    "document_type",
-    "reference",
-    "summary",
-    "public_status",
-    "source"
-  ],
+  "required": ["id", "user_title", "issue_date", "institution_id", "reference", "document_type", "public"],
   "properties": {
-    "id": {
-      "type": "string",
-      "pattern": "^DOC-[A-Z0-9-]+$",
-      "description": "Stabilní interní identifikátor; nesmí se měnit při přečíslování chronologie."
-    },
-    "user_title": {
-      "type": "string",
-      "description": "Libovolný pracovní název uživatele, zachovaný beze změny."
-    },
-    "canonical_title": {
-      "type": "string",
-      "description": "Normalizovaný katalogový název vytvářený systémem."
-    },
-    "document_date": {
-      "type": "string",
-      "format": "date",
-      "description": "Datum vydání dokumentu; hlavní klíč chronologického řazení."
-    },
-    "document_time": {
-      "type": ["string", "null"],
-      "pattern": "^([01]\\d|2[0-3]):[0-5]\\d(:[0-5]\\d)?$"
-    },
-    "received_date": {
-      "type": "string",
-      "format": "date",
-      "description": "Datum přijetí nebo vložení do archivu; neovlivňuje primární pořadí."
-    },
-    "institution_id": {
-      "type": "string",
-      "description": "Odkaz na project-memory/institutions.json."
-    },
-    "recipient_institution_ids": {
-      "type": "array",
-      "items": {"type": "string"},
-      "default": []
-    },
-    "document_type": {
-      "type": "string",
-      "enum": [
-        "state_record",
-        "user_filing",
-        "ngo_filing",
-        "court_decision",
-        "prosecutor_notice",
-        "police_notice",
-        "ministry_notice",
-        "presidential_office_notice",
-        "information_request",
-        "information_decision",
-        "complaint",
-        "appeal",
-        "lawsuit",
-        "evidence_attachment",
-        "other"
-      ]
-    },
-    "reference": {
-      "type": "string",
-      "description": "Číslo jednací nebo hlavní identifikace dokumentu."
-    },
-    "case_ids": {
-      "type": "array",
-      "items": {"type": "string"},
-      "default": []
-    },
-    "related_document_ids": {
-      "type": "array",
-      "items": {"type": "string"},
-      "default": []
-    },
-    "topics": {
-      "type": "array",
-      "items": {"type": "string"},
-      "default": []
-    },
-    "summary": {
-      "type": "string"
-    },
-    "process_significance": {
-      "type": "string"
-    },
-    "stable_anchor": {
-      "type": "string",
-      "pattern": "^doc-[a-z0-9-]+$",
-      "description": "Stabilní HTML kotva nezávislá na pořadovém čísle."
-    },
-    "html_path": {
-      "type": ["string", "null"]
-    },
-    "pdf_path": {
-      "type": ["string", "null"]
-    },
-    "sha256": {
-      "type": ["string", "null"],
-      "pattern": "^[a-f0-9]{64}$"
-    },
-    "public_status": {
-      "type": "string",
-      "enum": [
-        "private",
-        "evidence_only",
-        "html_public",
-        "pdf_public_unverified",
-        "pdf_public_verified",
-        "superseded",
-        "withdrawn"
-      ]
-    },
-    "anonymization_policy": {
-      "type": "string",
-      "enum": [
-        "state_original_public",
-        "dusan_full",
-        "ngo_full",
-        "third_person_initials",
-        "private"
-      ]
-    },
-    "source": {
+    "id": {"type": "string", "pattern": "^doc-[a-z0-9-]+$"},
+    "user_title": {"type": "string", "minLength": 1},
+    "issue_date": {"type": "string", "format": "date"},
+    "received_date": {"type": ["string", "null"], "format": "date"},
+    "institution_id": {"type": "string", "minLength": 1},
+    "reference": {"type": "string"},
+    "case_ids": {"type": "array", "items": {"type": "string"}, "default": []},
+    "document_type": {"type": "string"},
+    "direction": {"type": "string", "enum": ["incoming", "outgoing", "internal", "unknown"], "default": "incoming"},
+    "source_origin": {"type": "string", "enum": ["internal_upload", "external_https", "email_attachment", "repository", "manual_record"], "default": "internal_upload"},
+    "topics": {"type": "array", "items": {"type": "string"}, "default": []},
+    "public": {
       "type": "object",
-      "required": ["kind"],
+      "required": ["html", "pdf", "sha256", "verification_status"],
       "properties": {
-        "kind": {
-          "type": "string",
-          "enum": ["uploaded_file", "repository", "email_attachment", "external_url", "manual_record"]
-        },
-        "original_filename": {"type": ["string", "null"]},
-        "repository_path": {"type": ["string", "null"]},
-        "external_url": {"type": ["string", "null"]}
+        "html": {"type": ["string", "null"], "pattern": "^(?!web/).*$"},
+        "pdf": {"type": ["string", "null"], "pattern": "^(?!web/).*$"},
+        "sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "verification_status": {"type": "string", "enum": ["catalogued", "file_present", "hash_verified", "public_verified", "withheld", "missing"]}
       },
       "additionalProperties": false
     },
-    "sort_key": {
-      "type": "string",
-      "description": "Odvozený klíč: document_date + document_time + stabilní ID. Pořadové číslo se neukládá."
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {"type": "string"},
+          "target_id": {"type": "string"},
+          "relation_type": {"type": "string"},
+          "document_id": {"type": "string"}
+        },
+        "additionalProperties": true
+      },
+      "default": []
+    },
+    "relevance": {
+      "type": "object",
+      "properties": {
+        "score": {"type": ["number", "null"], "minimum": 0, "maximum": 9},
+        "basis": {"type": ["string", "null"]},
+        "human_reviewed": {"type": "boolean", "default": false}
+      },
+      "additionalProperties": false
+    },
+    "legal_links": {
+      "type": "object",
+      "properties": {
+        "statute_ids": {"type": "array", "items": {"type": "string"}},
+        "case_law_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
     }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }
