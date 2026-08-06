@@ -1,6 +1,8 @@
 name: Ověřit Evidence Lab 2.0
 
 on:
+  push:
+    branches: [agent/evidence-lab-2-final]
   workflow_dispatch:
   pull_request:
     branches: [main]
