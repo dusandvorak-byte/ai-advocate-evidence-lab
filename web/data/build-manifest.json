@@ -1,0 +1,61 @@
+{
+  "schema_version": "2.1",
+  "generated_at": "2026-08-06T15:05:40.453Z",
+  "build_entrypoint": "scripts/build-site.mjs",
+  "canonical_sources": {
+    "documents": "project-memory/documents-2026.json",
+    "institutions": "project-memory/institutions.json",
+    "deadlines": "project-memory/deadlines.json",
+    "axioms": "project-memory/publication-axioms.json"
+  },
+  "pdf_reconciliation_report": "data/pdf-reconciliation-report.json",
+  "counts": {
+    "documents": 57,
+    "institutions": 26,
+    "deadlines": 0,
+    "chronology_items": 57,
+    "public_pdf_links": 15,
+    "physical_pdf_files": 35,
+    "unresolved_pdf_matches": 0
+  },
+  "capabilities_preserved": {
+    "local_and_external_https_document_ingest": true,
+    "sha256_identity": true,
+    "relevance_with_explanation_and_human_review": true,
+    "deadline_and_inactivity_tracking": true,
+    "interactive_document_case_law_statute_memory": true,
+    "axioms_enforced": [
+      "identity-author-organization",
+      "third-person-initials",
+      "active-state-branches",
+      "procedural-boundary",
+      "relevance-boundary",
+      "deadline-provenance",
+      "unknown-document-boundary",
+      "publication-gates",
+      "state-record-preservation",
+      "continuous-update",
+      "source-first",
+      "truthful-completion",
+      "stable-chronology",
+      "extensible-evidence-memory"
+    ]
+  },
+  "public_pdf_links": [
+    "documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf",
+    "documents/report-25072026-007/03-nsz-6-nzn-1737-2026-32-2026-05-13.pdf",
+    "documents/report-25072026-007/06-osz-praha4-1-zn-320-2026-11-2026-06-26.pdf",
+    "documents/report-25072026-007/09-osz-prostejov-1-zt-11-2010-752-2026-07-07.pdf",
+    "documents/report-25072026-007/17-ksz-ostrava-4-kzn-7116-2026-45-2026-07-08.pdf",
+    "documents/report-04082026-010/podnet-uoou-prezkum-mv-ku-2026-07-15.pdf",
+    "documents/report-25072026-007/13-vsz-olomouc-3-vzn-239-2026-27-2026-07-16.pdf",
+    "documents/report-25072026-007/14-msz-praha-2-kzn-55-2025-122-2026-07-17.pdf",
+    "documents/report-25072026-007/16-pcr-krpm-100092-2-2026-07-20.pdf",
+    "documents/report-25072026-007/18-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf",
+    "documents/report-04082026-010/46-uoou-05058-26-2-2026-07-28.pdf",
+    "documents/report-04082026-010/47-uoou-05093-26-2-2026-07-28.pdf",
+    "documents/report-04082026-010/49-osz-praha-7-zn-87-2026-47-2026-07-28.pdf",
+    "documents/report-04082026-010/55-ksz-brno-1-kzn-1079-2026-14-2026-07-31.pdf",
+    "documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05.pdf"
+  ]
+}

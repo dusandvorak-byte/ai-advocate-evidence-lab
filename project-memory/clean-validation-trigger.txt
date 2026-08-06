@@ -1,0 +1,2 @@
+Isolated validation trigger for agent/clean-pages-architecture.
+No GitHub Pages deployment is performed from this branch.
