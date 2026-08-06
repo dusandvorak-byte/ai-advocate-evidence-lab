@@ -5,7 +5,10 @@ const source = {
   documents: 'project-memory/documents-2026.json',
   institutions: 'project-memory/institutions.json',
   deadlines: 'project-memory/deadlines.json',
-  axioms: 'project-memory/publication-axioms.json'
+  axioms: 'project-memory/publication-axioms.json',
+  architecture: 'project-memory/architecture.json',
+  goals: 'project-memory/project-goals.json',
+  operations: 'project-memory/operations-ledger.json'
 };
 const output = {
   article: 'web/zpravy/04082026-010.html',
@@ -22,18 +25,28 @@ const run = script => new Promise((resolve, reject) => {
 });
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 
-// Nejdřív jednorázově i při každém dalším buildu propojit fyzická PDF
-// s kanonickým registrem podle ověřených manifestů, data a spisové značky.
+// Evidence Lab 2.0: před jakoukoli změnou veřejného výstupu ověřit,
+// že zůstaly zachovány cíle projektu, jediný časový systém, dvě počítadla,
+// anonymizační politika a oddělení interní znalosti od publikace.
+await run('scripts/validate-architecture.mjs');
+
+// Propojit pouze fyzicky ověřená PDF s kanonickým registrem.
 await run('scripts/reconcile-public-pdfs.mjs');
 
 const documentsRegistry = await readJson(source.documents);
 const institutionsRegistry = await readJson(source.institutions);
 const deadlinesRegistry = await readJson(source.deadlines);
 const axiomsRegistry = await readJson(source.axioms);
+const architectureRegistry = await readJson(source.architecture);
+const goalsRegistry = await readJson(source.goals);
+const operationsRegistry = await readJson(source.operations);
 if (!Array.isArray(documentsRegistry.documents)) throw new Error('documents-2026.json neobsahuje pole documents');
 if (!Array.isArray(institutionsRegistry.institutions)) throw new Error('institutions.json neobsahuje pole institutions');
 if (!Array.isArray(deadlinesRegistry.deadlines)) throw new Error('deadlines.json neobsahuje pole deadlines');
 if (axiomsRegistry.status !== 'binding' || !Array.isArray(axiomsRegistry.axioms)) throw new Error('publication-axioms.json není závazný registr');
+if (architectureRegistry.single_build_entrypoint !== 'scripts/build-site.mjs') throw new Error('Není použit jediný build Evidence Lab 2.0');
+if (goalsRegistry.status !== 'binding') throw new Error('Cíle projektu nejsou závazné');
+if (!operationsRegistry.clock?.no_parallel_clock_registry) throw new Error('Časový systém není jednotný');
 
 await run('scripts/build-dynamic-chronology.mjs');
 await run('scripts/finalize-homepage.mjs');
@@ -70,10 +83,12 @@ await copyFile('project-memory/pdf-reconciliation-report.json', `${output.data}/
 
 const publicPdfLinks = [...new Set(documentsRegistry.documents.map(item => item.public?.pdf).filter(Boolean).map(publicPath))];
 const manifest = {
-  schema_version: '2.1',
+  schema_version: '2.2',
   generated_at: new Date().toISOString(),
   build_entrypoint: 'scripts/build-site.mjs',
   canonical_sources: source,
+  architecture_version: architectureRegistry.schema_version,
+  project_goals_count: goalsRegistry.goals.length,
   pdf_reconciliation_report: 'data/pdf-reconciliation-report.json',
   counts: {
     documents: documentsRegistry.documents.length,
@@ -89,10 +104,14 @@ const manifest = {
     sha256_identity: true,
     relevance_with_explanation_and_human_review: true,
     deadline_and_inactivity_tracking: true,
+    single_clock_system: true,
+    two_derived_submission_counters: true,
     interactive_document_case_law_statute_memory: true,
-    axioms_enforced: axiomsRegistry.axioms.map(item => item.id)
+    internal_knowledge_not_auto_published: true,
+    axioms_enforced: axiomsRegistry.axioms.map(item => item.id),
+    goals_enforced: goalsRegistry.goals
   },
   public_pdf_links: publicPdfLinks
 };
 await writeFile(`${output.data}/build-manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
-console.log(`Jednotný build vytvořen: ${chronologyCount} položek, ${publicPdfLinks.length} aktivních PDF; živé URL ověří Pages workflow.`);
+console.log(`Evidence Lab 2.0 build: ${chronologyCount} položek, ${publicPdfLinks.length} aktivních PDF, ${goalsRegistry.goals.length} zachovaných cílů.`);
