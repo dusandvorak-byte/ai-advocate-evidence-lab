@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "status": "binding_incomplete",
+  "description": "Jediný kanonický seznam osob a organizací, které se podle závazného axiomu neanonymizují.",
+  "persons": [
+    {
+      "id": "person-dusan-dvorak",
+      "name": "Mgr. Dušan Dvořák",
+      "publish_full_name": true
+    }
+  ],
+  "alliance_organizations_required_count": 5,
+  "alliance_organizations": [
+    {
+      "id": "org-cannabis-is-the-cure",
+      "name": "Cannabis is The Cure, z. s.",
+      "publish_full_name": true
+    }
+  ],
+  "completion_rule": "Před automatickou publikací bez anonymizace musí být v tomto poli přesně pět uživatelem potvrzených nevládních organizací aliance.",
+  "third_person_default": {
+    "publish_full_name": false,
+    "preserve_user_supplied_initials": true,
+    "otherwise_apply_lawful_anonymization": true,
+    "human_review_required": true
+  }
+}
