@@ -23,18 +23,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Ověřit architekturu a závazné cíle
-        run: node scripts/validate-architecture.mjs
-      - name: Sestavit celý web bez zveřejnění
+      - name: Spustit jediný kanonický build
         run: node scripts/build-site.mjs
       - name: Ověřit manifest Evidence Lab 2.0
         run: |
           set -euo pipefail
           test -f web/data/build-manifest.json
           grep -q '"schema_version": "2.2"' web/data/build-manifest.json
+          grep -q '"build_entrypoint": "scripts/build-site.mjs"' web/data/build-manifest.json
           grep -q '"single_clock_system": true' web/data/build-manifest.json
           grep -q '"two_derived_submission_counters": true' web/data/build-manifest.json
+          grep -q '"single_public_build_entrypoint": true' web/data/build-manifest.json
+          grep -q '"five_alliance_privacy_exemptions": true' web/data/build-manifest.json
+          grep -q '"lawful_third_person_anonymization": true' web/data/build-manifest.json
+          grep -q '"privacy_alliance_organizations_count": 5' web/data/build-manifest.json
           grep -q '"internal_knowledge_not_auto_published": true' web/data/build-manifest.json
+          test -f web/data/operations-state.json
+          test -f web/data/registry-audit.json
           test -f web/zpravy/04082026-010.html
           ! grep -qi 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
           ! grep -qi 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
