@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "status": "binding",
   "single_public_build_entrypoint": "scripts/build-site.mjs",
   "rules": {
@@ -10,6 +10,7 @@
   },
   "subgenerators": [
     {"path":"scripts/validate-architecture.mjs","role":"preflight_validation","allowed_caller":"scripts/build-site.mjs"},
+    {"path":"scripts/audit-registries.mjs","role":"canonical_registry_audit","allowed_caller":"scripts/build-site.mjs"},
     {"path":"scripts/reconcile-public-pdfs.mjs","role":"pdf_reconciliation","allowed_caller":"scripts/build-site.mjs"},
     {"path":"scripts/build-dynamic-chronology.mjs","role":"chronology_and_evidence_pages","allowed_caller":"scripts/build-site.mjs"},
     {"path":"scripts/finalize-homepage.mjs","role":"homepage_generation","allowed_caller":"scripts/build-site.mjs"},
@@ -22,6 +23,7 @@
     "web/listiny/",
     "web/data/build-manifest.json",
     "web/data/pdf-reconciliation-report.json",
-    "web/data/operations-state.json"
+    "web/data/operations-state.json",
+    "web/data/registry-audit.json"
   ]
 }
