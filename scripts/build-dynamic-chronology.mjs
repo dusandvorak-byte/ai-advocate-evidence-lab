@@ -53,7 +53,7 @@ const compareDocuments = (a, b) =>
 const normalizePublicPath = value => {
   if (!value) return null;
   if (/^(?:https?:|mailto:|#|\/)/i.test(value)) return value;
-  return value.replace(/^\.\//, '');
+  return value.replace(/^\.\//, '').replace(/^web\//, '');
 };
 
 await mkdir(dataDir, { recursive: true });
