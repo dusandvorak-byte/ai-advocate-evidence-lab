@@ -1,4 +1,4 @@
-name: Publish Verified Site to gh-pages Branch
+name: Publikovat ověřený Evidence Lab do gh-pages
 
 on:
   push:
@@ -11,26 +11,31 @@ permissions:
 env:
   NODE_VERSION: '24'
 
+concurrency:
+  group: evidence-lab-production
+  cancel-in-progress: true
+
 jobs:
   publish:
+    name: Sestavit, ověřit a publikovat jedinou produkční verzi
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Checkout main
+      - name: Načíst main
         uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
 
-      - name: Use Node.js 24
+      - name: Použít Node.js 24
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Reconcile registries and build verified static site
+      - name: Spustit jediný kanonický build
         run: node scripts/build-site.mjs
 
-      - name: Validate required article and PDF registry
+      - name: Ověřit Evidence Lab 2.0 před publikací
         shell: bash
         run: |
           set -euo pipefail
@@ -38,15 +43,22 @@ jobs:
           test -f web/zpravy/04082026-010.html
           test -f web/data/build-manifest.json
           test -f web/data/pdf-reconciliation-report.json
+          test -f web/data/operations-state.json
+          test -f web/data/registry-audit.json
           grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' web/zpravy/04082026-010.html
           ! grep -q 'Pavouk český křižák z Branibor' web/zpravy/04082026-010.html
           ! grep -q 'href="web/' web/zpravy/04082026-010.html
-          grep -q '"schema_version": "2.1"' web/data/build-manifest.json
+          grep -q '"schema_version": "2.2"' web/data/build-manifest.json
+          grep -q '"build_entrypoint": "scripts/build-site.mjs"' web/data/build-manifest.json
+          grep -q '"registry_hard_errors": 0' web/data/build-manifest.json
+          grep -q '"single_public_build_entrypoint": true' web/data/build-manifest.json
+          grep -q '"two_derived_submission_counters": true' web/data/build-manifest.json
+          grep -q '"five_alliance_privacy_exemptions": true' web/data/build-manifest.json
           grep -q 'Otevřít originální listinu v PDF' web/listiny/nsz-6-nzn-1737-2026-15.html
           test -f web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf
           test "$(head -c 5 web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf)" = '%PDF-'
 
-      - name: Prepare branch root and legacy /web compatibility copy
+      - name: Připravit kořen webu a kompatibilní cestu /web
         shell: bash
         run: |
           set -euo pipefail
@@ -60,10 +72,8 @@ jobs:
           touch /tmp/verified-site/web/.nojekyll
           printf '%s\n' "$GITHUB_SHA" > /tmp/verified-site/.source-commit
           printf '%s\n' "$GITHUB_SHA" > /tmp/verified-site/web/.source-commit
-          test -f /tmp/verified-site/documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05.pdf
-          test -f /tmp/verified-site/web/documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05.pdf
 
-      - name: Publish verified files to gh-pages branch
+      - name: Publikovat ověřené soubory do jediné větve gh-pages
         shell: bash
         run: |
           set -euo pipefail
@@ -73,10 +83,10 @@ jobs:
           git rm -rf .
           cp -a /tmp/verified-site/. .
           git add -A
-          git commit -m "Publish verified Evidence Lab site from $GITHUB_SHA"
+          git commit -m "Publish verified Evidence Lab 2.0 from $GITHUB_SHA"
           git push --force origin HEAD:gh-pages
 
-      - name: Summary
+      - name: Souhrn
         run: |
-          echo "Verified site published to branch gh-pages."
-          echo "Both root URLs and legacy /web/ URLs are present."
+          echo "Evidence Lab 2.0 byl po úspěšné validaci publikován pouze do větve gh-pages."
+          echo "Kořenové URL i kompatibilní /web/ URL jsou součástí stejného ověřeného buildu."
