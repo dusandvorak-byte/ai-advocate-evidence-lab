@@ -1,7 +1,7 @@
 {
-  "schema_version": "1.0",
-  "status": "binding_incomplete",
-  "description": "Jediný kanonický seznam osob a organizací, které se podle závazného axiomu neanonymizují.",
+  "schema_version": "1.1",
+  "status": "binding",
+  "description": "Jediný kanonický seznam osoby a pěti nevládních organizací aliance, které se podle závazného axiomu neanonymizují.",
   "persons": [
     {
       "id": "person-dusan-dvorak",
@@ -12,12 +12,32 @@
   "alliance_organizations_required_count": 5,
   "alliance_organizations": [
     {
+      "id": "org-european-society-investors",
+      "name": "European Society of Investors in Natural and Social Sciences Research, z.s.",
+      "publish_full_name": true
+    },
+    {
       "id": "org-cannabis-is-the-cure",
       "name": "Cannabis is The Cure, z. s.",
       "publish_full_name": true
+    },
+    {
+      "id": "org-edukativni-konopna-klinika",
+      "name": "Edukativní konopná klinika, z.s.",
+      "publish_full_name": true
+    },
+    {
+      "id": "org-educational-cannabis-clinic",
+      "name": "Educational Cannabis Clinic, z.s.",
+      "publish_full_name": true
+    },
+    {
+      "id": "org-ganja-for-all-animals",
+      "name": "Ganja For All Animals, z.s.",
+      "publish_full_name": true
     }
   ],
-  "completion_rule": "Před automatickou publikací bez anonymizace musí být v tomto poli přesně pět uživatelem potvrzených nevládních organizací aliance.",
+  "completion_rule": "Pole musí obsahovat přesně pět potvrzených nevládních organizací aliance a Mgr. Dušan Dvořák se publikuje plným jménem.",
   "third_person_default": {
     "publish_full_name": false,
     "preserve_user_supplied_initials": true,
