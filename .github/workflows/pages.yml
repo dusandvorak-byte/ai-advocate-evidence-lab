@@ -1,4 +1,4 @@
-name: Deploy Evidence Lab
+name: Deploy Evidence Lab – PDF Registry
 
 on:
   push:
