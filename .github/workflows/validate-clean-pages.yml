@@ -1,0 +1,107 @@
+name: Validate Clean Evidence Site
+
+on:
+  push:
+    branches:
+      - agent/clean-pages-architecture
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '24'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout test branch
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Reconcile registries and build site
+        run: node scripts/build-site.mjs
+
+      - name: Verify canonical outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f web/zpravy/04082026-010.html
+          test -f web/data/build-manifest.json
+          test -f web/data/pdf-reconciliation-report.json
+          grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' web/zpravy/04082026-010.html
+          ! grep -q 'Pavouk český křižák z Branibor' web/zpravy/04082026-010.html
+          ! grep -q 'href="web/' web/zpravy/04082026-010.html
+          grep -q '"schema_version": "2.1"' web/data/build-manifest.json
+
+      - name: Verify all registered local PDFs exist and are PDFs
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const registry = JSON.parse(fs.readFileSync('project-memory/documents-2026.json', 'utf8'));
+          const failures = [];
+          let checked = 0;
+          for (const doc of registry.documents || []) {
+            const value = doc.public && doc.public.pdf;
+            if (!value || /^https?:\/\//i.test(value)) continue;
+            const publicPath = String(value).replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
+            const repoPath = path.join('web', publicPath);
+            if (!fs.existsSync(repoPath)) {
+              failures.push(`${doc.id}: missing ${repoPath}`);
+              continue;
+            }
+            const fd = fs.openSync(repoPath, 'r');
+            const sig = Buffer.alloc(5);
+            fs.readSync(fd, sig, 0, 5, 0);
+            fs.closeSync(fd);
+            if (sig.toString() !== '%PDF-') failures.push(`${doc.id}: invalid PDF ${repoPath}`);
+            checked += 1;
+          }
+          console.log(`Validated ${checked} local PDF files.`);
+          if (failures.length) {
+            console.error(failures.join('\n'));
+            process.exit(1);
+          }
+          NODE
+
+      - name: Verify NSZ 6 NZN 1737/2026-15 is linked
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'NODE'
+          const fs = require('fs');
+          const registry = JSON.parse(fs.readFileSync('project-memory/documents-2026.json', 'utf8'));
+          const doc = (registry.documents || []).find(d => d.id === 'doc-cz-nsz-2026-05-06-6-nzn-1737-2026-15');
+          if (!doc) throw new Error('NSZ registry item is missing');
+          if (!doc.public || !doc.public.pdf) throw new Error('NSZ PDF is still not linked');
+          const html = fs.readFileSync('web/listiny/nsz-6-nzn-1737-2026-15.html', 'utf8');
+          if (!/href=["'][^"']+\.pdf["']/i.test(html)) throw new Error('NSZ evidence page has no active PDF link');
+          console.log(`NSZ PDF linked as ${doc.public.pdf}`);
+          NODE
+
+      - name: Upload validated static site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: clean-evidence-site
+          path: web
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload reconciliation report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-reconciliation-report
+          path: |
+            project-memory/pdf-reconciliation-report.json
+            web/data/build-manifest.json
+          if-no-files-found: error
+          retention-days: 7
