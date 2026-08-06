@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "status": "binding",
+  "description": "Jediný kanonický počítačový systém pro čas, procesní lhůty a dvě odvozená počítadla podání.",
+  "clock": {
+    "canonical_timezone": "Europe/Prague",
+    "storage_timezone": "UTC",
+    "display_timezone": "Europe/Prague",
+    "date_source_priority": [
+      "document_issue_date",
+      "document_received_date",
+      "verified_delivery_timestamp",
+      "manual_human_review"
+    ],
+    "no_parallel_clock_registry": true
+  },
+  "deadlines": {
+    "canonical_registry": "project-memory/deadlines.json",
+    "derived_from_documents": "project-memory/documents-2026.json",
+    "required_provenance": true,
+    "states": [
+      "not_started",
+      "running",
+      "due_today",
+      "overdue_unanswered",
+      "answered_on_time",
+      "answered_late",
+      "closed_without_deadline",
+      "suspended",
+      "human_review_required"
+    ],
+    "no_parallel_deadline_registry": true
+  },
+  "counters": {
+    "state_and_public_institutions": {
+      "id": "counter-state-public-submissions",
+      "label": "Podání a listiny státních orgánů a veřejných institucí",
+      "source": "project-memory/documents-2026.json",
+      "calculation": "count documents classified as incoming_from_state_or_public_institution",
+      "stored_manual_value_forbidden": true
+    },
+    "our_submissions": {
+      "id": "counter-our-submissions",
+      "label": "Naše podání",
+      "source": "project-memory/documents-2026.json",
+      "calculation": "count documents classified as outgoing_from_user_or_alliance",
+      "stored_manual_value_forbidden": true
+    }
+  },
+  "classification": {
+    "required_document_field": "submission_side",
+    "allowed_values": [
+      "incoming_from_state_or_public_institution",
+      "outgoing_from_user_or_alliance",
+      "third_party",
+      "court_record",
+      "reference_material",
+      "unclassified"
+    ],
+    "unclassified_requires_human_review": true
+  },
+  "privacy": {
+    "canonical_policy": "project-memory/publication-axioms.json",
+    "full_name_exceptions": {
+      "person": "Mgr. Dušan Dvořák",
+      "alliance_organizations_count": 5,
+      "alliance_organizations_registry": "project-memory/privacy-exempt-entities.json"
+    },
+    "third_person_rule": "Třetí fyzické osoby se zveřejňují pouze v rozsahu dovoleném zákonem; pokud je uživatel označil iniciálami, iniciály se zachovají, jinak se před publikací provede zákonná anonymizace.",
+    "human_review_required": true
+  }
+}
