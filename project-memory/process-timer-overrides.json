@@ -40,6 +40,20 @@
       "limit_label": "bez pevné číselné zákonné lhůty k rozhodnutí",
       "legal_basis": "stížnost podle § 141 a násl. trestního řádu; třídenní lhůta podle § 143 odst. 1 se týkala podání stížnosti, nikoli lhůty Krajského soudu k rozhodnutí",
       "href": "zpravy/04082026-010.html#procesni-casovace"
+    },
+    {
+      "id": "timer-review-pcr-ku-2026-05-27",
+      "category": "review_supervision",
+      "title": "Policie ČR – Kriminalistický ústav: interní odborné a kontrolní prověření",
+      "reference": "KU-4139/ČJ-2026-2305KM · PPR-450-8/ČJ-2026-990313",
+      "start_date": "2026-05-27",
+      "start_date_basis": "Dne 27. května 2026 byla Policii ČR podána žádost o informace současně s výslovným podnětem k internímu policejnímu přezkumu znaleckých postupů použitých v trestních řízeních v letech 2009–2019; věcně jej převzal Kriminalistický ústav.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez doložené univerzální číselné zákonné lhůty k výsledku interního prověření",
+      "legal_basis": "interní metodická, odborná a kontrolní působnost Kriminalistického ústavu vůči OKTE; krátká sedmidenní lhůta požadovaná 29. 7. 2026 se týkala jen potvrzení evidence a rozsahu prověření, nikoli dokončení odborného přezkumu",
+      "process_history": "25. 6. 2026 KÚ č. j. KU-4139-5/ČJ-2026-2305KM podnět postoupil OSZ Prostějov; 28. 7. 2026 OSZ Prostějov č. j. ZN 4/2026-6 otázku č. 3 vrátilo KÚ k dalšímu řízení; 29. 7. 2026 byla KÚ zaslána výzva k pokračování v řízení.",
+      "href": "zpravy/04082026-010.html#case-cz-pcr-ku-interni-prezkum"
     }
   ]
 }
