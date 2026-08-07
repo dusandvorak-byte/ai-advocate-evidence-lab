@@ -89,9 +89,11 @@ godot = godot.replace(/<section id="procesni-casovace"[\s\S]*?<\/section>\s*/g, 
 const chronologyMarker = '<ol id="chronologie-seznam">';
 const consequencesMarker = '<section id="rizeni-online"';
 if (!godot.includes(chronologyMarker)) throw new Error('Godot nemá hlavní chronologii veřejných institucí');
-if (!godot.includes(consequencesMarker)) throw new Error('Godot nemá marker aktivních uzlů řízení');
-if (godot.indexOf(chronologyMarker) > godot.indexOf(consequencesMarker)) throw new Error('Godot má chybné pořadí chronologie a aktivních uzlů');
+if (!godot.includes(consequencesMarker)) throw new Error('Godot nemá interní marker pro umístění procesních důsledků');
+if (godot.indexOf(chronologyMarker) > godot.indexOf(consequencesMarker)) throw new Error('Godot má chybné pořadí chronologie a interního markeru');
 godot = godot.replace(consequencesMarker, `${godotSection}\n${consequencesMarker}`);
+// Aktivní uzly řízení jsou duplicitní s chronologií a časovači. Ve veřejném Godotovi nesmějí zůstat.
+godot = godot.replace(/<section id="rizeni-online"[\s\S]*?<\/section>\s*/g, '');
 godot = injectAssets(godot);
 await writeFile(godotPath, godot, 'utf8');
 
@@ -105,4 +107,4 @@ await writeFile(eudaArticlePath, eudaArticle, 'utf8');
 
 await mkdir('web/data', { recursive: true });
 await writeFile(targetPath, `${JSON.stringify(registry, null, 2)}\n`, 'utf8');
-console.log(`Procesní časovače vytvořeny: ${registry.timers.length}; Godot řadí nejprve chronologii veřejných institucí od 1. 5. 2026 a teprve potom procesní důsledky.`);
+console.log(`Procesní časovače vytvořeny: ${registry.timers.length}; Godot obsahuje chronologii a procesní důsledky bez duplicitního bloku Aktivní uzly řízení.`);
