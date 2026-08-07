@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "updated_on": "2026-08-07",
+  "description": "Ověřené opravy a doplnění živých procesních časovačů. Přepisují shodná ID v process-timers.json a mohou přidávat nové časovače.",
+  "patches": [
+    {
+      "id": "timer-court-mv-2026-07-23",
+      "title": "MS v Praze sp. zn. 15 A 44/2026 – zásahová žaloba proti Ministerstvu vnitra",
+      "reference": "15 A 44/2026",
+      "start_date": "2026-07-23",
+      "start_date_basis": "Žaloba proti Ministerstvu vnitra byla podána datovou schránkou dne 23. července 2026; následně jí byla přidělena sp. zn. 15 A 44/2026.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez pevné číselné zákonné lhůty k rozhodnutí",
+      "legal_basis": "soudní řízení – bez evidované univerzální číselné lhůty k meritornímu rozhodnutí",
+      "href": "zpravy/23072026-004.html"
+    },
+    {
+      "id": "timer-court-45t1-2024",
+      "title": "MS v Praze sp. zn. 45 T 1/2024 – nové projednání po vrácení Vrchním soudem",
+      "reference": "45 T 1/2024 · VS Praha 11 To 88/2024-2990",
+      "start_date": "2025-07-29",
+      "start_date_basis": "Vrchní soud v Praze usnesením ze dne 29. července 2025, č. j. 11 To 88/2024-2990, zrušil výroky rozsudku Městského soudu v Praze ze dne 7. května 2024, č. j. 45 T 1/2024-2430, a věc vrátil soudu prvního stupně.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez pevné číselné zákonné lhůty k rozhodnutí",
+      "legal_basis": "trestní soudní řízení po vrácení věci odvolacím soudem",
+      "next_event": "Jednání je evidováno na 1. a 2. září 2026 od 12:00.",
+      "href": "zpravy/04082026-010.html#case-cz-ms-praha-45t1-2024"
+    },
+    {
+      "id": "timer-court-ks-ostrava-15t11-2025",
+      "category": "court",
+      "title": "KS v Ostravě – stížnost ve věci OS Ostrava sp. zn. 15 T 11/2025",
+      "reference": "15 T 11/2025",
+      "start_date": "2026-07-22",
+      "start_date_basis": "Stížnost proti usnesení Okresního soudu v Ostravě ze dne 14. července 2026, č. j. 15 T 11/2025-162, byla podána Krajskému soudu v Ostravě prostřednictvím Okresního soudu v Ostravě dne 22. července 2026; dne 23. července 2026 byla doplněna.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez pevné číselné zákonné lhůty k rozhodnutí",
+      "legal_basis": "stížnost podle § 141 a násl. trestního řádu; třídenní lhůta podle § 143 odst. 1 se týkala podání stížnosti, nikoli lhůty Krajského soudu k rozhodnutí",
+      "href": "zpravy/04082026-010.html#procesni-casovace"
+    }
+  ]
+}
