@@ -54,6 +54,21 @@
       "legal_basis": "interní metodická, odborná a kontrolní působnost Kriminalistického ústavu vůči OKTE; krátká sedmidenní lhůta požadovaná 29. 7. 2026 se týkala jen potvrzení evidence a rozsahu prověření, nikoli dokončení odborného přezkumu",
       "process_history": "25. 6. 2026 KÚ č. j. KU-4139-5/ČJ-2026-2305KM podnět postoupil OSZ Prostějov; 28. 7. 2026 OSZ Prostějov č. j. ZN 4/2026-6 otázku č. 3 vrátilo KÚ k dalšímu řízení; 29. 7. 2026 byla KÚ zaslána výzva k pokračování v řízení.",
       "href": "zpravy/04082026-010.html#case-cz-pcr-ku-interni-prezkum"
+    },
+    {
+      "id": "timer-preaction-euda-2026-08-07",
+      "category": "pre_action",
+      "title": "EUDA – výzva k jednání podle čl. 265 SFEU",
+      "reference": "čl. 265 SFEU · nařízení (EU) 2023/1322 · e-mail EUDA bez samostatného č. j.",
+      "start_date": "2026-08-07",
+      "start_date_basis": "Dušan Dvořák dne 7. srpna 2026 v 09:14 zaslal EUDA formální výzvu k jednání podle čl. 265 SFEU; EUDA téhož dne v 17:06:35 potvrdila přijetí korespondence.",
+      "status": "active_acknowledged",
+      "limit_kind": "statutory_months",
+      "limit_months": 2,
+      "limit_label": "2 měsíce – čl. 265 SFEU",
+      "legal_basis": "čl. 265 SFEU: po předchozí výzvě k jednání se sleduje, zda dotčený orgán do dvou měsíců vymezí své stanovisko; potvrzení přijetí samo není v registru vedeno jako věcné vymezení stanoviska",
+      "process_history": "EUDA – 7. 8. 2026 17:06:35 – bez samostatného č. j. – Bibi Fátima Seedat, Administrative agent, Directorate, z adresy EUDA Executive Director: potvrzení přijetí korespondence, příslib pečlivého posouzení vznesených bodů a odpovědi v dalším průběhu; upozornění na období dovolených a možné prodloužení reakční doby.",
+      "href": "zpravy/07082026-011.html"
     }
   ]
 }
