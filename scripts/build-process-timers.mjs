@@ -1,6 +1,7 @@
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 
 const sourcePath = 'project-memory/process-timers.json';
+const overridesPath = 'project-memory/process-timer-overrides.json';
 const targetPath = 'web/data/process-timers.json';
 const homePath = 'web/index.html';
 const godotPath = 'web/zpravy/04082026-010.html';
@@ -12,9 +13,20 @@ const escapeHtml = value => String(value ?? '')
   .replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 
 const registry = JSON.parse(await readFile(sourcePath, 'utf8'));
+const overrides = JSON.parse(await readFile(overridesPath, 'utf8'));
 if (!Array.isArray(registry.timers) || !Array.isArray(registry.historical_notice_points)) {
   throw new Error('process-timers.json nemá očekávanou strukturu');
 }
+if (!Array.isArray(overrides.patches)) throw new Error('process-timer-overrides.json nemá pole patches');
+
+const timerMap = new Map(registry.timers.map(item => [item.id, { ...item }]));
+for (const patch of overrides.patches) {
+  if (!patch.id) throw new Error(`Oprava časovače bez ID: ${JSON.stringify(patch)}`);
+  timerMap.set(patch.id, { ...(timerMap.get(patch.id) || {}), ...patch });
+}
+registry.timers = [...timerMap.values()];
+registry.overrides = { source: overridesPath, applied: overrides.patches.length, updated_on: overrides.updated_on || null };
+
 const ids = new Set();
 for (const item of registry.timers) {
   if (!item.id || !item.category || !item.title || !item.limit_label) throw new Error(`Neúplný procesní časovač: ${JSON.stringify(item)}`);
@@ -37,9 +49,11 @@ const row = item => {
   const end = item.end_date || '';
   const title = item.href ? `<a href="${escapeHtml(item.href)}">${escapeHtml(item.title)}</a>` : escapeHtml(item.title);
   const due = item.due_date ? ` · konkrétní evidovaný konec: ${escapeHtml(item.due_date)}` : '';
+  const history = item.process_history ? `<p class="timer-basis"><b>Průběh:</b> ${escapeHtml(item.process_history)}</p>` : '';
+  const nextEvent = item.next_event ? `<p class="timer-basis"><b>Další úkon:</b> ${escapeHtml(item.next_event)}</p>` : '';
   return `<article class="process-timer" data-process-timer data-start-date="${escapeHtml(start)}"${end ? ` data-end-date="${escapeHtml(end)}"` : ''}>
     <div class="timer-value"><span data-elapsed-days>…</span> / <span>${escapeHtml(item.limit_label)}</span></div>
-    <div class="timer-detail"><h4>${title}</h4><p>${escapeHtml(item.reference || '')}</p><p class="timer-basis"><b>Počátek:</b> ${escapeHtml(item.start_date || 'k ověření')} · ${escapeHtml(item.start_date_basis || '')}</p><p class="timer-basis"><b>Pravá strana časovače:</b> ${escapeHtml(item.legal_basis || '')}${due}</p></div>
+    <div class="timer-detail"><h4>${title}</h4><p>${escapeHtml(item.reference || '')}</p><p class="timer-basis"><b>Počátek:</b> ${escapeHtml(item.start_date || 'k ověření')} · ${escapeHtml(item.start_date_basis || '')}</p><p class="timer-basis"><b>Pravá strana časovače:</b> ${escapeHtml(item.legal_basis || '')}${due}</p>${history}${nextEvent}</div>
   </article>`;
 };
 
@@ -76,5 +90,5 @@ godot = injectAssets(godot);
 await writeFile(godotPath, godot, 'utf8');
 
 await mkdir('web/data', { recursive: true });
-await copyFile(sourcePath, targetPath);
-console.log(`Procesní časovače vytvořeny: ${registry.timers.length}; historické body: ${registry.historical_notice_points.length}.`);
+await writeFile(targetPath, `${JSON.stringify(registry, null, 2)}\n`, 'utf8');
+console.log(`Procesní časovače vytvořeny: ${registry.timers.length}; ověřené opravy: ${overrides.patches.length}; historické body: ${registry.historical_notice_points.length}.`);
