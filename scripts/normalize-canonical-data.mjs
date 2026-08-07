@@ -6,12 +6,20 @@ const registry = await readJson(documentsPath);
 if (!Array.isArray(registry.documents)) throw new Error('documents-2026.json neobsahuje pole documents');
 
 const outgoingTypes = new Set(['user_submission', 'user_filing', 'alliance_submission', 'our_submission']);
+const institutionAliases = new Map([
+  ['CZ-OSZ-PRO', 'CZ-OSZ-PV'],
+  ['CZ-PCR-KRPM', 'CZ-PCR-KRPO']
+]);
 let changed = 0;
 let incoming = 0;
 let outgoing = 0;
 let unclassified = 0;
 
 for (const doc of registry.documents) {
+  if (institutionAliases.has(doc.institution_id)) {
+    doc.institution_id = institutionAliases.get(doc.institution_id);
+    changed += 1;
+  }
   if (!Array.isArray(doc.case_ids)) { doc.case_ids = []; changed += 1; }
   if (!Array.isArray(doc.topics)) { doc.topics = []; changed += 1; }
   if (!Array.isArray(doc.relations)) { doc.relations = []; changed += 1; }
@@ -34,7 +42,8 @@ for (const doc of registry.documents) {
 
 registry.normalization = {
   updated_at: new Date().toISOString(),
-  rule: 'Kanonická data se doplňují pouze deterministicky. State_record = příchozí stát/veřejná instituce; výslovné typy našich podání = odchozí; ostatní bez odhadu.',
+  rule: 'Kanonická data se doplňují pouze deterministicky. Starší aliasy institucí se převádějí na kanonická ID; state_record = příchozí stát/veřejná instituce; výslovné typy našich podání = odchozí; ostatní bez odhadu.',
+  institution_aliases: Object.fromEntries(institutionAliases),
   incoming_from_state_or_public_institution: incoming,
   outgoing_from_user_or_alliance: outgoing,
   unclassified: unclassified
