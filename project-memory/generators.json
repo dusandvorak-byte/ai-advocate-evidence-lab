@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.3",
+  "schema_version": "1.4",
   "status": "binding",
   "single_public_build_entrypoint": "scripts/build-site.mjs",
   "single_validation_workflow": ".github/workflows/validate-evidence-lab-2.yml",
@@ -12,8 +12,9 @@
   },
   "subgenerators": [
     {"path":"scripts/validate-architecture.mjs","role":"preflight_validation","allowed_caller":"scripts/build-site.mjs"},
-    {"path":"scripts/audit-registries.mjs","role":"canonical_registry_audit","allowed_caller":"scripts/build-site.mjs"},
+    {"path":"scripts/normalize-canonical-data.mjs","role":"deterministic_canonical_data_normalization","allowed_caller":"scripts/build-site.mjs"},
     {"path":"scripts/reconcile-public-pdfs.mjs","role":"pdf_reconciliation","allowed_caller":"scripts/build-site.mjs"},
+    {"path":"scripts/audit-registries.mjs","role":"canonical_registry_audit","allowed_caller":"scripts/build-site.mjs"},
     {"path":"scripts/build-dynamic-chronology.mjs","role":"chronology_and_evidence_pages","allowed_caller":"scripts/build-site.mjs"},
     {"path":"scripts/finalize-homepage.mjs","role":"homepage_generation","allowed_caller":"scripts/build-site.mjs"},
     {"path":"scripts/build-deadlines.mjs","role":"deadline_view_generation","allowed_caller":"scripts/build-site.mjs"},
