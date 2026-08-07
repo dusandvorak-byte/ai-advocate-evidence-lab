@@ -24,8 +24,10 @@ const run = script => new Promise((resolve, reject) => {
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 
 await run('scripts/validate-architecture.mjs');
-await run('scripts/audit-registries.mjs');
+// Nejprve deterministicky vyčistit a sjednotit PDF vazby; teprve potom auditovat
+// kanonický registr. Audit tak neblokuje opravu starých normalizovatelných cest.
 await run('scripts/reconcile-public-pdfs.mjs');
+await run('scripts/audit-registries.mjs');
 
 const documentsRegistry = await readJson(source.documents);
 const institutionsRegistry = await readJson(source.institutions);
