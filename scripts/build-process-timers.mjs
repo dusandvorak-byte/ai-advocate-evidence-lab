@@ -66,7 +66,9 @@ const categories = order.map(category => {
 }).join('');
 
 const notices = registry.historical_notice_points.map(item => `<article class="historical-notice"><h4>${escapeHtml(item.date)} · ${escapeHtml(item.title)}</h4><p>${escapeHtml(item.evidence)}</p><p><b>Význam pro projekt:</b> ${escapeHtml(item.boundary)}</p></article>`).join('');
-const section = `<section id="procesni-casovace" class="process-timers"><header><div><p class="section-label">ŽIVÉ PROCESNÍ ČASOVAČE</p><h2>Procesní časovače</h2></div></header><p class="timer-legend"><b>Povinný formát:</b> kdo · datum · č. j./sp. zn. · co se stalo. <b>Časovač:</b> počet dnů od doloženého počátku do dne otevření webu / doložená zákonná nebo procesní lhůta. Pokud pevná číselná lhůta není, web ji nevymýšlí.</p>${categories}<h3>Historický společný referenční bod vědomosti státu</h3>${notices}</section>`;
+const timerBody = `<p class="timer-legend"><b>Povinný formát:</b> kdo · datum · č. j./sp. zn. · co se stalo. <b>Časovač:</b> počet dnů od doloženého počátku do dne otevření webu / doložená zákonná nebo procesní lhůta. Pokud pevná číselná lhůta není, web ji nevymýšlí.</p>${categories}<h3>Historický společný referenční bod vědomosti státu</h3>${notices}`;
+const godotSection = `<section id="procesni-casovace" class="process-timers"><header><div><p class="section-label">ŽIVÉ PROCESNÍ ČASOVAČE</p><h2>Procesní časovače</h2></div></header>${timerBody}</section>`;
+const homeSection = `<details id="procesni-casovace" class="process-timers process-timers-dropdown"><summary><span>Živé procesní časovače</span><strong>${registry.timers.length} aktivních časovačů · rozbalit</strong></summary><div class="process-timers-dropdown-body">${timerBody}</div></details>`;
 
 const injectAssets = html => {
   if (!html.includes(cssTag)) html = html.replace('</head>', `  ${cssTag}\n</head>`);
@@ -75,10 +77,10 @@ const injectAssets = html => {
 };
 
 let home = await readFile(homePath, 'utf8');
-home = home.replace(/<section id="procesni-casovace"[\s\S]*?<\/section>\s*/g, '');
+home = home.replace(/<(?:section|details) id="procesni-casovace"[\s\S]*?<\/(?:section|details)>\s*/g, '');
 const homeMarker = '<section id="live-dockets"';
 if (!home.includes(homeMarker)) throw new Error('Na titulní stránce chybí live-dockets');
-home = home.replace(homeMarker, `${section}\n${homeMarker}`);
+home = home.replace(homeMarker, `${homeSection}\n${homeMarker}`);
 home = injectAssets(home);
 await writeFile(homePath, home, 'utf8');
 
@@ -86,7 +88,7 @@ let godot = await readFile(godotPath, 'utf8');
 godot = godot.replace(/<section id="procesni-casovace"[\s\S]*?<\/section>\s*/g, '');
 const godotMarker = '<h2 id="chronologie">';
 if (!godot.includes(godotMarker)) throw new Error('Godot nemá chronologický marker');
-godot = godot.replace(godotMarker, `${section}\n${godotMarker}`);
+godot = godot.replace(godotMarker, `${godotSection}\n${godotMarker}`);
 godot = injectAssets(godot);
 await writeFile(godotPath, godot, 'utf8');
 
@@ -100,4 +102,4 @@ await writeFile(eudaArticlePath, eudaArticle, 'utf8');
 
 await mkdir('web/data', { recursive: true });
 await writeFile(targetPath, `${JSON.stringify(registry, null, 2)}\n`, 'utf8');
-console.log(`Procesní časovače vytvořeny: ${registry.timers.length}; ověřené opravy: ${overrides.patches.length}; historické body: ${registry.historical_notice_points.length}; odpověď EUDA vložena do článku.`);
+console.log(`Procesní časovače vytvořeny: ${registry.timers.length}; titulní strana používá sbalovací roletku; Godot zachovává plný přehled.`);
