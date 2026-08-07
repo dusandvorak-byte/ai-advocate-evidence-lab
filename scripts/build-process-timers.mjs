@@ -78,8 +78,8 @@ const injectAssets = html => {
 
 let home = await readFile(homePath, 'utf8');
 home = home.replace(/<(?:section|details) id="procesni-casovace"[\s\S]*?<\/(?:section|details)>\s*/g, '');
-const homeMarker = '<section id="live-dockets"';
-if (!home.includes(homeMarker)) throw new Error('Na titulní stránce chybí live-dockets');
+const homeMarker = '<section class="shared-news-feed"';
+if (!home.includes(homeMarker)) throw new Error('Na titulní stránce chybí shared-news-feed pro umístění roletky časovačů pod dvě hlavní zprávy');
 home = home.replace(homeMarker, `${homeSection}\n${homeMarker}`);
 home = injectAssets(home);
 await writeFile(homePath, home, 'utf8');
@@ -102,4 +102,4 @@ await writeFile(eudaArticlePath, eudaArticle, 'utf8');
 
 await mkdir('web/data', { recursive: true });
 await writeFile(targetPath, `${JSON.stringify(registry, null, 2)}\n`, 'utf8');
-console.log(`Procesní časovače vytvořeny: ${registry.timers.length}; titulní strana používá sbalovací roletku; Godot zachovává plný přehled.`);
+console.log(`Procesní časovače vytvořeny: ${registry.timers.length}; titulní roletka je až pod hlavní zprávou Lorraine a druhou zprávou Godot.`);
