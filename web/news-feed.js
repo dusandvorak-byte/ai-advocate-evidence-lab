@@ -4,6 +4,19 @@
  */
 const cannaNews = [
   {
+    id: '07082026-011',
+    dateCs: '7. 8. 2026',
+    dateEn: '7 August 2026',
+    score: '9/9',
+    titleCs: 'Lorraine Nolan s láskou. Výzva k polibku z gubernie protektorátu Böhmen und Groß Cannabis Mähren',
+    titleEn: 'To Lorraine Nolan, with love. A call to act from Böhmen und Groß Cannabis Mähren',
+    summaryCs: 'EUDA byla vyzvána podle čl. 265 SFEU, aby vymezila stanovisko ke srovnatelnosti analytických metod stanovení THC a THC/THCA v členských státech EU.',
+    summaryEn: 'EUDA was formally called upon under Article 265 TFEU to define its position on the comparability of THC and THC/THCA analytical methods across EU Member States.',
+    keywordsCs: 'EUDA Lorraine Nolan článek 265 SFEU THC THCA analytické metody harmonizace srovnatelnost Evropská unie',
+    keywordsEn: 'EUDA Lorraine Nolan Article 265 TFEU THC THCA analytical methods harmonisation comparability European Union',
+    href: 'zpravy/07082026-011.html'
+  },
+  {
     id: '04082026-010',
     dateCs: '4. 8. 2026',
     dateEn: '4 August 2026',

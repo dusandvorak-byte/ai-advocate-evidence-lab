@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "status": "binding",
+  "default_policy": "internal_knowledge_only",
+  "rules": {
+    "automatic_publication_forbidden": true,
+    "explicit_human_approval_required": true,
+    "derived_facts_require_source_and_review": true,
+    "personal_and_contact_data_not_exported_by_default": true
+  },
+  "source_categories": [
+    "project_architecture",
+    "annual_reports",
+    "methodologies",
+    "working_drafts",
+    "private_evidence",
+    "research_materials"
+  ],
+  "known_internal_sources": [
+    {
+      "title": "AI Advocate for the Poor — final English project submission, 20 July 2026",
+      "purpose": "project goals, safety architecture and product continuity",
+      "publication": "not_automatic"
+    },
+    {
+      "title": "Výroční zpráva 2025 aliance Cannabis is The Cure",
+      "purpose": "history, five alliance organisations and programme context",
+      "publication": "not_automatic"
+    }
+  ]
+}

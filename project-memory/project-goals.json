@@ -1,0 +1,25 @@
+{
+  "schema_version": "2.0",
+  "status": "binding",
+  "principle": "Žádná technická změna nesmí omezit, odstranit ani předstírat splnění schváleného cíle projektu.",
+  "goals": [
+    "person_owned_auditable_memory",
+    "local_and_external_https_document_ingest",
+    "sha256_document_identity",
+    "source_linked_claims_and_provenance",
+    "facts_claims_interpretation_uncertainty_separation",
+    "relevance_with_explanation_and_human_review",
+    "single_clock_deadline_and_inactivity_system",
+    "derived_state_public_institution_counter",
+    "derived_user_alliance_submission_counter",
+    "document_case_institution_person_law_case_law_graph",
+    "interactive_evidence_memory",
+    "controlled_publication_and_privacy",
+    "exportability_and_no_platform_lock_in",
+    "continuous_public_chronology",
+    "human_professional_handoff",
+    "truthful_live_verification_before_completion_claim"
+  ],
+  "publication_rule": "Build se zastaví, pokud nová verze některý závazný cíl ztratí nebo jej nedokáže doložit.",
+  "source_note": "Interní podklady slouží k čerpání znalostí a nejsou automaticky veřejným obsahem."
+}
