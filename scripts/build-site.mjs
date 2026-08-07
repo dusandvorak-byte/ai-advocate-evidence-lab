@@ -5,6 +5,7 @@ const source = {
   documents: 'project-memory/documents-2026.json',
   institutions: 'project-memory/institutions.json',
   deadlines: 'project-memory/deadlines.json',
+  timers: 'project-memory/process-timers.json',
   axioms: 'project-memory/publication-axioms.json',
   architecture: 'project-memory/architecture.json',
   goals: 'project-memory/project-goals.json',
@@ -31,6 +32,7 @@ await run('scripts/audit-registries.mjs');
 const documentsRegistry = await readJson(source.documents);
 const institutionsRegistry = await readJson(source.institutions);
 const deadlinesRegistry = await readJson(source.deadlines);
+const timersRegistry = await readJson(source.timers);
 const axiomsRegistry = await readJson(source.axioms);
 const architectureRegistry = await readJson(source.architecture);
 const goalsRegistry = await readJson(source.goals);
@@ -41,6 +43,7 @@ const registryAudit = await readJson(`${output.data}/registry-audit.json`);
 if (!Array.isArray(documentsRegistry.documents)) throw new Error('documents-2026.json neobsahuje pole documents');
 if (!Array.isArray(institutionsRegistry.institutions)) throw new Error('institutions.json neobsahuje pole institutions');
 if (!Array.isArray(deadlinesRegistry.deadlines)) throw new Error('deadlines.json neobsahuje pole deadlines');
+if (!Array.isArray(timersRegistry.timers)) throw new Error('process-timers.json neobsahuje pole timers');
 if (axiomsRegistry.status !== 'binding' || !Array.isArray(axiomsRegistry.axioms)) throw new Error('publication-axioms.json není závazný registr');
 if (architectureRegistry.single_build_entrypoint !== 'scripts/build-site.mjs') throw new Error('Není použit jediný build Evidence Lab 2.0');
 if (goalsRegistry.status !== 'binding') throw new Error('Cíle projektu nejsou závazné');
@@ -52,6 +55,7 @@ if (registryAudit.hard_error_count !== 0) throw new Error('Audit kanonických re
 await run('scripts/build-dynamic-chronology.mjs');
 await run('scripts/finalize-homepage.mjs');
 await run('scripts/build-deadlines.mjs');
+await run('scripts/build-process-timers.mjs');
 await run('scripts/build-operational-state.mjs');
 await run('scripts/audit-godot-pdf-links.mjs');
 
@@ -70,6 +74,8 @@ article = article
 await writeFile(output.article, article, 'utf8');
 const home = await readFile(output.home, 'utf8');
 for (const bar of ['Aktivní soudní řízení on-line od 1. května 2026','Předžalobní řízení on-line od 1. května 2026','Státní láska online od 1. května 2026']) if (!home.includes(bar)) throw new Error(`Na titulní stránce chybí lišta: ${bar}`);
+if (!home.includes('id="procesni-casovace"')) throw new Error('Titulní stránka neobsahuje procesní časovače');
+if (!article.includes('id="procesni-casovace"')) throw new Error('Godot neobsahuje procesní časovače');
 if (!article.includes(correctTitle)) throw new Error('Článek neobsahuje správný Godotův název');
 if (article.includes(wrongTitle)) throw new Error('Článek obsahuje chybný název s křižákem z Branibor');
 if (!article.includes('id="chronologie-seznam"')) throw new Error('Článek neobsahuje statickou chronologii');
@@ -82,6 +88,7 @@ await mkdir(output.data, { recursive: true });
 await copyFile(source.documents, `${output.data}/documents-2026.json`);
 await copyFile(source.institutions, `${output.data}/institutions.json`);
 await copyFile(source.deadlines, `${output.data}/deadlines-source.json`);
+await copyFile(source.timers, `${output.data}/process-timers-source.json`);
 await copyFile(source.axioms, `${output.data}/publication-axioms.json`);
 await copyFile('project-memory/pdf-reconciliation-report.json', `${output.data}/pdf-reconciliation-report.json`);
 const publicPdfLinks = [...new Set(documentsRegistry.documents.map(item => item.public?.pdf).filter(Boolean).map(publicPath))];
@@ -90,10 +97,10 @@ const manifest = {
   architecture_version: architectureRegistry.schema_version, project_goals_count: goalsRegistry.goals.length,
   registered_subgenerators_count: generatorsRegistry.subgenerators.length, privacy_full_name_person: privacyRegistry.persons[0].name,
   privacy_alliance_organizations_count: privacyRegistry.alliance_organizations.length, operational_state: 'data/operations-state.json',
-  registry_audit: 'data/registry-audit.json', pdf_reconciliation_report: 'data/pdf-reconciliation-report.json', godot_pdf_audit: 'data/godot-pdf-audit.json',
+  registry_audit: 'data/registry-audit.json', pdf_reconciliation_report: 'data/pdf-reconciliation-report.json', godot_pdf_audit: 'data/godot-pdf-audit.json', process_timers: 'data/process-timers.json',
   counts: {
     documents: documentsRegistry.documents.length, institutions: institutionsRegistry.institutions.length, cases: registryAudit.counts.cases,
-    deadlines: deadlinesRegistry.deadlines.length, chronology_items: chronologyCount, public_pdf_links: publicPdfLinks.length,
+    deadlines: deadlinesRegistry.deadlines.length, process_timers: timersRegistry.timers.length, chronology_items: chronologyCount, public_pdf_links: publicPdfLinks.length,
     physical_pdf_files: documentsRegistry.reconciliation?.physical_pdf_count ?? null, unresolved_pdf_matches: documentsRegistry.reconciliation?.unresolved_count ?? null,
     eligible_institution_documents: godotPdfAudit.eligible_institution_document_count, eligible_with_active_pdf: godotPdfAudit.eligible_with_active_pdf_count,
     eligible_without_active_pdf: godotPdfAudit.eligible_without_active_pdf_count, broken_godot_pdf_links: godotPdfAudit.broken_article_pdf_link_count,
@@ -103,7 +110,7 @@ const manifest = {
   },
   capabilities_preserved: {
     local_and_external_https_document_ingest: true, sha256_identity: true, relevance_with_explanation_and_human_review: true,
-    deadline_and_inactivity_tracking: true, single_clock_system: true, two_derived_submission_counters: true,
+    deadline_and_inactivity_tracking: true, live_process_timers: true, single_clock_system: true, two_derived_submission_counters: true,
     counter_values_are_derived_not_manual: true, unclassified_documents_are_not_guessed: true, canonical_registry_audit: true,
     single_public_build_entrypoint: true, five_alliance_privacy_exemptions: true, lawful_third_person_anonymization: true,
     interactive_document_case_law_statute_memory: true, internal_knowledge_not_auto_published: true,
@@ -113,4 +120,4 @@ const manifest = {
   public_pdf_links: publicPdfLinks
 };
 await writeFile(`${output.data}/build-manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
-console.log(`Evidence Lab 2.0 build: audit 0 tvrdých chyb / ${registryAudit.human_review_count} vazeb ke kontrole; stát/veřejné instituce ${operationalState.counters.state_and_public_institutions}; naše podání ${operationalState.counters.our_submissions}; nezařazené ${operationalState.counters.unclassified}; ${publicPdfLinks.length} aktivních PDF; Godot ${godotPdfAudit.eligible_with_active_pdf_count}/${godotPdfAudit.eligible_institution_document_count} aktivních PDF u policie/SZ/KPR/ministerstev.`);
+console.log(`Evidence Lab 2.0 build: audit 0 tvrdých chyb / ${registryAudit.human_review_count} vazeb ke kontrole; stát/veřejné instituce ${operationalState.counters.state_and_public_institutions}; naše podání ${operationalState.counters.our_submissions}; nezařazené ${operationalState.counters.unclassified}; ${publicPdfLinks.length} aktivních PDF; ${timersRegistry.timers.length} živých procesních časovačů; Godot ${godotPdfAudit.eligible_with_active_pdf_count}/${godotPdfAudit.eligible_institution_document_count} aktivních PDF u policie/SZ/KPR/ministerstev.`);
