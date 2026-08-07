@@ -1,0 +1,1 @@
+Ověřit odstranění duplicitního bloku Aktivní uzly řízení z Godota a zachování pořadí chronologie -> Živé procesní časovače.
