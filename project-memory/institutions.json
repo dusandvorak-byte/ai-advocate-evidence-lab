@@ -22,6 +22,7 @@
     {"id":"CZ-OS-PHA4","country":"CZ","type":"court","name":"Obvodní soud pro Prahu 4","short_name":"OS Praha 4"},
     {"id":"CZ-MS-PHA","country":"CZ","type":"court","name":"Městský soud v Praze","short_name":"MS Praha"},
     {"id":"CZ-KS-BRN","country":"CZ","type":"court","name":"Krajský soud v Brně","short_name":"KS Brno"},
+    {"id":"CZ-KS-OST","country":"CZ","type":"court","name":"Krajský soud v Ostravě","short_name":"KS Ostrava"},
     {"id":"CZ-EXE-LIB","country":"CZ","type":"court_enforcement","name":"Soudní exekutor – Liberec","short_name":"Exekutor Liberec"},
     {"id":"CZ-EXE-PLZ","country":"CZ","type":"court_enforcement","name":"Soudní exekutor – Plzeň","short_name":"Exekutor Plzeň"},
     {"id":"CZ-PCR","country":"CZ","type":"police","name":"Policie České republiky","short_name":"PČR"},
