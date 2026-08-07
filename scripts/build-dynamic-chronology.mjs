@@ -29,7 +29,11 @@ const caseAnchors = [
   ['case-cz-msz-praha-prezkumy', 'MSZ Praha – přezkumy'],
   ['case-cz-vsz-olomouc-dohled-ksz-brno', 'VSZ Olomouc – dohled KSZ Brno'],
   ['case-cz-ksz-brno-prezkumy', 'KSZ Brno – přezkumy'],
-  ['case-cz-kpr-tri-vetve', 'KPR – tři aktuální větve']
+  ['case-cz-kpr-tri-vetve', 'KPR – tři aktuální větve'],
+  ['instituce-policie', 'Policie České republiky'],
+  ['instituce-statni-zastupitelstvi', 'Státní zastupitelství'],
+  ['instituce-kpr', 'Kancelář prezidenta republiky'],
+  ['instituce-ministerstva', 'Ministerstva']
 ];
 
 const escapeHtml = value => String(value ?? '')
@@ -107,7 +111,7 @@ const mainDocuments = documents.filter(item => item.issue_date >= MAIN_FROM);
 const archiveDocuments = documents.filter(item => item.issue_date < MAIN_FROM);
 const stateDocuments = mainDocuments.filter(item => item.document_type === 'state_record');
 
-const caseIndex = `<section id="rizeni-online" class="case-anchor-index"><h3>Aktivní uzly řízení</h3>${caseAnchors.map(([id, label]) => `<article id="${id}" class="case-anchor-node"><h4>${escapeHtml(label)}</h4><p>Související listiny a procesní kroky jsou propojeny v chronologii níže.</p></article>`).join('')}</section>`;
+const caseIndex = `<section id="rizeni-online" class="case-anchor-index"><h3>Aktivní uzly řízení</h3>${caseAnchors.map(([id, label]) => `<article id="${id}" class="case-anchor-node"><h4>${escapeHtml(label)}</h4><p>Související listiny a procesní kroky jsou průběžně řazeny v chronologii výše.</p></article>`).join('')}</section>`;
 const chronologyHtml = `<ol id="chronologie-seznam">${mainDocuments.map(renderChronologyItem).join('')}</ol>`;
 const archiveHtml = archiveDocuments.length
   ? `<h2 id="archiv-vstupu-do-eu">Archiv vstupu do EU</h2><p>Dokumentovaná historie podání, rozhodnutí, obran a institucionálních vazeb před 1. květnem 2026, systematicky zejména od roku 2010.</p><ol id="archiv-seznam" start="${mainDocuments.length + 1}">${archiveDocuments.map(renderChronologyItem).join('')}</ol>`
@@ -120,7 +124,7 @@ article = article
   .replace(/<div class="news-meta">[\s\S]*?<\/div>/, `<div class="news-meta"><span>Od 1. května 2026</span><span>Stát: ${stateDocuments.length} evidovaných listin</span><span>Autor: Mgr. Dušan Dvořák</span></div>`)
   .replace(/<h2 id="chronologie">[\s\S]*?<\/h2>/, '<h2 id="chronologie">Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?</h2>')
   .replace(/<section id="rizeni-online"[\s\S]*?<\/section>\s*/g, '')
-  .replace(/<ol(?: id="chronologie-seznam")?[^>]*>[\s\S]*?<\/ol>/, `${caseIndex}${chronologyHtml}${archiveHtml}`);
+  .replace(/<ol(?: id="chronologie-seznam")?[^>]*>[\s\S]*?<\/ol>/, `${chronologyHtml}${caseIndex}${archiveHtml}`);
 
 if (!article.includes(scriptTag)) article = article.replace('</body>', `  ${scriptTag}\n</body>`);
 await writeFile(articlePath, article, 'utf8');
