@@ -5,6 +5,31 @@ const readJson = async path => JSON.parse(await readFile(path, 'utf8'));
 const registry = await readJson(documentsPath);
 if (!Array.isArray(registry.documents)) throw new Error('documents-2026.json neobsahuje pole documents');
 
+const eudaAckId = 'doc-eu-euda-2026-08-07-ack-article-265-tfeu';
+if (!registry.documents.some(doc => doc.id === eudaAckId)) {
+  registry.documents.push({
+    id: eudaAckId,
+    user_title: 'Potvrzení přijetí formální výzvy k jednání podle čl. 265 SFEU a příslib následné odpovědi',
+    issue_date: '2026-08-07',
+    received_date: '2026-08-07',
+    institution_id: 'EU-EUDA',
+    reference: 'bez samostatného č. j./sp. zn. v e-mailu',
+    case_ids: [],
+    document_type: 'state_record',
+    topics: ['EUDA', 'čl. 265 SFEU', 'THC', 'THCA', 'analytické metody'],
+    public: {
+      html: 'listiny/euda-2026-08-07-potvrzeni-prijeti-cl-265-sfeu.html',
+      pdf: null,
+      sha256: null,
+      verification_status: 'catalogued'
+    },
+    relations: [
+      { type: 'souvisí', target_id: 'zpravy/07082026-011.html' }
+    ],
+    evidence_note: 'EUDA dne 7. 8. 2026 v 17:06:35 potvrdila přijetí korespondence k formální výzvě podle čl. 265 SFEU; e-mail neobsahuje samostatné č. j. ani sp. zn.'
+  });
+}
+
 const outgoingTypes = new Set(['user_submission', 'user_filing', 'alliance_submission', 'our_submission']);
 const institutionAliases = new Map([
   ['CZ-OSZ-PRO', 'CZ-OSZ-PV'],
@@ -26,9 +51,6 @@ for (const doc of registry.documents) {
   if (!Array.isArray(doc.relations)) { doc.relations = []; changed += 1; }
   if (!doc.public || typeof doc.public !== 'object') { doc.public = { html: null, pdf: null, sha256: null, verification_status: 'catalogued' }; changed += 1; }
 
-  // Povinný veřejný formát je: kdo · datum · č. j./sp. zn. · co se stalo.
-  // U starších záznamů doplníme chybějící user_title pouze z již existujícího
-  // kanonického názvu listiny, nikdy odhadem z externích skutečností.
   if (!String(doc.user_title || '').trim()) {
     const deterministicTitle = String(doc.title || '').trim();
     if (deterministicTitle) {
@@ -65,4 +87,4 @@ registry.normalization = {
 };
 
 await writeFile(documentsPath, `${JSON.stringify(registry, null, 2)}\n`, 'utf8');
-console.log(`Normalizace kanonických dat: ${changed} změn; doplněné popisy úkonů ${filledUserTitles}; stát/veřejné instituce ${incoming}; naše podání ${outgoing}; nezařazené ${unclassified}.`);
+console.log(`Normalizace kanonických dat: ${changed} změn; doplněné popisy úkonů ${filledUserTitles}; stát/veřejné instituce ${incoming}; naše podání ${outgoing}; nezařazené ${unclassified}; EUDA odpověď 7. 8. 2026 evidována v Godotovi.`);
