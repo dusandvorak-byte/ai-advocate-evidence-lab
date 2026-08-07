@@ -19,6 +19,7 @@
     {"id":"CZ-OSZ-PHA2","country":"CZ","type":"prosecution","name":"Obvodní státní zastupitelství pro Prahu 2","short_name":"OSZ Praha 2"},
     {"id":"CZ-OSZ-PHA4","country":"CZ","type":"prosecution","name":"Obvodní státní zastupitelství pro Prahu 4","short_name":"OSZ Praha 4"},
     {"id":"CZ-OSZ-PHA7","country":"CZ","type":"prosecution","name":"Obvodní státní zastupitelství pro Prahu 7","short_name":"OSZ Praha 7"},
+    {"id":"CZ-OS-PHA4","country":"CZ","type":"court","name":"Obvodní soud pro Prahu 4","short_name":"OS Praha 4"},
     {"id":"CZ-MS-PHA","country":"CZ","type":"court","name":"Městský soud v Praze","short_name":"MS Praha"},
     {"id":"CZ-KS-BRN","country":"CZ","type":"court","name":"Krajský soud v Brně","short_name":"KS Brno"},
     {"id":"CZ-EXE-LIB","country":"CZ","type":"court_enforcement","name":"Soudní exekutor – Liberec","short_name":"Exekutor Liberec"},
