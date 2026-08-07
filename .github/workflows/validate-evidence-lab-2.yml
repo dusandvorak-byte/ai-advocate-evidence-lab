@@ -16,7 +16,7 @@ env:
 jobs:
   validate:
     name: Ověřit architekturu a sestavit web bez publikace
-    runs-on: ubuntu-latest
+    runs-on: macos-14
     timeout-minutes: 10
     steps:
       - name: Načíst zvolenou větev
@@ -28,6 +28,7 @@ jobs:
       - name: Spustit jediný kanonický build
         run: node scripts/build-site.mjs
       - name: Ověřit manifest Evidence Lab 2.0
+        shell: bash
         run: |
           set -euo pipefail
           test -f web/data/build-manifest.json
