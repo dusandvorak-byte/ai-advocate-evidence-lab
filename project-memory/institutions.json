@@ -35,6 +35,7 @@
     {"id":"CZ-CT","country":"CZ","type":"public_institution","name":"Česká televize","short_name":"ČT"},
     {"id":"CZ-UOOU","country":"CZ","type":"independent_authority","name":"Úřad pro ochranu osobních údajů","short_name":"ÚOOÚ"},
     {"id":"CZ-RRTV","country":"CZ","type":"independent_authority","name":"Rada pro rozhlasové a televizní vysílání","short_name":"RRTV"},
+    {"id":"EU-EUDA","country":"EU","type":"eu_agency","name":"European Union Drugs Agency","short_name":"EUDA"},
     {"id":"EU-CJEU","country":"EU","type":"court","name":"Soudní dvůr Evropské unie","short_name":"SDEU"},
     {"id":"EU-EC","country":"EU","type":"executive","name":"Evropská komise","short_name":"EK"},
     {"id":"COE-ECTHR","country":"COE","type":"court","name":"Evropský soud pro lidská práva","short_name":"ESLP"}
