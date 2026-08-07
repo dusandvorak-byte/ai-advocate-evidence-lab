@@ -1,9 +1,21 @@
 name: Ověřit Evidence Lab 2.0
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [agent/evidence-lab-2-final]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      runner:
+        description: 'GitHub-hosted runner pro validační failover'
+        required: true
+        default: 'macos-14'
+        type: choice
+        options:
+          - macos-14
+          - windows-2025
+          - ubuntu-24.04
 
 permissions:
   contents: read
@@ -14,18 +26,22 @@ env:
 jobs:
   validate:
     name: Ověřit architekturu a sestavit web bez publikace
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runner || 'macos-14' }}
     timeout-minutes: 10
     steps:
       - name: Načíst zvolenou větev
         uses: actions/checkout@v4
+
       - name: Použít Node.js 24
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+
       - name: Spustit jediný kanonický build
         run: node scripts/build-site.mjs
+
       - name: Ověřit manifest Evidence Lab 2.0
+        shell: bash
         run: |
           set -euo pipefail
           test -f web/data/build-manifest.json
@@ -43,8 +59,9 @@ jobs:
           test -f web/zpravy/04082026-010.html
           ! grep -qi 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
           ! grep -qi 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
+
       - name: Uložit ověřený web pouze jako kontrolní artefakt
         uses: actions/upload-artifact@v4
         with:
-          name: evidence-lab-2-kontrolni-web
+          name: evidence-lab-2-kontrolni-web-${{ runner.os }}
           path: web
