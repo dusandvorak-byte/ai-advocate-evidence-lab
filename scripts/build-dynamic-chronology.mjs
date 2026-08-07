@@ -49,6 +49,8 @@ const formatDate = value => {
   return `${Number(day)}. ${Number(month)}. ${year}`;
 };
 
+const referenceText = item => String(item.reference || '').trim() || 'bez samostatného č. j./sp. zn.';
+
 const compareDocuments = (a, b) =>
   String(a.issue_date || '').localeCompare(String(b.issue_date || '')) ||
   String(a.received_date || '').localeCompare(String(b.received_date || '')) ||
@@ -76,6 +78,8 @@ const documents = [...registry.documents].sort(compareDocuments);
 
 for (const item of documents) {
   if (!item.id || !item.issue_date || !item.institution_id) throw new Error(`Neúplný dokument: ${JSON.stringify(item)}`);
+  if (!String(item.user_title || '').trim()) throw new Error(`Dokument ${item.id} nemá popis toho, co se stalo (user_title). Povinný formát: kdo · datum · č. j./sp. zn. · co se stalo.`);
+  if (!institutionMap.has(item.institution_id)) throw new Error(`Dokument ${item.id} odkazuje na neznámou instituci ${item.institution_id}`);
   if (ids.has(item.id)) throw new Error(`Duplicitní stabilní ID dokumentu: ${item.id}`);
   ids.add(item.id);
 }
@@ -104,7 +108,7 @@ const renderChronologyItem = item => {
   const cases = Array.isArray(item.case_ids) && item.case_ids.length
     ? `<span class="case-links">Řízení: ${item.case_ids.map(id => `<a href="#${escapeHtml(id)}">${escapeHtml(id)}</a>`).join(', ')}</span>`
     : '';
-  return `<li id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}" data-institution-id="${escapeHtml(item.institution_id)}"><span class="institution">${escapeHtml(name)}</span>, ${escapeHtml(formatDate(item.issue_date))}${item.reference ? `, ${escapeHtml(item.reference)}` : ''}${item.user_title ? ` — ${escapeHtml(item.user_title)}` : ''} — <a href="${escapeHtml(link.href)}"${target}>${link.label}</a>${cases}${relationText(item)}</li>`;
+  return `<li id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}" data-institution-id="${escapeHtml(item.institution_id)}"><b>Kdo:</b> <span class="institution">${escapeHtml(name)}</span> · <b>Datum:</b> ${escapeHtml(formatDate(item.issue_date))} · <b>Č. j. / sp. zn.:</b> ${escapeHtml(referenceText(item))} · <b>Co se stalo:</b> ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${link.label}</a>${cases}${relationText(item)}</li>`;
 };
 
 const mainDocuments = documents.filter(item => item.issue_date >= MAIN_FROM);
@@ -149,10 +153,10 @@ for (const item of documents) {
     : '<p><b>Originální PDF:</b> dosud není fyzicky uloženo ve veřejném repozitáři. Tato stránka je stabilním veřejným evidenčním odkazem.</p>';
   const cases = Array.isArray(item.case_ids) && item.case_ids.length ? `<p><b>Řízení:</b> ${item.case_ids.map(escapeHtml).join(', ')}</p>` : '';
   const relations = Array.isArray(item.relations) && item.relations.length ? `<h2>Procesní vazby</h2><ul>${item.relations.map(rel => `<li>${escapeHtml(rel.type || rel.relation_type || 'souvisí')} ${escapeHtml(rel.target_id || rel.document_id || '')}</li>`).join('')}</ul>` : '';
-  const html = `<!doctype html><html lang="cs"><head><base href="https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(name)} · ${escapeHtml(item.reference || item.id)}</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="brand.css"></head><body><main class="article-shell"><article><header class="article-header"><p class="kicker">${escapeHtml(name)} · EVIDENČNÍ LISTINA</p><h1>${escapeHtml(item.reference || item.user_title || item.id)}</h1><p class="standfirst">${escapeHtml(item.user_title || 'Evidenční záznam dokumentu')}</p></header><div class="article-body"><p><b>Datum dokumentu:</b> ${escapeHtml(formatDate(item.issue_date))}</p><p><b>Instituce:</b> ${escapeHtml(name)}</p><p><b>Typ záznamu:</b> ${escapeHtml(item.document_type || 'neuvedeno')}</p><p><b>Stabilní ID:</b> <code>${escapeHtml(item.id)}</code></p>${cases}${directPdf}${relations}<p><a href="zpravy/04082026-010.html#${escapeHtml(item.id)}">Zpět do chronologie</a></p></div></article></main></body></html>`;
+  const html = `<!doctype html><html lang="cs"><head><base href="https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(name)} · ${escapeHtml(referenceText(item))}</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="brand.css"></head><body><main class="article-shell"><article><header class="article-header"><p class="kicker">${escapeHtml(name)} · EVIDENČNÍ LISTINA</p><h1>${escapeHtml(referenceText(item))}</h1><p class="standfirst">${escapeHtml(item.user_title)}</p></header><div class="article-body"><p><b>Kdo:</b> ${escapeHtml(name)}</p><p><b>Datum:</b> ${escapeHtml(formatDate(item.issue_date))}</p><p><b>Č. j. / sp. zn.:</b> ${escapeHtml(referenceText(item))}</p><p><b>Co se stalo:</b> ${escapeHtml(item.user_title)}</p><p><b>Typ záznamu:</b> ${escapeHtml(item.document_type || 'neuvedeno')}</p><p><b>Stabilní ID:</b> <code>${escapeHtml(item.id)}</code></p>${cases}${directPdf}${relations}<p><a href="zpravy/04082026-010.html#${escapeHtml(item.id)}">Zpět do chronologie</a></p></div></article></main></body></html>`;
   await writeFile(`${listinyDir}/${item.id}.html`, html, 'utf8');
   generatedPages += 1;
 }
 
 if (!article.includes('id="chronologie-seznam"') || mainDocuments.length === 0) throw new Error('Statická chronologie nebyla vytvořena');
-console.log(`Statický Pavouk vytvořen: ${mainDocuments.length} položek od 1. 5. 2026, z toho ${stateDocuments.length} státních listin; ${archiveDocuments.length} archivních položek; ${generatedPages} evidenčních stránek.`);
+console.log(`Statický Pavouk vytvořen v povinném formátu kdo · datum · č. j./sp. zn. · co se stalo: ${mainDocuments.length} položek od 1. 5. 2026, z toho ${stateDocuments.length} státních listin; ${archiveDocuments.length} archivních položek; ${generatedPages} evidenčních stránek.`);
