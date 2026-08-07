@@ -1,0 +1,3 @@
+Production build trigger for Evidence Lab 2.0.
+Purpose: publish current main with mandatory process format kdo · datum · č. j./sp. zn. · co se stalo, updated Godot chronology, timers and EUDA acknowledgement.
+Date: 2026-08-07.
