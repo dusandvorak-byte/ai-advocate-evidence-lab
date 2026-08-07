@@ -1,4 +1,5 @@
-import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises';
+import { access, mkdir, readFile, readdir, stat, writeFile } from 'node:fs/promises';
+import path from 'node:path';
 
 const articlePath = 'web/zpravy/04082026-010.html';
 const registryPath = 'project-memory/documents-2026.json';
@@ -15,6 +16,17 @@ async function usablePdf(file) {
   const data = await readFile(file);
   if (data.subarray(0, 5).toString() !== '%PDF-') return false;
   return data.subarray(Math.max(0, data.length - 2048)).toString('latin1').includes('%%EOF');
+}
+
+async function walk(dir) {
+  const out = [];
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    if (entry.name === '.git' || entry.name === 'node_modules') continue;
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) out.push(...await walk(full));
+    else out.push(full.replaceAll('\\', '/'));
+  }
+  return out;
 }
 
 const article = await readFile(articlePath, 'utf8');
@@ -47,6 +59,12 @@ for (const doc of eligibleWithActivePdf) {
   if (!await usablePdf(file)) invalidRegistryPdfLinks.push({ id: doc.id, pdf: doc.public.pdf, file });
 }
 
+const repoPdfFiles = (await walk('.')).filter(file => /\.pdf$/i.test(file));
+const usableRepoPdfs = [];
+for (const file of repoPdfFiles) if (await usablePdf(file)) usableRepoPdfs.push(file.replace(/^\.\//, ''));
+const usablePublicPdfs = usableRepoPdfs.filter(file => file.startsWith('web/documents/'));
+const usablePdfOutsidePublicTree = usableRepoPdfs.filter(file => !file.startsWith('web/documents/'));
+
 const report = {
   generated_at: new Date().toISOString(),
   article: articlePath,
@@ -58,7 +76,12 @@ const report = {
   eligible_without_active_pdf_count: eligibleWithoutActivePdf.length,
   eligible_without_active_pdf: eligibleWithoutActivePdf,
   invalid_registry_pdf_link_count: invalidRegistryPdfLinks.length,
-  invalid_registry_pdf_links: invalidRegistryPdfLinks
+  invalid_registry_pdf_links: invalidRegistryPdfLinks,
+  repository_pdf_count: repoPdfFiles.length,
+  usable_repository_pdf_count: usableRepoPdfs.length,
+  usable_public_pdf_count: usablePublicPdfs.length,
+  usable_pdf_outside_public_tree_count: usablePdfOutsidePublicTree.length,
+  usable_pdf_outside_public_tree: usablePdfOutsidePublicTree
 };
 await mkdir('web/data', { recursive: true });
 await writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
@@ -66,4 +89,4 @@ await writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
 if (brokenArticlePdfLinks.length || invalidRegistryPdfLinks.length) {
   throw new Error(`Godot PDF audit selhal: ${brokenArticlePdfLinks.length} nefunkčních PDF odkazů v článku, ${invalidRegistryPdfLinks.length} neplatných registrovaných PDF vazeb.`);
 }
-console.log(`Godot PDF audit: ${articlePdfLinks.length} PDF odkazů v článku, 0 nefunkčních; ${eligibleWithActivePdf.length}/${eligible.length} listin policie/SZ/KPR/ministerstev má aktivní PDF.`);
+console.log(`Godot PDF audit: ${articlePdfLinks.length} PDF odkazů v článku, 0 nefunkčních; ${eligibleWithActivePdf.length}/${eligible.length} listin policie/SZ/KPR/ministerstev má aktivní PDF; ${usablePdfOutsidePublicTree.length} použitelných PDF leží mimo web/documents.`);
