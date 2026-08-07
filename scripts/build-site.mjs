@@ -53,8 +53,10 @@ await run('scripts/build-dynamic-chronology.mjs');
 await run('scripts/finalize-homepage.mjs');
 await run('scripts/build-deadlines.mjs');
 await run('scripts/build-operational-state.mjs');
+await run('scripts/audit-godot-pdf-links.mjs');
 
 const operationalState = await readJson(`${output.data}/operations-state.json`);
+const godotPdfAudit = await readJson(`${output.data}/godot-pdf-audit.json`);
 for (const key of ['state_and_public_institutions', 'our_submissions', 'unclassified', 'total_documents']) {
   if (!Number.isInteger(operationalState.counters?.[key]) || operationalState.counters[key] < 0) throw new Error(`Neplatné odvozené počítadlo: ${key}`);
 }
@@ -88,11 +90,13 @@ const manifest = {
   architecture_version: architectureRegistry.schema_version, project_goals_count: goalsRegistry.goals.length,
   registered_subgenerators_count: generatorsRegistry.subgenerators.length, privacy_full_name_person: privacyRegistry.persons[0].name,
   privacy_alliance_organizations_count: privacyRegistry.alliance_organizations.length, operational_state: 'data/operations-state.json',
-  registry_audit: 'data/registry-audit.json', pdf_reconciliation_report: 'data/pdf-reconciliation-report.json',
+  registry_audit: 'data/registry-audit.json', pdf_reconciliation_report: 'data/pdf-reconciliation-report.json', godot_pdf_audit: 'data/godot-pdf-audit.json',
   counts: {
     documents: documentsRegistry.documents.length, institutions: institutionsRegistry.institutions.length, cases: registryAudit.counts.cases,
     deadlines: deadlinesRegistry.deadlines.length, chronology_items: chronologyCount, public_pdf_links: publicPdfLinks.length,
     physical_pdf_files: documentsRegistry.reconciliation?.physical_pdf_count ?? null, unresolved_pdf_matches: documentsRegistry.reconciliation?.unresolved_count ?? null,
+    eligible_institution_documents: godotPdfAudit.eligible_institution_document_count, eligible_with_active_pdf: godotPdfAudit.eligible_with_active_pdf_count,
+    eligible_without_active_pdf: godotPdfAudit.eligible_without_active_pdf_count, broken_godot_pdf_links: godotPdfAudit.broken_article_pdf_link_count,
     registry_hard_errors: registryAudit.hard_error_count, registry_human_review_required: registryAudit.human_review_count,
     state_public_submissions: operationalState.counters.state_and_public_institutions, our_submissions: operationalState.counters.our_submissions,
     unclassified_submission_side: operationalState.counters.unclassified, submission_classification_human_review_required: operationalState.classification_quality.human_review_required
@@ -103,9 +107,10 @@ const manifest = {
     counter_values_are_derived_not_manual: true, unclassified_documents_are_not_guessed: true, canonical_registry_audit: true,
     single_public_build_entrypoint: true, five_alliance_privacy_exemptions: true, lawful_third_person_anonymization: true,
     interactive_document_case_law_statute_memory: true, internal_knowledge_not_auto_published: true,
+    godot_pdf_links_hard_validated: true,
     axioms_enforced: axiomsRegistry.axioms.map(item => item.id), goals_enforced: goalsRegistry.goals
   },
   public_pdf_links: publicPdfLinks
 };
 await writeFile(`${output.data}/build-manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
-console.log(`Evidence Lab 2.0 build: audit 0 tvrdých chyb / ${registryAudit.human_review_count} vazeb ke kontrole; stát/veřejné instituce ${operationalState.counters.state_and_public_institutions}; naše podání ${operationalState.counters.our_submissions}; nezařazené ${operationalState.counters.unclassified}; ${publicPdfLinks.length} aktivních PDF.`);
+console.log(`Evidence Lab 2.0 build: audit 0 tvrdých chyb / ${registryAudit.human_review_count} vazeb ke kontrole; stát/veřejné instituce ${operationalState.counters.state_and_public_institutions}; naše podání ${operationalState.counters.our_submissions}; nezařazené ${operationalState.counters.unclassified}; ${publicPdfLinks.length} aktivních PDF; Godot ${godotPdfAudit.eligible_with_active_pdf_count}/${godotPdfAudit.eligible_institution_document_count} aktivních PDF u policie/SZ/KPR/ministerstev.`);
