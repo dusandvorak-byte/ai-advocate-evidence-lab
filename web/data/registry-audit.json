@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-07T19:50:43.108Z",
+  "hard_error_count": 0,
+  "human_review_count": 0,
+  "counts": {
+    "documents": 58,
+    "institutions": 37,
+    "cases": 7,
+    "deadlines": 0
+  },
+  "hard_errors": [],
+  "human_review_required": [],
+  "rule": "Duplicity a neplatné veřejné cesty blokují build. Neúplné vazby se nikdy nedoplňují odhadem a čekají na lidskou kontrolu."
+}
