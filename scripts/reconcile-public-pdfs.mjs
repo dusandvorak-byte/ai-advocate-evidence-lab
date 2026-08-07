@@ -16,6 +16,8 @@ const norm = value => String(value || '')
   .trim();
 const compact = value => norm(value).replace(/\s+/g, '');
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
+const dateParts = value => String(value || '').split('-').filter(Boolean);
+const refTokens = value => norm(value).split(/\s+/).filter(token => token.length >= 2);
 
 async function walk(dir) {
   const out = [];
@@ -64,6 +66,62 @@ const changes = [];
 const unresolved = [];
 const invalidated = [];
 const withheldByPolicy = [];
+const unmatchedEligible = [];
+
+function scorePhysicalCandidate(doc, file) {
+  const filename = norm(path.basename(file));
+  const filenameCompact = compact(path.basename(file));
+  const ref = compact(doc.reference);
+  const tokens = refTokens(doc.reference);
+  const inst = institutionMap.get(doc.institution_id) || {};
+  const aliases = [doc.institution_id, inst.short_name, inst.name, inst.name_cs].filter(Boolean).flatMap(refTokens);
+  let score = 0;
+  const reasons = [];
+
+  if (ref && filenameCompact.includes(ref)) {
+    score += 120;
+    reasons.push('full-reference');
+  } else if (tokens.length) {
+    const matched = tokens.filter(token => filename.includes(token));
+    const ratio = matched.length / tokens.length;
+    if (ratio === 1) {
+      score += 90;
+      reasons.push('all-reference-tokens');
+    } else if (ratio >= 0.75 && matched.length >= 3) {
+      score += 65;
+      reasons.push('most-reference-tokens');
+    } else if (ratio >= 0.5 && matched.length >= 3) {
+      score += 40;
+      reasons.push('half-reference-tokens');
+    }
+  }
+
+  const [year, month, day] = dateParts(doc.issue_date);
+  if (year && filename.includes(year)) {
+    score += 8;
+    reasons.push('year');
+  }
+  if (year && month && day) {
+    const dateVariants = [
+      `${year}-${month}-${day}`,
+      `${day}-${month}-${year}`,
+      `${day}.${month}.${year}`,
+      `${Number(day)}-${Number(month)}-${year}`,
+      `${Number(day)}.${Number(month)}.${year}`
+    ].map(norm);
+    if (dateVariants.some(value => value && filename.includes(value))) {
+      score += 18;
+      reasons.push('full-date');
+    }
+  }
+
+  const aliasHits = [...new Set(aliases.filter(token => token.length >= 3 && filename.includes(token)))];
+  if (aliasHits.length) {
+    score += Math.min(12, aliasHits.length * 3);
+    reasons.push('institution');
+  }
+  return { score, reasons };
+}
 
 for (const doc of registry.documents) {
   doc.public ||= {};
@@ -100,14 +158,21 @@ for (const doc of registry.documents) {
     return sameDate && ref && sourceRef && (sourceRef === ref || sourceRef.includes(ref) || ref.includes(sourceRef));
   });
 
-  if (!candidates.length && ref) {
-    candidates = validPhysicalPdfs
-      .filter(file => compact(path.basename(file)).includes(ref))
-      .map(file => ({ path: file }));
-  }
-
   candidates = candidates.filter(src => validPhysicalSet.has(src.path));
-  const unique = [...new Map(candidates.map(src => [src.path, src])).values()];
+  let unique = [...new Map(candidates.map(src => [src.path, src])).values()];
+
+  if (!unique.length) {
+    const scored = validPhysicalPdfs
+      .filter(file => !usedPaths.has(file))
+      .map(file => ({ path: file, ...scorePhysicalCandidate(doc, file) }))
+      .filter(item => item.score >= 80)
+      .sort((a, b) => b.score - a.score || a.path.localeCompare(b.path));
+    if (scored.length && (scored.length === 1 || scored[0].score >= scored[1].score + 20)) unique = [scored[0]];
+    else if (scored.length) {
+      unresolved.push({ id: doc.id, reference: doc.reference, reason: 'ambiguous-scored-match', candidates: scored.slice(0, 5) });
+      continue;
+    }
+  }
 
   if (unique.length === 1) {
     const source = unique[0];
@@ -116,17 +181,19 @@ for (const doc of registry.documents) {
     doc.public.pdf = publicPath(source.path);
     if (source.sha256) doc.public.sha256 = source.sha256;
     doc.public.verification_status = 'published';
-    doc.public.source_manifest = source.source_manifest || 'filename-reconciliation';
+    doc.public.source_manifest = source.source_manifest || 'filename-reference-date-reconciliation';
     usedPaths.set(source.path, doc.id);
-    changes.push({ id: doc.id, reference: doc.reference, pdf: doc.public.pdf });
+    changes.push({ id: doc.id, reference: doc.reference, pdf: doc.public.pdf, score: source.score ?? null, reasons: source.reasons ?? [] });
   } else if (unique.length > 1) {
-    unresolved.push({ id: doc.id, reference: doc.reference, reason: 'ambiguous', candidates: unique.map(x => x.path) });
+    unresolved.push({ id: doc.id, reference: doc.reference, reason: 'ambiguous-manifest-match', candidates: unique.map(x => x.path) });
+  } else {
+    unmatchedEligible.push({ id: doc.id, institution_id: doc.institution_id, reference: doc.reference, issue_date: doc.issue_date });
   }
 }
 
 registry.reconciliation = {
   updated_at: new Date().toISOString(),
-  active_pdf_policy: 'Pouze ministerstva, KPR, státní zastupitelství a Policie ČR; všechny dokumenty zůstávají zveřejněné v chronologii.',
+  active_pdf_policy: 'Ministerstva, KPR, státní zastupitelství a Policie ČR mají aktivní odkaz vždy, pokud je jejich originální PDF fyzicky přítomné a jednoznačně přiřaditelné; všechny dokumenty zůstávají zveřejněné v chronologii.',
   source_manifests: sourceFiles,
   physical_pdf_count: allPhysicalPdfs.length,
   usable_physical_pdf_count: validPhysicalPdfs.length,
@@ -135,7 +202,8 @@ registry.reconciliation = {
   newly_linked_count: changes.length,
   invalidated_link_count: invalidated.length,
   withheld_by_policy_count: withheldByPolicy.length,
-  unresolved_count: unresolved.length
+  unresolved_count: unresolved.length,
+  unmatched_eligible_count: unmatchedEligible.length
 };
 
 await writeFile(registryPath, `${JSON.stringify(registry, null, 2)}\n`, 'utf8');
@@ -146,10 +214,13 @@ await writeFile('project-memory/pdf-reconciliation-report.json', `${JSON.stringi
   usable_physical_pdf_count: validPhysicalPdfs.length,
   invalid_physical_files: allPhysicalPdfs.filter(file => !validity.get(file)),
   source_manifest_pdf_count: sources.length,
+  linked_pdf_count: registry.reconciliation.linked_pdf_count,
   newly_linked: changes,
   invalidated,
   withheld_by_policy: withheldByPolicy,
-  unresolved
+  unresolved,
+  unmatched_eligible: unmatchedEligible,
+  unlinked_usable_physical_pdfs: validPhysicalPdfs.filter(file => !usedPaths.has(file))
 }, null, 2)}\n`, 'utf8');
 
-console.log(`PDF reconciliation: ${changes.length} nových vazeb, ${registry.reconciliation.linked_pdf_count} aktivních PDF, ${invalidated.length} falešných odkazů odstraněno, ${withheldByPolicy.length} odkazů skryto podle institucionálního pravidla.`);
+console.log(`PDF reconciliation: ${changes.length} nových vazeb, ${registry.reconciliation.linked_pdf_count} aktivních PDF, ${invalidated.length} falešných odkazů odstraněno, ${withheldByPolicy.length} odkazů skryto podle institucionálního pravidla, ${unmatchedEligible.length} oprávněných listin bez jednoznačné fyzické shody.`);
