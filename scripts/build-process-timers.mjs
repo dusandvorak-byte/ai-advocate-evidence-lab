@@ -67,7 +67,7 @@ const categories = order.map(category => {
 
 const notices = registry.historical_notice_points.map(item => `<article class="historical-notice"><h4>${escapeHtml(item.date)} · ${escapeHtml(item.title)}</h4><p>${escapeHtml(item.evidence)}</p><p><b>Význam pro projekt:</b> ${escapeHtml(item.boundary)}</p></article>`).join('');
 const timerBody = `<p class="timer-legend"><b>Povinný formát:</b> kdo · datum · č. j./sp. zn. · co se stalo. <b>Časovač:</b> počet dnů od doloženého počátku do dne otevření webu / doložená zákonná nebo procesní lhůta. Pokud pevná číselná lhůta není, web ji nevymýšlí.</p>${categories}<h3>Historický společný referenční bod vědomosti státu</h3>${notices}`;
-const godotSection = `<section id="procesni-casovace" class="process-timers"><header><div><p class="section-label">ŽIVÉ PROCESNÍ ČASOVAČE</p><h2>Procesní časovače</h2></div></header>${timerBody}</section>`;
+const godotSection = `<section id="procesni-casovace" class="process-timers"><header><div><p class="section-label">DŮSLEDKY · ŽIVÉ PROCESNÍ ČASOVAČE</p><h2>Živé procesní časovače</h2></div></header><p class="timer-legend">Tento blok následuje až po chronologii listin veřejných institucí od 1. května 2026. Jde o odvozené procesní důsledky chronologie, nikoli o její náhradu.</p>${timerBody}</section>`;
 const homeSection = `<details id="procesni-casovace" class="process-timers process-timers-dropdown"><summary><span>Živé procesní časovače</span><strong>${registry.timers.length} aktivních časovačů · rozbalit</strong></summary><div class="process-timers-dropdown-body">${timerBody}</div></details>`;
 
 const injectAssets = html => {
@@ -86,9 +86,12 @@ await writeFile(homePath, home, 'utf8');
 
 let godot = await readFile(godotPath, 'utf8');
 godot = godot.replace(/<section id="procesni-casovace"[\s\S]*?<\/section>\s*/g, '');
-const godotMarker = '<h2 id="chronologie">';
-if (!godot.includes(godotMarker)) throw new Error('Godot nemá chronologický marker');
-godot = godot.replace(godotMarker, `${godotSection}\n${godotMarker}`);
+const chronologyMarker = '<ol id="chronologie-seznam">';
+const consequencesMarker = '<section id="rizeni-online"';
+if (!godot.includes(chronologyMarker)) throw new Error('Godot nemá hlavní chronologii veřejných institucí');
+if (!godot.includes(consequencesMarker)) throw new Error('Godot nemá marker aktivních uzlů řízení');
+if (godot.indexOf(chronologyMarker) > godot.indexOf(consequencesMarker)) throw new Error('Godot má chybné pořadí chronologie a aktivních uzlů');
+godot = godot.replace(consequencesMarker, `${godotSection}\n${consequencesMarker}`);
 godot = injectAssets(godot);
 await writeFile(godotPath, godot, 'utf8');
 
@@ -102,4 +105,4 @@ await writeFile(eudaArticlePath, eudaArticle, 'utf8');
 
 await mkdir('web/data', { recursive: true });
 await writeFile(targetPath, `${JSON.stringify(registry, null, 2)}\n`, 'utf8');
-console.log(`Procesní časovače vytvořeny: ${registry.timers.length}; titulní roletka je až pod hlavní zprávou Lorraine a druhou zprávou Godot.`);
+console.log(`Procesní časovače vytvořeny: ${registry.timers.length}; Godot řadí nejprve chronologii veřejných institucí od 1. 5. 2026 a teprve potom procesní důsledky.`);
