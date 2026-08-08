@@ -2361,3 +2361,78 @@ html {
     padding-left: 14px;
   }
 }
+
+/* Newsroom v8 — mobile layout contract, including the article-heart placement. */
+@media (max-width: 720px) {
+  /*
+   * The heart belongs after the article metadata on phones.  Earlier rules
+   * reserved space above the headline and absolutely positioned the heart,
+   * which could make article and archive headers look broken at narrow widths.
+   */
+  .article-header {
+    padding-top: 0;
+    padding-right: 0;
+  }
+
+  .article-header::after {
+    position: static;
+    display: block;
+    width: 68px;
+    height: 68px;
+    margin: 18px 0 0;
+  }
+
+  /*
+   * Long Czech relevance labels and file-analysis results must shrink inside
+   * the viewport instead of forcing a clipped desktop-width row.
+   */
+  .score {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    width: 100%;
+  }
+
+  .score strong,
+  .score span,
+  .analysis-result > * {
+    min-width: 0;
+  }
+
+  .analysis-result {
+    flex-direction: column;
+  }
+
+  .news-meta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .lead-card figure img {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 390px) {
+  .score {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .score strong {
+    width: fit-content;
+  }
+
+  .news-card.with-image {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .news-card.with-image figure img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+}
