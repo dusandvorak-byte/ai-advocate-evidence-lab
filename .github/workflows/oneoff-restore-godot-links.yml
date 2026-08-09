@@ -36,3 +36,4 @@ jobs:
           fi
           git commit -m "Uložit opravené přímé PDF odkazy Godota [skip ci]"
           git push origin HEAD:agent/restore-godot-pdf-links-09082026
+# druhý push spouští již existující jednorázový workflow
