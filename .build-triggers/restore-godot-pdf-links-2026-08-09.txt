@@ -1,0 +1,1 @@
+Spustit stávající build Evidence Lab 2.0 po obnovení historických originálů PDF státních institucí. Bez změny architektury webu.
