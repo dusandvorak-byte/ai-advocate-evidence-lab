@@ -25,7 +25,9 @@
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-exe-lib-2026-05-06-131-ex-8674-15-127",
@@ -43,7 +45,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-ms-pha-2026-05-07-18-a-17-2026-15",
@@ -61,7 +65,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-osz-olo-2026-05-12-sin-22-2025-95",
@@ -79,7 +85,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-nsz-2026-05-13-6-nzn-1737-2026-32",
@@ -98,7 +106,9 @@
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
@@ -116,7 +126,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-ks-brn-2026-05-20-fj-61061-2026-ksbr",
@@ -134,7 +146,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-ks-brn-2026-05-21-fj-61072-2026-ksbr",
@@ -152,7 +166,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-pcr-pp-2026-05-22-ppr-24960-8-cj-2026-990810",
@@ -170,7 +186,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-ks-brn-2026-05-22-fj-61060-2026-ksbr",
@@ -188,7 +206,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-pcr-ncoz-2026-05-22-ncoz-4324-2-cj-2026-4100pi",
@@ -206,7 +226,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-mz-2026-05-29-mzdr-13429-2026-3-olzp",
@@ -224,7 +246,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-ct-2026-06-01-ct-338889-2025-38",
@@ -242,7 +266,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-pcr-ncoz-2026-06-01-ncoz-4324-4-cj-2026-4100pi",
@@ -260,7 +286,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-msp-2026-06-03-msp-19-2026-odka-roz-7",
@@ -278,7 +306,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-cssz-2026-06-05-30000-03006091-26",
@@ -296,7 +326,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-kpr-2026-06-05-kpr-4093-2026",
@@ -314,7 +346,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-exe-plz-2026-06-10-134-ex-07180-19-509",
@@ -332,7 +366,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-msz-pha-2026-06-11-3-kzn-197-2026-12",
@@ -346,11 +382,14 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-27072026-008/19-msz-praha-3-kzn-197-2026-12-2026-06-11.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-pcr-ncoz-2026-06-15-ncoz-4871-5-cj-2026-410066-e",
@@ -364,11 +403,14 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-27072026-008/17-ncoz-ncoz-4871-5-cj-2026-410066-e-2026-06-15.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-cssz-2026-06-16-cj-00002-2026",
@@ -386,7 +428,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-msz-pha-2026-06-17-3-kzn-197-2026-18",
@@ -404,7 +448,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-exe-lib-2026-06-22-131-ex-8674-15-143",
@@ -422,7 +468,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-vsz-pha-2026-06-22-1-vzn-1678-2026-8",
@@ -436,11 +484,14 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-27072026-008/21-vsz-praha-1-vzn-1678-2026-8-2026-06-22.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-ms-pha-2026-06-23-18-a-23-2026-25",
@@ -458,7 +509,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-pcr-ku-2026-06-25-ku-4139-5-cj-2026-2305km",
@@ -472,11 +525,14 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-27072026-008/06-ku-4139-5-2026-2305km-2026-06-25.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-osz-pha4-2026-06-26-1-zn-320-2026-11",
@@ -495,7 +551,9 @@
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-os-pha4-2026-07-07-10-c-69-2026-14",
@@ -513,14 +571,16 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-osz-pro-2026-07-07-1-zt-11-2010-752",
       "user_title": "Vyrozumění k návrhům na obnovu",
       "issue_date": "2026-07-07",
       "received_date": null,
-      "institution_id": "CZ-OSZ-PRO",
+      "institution_id": "CZ-OSZ-PV",
       "reference": "1 ZT 11/2010-752",
       "case_ids": [],
       "document_type": "state_record",
@@ -532,7 +592,9 @@
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-ksz-ost-2026-07-08-4-kzn-7116-2026-45",
@@ -551,7 +613,9 @@
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-ms-pha-2026-07-09-8-ad-9-2026-22",
@@ -569,7 +633,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-ks-ost-2026-07-13-fj-68842-2026-ksos",
@@ -587,7 +653,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-os-pha4-2026-07-14-10-c-69-2026-49",
@@ -605,7 +673,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-msz-brn-2026-07-14-sin-15-2026-5",
@@ -619,11 +689,14 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-27072026-008/32-msz-brno-0-sin-15-2026-5-2026-07-14.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-mv-2026-07-15-mv-108890-3-tp-2026",
@@ -642,7 +715,9 @@
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-vsz-olo-2026-07-16-3-vzn-239-2026-27",
@@ -661,7 +736,9 @@
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-mv-2026-07-16-mv-97289-3-tp-2026",
@@ -679,7 +756,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-rrtv-2026-07-16-rrtv-7757-2026-fej",
@@ -697,7 +776,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-msz-pha-2026-07-17-2-kzn-55-2025-122",
@@ -716,14 +797,16 @@
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-pcr-krpm-2026-07-20-krpm-100092-2-cj-2026-1412uo",
       "user_title": "Sdělení o založení podání",
       "issue_date": "2026-07-20",
       "received_date": null,
-      "institution_id": "CZ-PCR-KRPM",
+      "institution_id": "CZ-PCR-KRPO",
       "reference": "KRPM-100092-2/ČJ-2026-1412UO",
       "case_ids": [],
       "document_type": "state_record",
@@ -735,7 +818,9 @@
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-ksz-brn-2026-07-21-1-kzt-475-2026-32",
@@ -749,11 +834,14 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-27072026-008/34-ksz-brno-1-kzt-475-2026-32-2026-07-21.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-mv-2026-07-21-mv-114818-2-tp-2026",
@@ -771,7 +859,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-msz-brn-2026-07-21-3-zn-140-2026-3",
@@ -785,11 +875,14 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-27072026-008/33-msz-brno-3-zn-140-2026-3-2026-07-21.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-mk-2026-07-22-mk-45728-2026-socns",
@@ -807,7 +900,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-vsz-pha-2026-07-23-1-vzn-1678-2026-70",
@@ -821,12 +916,14 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": "documents/report-25072026-007/18-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf",
-        "sha256": "09610a1713d1cb04643cc241384d2b93eb4673d4f14b90fb2bd3e5c4dcf9dc2a",
+        "pdf": "documents/report-27072026-008/25-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf",
+        "sha256": null,
         "verification_status": "published",
-        "source_manifest": "project-memory/report-04082026-010-sources.json"
+        "source_manifest": "filename-reference-date-reconciliation"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-uoou-2026-07-28-uoou-05058-26-2",
@@ -840,12 +937,14 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": "documents/report-04082026-010/46-uoou-05058-26-2-2026-07-28.pdf",
+        "pdf": null,
         "sha256": null,
-        "verification_status": "published",
+        "verification_status": "catalogued_no_public_link",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-uoou-2026-07-28-uoou-05093-26-2",
@@ -859,30 +958,35 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": "documents/report-04082026-010/47-uoou-05093-26-2-2026-07-28.pdf",
+        "pdf": null,
         "sha256": null,
-        "verification_status": "published",
+        "verification_status": "catalogued_no_public_link",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-osz-pro-2026-07-28-zn-4-2026-6",
       "user_title": "Vrácení věci policii",
       "issue_date": "2026-07-28",
       "received_date": null,
-      "institution_id": "CZ-OSZ-PRO",
+      "institution_id": "CZ-OSZ-PV",
       "reference": "ZN 4/2026-6",
       "case_ids": [],
       "document_type": "state_record",
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/49-osz-praha-7-zn-87-2026-47-2026-07-28.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-osz-pha7-2026-07-28-zn-87-2026-47",
@@ -901,7 +1005,9 @@
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-ksz-ost-2026-07-29-4-kzn-7116-2026-50",
@@ -919,7 +1025,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-msz-pha-2026-07-30-sin-48-2026-12",
@@ -937,7 +1045,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-osz-pha2-2026-07-30-1-zn-157-2026-33",
@@ -955,7 +1065,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-nsz-2026-07-30-sin-55-2026-19",
@@ -973,7 +1085,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-kpr-2026-07-30-kpr-5772-2026-1",
@@ -991,7 +1105,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-ksz-brn-2026-07-31-1-kzn-1079-2026-14",
@@ -1005,11 +1121,13 @@
       "topics": [],
       "public": {
         "html": "web/listiny/ksz-brno-1-kzn-1079-2026-14.html",
-        "pdf": "web/documents/report-04082026-010/55-ksz-brno-1-kzn-1079-2026-14-2026-07-31.pdf",
+        "pdf": null,
         "sha256": null,
-        "verification_status": "needs_binary_verification"
+        "verification_status": "invalid_public_file"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-kpr-2026-08-03-kpr-5080-2026",
@@ -1027,7 +1145,9 @@
         "sha256": null,
         "verification_status": "catalogued"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     },
     {
       "id": "doc-cz-pcr-krpt-2026-08-05-krpt-203594-3-cj-2026-0700kr",
@@ -1041,21 +1161,73 @@
       "topics": [],
       "public": {
         "html": "web/listiny/krpt-203594-3-cj-2026-0700kr.html",
-        "pdf": "web/documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05.pdf",
+        "pdf": null,
         "sha256": null,
-        "verification_status": "needs_binary_verification"
+        "verification_status": "invalid_public_file"
       },
-      "relations": []
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
+    },
+    {
+      "id": "doc-eu-euda-2026-08-07-ack-article-265-tfeu",
+      "user_title": "Potvrzení přijetí formální výzvy k jednání podle čl. 265 SFEU a příslib následné odpovědi",
+      "issue_date": "2026-08-07",
+      "received_date": "2026-08-07",
+      "institution_id": "EU-EUDA",
+      "reference": "bez samostatného č. j./sp. zn. v e-mailu",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "EUDA",
+        "čl. 265 SFEU",
+        "THC",
+        "THCA",
+        "analytické metody"
+      ],
+      "public": {
+        "html": "listiny/euda-2026-08-07-potvrzeni-prijeti-cl-265-sfeu.html",
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "catalogued"
+      },
+      "relations": [
+        {
+          "type": "souvisí",
+          "target_id": "zpravy/07082026-011.html"
+        }
+      ],
+      "evidence_note": "EUDA dne 7. 8. 2026 v 17:06:35 potvrdila přijetí korespondence k formální výzvě podle čl. 265 SFEU; e-mail neobsahuje samostatné č. j. ani sp. zn.",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
     }
   ],
   "reconciliation": {
-    "updated_at": "2026-08-06T15:05:40.139Z",
+    "updated_at": "2026-08-09T16:09:13.875Z",
+    "active_pdf_policy": "Ministerstva, KPR, státní zastupitelství a Policie ČR mají aktivní odkaz vždy, pokud je jejich originální PDF fyzicky přítomné a jednoznačně přiřaditelné; všechny dokumenty zůstávají zveřejněné v chronologii.",
     "source_manifests": [
       "project-memory/report-04082026-010-sources.json"
     ],
-    "physical_pdf_count": 35,
-    "linked_pdf_count": 15,
-    "newly_linked_count": 0,
-    "unresolved_count": 0
+    "physical_pdf_count": 55,
+    "usable_physical_pdf_count": 52,
+    "invalid_physical_pdf_count": 3,
+    "linked_pdf_count": 19,
+    "newly_linked_count": 9,
+    "invalidated_link_count": 3,
+    "withheld_by_policy_count": 2,
+    "unresolved_count": 0,
+    "unmatched_eligible_count": 20
+  },
+  "normalization": {
+    "updated_at": "2026-08-09T16:09:13.800Z",
+    "rule": "Kanonická data se doplňují pouze deterministicky. Starší aliasy institucí se převádějí na kanonická ID; chybějící user_title se smí převzít jen z již existujícího title; state_record = příchozí stát/veřejná instituce; výslovné typy našich podání = odchozí; ostatní bez odhadu.",
+    "institution_aliases": {
+      "CZ-OSZ-PRO": "CZ-OSZ-PV",
+      "CZ-PCR-KRPM": "CZ-PCR-KRPO"
+    },
+    "filled_user_titles_from_existing_title": 0,
+    "incoming_from_state_or_public_institution": 58,
+    "outgoing_from_user_or_alliance": 0,
+    "unclassified": 0
   }
 }
