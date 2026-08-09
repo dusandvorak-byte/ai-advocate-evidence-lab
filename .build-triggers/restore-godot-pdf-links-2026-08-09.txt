@@ -1,1 +1,1 @@
-Spustit stávající build Evidence Lab 2.0 po obnovení historických originálů PDF státních institucí. Bez změny architektury webu.
+Spustit stávající build Evidence Lab 2.0 po obnovení historických originálů PDF státních institucí a po doplnění jednoznačných názvů NCOZ, VSZ Praha a KSZ Brno. Bez změny architektury webu.
