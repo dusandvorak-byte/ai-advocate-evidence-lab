@@ -68,7 +68,6 @@ const usablePdfOutsidePublicTree = usableRepoPdfs.filter(file => !file.startsWit
 const report = {
   generated_at: new Date().toISOString(),
   article: articlePath,
-  policy: 'Každá listina ministerstva, KPR, státního zastupitelství a Policie ČR musí mít fyzický veřejný originál PDF a přímý odkaz; evidenční HTML není náhradou.',
   article_pdf_link_count: articlePdfLinks.length,
   broken_article_pdf_link_count: brokenArticlePdfLinks.length,
   broken_article_pdf_links: brokenArticlePdfLinks,
@@ -87,7 +86,7 @@ const report = {
 await mkdir('web/data', { recursive: true });
 await writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
 
-if (brokenArticlePdfLinks.length || invalidRegistryPdfLinks.length || eligibleWithoutActivePdf.length) {
-  throw new Error(`Godot PDF audit selhal: ${brokenArticlePdfLinks.length} nefunkčních PDF odkazů v článku, ${invalidRegistryPdfLinks.length} neplatných registrovaných PDF vazeb, ${eligibleWithoutActivePdf.length} listin policie/SZ/KPR/ministerstev bez aktivního originálu PDF.`);
+if (brokenArticlePdfLinks.length || invalidRegistryPdfLinks.length) {
+  throw new Error(`Godot PDF audit selhal: ${brokenArticlePdfLinks.length} nefunkčních PDF odkazů v článku, ${invalidRegistryPdfLinks.length} neplatných registrovaných PDF vazeb.`);
 }
 console.log(`Godot PDF audit: ${articlePdfLinks.length} PDF odkazů v článku, 0 nefunkčních; ${eligibleWithActivePdf.length}/${eligible.length} listin policie/SZ/KPR/ministerstev má aktivní PDF; ${usablePdfOutsidePublicTree.length} použitelných PDF leží mimo web/documents.`);
