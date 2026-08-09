@@ -1,0 +1,1 @@
+Spustit stávající build a uložit jeho ověřené PDF vazby bez změny architektury.
