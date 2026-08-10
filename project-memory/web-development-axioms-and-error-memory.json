@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.0",
+  "status": "binding",
+  "effective_from": "2026-07-18",
+  "recorded_on": "2026-08-10",
+  "purpose": "Trvalá paměť pravidel tvorby CannaInsider.EU a Church of Cannabis a zákaz opakování chyb zjištěných od zahájení tvorby webů 18. 7. 2026.",
+  "sites": {
+    "cannainsider": {
+      "identity": "CannaInsider.EU / Evidence Reporter",
+      "canonical_czech": "web/index.html",
+      "international_entry": "web/en.html",
+      "visual_identity": "zpravodajská/evidenční maska CannaInsider"
+    },
+    "church_of_cannabis": {
+      "identity": "Konopná církev / Church of Cannabis / Pastoral Letters",
+      "canonical_czech": "web/kc/index.html",
+      "international_entry": "web/kc/en.html",
+      "visual_identity": "samostatná církevní maska odlišná od CannaInsider"
+    }
+  },
+  "binding_axioms": [
+    {
+      "id": "international-by-design",
+      "text": "CannaInsider.EU i Church of Cannabis jsou mezinárodní weby. Angličtina je hlavní mezinárodní vstup a rozhraní obsahuje viditelný přepínač jazyka (např. ikona zeměkoule) pro všechny podporované překlady."
+    },
+    {
+      "id": "single-source-multilingual-output",
+      "text": "Nevytvářet ručně nezávislé obsahové kopie. Jeden kanonický zdroj dokumentů, článků, metadat, chronologie a procesních vazeb generuje jazykové výstupy. Aktualizace českého kanonického obsahu se musí paralelně propsat do mezinárodních jazykových variant."
+    },
+    {
+      "id": "language-routing",
+      "text": "Jazykové varianty používají stabilní a předvídatelné URL (např. /en/, /de/, /fr/, /pl/, /es/ podle skutečně publikovaných jazyků). Přepínač jazyka zachová kontext článku nebo dokumentu a vždy umožní návrat k českému originálu."
+    },
+    {
+      "id": "original-document-controls",
+      "text": "Úřední PDF se nikdy strojově nepřepisuje ani nenahrazuje překladem. Originální dokument zůstává v původním jazyce; překlad, anotace nebo shrnutí jsou samostatně a jasně označeny. U právních překladů musí být viditelné, že rozhodující je český originál."
+    },
+    {
+      "id": "parallel-site-synchronization",
+      "text": "Relevantní obsahové aktualizace se kontrolují a podle tematické relevance paralelně promítají do CannaInsider CZ, CannaInsider international, Church of Cannabis CZ a Church of Cannabis international. Nesmí vznikat zastaralá jazyková nebo sesterská verze jen proto, že byla aktualizována pouze česká stránka."
+    },
+    {
+      "id": "distinct-brand-masks",
+      "text": "CannaInsider a Church of Cannabis sdílejí data a publikační infrastrukturu, nikoli vizuální identitu. Church of Cannabis musí zachovat vlastní církevní masku a CannaInsider vlastní zpravodajsko-evidenční masku."
+    },
+    {
+      "id": "mobile-first-responsive",
+      "text": "Každá veřejná stránka musí být dobře čitelná a ovladatelná na mobilu i desktopu. Povinně se kontroluje viewport, zalamování dlouhých č. j. a názvů institucí, navigace, jazykový přepínač, chronologie, tabulky, obrázky a PDF odkazy bez horizontálního rozbití stránky."
+    },
+    {
+      "id": "no-web-prefix-in-public-url",
+      "text": "Složka web je zdrojový kořen GitHub Pages a nesmí se objevit ve veřejné URL. Veřejné odkazy používají /listiny/, /documents/, /zpravy/ atd., nikoli /web/listiny/ nebo /web/documents/. Staré chybné veřejné URL mají mít kompatibilní přesměrování, pokud byly již zveřejněny."
+    },
+    {
+      "id": "physical-pdf-before-link",
+      "text": "Odkaz 'originál PDF' je povolen pouze tehdy, když cesta vede na skutečný použitelný PDF soubor. Placeholder, několikabajtová hlavička PDF, neúplný nebo poškozený soubor se nesmí označit jako originál."
+    },
+    {
+      "id": "original-vs-public-copy",
+      "text": "Rekonstruovaná, vyrenderovaná nebo jinak odvozená veřejná kopie musí být označena jako ověřená veřejná kopie a nesmí být vydávána za původní binární originál."
+    },
+    {
+      "id": "direct-state-pdf-links",
+      "text": "U státních zastupitelství, Policie ČR, ministerstev a KPR se při fyzické dostupnosti originálu používá přímo aktivní PDF odkaz. Evidenční HTML stránka nesmí nahrazovat dostupný originál."
+    },
+    {
+      "id": "live-link-verification",
+      "text": "Před tvrzením, že je publikace hotová, se ověřuje živý veřejný web, HTTP dostupnost stránky a skutečné načtení každého nového nebo změněného PDF odkazu. Stav repozitáře ani úspěšný build samy o sobě nejsou důkazem funkčního veřejného odkazu."
+    },
+    {
+      "id": "canonical-build-only",
+      "text": "Technická oprava nesmí svévolně měnit architekturu webu. Používá se jediný kanonický build a existující datový model; jednorázové pomocné workflow musí být odstraněno po použití a nesmí vytvořit paralelní architekturu."
+    },
+    {
+      "id": "registry-not-hand-maintained-chronology",
+      "text": "Chronologie, počty a odkazy se odvozují z kanonického registru. Ruční oprava vygenerovaného HTML bez opravy zdrojového registru je dočasná a nesmí být považována za dokončené řešení."
+    },
+    {
+      "id": "no-false-completion",
+      "text": "Nikdy nepotvrzovat push, publikaci, aktivní odkaz, počet zveřejněných PDF nebo synchronizaci jazykových verzí bez ověření skutečného výsledku. Rozlišovat připraveno, commitnuto, nasazeno, veřejně dostupné a živě ověřené."
+    },
+    {
+      "id": "no-repeated-rearchitecture-during-repair",
+      "text": "Při opravě konkrétního defektu se nemění layout, datový model, generátory nebo workflow, pokud to není nezbytné pro příčinu vady. Nejprve se opraví nejmenší příčinná vrstva a regresně ověří všechny veřejné varianty."
+    },
+    {
+      "id": "regression-across-four-surfaces",
+      "text": "Každá změna sdílených dat, odkazů, CSS nebo generátoru musí regresně ověřit minimálně CannaInsider CZ, CannaInsider international, Church of Cannabis CZ a Church of Cannabis international, včetně mobilního viewportu."
+    }
+  ],
+  "error_memory_since_2026_07_18": [
+    {
+      "id": "error-false-completion-claims",
+      "lesson": "Bylo opakovaně potvrzováno dokončení/push/publikace dříve, než byl výsledek skutečně na veřejném webu. Zákaz: dokončení se hlásí až po živém ověření."
+    },
+    {
+      "id": "error-evidence-pages-instead-of-pdfs",
+      "lesson": "U státních institucí byly místo požadovaných přímých PDF ponechány evidenční stránky. Zákaz: dostupný fyzický originál musí mít přímý PDF odkaz."
+    },
+    {
+      "id": "error-placeholder-pdfs",
+      "lesson": "Některé cesty označené jako PDF obsahovaly jen miniaturní/poškozené placeholdery. Zákaz: validovat hlavičku, velikost a EOF PDF a živě otevřít soubor."
+    },
+    {
+      "id": "error-public-web-prefix",
+      "lesson": "Byly používány veřejné URL obsahující /web/, přestože web je kořen GitHub Pages. Zákaz: generovat veřejné URL s /web/."
+    },
+    {
+      "id": "error-build-result-not-persisted",
+      "lesson": "Kontrolní build vytvořil správnější HTML/registry, ale výsledek se nezapsal do main, takže veřejný web zůstal starý. Zákaz: po buildu ověřit, že vygenerované kanonické výstupy byly skutečně commitnuty a nasazeny."
+    },
+    {
+      "id": "error-wrong-pdf-pairing",
+      "lesson": "PDF bylo možné chybně přiřadit k jiné listině kvůli nedostatečnému názvu nebo podobné spisové značce. Zákaz: párování musí používat č. j./sp. zn., datum a instituci a nejednoznačnost musí skončit lidskou kontrolou, nikoli odhadem."
+    },
+    {
+      "id": "error-architecture-churn",
+      "lesson": "Při opravách odkazů se opakovaně zasahovalo do auditů, workflow a architektury, což prodlužovalo opravu. Zákaz: při lokálním defektu neprovádět nesouvisející rearchitekturu."
+    },
+    {
+      "id": "error-manual-generated-html-fix",
+      "lesson": "Ruční oprava vygenerovaného HTML bez kanonického registru může při dalším buildu zmizet. Zákaz: trvalá oprava patří do kanonického zdroje/generátoru."
+    },
+    {
+      "id": "error-language-drift",
+      "lesson": "Anglický CannaInsider a česká/anglická Church of Cannabis nebyly aktualizovány paralelně s českým CannaInsiderem a obsahovaly zastaralé datum/počty/hlavní zprávu. Zákaz: publikace musí zahrnovat synchronizační kontrolu sesterských a jazykových verzí."
+    },
+    {
+      "id": "error-mobile-not-explicitly-regression-tested",
+      "lesson": "Mobilní čitelnost nebyla při každé změně výslovně ověřována. Zákaz: změna navigace, chronologie, dlouhých identifikátorů, obrázků nebo jazykového menu bez mobilní regresní kontroly."
+    },
+    {
+      "id": "error-original-copy-confusion",
+      "lesson": "Odvozená veřejná kopie mohla být označena jako originál. Zákaz: binární originál a veřejná/rekonstruovaná kopie musí mít odlišný stav a popisek."
+    },
+    {
+      "id": "error-parallel-manual-copies",
+      "lesson": "Oddělené ručně udržované CZ/EN stránky vedou k rozcházení obsahu. Řešení: kanonický obsah a generované lokalizované výstupy."
+    }
+  ],
+  "definition_of_done": [
+    "kanonický registr aktualizován",
+    "build úspěšný",
+    "změny skutečně zapsány do main",
+    "GitHub Pages nasazení dokončeno",
+    "živá veřejná stránka otevřena",
+    "nové/změněné PDF odkazy skutečně načteny",
+    "CannaInsider CZ ověřen",
+    "CannaInsider international ověřen",
+    "Church of Cannabis CZ ověřen",
+    "Church of Cannabis international ověřen",
+    "mobilní i desktopové zobrazení bez kritického přetečení a nečitelných prvků",
+    "originál/překlad/veřejná kopie jsou pravdivě označeny"
+  ]
+}
