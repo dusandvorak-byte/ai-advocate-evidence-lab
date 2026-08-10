@@ -1,0 +1,1 @@
+Diagnostický trigger standardního validačního workflow nad aktuálním main; nepatří do produkčního webu.
