@@ -1,75 +1,27 @@
 {
-  "schema_version": "1.2",
+  "schema_version": "1.3",
   "status": "binding",
-  "updated_on": "2026-08-06",
+  "updated_on": "2026-08-10",
   "axioms": [
-    {
-      "id": "identity-author-alliance",
-      "text": "Mgr. Dušan Dvořák a přesně pět uživatelem potvrzených nevládních organizací aliance Cannabis is The Cure vedených v project-memory/privacy-exempt-entities.json se v jejich podáních, převodech a redakčních textech neanonymizují a uvádějí se v plném znění."
-    },
-    {
-      "id": "third-person-lawful-anonymization",
-      "text": "Jiná fyzická osoba se zveřejňuje pouze v rozsahu dovoleném zákonem. Pokud ji uživatel označil iniciálami, iniciály se zachovají. Pokud ji iniciálami neoznačil, musí před publikací proběhnout zákonná anonymizace a lidská kontrola. Originální státní listiny zůstávají zdrojovými dokumenty pouze ve výslovně schváleném veřejném rozsahu."
-    },
-    {
-      "id": "single-clock-and-deadline-system",
-      "text": "Existuje pouze jeden kanonický počítačový systém času a procesních lhůt definovaný v project-memory/operations-ledger.json a project-memory/deadlines.json. Paralelní ruční nebo odvozené registry lhůt jsou zakázány."
-    },
-    {
-      "id": "two-derived-submission-counters",
-      "text": "Existují pouze dvě automaticky odvozená počítadla: jedno pro podání a listiny státních orgánů a veřejných institucí a jedno pro naše podání. Obě se počítají výhradně z kanonického registru dokumentů a nesmějí mít ručně udržovanou hodnotu."
-    },
-    {
-      "id": "project-goals-preservation",
-      "text": "Žádná technická oprava, změna registru, generátoru, workflow, publikační cesty ani datového modelu nesmí opustit, zúžit nebo nahradit hlavní cíle projektu. Systém musí trvale zachovat příjem dokumentů z uploadu i externích HTTPS zdrojů, výpočet SHA-256, pracovní posouzení relevance s vysvětlením a lidskou kontrolou, hlídání lhůt a nečinnosti, dvě kanonická počítadla podání, propojení dokumentů s řízeními, institucemi, zákony a judikaturou, interaktivní důkazní paměť a průběžnou veřejnou chronologii. Pokud změna některý z těchto cílů porušuje, build a publikace musí být zastaveny."
-    },
-    {
-      "id": "active-state-branches",
-      "text": "Listiny státních zastupitelství, Policie České republiky, ministerstev vnitra, spravedlnosti a zdravotnictví a Kanceláře prezidenta republiky se vedou jako aktivní procesní větve, dokud registr výslovně nedoloží jejich ukončení."
-    },
-    {
-      "id": "procedural-boundary",
-      "text": "Existence podání, postoupení, prověřování, přezkumu nebo dohledu sama o sobě nepotvrzuje protiprávnost, vinu ani důvodnost nároku."
-    },
-    {
-      "id": "relevance-boundary",
-      "text": "Relevance vyjadřuje doloženou nebo pracovní vazbu dokumentu k případu, instituci, řízení, právní otázce či důkaznímu uzlu; není právním závěrem a vyžaduje vysvětlení a lidskou kontrolu."
-    },
-    {
-      "id": "deadline-provenance",
-      "text": "Každá zveřejněná lhůta musí mít konkrétní zdroj a musí být označeno, zda jde o zákonnou lhůtu, lhůtu uvedenou institucí, procesní termín nebo redakční kontrolní datum."
-    },
-    {
-      "id": "unknown-document-boundary",
-      "text": "Neznámý, změněný nebo neověřený dokument nepřebírá skutkové ani právní závěry jiného dokumentu a vyžaduje samostatnou lidskou kontrolu."
-    },
-    {
-      "id": "publication-gates",
-      "text": "Veřejná publikace vyžaduje dohledatelný původ, kontrolu citací, kontrolu oprávnění ke zveřejnění, kontrolu ochrany jiných fyzických osob a lidskou právní či redakční revizi."
-    },
-    {
-      "id": "state-record-preservation",
-      "text": "Originální státní listiny se v potvrzeném veřejném rozsahu zachovávají jako zdrojové dokumenty s trvalým stabilním odkazem a nesmějí být nahrazovány pouhou evidenční stránkou, pokud je originál v repozitáři dostupný."
-    },
-    {
-      "id": "continuous-update",
-      "text": "Článek Státu lásky čas, Pavouk řízení a související evidenční mapa jsou průběžně aktualizovanou pamětí; nové dokumenty se přidávají do kanonického registru, nikoli ručním přepisem vydaných seznamů."
-    },
-    {
-      "id": "source-first",
-      "text": "Každé konkrétní skutkové tvrzení, procesní vazba, lhůta, právní předpis nebo judikatura musí být dohledatelné ke konkrétnímu zdroji a stabilnímu identifikátoru."
-    },
-    {
-      "id": "truthful-completion",
-      "text": "Nasazení, odkaz ani soubor se nesmí označit jako ověřený, dokud nebyl zkontrolován živý veřejný výstup a skutečné načtení každého publikovaného souborového odkazu."
-    },
-    {
-      "id": "stable-chronology",
-      "text": "Pořadí dokumentů se odvozuje z data dokumentu, data přijetí a stabilního ID; pořadové číslo není identitou dokumentu a neukládá se jako kanonický údaj."
-    },
-    {
-      "id": "extensible-evidence-memory",
-      "text": "Architektura musí zachovat příjem dokumentů z uploadu i externího HTTPS zdroje, výpočet SHA-256, pracovní posouzení relevance, evidenci lhůt a propojení dokumentů s řízeními, institucemi, zákony, judikaturou a ověřenou projektovou pamětí."
-    }
+    {"id":"identity-author-alliance","text":"Mgr. Dušan Dvořák a přesně pět uživatelem potvrzených nevládních organizací aliance Cannabis is The Cure vedených v project-memory/privacy-exempt-entities.json se v jejich podáních, převodech a redakčních textech neanonymizují a uvádějí se v plném znění."},
+    {"id":"third-person-lawful-anonymization","text":"Jiná fyzická osoba se zveřejňuje pouze v rozsahu dovoleném zákonem. Pokud ji uživatel označil iniciálami, iniciály se zachovají. Pokud ji iniciálami neoznačil, musí před publikací proběhnout zákonná anonymizace a lidská kontrola. Originální státní listiny zůstávají zdrojovými dokumenty pouze ve výslovně schváleném veřejném rozsahu."},
+    {"id":"single-clock-and-deadline-system","text":"Existuje pouze jeden kanonický počítačový systém času a procesních lhůt definovaný v project-memory/operations-ledger.json a project-memory/deadlines.json. Paralelní ruční nebo odvozené registry lhůt jsou zakázány."},
+    {"id":"two-derived-submission-counters","text":"Existují pouze dvě automaticky odvozená počítadla: jedno pro podání a listiny státních orgánů a veřejných institucí a jedno pro naše podání. Obě se počítají výhradně z kanonického registru dokumentů a nesmějí mít ručně udržovanou hodnotu."},
+    {"id":"project-goals-preservation","text":"Žádná technická oprava, změna registru, generátoru, workflow, publikační cesty ani datového modelu nesmí opustit, zúžit nebo nahradit hlavní cíle projektu. Systém musí trvale zachovat příjem dokumentů z uploadu i externích HTTPS zdrojů, výpočet SHA-256, pracovní posouzení relevance s vysvětlením a lidskou kontrolou, hlídání lhůt a nečinnosti, dvě kanonická počítadla podání, propojení dokumentů s řízeními, institucemi, zákony a judikaturou, interaktivní důkazní paměť a průběžnou veřejnou chronologii. Pokud změna některý z těchto cílů porušuje, build a publikace musí být zastaveny."},
+    {"id":"active-state-branches","text":"Listiny státních zastupitelství, Policie České republiky, ministerstev vnitra, spravedlnosti a zdravotnictví a Kanceláře prezidenta republiky se vedou jako aktivní procesní větve, dokud registr výslovně nedoloží jejich ukončení."},
+    {"id":"procedural-boundary","text":"Existence podání, postoupení, prověřování, přezkumu nebo dohledu sama o sobě nepotvrzuje protiprávnost, vinu ani důvodnost nároku."},
+    {"id":"relevance-boundary","text":"Relevance vyjadřuje doloženou nebo pracovní vazbu dokumentu k případu, instituci, řízení, právní otázce či důkaznímu uzlu; není právním závěrem a vyžaduje vysvětlení a lidskou kontrolu."},
+    {"id":"deadline-provenance","text":"Každá zveřejněná lhůta musí mít konkrétní zdroj a musí být označeno, zda jde o zákonnou lhůtu, lhůtu uvedenou institucí, procesní termín nebo redakční kontrolní datum."},
+    {"id":"unknown-document-boundary","text":"Neznámý, změněný nebo neověřený dokument nepřebírá skutkové ani právní závěry jiného dokumentu a vyžaduje samostatnou lidskou kontrolu."},
+    {"id":"publication-gates","text":"Veřejná publikace vyžaduje dohledatelný původ, kontrolu citací, kontrolu oprávnění ke zveřejnění, kontrolu ochrany jiných fyzických osob a lidskou právní či redakční revizi."},
+    {"id":"state-record-preservation","text":"Originální státní listiny se v potvrzeném veřejném rozsahu zachovávají jako zdrojové dokumenty s trvalým stabilním odkazem a nesmějí být nahrazovány pouhou evidenční stránkou, pokud je originál v repozitáři dostupný."},
+    {"id":"continuous-update","text":"Článek Státu lásky čas, Pavouk řízení a související evidenční mapa jsou průběžně aktualizovanou pamětí; nové dokumenty se přidávají do kanonického registru, nikoli ručním přepisem vydaných seznamů."},
+    {"id":"source-first","text":"Každé konkrétní skutkové tvrzení, procesní vazba, lhůta, právní předpis nebo judikatura musí být dohledatelné ke konkrétnímu zdroji a stabilnímu identifikátoru."},
+    {"id":"truthful-completion","text":"Nasazení, odkaz ani soubor se nesmí označit jako ověřený, dokud nebyl zkontrolován živý veřejný výstup a skutečné načtení každého publikovaného souborového odkazu."},
+    {"id":"stable-chronology","text":"Pořadí dokumentů se odvozuje z data dokumentu, data přijetí a stabilního ID; pořadové číslo není identitou dokumentu a neukládá se jako kanonický údaj."},
+    {"id":"extensible-evidence-memory","text":"Architektura musí zachovat příjem dokumentů z uploadu i externího HTTPS zdroje, výpočet SHA-256, pracovní posouzení relevance, evidenci lhůt a propojení dokumentů s řízeními, institucemi, zákony, judikaturou a ověřenou projektovou pamětí."},
+    {"id":"web-development-binding-memory","text":"Soubor project-memory/web-development-axioms-and-error-memory.json je závaznou a trvalou součástí publikačních axiomů. Každá změna CannaInsider.EU nebo Church of Cannabis musí respektovat jeho pravidla internacionalizace, synchronizace jazykových a sesterských verzí, mobilní/desktopové čitelnosti, PDF integrity, veřejných URL, živého ověření a zákaz opakování evidovaných chyb od 18. 7. 2026."},
+    {"id":"international-sites-single-source","text":"CannaInsider.EU a Church of Cannabis jsou mezinárodní weby se společným kanonickým zdrojem dat a lokalizovanými výstupy. Angličtina je hlavní mezinárodní vstup, další podporované jazyky jsou dostupné přes viditelný jazykový přepínač. Úřední české PDF zůstává nedotčeným originálem a překlad je vždy odděleně označen."},
+    {"id":"four-surface-regression","text":"Relevantní změna se před dokončením kontroluje na CannaInsider CZ, CannaInsider international, Church of Cannabis CZ a Church of Cannabis international, vždy na desktopu i mobilním viewportu. Sesterské weby sdílejí data, ale Church of Cannabis zachovává vlastní odlišnou vizuální masku."}
   ]
 }
