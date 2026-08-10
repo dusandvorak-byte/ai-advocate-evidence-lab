@@ -32,6 +32,8 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Spustit jediný kanonický build
         run: node scripts/build-site.mjs
+      - name: Finalizovat veřejné popisky bez změny kanonických dat
+        run: node scripts/finalize-public-labels.mjs
       - name: Ověřit Evidence Lab 2.0 před publikací
         shell: bash
         run: |
@@ -52,8 +54,16 @@ jobs:
           grep -q '"two_derived_submission_counters": true' web/data/build-manifest.json
           grep -q '"five_alliance_privacy_exemptions": true' web/data/build-manifest.json
           grep -q 'Otevřít originální listinu v PDF' web/listiny/nsz-6-nzn-1737-2026-15.html
+          grep -q 'ověřená veřejná kopie PDF' web/zpravy/04082026-010.html
+          grep -q 'Otevřít ověřenou veřejnou kopii PDF' web/listiny/doc-cz-kpr-2026-07-30-kpr-5772-2026-1.html
+          grep -q 'Otevřít ověřenou veřejnou kopii PDF' web/listiny/doc-cz-kpr-2026-08-03-kpr-5080-2026.html
+          ! grep -Eqi '<a href="[^"]*verejna-kopie\.pdf"[^>]*>[^<]*originál' web/zpravy/04082026-010.html
           test -f web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf
+          test -f web/documents/report-04082026-010/kpr-5772-2026-1-2026-07-30-verejna-kopie.pdf
+          test -f web/documents/report-04082026-010/kpr-5080-2026-2026-08-03-verejna-kopie.pdf
           test "$(head -c 5 web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf)" = '%PDF-'
+          test "$(head -c 5 web/documents/report-04082026-010/kpr-5772-2026-1-2026-07-30-verejna-kopie.pdf)" = '%PDF-'
+          test "$(head -c 5 web/documents/report-04082026-010/kpr-5080-2026-2026-08-03-verejna-kopie.pdf)" = '%PDF-'
       - name: Připravit kořen webu a kompatibilní cestu /web
         shell: bash
         run: |
