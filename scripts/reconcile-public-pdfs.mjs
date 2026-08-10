@@ -17,7 +17,7 @@ const norm = value => String(value || '')
 const compact = value => norm(value).replace(/\s+/g, '');
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 const dateParts = value => String(value || '').split('-').filter(Boolean);
-const refTokens = value => norm(value).split(/\s+/).filter(token => token.length >= 2);
+const refTokens = value => norm(value).split(/\s+/).filter(token => token.length >= 2 || /^\d$/.test(token));
 
 async function walk(dir) {
   const out = [];
@@ -70,6 +70,7 @@ const unmatchedEligible = [];
 
 function scorePhysicalCandidate(doc, file) {
   const filename = norm(path.basename(file));
+  const filenameTokens = new Set(filename.split(/\s+/).filter(Boolean));
   const filenameCompact = compact(path.basename(file));
   const ref = compact(doc.reference);
   const tokens = refTokens(doc.reference);
@@ -82,7 +83,7 @@ function scorePhysicalCandidate(doc, file) {
     score += 120;
     reasons.push('full-reference');
   } else if (tokens.length) {
-    const matched = tokens.filter(token => filename.includes(token));
+    const matched = tokens.filter(token => filenameTokens.has(token));
     const ratio = matched.length / tokens.length;
     if (ratio === 1) {
       score += 90;
@@ -97,7 +98,7 @@ function scorePhysicalCandidate(doc, file) {
   }
 
   const [year, month, day] = dateParts(doc.issue_date);
-  if (year && filename.includes(year)) {
+  if (year && filenameTokens.has(year)) {
     score += 8;
     reasons.push('year');
   }
@@ -115,7 +116,7 @@ function scorePhysicalCandidate(doc, file) {
     }
   }
 
-  const aliasHits = [...new Set(aliases.filter(token => token.length >= 3 && filename.includes(token)))];
+  const aliasHits = [...new Set(aliases.filter(token => token.length >= 3 && filenameTokens.has(token)))];
   if (aliasHits.length) {
     score += Math.min(12, aliasHits.length * 3);
     reasons.push('institution');
@@ -138,14 +139,22 @@ for (const doc of registry.documents) {
   if (doc.public.pdf) {
     const repoPath = `web/${publicPath(doc.public.pdf)}`;
     if (validPhysicalSet.has(repoPath)) {
-      usedPaths.set(repoPath, doc.id);
-      doc.public.verification_status = 'published';
-      continue;
+      const owner = usedPaths.get(repoPath);
+      if (!owner || owner === doc.id) {
+        usedPaths.set(repoPath, doc.id);
+        doc.public.verification_status = 'published';
+        continue;
+      }
+      invalidated.push({ id: doc.id, institution_id: doc.institution_id, invalid_pdf: doc.public.pdf, reason: `duplicate-public-pdf-owned-by:${owner}` });
+      doc.public.pdf = null;
+      doc.public.sha256 = null;
+      doc.public.verification_status = 'duplicate_public_file_rejected';
+    } else {
+      invalidated.push({ id: doc.id, institution_id: doc.institution_id, invalid_pdf: doc.public.pdf, reason: 'invalid-public-pdf' });
+      doc.public.pdf = null;
+      doc.public.sha256 = null;
+      doc.public.verification_status = 'invalid_public_file';
     }
-    invalidated.push({ id: doc.id, institution_id: doc.institution_id, invalid_pdf: doc.public.pdf });
-    doc.public.pdf = null;
-    doc.public.sha256 = null;
-    doc.public.verification_status = 'invalid_public_file';
   }
 
   if (!allowed) continue;
@@ -158,7 +167,7 @@ for (const doc of registry.documents) {
     return sameDate && ref && sourceRef && (sourceRef === ref || sourceRef.includes(ref) || ref.includes(sourceRef));
   });
 
-  candidates = candidates.filter(src => validPhysicalSet.has(src.path));
+  candidates = candidates.filter(src => validPhysicalSet.has(src.path) && !usedPaths.has(src.path));
   let unique = [...new Map(candidates.map(src => [src.path, src])).values()];
 
   if (!unique.length) {
