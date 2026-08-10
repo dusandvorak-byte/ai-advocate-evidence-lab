@@ -1,6 +1,6 @@
 {
   "report": "04082026-010",
-  "updated_on": "2026-08-04",
+  "updated_on": "2026-08-10",
   "sources": [
     {
       "list_number": 1,
@@ -120,6 +120,25 @@
       "path": "web/documents/report-04082026-010/49-osz-praha-7-zn-87-2026-47-2026-07-28.pdf"
     },
     {
+      "list_number": 54,
+      "issuer": "Kancelář prezidenta republiky",
+      "date": "2026-07-30",
+      "reference": "KPR 5772/2026-1",
+      "document_role": "state_record",
+      "status": "verified_public_copy_from_archived_original",
+      "path": "web/documents/report-04082026-010/kpr-5772-2026-1-2026-07-30-verejna-kopie.pdf",
+      "provenance_note": "Archivní originál je doložen v projektové File Library; veřejná kopie není původní binární PDF a nereprodukuje původní PDF metadata ani elektronický podpis."
+    },
+    {
+      "issuer": "Kancelář prezidenta republiky",
+      "date": "2026-08-03",
+      "reference": "KPR 5080/2026",
+      "document_role": "state_record",
+      "status": "verified_public_copy_from_archived_original",
+      "path": "web/documents/report-04082026-010/kpr-5080-2026-2026-08-03-verejna-kopie.pdf",
+      "provenance_note": "Archivní originál je doložen v projektové File Library; veřejná kopie není původní binární PDF a nereprodukuje původní PDF metadata ani elektronický podpis."
+    },
+    {
       "date": "2026-07-15",
       "reference": "MV-108890-3/TP-2026",
       "document_role": "follow_up_filing",
@@ -147,7 +166,8 @@
     "public_branch": "main",
     "evidence_items_total": 55,
     "verified_public_originals_for_list": 12,
-    "evidence_only_without_standalone_original": 43,
+    "verified_public_copies_from_archived_originals": 2,
+    "evidence_only_without_standalone_original": 41,
     "anonymization_axiom": "Podání Mgr. Dušana Dvořáka a Cannabis is The Cure, z. s., se neanonymizují; Dušan Dvořák a název organizace se uvádějí v plném znění. Jiná fyzická osoba se v převodech a redakčních textech označuje pouze iniciálami. Originální státní listiny zůstávají zdrojovými dokumenty ve výslovně schváleném veřejném rozsahu."
   }
 }
