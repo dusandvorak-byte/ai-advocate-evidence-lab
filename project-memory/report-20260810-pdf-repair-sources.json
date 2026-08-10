@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "status": "verified_source_mapping",
+  "recorded_on": "2026-08-10",
+  "sources": [
+    {
+      "path": "web/documents/mk-konopna-cirkev-vyrozumeni-2026-07-22-original.pdf",
+      "date": "2026-07-22",
+      "reference": "MK 45728/2026 SOCNS",
+      "institution_id": "CZ-MK",
+      "artifact_type": "original",
+      "note": "Fyzicky přítomný originál Ministerstva kultury; jednoznačné přiřazení podle instituce, data a č. j."
+    },
+    {
+      "path": "web/documents/report-04082026-010/55-ksz-brno-1-kzn-1079-2026-14-2026-07-31-verejna-kopie.pdf",
+      "date": "2026-07-31",
+      "reference": "1 KZN 1079/2026-14",
+      "institution_id": "CZ-KSZ-BRN",
+      "artifact_type": "verified_public_copy",
+      "note": "Použít ověřenou veřejnou kopii; původní stejně pojmenovaný soubor bez označení veřejná-kopie se nesmí preferovat."
+    },
+    {
+      "path": "web/documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05-verejna-kopie.pdf",
+      "date": "2026-08-05",
+      "reference": "KRPT-203594-3/ČJ-2026-0700KR",
+      "institution_id": "CZ-PCR-KRPT",
+      "artifact_type": "verified_public_copy",
+      "note": "Použít ověřenou veřejnou kopii; původní stejně pojmenovaný soubor bez označení veřejná-kopie se nesmí preferovat."
+    }
+  ]
+}
