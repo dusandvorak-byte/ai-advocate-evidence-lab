@@ -56,6 +56,22 @@ for (const file of sourceFiles) {
   }
 }
 
+// Kurátorovaný zdrojový manifest má přednost před historickou hodnotou public.pdf.
+// Pokud cesta jednoznačně patří jiné listině podle přesné reference, data a instituce,
+// nesmí si ji dříve zpracovaný dokument „zabrat“ jen kvůli staré chybné vazbě.
+const declaredOwners = new Map();
+for (const src of sources) {
+  const sourceRef = compact(src.reference);
+  if (!sourceRef) continue;
+  const matches = registry.documents.filter(doc => {
+    if (compact(doc.reference) !== sourceRef) return false;
+    if (src.date && doc.issue_date && src.date !== doc.issue_date) return false;
+    if (src.institution_id && doc.institution_id !== src.institution_id) return false;
+    return true;
+  });
+  if (matches.length === 1) declaredOwners.set(src.path, matches[0].id);
+}
+
 const allPhysicalPdfs = (await walk(`${webDir}/documents`)).filter(file => /\.pdf$/i.test(file));
 const validity = new Map();
 for (const file of allPhysicalPdfs) validity.set(file, await isUsablePdf(file));
@@ -139,16 +155,24 @@ for (const doc of registry.documents) {
   if (doc.public.pdf) {
     const repoPath = `web/${publicPath(doc.public.pdf)}`;
     if (validPhysicalSet.has(repoPath)) {
-      const owner = usedPaths.get(repoPath);
-      if (!owner || owner === doc.id) {
-        usedPaths.set(repoPath, doc.id);
-        doc.public.verification_status = 'published';
-        continue;
+      const declaredOwner = declaredOwners.get(repoPath);
+      if (declaredOwner && declaredOwner !== doc.id) {
+        invalidated.push({ id: doc.id, institution_id: doc.institution_id, invalid_pdf: doc.public.pdf, reason: `manifest-owned-by:${declaredOwner}` });
+        doc.public.pdf = null;
+        doc.public.sha256 = null;
+        doc.public.verification_status = 'wrong_public_file_rejected';
+      } else {
+        const owner = usedPaths.get(repoPath);
+        if (!owner || owner === doc.id) {
+          usedPaths.set(repoPath, doc.id);
+          doc.public.verification_status = 'published';
+          continue;
+        }
+        invalidated.push({ id: doc.id, institution_id: doc.institution_id, invalid_pdf: doc.public.pdf, reason: `duplicate-public-pdf-owned-by:${owner}` });
+        doc.public.pdf = null;
+        doc.public.sha256 = null;
+        doc.public.verification_status = 'duplicate_public_file_rejected';
       }
-      invalidated.push({ id: doc.id, institution_id: doc.institution_id, invalid_pdf: doc.public.pdf, reason: `duplicate-public-pdf-owned-by:${owner}` });
-      doc.public.pdf = null;
-      doc.public.sha256 = null;
-      doc.public.verification_status = 'duplicate_public_file_rejected';
     } else {
       invalidated.push({ id: doc.id, institution_id: doc.institution_id, invalid_pdf: doc.public.pdf, reason: 'invalid-public-pdf' });
       doc.public.pdf = null;
@@ -163,8 +187,9 @@ for (const doc of registry.documents) {
   const date = doc.issue_date;
   let candidates = sources.filter(src => {
     const sameDate = !src.date || !date || src.date === date;
+    const sameInstitution = !src.institution_id || src.institution_id === doc.institution_id;
     const sourceRef = compact(src.reference);
-    return sameDate && ref && sourceRef && (sourceRef === ref || sourceRef.includes(ref) || ref.includes(sourceRef));
+    return sameDate && sameInstitution && ref && sourceRef && sourceRef === ref;
   });
 
   candidates = candidates.filter(src => validPhysicalSet.has(src.path) && !usedPaths.has(src.path));
@@ -173,6 +198,7 @@ for (const doc of registry.documents) {
   if (!unique.length) {
     const scored = validPhysicalPdfs
       .filter(file => !usedPaths.has(file))
+      .filter(file => !declaredOwners.has(file) || declaredOwners.get(file) === doc.id)
       .map(file => ({ path: file, ...scorePhysicalCandidate(doc, file) }))
       .filter(item => item.score >= 80)
       .sort((a, b) => b.score - a.score || a.path.localeCompare(b.path));
