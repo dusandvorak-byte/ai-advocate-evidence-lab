@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "status": "verified_source_mapping",
+  "recorded_on": "2026-08-10",
+  "sources": [
+    {
+      "path": "web/documents/report-04082026-010/49-osz-praha-7-zn-87-2026-47-2026-07-28.pdf",
+      "date": "2026-07-28",
+      "reference": "ZN 87/2026-47",
+      "institution_id": "CZ-OSZ-PHA7",
+      "artifact_type": "original",
+      "note": "Tento fyzický PDF soubor patří výhradně listině Obvodního státního zastupitelství pro Prahu 7, ZN 87/2026-47. Nesmí být přiřazen OSZ Prostějov ZN 4/2026-6."
+    }
+  ]
+}
