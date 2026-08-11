@@ -25,6 +25,13 @@
   ]);
 
   const compareStateDocuments = (a, b) => {
+    const sa = Number.isInteger(a.chronology_sequence) ? a.chronology_sequence : null;
+    const sb = Number.isInteger(b.chronology_sequence) ? b.chronology_sequence : null;
+    if (sa !== null || sb !== null) {
+      if (sa === null) return -1;
+      if (sb === null) return 1;
+      if (sa !== sb) return sa - sb;
+    }
     const date = String(a.issue_date || '').localeCompare(String(b.issue_date || ''));
     if (date) return date;
     const pa = tailPriority.has(a.id) ? tailPriority.get(a.id) : 999;
