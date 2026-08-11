@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-11",
+  "purpose": "Nově doložená státní listina doručená do Evidence Lab dne 11. 8. 2026; reakce bude doplněna následně jako vazba reakce_na.",
+  "documents": [
+    {
+      "id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
+      "user_title": "Soud podle § 283 písm. b) trestního řádu zamítl návrh na obnovu dvou řízení skončených usneseními č. j. 2 Nt 1151/2014-80 a č. j. 3 Nt 1151/2014-411, v nichž byla uložena ochranná opatření ve formě zabrání věci",
+      "issue_date": "2026-08-07",
+      "received_date": "2026-08-11",
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3103/2026-53",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["obnova řízení", "OS Prostějov", "zabrání věci", "§ 283 písm. b) trestního řádu"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": "d461ad6eacc569ba8d86c4ce640a3f6273ff67ae48fc5ea57f1f8653ce0e2a40",
+        "verification_status": "source_pdf_received_not_yet_public"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification",
+      "chronology_sequence": 63,
+      "evidence_note": "Originální dvoustránkové PDF bylo uživatelem doloženo dne 11. 8. 2026. Reakce/opravný prostředek zatím nebyl do této položky připojen."
+    }
+  ]
+}
