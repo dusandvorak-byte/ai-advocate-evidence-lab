@@ -56,6 +56,23 @@ const compareDocuments = (a, b) =>
   String(a.received_date || '').localeCompare(String(b.received_date || '')) ||
   String(a.id || '').localeCompare(String(b.id || ''));
 
+const tailPriority = new Map([
+  ['doc-eu-euda-2026-08-07-ack-article-265-tfeu', 0],
+  ['doc-cz-kpr-2026-08-07-kpr-5772-2026-2', 1],
+  ['doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54', 2],
+  ['doc-cz-ms-pha-2026-08-10-18-a-23-2026-130', 3],
+  ['doc-cz-ms-pha-2026-08-10-18-a-23-2026-131', 4]
+]);
+
+const compareStateDocuments = (a, b) => {
+  const date = String(a.issue_date || '').localeCompare(String(b.issue_date || ''));
+  if (date) return date;
+  const pa = tailPriority.has(a.id) ? tailPriority.get(a.id) : 999;
+  const pb = tailPriority.has(b.id) ? tailPriority.get(b.id) : 999;
+  if (pa !== pb) return pa - pb;
+  return compareDocuments(a, b);
+};
+
 const normalizePublicPath = value => {
   if (!value) return null;
   if (/^(?:https?:|mailto:|#|\/)/i.test(value)) return value;
@@ -84,20 +101,48 @@ for (const item of documents) {
   ids.add(item.id);
 }
 
-const documentLink = item => {
+const documentLink = (item, fallbackLabel = 'originál PDF') => {
   const published = item.public || {};
-  if (published.pdf) return { href: normalizePublicPath(published.pdf), label: 'originál PDF', external: true };
+  if (published.pdf) return { href: normalizePublicPath(published.pdf), label: fallbackLabel, external: true };
   if (published.html) return { href: normalizePublicPath(published.html), label: 'stránka listiny', external: false };
   return { href: `listiny/${item.id}.html`, label: 'evidenční stránka', external: false };
 };
 
-const relationText = item => {
-  if (!Array.isArray(item.relations) || !item.relations.length) return '';
-  return `<span class="relations">${item.relations.map(rel => {
-    const type = escapeHtml(rel.type || rel.relation_type || 'souvisí');
-    const target = escapeHtml(rel.target_id || rel.document_id || '');
-    return target ? `${type}: <a href="#${target}">${target}</a>` : type;
-  }).join(' · ')}</span>`;
+const mainDocuments = documents.filter(item => item.issue_date >= MAIN_FROM);
+const archiveDocuments = documents.filter(item => item.issue_date < MAIN_FROM);
+const stateDocuments = mainDocuments
+  .filter(item => item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record')
+  .sort(compareStateDocuments);
+const outgoingDocuments = mainDocuments.filter(item => item.submission_side === 'outgoing_from_user_or_alliance');
+
+const reactionsByTarget = new Map();
+for (const item of outgoingDocuments) {
+  for (const rel of item.relations || []) {
+    if ((rel.type || rel.relation_type) !== 'reakce_na') continue;
+    const targetId = rel.target_id || rel.document_id;
+    if (!targetId) continue;
+    const bucket = reactionsByTarget.get(targetId) || [];
+    bucket.push(item);
+    reactionsByTarget.set(targetId, bucket);
+  }
+}
+
+const attachmentsByTarget = new Map();
+for (const item of outgoingDocuments) {
+  for (const rel of item.relations || []) {
+    if ((rel.type || rel.relation_type) !== 'priloha_k') continue;
+    const targetId = rel.target_id || rel.document_id;
+    if (!targetId) continue;
+    const bucket = attachmentsByTarget.get(targetId) || [];
+    bucket.push(item);
+    attachmentsByTarget.set(targetId, bucket);
+  }
+}
+
+const renderInlineReaction = item => {
+  const link = documentLink(item, item.document_type === 'user_submission_attachment' ? 'příloha PDF' : 'reakce PDF');
+  const target = link.external ? ' target="_blank" rel="noopener"' : '';
+  return `<span class="chronology-reaction"> · <b>${item.document_type === 'user_submission_attachment' ? 'Příloha' : 'Reakce'} ${escapeHtml(formatDate(item.issue_date))}:</b> ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a></span>`;
 };
 
 const renderChronologyItem = item => {
@@ -108,17 +153,18 @@ const renderChronologyItem = item => {
   const cases = Array.isArray(item.case_ids) && item.case_ids.length
     ? `<span class="case-links">Řízení: ${item.case_ids.map(id => `<a href="#${escapeHtml(id)}">${escapeHtml(id)}</a>`).join(', ')}</span>`
     : '';
-  return `<li id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}" data-institution-id="${escapeHtml(item.institution_id)}"><b>Kdo:</b> <span class="institution">${escapeHtml(name)}</span> · <b>Datum:</b> ${escapeHtml(formatDate(item.issue_date))} · <b>Č. j. / sp. zn.:</b> ${escapeHtml(referenceText(item))} · <b>Co se stalo:</b> ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${link.label}</a>${cases}${relationText(item)}</li>`;
+  const reactions = (reactionsByTarget.get(item.id) || []).sort(compareDocuments);
+  const inline = reactions.map(reaction => {
+    const nested = (attachmentsByTarget.get(reaction.id) || []).sort(compareDocuments).map(renderInlineReaction).join('');
+    return `${renderInlineReaction(reaction)}${nested}`;
+  }).join('');
+  return `<li id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}" data-institution-id="${escapeHtml(item.institution_id)}"><b>Kdo:</b> <span class="institution">${escapeHtml(name)}</span> · <b>Datum:</b> ${escapeHtml(formatDate(item.issue_date))} · <b>Č. j. / sp. zn.:</b> ${escapeHtml(referenceText(item))} · <b>Co se stalo:</b> ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a>${cases}${inline}</li>`;
 };
 
-const mainDocuments = documents.filter(item => item.issue_date >= MAIN_FROM);
-const archiveDocuments = documents.filter(item => item.issue_date < MAIN_FROM);
-const stateDocuments = mainDocuments.filter(item => item.document_type === 'state_record');
-
 const caseIndex = `<section id="rizeni-online" class="case-anchor-index"><h3>Aktivní uzly řízení</h3>${caseAnchors.map(([id, label]) => `<article id="${id}" class="case-anchor-node"><h4>${escapeHtml(label)}</h4><p>Související listiny a procesní kroky jsou průběžně řazeny v chronologii výše.</p></article>`).join('')}</section>`;
-const chronologyHtml = `<ol id="chronologie-seznam">${mainDocuments.map(renderChronologyItem).join('')}</ol>`;
+const chronologyHtml = `<ol id="chronologie-seznam">${stateDocuments.map(renderChronologyItem).join('')}</ol>`;
 const archiveHtml = archiveDocuments.length
-  ? `<h2 id="archiv-vstupu-do-eu">Archiv vstupu do EU</h2><p>Dokumentovaná historie podání, rozhodnutí, obran a institucionálních vazeb před 1. květnem 2026, systematicky zejména od roku 2010.</p><ol id="archiv-seznam" start="${mainDocuments.length + 1}">${archiveDocuments.map(renderChronologyItem).join('')}</ol>`
+  ? `<h2 id="archiv-vstupu-do-eu">Archiv vstupu do EU</h2><p>Dokumentovaná historie podání, rozhodnutí, obran a institucionálních vazeb před 1. květnem 2026, systematicky zejména od roku 2010.</p><ol id="archiv-seznam" start="${stateDocuments.length + 1}">${archiveDocuments.map(renderChronologyItem).join('')}</ol>`
   : '';
 
 let article = await readFile(articlePath, 'utf8');
@@ -158,5 +204,5 @@ for (const item of documents) {
   generatedPages += 1;
 }
 
-if (!article.includes('id="chronologie-seznam"') || mainDocuments.length === 0) throw new Error('Statická chronologie nebyla vytvořena');
-console.log(`Statický Pavouk vytvořen v povinném formátu kdo · datum · č. j./sp. zn. · co se stalo: ${mainDocuments.length} položek od 1. 5. 2026, z toho ${stateDocuments.length} státních listin; ${archiveDocuments.length} archivních položek; ${generatedPages} evidenčních stránek.`);
+if (!article.includes('id="chronologie-seznam"') || stateDocuments.length === 0) throw new Error('Statická chronologie nebyla vytvořena');
+console.log(`Statický Pavouk: ${stateDocuments.length} číslovaných státních/veřejných listin od 1. 5. 2026; ${outgoingDocuments.length} našich podání zobrazeno pouze inline jako reakce/přílohy; ${archiveDocuments.length} archivních položek; ${generatedPages} evidenčních stránek.`);
