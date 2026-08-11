@@ -1,19 +1,35 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const documentsPath = 'project-memory/documents-2026.json';
-const supplementPath = 'project-memory/documents-2026-supplement-2026-08-10.json';
+const sourcesPath = 'project-memory/document-sources.json';
 const readJson = async path => JSON.parse(await readFile(path, 'utf8'));
-const registry = await readJson(documentsPath);
-const supplement = await readJson(supplementPath);
-if (!Array.isArray(registry.documents)) throw new Error('documents-2026.json neobsahuje pole documents');
-if (!Array.isArray(supplement.documents)) throw new Error('documents-2026-supplement-2026-08-10.json neobsahuje pole documents');
 
-// Jediná kanonická pracovní množina pro celý build: základní registr + dávka 10. 8. 2026.
-// Stabilní ID zajišťuje idempotenci: opakovaný build nikdy nevytvoří duplicitní položku.
-const merged = new Map(registry.documents.map(doc => [doc.id, doc]));
-for (const doc of supplement.documents) merged.set(doc.id, { ...(merged.get(doc.id) || {}), ...doc });
+const sourceManifest = await readJson(sourcesPath);
+if (sourceManifest.status !== 'binding' || !Array.isArray(sourceManifest.sources) || !sourceManifest.sources.length) {
+  throw new Error('document-sources.json není platný závazný manifest zdrojů');
+}
+
+const sourceRegistries = [];
+for (const source of sourceManifest.sources) {
+  if (!source?.path) throw new Error('Zdroj dokumentů bez path');
+  const data = await readJson(source.path);
+  if (!Array.isArray(data.documents)) throw new Error(`${source.path} neobsahuje pole documents`);
+  sourceRegistries.push({ source, data });
+}
+
+const base = sourceRegistries.find(item => item.source.role === 'base') || sourceRegistries[0];
+const registry = base.data;
+const merged = new Map();
+for (const { source, data } of sourceRegistries) {
+  for (const doc of data.documents) {
+    if (!doc?.id) throw new Error(`Dokument bez stabilního ID ve zdroji ${source.path}`);
+    const previous = merged.get(doc.id) || {};
+    merged.set(doc.id, { ...previous, ...doc });
+  }
+}
 registry.documents = [...merged.values()];
-registry.canonical_supplements = [supplementPath];
+registry.canonical_sources_manifest = sourcesPath;
+registry.canonical_sources = sourceManifest.sources.map(item => item.path);
 
 const eudaAckId = 'doc-eu-euda-2026-08-07-ack-article-265-tfeu';
 if (!registry.documents.some(doc => doc.id === eudaAckId)) {
@@ -86,14 +102,17 @@ for (const doc of registry.documents) {
 
 registry.normalization = {
   updated_at: new Date().toISOString(),
-  rule: 'Kanonická data se doplňují pouze deterministicky. Základní registr a schválené dávkové doplňky se slučují podle stabilního ID; starší aliasy institucí se převádějí na kanonická ID; state_record = příchozí stát/veřejná instituce; výslovné typy našich podání = odchozí; ostatní bez odhadu.',
+  rule: 'Kanonická pracovní množina vzniká výhradně z document-sources.json. Všechny zdroje se slučují podle stabilního ID; veřejné výstupy a čítače nesmějí udržovat vlastní paralelní seznam dokumentů.',
+  source_manifest: sourcesPath,
+  source_count: sourceManifest.sources.length,
+  source_documents_before_deduplication: sourceRegistries.reduce((sum, item) => sum + item.data.documents.length, 0),
+  merged_document_count: registry.documents.length,
   institution_aliases: Object.fromEntries(institutionAliases),
-  canonical_supplement_documents: supplement.documents.length,
   filled_user_titles_from_existing_title: filledUserTitles,
   incoming_from_state_or_public_institution: incoming,
   outgoing_from_user_or_alliance: outgoing,
-  unclassified: unclassified
+  unclassified
 };
 
 await writeFile(documentsPath, `${JSON.stringify(registry, null, 2)}\n`, 'utf8');
-console.log(`Normalizace kanonických dat: základ + ${supplement.documents.length} položek dávky; stát/veřejné instituce ${incoming}; naše podání ${outgoing}; nezařazené ${unclassified}; celkem ${registry.documents.length}.`);
+console.log(`Normalizace kanonických dat: ${sourceManifest.sources.length} zdroje přes ${sourcesPath}; stát/veřejné instituce ${incoming}; naše podání ${outgoing}; nezařazené ${unclassified}; celkem ${registry.documents.length}.`);
