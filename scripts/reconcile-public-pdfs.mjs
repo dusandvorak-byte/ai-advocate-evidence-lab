@@ -5,7 +5,10 @@ const registryPath = 'project-memory/documents-2026.json';
 const institutionsPath = 'project-memory/institutions.json';
 const memoryDir = 'project-memory';
 const webDir = 'web';
-const allowedInstitutionTypes = new Set(['ministry', 'executive_office', 'prosecution', 'police', 'police_lab']);
+const allowedInstitutionTypes = new Set([
+  'ministry','executive_office','prosecution','police','police_lab','court','court_enforcement',
+  'public_institution','independent_authority','eu_agency','executive'
+]);
 
 const exists = file => access(file).then(() => true).catch(() => false);
 const norm = value => String(value || '')
@@ -43,7 +46,9 @@ const institutions = JSON.parse(await readFile(institutionsPath, 'utf8'));
 if (!Array.isArray(registry.documents)) throw new Error('Kanonický registr neobsahuje pole documents');
 if (!Array.isArray(institutions.institutions)) throw new Error('Registr institucí neobsahuje pole institutions');
 const institutionMap = new Map(institutions.institutions.map(item => [item.id, item]));
-const mayHaveActivePdf = doc => allowedInstitutionTypes.has(institutionMap.get(doc.institution_id)?.type);
+const mayHaveActivePdf = doc =>
+  doc.submission_side === 'outgoing_from_user_or_alliance' ||
+  allowedInstitutionTypes.has(institutionMap.get(doc.institution_id)?.type);
 
 const sourceFiles = (await readdir(memoryDir))
   .filter(name => /^report-.*-sources\.json$/i.test(name))
@@ -56,9 +61,6 @@ for (const file of sourceFiles) {
   }
 }
 
-// Kurátorovaný zdrojový manifest má přednost před historickou hodnotou public.pdf.
-// Pokud cesta jednoznačně patří jiné listině podle přesné reference, data a instituce,
-// nesmí si ji dříve zpracovaný dokument „zabrat“ jen kvůli staré chybné vazbě.
 const declaredOwners = new Map();
 for (const src of sources) {
   const sourceRef = compact(src.reference);
@@ -101,42 +103,20 @@ function scorePhysicalCandidate(doc, file) {
   } else if (tokens.length) {
     const matched = tokens.filter(token => filenameTokens.has(token));
     const ratio = matched.length / tokens.length;
-    if (ratio === 1) {
-      score += 90;
-      reasons.push('all-reference-tokens');
-    } else if (ratio >= 0.75 && matched.length >= 3) {
-      score += 65;
-      reasons.push('most-reference-tokens');
-    } else if (ratio >= 0.5 && matched.length >= 3) {
-      score += 40;
-      reasons.push('half-reference-tokens');
-    }
+    if (ratio === 1) { score += 90; reasons.push('all-reference-tokens'); }
+    else if (ratio >= 0.75 && matched.length >= 3) { score += 65; reasons.push('most-reference-tokens'); }
+    else if (ratio >= 0.5 && matched.length >= 3) { score += 40; reasons.push('half-reference-tokens'); }
   }
 
   const [year, month, day] = dateParts(doc.issue_date);
-  if (year && filenameTokens.has(year)) {
-    score += 8;
-    reasons.push('year');
-  }
+  if (year && filenameTokens.has(year)) { score += 8; reasons.push('year'); }
   if (year && month && day) {
-    const dateVariants = [
-      `${year}-${month}-${day}`,
-      `${day}-${month}-${year}`,
-      `${day}.${month}.${year}`,
-      `${Number(day)}-${Number(month)}-${year}`,
-      `${Number(day)}.${Number(month)}.${year}`
-    ].map(norm);
-    if (dateVariants.some(value => value && filename.includes(value))) {
-      score += 18;
-      reasons.push('full-date');
-    }
+    const dateVariants = [`${year}-${month}-${day}`,`${day}-${month}-${year}`,`${day}.${month}.${year}`,`${Number(day)}-${Number(month)}-${year}`,`${Number(day)}.${Number(month)}.${year}`].map(norm);
+    if (dateVariants.some(value => value && filename.includes(value))) { score += 18; reasons.push('full-date'); }
   }
 
   const aliasHits = [...new Set(aliases.filter(token => token.length >= 3 && filenameTokens.has(token)))];
-  if (aliasHits.length) {
-    score += Math.min(12, aliasHits.length * 3);
-    reasons.push('institution');
-  }
+  if (aliasHits.length) { score += Math.min(12, aliasHits.length * 3); reasons.push('institution'); }
   return { score, reasons };
 }
 
@@ -228,7 +208,7 @@ for (const doc of registry.documents) {
 
 registry.reconciliation = {
   updated_at: new Date().toISOString(),
-  active_pdf_policy: 'Ministerstva, KPR, státní zastupitelství a Policie ČR mají aktivní odkaz vždy, pokud je jejich originální PDF fyzicky přítomné a jednoznačně přiřaditelné; všechny dokumenty zůstávají zveřejněné v chronologii.',
+  active_pdf_policy: 'Aktivní PDF se zachovává u všech veřejných institucí a u všech našich podání, pokud fyzický PDF soubor existuje, je použitelný a jednoznačně přiřaditelný. Reconciler nesmí skrývat PDF jen podle typu původce.',
   source_manifests: sourceFiles,
   physical_pdf_count: allPhysicalPdfs.length,
   usable_physical_pdf_count: validPhysicalPdfs.length,
@@ -258,4 +238,4 @@ await writeFile('project-memory/pdf-reconciliation-report.json', `${JSON.stringi
   unlinked_usable_physical_pdfs: validPhysicalPdfs.filter(file => !usedPaths.has(file))
 }, null, 2)}\n`, 'utf8');
 
-console.log(`PDF reconciliation: ${changes.length} nových vazeb, ${registry.reconciliation.linked_pdf_count} aktivních PDF, ${invalidated.length} falešných odkazů odstraněno, ${withheldByPolicy.length} odkazů skryto podle institucionálního pravidla, ${unmatchedEligible.length} oprávněných listin bez jednoznačné fyzické shody.`);
+console.log(`PDF reconciliation: ${changes.length} nových vazeb, ${registry.reconciliation.linked_pdf_count} aktivních PDF, ${invalidated.length} falešných odkazů odstraněno, ${withheldByPolicy.length} odkazů skryto podle pravidla, ${unmatchedEligible.length} oprávněných listin bez jednoznačné fyzické shody.`);
