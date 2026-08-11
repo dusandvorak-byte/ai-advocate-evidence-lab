@@ -1,9 +1,19 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const documentsPath = 'project-memory/documents-2026.json';
+const supplementPath = 'project-memory/documents-2026-supplement-2026-08-10.json';
 const readJson = async path => JSON.parse(await readFile(path, 'utf8'));
 const registry = await readJson(documentsPath);
+const supplement = await readJson(supplementPath);
 if (!Array.isArray(registry.documents)) throw new Error('documents-2026.json neobsahuje pole documents');
+if (!Array.isArray(supplement.documents)) throw new Error('documents-2026-supplement-2026-08-10.json neobsahuje pole documents');
+
+// Jediná kanonická pracovní množina pro celý build: základní registr + dávka 10. 8. 2026.
+// Stabilní ID zajišťuje idempotenci: opakovaný build nikdy nevytvoří duplicitní položku.
+const merged = new Map(registry.documents.map(doc => [doc.id, doc]));
+for (const doc of supplement.documents) merged.set(doc.id, { ...(merged.get(doc.id) || {}), ...doc });
+registry.documents = [...merged.values()];
+registry.canonical_supplements = [supplementPath];
 
 const eudaAckId = 'doc-eu-euda-2026-08-07-ack-article-265-tfeu';
 if (!registry.documents.some(doc => doc.id === eudaAckId)) {
@@ -23,14 +33,12 @@ if (!registry.documents.some(doc => doc.id === eudaAckId)) {
       sha256: null,
       verification_status: 'catalogued'
     },
-    relations: [
-      { type: 'souvisí', target_id: 'zpravy/07082026-011.html' }
-    ],
+    relations: [{ type: 'souvisí', target_id: 'zpravy/07082026-011.html' }],
     evidence_note: 'EUDA dne 7. 8. 2026 v 17:06:35 potvrdila přijetí korespondence k formální výzvě podle čl. 265 SFEU; e-mail neobsahuje samostatné č. j. ani sp. zn.'
   });
 }
 
-const outgoingTypes = new Set(['user_submission', 'user_filing', 'alliance_submission', 'our_submission']);
+const outgoingTypes = new Set(['user_submission', 'user_filing', 'alliance_submission', 'our_submission', 'user_submission_attachment']);
 const institutionAliases = new Map([
   ['CZ-OSZ-PRO', 'CZ-OSZ-PV'],
   ['CZ-PCR-KRPM', 'CZ-PCR-KRPO']
@@ -78,8 +86,9 @@ for (const doc of registry.documents) {
 
 registry.normalization = {
   updated_at: new Date().toISOString(),
-  rule: 'Kanonická data se doplňují pouze deterministicky. Starší aliasy institucí se převádějí na kanonická ID; chybějící user_title se smí převzít jen z již existujícího title; state_record = příchozí stát/veřejná instituce; výslovné typy našich podání = odchozí; ostatní bez odhadu.',
+  rule: 'Kanonická data se doplňují pouze deterministicky. Základní registr a schválené dávkové doplňky se slučují podle stabilního ID; starší aliasy institucí se převádějí na kanonická ID; state_record = příchozí stát/veřejná instituce; výslovné typy našich podání = odchozí; ostatní bez odhadu.',
   institution_aliases: Object.fromEntries(institutionAliases),
+  canonical_supplement_documents: supplement.documents.length,
   filled_user_titles_from_existing_title: filledUserTitles,
   incoming_from_state_or_public_institution: incoming,
   outgoing_from_user_or_alliance: outgoing,
@@ -87,4 +96,4 @@ registry.normalization = {
 };
 
 await writeFile(documentsPath, `${JSON.stringify(registry, null, 2)}\n`, 'utf8');
-console.log(`Normalizace kanonických dat: ${changed} změn; doplněné popisy úkonů ${filledUserTitles}; stát/veřejné instituce ${incoming}; naše podání ${outgoing}; nezařazené ${unclassified}; EUDA odpověď 7. 8. 2026 evidována v Godotovi.`);
+console.log(`Normalizace kanonických dat: základ + ${supplement.documents.length} položek dávky; stát/veřejné instituce ${incoming}; naše podání ${outgoing}; nezařazené ${unclassified}; celkem ${registry.documents.length}.`);
