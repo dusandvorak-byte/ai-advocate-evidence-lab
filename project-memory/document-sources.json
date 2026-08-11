@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "status": "binding",
+  "description": "Jediný manifest kanonických zdrojů chronologie. Build slučuje všechny uvedené registry podle stabilního ID; žádný veřejný výstup nesmí udržovat vlastní ruční seznam dokumentů ani vlastní čítač.",
+  "sources": [
+    {
+      "path": "project-memory/documents-2026.json",
+      "role": "base"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-08-10.json",
+      "role": "batch",
+      "batch_date": "2026-08-10"
+    }
+  ]
+}
