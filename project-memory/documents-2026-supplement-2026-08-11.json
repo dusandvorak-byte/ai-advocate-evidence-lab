@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "batch_date": "2026-08-11",
-  "purpose": "Nově doložená státní listina doručená do Evidence Lab dne 11. 8. 2026; reakce bude doplněna následně jako vazba reakce_na.",
+  "purpose": "Nově doložená státní listina a navazující stížnost doručené do Evidence Lab dne 11. 8. 2026.",
   "documents": [
     {
       "id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
@@ -23,7 +23,37 @@
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification",
       "chronology_sequence": 63,
-      "evidence_note": "Originální dvoustránkové PDF bylo uživatelem doloženo dne 11. 8. 2026. Reakce/opravný prostředek zatím nebyl do této položky připojen."
+      "evidence_note": "Originální dvoustránkové PDF bylo uživatelem doloženo dne 11. 8. 2026. Navazující stížnost ze dne 11. 8. 2026 je připojena vazbou reakce_na."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+      "user_title": "Stížnost proti usnesení Okresního soudu v Prostějově ze dne 7. 8. 2026, č. j. 15 Nt 3103/2026-53",
+      "issue_date": "2026-08-11",
+      "received_date": "2026-08-11",
+      "institution_id": "CZ-DD",
+      "reference": "proti 15 Nt 3103/2026-53",
+      "case_ids": [],
+      "document_type": "appeal",
+      "topics": ["obnova řízení", "OS Prostějov", "zabrání věci", "§ 283 písm. b) trestního řádu", "§ 282 trestního řádu"],
+      "public": {
+        "html": null,
+        "pdf": "web/documents/report-04082026-010/23-dvorak-stiznost-15-nt-3103-2026-53-2026-08-11.pdf",
+        "sha256": "41c6dc1b554fdc5206391866f787ae1906d7ae5aed1953a3665aa0cda1ecf8d0",
+        "verification_status": "verified_original"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53"
+        },
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_batch_classification",
+      "evidence_note": "Desetistránková stížnost žádá zrušení usnesení, nové projednání a společný nebo bezprostředně koordinovaný přezkum se stížností proti č. j. 15 Nt 3105/2026-54."
     }
   ]
 }
