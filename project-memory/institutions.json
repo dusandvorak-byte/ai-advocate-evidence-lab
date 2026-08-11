@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_on": "2026-08-07",
+  "updated_on": "2026-08-11",
   "institutions": [
     {"id":"CZ-KPR","country":"CZ","type":"executive_office","name":"Kancelář prezidenta republiky","short_name":"KPR"},
     {"id":"CZ-MV","country":"CZ","type":"ministry","name":"Ministerstvo vnitra","short_name":"MV"},
@@ -19,6 +19,7 @@
     {"id":"CZ-OSZ-PHA2","country":"CZ","type":"prosecution","name":"Obvodní státní zastupitelství pro Prahu 2","short_name":"OSZ Praha 2"},
     {"id":"CZ-OSZ-PHA4","country":"CZ","type":"prosecution","name":"Obvodní státní zastupitelství pro Prahu 4","short_name":"OSZ Praha 4"},
     {"id":"CZ-OSZ-PHA7","country":"CZ","type":"prosecution","name":"Obvodní státní zastupitelství pro Prahu 7","short_name":"OSZ Praha 7"},
+    {"id":"CZ-OS-PRO","country":"CZ","type":"court","name":"Okresní soud v Prostějově","short_name":"OS Prostějov"},
     {"id":"CZ-OS-PHA4","country":"CZ","type":"court","name":"Obvodní soud pro Prahu 4","short_name":"OS Praha 4"},
     {"id":"CZ-MS-PHA","country":"CZ","type":"court","name":"Městský soud v Praze","short_name":"MS Praha"},
     {"id":"CZ-KS-BRN","country":"CZ","type":"court","name":"Krajský soud v Brně","short_name":"KS Brno"},
@@ -35,6 +36,8 @@
     {"id":"CZ-CT","country":"CZ","type":"public_institution","name":"Česká televize","short_name":"ČT"},
     {"id":"CZ-UOOU","country":"CZ","type":"independent_authority","name":"Úřad pro ochranu osobních údajů","short_name":"ÚOOÚ"},
     {"id":"CZ-RRTV","country":"CZ","type":"independent_authority","name":"Rada pro rozhlasové a televizní vysílání","short_name":"RRTV"},
+    {"id":"CZ-DD","country":"CZ","type":"person","name":"Mgr. Dušan Dvořák","short_name":"Dušan Dvořák"},
+    {"id":"CZ-CITC","country":"CZ","type":"ngo","name":"Cannabis is The Cure, z. s.","short_name":"Cannabis is The Cure"},
     {"id":"EU-EUDA","country":"EU","type":"eu_agency","name":"European Union Drugs Agency","short_name":"EUDA"},
     {"id":"EU-CJEU","country":"EU","type":"court","name":"Soudní dvůr Evropské unie","short_name":"SDEU"},
     {"id":"EU-EC","country":"EU","type":"executive","name":"Evropská komise","short_name":"EK"},
