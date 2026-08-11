@@ -1,0 +1,1 @@
+Ověřit jediný veřejný registr dokumentů: 62 stát/veřejné instituce, 4 naše podání, 66 celkem; Godot i titulní strana musí číst web/data/documents-2026.json.
