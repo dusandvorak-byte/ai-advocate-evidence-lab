@@ -124,24 +124,30 @@
     const stateDocuments = mainDocuments
       .filter(item => item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record')
       .sort(compareStateDocuments);
+    const stateById = new Map(stateDocuments.map(item => [item.id, item]));
     const outgoingDocuments = mainDocuments.filter(item => item.submission_side === 'outgoing_from_user_or_alliance');
 
     const reactionsByTarget = new Map();
     const attachmentsByTarget = new Map();
     for (const documentItem of outgoingDocuments) {
+      const reactionTargets = (documentItem.relations || [])
+        .filter(rel => (rel.type || rel.relation_type) === 'reakce_na')
+        .map(rel => rel.target_id || rel.document_id)
+        .filter(targetId => targetId && stateById.has(targetId))
+        .sort((a, b) => compareStateDocuments(stateById.get(a), stateById.get(b)));
+      if (reactionTargets.length) {
+        const targetId = reactionTargets.at(-1);
+        const bucket = reactionsByTarget.get(targetId) || [];
+        bucket.push(documentItem);
+        reactionsByTarget.set(targetId, bucket);
+      }
       for (const rel of documentItem.relations || []) {
         const type = rel.type || rel.relation_type;
         const targetId = rel.target_id || rel.document_id;
-        if (!targetId) continue;
-        if (type === 'reakce_na') {
-          const bucket = reactionsByTarget.get(targetId) || [];
-          bucket.push(documentItem);
-          reactionsByTarget.set(targetId, bucket);
-        } else if (type === 'priloha_k') {
-          const bucket = attachmentsByTarget.get(targetId) || [];
-          bucket.push(documentItem);
-          attachmentsByTarget.set(targetId, bucket);
-        }
+        if (type !== 'priloha_k' || !targetId) continue;
+        const bucket = attachmentsByTarget.get(targetId) || [];
+        bucket.push(documentItem);
+        attachmentsByTarget.set(targetId, bucket);
       }
     }
 
