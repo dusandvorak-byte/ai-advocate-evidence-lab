@@ -47,7 +47,7 @@ home = home.replace(/<section class="newsroom-alert" id="prave-ted">[\s\S]*?<\/s
 home = home.replace(/<article class="lead-card">[\s\S]*?<\/article>/, `<article class="lead-card">
   <figure><img src="assets/votruba/write-lawmakers.jpg" alt="Černobílá kresba Jiřího Votruby: ruka zapisuje zprávu"><figcaption>Jiří Votruba</figcaption></figure>
   <div><p class="kicker">HLAVNÍ ZPRÁVA DNE · CANNAINSIDER NEWS · 7. 8. 2026 · EVROPSKÁ VĚTEV · REPORT 07082026-011</p>
-  <h1><a href="zpravy/07082026-011.html">Lorraine Nolan s láskou. Výzva k polibku z gubernie protektorátu Böhmen und Groß Cannabis Mähren</a></h1>
+  <h1><a href="zpravy/07082026-011.html">Lorraine Nolan s láskou</a></h1>
   <p class="standfirst">EUDA potvrdila přijetí formální výzvy k jednání podle čl. 265 SFEU. Evropská větev sleduje srovnatelnost analytických metod stanovení THC a THC/THCA.</p>
   <div class="score score-red"><strong>9/9</strong><span>EVROPSKÁ PROCESNÍ VĚTEV · FORMÁLNÍ VÝZVA K JEDNÁNÍ</span></div>
   <div class="news-meta"><span>7. 8. 2026</span><span>EUDA</span><span>čl. 265 SFEU</span><span>Česká autorská verze</span></div></div>
