@@ -3,6 +3,7 @@ import { spawn } from 'node:child_process';
 
 const source = {
   documents: 'project-memory/documents-2026.json',
+  supplement: 'project-memory/documents-2026-supplement-2026-08-10.json',
   institutions: 'project-memory/institutions.json',
   deadlines: 'project-memory/deadlines.json',
   timers: 'project-memory/process-timers.json',
@@ -66,6 +67,10 @@ for (const key of ['state_and_public_institutions', 'our_submissions', 'unclassi
 }
 if (operationalState.counters.total_documents !== documentsRegistry.documents.length) throw new Error('Počítadla nepokrývají celý registr dokumentů');
 
+const expectedStateCount = operationalState.counters.state_and_public_institutions;
+const expectedOurCount = operationalState.counters.our_submissions;
+const expectedTotalCount = operationalState.counters.total_documents;
+
 let article = await readFile(output.article, 'utf8');
 article = article
   .replaceAll('Pavouk český křižák z Branibor již více než 15 let splétá síť na trase Praha–Brno–Praha a zpět. Kdo tu síť rozmotá?', correctTitle)
@@ -82,7 +87,9 @@ if (!article.includes('id="chronologie-seznam"')) throw new Error('Článek neob
 if (/aktivní originály/i.test(article)) throw new Error('Článek obsahuje samostatný blok aktivních originálů');
 if (/href=["']web\/documents\//i.test(article)) throw new Error('Ve veřejném HTML zůstal prefix web/documents/');
 const chronologyCount = (article.match(/<li id="doc-[^"]*"/g) || []).length;
-if (chronologyCount < 1) throw new Error('Chronologie je prázdná');
+if (chronologyCount !== expectedTotalCount) throw new Error(`Rozpor chronologie: Godot ${chronologyCount}, kanonický registr ${expectedTotalCount}`);
+if (!article.includes(`Stát: ${expectedStateCount} evidovaných listin`)) throw new Error(`Godot neobsahuje odvozený státní počet ${expectedStateCount}`);
+if (!home.includes(`<strong data-state-document-count>${expectedStateCount}</strong>`)) throw new Error(`Titulní stránka neobsahuje odvozený státní počet ${expectedStateCount}`);
 
 await mkdir(output.data, { recursive: true });
 await copyFile(source.documents, `${output.data}/documents-2026.json`);
@@ -105,7 +112,7 @@ const manifest = {
     eligible_institution_documents: godotPdfAudit.eligible_institution_document_count, eligible_with_active_pdf: godotPdfAudit.eligible_with_active_pdf_count,
     eligible_without_active_pdf: godotPdfAudit.eligible_without_active_pdf_count, broken_godot_pdf_links: godotPdfAudit.broken_article_pdf_link_count,
     registry_hard_errors: registryAudit.hard_error_count, registry_human_review_required: registryAudit.human_review_count,
-    state_public_submissions: operationalState.counters.state_and_public_institutions, our_submissions: operationalState.counters.our_submissions,
+    state_public_submissions: expectedStateCount, our_submissions: expectedOurCount,
     unclassified_submission_side: operationalState.counters.unclassified, submission_classification_human_review_required: operationalState.classification_quality.human_review_required
   },
   capabilities_preserved: {
@@ -114,10 +121,10 @@ const manifest = {
     counter_values_are_derived_not_manual: true, unclassified_documents_are_not_guessed: true, canonical_registry_audit: true,
     single_public_build_entrypoint: true, five_alliance_privacy_exemptions: true, lawful_third_person_anonymization: true,
     interactive_document_case_law_statute_memory: true, internal_knowledge_not_auto_published: true,
-    godot_pdf_links_hard_validated: true,
+    godot_pdf_links_hard_validated: true, cross_surface_document_count_invariant: true,
     axioms_enforced: axiomsRegistry.axioms.map(item => item.id), goals_enforced: goalsRegistry.goals
   },
   public_pdf_links: publicPdfLinks
 };
 await writeFile(`${output.data}/build-manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
-console.log(`Evidence Lab 2.0 build: audit 0 tvrdých chyb / ${registryAudit.human_review_count} vazeb ke kontrole; stát/veřejné instituce ${operationalState.counters.state_and_public_institutions}; naše podání ${operationalState.counters.our_submissions}; nezařazené ${operationalState.counters.unclassified}; ${publicPdfLinks.length} aktivních PDF; ${timersRegistry.timers.length} živých procesních časovačů; Godot ${godotPdfAudit.eligible_with_active_pdf_count}/${godotPdfAudit.eligible_institution_document_count} aktivních PDF u policie/SZ/KPR/ministerstev.`);
+console.log(`Evidence Lab 2.0 build: stát/veřejné instituce ${expectedStateCount}; naše podání ${expectedOurCount}; celkem ${expectedTotalCount}; titulní strana = Godot = manifest; ${publicPdfLinks.length} aktivních PDF; ${timersRegistry.timers.length} živých procesních časovačů.`);
