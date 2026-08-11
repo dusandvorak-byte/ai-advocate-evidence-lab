@@ -104,7 +104,7 @@
       "document_type": "user_submission",
       "topics": ["18 A 23/2026", "reakce žalobce"],
       "public": {"html": null, "pdf": "documents/report-04082026-010/21-dvorak-reakce-ms-praha-18-a-23-2026-2026-08-10.pdf", "sha256": null, "verification_status": "published"},
-      "relations": [{"type":"reakce_na","target_id":"doc-cz-ms-pha-2026-08-10-18-a-23-2026-130"},{"type":"reakce_na","target_id":"doc-cz-ms-pha-2026-08-10-18-a-23-2026-131"}],
+      "relations": [{"type":"souvisí","target_id":"doc-cz-ms-pha-2026-08-10-18-a-23-2026-130"},{"type":"reakce_na","target_id":"doc-cz-ms-pha-2026-08-10-18-a-23-2026-131"}],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_batch_classification"
     },
