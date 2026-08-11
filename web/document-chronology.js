@@ -66,22 +66,27 @@
     parent.append(anchor);
   };
 
-  const appendInlineReaction = (item, parent) => {
-    const attachment = item.document_type === 'user_submission_attachment';
-    parent.append(document.createTextNode(' · '));
-    const label = document.createElement('b');
-    label.textContent = `${attachment ? 'Příloha' : 'Reakce'} ${formatDate(item.issue_date)}:`;
-    parent.append(label, document.createTextNode(` ${item.user_title || 'popis reakce dosud nedoložen'}`));
-    appendLink(parent, resolveLink(item, attachment ? 'příloha PDF' : 'reakce PDF'));
+  const appendInlineDocument = (documentItem, parent, institutionMap, kind) => {
+    const institution = institutionMap.get(documentItem.institution_id);
+    const name = institution?.name_cs || institution?.name || documentItem.institution_id || 'Původce neuveden';
+    parent.append(document.createTextNode(` a ${kind} Kdo: `));
+    const institutionNode = document.createElement('strong');
+    institutionNode.textContent = name;
+    parent.append(institutionNode);
+    parent.append(document.createTextNode(` · Datum: ${formatDate(documentItem.issue_date)}`));
+    parent.append(document.createTextNode(` · Č. j. / sp. zn.: ${documentItem.reference || 'bez samostatného č. j./sp. zn.'}`));
+    parent.append(document.createTextNode(` · Co se stalo: ${documentItem.user_title || 'popis úkonu dosud nedoložen'}`));
+    const label = documentItem.document_type === 'user_submission_attachment' ? 'důkazní příloha PDF' : 'naše podání PDF';
+    appendLink(parent, resolveLink(documentItem, label));
   };
 
-  const createItem = (documentItem, institution, reactionsByTarget, attachmentsByTarget) => {
+  const createItem = (documentItem, institution, reactionsByTarget, attachmentsByTarget, institutionMap) => {
     const item = document.createElement('li');
     item.id = documentItem.id;
     item.dataset.issueDate = documentItem.issue_date || '';
     item.dataset.institutionId = documentItem.institution_id || '';
 
-    const institutionNode = document.createElement('span');
+    const institutionNode = document.createElement('strong');
     institutionNode.className = 'institution';
     institutionNode.textContent = institution?.name_cs || institution?.name || documentItem.institution_id || 'Původce neuveden';
 
@@ -93,9 +98,9 @@
 
     const reactions = [...(reactionsByTarget.get(documentItem.id) || [])].sort(compareDocuments);
     for (const reaction of reactions) {
-      appendInlineReaction(reaction, item);
+      appendInlineDocument(reaction, item, institutionMap, 'reakce');
       const attachments = [...(attachmentsByTarget.get(reaction.id) || [])].sort(compareDocuments);
-      for (const attachment of attachments) appendInlineReaction(attachment, item);
+      for (const attachment of attachments) appendInlineDocument(attachment, item, institutionMap, 'příloha');
     }
     return item;
   };
@@ -142,7 +147,7 @@
 
     mainList.textContent = '';
     for (const documentItem of stateDocuments) {
-      mainList.append(createItem(documentItem, institutionMap.get(documentItem.institution_id), reactionsByTarget, attachmentsByTarget));
+      mainList.append(createItem(documentItem, institutionMap.get(documentItem.institution_id), reactionsByTarget, attachmentsByTarget, institutionMap));
     }
 
     const meta = document.querySelector('.article-header .news-meta');
@@ -160,7 +165,9 @@
       oldList.id = 'starsi-dokumenty-list';
       oldList.start = stateDocuments.length + 1;
       for (const documentItem of olderDocuments) {
-        oldList.append(createItem(documentItem, institutionMap.get(documentItem.institution_id), reactionsByTarget, attachmentsByTarget));
+        if (documentItem.submission_side === 'incoming_from_state_or_public_institution' || documentItem.document_type === 'state_record') {
+          oldList.append(createItem(documentItem, institutionMap.get(documentItem.institution_id), reactionsByTarget, attachmentsByTarget, institutionMap));
+        }
       }
       const timers = document.getElementById('procesni-casovace');
       if (timers) timers.after(heading, oldList);
