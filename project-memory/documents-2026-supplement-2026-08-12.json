@@ -1,28 +1,44 @@
 {
   "schema_version": "1.0",
   "batch_date": "2026-08-12",
-  "purpose": "Nově doložené listiny KPR, Ministerstva kultury a Ministerstva vnitra a navazující rozklad Ganja For All Animals, z.s. doručené do Evidence Lab dne 12. 8. 2026.",
+  "purpose": "Nově doložené listiny Ministerstva vnitra, KPR a Ministerstva kultury a navazující rozklad Ganja For All Animals, z.s. doručené do Evidence Lab dne 12. 8. 2026. Záznamy jsou vedeny podle data vzniku listiny, nikoli podle okamžiku dodání do Evidence Lab.",
   "documents": [
     {
-      "id": "doc-cz-kpr-2026-08-12-4873-2026",
-      "user_title": "KPR odmítla poskytnout součinnost při realizaci záměru vyvěsit konopnou standartu nad Pražským hradem; odkázala obecně na množství žádostí a omezenou kapacitu vyhovět všem",
-      "issue_date": "2026-08-12", "received_date": "2026-08-12", "institution_id": "CZ-KPR", "reference": "4873/2026", "case_ids": ["case-cz-kpr-tri-vetve"], "document_type": "state_record", "topics": ["KPR", "konopná standarta", "Pražský hrad", "součinnost", "odpověď na podání"],
-      "public": {"html": null,"pdf":"documents/report-04082026-010/24-kpr-4873-2026-konopna-standarta-2026-08-12.pdf","sha256":"995873be85f4577a4e0484f3564bf70fd9faaed6db3c4cd0702aaa19a3218455","verification_status":"verified_original"},
-      "relations": [], "submission_side":"incoming_from_state_or_public_institution","submission_side_basis":"explicit_batch_classification","chronology_sequence":64,
+      "id":"doc-cz-mv-2026-08-11-mv-127234-2-obp-2026",
+      "user_title":"Ministerstvo vnitra odmítlo žádost Ganja For All Animals, z.s. podle § 11b InfZ s odůvodněním, že nedisponuje žádnou z požadovaných informací",
+      "issue_date":"2026-08-11","received_date":"2026-08-12","institution_id":"CZ-MV","reference":"MV-127234-2/OBP-2026","case_ids":["case-cz-mv-infz-ganja-for-all-animals"],"document_type":"state_record",
+      "topics":["Ministerstvo vnitra","Ganja For All Animals, z.s.","InfZ","§ 11b InfZ","§ 15 InfZ","odmítnutí žádosti","rozklad"],
+      "public":{"html":null,"pdf":null,"sha256":null,"verification_status":"source_verified_pending_binary_publish"},
+      "relations":[],"submission_side":"incoming_from_state_or_public_institution","submission_side_basis":"explicit_batch_classification","chronology_sequence":64,
+      "evidence_note":"Rozhodnutí Ministerstva vnitra, odboru bezpečnostní politiky, ze dne 11. 8. 2026, č. j. MV-127234-2/OBP-2026. Povinný subjekt podle § 15 InfZ odmítl žádost Ganja For All Animals, z.s. s použitím § 11b InfZ, protože podle odůvodnění ministerstvo nedisponuje žádnou z požadovaných informací. Pro chronologii je rozhodné datum rozhodnutí 11. 8. 2026; elektronický podpis je datován 12. 8. 2026."
+    },
+    {
+      "id":"doc-cz-kpr-2026-08-12-4873-2026",
+      "user_title":"KPR odmítla poskytnout součinnost při realizaci záměru vyvěsit konopnou standartu nad Pražským hradem; odkázala obecně na množství žádostí a omezenou kapacitu vyhovět všem",
+      "issue_date":"2026-08-12","received_date":"2026-08-12","institution_id":"CZ-KPR","reference":"4873/2026","case_ids":["case-cz-kpr-tri-vetve"],"document_type":"state_record",
+      "topics":["KPR","konopná standarta","Pražský hrad","součinnost","odpověď na podání"],
+      "public":{"html":null,"pdf":"documents/report-04082026-010/24-kpr-4873-2026-konopna-standarta-2026-08-12.pdf","sha256":"995873be85f4577a4e0484f3564bf70fd9faaed6db3c4cd0702aaa19a3218455","verification_status":"verified_original"},
+      "relations":[],"submission_side":"incoming_from_state_or_public_institution","submission_side_basis":"explicit_batch_classification","chronology_sequence":65,
       "evidence_note":"Jednostránková listina byla uživatelem převzata z datové schránky a doložena dne 12. 8. 2026. KPR reaguje na podání ze dne 5. 6. 2026. Odpověď představuje odmítnutí požadované součinnosti; sama o sobě nerozhoduje o zákonnosti ani věcné správnosti záměru."
     },
     {
-      "id":"doc-cz-mk-2026-08-12-mk-49467-2026-socns","user_title":"Ministerstvo kultury formálně potvrdilo zahájení řízení o novém řízení a novém rozhodnutí podle § 101 písm. b) správního řádu již dnem 26. 6. 2026","issue_date":"2026-08-12","received_date":"2026-08-12","institution_id":"CZ-MK","reference":"MK 49467/2026 SOCNS","case_ids":["case-cz-mk-konopna-cirkev"],"document_type":"state_record","topics":["Ministerstvo kultury","Konopná církev","nové řízení","nové rozhodnutí","§ 101 písm. b) správního řádu","MK-S 6893/2026","registrace církve"],
-      "public":{"html":"listiny/doc-cz-mk-2026-08-12-mk-49467-2026-socns.html","pdf":null,"sha256":null,"verification_status":"source_verified_pending_binary_publish"},"relations":[{"type":"follows","target":"doc-cz-mk-2026-07-22-mk-45728-2026-socns"}],"submission_side":"incoming_from_state_or_public_institution","submission_side_basis":"explicit_batch_classification","chronology_sequence":65,
+      "id":"doc-cz-mk-2026-08-12-mk-49467-2026-socns",
+      "user_title":"Ministerstvo kultury formálně potvrdilo zahájení řízení o novém řízení a novém rozhodnutí podle § 101 písm. b) správního řádu již dnem 26. 6. 2026",
+      "issue_date":"2026-08-12","received_date":"2026-08-12","institution_id":"CZ-MK","reference":"MK 49467/2026 SOCNS","case_ids":["case-cz-mk-konopna-cirkev"],"document_type":"state_record",
+      "topics":["Ministerstvo kultury","Konopná církev","nové řízení","nové rozhodnutí","§ 101 písm. b) správního řádu","MK-S 6893/2026","registrace církve"],
+      "public":{"html":"listiny/doc-cz-mk-2026-08-12-mk-49467-2026-socns.html","pdf":null,"sha256":null,"verification_status":"source_verified_pending_binary_publish"},
+      "relations":[{"type":"follows","target":"doc-cz-mk-2026-07-22-mk-45728-2026-socns"}],"submission_side":"incoming_from_state_or_public_institution","submission_side_basis":"explicit_batch_classification","chronology_sequence":66,
       "evidence_note":"Klíčová procesní listina. Ministerstvo jako registrující orgán podle zákona č. 3/2002 Sb. výslovně oznamuje zahájení řízení o návrhu na provedení nového řízení a vydání nového rozhodnutí podle § 101 písm. b) správního řádu dnem 26. 6. 2026. Nové řízení vede pod sp. zn. MK-S 6893/2026."
     },
     {
-      "id":"doc-cz-mv-2026-08-11-mv-127234-2-obp-2026","user_title":"Ministerstvo vnitra odmítlo žádost Ganja For All Animals, z.s. podle § 11b InfZ s odůvodněním, že nedisponuje žádnou z požadovaných informací","issue_date":"2026-08-11","received_date":"2026-08-12","institution_id":"CZ-MV","reference":"MV-127234-2/OBP-2026","case_ids":["case-cz-mv-infz-ganja-for-all-animals"],"document_type":"state_record","topics":["Ministerstvo vnitra","Ganja For All Animals, z.s.","InfZ","§ 11b InfZ","§ 15 InfZ","odmítnutí žádosti","rozklad"],"public":{"html":null,"pdf":null,"sha256":null,"verification_status":"source_verified_pending_binary_publish"},"relations":[],"submission_side":"incoming_from_state_or_public_institution","submission_side_basis":"explicit_batch_classification","chronology_sequence":66,
-      "evidence_note":"Rozhodnutí Ministerstva vnitra, odboru bezpečnostní politiky, ze dne 11. 8. 2026, č. j. MV-127234-2/OBP-2026. Povinný subjekt podle § 15 InfZ odmítl žádost Ganja For All Animals, z.s. s použitím § 11b InfZ, protože podle odůvodnění ministerstvo nedisponuje žádnou z požadovaných informací."
-    },
-    {
-      "id":"doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026","user_title":"Ganja For All Animals, z.s. podala rozklad proti odmítnutí žádosti Ministerstvem vnitra; namítá nepřezkoumatelnost, neprokázání kumulativních podmínek § 11b InfZ a absenci doloženého vyhledávání","issue_date":"2026-08-12","received_date":"2026-08-12","institution_id":"CZ-GFAA","reference":"Rozklad k MV-127234-2/OBP-2026","case_ids":["case-cz-mv-infz-ganja-for-all-animals"],"document_type":"submission","topics":["Ganja For All Animals, z.s.","Ministerstvo vnitra","rozklad","InfZ","§ 11b InfZ","§ 16 InfZ","§ 152 správního řádu","přeprava vzorku krve","toxikologie","THC","THCA"],"public":{"html":null,"pdf":null,"sha256":null,"verification_status":"source_verified_pending_binary_publish"},"relations":[{"type":"appeals","target":"doc-cz-mv-2026-08-11-mv-127234-2-obp-2026"}],"submission_side":"outgoing_from_user_or_organization","submission_side_basis":"explicit_document_authorship","chronology_sequence":null,
-      "evidence_note":"Šestistránkový rozklad ze dne 12. 8. 2026 proti rozhodnutí MV ze dne 11. 8. 2026, č. j. MV-127234-2/OBP-2026. Rozklad napadá rozhodnutí v celém rozsahu. Jádrem je námitka, že MV odmítlo deset samostatných bodů žádosti jediným tvrzením, že nedisponuje žádnou z požadovaných informací, aniž popsalo vyhledávání, posoudilo zákonnou povinnost informacemi disponovat či možnost získat je jednoduchými úkony. Rozklad požaduje zejména aplikaci § 16 odst. 4 a 5 InfZ, samostatné posouzení deseti bodů, doložení vyhledávání a rozlišení § 11b od § 14 odst. 5 písm. c) InfZ. Veřejný zájem spojuje s integritou forenzního vzorku, kontinuitou držby a podmínkami přepravy, které mohou ovlivnit průkaznost toxikologického výsledku. Rozklad podává Ganja For All Animals, z.s.; za právnickou osobu Tereza Tausingerová, kontrola a vypravení Bc. Patricia Janeková. Jde o naše navazující podání, proto nezvyšuje státní čítač 66."
+      "id":"doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026",
+      "user_title":"Ganja For All Animals, z.s. podala rozklad proti odmítnutí žádosti Ministerstvem vnitra; namítá nepřezkoumatelnost, neprokázání kumulativních podmínek § 11b InfZ a absenci doloženého vyhledávání",
+      "issue_date":"2026-08-12","received_date":"2026-08-12","institution_id":"CZ-GFAA","reference":"Rozklad k MV-127234-2/OBP-2026","case_ids":["case-cz-mv-infz-ganja-for-all-animals"],"document_type":"user_submission",
+      "topics":["Ganja For All Animals, z.s.","Ministerstvo vnitra","rozklad","InfZ","§ 11b InfZ","§ 16 InfZ","§ 152 správního řádu","přeprava vzorku krve","toxikologie","THC","THCA"],
+      "public":{"html":null,"pdf":null,"sha256":null,"verification_status":"source_verified_pending_binary_publish"},
+      "relations":[{"type":"reakce_na","target_id":"doc-cz-mv-2026-08-11-mv-127234-2-obp-2026"}],
+      "submission_side":"outgoing_from_user_or_alliance","submission_side_basis":"explicit_document_authorship","chronology_sequence":null,
+      "evidence_note":"Šestistránkový rozklad ze dne 12. 8. 2026 proti rozhodnutí MV ze dne 11. 8. 2026, č. j. MV-127234-2/OBP-2026. Rozklad napadá rozhodnutí v celém rozsahu. Jádrem je námitka, že MV odmítlo deset samostatných bodů žádosti jediným tvrzením, že nedisponuje žádnou z požadovaných informací, aniž popsalo vyhledávání, posoudilo zákonnou povinnost informacemi disponovat či možnost získat je jednoduchými úkony. Jde o naše navazující podání, proto nezvyšuje státní čítač 66."
     }
   ]
 }
