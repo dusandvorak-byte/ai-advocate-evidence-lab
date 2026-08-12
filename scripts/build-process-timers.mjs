@@ -10,6 +10,8 @@ const godotPath = 'web/zpravy/04082026-010.html';
 const eudaArticlePath = 'web/zpravy/07082026-011.html';
 const cssTag = '<link rel="stylesheet" href="process-timers.css">';
 const scriptTag = '<script src="process-timers.js" defer></script>';
+const timerBegin = '<!-- PROCESS-TIMERS:BEGIN -->';
+const timerEnd = '<!-- PROCESS-TIMERS:END -->';
 
 const REQUIRED_CURRENT_TIMER_IDS = [
   'timer-admin-kpr-repeat-16a-2026-08-10',
@@ -22,6 +24,30 @@ const REQUIRED_CURRENT_TIMER_IDS = [
 const escapeHtml = value => String(value ?? '')
   .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
   .replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+
+const removeBalancedElement = (html, startIndex, tagName) => {
+  const re = new RegExp(`<\\/?${tagName}\\b[^>]*>`, 'gi');
+  re.lastIndex = startIndex;
+  let depth = 0;
+  let match;
+  while ((match = re.exec(html))) {
+    const closing = match[0].startsWith('</');
+    depth += closing ? -1 : 1;
+    if (depth === 0) return html.slice(0, startIndex) + html.slice(re.lastIndex);
+  }
+  throw new Error(`Nelze najít párový konec <${tagName}> od pozice ${startIndex}`);
+};
+
+const removeGeneratedTimerBlock = (html, tagName) => {
+  const markedStart = html.indexOf(timerBegin);
+  if (markedStart >= 0) {
+    const markedEnd = html.indexOf(timerEnd, markedStart);
+    if (markedEnd < 0) throw new Error('Blok časovačů má počáteční marker bez koncového markeru');
+    return html.slice(0, markedStart) + html.slice(markedEnd + timerEnd.length);
+  }
+  const legacyStart = html.indexOf(`<${tagName} id="procesni-casovace"`);
+  return legacyStart >= 0 ? removeBalancedElement(html, legacyStart, tagName) : html;
+};
 
 const registry = JSON.parse(await readFile(sourcePath, 'utf8'));
 const overrides = JSON.parse(await readFile(overridesPath, 'utf8'));
@@ -88,8 +114,8 @@ const categories = order.map(category => {
 
 const notices = registry.historical_notice_points.map(item => `<article class="historical-notice"><h4>${escapeHtml(item.date)} · ${escapeHtml(item.title)}</h4><p>${escapeHtml(item.evidence)}</p><p><b>Význam pro projekt:</b> ${escapeHtml(item.boundary)}</p></article>`).join('');
 const timerBody = `<p class="timer-legend"><b>Povinný formát:</b> kdo · datum · č. j./sp. zn. · co se stalo. <b>Počítání:</b> je-li doloženo doručení podání v uvedený den, tento den je den 0 a následující den je den 1. Pokud pevná číselná lhůta není, web ji nevymýšlí.</p>${categories}<h3>Historický společný referenční bod vědomosti státu</h3>${notices}`;
-const godotSection = `<section id="procesni-casovace" class="process-timers"><header><div><p class="section-label">DŮSLEDKY · ŽIVÉ PROCESNÍ ČASOVAČE</p><h2>Živé procesní časovače</h2></div></header><p class="timer-legend">Tento blok následuje až po chronologii listin veřejných institucí od 1. května 2026. Jde o odvozené procesní důsledky chronologie, nikoli o její náhradu.</p>${timerBody}</section>`;
-const homeSection = `<details id="procesni-casovace" class="process-timers process-timers-dropdown"><summary><span>Živé procesní časovače</span><strong>${registry.timers.length} aktivních časovačů · rozbalit</strong></summary><div class="process-timers-dropdown-body">${timerBody}</div></details>`;
+const godotSection = `${timerBegin}<section id="procesni-casovace" class="process-timers"><header><div><p class="section-label">DŮSLEDKY · ŽIVÉ PROCESNÍ ČASOVAČE</p><h2>Živé procesní časovače</h2></div></header><p class="timer-legend">Tento blok následuje až po chronologii listin veřejných institucí od 1. května 2026. Jde o odvozené procesní důsledky chronologie, nikoli o její náhradu.</p>${timerBody}</section>${timerEnd}`;
+const homeSection = `${timerBegin}<details id="procesni-casovace" class="process-timers process-timers-dropdown"><summary><span>Živé procesní časovače</span><strong>${registry.timers.length} aktivních časovačů · rozbalit</strong></summary><div class="process-timers-dropdown-body">${timerBody}</div></details>${timerEnd}`;
 
 const assertRequiredTimersRendered = (html, label) => {
   for (const requiredId of REQUIRED_CURRENT_TIMER_IDS) {
@@ -103,14 +129,7 @@ const injectAssets = html => {
   return html;
 };
 
-let home = await readFile(homePath, 'utf8');
-const homeStart = home.indexOf('<details id="procesni-casovace"');
-if (homeStart >= 0) {
-  const homeEndMarker = '<section class="shared-news-feed"';
-  const homeEnd = home.indexOf(homeEndMarker, homeStart);
-  if (homeEnd < 0) throw new Error('Nelze bezpečně odstranit starý blok časovačů z titulní stránky');
-  home = home.slice(0, homeStart) + home.slice(homeEnd);
-}
+let home = removeGeneratedTimerBlock(await readFile(homePath, 'utf8'), 'details');
 const homeMarker = '<section class="shared-news-feed"';
 if (!home.includes(homeMarker)) throw new Error('Na titulní stránce chybí shared-news-feed pro umístění časovačů');
 home = home.replace(homeMarker, `${homeSection}\n${homeMarker}`);
@@ -118,21 +137,16 @@ home = injectAssets(home);
 assertRequiredTimersRendered(home, 'Titulní stránka');
 await writeFile(homePath, home, 'utf8');
 
-let godot = await readFile(godotPath, 'utf8');
-const godotStart = godot.indexOf('<section id="procesni-casovace"');
-if (godotStart >= 0) {
-  const nextMarker = '<section id="rizeni-online"';
-  const godotEnd = godot.indexOf(nextMarker, godotStart);
-  if (godotEnd < 0) throw new Error('Nelze bezpečně odstranit starý blok časovačů z Godota');
-  godot = godot.slice(0, godotStart) + godot.slice(godotEnd);
-}
+let godot = removeGeneratedTimerBlock(await readFile(godotPath, 'utf8'), 'section');
 const chronologyMarker = '<ol id="chronologie-seznam">';
-const consequencesMarker = '<section id="rizeni-online"';
 if (!godot.includes(chronologyMarker)) throw new Error('Godot nemá hlavní chronologii veřejných institucí');
-if (!godot.includes(consequencesMarker)) throw new Error('Godot nemá interní marker pro umístění procesních důsledků');
-if (godot.indexOf(chronologyMarker) > godot.indexOf(consequencesMarker)) throw new Error('Godot má chybné pořadí chronologie a interního markeru');
-godot = godot.replace(consequencesMarker, `${godotSection}\n${consequencesMarker}`);
-godot = godot.replace(/<section id="rizeni-online"[\s\S]*?<\/section>\s*/g, '');
+const chronologyClose = godot.indexOf('</ol>', godot.indexOf(chronologyMarker));
+if (chronologyClose < 0) throw new Error('Godot nemá ukončenou hlavní chronologii');
+const insertAt = chronologyClose + '</ol>'.length;
+godot = godot.slice(0, insertAt) + `\n${godotSection}` + godot.slice(insertAt);
+// Starý pomocný blok řízení není pro umístění časovačů potřeba; pokud ještě existuje, odstraní se samostatně.
+const legacyDocketsStart = godot.indexOf('<section id="rizeni-online"');
+if (legacyDocketsStart >= 0) godot = removeBalancedElement(godot, legacyDocketsStart, 'section');
 godot = injectAssets(godot);
 assertRequiredTimersRendered(godot, 'Godot');
 await writeFile(godotPath, godot, 'utf8');
@@ -147,4 +161,4 @@ await writeFile(eudaArticlePath, eudaArticle, 'utf8');
 
 await mkdir('web/data', { recursive: true });
 await writeFile(targetPath, `${JSON.stringify(registry, null, 2)}\n`, 'utf8');
-console.log(`Procesní časovače vytvořeny: ${registry.timers.length}; povinné aktuální opravné prostředky: ${REQUIRED_CURRENT_TIMER_IDS.length}.`);
+console.log(`Procesní časovače vytvořeny: ${registry.timers.length}; povinné aktuální opravné prostředky: ${REQUIRED_CURRENT_TIMER_IDS.length}; build je idempotentní.`);
