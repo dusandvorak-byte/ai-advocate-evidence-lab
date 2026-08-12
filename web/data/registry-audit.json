@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-12T12:32:45.830Z",
+  "hard_error_count": 0,
+  "human_review_count": 1,
+  "counts": {
+    "documents": 69,
+    "institutions": 40,
+    "cases": 7,
+    "deadlines": 0
+  },
+  "hard_errors": [],
+  "human_review_required": [
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-kpr-2026-08-12-4873-2026",
+      "case_id": "case-cz-kpr-tri-vetve"
+    }
+  ],
+  "rule": "Duplicity a neplatné veřejné cesty blokují build. Neúplné vazby se nikdy nedoplňují odhadem a čekají na lidskou kontrolu."
+}

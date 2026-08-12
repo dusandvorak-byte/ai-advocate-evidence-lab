@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-08-09T16:09:14.116Z",
+  "generated_at": "2026-08-12T12:32:46.281Z",
   "article": "web/zpravy/04082026-010.html",
-  "article_pdf_link_count": 18,
+  "article_pdf_link_count": 47,
   "broken_article_pdf_link_count": 0,
   "broken_article_pdf_links": [],
-  "eligible_institution_document_count": 39,
-  "eligible_with_active_pdf_count": 19,
-  "eligible_without_active_pdf_count": 20,
+  "eligible_institution_document_count": 41,
+  "eligible_with_active_pdf_count": 37,
+  "eligible_without_active_pdf_count": 4,
   "eligible_without_active_pdf": [
     {
       "id": "doc-cz-osz-olo-2026-05-12-sin-22-2025-95",
@@ -15,22 +15,6 @@
       "issue_date": "2026-05-12",
       "reference": "SIN 22/2025-95",
       "title": "Vyrozumění o zastavení řízení"
-    },
-    {
-      "id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
-      "institution_id": "CZ-KPR",
-      "institution": "Kancelář prezidenta republiky",
-      "issue_date": "2026-05-19",
-      "reference": "KPR 4093/2026",
-      "title": "Evidence žádosti o milost a konopné amnestie"
-    },
-    {
-      "id": "doc-cz-pcr-pp-2026-05-22-ppr-24960-8-cj-2026-990810",
-      "institution_id": "CZ-PCR-PP",
-      "institution": "Policejní prezidium České republiky",
-      "issue_date": "2026-05-22",
-      "reference": "PPR-24960-8/ČJ-2026-990810",
-      "title": "Sdělení k žádosti o informace"
     },
     {
       "id": "doc-cz-pcr-ncoz-2026-05-22-ncoz-4324-2-cj-2026-4100pi",
@@ -49,131 +33,19 @@
       "title": "Vyřízení stížnosti"
     },
     {
-      "id": "doc-cz-pcr-ncoz-2026-06-01-ncoz-4324-4-cj-2026-4100pi",
-      "institution_id": "CZ-PCR-NCOZ",
-      "institution": "Národní centrála proti organizovanému zločinu",
-      "issue_date": "2026-06-01",
-      "reference": "NCOZ-4324-4/ČJ-2026-4100PI",
-      "title": "Autoremedurní vyřízení stížnosti"
-    },
-    {
-      "id": "doc-cz-msp-2026-06-03-msp-19-2026-odka-roz-7",
-      "institution_id": "CZ-MSP",
-      "institution": "Ministerstvo spravedlnosti",
-      "issue_date": "2026-06-03",
-      "reference": "MSP-19/2026-ODKA-ROZ/7",
-      "title": "Odmítnutí stížnosti"
-    },
-    {
       "id": "doc-cz-kpr-2026-06-05-kpr-4093-2026",
       "institution_id": "CZ-KPR",
       "institution": "Kancelář prezidenta republiky",
       "issue_date": "2026-06-05",
       "reference": "KPR 4093/2026",
       "title": "Oznámení o nevyhovění žádosti o milost"
-    },
-    {
-      "id": "doc-cz-msz-pha-2026-06-17-3-kzn-197-2026-18",
-      "institution_id": "CZ-MSZ-PHA",
-      "institution": "Městské státní zastupitelství v Praze",
-      "issue_date": "2026-06-17",
-      "reference": "3 KZN 197/2026-18",
-      "title": "Postoupení části podání"
-    },
-    {
-      "id": "doc-cz-mv-2026-07-16-mv-97289-3-tp-2026",
-      "institution_id": "CZ-MV",
-      "institution": "Ministerstvo vnitra",
-      "issue_date": "2026-07-16",
-      "reference": "MV-97289-3/TP-2026",
-      "title": "Rozhodnutí o stížnosti"
-    },
-    {
-      "id": "doc-cz-mv-2026-07-21-mv-114818-2-tp-2026",
-      "institution_id": "CZ-MV",
-      "institution": "Ministerstvo vnitra",
-      "issue_date": "2026-07-21",
-      "reference": "MV-114818-2/TP-2026",
-      "title": "Sdělení ke stížnostem"
-    },
-    {
-      "id": "doc-cz-mk-2026-07-22-mk-45728-2026-socns",
-      "institution_id": "CZ-MK",
-      "institution": "Ministerstvo kultury",
-      "issue_date": "2026-07-22",
-      "reference": "MK 45728/2026 SOCNS",
-      "title": "Zahájení nového řízení"
-    },
-    {
-      "id": "doc-cz-ksz-ost-2026-07-29-4-kzn-7116-2026-50",
-      "institution_id": "CZ-KSZ-OST",
-      "institution": "Krajské státní zastupitelství v Ostravě",
-      "issue_date": "2026-07-29",
-      "reference": "4 KZN 7116/2026-50",
-      "title": "Postoupení doplnění podání"
-    },
-    {
-      "id": "doc-cz-msz-pha-2026-07-30-sin-48-2026-12",
-      "institution_id": "CZ-MSZ-PHA",
-      "institution": "Městské státní zastupitelství v Praze",
-      "issue_date": "2026-07-30",
-      "reference": "SIN 48/2026-12",
-      "title": "Rozhodnutí o odmítnutí žádosti o informace"
-    },
-    {
-      "id": "doc-cz-osz-pha2-2026-07-30-1-zn-157-2026-33",
-      "institution_id": "CZ-OSZ-PHA2",
-      "institution": "Obvodní státní zastupitelství pro Prahu 2",
-      "issue_date": "2026-07-30",
-      "reference": "1 ZN 157/2026-33",
-      "title": "Vyrozumění o výsledku prověření"
-    },
-    {
-      "id": "doc-cz-nsz-2026-07-30-sin-55-2026-19",
-      "institution_id": "CZ-NSZ",
-      "institution": "Nejvyšší státní zastupitelství",
-      "issue_date": "2026-07-30",
-      "reference": "SIN 55/2026-19",
-      "title": "Rozhodnutí o odmítnutí žádosti o informace"
-    },
-    {
-      "id": "doc-cz-kpr-2026-07-30-kpr-5772-2026-1",
-      "institution_id": "CZ-KPR",
-      "institution": "Kancelář prezidenta republiky",
-      "issue_date": "2026-07-30",
-      "reference": "KPR 5772/2026-1",
-      "title": "Sdělení k řízení o milosti a konopné amnestii"
-    },
-    {
-      "id": "doc-cz-ksz-brn-2026-07-31-1-kzn-1079-2026-14",
-      "institution_id": "CZ-KSZ-BRN",
-      "institution": "Krajské státní zastupitelství v Brně",
-      "issue_date": "2026-07-31",
-      "reference": "1 KZN 1079/2026-14",
-      "title": "Potvrzení přijetí podnětu k přezkoumání"
-    },
-    {
-      "id": "doc-cz-kpr-2026-08-03-kpr-5080-2026",
-      "institution_id": "CZ-KPR",
-      "institution": "Kancelář prezidenta republiky",
-      "issue_date": "2026-08-03",
-      "reference": "KPR 5080/2026",
-      "title": "Vyjádření k podkladům ve věci milosti a amnestie"
-    },
-    {
-      "id": "doc-cz-pcr-krpt-2026-08-05-krpt-203594-3-cj-2026-0700kr",
-      "institution_id": "CZ-PCR-KRPT",
-      "institution": "Krajské ředitelství policie Moravskoslezského kraje",
-      "issue_date": "2026-08-05",
-      "reference": "KRPT-203594-3/ČJ-2026-0700KR",
-      "title": "Prodloužení lhůty k žádosti o informace"
     }
   ],
   "invalid_registry_pdf_link_count": 0,
   "invalid_registry_pdf_links": [],
-  "repository_pdf_count": 55,
-  "usable_repository_pdf_count": 52,
-  "usable_public_pdf_count": 52,
+  "repository_pdf_count": 81,
+  "usable_repository_pdf_count": 80,
+  "usable_public_pdf_count": 80,
   "usable_pdf_outside_public_tree_count": 0,
   "usable_pdf_outside_public_tree": []
 }

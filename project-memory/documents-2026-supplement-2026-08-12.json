@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-12",
+  "purpose": "Nově doložená státní listina KPR doručená do Evidence Lab dne 12. 8. 2026.",
+  "documents": [
+    {
+      "id": "doc-cz-kpr-2026-08-12-4873-2026",
+      "user_title": "KPR odmítla poskytnout součinnost při realizaci záměru vyvěsit konopnou standartu nad Pražským hradem; odkázala obecně na množství žádostí a omezenou kapacitu vyhovět všem",
+      "issue_date": "2026-08-12",
+      "received_date": "2026-08-12",
+      "institution_id": "CZ-KPR",
+      "reference": "4873/2026",
+      "case_ids": ["case-cz-kpr-tri-vetve"],
+      "document_type": "state_record",
+      "topics": ["KPR", "konopná standarta", "Pražský hrad", "součinnost", "odpověď na podání"],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/24-kpr-4873-2026-konopna-standarta-2026-08-12.pdf",
+        "sha256": "995873be85f4577a4e0484f3564bf70fd9faaed6db3c4cd0702aaa19a3218455",
+        "verification_status": "verified_original"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification",
+      "chronology_sequence": 64,
+      "evidence_note": "Jednostránková listina byla uživatelem převzata z datové schránky a doložena dne 12. 8. 2026. KPR reaguje na podání ze dne 5. 6. 2026. Odpověď představuje odmítnutí požadované součinnosti; sama o sobě nerozhoduje o zákonnosti ani věcné správnosti záměru."
+    }
+  ]
+}

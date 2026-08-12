@@ -122,9 +122,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/06-kpr-4093-2026-2026-06-05.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -182,9 +183,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/02-ppr-24960-8-cj-2026-990810-2026-05-22.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -282,9 +284,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/04-ncoz-4324-4-cj-2026-4100pi-2026-06-01.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -302,9 +305,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/05-msp-19-2026-odka-roz-7-2026-06-03.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -444,9 +448,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/07-msz-praha-3-kzn-197-2026-18-2026-06-17.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -752,9 +757,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/08-mv-97289-3-tp-2026-2026-07-16.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -855,9 +861,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/09-mv-114818-2-tp-2026-2026-07-21.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -896,9 +903,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/mk-konopna-cirkev-vyrozumeni-2026-07-22-original.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -937,9 +945,9 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/46-uoou-05058-26-2-2026-07-28.pdf",
         "sha256": null,
-        "verification_status": "catalogued_no_public_link",
+        "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
       "relations": [],
@@ -958,9 +966,9 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/47-uoou-05093-26-2-2026-07-28.pdf",
         "sha256": null,
-        "verification_status": "catalogued_no_public_link",
+        "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
       "relations": [],
@@ -979,7 +987,7 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": "documents/report-04082026-010/49-osz-praha-7-zn-87-2026-47-2026-07-28.pdf",
+        "pdf": "documents/report-04082026-010/10-osz-prostejov-zn-4-2026-6-2026-07-28.pdf",
         "sha256": null,
         "verification_status": "published",
         "source_manifest": "filename-reference-date-reconciliation"
@@ -1021,9 +1029,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/11-ksz-ostrava-4-kzn-7116-2026-50-2026-07-29.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1041,9 +1050,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/12-msz-praha-sin-48-2026-12-2026-07-30.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1061,9 +1071,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/14-osz-praha2-1-zn-157-2026-33-2026-07-30.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1081,9 +1092,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/13-nsz-sin-55-2026-19-2026-07-30.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1101,9 +1113,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/kpr-5772-2026-1-2026-07-30-verejna-kopie.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1121,9 +1134,10 @@
       "topics": [],
       "public": {
         "html": "web/listiny/ksz-brno-1-kzn-1079-2026-14.html",
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/55-ksz-brno-1-kzn-1079-2026-14-2026-07-31-verejna-kopie.pdf",
         "sha256": null,
-        "verification_status": "invalid_public_file"
+        "verification_status": "published",
+        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1141,9 +1155,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/kpr-5080-2026-2026-08-03-verejna-kopie.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "project-memory/report-04082026-010-sources.json"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1161,9 +1176,10 @@
       "topics": [],
       "public": {
         "html": "web/listiny/krpt-203594-3-cj-2026-0700kr.html",
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05-verejna-kopie.pdf",
         "sha256": null,
-        "verification_status": "invalid_public_file"
+        "verification_status": "published",
+        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1200,34 +1216,354 @@
       "evidence_note": "EUDA dne 7. 8. 2026 v 17:06:35 potvrdila přijetí korespondence k formální výzvě podle čl. 265 SFEU; e-mail neobsahuje samostatné č. j. ani sp. zn.",
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type"
+    },
+    {
+      "id": "doc-cz-kpr-2026-08-07-kpr-5772-2026-2",
+      "user_title": "KPR po stížnosti znovu projednala doplněnou žádost, poskytla další informace a označila postup za úplné vyhovění autoremedurou",
+      "issue_date": "2026-08-07",
+      "received_date": "2026-08-07",
+      "institution_id": "CZ-KPR",
+      "reference": "KPR 5772/2026-2",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "KPR",
+        "InfZ",
+        "milost",
+        "autoremedura"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/15-kpr-5772-2026-2-2026-08-07.pdf",
+        "sha256": null,
+        "verification_status": "published"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification"
+    },
+    {
+      "id": "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54",
+      "user_title": "Soud zamítl návrh na obnovu řízení týkající se zabrání věci jako nepřípustný podle § 283 písm. b) trestního řádu",
+      "issue_date": "2026-08-07",
+      "received_date": "2026-08-10",
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3105/2026-54",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "obnova řízení",
+        "OS Prostějov"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/16-os-prostejov-15-nt-3105-2026-54-2026-08-07.pdf",
+        "sha256": null,
+        "verification_status": "published"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification"
+    },
+    {
+      "id": "doc-cz-citc-2026-08-10-stiznost-kpr-5772-2026-2",
+      "user_title": "Opakovaná stížnost namítla, že KPR nevyhověla v plném rozsahu, zúžila předmět předchozí stížnosti a neúplně vypořádala evidenci souvisejících podání",
+      "issue_date": "2026-08-10",
+      "received_date": "2026-08-10",
+      "institution_id": "CZ-CITC",
+      "reference": "proti KPR 5772/2026-2",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "KPR",
+        "InfZ",
+        "opakovaná stížnost"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/17-citc-opakovana-stiznost-kpr-5772-2026-2-2026-08-10.pdf",
+        "sha256": null,
+        "verification_status": "published"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-kpr-2026-08-07-kpr-5772-2026-2"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_batch_classification"
+    },
+    {
+      "id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54",
+      "user_title": "Doplnění včas podané stížnosti namítlo zejména nerozhodnutí o celém rozsahu společného návrhu na obnovu a požádalo o zrušení usnesení a nové projednání",
+      "issue_date": "2026-08-10",
+      "received_date": "2026-08-10",
+      "institution_id": "CZ-DD",
+      "reference": "proti 15 Nt 3105/2026-54",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "obnova řízení",
+        "stížnost"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/18-dvorak-stiznost-15-nt-3105-2026-54-2026-08-10.pdf",
+        "sha256": null,
+        "verification_status": "published"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_batch_classification"
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-130",
+      "user_title": "Výzva k zaplacení soudního poplatku 2 000 Kč do 15 dnů ve věci zásahové žaloby proti Ministerstvu spravedlnosti",
+      "issue_date": "2026-08-10",
+      "received_date": "2026-08-10",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 23/2026-130",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "18 A 23/2026",
+        "soudní poplatek"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/19-ms-praha-18-a-23-2026-130-2026-08-10.pdf",
+        "sha256": null,
+        "verification_status": "published"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification"
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-131",
+      "user_title": "Výzva k vyjádření, zda žalobce souhlasí s rozhodnutím věci bez jednání podle § 51 odst. 1 s. ř. s.",
+      "issue_date": "2026-08-10",
+      "received_date": "2026-08-10",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 23/2026-131",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "18 A 23/2026",
+        "rozhodnutí bez jednání"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/20-ms-praha-18-a-23-2026-131-2026-08-10.pdf",
+        "sha256": null,
+        "verification_status": "published"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification"
+    },
+    {
+      "id": "doc-cz-dd-2026-08-10-reakce-18-a-23-2026",
+      "user_title": "Žalobce souhlasil s rozhodnutím bez jednání, oznámil úhradu soudního poplatku a předložil nový důkaz trvání zásahu a naléhavosti bez změny petitu",
+      "issue_date": "2026-08-10",
+      "received_date": "2026-08-10",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 23/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "18 A 23/2026",
+        "reakce žalobce"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/21-dvorak-reakce-ms-praha-18-a-23-2026-2026-08-10.pdf",
+        "sha256": null,
+        "verification_status": "published"
+      },
+      "relations": [
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-130"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-131"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_batch_classification"
+    },
+    {
+      "id": "doc-cz-dd-2026-08-10-stiznost-necinnost-msp",
+      "user_title": "Společná stížnost ve dvou kauzách namítla nevyřízení žádosti z 12. 7. a pokračující nečinnost po stížnosti z 15. 7.; současně byla doložena Městskému soudu v Praze jako samostatná důkazní příloha k naléhavosti",
+      "issue_date": "2026-08-10",
+      "received_date": "2026-08-10",
+      "institution_id": "CZ-DD",
+      "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ; 18 A 23/2026",
+      "case_ids": [],
+      "document_type": "user_submission_attachment",
+      "topics": [
+        "Ministerstvo spravedlnosti",
+        "nečinnost",
+        "18 A 23/2026",
+        "důkazní příloha"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/22-dvorak-stiznost-necinnost-msp-2026-08-10.pdf",
+        "sha256": null,
+        "verification_status": "published"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-dd-2026-08-10-reakce-18-a-23-2026"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_batch_classification"
+    },
+    {
+      "id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
+      "user_title": "Soud podle § 283 písm. b) trestního řádu zamítl návrh na obnovu dvou řízení skončených usneseními č. j. 2 Nt 1151/2014-80 a č. j. 3 Nt 1151/2014-411, v nichž byla uložena ochranná opatření ve formě zabrání věci",
+      "issue_date": "2026-08-07",
+      "received_date": "2026-08-11",
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3103/2026-53",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "obnova řízení",
+        "OS Prostějov",
+        "zabrání věci",
+        "§ 283 písm. b) trestního řádu"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/23-dvorak-stiznost-15-nt-3103-2026-53-2026-08-11.pdf",
+        "sha256": "d461ad6eacc569ba8d86c4ce640a3f6273ff67ae48fc5ea57f1f8653ce0e2a40",
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification",
+      "chronology_sequence": 63,
+      "evidence_note": "Originální dvoustránkové PDF bylo uživatelem doloženo dne 11. 8. 2026. Navazující stížnost ze dne 11. 8. 2026 je připojena vazbou reakce_na."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+      "user_title": "Stížnost proti usnesení Okresního soudu v Prostějově ze dne 7. 8. 2026, č. j. 15 Nt 3103/2026-53",
+      "issue_date": "2026-08-11",
+      "received_date": "2026-08-11",
+      "institution_id": "CZ-DD",
+      "reference": "proti 15 Nt 3103/2026-53",
+      "case_ids": [],
+      "document_type": "appeal",
+      "topics": [
+        "obnova řízení",
+        "OS Prostějov",
+        "zabrání věci",
+        "§ 283 písm. b) trestního řádu",
+        "§ 282 trestního řádu"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "duplicate_public_file_rejected"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53"
+        },
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_batch_classification",
+      "evidence_note": "Desetistránková stížnost žádá zrušení usnesení, nové projednání a společný nebo bezprostředně koordinovaný přezkum se stížností proti č. j. 15 Nt 3105/2026-54."
+    },
+    {
+      "id": "doc-cz-kpr-2026-08-12-4873-2026",
+      "user_title": "KPR odmítla poskytnout součinnost při realizaci záměru vyvěsit konopnou standartu nad Pražským hradem; odkázala obecně na množství žádostí a omezenou kapacitu vyhovět všem",
+      "issue_date": "2026-08-12",
+      "received_date": "2026-08-12",
+      "institution_id": "CZ-KPR",
+      "reference": "4873/2026",
+      "case_ids": [
+        "case-cz-kpr-tri-vetve"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "KPR",
+        "konopná standarta",
+        "Pražský hrad",
+        "součinnost",
+        "odpověď na podání"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/24-kpr-4873-2026-konopna-standarta-2026-08-12.pdf",
+        "sha256": "995873be85f4577a4e0484f3564bf70fd9faaed6db3c4cd0702aaa19a3218455",
+        "verification_status": "published"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification",
+      "chronology_sequence": 64,
+      "evidence_note": "Jednostránková listina byla uživatelem převzata z datové schránky a doložena dne 12. 8. 2026. KPR reaguje na podání ze dne 5. 6. 2026. Odpověď představuje odmítnutí požadované součinnosti; sama o sobě nerozhoduje o zákonnosti ani věcné správnosti záměru."
     }
   ],
   "reconciliation": {
-    "updated_at": "2026-08-09T16:09:13.875Z",
-    "active_pdf_policy": "Ministerstva, KPR, státní zastupitelství a Policie ČR mají aktivní odkaz vždy, pokud je jejich originální PDF fyzicky přítomné a jednoznačně přiřaditelné; všechny dokumenty zůstávají zveřejněné v chronologii.",
+    "updated_at": "2026-08-12T12:32:45.779Z",
+    "active_pdf_policy": "Aktivní PDF se zachovává u všech veřejných institucí a u všech našich podání, pokud fyzický PDF soubor existuje, je použitelný a jednoznačně přiřaditelný. Reconciler nesmí skrývat PDF jen podle typu původce.",
     "source_manifests": [
-      "project-memory/report-04082026-010-sources.json"
+      "project-memory/report-04082026-010-sources.json",
+      "project-memory/report-20260810-osz-pdf-owner-sources.json",
+      "project-memory/report-20260810-pdf-repair-sources.json"
     ],
-    "physical_pdf_count": 55,
-    "usable_physical_pdf_count": 52,
-    "invalid_physical_pdf_count": 3,
-    "linked_pdf_count": 19,
-    "newly_linked_count": 9,
-    "invalidated_link_count": 3,
-    "withheld_by_policy_count": 2,
+    "physical_pdf_count": 81,
+    "usable_physical_pdf_count": 80,
+    "invalid_physical_pdf_count": 1,
+    "linked_pdf_count": 47,
+    "newly_linked_count": 1,
+    "invalidated_link_count": 1,
+    "withheld_by_policy_count": 0,
     "unresolved_count": 0,
-    "unmatched_eligible_count": 20
+    "unmatched_eligible_count": 22
   },
   "normalization": {
-    "updated_at": "2026-08-09T16:09:13.800Z",
-    "rule": "Kanonická data se doplňují pouze deterministicky. Starší aliasy institucí se převádějí na kanonická ID; chybějící user_title se smí převzít jen z již existujícího title; state_record = příchozí stát/veřejná instituce; výslovné typy našich podání = odchozí; ostatní bez odhadu.",
+    "updated_at": "2026-08-12T12:32:45.620Z",
+    "rule": "Kanonická pracovní množina vzniká výhradně z document-sources.json. Všechny zdroje se slučují podle stabilního ID; veřejné výstupy a čítače nesmějí udržovat vlastní paralelní seznam dokumentů.",
+    "source_manifest": "project-memory/document-sources.json",
+    "source_count": 4,
+    "source_documents_before_deduplication": 80,
+    "merged_document_count": 69,
     "institution_aliases": {
       "CZ-OSZ-PRO": "CZ-OSZ-PV",
       "CZ-PCR-KRPM": "CZ-PCR-KRPO"
     },
     "filled_user_titles_from_existing_title": 0,
-    "incoming_from_state_or_public_institution": 58,
-    "outgoing_from_user_or_alliance": 0,
+    "incoming_from_state_or_public_institution": 64,
+    "outgoing_from_user_or_alliance": 5,
     "unclassified": 0
-  }
+  },
+  "canonical_sources_manifest": "project-memory/document-sources.json",
+  "canonical_sources": [
+    "project-memory/documents-2026.json",
+    "project-memory/documents-2026-supplement-2026-08-10.json",
+    "project-memory/documents-2026-supplement-2026-08-11.json",
+    "project-memory/documents-2026-supplement-2026-08-12.json"
+  ]
 }

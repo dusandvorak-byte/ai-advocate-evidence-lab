@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-12T12:32:46.148Z",
+  "timezone": "Europe/Prague",
+  "counters": {
+    "state_and_public_institutions": 64,
+    "our_submissions": 5,
+    "unclassified": 0,
+    "total_documents": 69
+  },
+  "classification_quality": {
+    "explicit": 69,
+    "safely_derived": 0,
+    "human_review_required": 0,
+    "rule": "Nezařazené položky se nikdy nepřičítají k našim ani státním podáním bez doložené klasifikace."
+  },
+  "deadlines": {
+    "total": 0,
+    "states": {
+      "not_started": 0,
+      "running": 0,
+      "due_today": 0,
+      "overdue_unanswered": 0,
+      "answered_on_time": 0,
+      "answered_late": 0,
+      "closed_without_deadline": 0,
+      "suspended": 0,
+      "human_review_required": 0
+    },
+    "source": "project-memory/deadlines.json",
+    "provenance_required": true
+  }
+}

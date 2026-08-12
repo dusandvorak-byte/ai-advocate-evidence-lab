@@ -1,155 +1,48 @@
 {
-  "generated_at": "2026-08-09T16:09:13.876Z",
-  "active_pdf_policy": "Ministerstva, KPR, státní zastupitelství a Policie ČR mají aktivní odkaz vždy, pokud je jejich originální PDF fyzicky přítomné a jednoznačně přiřaditelné; všechny dokumenty zůstávají zveřejněné v chronologii.",
-  "physical_pdf_count": 55,
-  "usable_physical_pdf_count": 52,
+  "generated_at": "2026-08-12T12:32:45.781Z",
+  "active_pdf_policy": "Aktivní PDF se zachovává u všech veřejných institucí a u všech našich podání, pokud fyzický PDF soubor existuje, je použitelný a jednoznačně přiřaditelný. Reconciler nesmí skrývat PDF jen podle typu původce.",
+  "physical_pdf_count": 81,
+  "usable_physical_pdf_count": 80,
   "invalid_physical_files": [
-    "web/documents/report-04082026-010/55-ksz-brno-1-kzn-1079-2026-14-2026-07-31.pdf",
-    "web/documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05.pdf",
     "web/documents/report-25072026-007/18-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf"
   ],
-  "source_manifest_pdf_count": 15,
-  "linked_pdf_count": 19,
+  "source_manifest_pdf_count": 21,
+  "linked_pdf_count": 47,
   "newly_linked": [
     {
-      "id": "doc-cz-msz-pha-2026-06-11-3-kzn-197-2026-12",
-      "reference": "3 KZN 197/2026-12",
-      "pdf": "documents/report-27072026-008/19-msz-praha-3-kzn-197-2026-12-2026-06-11.pdf",
-      "score": 152,
+      "id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
+      "reference": "15 Nt 3103/2026-53",
+      "pdf": "documents/report-04082026-010/23-dvorak-stiznost-15-nt-3103-2026-53-2026-08-11.pdf",
+      "score": 128,
       "reasons": [
         "full-reference",
-        "year",
-        "full-date",
-        "institution"
-      ]
-    },
-    {
-      "id": "doc-cz-pcr-ncoz-2026-06-15-ncoz-4871-5-cj-2026-410066-e",
-      "reference": "NCOZ-4871-5/ČJ-2026-410066-E",
-      "pdf": "documents/report-27072026-008/17-ncoz-ncoz-4871-5-cj-2026-410066-e-2026-06-15.pdf",
-      "score": 149,
-      "reasons": [
-        "full-reference",
-        "year",
-        "full-date",
-        "institution"
-      ]
-    },
-    {
-      "id": "doc-cz-vsz-pha-2026-06-22-1-vzn-1678-2026-8",
-      "reference": "1 VZN 1678/2026-8",
-      "pdf": "documents/report-27072026-008/21-vsz-praha-1-vzn-1678-2026-8-2026-06-22.pdf",
-      "score": 152,
-      "reasons": [
-        "full-reference",
-        "year",
-        "full-date",
-        "institution"
-      ]
-    },
-    {
-      "id": "doc-cz-pcr-ku-2026-06-25-ku-4139-5-cj-2026-2305km",
-      "reference": "KU-4139-5/ČJ-2026-2305KM",
-      "pdf": "documents/report-27072026-008/06-ku-4139-5-2026-2305km-2026-06-25.pdf",
-      "score": 91,
-      "reasons": [
-        "most-reference-tokens",
-        "year",
-        "full-date"
-      ]
-    },
-    {
-      "id": "doc-cz-msz-brn-2026-07-14-sin-15-2026-5",
-      "reference": "SIN 15/2026-5",
-      "pdf": "documents/report-27072026-008/32-msz-brno-0-sin-15-2026-5-2026-07-14.pdf",
-      "score": 155,
-      "reasons": [
-        "full-reference",
-        "year",
-        "full-date",
-        "institution"
-      ]
-    },
-    {
-      "id": "doc-cz-ksz-brn-2026-07-21-1-kzt-475-2026-32",
-      "reference": "1 KZT 475/2026-32",
-      "pdf": "documents/report-27072026-008/34-ksz-brno-1-kzt-475-2026-32-2026-07-21.pdf",
-      "score": 155,
-      "reasons": [
-        "full-reference",
-        "year",
-        "full-date",
-        "institution"
-      ]
-    },
-    {
-      "id": "doc-cz-msz-brn-2026-07-21-3-zn-140-2026-3",
-      "reference": "3 ZN 140/2026-3",
-      "pdf": "documents/report-27072026-008/33-msz-brno-3-zn-140-2026-3-2026-07-21.pdf",
-      "score": 155,
-      "reasons": [
-        "full-reference",
-        "year",
-        "full-date",
-        "institution"
-      ]
-    },
-    {
-      "id": "doc-cz-vsz-pha-2026-07-23-1-vzn-1678-2026-70",
-      "reference": "1 VZN 1678/2026-70",
-      "pdf": "documents/report-27072026-008/25-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf",
-      "score": 152,
-      "reasons": [
-        "full-reference",
-        "year",
-        "full-date",
-        "institution"
-      ]
-    },
-    {
-      "id": "doc-cz-osz-pro-2026-07-28-zn-4-2026-6",
-      "reference": "ZN 4/2026-6",
-      "pdf": "documents/report-04082026-010/49-osz-praha-7-zn-87-2026-47-2026-07-28.pdf",
-      "score": 119,
-      "reasons": [
-        "all-reference-tokens",
-        "year",
-        "full-date",
-        "institution"
+        "year"
       ]
     }
   ],
   "invalidated": [
     {
-      "id": "doc-cz-vsz-pha-2026-07-23-1-vzn-1678-2026-70",
-      "institution_id": "CZ-VSZ-PHA",
-      "invalid_pdf": "documents/report-25072026-007/18-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf"
-    },
-    {
-      "id": "doc-cz-ksz-brn-2026-07-31-1-kzn-1079-2026-14",
-      "institution_id": "CZ-KSZ-BRN",
-      "invalid_pdf": "web/documents/report-04082026-010/55-ksz-brno-1-kzn-1079-2026-14-2026-07-31.pdf"
-    },
-    {
-      "id": "doc-cz-pcr-krpt-2026-08-05-krpt-203594-3-cj-2026-0700kr",
-      "institution_id": "CZ-PCR-KRPT",
-      "invalid_pdf": "web/documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05.pdf"
+      "id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+      "institution_id": "CZ-DD",
+      "invalid_pdf": "web/documents/report-04082026-010/23-dvorak-stiznost-15-nt-3103-2026-53-2026-08-11.pdf",
+      "reason": "duplicate-public-pdf-owned-by:doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53"
     }
   ],
-  "withheld_by_policy": [
-    {
-      "id": "doc-cz-uoou-2026-07-28-uoou-05058-26-2",
-      "institution_id": "CZ-UOOU",
-      "previous_pdf": "documents/report-04082026-010/46-uoou-05058-26-2-2026-07-28.pdf"
-    },
-    {
-      "id": "doc-cz-uoou-2026-07-28-uoou-05093-26-2",
-      "institution_id": "CZ-UOOU",
-      "previous_pdf": "documents/report-04082026-010/47-uoou-05093-26-2-2026-07-28.pdf"
-    }
-  ],
+  "withheld_by_policy": [],
   "unresolved": [],
   "unmatched_eligible": [
+    {
+      "id": "doc-cz-exe-lib-2026-05-06-131-ex-8674-15-127",
+      "institution_id": "CZ-EXE-LIB",
+      "reference": "131 EX 8674/15-127",
+      "issue_date": "2026-05-06"
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-05-07-18-a-17-2026-15",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 17/2026-15",
+      "issue_date": "2026-05-07"
+    },
     {
       "id": "doc-cz-osz-olo-2026-05-12-sin-22-2025-95",
       "institution_id": "CZ-OSZ-OLO",
@@ -157,15 +50,21 @@
       "issue_date": "2026-05-12"
     },
     {
-      "id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
-      "institution_id": "CZ-KPR",
-      "reference": "KPR 4093/2026",
-      "issue_date": "2026-05-19"
+      "id": "doc-cz-ks-brn-2026-05-20-fj-61061-2026-ksbr",
+      "institution_id": "CZ-KS-BRN",
+      "reference": "Fj 61061/2026/KSBR",
+      "issue_date": "2026-05-20"
     },
     {
-      "id": "doc-cz-pcr-pp-2026-05-22-ppr-24960-8-cj-2026-990810",
-      "institution_id": "CZ-PCR-PP",
-      "reference": "PPR-24960-8/ČJ-2026-990810",
+      "id": "doc-cz-ks-brn-2026-05-21-fj-61072-2026-ksbr",
+      "institution_id": "CZ-KS-BRN",
+      "reference": "Fj 61072/2026/KSBR",
+      "issue_date": "2026-05-21"
+    },
+    {
+      "id": "doc-cz-ks-brn-2026-05-22-fj-61060-2026-ksbr",
+      "institution_id": "CZ-KS-BRN",
+      "reference": "Fj 61060/2026/KSBR",
       "issue_date": "2026-05-22"
     },
     {
@@ -181,16 +80,16 @@
       "issue_date": "2026-05-29"
     },
     {
-      "id": "doc-cz-pcr-ncoz-2026-06-01-ncoz-4324-4-cj-2026-4100pi",
-      "institution_id": "CZ-PCR-NCOZ",
-      "reference": "NCOZ-4324-4/ČJ-2026-4100PI",
+      "id": "doc-cz-ct-2026-06-01-ct-338889-2025-38",
+      "institution_id": "CZ-CT",
+      "reference": "CT 338889/2025-38",
       "issue_date": "2026-06-01"
     },
     {
-      "id": "doc-cz-msp-2026-06-03-msp-19-2026-odka-roz-7",
-      "institution_id": "CZ-MSP",
-      "reference": "MSP-19/2026-ODKA-ROZ/7",
-      "issue_date": "2026-06-03"
+      "id": "doc-cz-cssz-2026-06-05-30000-03006091-26",
+      "institution_id": "CZ-CSSZ",
+      "reference": "30000/03006091/26",
+      "issue_date": "2026-06-05"
     },
     {
       "id": "doc-cz-kpr-2026-06-05-kpr-4093-2026",
@@ -199,76 +98,70 @@
       "issue_date": "2026-06-05"
     },
     {
-      "id": "doc-cz-msz-pha-2026-06-17-3-kzn-197-2026-18",
-      "institution_id": "CZ-MSZ-PHA",
-      "reference": "3 KZN 197/2026-18",
-      "issue_date": "2026-06-17"
+      "id": "doc-cz-exe-plz-2026-06-10-134-ex-07180-19-509",
+      "institution_id": "CZ-EXE-PLZ",
+      "reference": "134 EX 07180/19-509",
+      "issue_date": "2026-06-10"
     },
     {
-      "id": "doc-cz-mv-2026-07-16-mv-97289-3-tp-2026",
-      "institution_id": "CZ-MV",
-      "reference": "MV-97289-3/TP-2026",
+      "id": "doc-cz-cssz-2026-06-16-cj-00002-2026",
+      "institution_id": "CZ-CSSZ",
+      "reference": "CJ 00002/2026",
+      "issue_date": "2026-06-16"
+    },
+    {
+      "id": "doc-cz-exe-lib-2026-06-22-131-ex-8674-15-143",
+      "institution_id": "CZ-EXE-LIB",
+      "reference": "131 EX 8674/15-143",
+      "issue_date": "2026-06-22"
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-06-23-18-a-23-2026-25",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 23/2026-25",
+      "issue_date": "2026-06-23"
+    },
+    {
+      "id": "doc-cz-os-pha4-2026-07-07-10-c-69-2026-14",
+      "institution_id": "CZ-OS-PHA4",
+      "reference": "10 C 69/2026-14",
+      "issue_date": "2026-07-07"
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-07-09-8-ad-9-2026-22",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "8 Ad 9/2026-22",
+      "issue_date": "2026-07-09"
+    },
+    {
+      "id": "doc-cz-ks-ost-2026-07-13-fj-68842-2026-ksos",
+      "institution_id": "CZ-KS-OST",
+      "reference": "Fj 68842/2026/KSOS",
+      "issue_date": "2026-07-13"
+    },
+    {
+      "id": "doc-cz-os-pha4-2026-07-14-10-c-69-2026-49",
+      "institution_id": "CZ-OS-PHA4",
+      "reference": "10 C 69/2026-49",
+      "issue_date": "2026-07-14"
+    },
+    {
+      "id": "doc-cz-rrtv-2026-07-16-rrtv-7757-2026-fej",
+      "institution_id": "CZ-RRTV",
+      "reference": "RRTV/7757/2026-fej",
       "issue_date": "2026-07-16"
     },
     {
-      "id": "doc-cz-mv-2026-07-21-mv-114818-2-tp-2026",
-      "institution_id": "CZ-MV",
-      "reference": "MV-114818-2/TP-2026",
-      "issue_date": "2026-07-21"
+      "id": "doc-eu-euda-2026-08-07-ack-article-265-tfeu",
+      "institution_id": "EU-EUDA",
+      "reference": "bez samostatného č. j./sp. zn. v e-mailu",
+      "issue_date": "2026-08-07"
     },
     {
-      "id": "doc-cz-mk-2026-07-22-mk-45728-2026-socns",
-      "institution_id": "CZ-MK",
-      "reference": "MK 45728/2026 SOCNS",
-      "issue_date": "2026-07-22"
-    },
-    {
-      "id": "doc-cz-ksz-ost-2026-07-29-4-kzn-7116-2026-50",
-      "institution_id": "CZ-KSZ-OST",
-      "reference": "4 KZN 7116/2026-50",
-      "issue_date": "2026-07-29"
-    },
-    {
-      "id": "doc-cz-msz-pha-2026-07-30-sin-48-2026-12",
-      "institution_id": "CZ-MSZ-PHA",
-      "reference": "SIN 48/2026-12",
-      "issue_date": "2026-07-30"
-    },
-    {
-      "id": "doc-cz-osz-pha2-2026-07-30-1-zn-157-2026-33",
-      "institution_id": "CZ-OSZ-PHA2",
-      "reference": "1 ZN 157/2026-33",
-      "issue_date": "2026-07-30"
-    },
-    {
-      "id": "doc-cz-nsz-2026-07-30-sin-55-2026-19",
-      "institution_id": "CZ-NSZ",
-      "reference": "SIN 55/2026-19",
-      "issue_date": "2026-07-30"
-    },
-    {
-      "id": "doc-cz-kpr-2026-07-30-kpr-5772-2026-1",
-      "institution_id": "CZ-KPR",
-      "reference": "KPR 5772/2026-1",
-      "issue_date": "2026-07-30"
-    },
-    {
-      "id": "doc-cz-ksz-brn-2026-07-31-1-kzn-1079-2026-14",
-      "institution_id": "CZ-KSZ-BRN",
-      "reference": "1 KZN 1079/2026-14",
-      "issue_date": "2026-07-31"
-    },
-    {
-      "id": "doc-cz-kpr-2026-08-03-kpr-5080-2026",
-      "institution_id": "CZ-KPR",
-      "reference": "KPR 5080/2026",
-      "issue_date": "2026-08-03"
-    },
-    {
-      "id": "doc-cz-pcr-krpt-2026-08-05-krpt-203594-3-cj-2026-0700kr",
-      "institution_id": "CZ-PCR-KRPT",
-      "reference": "KRPT-203594-3/ČJ-2026-0700KR",
-      "issue_date": "2026-08-05"
+      "id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+      "institution_id": "CZ-DD",
+      "reference": "proti 15 Nt 3103/2026-53",
+      "issue_date": "2026-08-11"
     }
   ],
   "unlinked_usable_physical_pdfs": [
@@ -279,9 +172,8 @@
     "web/documents/konopna-cirkev-dodatek-2026-07-06-original.pdf",
     "web/documents/konopna-cirkev-procesni-upresneni-2026-07-24-original.pdf",
     "web/documents/konopna-cirkev-zadost-mk-2026-06-26-original.pdf",
-    "web/documents/mk-konopna-cirkev-vyrozumeni-2026-07-22-original.pdf",
-    "web/documents/report-04082026-010/46-uoou-05058-26-2-2026-07-28.pdf",
-    "web/documents/report-04082026-010/47-uoou-05093-26-2-2026-07-28.pdf",
+    "web/documents/report-04082026-010/55-ksz-brno-1-kzn-1079-2026-14-2026-07-31.pdf",
+    "web/documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05.pdf",
     "web/documents/report-04082026-010/ku-6427-4-cj-2024-2305km-2024-08-12.pdf",
     "web/documents/report-04082026-010/zadost-msz-prezkum-osz-praha-7-2026-07-29.pdf",
     "web/documents/report-07082026-011/01-euda-request-2026-05-15-en.pdf",

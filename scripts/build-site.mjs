@@ -88,7 +88,7 @@ if (!article.includes('id="chronologie-seznam"')) throw new Error('Článek neob
 if (/aktivní originály/i.test(article)) throw new Error('Článek obsahuje samostatný blok aktivních originálů');
 if (/href=["']web\/documents\//i.test(article)) throw new Error('Ve veřejném HTML zůstal prefix web/documents/');
 const chronologyCount = (article.match(/<li id="doc-[^"]*"/g) || []).length;
-if (chronologyCount !== expectedTotalCount) throw new Error(`Rozpor chronologie: Godot ${chronologyCount}, kanonický registr ${expectedTotalCount}`);
+if (chronologyCount !== expectedStateCount) throw new Error(`Rozpor chronologie: Godot ${chronologyCount}, státní a veřejné listiny ${expectedStateCount}`);
 if (!article.includes(`Stát: ${expectedStateCount} evidovaných listin`)) throw new Error(`Godot neobsahuje odvozený státní počet ${expectedStateCount}`);
 if (!home.includes(`<strong data-state-document-count>${expectedStateCount}</strong>`)) throw new Error(`Titulní stránka neobsahuje odvozený státní počet ${expectedStateCount}`);
 
