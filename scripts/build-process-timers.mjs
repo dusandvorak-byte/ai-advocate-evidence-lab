@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
 const sourcePath = 'project-memory/process-timers.json';
 const overridesPath = 'project-memory/process-timer-overrides.json';
+const currentOverridesPath = 'project-memory/process-timer-overrides-2026-08-12.json';
 const eudaResponsePath = 'project-memory/euda-response-2026-08-07.json';
 const targetPath = 'web/data/process-timers.json';
 const homePath = 'web/index.html';
@@ -16,17 +17,23 @@ const escapeHtml = value => String(value ?? '')
 
 const registry = JSON.parse(await readFile(sourcePath, 'utf8'));
 const overrides = JSON.parse(await readFile(overridesPath, 'utf8'));
+const currentOverrides = JSON.parse(await readFile(currentOverridesPath, 'utf8'));
 const eudaResponse = JSON.parse(await readFile(eudaResponsePath, 'utf8'));
 if (!Array.isArray(registry.timers) || !Array.isArray(registry.historical_notice_points)) throw new Error('process-timers.json nemá očekávanou strukturu');
 if (!Array.isArray(overrides.patches)) throw new Error('process-timer-overrides.json nemá pole patches');
+if (!Array.isArray(currentOverrides.patches)) throw new Error('process-timer-overrides-2026-08-12.json nemá pole patches');
 
 const timerMap = new Map(registry.timers.map(item => [item.id, { ...item }]));
-for (const patch of overrides.patches) {
+for (const patch of [...overrides.patches, ...currentOverrides.patches]) {
   if (!patch.id) throw new Error(`Oprava časovače bez ID: ${JSON.stringify(patch)}`);
   timerMap.set(patch.id, { ...(timerMap.get(patch.id) || {}), ...patch });
 }
 registry.timers = [...timerMap.values()];
-registry.overrides = { source: overridesPath, applied: overrides.patches.length, updated_on: overrides.updated_on || null };
+registry.overrides = {
+  sources: [overridesPath, currentOverridesPath],
+  applied: overrides.patches.length + currentOverrides.patches.length,
+  updated_on: currentOverrides.updated_on || overrides.updated_on || null
+};
 
 const ids = new Set();
 for (const item of registry.timers) {
