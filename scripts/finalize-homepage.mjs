@@ -40,6 +40,25 @@ const section = `<section id="live-dockets" class="live-dockets" aria-label="Ži
   </div></section>
 </section>`;
 
+function removeSectionById(html, id) {
+  const marker = `id="${id}"`;
+  const markerPos = html.indexOf(marker);
+  if (markerPos === -1) return html;
+  const start = html.lastIndexOf('<section', markerPos);
+  if (start === -1) throw new Error(`Blok ${id} nemá počáteční <section>`);
+
+  const token = /<section\b|<\/section>/g;
+  token.lastIndex = start;
+  let depth = 0;
+  let match;
+  while ((match = token.exec(html))) {
+    if (match[0].startsWith('<section')) depth += 1;
+    else depth -= 1;
+    if (depth === 0) return html.slice(0, start) + html.slice(token.lastIndex);
+  }
+  throw new Error(`Blok ${id} nemá uzavírací </section>`);
+}
+
 let home = await readFile(homePath, 'utf8');
 
 home = home.replace(/<section class="newsroom-alert" id="prave-ted">[\s\S]*?<\/section>/, `<section class="newsroom-alert" id="prave-ted"><b>HLAVNÍ ZPRÁVA DNE</b><span>EUDA dne 7. srpna 2026 potvrdila přijetí formální výzvy podle čl. 265 SFEU.</span><a href="zpravy/07082026-011.html">Číst celý článek →</a></section>`);
@@ -62,7 +81,9 @@ home = home.replace(/data-exclude-ids="[^"]*"/, 'data-exclude-ids="07082026-011 
 
 if (!home.includes('<link rel="stylesheet" href="live-dockets.css">')) home = home.replace('</head>', '  <link rel="stylesheet" href="live-dockets.css">\n</head>');
 if (!home.includes('<script src="live-dockets.js" defer></script>')) home = home.replace('</body>', '  <script src="live-dockets.js" defer></script>\n</body>');
-if (home.includes('id="live-dockets"')) throw new Error('Titulní stránka už obsahuje blok live-dockets před statickou finalizací');
+
+// Finalizace musí být idempotentní: starší vygenerovaný blok se před vložením nové verze odstraní.
+home = removeSectionById(home, 'live-dockets');
 
 const editionBar = /(<div class="edition-bar">[\s\S]*?<\/div>)/;
 if (!editionBar.test(home)) throw new Error('Na titulní stránce chybí edition-bar pro vložení tří lišt');
