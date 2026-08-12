@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "batch_date": "2026-08-12",
-  "purpose": "Nově doložené státní listiny KPR a Ministerstva kultury doručené do Evidence Lab dne 12. 8. 2026.",
+  "purpose": "Nově doložené státní listiny KPR, Ministerstva kultury a Ministerstva vnitra doručené do Evidence Lab dne 12. 8. 2026.",
   "documents": [
     {
       "id": "doc-cz-kpr-2026-08-12-4873-2026",
@@ -48,6 +48,28 @@
       "submission_side_basis": "explicit_batch_classification",
       "chronology_sequence": 65,
       "evidence_note": "Klíčová procesní listina. Ministerstvo jako registrující orgán podle zákona č. 3/2002 Sb. výslovně oznamuje zahájení řízení o návrhu na provedení nového řízení a vydání nového rozhodnutí podle § 101 písm. b) správního řádu dnem 26. 6. 2026. Potvrzuje, že původní návrh byl doručen 26. 6. 2026 pod č. j. MK 41838/2026 POD, doplněn 7. 7. 2026 pod č. j. MK 43024/2026 POD a dne 26. 7. 2026 procesně upřesněn pod č. j. MK 46850/2026 POD. Nové řízení vede pod sp. zn. MK-S 6893/2026. Oprávněnými úředními osobami jsou ThLic. Petr Šimůnek a JUDr. Eva Vlachová. Význam listiny spočívá v tom, že předchozí sdělení z 22. 7. 2026 již nelze chápat jen jako neurčitou informaci o budoucím posouzení: ministerstvo nyní formálně potvrzuje existující správní řízení a jeho datum zahájení."
+    },
+    {
+      "id": "doc-cz-mv-2026-08-11-mv-127234-2-obp-2026",
+      "user_title": "Ministerstvo vnitra odmítlo žádost Ganja For All Animals, z.s. podle § 11b InfZ s odůvodněním, že nedisponuje žádnou z požadovaných informací",
+      "issue_date": "2026-08-11",
+      "received_date": "2026-08-12",
+      "institution_id": "CZ-MV",
+      "reference": "MV-127234-2/OBP-2026",
+      "case_ids": ["case-cz-mv-infz-ganja-for-all-animals"],
+      "document_type": "state_record",
+      "topics": ["Ministerstvo vnitra", "Ganja For All Animals, z.s.", "InfZ", "§ 11b InfZ", "§ 15 InfZ", "odmítnutí žádosti", "rozklad"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_verified_pending_binary_publish"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification",
+      "chronology_sequence": 66,
+      "evidence_note": "Rozhodnutí Ministerstva vnitra, odboru bezpečnostní politiky, ze dne 11. 8. 2026, č. j. MV-127234-2/OBP-2026. Povinný subjekt podle § 15 InfZ odmítl žádost Ganja For All Animals, z.s. ze dne 6. 8. 2026 s použitím § 11b InfZ, protože podle odůvodnění ministerstvo nedisponuje žádnou z požadovaných informací. Rozhodnutí obsahuje poučení, že do 15 dnů od doručení lze podat rozklad, o němž rozhoduje ministr vnitra. Pro chronologii je rozhodné datum rozhodnutí 11. 8. 2026; elektronický podpis Mgr. Petra Prokopa je datován 12. 8. 2026. Očekávaný rozklad bude veden jako navazující vlastní podání, nikoli jako další státní listina."
     }
   ]
 }
