@@ -37,7 +37,7 @@
       "topics": ["obnova řízení", "OS Prostějov", "zabrání věci", "§ 283 písm. b) trestního řádu", "§ 282 trestního řádu"],
       "public": {
         "html": null,
-        "pdf": "web/documents/report-04082026-010/23-dvorak-stiznost-15-nt-3103-2026-53-2026-08-11.pdf",
+        "pdf": "documents/report-04082026-010/23-dvorak-stiznost-15-nt-3103-2026-53-2026-08-11.pdf",
         "sha256": "41c6dc1b554fdc5206391866f787ae1906d7ae5aed1953a3665aa0cda1ecf8d0",
         "verification_status": "verified_original"
       },
