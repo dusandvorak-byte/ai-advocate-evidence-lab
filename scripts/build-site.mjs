@@ -55,6 +55,7 @@ if (registryAudit.hard_error_count !== 0) throw new Error('Audit kanonických re
 
 await run('scripts/build-dynamic-chronology.mjs');
 await run('scripts/finalize-homepage.mjs');
+await run('scripts/sync-public-surfaces.mjs');
 await run('scripts/build-deadlines.mjs');
 await run('scripts/build-process-timers.mjs');
 await run('scripts/build-operational-state.mjs');
