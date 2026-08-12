@@ -2361,3 +2361,23 @@ html {
     padding-left: 14px;
   }
 }
+
+
+/* Unified landing-page frame — 12 August 2026. */
+/* A single lead card must occupy the complete lead grid, not leave an empty rail. */
+.news-lead > .lead-card:only-child {
+  grid-column: 1 / -1;
+}
+
+/* Match the alert's outer edge to the masthead, navigation and edition bar. */
+main:not(.article-shell) > .newsroom-alert {
+  margin-right: -18px;
+  margin-left: -18px;
+}
+
+@media (max-width: 390px) {
+  main:not(.article-shell) > .newsroom-alert {
+    margin-right: -14px;
+    margin-left: -14px;
+  }
+}
