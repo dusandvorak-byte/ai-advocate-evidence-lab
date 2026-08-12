@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "batch_date": "2026-08-12",
-  "purpose": "Nově doložená státní listina KPR doručená do Evidence Lab dne 12. 8. 2026.",
+  "purpose": "Nově doložené státní listiny KPR a Ministerstva kultury doručené do Evidence Lab dne 12. 8. 2026.",
   "documents": [
     {
       "id": "doc-cz-kpr-2026-08-12-4873-2026",
@@ -24,6 +24,30 @@
       "submission_side_basis": "explicit_batch_classification",
       "chronology_sequence": 64,
       "evidence_note": "Jednostránková listina byla uživatelem převzata z datové schránky a doložena dne 12. 8. 2026. KPR reaguje na podání ze dne 5. 6. 2026. Odpověď představuje odmítnutí požadované součinnosti; sama o sobě nerozhoduje o zákonnosti ani věcné správnosti záměru."
+    },
+    {
+      "id": "doc-cz-mk-2026-08-12-mk-49467-2026-socns",
+      "user_title": "Ministerstvo kultury formálně potvrdilo zahájení řízení o novém řízení a novém rozhodnutí podle § 101 písm. b) správního řádu již dnem 26. 6. 2026",
+      "issue_date": "2026-08-12",
+      "received_date": "2026-08-12",
+      "institution_id": "CZ-MK",
+      "reference": "MK 49467/2026 SOCNS",
+      "case_ids": ["case-cz-mk-konopna-cirkev"],
+      "document_type": "state_record",
+      "topics": ["Ministerstvo kultury", "Konopná církev", "nové řízení", "nové rozhodnutí", "§ 101 písm. b) správního řádu", "MK-S 6893/2026", "registrace církve"],
+      "public": {
+        "html": "listiny/doc-cz-mk-2026-08-12-mk-49467-2026-socns.html",
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_verified_pending_binary_publish"
+      },
+      "relations": [
+        {"type": "follows", "target": "doc-cz-mk-2026-07-22-mk-45728-2026-socns"}
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification",
+      "chronology_sequence": 65,
+      "evidence_note": "Klíčová procesní listina. Ministerstvo jako registrující orgán podle zákona č. 3/2002 Sb. výslovně oznamuje zahájení řízení o návrhu na provedení nového řízení a vydání nového rozhodnutí podle § 101 písm. b) správního řádu dnem 26. 6. 2026. Potvrzuje, že původní návrh byl doručen 26. 6. 2026 pod č. j. MK 41838/2026 POD, doplněn 7. 7. 2026 pod č. j. MK 43024/2026 POD a dne 26. 7. 2026 procesně upřesněn pod č. j. MK 46850/2026 POD. Nové řízení vede pod sp. zn. MK-S 6893/2026. Oprávněnými úředními osobami jsou ThLic. Petr Šimůnek a JUDr. Eva Vlachová. Význam listiny spočívá v tom, že předchozí sdělení z 22. 7. 2026 již nelze chápat jen jako neurčitou informaci o budoucím posouzení: ministerstvo nyní formálně potvrzuje existující správní řízení a jeho datum zahájení."
     }
   ]
 }
