@@ -66,4 +66,24 @@ await update('web/zpravy/index.html', [[
   'Godot v českém archivu'
 ]]);
 
-console.log(`Veřejné varianty synchronizovány: ${czDisplayDate}; ${stateCount} státních listin; poslední listina ${latestIssueDate}.`);
+// Čtyři povinně synchronizované veřejné plochy. Všechny musí používat tentýž
+// společný newsroom layout; církev si ponechává pouze barevnou/brandovou masku.
+const surfaces = [
+  ['CannaInsider CZ', 'web/index.html'],
+  ['CannaInsider international', 'web/en.html'],
+  ['Konopná církev CZ', 'web/kc/index.html'],
+  ['Church of Cannabis international', 'web/kc/en.html']
+];
+for (const [label, path] of surfaces) {
+  const html = await readFile(path, 'utf8');
+  for (const stylesheet of ['styles.css', 'brand.css']) {
+    if (!html.includes(`href="${stylesheet}"`)) {
+      throw new Error(`${label}: chybí společný ${stylesheet}; synchronizace layoutu nesmí pokračovat`);
+    }
+  }
+  if (!html.includes('class="topline"') || !html.includes('class="masthead"') || !html.includes('class="nav"')) {
+    throw new Error(`${label}: chybí některá společná rámová komponenta topline/masthead/nav`);
+  }
+}
+
+console.log(`Veřejné varianty synchronizovány: ${czDisplayDate}; ${stateCount} státních listin; poslední listina ${latestIssueDate}; 4/4 povinných ploch sdílí styles.css + brand.css.`);
