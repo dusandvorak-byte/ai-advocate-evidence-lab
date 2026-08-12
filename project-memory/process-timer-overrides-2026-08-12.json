@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "updated_on": "2026-08-12",
+  "description": "Doplňující ověřené opravy živých procesních časovačů k datům známým dne 12. 8. 2026. Přepisují shodná ID a mohou přidávat nové časovače.",
+  "patches": [
+    {
+      "id": "timer-court-os-pro-obnova-2026",
+      "category": "court",
+      "title": "OS Prostějov – obnova řízení 2026: stížnostní fáze po rozhodnutích ze 7. 8. 2026",
+      "reference": "mj. 15 Nt 3103/2026-53 · 15 Nt 3105/2026-54",
+      "start_date": "2026-08-07",
+      "start_date_basis": "Okresní soud v Prostějově dne 7. srpna 2026 rozhodl o návrzích na obnovu; proti rozhodnutím byly bezprostředně podány stížnosti, doložené v Godotovi zejména dne 10. a 11. srpna 2026.",
+      "status": "active_complaint_stage",
+      "limit_kind": "no_fixed_numeric_statutory_deadline_for_complaint_decision",
+      "limit_label": "stížnostní fáze – bez pevné číselné lhůty soudu k rozhodnutí",
+      "legal_basis": "původní časovač od 12. 7. již nesmí tvrdit, že soud o návrhu na obnovu nerozhodl; od 7. 8. se sleduje navazující stížnostní fáze",
+      "process_history": "12. 7. 2026 návrh na obnovu; 7. 8. 2026 rozhodnutí OS Prostějov; 10.–11. 8. 2026 navazující stížnosti podle jednotlivých usnesení.",
+      "href": "zpravy/04082026-010.html#doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53"
+    },
+    {
+      "id": "timer-preaction-nsz-2026-07-14",
+      "category": "pre_action",
+      "title": "NSZ – předžalobní výzva, prodloužená 5. dodatkem",
+      "reference": "6 NZN 1737/2026 · 5. dodatek z 1. 8. 2026",
+      "start_date": "2026-08-01",
+      "start_date_basis": "Původní předžalobní výzva byla podána 14. července 2026; pátým dodatkem ze dne 1. srpna 2026 byla původní čtrnáctidenní autorská lhůta prodloužena, takže časovač nesmí nadále zobrazovat 29 / 14 dnů jako běžící původní lhůtu.",
+      "status": "active_extended_by_fifth_addendum",
+      "limit_kind": "author_set_extended_procedural_period",
+      "limit_label": "prodloužená lhůta dle 5. dodatku z 1. 8. 2026",
+      "legal_basis": "nejde o obecnou zákonnou lhůtu; rozhodující je aktuální lhůta stanovená podatelem v pátém dodatku, nikoli původních 14 dnů z výzvy ze 14. 7.",
+      "process_history": "14. 7. 2026 původní předžalobní výzva; 1. 8. 2026 pátý dodatek a prodloužení původní lhůty.",
+      "href": "zpravy/04082026-010.html#case-cz-nsz-predzalobni-vyzva"
+    },
+    {
+      "id": "timer-admin-mk-2026-07-22",
+      "category": "administrative",
+      "title": "Ministerstvo kultury – nové řízení Konopné církve podle § 101 písm. b) správního řádu",
+      "reference": "MK-S 6893/2026 · MK 49467/2026 SOCNS",
+      "start_date": "2026-06-26",
+      "start_date_basis": "Ministerstvo kultury oznámením ze dne 12. srpna 2026, č. j. MK 49467/2026 SOCNS, výslovně potvrdilo, že správní řízení o novém řízení a novém rozhodnutí podle § 101 písm. b) bylo zahájeno již 26. června 2026.",
+      "status": "active",
+      "limit_kind": "statutory_days_with_possible_extension",
+      "limit_days": 30,
+      "limit_label": "30 dnů základně; ve složité věci možnost zákonného prodloužení",
+      "legal_basis": "§ 71 správního řádu: rozhodnout bez zbytečného odkladu, jinak zásadně do 30 dnů od zahájení; zákon připouští připočtení další doby v zákonem stanovených případech. MK současně dříve oznámilo vlastní termín informování nejpozději do 31. 8. 2026.",
+      "due_date": "2026-08-31",
+      "process_history": "26. 6. 2026 zahájení řízení; 7. 7. 2026 doplnění; 22. 7. 2026 MK oznámilo potřebu širšího posouzení a termín informování do 31. 8.; 26. 7. 2026 procesní upřesnění; 12. 8. 2026 MK formálně potvrdilo sp. zn. MK-S 6893/2026 a datum zahájení 26. 6.",
+      "href": "zpravy/04082026-010.html#doc-cz-mk-2026-08-12-mk-49467-2026-socns"
+    },
+    {
+      "id": "timer-admin-mv-rozklad-127234-2026",
+      "category": "administrative",
+      "title": "Ministerstvo vnitra / ministr vnitra – rozklad Ganja For All Animals",
+      "reference": "MV-127234-2/OBP-2026",
+      "start_date": "2026-08-12",
+      "start_date_basis": "Ganja For All Animals, z.s. dne 12. srpna 2026 podala rozklad proti rozhodnutí Ministerstva vnitra ze dne 11. srpna 2026, č. j. MV-127234-2/OBP-2026.",
+      "status": "active",
+      "limit_kind": "statutory_working_days",
+      "limit_days": 15,
+      "limit_label": "15 pracovních dnů pro rozhodnutí o rozkladu",
+      "legal_basis": "§ 16 odst. 3 zákona č. 106/1999 Sb.: lhůta pro rozhodnutí o rozkladu je 15 pracovních dnů ode dne doručení rozkladu povinnému subjektu a nelze ji prodloužit",
+      "href": "zpravy/04082026-010.html#doc-cz-mv-2026-08-11-mv-127234-2-obp-2026"
+    },
+    {
+      "id": "timer-admin-infz-remedy-rule",
+      "category": "administrative",
+      "title": "InfZ – kontrolní pravidlo opravných prostředků KPR / NSZ / MSZ / ministerstva",
+      "reference": "§ 16 a § 16a zákona č. 106/1999 Sb.",
+      "start_date": "2026-08-12",
+      "start_date_basis": "Od 12. srpna 2026 se v časovačích rozlišuje odvolání nebo rozklad proti rozhodnutí o odmítnutí informace od stížnosti na způsob vyřízení žádosti; tyto lhůty nejsou totožné.",
+      "status": "binding_rule",
+      "limit_kind": "procedural_rule",
+      "limit_label": "odvolání/rozklad 15 dnů k podání; stížnost podle § 16a zpravidla 30 dnů",
+      "legal_basis": "proti rozhodnutí o odmítnutí žádosti se podává odvolání nebo rozklad do 15 dnů od doručení; stížnost na postup při vyřizování žádosti podle § 16a má vlastní třicetidenní lhůtu. Proto se KPR, NSZ a MSZ nesmějí automaticky označit jednotnou patnáctidenní lhůtou bez kontroly typu konkrétní listiny a jejího poučení.",
+      "href": "zpravy/04082026-010.html#procesni-casovace"
+    }
+  ]
+}
