@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Jednoznačné vlastnictví fyzických PDF, aby reconciler nikdy nepřiřadil naše podání jako originál státní listiny.",
+  "sources": [
+    {
+      "path": "web/documents/report-04082026-010/23-dvorak-stiznost-15-nt-3103-2026-53-2026-08-11.pdf",
+      "reference": "proti 15 Nt 3103/2026-53",
+      "date": "2026-08-11",
+      "institution_id": "CZ-DD",
+      "document_id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+      "role": "reaction_original_pdf"
+    }
+  ]
+}
