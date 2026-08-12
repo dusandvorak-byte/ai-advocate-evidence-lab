@@ -8,9 +8,9 @@
       "user_title":"Ministerstvo vnitra odmítlo žádost Ganja For All Animals, z.s. podle § 11b InfZ s odůvodněním, že nedisponuje žádnou z požadovaných informací",
       "issue_date":"2026-08-11","received_date":"2026-08-12","institution_id":"CZ-MV","reference":"MV-127234-2/OBP-2026","case_ids":["case-cz-mv-infz-ganja-for-all-animals"],"document_type":"state_record",
       "topics":["Ministerstvo vnitra","Ganja For All Animals, z.s.","InfZ","§ 11b InfZ","§ 15 InfZ","odmítnutí žádosti","rozklad"],
-      "public":{"html":null,"pdf":null,"sha256":null,"verification_status":"source_verified_pending_binary_publish"},
+      "public":{"html":null,"pdf":null,"sha256":"c65c9cc5f12eab03f69c4ea1bf642c3078f4858153b385e80f141da6ea334a55","verification_status":"source_verified_exact_hash_pending_binary_publish","intended_pdf":"documents/report-04082026-010/25-mv-127234-2-obp-2026-2026-08-11.pdf"},
       "relations":[],"submission_side":"incoming_from_state_or_public_institution","submission_side_basis":"explicit_batch_classification","chronology_sequence":64,
-      "evidence_note":"Rozhodnutí Ministerstva vnitra, odboru bezpečnostní politiky, ze dne 11. 8. 2026, č. j. MV-127234-2/OBP-2026. Povinný subjekt podle § 15 InfZ odmítl žádost Ganja For All Animals, z.s. s použitím § 11b InfZ, protože podle odůvodnění ministerstvo nedisponuje žádnou z požadovaných informací. Pro chronologii je rozhodné datum rozhodnutí 11. 8. 2026; elektronický podpis je datován 12. 8. 2026."
+      "evidence_note":"Rozhodnutí Ministerstva vnitra, odboru bezpečnostní politiky, ze dne 11. 8. 2026, č. j. MV-127234-2/OBP-2026. Povinný subjekt podle § 15 InfZ odmítl žádost Ganja For All Animals, z.s. s použitím § 11b InfZ, protože podle odůvodnění ministerstvo nedisponuje žádnou z požadovaných informací. Pro chronologii je rozhodné datum rozhodnutí 11. 8. 2026; elektronický podpis je datován 12. 8. 2026. Přesný doložený PDF zdroj má SHA-256 c65c9cc5f12eab03f69c4ea1bf642c3078f4858153b385e80f141da6ea334a55."
     },
     {
       "id":"doc-cz-kpr-2026-08-12-4873-2026",
@@ -26,19 +26,19 @@
       "user_title":"Ministerstvo kultury formálně potvrdilo zahájení řízení o novém řízení a novém rozhodnutí podle § 101 písm. b) správního řádu již dnem 26. 6. 2026",
       "issue_date":"2026-08-12","received_date":"2026-08-12","institution_id":"CZ-MK","reference":"MK 49467/2026 SOCNS","case_ids":["case-cz-mk-konopna-cirkev"],"document_type":"state_record",
       "topics":["Ministerstvo kultury","Konopná církev","nové řízení","nové rozhodnutí","§ 101 písm. b) správního řádu","MK-S 6893/2026","registrace církve"],
-      "public":{"html":"listiny/doc-cz-mk-2026-08-12-mk-49467-2026-socns.html","pdf":null,"sha256":null,"verification_status":"source_verified_pending_binary_publish"},
+      "public":{"html":"listiny/doc-cz-mk-2026-08-12-mk-49467-2026-socns.html","pdf":null,"sha256":"bb23820c9a02a17a976f0a746def4c53f4afa413fb708259e25a59d6a2f0f3b1","verification_status":"source_verified_exact_hash_pending_binary_publish","intended_pdf":"documents/report-04082026-010/27-mk-49467-2026-socns-2026-08-12.pdf"},
       "relations":[{"type":"follows","target":"doc-cz-mk-2026-07-22-mk-45728-2026-socns"}],"submission_side":"incoming_from_state_or_public_institution","submission_side_basis":"explicit_batch_classification","chronology_sequence":66,
-      "evidence_note":"Klíčová procesní listina. Ministerstvo jako registrující orgán podle zákona č. 3/2002 Sb. výslovně oznamuje zahájení řízení o návrhu na provedení nového řízení a vydání nového rozhodnutí podle § 101 písm. b) správního řádu dnem 26. 6. 2026. Nové řízení vede pod sp. zn. MK-S 6893/2026."
+      "evidence_note":"Klíčová procesní listina. Ministerstvo jako registrující orgán podle zákona č. 3/2002 Sb. výslovně oznamuje zahájení řízení o návrhu na provedení nového řízení a vydání nového rozhodnutí podle § 101 písm. b) správního řádu dnem 26. 6. 2026. Nové řízení vede pod sp. zn. MK-S 6893/2026. Přesný doložený PDF zdroj má SHA-256 bb23820c9a02a17a976f0a746def4c53f4afa413fb708259e25a59d6a2f0f3b1."
     },
     {
       "id":"doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026",
       "user_title":"Ganja For All Animals, z.s. podala rozklad proti odmítnutí žádosti Ministerstvem vnitra; namítá nepřezkoumatelnost, neprokázání kumulativních podmínek § 11b InfZ a absenci doloženého vyhledávání",
       "issue_date":"2026-08-12","received_date":"2026-08-12","institution_id":"CZ-GFAA","reference":"Rozklad k MV-127234-2/OBP-2026","case_ids":["case-cz-mv-infz-ganja-for-all-animals"],"document_type":"user_submission",
       "topics":["Ganja For All Animals, z.s.","Ministerstvo vnitra","rozklad","InfZ","§ 11b InfZ","§ 16 InfZ","§ 152 správního řádu","přeprava vzorku krve","toxikologie","THC","THCA"],
-      "public":{"html":null,"pdf":null,"sha256":null,"verification_status":"source_verified_pending_binary_publish"},
+      "public":{"html":null,"pdf":null,"sha256":"769392aa996dda284c927b9bee9fbee1c364daade8d2a1867fe7fa380d4b3cc2","verification_status":"source_verified_exact_hash_pending_binary_publish","intended_pdf":"documents/report-04082026-010/26-gfaa-rozklad-mv-127234-2-obp-2026-2026-08-12.pdf"},
       "relations":[{"type":"reakce_na","target_id":"doc-cz-mv-2026-08-11-mv-127234-2-obp-2026"}],
       "submission_side":"outgoing_from_user_or_alliance","submission_side_basis":"explicit_document_authorship","chronology_sequence":null,
-      "evidence_note":"Šestistránkový rozklad ze dne 12. 8. 2026 proti rozhodnutí MV ze dne 11. 8. 2026, č. j. MV-127234-2/OBP-2026. Rozklad napadá rozhodnutí v celém rozsahu. Jádrem je námitka, že MV odmítlo deset samostatných bodů žádosti jediným tvrzením, že nedisponuje žádnou z požadovaných informací, aniž popsalo vyhledávání, posoudilo zákonnou povinnost informacemi disponovat či možnost získat je jednoduchými úkony. Jde o naše navazující podání, proto nezvyšuje státní čítač 66."
+      "evidence_note":"Šestistránkový rozklad ze dne 12. 8. 2026 proti rozhodnutí MV ze dne 11. 8. 2026, č. j. MV-127234-2/OBP-2026. Rozklad napadá rozhodnutí v celém rozsahu. Jádrem je námitka, že MV odmítlo deset samostatných bodů žádosti jediným tvrzením, že nedisponuje žádnou z požadovaných informací, aniž popsalo vyhledávání, posoudilo zákonnou povinnost informacemi disponovat či možnost získat je jednoduchými úkony. Jde o naše navazující podání, proto nezvyšuje státní čítač 66. Přesný doložený PDF zdroj má SHA-256 769392aa996dda284c927b9bee9fbee1c364daade8d2a1867fe7fa380d4b3cc2."
     }
   ]
 }
