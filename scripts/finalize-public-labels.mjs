@@ -21,7 +21,6 @@ for (const path of [...files, ...listiny]) {
   content = content.replaceAll('"web/documents/', '"documents/');
   content = content.replaceAll("'web/documents/", "'documents/");
 
-  // Odvozená veřejná kopie se nikdy nesmí vydávat za původní binární originál.
   content = content.replace(
     /<a href="([^"]*verejna-kopie\.pdf)"([^>]*)>originál PDF<\/a>/gi,
     '<a href="$1"$2>ověřená veřejná kopie PDF</a>'
@@ -62,4 +61,6 @@ for (const path of listiny) {
   }
 }
 
-console.log('Godotův název, tři lišty, chronologie, veřejné cesty PDF a rozlišení originálu/kopie byly ověřeny.');
+await import('./enforce-homepage-brand.mjs');
+await import('./enforce-shared-shell.mjs');
+console.log('Godotův název, tři lišty, chronologie, veřejné cesty PDF, podtext CannaInsider.EU a společná šířka byly ověřeny.');
