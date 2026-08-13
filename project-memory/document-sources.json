@@ -3,24 +3,10 @@
   "status": "binding",
   "description": "Jediný manifest kanonických zdrojů chronologie. Build slučuje všechny uvedené registry podle stabilního ID; žádný veřejný výstup nesmí udržovat vlastní ruční seznam dokumentů ani vlastní čítač.",
   "sources": [
-    {
-      "path": "project-memory/documents-2026.json",
-      "role": "base"
-    },
-    {
-      "path": "project-memory/documents-2026-supplement-2026-08-10.json",
-      "role": "batch",
-      "batch_date": "2026-08-10"
-    },
-    {
-      "path": "project-memory/documents-2026-supplement-2026-08-11.json",
-      "role": "batch",
-      "batch_date": "2026-08-11"
-    },
-    {
-      "path": "project-memory/documents-2026-supplement-2026-08-12.json",
-      "role": "batch",
-      "batch_date": "2026-08-12"
-    }
+    {"path": "project-memory/documents-2026.json", "role": "base"},
+    {"path": "project-memory/documents-2026-supplement-2026-08-10.json", "role": "batch", "batch_date": "2026-08-10"},
+    {"path": "project-memory/documents-2026-supplement-2026-08-11.json", "role": "batch", "batch_date": "2026-08-11"},
+    {"path": "project-memory/documents-2026-supplement-2026-08-12.json", "role": "batch", "batch_date": "2026-08-12"},
+    {"path": "project-memory/documents-2026-supplement-2026-08-13-remedies.json", "role": "batch", "batch_date": "2026-08-13"}
   ]
 }
