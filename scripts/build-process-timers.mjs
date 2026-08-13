@@ -3,6 +3,8 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 const sourcePath = 'project-memory/process-timers.json';
 const overridesPath = 'project-memory/process-timer-overrides.json';
 const currentOverridesPath = 'project-memory/process-timer-overrides-2026-08-12.json';
+const documentSourcesPath = 'project-memory/document-sources.json';
+const institutionsPath = 'project-memory/institutions.json';
 const eudaResponsePath = 'project-memory/euda-response-2026-08-07.json';
 const targetPath = 'web/data/process-timers.json';
 const homePath = 'web/index.html';
@@ -12,7 +14,10 @@ const cssTag = '<link rel="stylesheet" href="process-timers.css">';
 const scriptTag = '<script src="process-timers.js" defer></script>';
 const timerBegin = '<!-- PROCESS-TIMERS:BEGIN -->';
 const timerEnd = '<!-- PROCESS-TIMERS:END -->';
+const remedySince = '2026-07-01';
 
+// Tyto ručně právně kvalifikované časovače zůstávají povinné. Vedle nich se nyní
+// automaticky odvozují VŠECHNY další stížnosti, odvolání a rozklady z kanonického registru.
 const REQUIRED_CURRENT_TIMER_IDS = [
   'timer-admin-kpr-repeat-16a-2026-08-10',
   'timer-admin-msz-stiznost-necinnost-2026-07-31',
@@ -24,6 +29,13 @@ const REQUIRED_CURRENT_TIMER_IDS = [
 const escapeHtml = value => String(value ?? '')
   .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
   .replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+
+const addOneDay = value => {
+  const d = new Date(`${value}T00:00:00Z`);
+  if (Number.isNaN(d.getTime())) throw new Error(`Nelze vypočítat následující den z ${value}`);
+  d.setUTCDate(d.getUTCDate() + 1);
+  return d.toISOString().slice(0, 10);
+};
 
 const removeBalancedElement = (html, startIndex, tagName) => {
   const re = new RegExp(`<\\/?${tagName}\\b[^>]*>`, 'gi');
@@ -52,21 +64,74 @@ const removeGeneratedTimerBlock = (html, tagName) => {
 const registry = JSON.parse(await readFile(sourcePath, 'utf8'));
 const overrides = JSON.parse(await readFile(overridesPath, 'utf8'));
 const currentOverrides = JSON.parse(await readFile(currentOverridesPath, 'utf8'));
+const documentSources = JSON.parse(await readFile(documentSourcesPath, 'utf8'));
+const institutionsRegistry = JSON.parse(await readFile(institutionsPath, 'utf8'));
 const eudaResponse = JSON.parse(await readFile(eudaResponsePath, 'utf8'));
 if (!Array.isArray(registry.timers) || !Array.isArray(registry.historical_notice_points)) throw new Error('process-timers.json nemá očekávanou strukturu');
 if (!Array.isArray(overrides.patches)) throw new Error('process-timer-overrides.json nemá pole patches');
 if (!Array.isArray(currentOverrides.patches)) throw new Error('process-timer-overrides-2026-08-12.json nemá pole patches');
+if (!Array.isArray(documentSources.sources)) throw new Error('document-sources.json nemá pole sources');
+if (!Array.isArray(institutionsRegistry.institutions)) throw new Error('institutions.json nemá pole institutions');
+
+const institutionNames = new Map(institutionsRegistry.institutions.map(item => [item.id, item.name || item.title || item.id]));
+const canonicalDocuments = [];
+for (const source of documentSources.sources) {
+  const parsed = JSON.parse(await readFile(source.path, 'utf8'));
+  if (!Array.isArray(parsed.documents)) throw new Error(`${source.path} neobsahuje pole documents`);
+  canonicalDocuments.push(...parsed.documents);
+}
+const documents = [...new Map(canonicalDocuments.map(item => [item.id, item])).values()];
 
 const timerMap = new Map(registry.timers.map(item => [item.id, { ...item }]));
 for (const patch of [...overrides.patches, ...currentOverrides.patches]) {
   if (!patch.id) throw new Error(`Oprava časovače bez ID: ${JSON.stringify(patch)}`);
   timerMap.set(patch.id, { ...(timerMap.get(patch.id) || {}), ...patch });
 }
+
+// Každé naše aktuální podání, které je podle kanonických dat stížností, odvoláním nebo rozkladem,
+// MUSÍ mít časovač. Ruční override smí jen zpřesnit právní režim, nikdy rozhodovat o samotné existenci karty.
+const remedyPattern = /\b(stížnost|stížnosti|odvolání|rozklad)\b/i;
+const outgoing = documents.filter(doc => doc.submission_side === 'outgoing_from_user_or_alliance' && doc.issue_date >= remedySince);
+const remedyDocuments = outgoing.filter(doc => {
+  const text = [doc.user_title, doc.reference, doc.document_type, ...(doc.topics || [])].filter(Boolean).join(' ');
+  return doc.document_type === 'appeal' || remedyPattern.test(text);
+});
+const manuallyRepresentedDocIds = new Set([...timerMap.values()].map(item => item.source_document_id).filter(Boolean));
+for (const doc of remedyDocuments) {
+  if (manuallyRepresentedDocIds.has(doc.id)) continue;
+  const timerId = `timer-remedy-${doc.id}`;
+  const actor = institutionNames.get(doc.institution_id) || doc.institution_id || 'Naše podání';
+  const reaction = (doc.relations || []).find(rel => rel.type === 'reakce_na' && rel.target_id);
+  const href = reaction ? `zpravy/04082026-010.html#${reaction.target_id}` : `listiny/${doc.id}.html`;
+  timerMap.set(timerId, {
+    id: timerId,
+    category: 'current_remedies',
+    title: `${actor} – ${doc.user_title}`,
+    reference: doc.reference || doc.id,
+    start_date: doc.issue_date,
+    count_from_date: addOneDay(doc.issue_date),
+    start_date_basis: `${doc.user_title}. Podání je v kanonickém registru vedeno jako doručené/podané dne ${doc.issue_date}; tento den je den 0 a následující den je den 1.`,
+    status: 'active_derived_remedy',
+    limit_kind: 'remedy_regime_requires_verified_override',
+    limit_label: 'opravný prostředek – přesná lhůta dle konkrétního procesního režimu',
+    legal_basis: 'Položka je odvozena automaticky z kanonického registru. Pokud není zvlášť ověřena přesná číselná lhůta k vyřízení, web ji nevymýšlí; právně kvalifikovaný override ji může doplnit.',
+    source_document_id: doc.id,
+    href,
+    derived_from_canonical_document: true
+  });
+}
+
 registry.timers = [...timerMap.values()];
 registry.overrides = {
   sources: [overridesPath, currentOverridesPath],
   applied: overrides.patches.length + currentOverrides.patches.length,
   updated_on: currentOverrides.updated_on || overrides.updated_on || null
+};
+registry.remedy_derivation = {
+  source_manifest: documentSourcesPath,
+  since: remedySince,
+  canonical_remedy_documents: remedyDocuments.length,
+  automatically_derived: registry.timers.filter(item => item.derived_from_canonical_document).length
 };
 
 const ids = new Set();
@@ -79,18 +144,22 @@ for (const item of registry.timers) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(item.start_date)) throw new Error(`Neplatné datum časovače ${item.id}`);
   if (item.count_from_date && !/^\d{4}-\d{2}-\d{2}$/.test(item.count_from_date)) throw new Error(`Neplatný první den běhu ${item.id}`);
 }
-for (const requiredId of REQUIRED_CURRENT_TIMER_IDS) {
-  if (!ids.has(requiredId)) throw new Error(`Chybí povinný aktuální časovač ${requiredId}`);
+for (const requiredId of REQUIRED_CURRENT_TIMER_IDS) if (!ids.has(requiredId)) throw new Error(`Chybí povinný právně kvalifikovaný časovač ${requiredId}`);
+for (const doc of remedyDocuments) {
+  const represented = registry.timers.some(item => item.source_document_id === doc.id);
+  if (!represented) throw new Error(`Kanonický opravný prostředek ${doc.id} nemá časovač`);
 }
 
 const labels = {
+  current_remedies: 'Aktuální stížnosti, odvolání a rozklady',
   court: 'Justice – soudní řízení',
   pre_action: 'Předžalobní a předprocesní výzvy',
   administrative: 'Správní a informační řízení',
   review_supervision: 'Přezkumy a dohledy',
   criminal_historical: 'Historická trestní důkazní větev'
 };
-const order = ['court', 'pre_action', 'administrative', 'review_supervision', 'criminal_historical'];
+const order = ['current_remedies', 'court', 'pre_action', 'administrative', 'review_supervision', 'criminal_historical'];
+const legallyQualifiedPriority = new Set(REQUIRED_CURRENT_TIMER_IDS);
 
 const row = item => {
   const end = item.end_date || '';
@@ -100,27 +169,34 @@ const row = item => {
   const history = item.process_history ? `<p class="timer-basis"><b>Průběh:</b> ${escapeHtml(item.process_history)}</p>` : '';
   const nextEvent = item.next_event ? `<p class="timer-basis"><b>Další úkon:</b> ${escapeHtml(item.next_event)}</p>` : '';
   const countNote = item.count_from_date ? `<p class="timer-basis"><b>Den 1 běhu:</b> ${escapeHtml(item.count_from_date)}</p>` : '';
-  return `<article class="process-timer" data-process-timer data-start-date="${escapeHtml(countStart)}" data-event-date="${escapeHtml(item.start_date)}" data-timer-id="${escapeHtml(item.id)}"${end ? ` data-end-date="${escapeHtml(end)}"` : ''}>
+  return `<article class="process-timer" data-process-timer data-limit-kind="${escapeHtml(item.limit_kind || '')}" data-start-date="${escapeHtml(countStart)}" data-event-date="${escapeHtml(item.start_date)}" data-timer-id="${escapeHtml(item.id)}"${item.source_document_id ? ` data-source-document-id="${escapeHtml(item.source_document_id)}"` : ''}${end ? ` data-end-date="${escapeHtml(end)}"` : ''}>
     <div class="timer-value"><span data-elapsed-days>…</span> / <span>${escapeHtml(item.limit_label)}</span></div>
     <div class="timer-detail"><h4>${title}</h4><p class="timer-basis"><b>Kdo:</b> ${escapeHtml(item.title)}</p><p class="timer-basis"><b>Datum doručení/podání:</b> ${escapeHtml(item.start_date)}</p>${countNote}<p class="timer-basis"><b>Č. j. / sp. zn.:</b> ${escapeHtml(item.reference)}</p><p class="timer-basis"><b>Co se stalo:</b> ${escapeHtml(item.start_date_basis)}</p><p class="timer-basis"><b>Lhůta / procesní režim:</b> ${escapeHtml(item.legal_basis)}${due}</p>${history}${nextEvent}</div>
   </article>`;
 };
 
-const categories = order.map(category => {
-  const items = registry.timers.filter(item => item.category === category);
+// Právně kvalifikované ruční časovače se zobrazí v témže prioritním bloku, ale ne podruhé v administrativní sekci.
+const derivedPriority = registry.timers.filter(item => item.category === 'current_remedies');
+const manualPriority = registry.timers.filter(item => legallyQualifiedPriority.has(item.id));
+const priorityTimers = [...new Map([...derivedPriority, ...manualPriority].map(item => [item.id, item])).values()]
+  .sort((a, b) => b.start_date.localeCompare(a.start_date) || a.title.localeCompare(b.title, 'cs'));
+const regularTimers = registry.timers.filter(item => item.category !== 'current_remedies' && !legallyQualifiedPriority.has(item.id));
+
+const prioritySection = `<section class="timer-category timer-category-priority" data-timer-category="current-remedies"><h3>Aktuální stížnosti, odvolání a rozklady <span class="timer-category-count">(${priorityTimers.length})</span></h3><div class="timer-grid">${priorityTimers.map(row).join('')}</div></section>`;
+const categories = order.filter(category => category !== 'current_remedies').map(category => {
+  const items = regularTimers.filter(item => item.category === category);
   if (!items.length) return '';
   return `<section class="timer-category" data-timer-category="${category}"><h3>${escapeHtml(labels[category] || category)} <span class="timer-category-count">(${items.length})</span></h3><div class="timer-grid">${items.map(row).join('')}</div></section>`;
 }).join('');
 
 const notices = registry.historical_notice_points.map(item => `<article class="historical-notice"><h4>${escapeHtml(item.date)} · ${escapeHtml(item.title)}</h4><p>${escapeHtml(item.evidence)}</p><p><b>Význam pro projekt:</b> ${escapeHtml(item.boundary)}</p></article>`).join('');
-const timerBody = `<p class="timer-legend"><b>Povinný formát:</b> kdo · datum · č. j./sp. zn. · co se stalo. <b>Počítání:</b> je-li doloženo doručení podání v uvedený den, tento den je den 0 a následující den je den 1. Pokud pevná číselná lhůta není, web ji nevymýšlí.</p>${categories}<h3>Historický společný referenční bod vědomosti státu</h3>${notices}`;
+const timerBody = `<p class="timer-legend"><b>Povinný formát:</b> kdo · datum · č. j./sp. zn. · co se stalo. <b>Počítání:</b> den doručení je den 0 a následující den je den 1. <b>Úplnost:</b> každá kanonicky evidovaná stížnost, odvolání a rozklad od ${remedySince} se musí objevit automaticky; chybějící karta zastaví build.</p>${prioritySection}${categories}<h3>Historický společný referenční bod vědomosti státu</h3>${notices}`;
 const godotSection = `${timerBegin}<section id="procesni-casovace" class="process-timers"><header><div><p class="section-label">DŮSLEDKY · ŽIVÉ PROCESNÍ ČASOVAČE</p><h2>Živé procesní časovače</h2></div></header><p class="timer-legend">Tento blok následuje až po chronologii listin veřejných institucí od 1. května 2026. Jde o odvozené procesní důsledky chronologie, nikoli o její náhradu.</p>${timerBody}</section>${timerEnd}`;
 const homeSection = `${timerBegin}<details id="procesni-casovace" class="process-timers process-timers-dropdown"><summary><span>Živé procesní časovače</span><strong>${registry.timers.length} aktivních časovačů · rozbalit</strong></summary><div class="process-timers-dropdown-body">${timerBody}</div></details>${timerEnd}`;
 
 const assertRequiredTimersRendered = (html, label) => {
-  for (const requiredId of REQUIRED_CURRENT_TIMER_IDS) {
-    if (!html.includes(`data-timer-id="${requiredId}"`)) throw new Error(`${label}: nevykreslil povinný časovač ${requiredId}`);
-  }
+  for (const item of priorityTimers) if (!html.includes(`data-timer-id="${item.id}"`)) throw new Error(`${label}: nevykreslil aktuální opravný prostředek ${item.id}`);
+  for (const doc of remedyDocuments) if (!html.includes(`data-source-document-id="${doc.id}"`)) throw new Error(`${label}: nevykreslil kanonický opravný prostředek ${doc.id}`);
 };
 
 const injectAssets = html => {
@@ -144,7 +220,6 @@ const chronologyClose = godot.indexOf('</ol>', godot.indexOf(chronologyMarker));
 if (chronologyClose < 0) throw new Error('Godot nemá ukončenou hlavní chronologii');
 const insertAt = chronologyClose + '</ol>'.length;
 godot = godot.slice(0, insertAt) + `\n${godotSection}` + godot.slice(insertAt);
-// Starý pomocný blok řízení není pro umístění časovačů potřeba; pokud ještě existuje, odstraní se samostatně.
 const legacyDocketsStart = godot.indexOf('<section id="rizeni-online"');
 if (legacyDocketsStart >= 0) godot = removeBalancedElement(godot, legacyDocketsStart, 'section');
 godot = injectAssets(godot);
@@ -161,4 +236,4 @@ await writeFile(eudaArticlePath, eudaArticle, 'utf8');
 
 await mkdir('web/data', { recursive: true });
 await writeFile(targetPath, `${JSON.stringify(registry, null, 2)}\n`, 'utf8');
-console.log(`Procesní časovače vytvořeny: ${registry.timers.length}; povinné aktuální opravné prostředky: ${REQUIRED_CURRENT_TIMER_IDS.length}; build je idempotentní.`);
+console.log(`Procesní časovače: ${registry.timers.length}; aktuální opravné prostředky v prioritním bloku: ${priorityTimers.length}; kanonicky nalezeno: ${remedyDocuments.length}; build kontroluje úplnost automaticky.`);
