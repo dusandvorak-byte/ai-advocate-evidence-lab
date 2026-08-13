@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "updated_on": "2026-08-13",
+  "status": "binding",
+  "description": "Deterministické výjimky vlastnictví PDF tam, kde shodné číslo jednací používá více samostatných listin a automatické párování by mohlo originál přiřadit nesprávnému datu.",
+  "overrides": [
+    {
+      "document_id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
+      "pdf": null,
+      "reason": "Soubor označený datem 5. 6. 2026 není originálem evidenčního záznamu ze dne 19. 5. 2026."
+    },
+    {
+      "document_id": "doc-cz-kpr-2026-06-05-kpr-4093-2026",
+      "pdf": "documents/report-04082026-010/06-kpr-4093-2026-2026-06-05.pdf",
+      "reason": "Název souboru, datum listiny a obsah odpovídají oznámení KPR ze dne 5. 6. 2026."
+    }
+  ]
+}

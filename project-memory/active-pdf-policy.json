@@ -1,11 +1,46 @@
 {
-  "version": 1,
-  "updated_on": "2026-08-12",
+  "version": 2,
+  "updated_on": "2026-08-13",
   "status": "binding",
   "principle": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
-  "institution_types": ["ministry","executive_office","prosecution","police","police_lab","court","court_enforcement"],
-  "extensible": true,
-  "extension_rule": "Nové typy institucí lze přidávat do institution_types bez změny principu nebo generátoru chronologie.",
+  "required_institution_types": [
+    "ministry",
+    "executive_office",
+    "prosecution",
+    "police",
+    "police_lab",
+    "public_institution",
+    "independent_authority",
+    "eu_agency",
+    "executive"
+  ],
+  "institution_types": [
+    "ministry",
+    "executive_office",
+    "prosecution",
+    "police",
+    "police_lab",
+    "public_institution",
+    "independent_authority",
+    "eu_agency",
+    "executive"
+  ],
+  "exempt_institution_types": [
+    "court",
+    "court_enforcement"
+  ],
+  "exempt_institution_ids": [
+    "CZ-CT",
+    "CZ-CSSZ"
+  ],
+  "document_exceptions": [
+    {
+      "id": "doc-eu-euda-2026-08-07-ack-article-265-tfeu",
+      "reason": "Potvrzení bylo doručeno jako e-mail bez samostatného úředního PDF; veřejný záznam proto odkazuje na evidenční stránku a související doložené dokumenty."
+    }
+  ],
+  "exception_rule": "Výjimka znamená pouze to, že nepřítomnost PDF není vadou úplnosti. Existující a ověřené PDF se ani u výjimky nesmí odstranit.",
+  "publication_scope_rule": "Platné a jednoznačně přiřazené PDF lze zveřejnit u každé evidované veřejné listiny i u našich podání; povinný rozsah a publikační rozsah nejsou totéž.",
   "chronology_rule": "Pořadí se řídí issue_date listiny, nikoli datem nahrání, doručení do Evidence Lab ani pořadím zápisu ve zdrojovém souboru.",
-  "current_scope_note": "Aktuálně zahrnuje policii, ministerstva, KPR, státní zastupitelství a soudy; seznam se bude rozšiřovat."
+  "current_scope_note": "Povinné aktivní PDF se kontroluje zejména u policie, ministerstev, KPR a státních zastupitelství. Soudy, soudní exekutoři, Česká televize a ČSSZ smějí být evidovány bez PDF; e-mailový záznam EUDA ze dne 7. srpna 2026 je dokumentovou výjimkou."
 }

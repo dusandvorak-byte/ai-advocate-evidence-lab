@@ -4,11 +4,9 @@ import path from 'node:path';
 const articlePath = 'web/zpravy/04082026-010.html';
 const registryPath = 'project-memory/documents-2026.json';
 const institutionsPath = 'project-memory/institutions.json';
+const policyPath = 'project-memory/active-pdf-policy.json';
 const reportPath = 'web/data/godot-pdf-audit.json';
-const allowedInstitutionTypes = new Set([
-  'ministry','executive_office','prosecution','police','police_lab','court','court_enforcement',
-  'public_institution','independent_authority','eu_agency','executive'
-]);
+
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 const exists = file => access(file).then(() => true).catch(() => false);
 
@@ -35,9 +33,28 @@ async function walk(dir) {
 const article = await readFile(articlePath, 'utf8');
 const registry = JSON.parse(await readFile(registryPath, 'utf8'));
 const institutions = JSON.parse(await readFile(institutionsPath, 'utf8'));
-const institutionMap = new Map(institutions.institutions.map(item => [item.id, item]));
+const policy = JSON.parse(await readFile(policyPath, 'utf8'));
 
-const hrefs = [...article.matchAll(/href=["']([^"']+\.pdf(?:#[^"']*)?)["']/gi)].map(match => match[1].split('#')[0]);
+if (!Array.isArray(registry.documents)) throw new Error('Kanonický registr neobsahuje pole documents');
+if (!Array.isArray(institutions.institutions)) throw new Error('Registr institucí neobsahuje pole institutions');
+if (policy.status !== 'binding') throw new Error('Politika aktivních PDF není závazná');
+
+const institutionMap = new Map(institutions.institutions.map(item => [item.id, item]));
+const requiredInstitutionTypes = new Set(policy.required_institution_types || policy.institution_types || []);
+const exemptInstitutionTypes = new Set(policy.exempt_institution_types || []);
+const exemptInstitutionIds = new Set(policy.exempt_institution_ids || []);
+const documentExceptionMap = new Map((policy.document_exceptions || []).map(item => [item.id, item.reason || null]));
+
+const requiresPdf = doc => {
+  const type = institutionMap.get(doc.institution_id)?.type;
+  return !documentExceptionMap.has(doc.id)
+    && !exemptInstitutionIds.has(doc.institution_id)
+    && !exemptInstitutionTypes.has(type)
+    && requiredInstitutionTypes.has(type);
+};
+
+const hrefs = [...article.matchAll(/href=["']([^"']+\.pdf(?:#[^"']*)?)["']/gi)]
+  .map(match => match[1].split('#')[0]);
 const articlePdfLinks = [...new Set(hrefs)];
 const brokenArticlePdfLinks = [];
 for (const href of articlePdfLinks) {
@@ -46,19 +63,38 @@ for (const href of articlePdfLinks) {
   if (!await usablePdf(file)) brokenArticlePdfLinks.push({ href, file });
 }
 
-const eligible = registry.documents.filter(doc => allowedInstitutionTypes.has(institutionMap.get(doc.institution_id)?.type));
-const eligibleWithActivePdf = eligible.filter(doc => Boolean(doc.public?.pdf));
-const eligibleWithoutActivePdf = eligible.filter(doc => !doc.public?.pdf).map(doc => ({
+const requiredDocuments = registry.documents.filter(requiresPdf);
+const requiredWithActivePdf = requiredDocuments.filter(doc => Boolean(doc.public?.pdf));
+const requiredWithoutActivePdf = requiredDocuments.filter(doc => !doc.public?.pdf).map(doc => ({
   id: doc.id,
   institution_id: doc.institution_id,
   institution: institutionMap.get(doc.institution_id)?.name || doc.institution_id,
+  institution_type: institutionMap.get(doc.institution_id)?.type || null,
   issue_date: doc.issue_date,
   reference: doc.reference,
   title: doc.user_title,
   intended_pdf: doc.public?.intended_pdf || null
 }));
+
+const exemptDocuments = registry.documents.filter(doc => {
+  const type = institutionMap.get(doc.institution_id)?.type;
+  return documentExceptionMap.has(doc.id)
+    || exemptInstitutionIds.has(doc.institution_id)
+    || exemptInstitutionTypes.has(type);
+}).map(doc => ({
+  id: doc.id,
+  institution_id: doc.institution_id,
+  institution_type: institutionMap.get(doc.institution_id)?.type || null,
+  issue_date: doc.issue_date,
+  reference: doc.reference,
+  has_active_pdf: Boolean(doc.public?.pdf),
+  exemption_reason: documentExceptionMap.get(doc.id)
+    || (exemptInstitutionIds.has(doc.institution_id) ? 'institution-id-exception' : 'institution-type-exception')
+}));
+
+const registryPdfDocuments = registry.documents.filter(doc => Boolean(doc.public?.pdf));
 const invalidRegistryPdfLinks = [];
-for (const doc of eligibleWithActivePdf) {
+for (const doc of registryPdfDocuments) {
   const file = `web/${publicPath(doc.public.pdf)}`;
   if (!await usablePdf(file)) invalidRegistryPdfLinks.push({ id: doc.id, pdf: doc.public.pdf, file });
 }
@@ -66,8 +102,9 @@ for (const doc of eligibleWithActivePdf) {
 // Reakce jsou invariant: každé kanonické outgoing podání s relací reakce_na musí být vykresleno
 // uvnitř cílové státní položky. Má-li reakce fyzické public.pdf, Godot musí obsahovat právě tento aktivní PDF odkaz.
 const reactionDocuments = registry.documents.filter(doc =>
-  doc.submission_side === 'outgoing_from_user_or_alliance' &&
-  Array.isArray(doc.relations) && doc.relations.some(rel => rel.type === 'reakce_na' && (rel.target_id || rel.target))
+  doc.submission_side === 'outgoing_from_user_or_alliance'
+  && Array.isArray(doc.relations)
+  && doc.relations.some(rel => rel.type === 'reakce_na' && (rel.target_id || rel.target))
 );
 const missingRenderedReactions = [];
 const missingReactionPdfLinks = [];
@@ -87,8 +124,11 @@ for (const reaction of reactionDocuments) {
   }
   const targetHtml = article.slice(targetStart, targetEnd);
   const evidenceTokens = [reaction.user_title, reaction.reference].filter(Boolean);
-  const hasReactionSignal = targetHtml.includes('chronology-reaction') && evidenceTokens.some(token => targetHtml.includes(String(token).slice(0, Math.min(40, String(token).length))));
-  if (!hasReactionSignal) missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'reaction-not-inline' });
+  const hasReactionSignal = targetHtml.includes('chronology-reaction')
+    && evidenceTokens.some(token => targetHtml.includes(String(token).slice(0, Math.min(40, String(token).length))));
+  if (!hasReactionSignal) {
+    missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'reaction-not-inline' });
+  }
   if (reaction.public?.pdf) {
     const pdf = publicPath(reaction.public.pdf);
     if (!targetHtml.includes(`href="${pdf}"`) && !targetHtml.includes(`href='${pdf}'`)) {
@@ -99,21 +139,40 @@ for (const reaction of reactionDocuments) {
 
 const repoPdfFiles = (await walk('.')).filter(file => /\.pdf$/i.test(file));
 const usableRepoPdfs = [];
-for (const file of repoPdfFiles) if (await usablePdf(file)) usableRepoPdfs.push(file.replace(/^\.\//, ''));
+for (const file of repoPdfFiles) {
+  if (await usablePdf(file)) usableRepoPdfs.push(file.replace(/^\.\//, ''));
+}
 const usablePublicPdfs = usableRepoPdfs.filter(file => file.startsWith('web/documents/'));
 const usablePdfOutsidePublicTree = usableRepoPdfs.filter(file => !file.startsWith('web/documents/'));
 
 const report = {
   generated_at: new Date().toISOString(),
   article: articlePath,
-  active_pdf_scope: [...allowedInstitutionTypes],
+  active_pdf_policy_file: policyPath,
+  active_pdf_scope: [...requiredInstitutionTypes],
+  required_pdf_scope: [...requiredInstitutionTypes],
+  exempt_institution_types: [...exemptInstitutionTypes],
+  exempt_institution_ids: [...exemptInstitutionIds],
+  document_exception_count: documentExceptionMap.size,
   article_pdf_link_count: articlePdfLinks.length,
   broken_article_pdf_link_count: brokenArticlePdfLinks.length,
   broken_article_pdf_links: brokenArticlePdfLinks,
-  eligible_institution_document_count: eligible.length,
-  eligible_with_active_pdf_count: eligibleWithActivePdf.length,
-  eligible_without_active_pdf_count: eligibleWithoutActivePdf.length,
-  eligible_without_active_pdf: eligibleWithoutActivePdf,
+
+  // Zpětně kompatibilní názvy používá build-manifest. Od verze politiky 2 znamenají
+  // „eligible“ pouze skutečně povinný rozsah, nikoli povolené výjimky.
+  eligible_institution_document_count: requiredDocuments.length,
+  eligible_with_active_pdf_count: requiredWithActivePdf.length,
+  eligible_without_active_pdf_count: requiredWithoutActivePdf.length,
+  eligible_without_active_pdf: requiredWithoutActivePdf,
+
+  required_document_count: requiredDocuments.length,
+  required_with_active_pdf_count: requiredWithActivePdf.length,
+  required_without_active_pdf_count: requiredWithoutActivePdf.length,
+  required_without_active_pdf: requiredWithoutActivePdf,
+  exempt_document_count: exemptDocuments.length,
+  exempt_documents: exemptDocuments,
+
+  registry_pdf_document_count: registryPdfDocuments.length,
   invalid_registry_pdf_link_count: invalidRegistryPdfLinks.length,
   invalid_registry_pdf_links: invalidRegistryPdfLinks,
   reaction_document_count: reactionDocuments.length,
@@ -127,10 +186,27 @@ const report = {
   usable_pdf_outside_public_tree_count: usablePdfOutsidePublicTree.length,
   usable_pdf_outside_public_tree: usablePdfOutsidePublicTree
 };
+
 await mkdir('web/data', { recursive: true });
 await writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
 
-if (brokenArticlePdfLinks.length || invalidRegistryPdfLinks.length || missingRenderedReactions.length || missingReactionPdfLinks.length) {
-  throw new Error(`Godot audit selhal: ${brokenArticlePdfLinks.length} nefunkčních PDF, ${invalidRegistryPdfLinks.length} neplatných registrovaných PDF, ${missingRenderedReactions.length} chybějících inline reakcí, ${missingReactionPdfLinks.length} reakcí bez aktivního PDF odkazu.`);
+if (
+  brokenArticlePdfLinks.length
+  || invalidRegistryPdfLinks.length
+  || missingRenderedReactions.length
+  || missingReactionPdfLinks.length
+) {
+  throw new Error(
+    `Godot audit selhal: ${brokenArticlePdfLinks.length} nefunkčních PDF, `
+    + `${invalidRegistryPdfLinks.length} neplatných registrovaných PDF, `
+    + `${missingRenderedReactions.length} chybějících inline reakcí, `
+    + `${missingReactionPdfLinks.length} reakcí bez aktivního PDF odkazu.`
+  );
 }
-console.log(`Godot audit: ${articlePdfLinks.length} aktivních PDF odkazů; ${eligibleWithActivePdf.length}/${eligible.length} oprávněných institucionálních listin má PDF; ${reactionDocuments.length}/${reactionDocuments.length} kanonických reakcí vykresleno inline; 0 chybějících aktivních reaction PDF.`);
+
+console.log(
+  `Godot audit: ${articlePdfLinks.length} aktivních PDF odkazů; `
+  + `${requiredWithActivePdf.length}/${requiredDocuments.length} povinných institucionálních listin má PDF; `
+  + `${exemptDocuments.length} dokumentů je v povolené výjimce; `
+  + `${reactionDocuments.length}/${reactionDocuments.length} kanonických reakcí vykresleno inline.`
+);
