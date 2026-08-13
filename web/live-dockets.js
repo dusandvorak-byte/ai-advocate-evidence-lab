@@ -1,4 +1,9 @@
 (() => {
+  const brandSubtitle = document.querySelector('.masthead .brand span');
+  if (brandSubtitle) {
+    brandSubtitle.textContent = 'Reportér důkazů kartelu, korupce a zločinů státu ve věci konopí';
+  }
+
   const alertText = document.querySelector('.newsroom-alert span');
   if (alertText) {
     alertText.textContent = 'Chronologický seznam dokumentů sbírky Godot on-line od 1. května 2026.';
