@@ -9,6 +9,7 @@ const allowedInstitutionTypes = new Set([
   'ministry','executive_office','prosecution','police','police_lab','court','court_enforcement',
   'public_institution','independent_authority','eu_agency','executive'
 ]);
+const OUR_FILENAME_MARKERS = /(?:^|[-_])(dvorak|citc|gfaa|ganja-for-all-animals|cannabis-is-the-cure)(?:[-_.]|$)/i;
 
 const exists = file => access(file).then(() => true).catch(() => false);
 const norm = value => String(value || '')
@@ -21,6 +22,8 @@ const compact = value => norm(value).replace(/\s+/g, '');
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 const dateParts = value => String(value || '').split('-').filter(Boolean);
 const refTokens = value => norm(value).split(/\s+/).filter(token => token.length >= 2 || /^\d$/.test(token));
+const isOurSubmission = doc => doc.submission_side === 'outgoing_from_user_or_alliance';
+const isOurNamedFile = file => OUR_FILENAME_MARKERS.test(path.basename(file));
 
 async function walk(dir) {
   const out = [];
@@ -46,9 +49,7 @@ const institutions = JSON.parse(await readFile(institutionsPath, 'utf8'));
 if (!Array.isArray(registry.documents)) throw new Error('Kanonický registr neobsahuje pole documents');
 if (!Array.isArray(institutions.institutions)) throw new Error('Registr institucí neobsahuje pole institutions');
 const institutionMap = new Map(institutions.institutions.map(item => [item.id, item]));
-const mayHaveActivePdf = doc =>
-  doc.submission_side === 'outgoing_from_user_or_alliance' ||
-  allowedInstitutionTypes.has(institutionMap.get(doc.institution_id)?.type);
+const mayHaveActivePdf = doc => isOurSubmission(doc) || allowedInstitutionTypes.has(institutionMap.get(doc.institution_id)?.type);
 
 const sourceFiles = (await readdir(memoryDir))
   .filter(name => /^report-.*-sources\.json$/i.test(name))
@@ -56,9 +57,7 @@ const sourceFiles = (await readdir(memoryDir))
 const sources = [];
 for (const file of sourceFiles) {
   const data = JSON.parse(await readFile(file, 'utf8'));
-  for (const item of data.sources || []) {
-    if (item.path && /\.pdf$/i.test(item.path)) sources.push({ ...item, source_manifest: file });
-  }
+  for (const item of data.sources || []) if (item.path && /\.pdf$/i.test(item.path)) sources.push({ ...item, source_manifest: file });
 }
 
 const declaredOwners = new Map();
@@ -86,7 +85,26 @@ const invalidated = [];
 const withheldByPolicy = [];
 const unmatchedEligible = [];
 
+// Tvrdý axiom vlastnictví: soubor pojmenovaný jako naše podání nesmí nikdy získat státní dokument.
+// Současně předem rezervujeme platné explicitní odkazy našich podání, aby pořadí registru nemohlo jejich PDF ukrást.
+for (const doc of registry.documents.filter(isOurSubmission)) {
+  if (!doc.public?.pdf) continue;
+  const repoPath = `web/${publicPath(doc.public.pdf)}`;
+  if (!validPhysicalSet.has(repoPath)) continue;
+  const previous = usedPaths.get(repoPath);
+  if (previous && previous !== doc.id) throw new Error(`Naše explicitní PDF ${repoPath} je deklarováno dvěma dokumenty: ${previous}, ${doc.id}`);
+  usedPaths.set(repoPath, doc.id);
+}
+
+function fileEligibleForDocument(doc, file) {
+  if (!isOurSubmission(doc) && isOurNamedFile(file)) return false;
+  const reserved = usedPaths.get(file);
+  if (reserved && reserved !== doc.id) return false;
+  return true;
+}
+
 function scorePhysicalCandidate(doc, file) {
+  if (!fileEligibleForDocument(doc, file)) return { score: -999, reasons: ['ownership-policy-rejected'] };
   const filename = norm(path.basename(file));
   const filenameTokens = new Set(filename.split(/\s+/).filter(Boolean));
   const filenameCompact = compact(path.basename(file));
@@ -96,25 +114,20 @@ function scorePhysicalCandidate(doc, file) {
   const aliases = [doc.institution_id, inst.short_name, inst.name, inst.name_cs].filter(Boolean).flatMap(refTokens);
   let score = 0;
   const reasons = [];
-
-  if (ref && filenameCompact.includes(ref)) {
-    score += 120;
-    reasons.push('full-reference');
-  } else if (tokens.length) {
+  if (ref && filenameCompact.includes(ref)) { score += 120; reasons.push('full-reference'); }
+  else if (tokens.length) {
     const matched = tokens.filter(token => filenameTokens.has(token));
     const ratio = matched.length / tokens.length;
     if (ratio === 1) { score += 90; reasons.push('all-reference-tokens'); }
     else if (ratio >= 0.75 && matched.length >= 3) { score += 65; reasons.push('most-reference-tokens'); }
     else if (ratio >= 0.5 && matched.length >= 3) { score += 40; reasons.push('half-reference-tokens'); }
   }
-
   const [year, month, day] = dateParts(doc.issue_date);
   if (year && filenameTokens.has(year)) { score += 8; reasons.push('year'); }
   if (year && month && day) {
     const dateVariants = [`${year}-${month}-${day}`,`${day}-${month}-${year}`,`${day}.${month}.${year}`,`${Number(day)}-${Number(month)}-${year}`,`${Number(day)}.${Number(month)}.${year}`].map(norm);
     if (dateVariants.some(value => value && filename.includes(value))) { score += 18; reasons.push('full-date'); }
   }
-
   const aliasHits = [...new Set(aliases.filter(token => token.length >= 3 && filenameTokens.has(token)))];
   if (aliasHits.length) { score += Math.min(12, aliasHits.length * 3); reasons.push('institution'); }
   return { score, reasons };
@@ -126,43 +139,36 @@ for (const doc of registry.documents) {
 
   if (!allowed && doc.public.pdf) {
     withheldByPolicy.push({ id: doc.id, institution_id: doc.institution_id, previous_pdf: doc.public.pdf });
-    doc.public.pdf = null;
-    doc.public.sha256 = null;
-    doc.public.verification_status = 'catalogued_no_public_link';
+    doc.public.pdf = null; doc.public.sha256 = null; doc.public.verification_status = 'catalogued_no_public_link';
     continue;
   }
 
   if (doc.public.pdf) {
     const repoPath = `web/${publicPath(doc.public.pdf)}`;
-    if (validPhysicalSet.has(repoPath)) {
+    const ownershipViolation = !isOurSubmission(doc) && isOurNamedFile(repoPath);
+    if (ownershipViolation) {
+      invalidated.push({ id: doc.id, institution_id: doc.institution_id, invalid_pdf: doc.public.pdf, reason: 'state-document-cannot-own-user-named-pdf' });
+      doc.public.pdf = null; doc.public.sha256 = null; doc.public.verification_status = 'wrong_public_file_rejected';
+    } else if (validPhysicalSet.has(repoPath)) {
       const declaredOwner = declaredOwners.get(repoPath);
       if (declaredOwner && declaredOwner !== doc.id) {
         invalidated.push({ id: doc.id, institution_id: doc.institution_id, invalid_pdf: doc.public.pdf, reason: `manifest-owned-by:${declaredOwner}` });
-        doc.public.pdf = null;
-        doc.public.sha256 = null;
-        doc.public.verification_status = 'wrong_public_file_rejected';
+        doc.public.pdf = null; doc.public.sha256 = null; doc.public.verification_status = 'wrong_public_file_rejected';
       } else {
         const owner = usedPaths.get(repoPath);
         if (!owner || owner === doc.id) {
-          usedPaths.set(repoPath, doc.id);
-          doc.public.verification_status = 'published';
-          continue;
+          usedPaths.set(repoPath, doc.id); doc.public.verification_status = 'published'; continue;
         }
         invalidated.push({ id: doc.id, institution_id: doc.institution_id, invalid_pdf: doc.public.pdf, reason: `duplicate-public-pdf-owned-by:${owner}` });
-        doc.public.pdf = null;
-        doc.public.sha256 = null;
-        doc.public.verification_status = 'duplicate_public_file_rejected';
+        doc.public.pdf = null; doc.public.sha256 = null; doc.public.verification_status = 'duplicate_public_file_rejected';
       }
     } else {
       invalidated.push({ id: doc.id, institution_id: doc.institution_id, invalid_pdf: doc.public.pdf, reason: 'invalid-public-pdf' });
-      doc.public.pdf = null;
-      doc.public.sha256 = null;
-      doc.public.verification_status = 'invalid_public_file';
+      doc.public.pdf = null; doc.public.sha256 = null; doc.public.verification_status = 'invalid_public_file';
     }
   }
 
   if (!allowed) continue;
-
   const ref = compact(doc.reference);
   const date = doc.issue_date;
   let candidates = sources.filter(src => {
@@ -171,22 +177,18 @@ for (const doc of registry.documents) {
     const sourceRef = compact(src.reference);
     return sameDate && sameInstitution && ref && sourceRef && sourceRef === ref;
   });
-
-  candidates = candidates.filter(src => validPhysicalSet.has(src.path) && !usedPaths.has(src.path));
+  candidates = candidates.filter(src => validPhysicalSet.has(src.path) && fileEligibleForDocument(doc, src.path));
   let unique = [...new Map(candidates.map(src => [src.path, src])).values()];
 
   if (!unique.length) {
     const scored = validPhysicalPdfs
-      .filter(file => !usedPaths.has(file))
+      .filter(file => fileEligibleForDocument(doc, file))
       .filter(file => !declaredOwners.has(file) || declaredOwners.get(file) === doc.id)
       .map(file => ({ path: file, ...scorePhysicalCandidate(doc, file) }))
       .filter(item => item.score >= 80)
       .sort((a, b) => b.score - a.score || a.path.localeCompare(b.path));
     if (scored.length && (scored.length === 1 || scored[0].score >= scored[1].score + 20)) unique = [scored[0]];
-    else if (scored.length) {
-      unresolved.push({ id: doc.id, reference: doc.reference, reason: 'ambiguous-scored-match', candidates: scored.slice(0, 5) });
-      continue;
-    }
+    else if (scored.length) { unresolved.push({ id: doc.id, reference: doc.reference, reason: 'ambiguous-scored-match', candidates: scored.slice(0, 5) }); continue; }
   }
 
   if (unique.length === 1) {
@@ -199,16 +201,14 @@ for (const doc of registry.documents) {
     doc.public.source_manifest = source.source_manifest || 'filename-reference-date-reconciliation';
     usedPaths.set(source.path, doc.id);
     changes.push({ id: doc.id, reference: doc.reference, pdf: doc.public.pdf, score: source.score ?? null, reasons: source.reasons ?? [] });
-  } else if (unique.length > 1) {
-    unresolved.push({ id: doc.id, reference: doc.reference, reason: 'ambiguous-manifest-match', candidates: unique.map(x => x.path) });
-  } else {
-    unmatchedEligible.push({ id: doc.id, institution_id: doc.institution_id, reference: doc.reference, issue_date: doc.issue_date });
-  }
+  } else if (unique.length > 1) unresolved.push({ id: doc.id, reference: doc.reference, reason: 'ambiguous-manifest-match', candidates: unique.map(x => x.path) });
+  else unmatchedEligible.push({ id: doc.id, institution_id: doc.institution_id, reference: doc.reference, issue_date: doc.issue_date });
 }
 
 registry.reconciliation = {
   updated_at: new Date().toISOString(),
-  active_pdf_policy: 'Aktivní PDF se zachovává u všech veřejných institucí a u všech našich podání, pokud fyzický PDF soubor existuje, je použitelný a jednoznačně přiřaditelný. Reconciler nesmí skrývat PDF jen podle typu původce.',
+  active_pdf_policy: 'Aktivní PDF se zachovává u všech veřejných institucí a u všech našich podání, pokud fyzický PDF soubor existuje, je použitelný a jednoznačně přiřaditelný. PDF označené jako naše podání se nikdy nesmí stát originálem státní instituce.',
+  ownership_axiom: 'user-named-pdf-never-state-original',
   source_manifests: sourceFiles,
   physical_pdf_count: allPhysicalPdfs.length,
   usable_physical_pdf_count: validPhysicalPdfs.length,
@@ -223,19 +223,12 @@ registry.reconciliation = {
 
 await writeFile(registryPath, `${JSON.stringify(registry, null, 2)}\n`, 'utf8');
 await writeFile('project-memory/pdf-reconciliation-report.json', `${JSON.stringify({
-  generated_at: new Date().toISOString(),
-  active_pdf_policy: registry.reconciliation.active_pdf_policy,
-  physical_pdf_count: allPhysicalPdfs.length,
-  usable_physical_pdf_count: validPhysicalPdfs.length,
-  invalid_physical_files: allPhysicalPdfs.filter(file => !validity.get(file)),
-  source_manifest_pdf_count: sources.length,
-  linked_pdf_count: registry.reconciliation.linked_pdf_count,
-  newly_linked: changes,
-  invalidated,
-  withheld_by_policy: withheldByPolicy,
-  unresolved,
-  unmatched_eligible: unmatchedEligible,
+  generated_at: new Date().toISOString(), active_pdf_policy: registry.reconciliation.active_pdf_policy,
+  ownership_axiom: registry.reconciliation.ownership_axiom,
+  physical_pdf_count: allPhysicalPdfs.length, usable_physical_pdf_count: validPhysicalPdfs.length,
+  invalid_physical_files: allPhysicalPdfs.filter(file => !validity.get(file)), source_manifest_pdf_count: sources.length,
+  linked_pdf_count: registry.reconciliation.linked_pdf_count, newly_linked: changes, invalidated,
+  withheld_by_policy: withheldByPolicy, unresolved, unmatched_eligible: unmatchedEligible,
   unlinked_usable_physical_pdfs: validPhysicalPdfs.filter(file => !usedPaths.has(file))
 }, null, 2)}\n`, 'utf8');
-
-console.log(`PDF reconciliation: ${changes.length} nových vazeb, ${registry.reconciliation.linked_pdf_count} aktivních PDF, ${invalidated.length} falešných odkazů odstraněno, ${withheldByPolicy.length} odkazů skryto podle pravidla, ${unmatchedEligible.length} oprávněných listin bez jednoznačné fyzické shody.`);
+console.log(`PDF reconciliation: ${changes.length} nových vazeb, ${registry.reconciliation.linked_pdf_count} aktivních PDF, ${invalidated.length} falešných odkazů odstraněno; vlastnictví našich PDF je chráněno axiomem.`);
