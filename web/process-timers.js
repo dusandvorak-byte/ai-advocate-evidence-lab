@@ -8,6 +8,25 @@
   };
   const today = calendarDayUtc(new Date());
 
+  const isWeekday = utc => {
+    const day = new Date(utc).getUTCDay();
+    return day !== 0 && day !== 6;
+  };
+
+  const inclusiveCalendarDay = (start, stop) => {
+    if (stop < start) return 0;
+    return Math.floor((stop - start) / MS_DAY) + 1;
+  };
+
+  const inclusiveWorkingDay = (start, stop) => {
+    if (stop < start) return 0;
+    let count = 0;
+    for (let cursor = start; cursor <= stop; cursor += MS_DAY) {
+      if (isWeekday(cursor)) count += 1;
+    }
+    return count;
+  };
+
   document.querySelectorAll('[data-process-timer]').forEach(node => {
     const start = parseDayUtc(node.dataset.startDate);
     const elapsedNode = node.querySelector('[data-elapsed-days]');
@@ -19,7 +38,11 @@
     }
     const end = parseDayUtc(node.dataset.endDate);
     const stop = end === null ? today : Math.min(today, end);
-    elapsedNode.textContent = String(Math.max(0, Math.floor((stop - start) / MS_DAY)));
+    const limitText = (node.querySelector('.timer-value')?.textContent || '').toLowerCase();
+    const workingDays = limitText.includes('pracovních dn');
+    elapsedNode.textContent = String(
+      workingDays ? inclusiveWorkingDay(start, stop) : inclusiveCalendarDay(start, stop)
+    );
   });
 
   const priorityIds = [
