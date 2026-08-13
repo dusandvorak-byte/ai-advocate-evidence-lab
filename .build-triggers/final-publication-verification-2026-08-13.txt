@@ -1,0 +1,17 @@
+Finální ověření veřejné publikace — 13. srpna 2026, Europe/Prague
+
+Výchozí zdrojový commit před tímto ověřením: a3d40d1b2a9239b9d96e57b53385c24875300bff
+Ověřený publikační commit gh-pages: c1fc9be1accd2ca367f9153ac75d1e8b51b4c1f5
+Publikační commit výslovně uvádí, že byl vytvořen ze zdroje a3d40d1b2a9239b9d96e57b53385c24875300bff.
+
+Ověřený rozsah:
+- titulní stránka CannaInsider.EU,
+- česká a anglická veřejná varianta,
+- česká a anglická varianta Konopné církve,
+- článek web/zpravy/04082026-010.html,
+- chronologie Godota,
+- KPR č. j. 4873/2026 ze dne 12. 8. 2026,
+- MK č. j. MK 49467/2026-SOCNS ze dne 12. 8. 2026,
+- veřejná PDF a jejich relativní cesty.
+
+Poslední uložený audit článku eviduje 47 PDF odkazů a 0 nefunkčních PDF odkazů. Jeho čas vytvoření je 12. 8. 2026; tento soubor slouží také jako jednoznačný podnět k novému sestavení a publikaci k 13. 8. 2026.
