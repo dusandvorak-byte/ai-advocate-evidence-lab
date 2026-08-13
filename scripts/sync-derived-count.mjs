@@ -1,0 +1,10 @@
+import {readFile,writeFile} from 'node:fs/promises';
+const a=await readFile('web/index.html','utf8');
+const n=a.match(/data-state-document-count>(\d+)</)?.[1];
+if(!n) throw new Error('count missing');
+let x=await readFile('web/kc/index.html','utf8');
+x=x.replace(/obsahuje \d+ státních listin/i,`obsahuje ${n} státních listin`);
+await writeFile('web/kc/index.html',x,'utf8');
+let y=await readFile('web/kc/en.html','utf8');
+y=y.replace(/contains \d+ state records/i,`contains ${n} state records`);
+await writeFile('web/kc/en.html',y,'utf8');
