@@ -30,10 +30,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Materializovat ověřené binární PDF zdroje
+        run: node scripts/materialize-binary-sources.mjs
       - name: Spustit jediný kanonický build
         run: node scripts/build-site.mjs
       - name: Finalizovat veřejné popisky bez změny kanonických dat
         run: node scripts/finalize-public-labels.mjs
+      - name: Vynutit závaznou značku titulní strany
+        run: node scripts/enforce-homepage-brand.mjs
+      - name: Vynutit společnou šířkovou osu všech veřejných ploch
+        run: node scripts/enforce-shared-shell.mjs
+      - name: Ověřit věcné publikační invarianty
+        run: node scripts/validate-publication-invariants.mjs
       - name: Ověřit Evidence Lab 2.0 před publikací
         shell: bash
         run: |
@@ -47,23 +55,23 @@ jobs:
           grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' web/zpravy/04082026-010.html
           ! grep -q 'Pavouk český křižák z Branibor' web/zpravy/04082026-010.html
           ! grep -q 'href="web/' web/zpravy/04082026-010.html
+          grep -q 'Reportér důkazů kartelu, korupce a zločinů státu ve věci konopí' web/index.html
+          grep -q 'href="shell-axis.css"' web/index.html
+          grep -q 'href="shell-axis.css"' web/en.html
+          grep -q 'href="shell-axis.css"' web/kc/index.html
+          grep -q 'href="shell-axis.css"' web/kc/en.html
           grep -q '"schema_version": "2.2"' web/data/build-manifest.json
-          grep -q '"build_entrypoint": "scripts/build-site.mjs"' web/data/build-manifest.json
           grep -q '"registry_hard_errors": 0' web/data/build-manifest.json
-          grep -q '"single_public_build_entrypoint": true' web/data/build-manifest.json
-          grep -q '"two_derived_submission_counters": true' web/data/build-manifest.json
-          grep -q '"five_alliance_privacy_exemptions": true' web/data/build-manifest.json
           grep -q 'Otevřít originální listinu v PDF' web/listiny/nsz-6-nzn-1737-2026-15.html
-          grep -q 'ověřená veřejná kopie PDF' web/zpravy/04082026-010.html
-          grep -q 'Otevřít ověřenou veřejnou kopii PDF' web/listiny/doc-cz-kpr-2026-07-30-kpr-5772-2026-1.html
-          grep -q 'Otevřít ověřenou veřejnou kopii PDF' web/listiny/doc-cz-kpr-2026-08-03-kpr-5080-2026.html
-          ! grep -Eqi '<a href="[^"]*verejna-kopie\.pdf"[^>]*>[^<]*originál' web/zpravy/04082026-010.html
-          test -f web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf
-          test -f web/documents/report-04082026-010/kpr-5772-2026-1-2026-07-30-verejna-kopie.pdf
-          test -f web/documents/report-04082026-010/kpr-5080-2026-2026-08-03-verejna-kopie.pdf
-          test "$(head -c 5 web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf)" = '%PDF-'
-          test "$(head -c 5 web/documents/report-04082026-010/kpr-5772-2026-1-2026-07-30-verejna-kopie.pdf)" = '%PDF-'
-          test "$(head -c 5 web/documents/report-04082026-010/kpr-5080-2026-2026-08-03-verejna-kopie.pdf)" = '%PDF-'
+          test -f web/documents/report-04082026-010/25-mv-127234-2-obp-2026-2026-08-11.pdf
+          test -f web/documents/report-04082026-010/26-gfaa-rozklad-mv-127234-2-obp-2026-2026-08-12.pdf
+          test -f web/documents/report-04082026-010/27-mk-49467-2026-socns-2026-08-12.pdf
+          test -f web/documents/report-04082026-010/28-dvorak-odvolani-nsz-sin-55-2026-19-2026-08-01.pdf
+          test -f web/documents/report-04082026-010/29-dvorak-odvolani-msz-sin-48-2026-12-2026-07-31.pdf
+          test -f web/documents/report-04082026-010/30-dvorak-stiznost-msz-necinnost-infz-2026-07-31.pdf
+          for f in web/documents/report-04082026-010/{25-mv-127234-2-obp-2026-2026-08-11,26-gfaa-rozklad-mv-127234-2-obp-2026-2026-08-12,27-mk-49467-2026-socns-2026-08-12,28-dvorak-odvolani-nsz-sin-55-2026-19-2026-08-01,29-dvorak-odvolani-msz-sin-48-2026-12-2026-07-31,30-dvorak-stiznost-msz-necinnost-infz-2026-07-31}.pdf; do
+            test "$(head -c 5 "$f")" = '%PDF-'
+          done
       - name: Připravit kořen webu a kompatibilní cestu /web
         shell: bash
         run: |
@@ -92,5 +100,5 @@ jobs:
           git push --force origin HEAD:gh-pages
       - name: Souhrn
         run: |
-          echo "Evidence Lab 2.0 byl po úspěšné validaci publikován pouze do větve gh-pages."
+          echo "Evidence Lab 2.0 byl publikován pouze po věcné i technické validaci."
           echo "Kořenové URL i kompatibilní /web/ URL jsou součástí stejného ověřeného buildu."
