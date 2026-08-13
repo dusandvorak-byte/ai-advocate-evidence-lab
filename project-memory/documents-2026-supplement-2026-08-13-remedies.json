@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-13",
+  "purpose": "Kanonizace dříve doložených opravných prostředků z 31. 7. a 1. 8. 2026, aby časovače, vazby a aktivní PDF nebyly závislé na ručním seznamu.",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-08-01-odvolani-nsz-sin-55-2026-19",
+      "user_title": "Odvolání proti rozhodnutí Nejvyššího státního zastupitelství ze dne 30. 7. 2026, č. j. SIN 55/2026-19",
+      "issue_date": "2026-08-01",
+      "received_date": "2026-08-01",
+      "institution_id": "CZ-DD",
+      "reference": "odvolání proti SIN 55/2026-19",
+      "case_ids": [],
+      "document_type": "appeal",
+      "topics": ["odvolání", "InfZ", "NSZ", "ÚOOÚ", "SIN 55/2026-19"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/28-dvorak-odvolani-nsz-sin-55-2026-19-2026-08-01.pdf",
+        "sha256": "021a9c83a3079ab0b6e26205c510e6d8b1633dfe3c30c57c3048538942fb91b3",
+        "verification_status": "source_verified_exact_hash_pending_binary_publish"
+      },
+      "relations": [{"type": "reakce_na", "target_id": "doc-cz-nsz-2026-07-30-sin-55-2026-19"}],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Odvolatel Mgr. Dušan Dvořák podal dne 1. 8. 2026 odvolání v celém rozsahu proti rozhodnutí NSZ SIN 55/2026-19; odvolacím orgánem je ÚOOÚ prostřednictvím NSZ. Datum listiny je současně evidováno jako datum podání/doručení."
+    },
+    {
+      "id": "doc-cz-dd-2026-07-31-odvolani-msz-sin-48-2026-12",
+      "user_title": "Odvolání proti rozhodnutí Městského státního zastupitelství v Praze ze dne 30. 7. 2026, č. j. Sin 48/2026-12",
+      "issue_date": "2026-07-31",
+      "received_date": "2026-07-31",
+      "institution_id": "CZ-DD",
+      "reference": "odvolání proti Sin 48/2026-12",
+      "case_ids": [],
+      "document_type": "appeal",
+      "topics": ["odvolání", "InfZ", "MSZ Praha", "VSZ Praha", "Sin 48/2026-12"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/29-dvorak-odvolani-msz-sin-48-2026-12-2026-07-31.pdf",
+        "sha256": "564fa5536735679523d976664eb805fa82987c7699134a15f483c530b4a40e02",
+        "verification_status": "source_verified_exact_hash_pending_binary_publish"
+      },
+      "relations": [{"type": "reakce_na", "target_id": "doc-cz-msz-pha-2026-07-30-sin-48-2026-12"}],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Mgr. Dušan Dvořák podal dne 31. 7. 2026 prostřednictvím MSZ Praha odvolání k VSZ Praha proti rozhodnutí Sin 48/2026-12 v celém rozsahu. Datum listiny je současně evidováno jako datum podání/doručení."
+    },
+    {
+      "id": "doc-cz-dd-2026-07-31-stiznost-msz-necinnost-infz",
+      "user_title": "Stížnost podle § 16a InfZ na nečinnost Městského státního zastupitelství v Praze při žádostech doručených 8. a 13. 7. 2026",
+      "issue_date": "2026-07-31",
+      "received_date": "2026-07-31",
+      "institution_id": "CZ-DD",
+      "reference": "stížnost podle § 16a InfZ – žádosti 8. 7. a 13. 7. 2026",
+      "case_ids": [],
+      "document_type": "appeal",
+      "topics": ["stížnost", "§ 16a InfZ", "nečinnost", "MSZ Praha", "VSZ Praha", "žádost 8. 7. 2026", "žádost 13. 7. 2026"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/30-dvorak-stiznost-msz-necinnost-infz-2026-07-31.pdf",
+        "sha256": "77e623a6b0af714d479ec8b8c4fda8ea3fef0d2330f0dc6fcf541258c73e9dec",
+        "verification_status": "source_verified_exact_hash_pending_binary_publish"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Stížnost Mgr. Dušana Dvořáka podle § 16a odst. 1 písm. b) InfZ na neposkytnutí informací, nevydání rozhodnutí a neoznámení prodloužení lhůty u žádostí doručených MSZ Praha 8. a 13. 7. 2026. Podána 31. 7. 2026 prostřednictvím MSZ Praha k VSZ Praha."
+    }
+  ]
+}
