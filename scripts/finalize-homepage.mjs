@@ -46,7 +46,6 @@ function removeSectionById(html, id) {
   if (markerPos === -1) return html;
   const start = html.lastIndexOf('<section', markerPos);
   if (start === -1) throw new Error(`Blok ${id} nemá počáteční <section>`);
-
   const token = /<section\b|<\/section>/g;
   token.lastIndex = start;
   let depth = 0;
@@ -60,17 +59,25 @@ function removeSectionById(html, id) {
 }
 
 let home = await readFile(homePath, 'utf8');
-
 home = home.replace(/<section class="newsroom-alert" id="prave-ted">[\s\S]*?<\/section>/, `<section class="newsroom-alert" id="prave-ted"><b>HLAVNÍ ZPRÁVA DNE</b><span>EUDA dne 7. srpna 2026 potvrdila přijetí formální výzvy podle čl. 265 SFEU.</span><a href="zpravy/07082026-011.html">Číst celý článek →</a></section>`);
 
-home = home.replace(/<article class="lead-card">[\s\S]*?<\/article>/, `<article class="lead-card">
+const leadCard = `<article class="lead-card">
   <figure><img src="assets/votruba/write-lawmakers.jpg" alt="Černobílá kresba Jiřího Votruby: ruka zapisuje zprávu"><figcaption>Jiří Votruba</figcaption></figure>
   <div><p class="kicker">HLAVNÍ ZPRÁVA DNE · CANNAINSIDER NEWS · 7. 8. 2026 · EVROPSKÁ VĚTEV · REPORT 07082026-011</p>
   <h1><a href="zpravy/07082026-011.html">Lorraine Nolan s láskou</a></h1>
   <p class="standfirst">EUDA potvrdila přijetí formální výzvy k jednání podle čl. 265 SFEU. Evropská větev sleduje srovnatelnost analytických metod stanovení THC a THC/THCA.</p>
   <div class="score score-red"><strong>9/9</strong><span>EVROPSKÁ PROCESNÍ VĚTEV · FORMÁLNÍ VÝZVA K JEDNÁNÍ</span></div>
   <div class="news-meta"><span>7. 8. 2026</span><span>EUDA</span><span>čl. 265 SFEU</span><span>Česká autorská verze</span></div></div>
-</article>`);
+</article>`;
+const leadRollup = `<details class="home-rollup home-rollup-heavy lead-rollup"><summary><span class="rollup-title">ZPRÁVA DNE · CANNAINSIDER.EU NEWS · 7. 8. 2026 · EVROPSKÁ VĚTEV · REPORT 07082026-011 →</span><span class="rollup-prompt"></span><span class="rollup-heart">❤️</span><b>Rozbalit →</b></summary>${leadCard}</details>`;
+
+// Odstranit případný starší JS/HTML wrapper a zapsat šestou roletku přímo do HTML.
+home = home.replace(/<details class="home-rollup home-rollup-heavy lead-rollup">[\s\S]*?<\/details>/, leadRollup);
+if (!home.includes('class="home-rollup home-rollup-heavy lead-rollup"')) {
+  home = home.replace(/<article class="lead-card">[\s\S]*?<\/article>/, leadRollup);
+} else {
+  home = home.replace(/<article class="lead-card">[\s\S]*?<\/article>/, leadCard);
+}
 
 home = home.replace(/<div class="news-stack">[\s\S]*?<\/div>\s*<\/section>/, `<div class="news-stack">
   <article class="news-card"><p class="kicker">2. ZPRÁVA · REPORT 04082026-010 · PRŮBĚŽNĚ AKTUALIZOVÁNO</p><h2><a href="zpravy/04082026-010.html">Státu lásky čas</a></h2><p>Godot on-line: chronologická mapa řízení, rozhodnutí, vyrozumění, výzev a procesních vazeb. Dnešní reakce EUDA je zařazena do chronologie.</p><div class="news-meta"><span>9/9 · Godot on-line</span></div></article>
@@ -78,16 +85,11 @@ home = home.replace(/<div class="news-stack">[\s\S]*?<\/div>\s*<\/section>/, `<d
 </div></section>`);
 
 home = home.replace(/data-exclude-ids="[^"]*"/, 'data-exclude-ids="07082026-011 04082026-010 24072026-006"');
-
 if (!home.includes('<link rel="stylesheet" href="live-dockets.css">')) home = home.replace('</head>', '  <link rel="stylesheet" href="live-dockets.css">\n</head>');
 if (!home.includes('<script src="live-dockets.js" defer></script>')) home = home.replace('</body>', '  <script src="live-dockets.js" defer></script>\n</body>');
-
-// Finalizace musí být idempotentní: starší vygenerovaný blok se před vložením nové verze odstraní.
 home = removeSectionById(home, 'live-dockets');
-
 const editionBar = /(<div class="edition-bar">[\s\S]*?<\/div>)/;
 if (!editionBar.test(home)) throw new Error('Na titulní stránce chybí edition-bar pro vložení tří lišt');
 home = home.replace(editionBar, `$1\n${section}`);
-
 await writeFile(homePath, home, 'utf8');
-console.log(`Titulní strana: 1. Lorraine Nolan s láskou; 2. Státu lásky čas; živé řízení zachováno. Počet veřejných institucionálních listin: ${stateCount}.`);
+console.log(`Titulní strana: šestá roletka evropské zprávy dne je součástí statického HTML. Počet veřejných institucionálních listin: ${stateCount}.`);
