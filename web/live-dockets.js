@@ -17,5 +17,12 @@
   if(mount){wrapper=document.createElement('section');wrapper.id='live-dockets';wrapper.className='live-dockets';for(const s of sections){const d=document.createElement('details');d.className=`live-docket-bar ${s.cls} home-rollup`;const sum=document.createElement('summary');sum.innerHTML=makeSummary(s.title,'číst jako investigativu s láskou →');const grid=document.createElement('div');grid.className='live-docket-links';for(const [label,href] of s.items){const a=document.createElement('a');a.href=href;a.textContent=label;grid.append(a)}d.append(sum,grid);wrapper.append(d)}mount.insertAdjacentElement('afterend',wrapper)}
   const latest=document.getElementById('latest-records'); if(latest){const grid=latest.querySelector('.latest-record-grid');const d=document.createElement('details');d.id='latest-records';d.className='latest-records latest-records-dropdown home-rollup home-rollup-heavy';const sum=document.createElement('summary');sum.innerHTML=makeSummary(`Státu lásky čas do ${today} →`,'poslední tři polibky státu →');if(grid)d.append(sum,grid);else d.append(sum);latest.replaceWith(d)}
   const alert=document.querySelector('.newsroom-alert'); if(alert){const d=document.createElement('details');d.className='home-rollup home-rollup-heavy godot-rollup';const sum=document.createElement('summary');sum.innerHTML=makeSummary(`Státu lásky čas od 1. května 2026 do ${today} znamená celkem ${stateCount} vášnivých polibků státních orgánů při čekání na Godota →`,'');const body=document.createElement('div');body.className='rollup-body';body.innerHTML='<a href="zpravy/04082026-010.html">Číst celý článek →</a>';d.append(sum,body);alert.replaceWith(d)}
-  const lead=document.querySelector('.lead-card'); if(lead){const d=document.createElement('details');d.className='home-rollup home-rollup-heavy lead-rollup';const sum=document.createElement('summary');sum.innerHTML=makeSummary('ZPRÁVA DNE · CANNAINSIDER.EU NEWS · 7. 8. 2026 · EVROPSKÁ VĚTEV · REPORT 07082026-011 →','');d.append(sum,lead);lead.replaceWith(d)}
+  const lead=document.querySelector('.lead-card');
+  if(lead){
+    const d=document.createElement('details'); d.className='home-rollup home-rollup-heavy lead-rollup';
+    const sum=document.createElement('summary'); sum.innerHTML=makeSummary('ZPRÁVA DNE · CANNAINSIDER.EU NEWS · 7. 8. 2026 · EVROPSKÁ VĚTEV · REPORT 07082026-011 →','');
+    const parent=lead.parentNode;
+    parent.insertBefore(d,lead);
+    d.append(sum,lead);
+  }
 })();
