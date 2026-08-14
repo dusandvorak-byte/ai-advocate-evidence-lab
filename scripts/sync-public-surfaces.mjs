@@ -84,7 +84,7 @@ function latestSection(lang) {
       : `<span class="latest-record-pending">${isEn ? 'Evidence page; PDF not yet public' : 'Evidenční stránka; PDF dosud není veřejné'}</span>`;
     return `<article class="latest-record-card" data-document-id="${escapeHtml(item.id)}"><p class="kicker">${escapeHtml(isEn ? formatEnDate(item.issue_date) : formatCzDate(item.issue_date))} · ${escapeHtml(institutionName(item, lang))}</p><h3><a href="${escapeHtml(detail)}"${isEn ? ' hreflang="cs"' : ''}>${escapeHtml(title)}</a></h3><p class="latest-record-reference">${escapeHtml(item.reference || (isEn ? 'No separate reference number' : 'Bez samostatného č. j.'))}</p>${pdfControl}</article>`;
   }).join('');
-  return `<section id="latest-records" class="latest-records" aria-label="${isEn ? 'Latest verified records' : 'Nejnovější ověřené listiny'}"><header><p class="section-label">${isEn ? 'LATEST VERIFIED RECORDS' : 'NEJNOVĚJŠÍ OVĚŘENÉ LISTINY'}</p><h2>${isEn ? `Canonical evidence memory through ${latestEn}` : `Kanonická důkazní paměť do ${latestCz}`}</h2><p>${isEn ? `${stateCount} state and public-institution records are synchronized across all public surfaces.` : `${stateCount} listin státu a veřejných institucí je synchronizováno na všech veřejných plochách.`}</p></header><div class="latest-record-grid">${cards}</div></section>`;
+  return `<section id="latest-records" class="latest-records" aria-label="${isEn ? 'Latest verified records' : 'Nejnovější ověřené listiny'}"><header><p class="section-label">${isEn ? 'LATEST VERIFIED RECORDS' : 'NEJNOVĚJŠÍ OVĚŘENÉ LISTINY'}</p><h2>${isEn ? 'Canonical evidence memory through today' : 'Kanonická důkazní paměť do dnešního dne'}</h2><p>${isEn ? `${stateCount} state and public-institution records are synchronized across all public surfaces.` : `${stateCount} listin státu a veřejných institucí je synchronizováno na všech veřejných plochách.`}</p></header><div class="latest-record-grid">${cards}</div></section>`;
 }
 
 function removeSectionById(html, id) {
@@ -196,5 +196,6 @@ for (const [label, path] of surfaces) {
 const czHome = await readFile('web/index.html', 'utf8');
 if (/Aktualizováno\s+\d/i.test(czHome)) throw new Error('Titulní stránka obsahuje zakázaný duplicitní údaj Aktualizováno');
 if (!czHome.includes(`data-current-date>${czDisplayDate}<`)) throw new Error('Titulní stránka nemá dnešní kanonické datum');
+if (!czHome.includes('Kanonická důkazní paměť do dnešního dne')) throw new Error('Titulní stránka nemá bezdatumovou formulaci kanonické důkazní paměti');
 
 console.log(`Veřejné varianty synchronizovány: ${czDisplayDate}; ${stateCount} státních listin; 4/4 plochy obsahují stejné tři nejnovější evidenční záznamy.`);
