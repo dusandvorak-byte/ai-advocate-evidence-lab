@@ -30,6 +30,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Materializovat a hashově ověřit aktuální PDF Godota
+        run: node scripts/materialize-godot-pdf-bundle.mjs
       - name: Spustit jediný kanonický build
         run: node scripts/build-site.mjs
       - name: Finalizovat veřejné popisky bez změny kanonických dat
@@ -64,6 +66,19 @@ jobs:
           test "$(head -c 5 web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf)" = '%PDF-'
           test "$(head -c 5 web/documents/report-04082026-010/kpr-5772-2026-1-2026-07-30-verejna-kopie.pdf)" = '%PDF-'
           test "$(head -c 5 web/documents/report-04082026-010/kpr-5080-2026-2026-08-03-verejna-kopie.pdf)" = '%PDF-'
+          for f in \
+            25-mv-127234-2-obp-2026-2026-08-11.pdf \
+            26-gfaa-rozklad-mv-127234-2-obp-2026-2026-08-12.pdf \
+            27-mk-49467-2026-socns-2026-08-12.pdf \
+            28-dvorak-odvolani-nsz-sin-55-2026-19-2026-08-01.pdf \
+            29-dvorak-odvolani-msz-sin-48-2026-12-2026-07-31.pdf \
+            30-dvorak-stiznost-msz-necinnost-infz-2026-07-31.pdf \
+            31-policie-uvk-pp-ppr-43826-2-cj-2026-990210-pd-2026-08-14.pdf \
+            32-dvorak-stiznost-uvk-pp-pcr-2026-08-14.pdf \
+            33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf; do
+            test -f "web/documents/report-04082026-010/$f"
+            test "$(head -c 5 "web/documents/report-04082026-010/$f")" = '%PDF-'
+          done
       - name: Připravit kořen webu a kompatibilní cestu /web
         shell: bash
         run: |
