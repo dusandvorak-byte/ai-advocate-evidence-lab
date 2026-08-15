@@ -16,6 +16,7 @@
       "public": {
         "html": null,
         "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf",
         "sha256": "d461ad6eacc569ba8d86c4ce640a3f6273ff67ae48fc5ea57f1f8653ce0e2a40",
         "verification_status": "source_pdf_received_not_yet_public"
       },
@@ -42,14 +43,8 @@
         "verification_status": "verified_original"
       },
       "relations": [
-        {
-          "type": "reakce_na",
-          "target_id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53"
-        },
-        {
-          "type": "souvisí",
-          "target_id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54"
-        }
+        {"type": "reakce_na", "target_id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53"},
+        {"type": "souvisí", "target_id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54"}
       ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_batch_classification",
