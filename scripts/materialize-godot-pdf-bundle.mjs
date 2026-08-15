@@ -1,8 +1,9 @@
 import { createHash } from 'node:crypto';
-import { access, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { access, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { constants } from 'node:fs';
 import { promisify } from 'node:util';
 import { execFile } from 'node:child_process';
+import os from 'node:os';
 import path from 'node:path';
 
 const execFileAsync = promisify(execFile);
@@ -24,6 +25,20 @@ const exists = async file => access(file, constants.F_OK).then(() => true).catch
 const hash = data => createHash('sha256').update(data).digest('hex');
 const verified = new Set();
 
+async function acceptByExactHash(data, source) {
+  if (!Buffer.isBuffer(data)) data = Buffer.from(data);
+  if (!data.subarray(0, 5).equals(Buffer.from('%PDF-'))) return false;
+  const actual = hash(data);
+  const relative = byHash.get(actual);
+  if (!relative) return false;
+  const target = path.join(outputRoot, relative);
+  await mkdir(path.dirname(target), { recursive: true });
+  await writeFile(target, data);
+  verified.add(relative);
+  console.log(`PDF VERIFIED ${relative} ${actual} source=${source}`);
+  return true;
+}
+
 async function acceptCandidate(relative, data, source) {
   const wanted = expected[relative];
   if (!wanted) throw new Error(`Neznámý cíl ${relative}`);
@@ -37,18 +52,17 @@ async function acceptCandidate(relative, data, source) {
     console.log(`PDF CANDIDATE REJECTED ${relative}: sha256=${actual} expected=${wanted} source=${source}`);
     return false;
   }
-  const target = path.join(outputRoot, relative);
-  await mkdir(path.dirname(target), { recursive: true });
-  await writeFile(target, data);
-  verified.add(relative);
-  console.log(`PDF VERIFIED ${relative} ${actual} source=${source}`);
-  return true;
+  return acceptByExactHash(data, source);
+}
+
+async function catBlob(blobSha) {
+  const { stdout } = await execFileAsync('git', ['cat-file', 'blob', blobSha], {
+    encoding: null, maxBuffer: 32 * 1024 * 1024
+  });
+  return stdout;
 }
 
 async function recoverExactPdfBlobsFromGitHistory() {
-  // checkout ve workflow používá fetch-depth: 0 a stáhne všechny větve. Tímto se každé
-  // přesné PDF, které kdy bylo dosažitelné z libovolného refu, stává automaticky obnovitelným,
-  // i když bylo později smazáno, přejmenováno nebo odpojeno od main.
   let stdout;
   try {
     ({ stdout } = await execFileAsync('git', ['rev-list', '--objects', '--all'], {
@@ -58,41 +72,128 @@ async function recoverExactPdfBlobsFromGitHistory() {
     console.log(`GIT HISTORY RECOVERY SKIPPED: ${error.message}`);
     return;
   }
-
   const pdfObjects = new Map();
   for (const line of stdout.split('\n')) {
-    if (!line) continue;
     const space = line.indexOf(' ');
     if (space < 0) continue;
     const sha = line.slice(0, space);
     const name = line.slice(space + 1);
-    if (!/\.pdf$/i.test(name)) continue;
-    if (!pdfObjects.has(sha)) pdfObjects.set(sha, name);
+    if (/\.pdf$/i.test(name) && !pdfObjects.has(sha)) pdfObjects.set(sha, name);
   }
-
   console.log(`GIT HISTORY SCAN: ${pdfObjects.size} unikátních historických PDF blobů.`);
   for (const [blobSha, historicPath] of pdfObjects) {
     if (verified.size === Object.keys(expected).length) break;
-    let data;
     try {
-      ({ stdout: data } = await execFileAsync('git', ['cat-file', 'blob', blobSha], {
-        encoding: null, maxBuffer: 32 * 1024 * 1024
-      }));
-    } catch {
-      continue;
-    }
-    if (!Buffer.isBuffer(data) || !data.subarray(0, 5).equals(Buffer.from('%PDF-'))) continue;
-    const actual = hash(data);
-    const relative = byHash.get(actual);
-    if (!relative || verified.has(relative)) continue;
-    await acceptCandidate(relative, data, `git-history:${historicPath}@${blobSha}`);
+      await acceptByExactHash(await catBlob(blobSha), `git-history:${historicPath}@${blobSha}`);
+    } catch { /* historický objekt není čitelný */ }
   }
 }
 
-await recoverExactPdfBlobsFromGitHistory();
+async function inspectDecodedArchive(decoded, source) {
+  if (!Buffer.isBuffer(decoded) || decoded.length < 5) return false;
+  if (await acceptByExactHash(decoded, source)) return true;
 
-// Znovupoužitelné zdroje po jednotlivých dokumentech. Kandidát, který hashově nesedí,
-// už nezastaví diagnostiku ostatních dokumentů; selže až závěrečná publikační brána.
+  // XZ zdroj může být buď komprimované PDF, nebo tar.xz s několika PDF.
+  const isXz = decoded.length >= 6 && decoded[0] === 0xfd && decoded[1] === 0x37 && decoded[2] === 0x7a && decoded[3] === 0x58 && decoded[4] === 0x5a && decoded[5] === 0x00;
+  if (!isXz) return false;
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), 'godot-recovery-'));
+  const xzPath = path.join(tmpDir, 'candidate.xz');
+  try {
+    await writeFile(xzPath, decoded);
+    const { stdout } = await execFileAsync('xz', ['-dc', xzPath], { encoding: null, maxBuffer: 64 * 1024 * 1024 });
+    if (await acceptByExactHash(stdout, `${source}:xz-pdf`)) return true;
+
+    // Když výstup není PDF, zkusíme jej jako TAR a prohledáme všechny členy PDF.
+    const tarPath = path.join(tmpDir, 'candidate.tar');
+    await writeFile(tarPath, stdout);
+    const extractDir = path.join(tmpDir, 'extract');
+    await mkdir(extractDir);
+    try {
+      await execFileAsync('tar', ['-xf', tarPath, '-C', extractDir], { maxBuffer: 64 * 1024 * 1024 });
+      const stack = [extractDir];
+      while (stack.length) {
+        const dir = stack.pop();
+        for (const entry of await readdir(dir, { withFileTypes: true })) {
+          const full = path.join(dir, entry.name);
+          if (entry.isDirectory()) stack.push(full);
+          else if (/\.pdf$/i.test(entry.name)) await acceptByExactHash(await readFile(full), `${source}:tar:${path.relative(extractDir, full)}`);
+        }
+      }
+    } catch { /* není TAR */ }
+  } catch { /* není platný XZ */ }
+  finally { await rm(tmpDir, { recursive: true, force: true }); }
+  return false;
+}
+
+async function recoverBase64SnapshotsFromGitHistory() {
+  // Dřívější pokusy ukládaly velké PDF po base64 částech v různých pracovních větvích.
+  // Místo ručního hádání projdeme každý historický snapshot adresáře s .b64 soubory,
+  // seskupíme části podle adresáře a ověříme výsledky pouze podle kanonického SHA-256.
+  let commitText;
+  try {
+    ({ stdout: commitText } = await execFileAsync('git', ['log', '--all', '--format=%H', '--', '*.b64'], {
+      encoding: 'utf8', maxBuffer: 16 * 1024 * 1024
+    }));
+  } catch (error) {
+    console.log(`B64 HISTORY RECOVERY SKIPPED: ${error.message}`);
+    return;
+  }
+  const commits = [...new Set(commitText.trim().split(/\s+/).filter(Boolean))];
+  console.log(`B64 HISTORY SCAN: ${commits.length} commitů s base64 zdroji.`);
+  const seenGroups = new Set();
+  let groupCount = 0;
+
+  for (const commit of commits) {
+    if (verified.size === Object.keys(expected).length) break;
+    let treeText;
+    try {
+      ({ stdout: treeText } = await execFileAsync('git', ['ls-tree', '-r', commit, '--', 'project-memory'], {
+        encoding: 'utf8', maxBuffer: 32 * 1024 * 1024
+      }));
+    } catch { continue; }
+
+    const groups = new Map();
+    for (const line of treeText.split('\n')) {
+      if (!line) continue;
+      const match = line.match(/^\d+\s+blob\s+([0-9a-f]{40})\t(.+\.b64)$/i);
+      if (!match) continue;
+      const [, blobSha, filePath] = match;
+      const base = path.posix.basename(filePath);
+      // Části musejí mít stabilní číselné/chunk pořadí nebo být jediným pojmenovaným zdrojem.
+      const dir = path.posix.dirname(filePath);
+      if (!groups.has(dir)) groups.set(dir, []);
+      groups.get(dir).push({ base, blobSha, filePath });
+    }
+
+    for (const [dir, files] of groups) {
+      if (verified.size === Object.keys(expected).length) break;
+      const ordered = files
+        .filter(f => /^(?:chunk-)?\d.*\.b64$/i.test(f.base) || files.length === 1)
+        .sort((a, b) => a.base.localeCompare(b.base, 'en', { numeric: true }));
+      if (!ordered.length) continue;
+      const signature = ordered.map(f => `${f.base}:${f.blobSha}`).join('|');
+      if (seenGroups.has(signature)) continue;
+      seenGroups.add(signature);
+      groupCount++;
+      if (groupCount > 600) break;
+
+      try {
+        let encoded = '';
+        for (const file of ordered) encoded += (await catBlob(file.blobSha)).toString('utf8').trim();
+        if (!encoded || encoded.length % 4 === 1) continue;
+        const decoded = Buffer.from(encoded, 'base64');
+        await inspectDecodedArchive(decoded, `git-b64:${dir}@${commit}:${ordered.map(f => f.base).join(',')}`);
+      } catch { /* neplatný nebo neúplný historický snapshot */ }
+    }
+    if (groupCount > 600) break;
+  }
+  console.log(`B64 HISTORY SCAN COMPLETE: ${groupCount} unikátních snapshotů, nalezeno ${verified.size}/${Object.keys(expected).length} cílových PDF.`);
+}
+
+await recoverExactPdfBlobsFromGitHistory();
+await recoverBase64SnapshotsFromGitHistory();
+
+// Aktuální explicitní per-document zdroje. Kandidát s chybným hashem nezastaví ostatní.
 const directSources = [
   {
     relative: 'documents/report-04082026-010/25-mv-127234-2-obp-2026-2026-08-11.pdf',
@@ -104,7 +205,6 @@ const directSources = [
     ]
   }
 ];
-
 for (const item of directSources) {
   if (verified.has(item.relative)) continue;
   if (!(await Promise.all(item.chunks.map(exists))).every(Boolean)) continue;
@@ -113,62 +213,37 @@ for (const item of directSources) {
   await acceptCandidate(item.relative, Buffer.from(encoded, 'base64'), `direct:${item.chunks.join(',')}`);
 }
 
-// Již uložený komprimovaný zdroj stížnosti MSZ (PDF 30).
+// Přechodová kompatibilita s dřívějším jednosouborovým base64 zdrojem PDF 30.
 const mszRelative = 'documents/report-04082026-010/30-dvorak-stiznost-msz-necinnost-infz-2026-07-31.pdf';
 const mszSource = 'project-memory/binary-final/msz-necinnost.xz.b64';
 if (!verified.has(mszRelative) && await exists(mszSource)) {
-  try {
-    const xz = Buffer.from((await readFile(mszSource, 'utf8')).trim(), 'base64');
-    const tmp = '/tmp/godot-msz-necinnost.pdf.xz';
-    await writeFile(tmp, xz);
-    const { stdout } = await execFileAsync('xz', ['-dc', tmp], { encoding: null, maxBuffer: 20 * 1024 * 1024 });
-    await rm(tmp, { force: true });
-    await acceptCandidate(mszRelative, stdout, `xz:${mszSource}`);
-  } catch (error) {
-    console.log(`PDF CANDIDATE REJECTED ${mszRelative}: xz error ${error.message}`);
-  }
+  const decoded = Buffer.from((await readFile(mszSource, 'utf8')).trim(), 'base64');
+  await inspectDecodedArchive(decoded, `current:${mszSource}`);
 }
 
-// Přechodová kompatibilita se starým 108dílným archivem. Použije se jen tehdy,
-// je-li skutečně kompletní. Neúplný monolit už nikdy nesmí blokovat jednotlivé zdroje.
+// Starý 108dílný monolit je už jen kompatibilní fallback; neúplnost nikdy neblokuje jednotlivé zdroje.
 const chunksDir = 'project-memory/binary-bundle-2026-08-15';
 if (await exists(chunksDir)) {
   const names = (await readdir(chunksDir)).filter(name => /^chunk-\d{3}\.b64$/.test(name)).sort();
   if (names.length === 108) {
     let contiguous = true;
-    for (let i = 0; i < names.length; i++) {
-      const expectedName = `chunk-${String(i).padStart(3, '0')}.b64`;
-      if (names[i] !== expectedName) { contiguous = false; break; }
-    }
+    for (let i = 0; i < names.length; i++) if (names[i] !== `chunk-${String(i).padStart(3, '0')}.b64`) contiguous = false;
     if (contiguous) {
       let encoded = '';
       for (const name of names) encoded += (await readFile(`${chunksDir}/${name}`, 'utf8')).trim();
       const archive = Buffer.from(encoded, 'base64');
-      const archiveHash = hash(archive);
-      if (archiveHash === 'f814095514a232208c150636028ef918d989cf4c04655e1b79abbe5e96a8b5a8') {
-        const archivePath = '/tmp/godot-pdfs-2026-08-15.tar.xz';
-        await writeFile(archivePath, archive);
-        await execFileAsync('tar', ['-xJf', archivePath, '-C', outputRoot], { maxBuffer: 20 * 1024 * 1024 });
-        await rm(archivePath, { force: true });
-      } else {
-        console.log(`Legacy balík ignorován: SHA-256 ${archiveHash} nesedí.`);
-      }
+      if (hash(archive) === 'f814095514a232208c150636028ef918d989cf4c04655e1b79abbe5e96a8b5a8') await inspectDecodedArchive(archive, 'legacy-108-part-bundle');
     }
-  } else {
-    console.log(`Legacy balík ignorován: ${names.length}/108 částí. Jednotlivé zdroje a historie Git mají přednost.`);
-  }
+  } else console.log(`Legacy balík ignorován: ${names.length}/108 částí.`);
 }
 
-// Finální brána: nic se nesmí publikovat, dokud všech devět cest fyzicky neexistuje,
-// nezačíná %PDF- a neodpovídá přesnému SHA-256.
+// Finální publikační brána.
 const missing = [];
 for (const [relative, wanted] of Object.entries(expected)) {
   const target = path.join(outputRoot, relative);
   if (!(await exists(target))) { missing.push(relative); continue; }
   const data = await readFile(target);
-  if (!data.subarray(0, 5).equals(Buffer.from('%PDF-'))) throw new Error(`${relative}: výsledný soubor není PDF`);
-  const actual = hash(data);
-  if (actual !== wanted) throw new Error(`${relative}: výsledný SHA-256 ${actual} neodpovídá ${wanted}`);
+  if (!data.subarray(0, 5).equals(Buffer.from('%PDF-')) || hash(data) !== wanted) throw new Error(`${relative}: výsledný soubor neprošel závěrečnou PDF/SHA-256 kontrolou`);
   verified.add(relative);
 }
 if (missing.length) {
