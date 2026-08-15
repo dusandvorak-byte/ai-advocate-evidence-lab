@@ -2,6 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 const homePath = 'web/index.html';
 const documentsPath = 'project-memory/documents-2026.json';
+const godotHref = 'zpravy/04082026-010.html#chronologie';
 
 const registry = JSON.parse(await readFile(documentsPath, 'utf8'));
 if (!Array.isArray(registry.documents)) throw new Error('documents-2026.json neobsahuje pole documents');
@@ -32,7 +33,7 @@ const section = `<section id="live-dockets" class="live-dockets" aria-label="Ži
     ${link('KPR – tři aktuální větve','zpravy/04082026-010.html#case-cz-kpr-tri-vetve')}
   </div></section>
   <section class="live-docket-bar state-love"><h2>Státní láska online od 1. května 2026</h2><div class="live-docket-links">
-    ${link('Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?','zpravy/04082026-010.html#chronologie')}
+    ${link('Státu lásky čas · Pavouk řízení',godotHref)}
     ${link('Policie ČR – sdělení, rozhodnutí a opravné prostředky','zpravy/04082026-010.html#instituce-policie')}
     ${link('Státní zastupitelství – sdělení, rozhodnutí a opravné prostředky','zpravy/04082026-010.html#instituce-statni-zastupitelstvi')}
     ${link('Kancelář prezidenta republiky – tři větve řízení','zpravy/04082026-010.html#instituce-kpr')}
@@ -71,7 +72,6 @@ const leadCard = `<article class="lead-card">
 </article>`;
 const leadRollup = `<details class="home-rollup home-rollup-heavy lead-rollup"><summary><span class="rollup-title">ZPRÁVA DNE · CANNAINSIDER.EU NEWS · 7. 8. 2026 · EVROPSKÁ VĚTEV · REPORT 07082026-011 →</span><span class="rollup-prompt"></span><span class="rollup-heart">❤️</span><b>Rozbalit →</b></summary>${leadCard}</details>`;
 
-// Odstranit případný starší JS/HTML wrapper a zapsat šestou roletku přímo do HTML.
 home = home.replace(/<details class="home-rollup home-rollup-heavy lead-rollup">[\s\S]*?<\/details>/, leadRollup);
 if (!home.includes('class="home-rollup home-rollup-heavy lead-rollup"')) {
   home = home.replace(/<article class="lead-card">[\s\S]*?<\/article>/, leadRollup);
@@ -80,16 +80,19 @@ if (!home.includes('class="home-rollup home-rollup-heavy lead-rollup"')) {
 }
 
 home = home.replace(/<div class="news-stack">[\s\S]*?<\/div>\s*<\/section>/, `<div class="news-stack">
-  <article class="news-card"><p class="kicker">2. ZPRÁVA · REPORT 04082026-010 · PRŮBĚŽNĚ AKTUALIZOVÁNO</p><h2><a href="zpravy/04082026-010.html">Státu lásky čas</a></h2><p>Godot on-line: chronologická mapa řízení, rozhodnutí, vyrozumění, výzev a procesních vazeb. Dnešní reakce EUDA je zařazena do chronologie.</p><div class="news-meta"><span>9/9 · Godot on-line</span></div></article>
+  <article class="news-card"><p class="kicker">2. ZPRÁVA · REPORT 04082026-010 · PRŮBĚŽNĚ AKTUALIZOVÁNO</p><h2><a href="${godotHref}">Státu lásky čas</a></h2><p>Godot on-line: chronologická mapa řízení, rozhodnutí, vyrozumění, výzev a procesních vazeb. Dnešní reakce EUDA je zařazena do chronologie.</p><div class="news-meta"><span>9/9 · Godot on-line</span></div></article>
   <article class="news-card"><p class="kicker">24. 7. 2026 · REPORT 24072026-006</p><h3><a href="zpravy/24072026-006.html">Konopná církev nechce zázrak. Chce rozhodnutí</a></h3><div class="news-meta"><span>8/9 · Vysoká relevance</span></div></article>
 </div></section>`);
 
 home = home.replace(/data-exclude-ids="[^"]*"/, 'data-exclude-ids="07082026-011 04082026-010 24072026-006"');
 if (!home.includes('<link rel="stylesheet" href="live-dockets.css">')) home = home.replace('</head>', '  <link rel="stylesheet" href="live-dockets.css">\n</head>');
 if (!home.includes('<script src="live-dockets.js" defer></script>')) home = home.replace('</body>', '  <script src="live-dockets.js" defer></script>\n</body>');
+// Každý globální vstup do Godota vede přímo na chronologii Státu lásky čas.
+home = home.replace(/href="zpravy\/04082026-010\.html"(?=>Godot online →<\/a>)/g, `href="${godotHref}"`);
 home = removeSectionById(home, 'live-dockets');
 const editionBar = /(<div class="edition-bar">[\s\S]*?<\/div>)/;
 if (!editionBar.test(home)) throw new Error('Na titulní stránce chybí edition-bar pro vložení tří lišt');
 home = home.replace(editionBar, `$1\n${section}`);
+if (!home.includes(`href="${godotHref}">Godot online →</a>`)) throw new Error('Godot online nevede přímo na Státu lásky čas');
 await writeFile(homePath, home, 'utf8');
-console.log(`Titulní strana: šestá roletka evropské zprávy dne je součástí statického HTML. Počet veřejných institucionálních listin: ${stateCount}.`);
+console.log(`Titulní strana: Godot vede přímo na chronologii; tři lišty jsou generovány jednotně. Počet veřejných institucionálních listin: ${stateCount}.`);
