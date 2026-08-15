@@ -24,94 +24,153 @@ const blobCache = new Map();
 
 async function blob(oid) {
   if (blobCache.has(oid)) return blobCache.get(oid);
-  const {stdout} = await execFileAsync('git',['cat-file','blob',oid],{encoding:null,maxBuffer:32*1024*1024});
-  blobCache.set(oid, stdout); return stdout;
+  const { stdout } = await execFileAsync('git', ['cat-file', 'blob', oid], { encoding: null, maxBuffer: 64 * 1024 * 1024 });
+  blobCache.set(oid, stdout);
+  return stdout;
 }
 
 async function accept(data, source) {
-  if (!Buffer.isBuffer(data) || data.length < 5 || data.subarray(0,5).toString() !== '%PDF-') return false;
-  const h = sha256(data), rel = expected.get(h); if (!rel) return false;
-  await mkdir(path.dirname(path.join(root, rel)), {recursive:true});
-  await writeFile(path.join(root, rel), data); found.add(rel);
-  console.log(`HISTORY BLOB VERIFIED ${rel} ${h} source=${source}`); return true;
+  if (!Buffer.isBuffer(data) || data.length < 5 || data.subarray(0, 5).toString() !== '%PDF-') return false;
+  const h = sha256(data), rel = expected.get(h);
+  if (!rel) return false;
+  await mkdir(path.dirname(path.join(root, rel)), { recursive: true });
+  await writeFile(path.join(root, rel), data);
+  found.add(rel);
+  console.log(`HISTORY BLOB VERIFIED ${rel} ${h} source=${source}`);
+  return true;
 }
 
 async function inspect(data, source) {
   if (await accept(data, source)) return true;
-  if (!(data.length >= 6 && data[0]===0xfd && data[1]===0x37 && data[2]===0x7a && data[3]===0x58 && data[4]===0x5a && data[5]===0x00)) return false;
-  const dir=await mkdtemp(path.join(os.tmpdir(),'blob-recovery-')), f=path.join(dir,'x.xz');
+  const isXz = data.length >= 6 && data[0] === 0xfd && data[1] === 0x37 && data[2] === 0x7a && data[3] === 0x58 && data[4] === 0x5a && data[5] === 0x00;
+  if (!isXz) return false;
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'blob-recovery-'));
+  const f = path.join(dir, 'x.xz');
   try {
-    await writeFile(f,data);
-    const {stdout}=await execFileAsync('xz',['-dc',f],{encoding:null,maxBuffer:64*1024*1024});
-    if (await accept(stdout,`${source}:xz`)) return true;
-    const tar=path.join(dir,'x.tar'), out=path.join(dir,'out'); await writeFile(tar,stdout); await mkdir(out);
+    await writeFile(f, data);
+    const { stdout } = await execFileAsync('xz', ['-dc', f], { encoding: null, maxBuffer: 96 * 1024 * 1024 });
+    if (await accept(stdout, `${source}:xz`)) return true;
+    const tar = path.join(dir, 'x.tar'), out = path.join(dir, 'out');
+    await writeFile(tar, stdout); await mkdir(out);
     try {
-      await execFileAsync('tar',['-xf',tar,'-C',out],{maxBuffer:64*1024*1024});
-      const stack=[out];
-      while(stack.length){const d=stack.pop(); for(const e of await readdir(d,{withFileTypes:true})){const p=path.join(d,e.name); if(e.isDirectory()) stack.push(p); else if(/\.pdf$/i.test(e.name)) await accept(await readFile(p),`${source}:tar:${path.relative(out,p)}`);}}
+      await execFileAsync('tar', ['-xf', tar, '-C', out], { maxBuffer: 96 * 1024 * 1024 });
+      const stack = [out];
+      while (stack.length) {
+        const d = stack.pop();
+        for (const e of await readdir(d, { withFileTypes: true })) {
+          const p = path.join(d, e.name);
+          if (e.isDirectory()) stack.push(p);
+          else await accept(await readFile(p), `${source}:tar:${path.relative(out, p)}`);
+        }
+      }
     } catch {}
-  } catch {} finally { await rm(dir,{recursive:true,force:true}); }
+  } catch {} finally { await rm(dir, { recursive: true, force: true }); }
   return false;
 }
 
-const {stdout:list}=await execFileAsync('git',['rev-list','--objects','--all'],{encoding:'utf8',maxBuffer:64*1024*1024});
-const candidates=new Map();
-for(const line of list.split('\n')){const i=line.indexOf(' '); if(i<0) continue; const oid=line.slice(0,i), p=line.slice(i+1); if(/(?:\.b64|\.xz|\.pdf|binary|bundle|source)/i.test(p) && !candidates.has(oid)) candidates.set(oid,p);}
-console.log(`HISTORY BLOB CANDIDATES ${candidates.size}`);
-for(const [oid,p] of candidates){ if(found.size===expected.size) break; let data; try{data=await blob(oid);}catch{continue;} await inspect(data,`git:${p}@${oid}`);
-  if(/\.b64$/i.test(p) || (/^[A-Za-z0-9+/=\r\n]+$/.test(data.toString('latin1')) && data.length<8*1024*1024)){ try{const s=data.toString('utf8').replace(/\s+/g,''); if(s.length>=8 && s.length%4!==1) await inspect(Buffer.from(s,'base64'),`git-b64:${p}@${oid}`);}catch{} }
+function base64Text(data) {
+  if (!data || data.length < 8 || data.length > 12 * 1024 * 1024) return null;
+  let s;
+  try { s = data.toString('utf8').replace(/\s+/g, ''); } catch { return null; }
+  if (s.length < 8 || s.length % 4 === 1 || !/^[A-Za-z0-9+/=]+$/.test(s)) return null;
+  return s;
 }
 
-// Union solver: historické uploady někdy zanechaly různé části téhož PDF v různých
-// commitech/branchích. Sestavíme proto všechny dosažitelné verze částí podle adresáře a
-// číselného rozsahu názvu (např. 002.b64, 002-005.b64, chunk-019.b64) a zkusíme pouze
-// kombinace, které beze zbytku dlaždicují souvislou řadu od nuly. Přijmeme výhradně
-// výsledek, jehož dekódované PDF má jeden z devíti kanonických SHA-256.
-async function recoverScatteredBase64Parts() {
-  let commitsText;
-  try { ({stdout:commitsText}=await execFileAsync('git',['log','--all','--format=%H','--','*.b64'],{encoding:'utf8',maxBuffer:16*1024*1024})); }
-  catch (e) { console.log(`SCATTERED B64 SKIPPED ${e.message}`); return; }
-  const commits=[...new Set(commitsText.trim().split(/\s+/).filter(Boolean))];
-  const dirs=new Map();
-  for(const commit of commits){
-    let tree; try{({stdout:tree}=await execFileAsync('git',['ls-tree','-r',commit,'--','project-memory'],{encoding:'utf8',maxBuffer:32*1024*1024}));}catch{continue;}
-    for(const line of tree.split('\n')){
-      const m=line.match(/^\d+\s+blob\s+([0-9a-f]{40})\t(.+\.b64)$/i); if(!m) continue;
-      const oid=m[1], p=m[2], base=path.posix.basename(p);
-      const rm=base.match(/^(?:chunk-)?(\d{1,3})(?:-(\d{1,3}))?\.b64$/i); if(!rm) continue;
-      const start=Number(rm[1]), end=rm[2]?Number(rm[2]):start; if(end<start || end-start>50) continue;
-      const dir=path.posix.dirname(p); if(!dirs.has(dir)) dirs.set(dir,new Map());
-      const key=`${start}-${end}`; if(!dirs.get(dir).has(key)) dirs.get(dir).set(key,new Map());
-      dirs.get(dir).get(key).set(oid,{oid,start,end,base,p});
-    }
-  }
-  console.log(`SCATTERED B64 GROUPS ${dirs.size}`);
-  let attempts=0;
-  for(const [dir,ranges] of dirs){
-    if(found.size===expected.size) break;
-    const pieces=[...ranges.values()].flatMap(v=>[...v.values()]);
-    if(!pieces.some(p=>p.start===0) || pieces.length>80) continue;
-    const byStart=new Map(); for(const p of pieces){if(!byStart.has(p.start))byStart.set(p.start,[]); byStart.get(p.start).push(p);}
-    // DFS přes dlaždice; končíme při každém dosažitelném konci, protože neznáme počet částí.
-    const chosen=[];
-    async function dfs(next){
-      if(attempts>4000 || found.size===expected.size) return;
-      if(chosen.length){
-        attempts++;
-        try{
-          let enc=''; for(const p of chosen) enc+=(await blob(p.oid)).toString('utf8').replace(/\s+/g,'');
-          if(enc.length>=8 && enc.length%4!==1) await inspect(Buffer.from(enc,'base64'),`scattered:${dir}:${chosen.map(p=>p.base+'@'+p.oid.slice(0,7)).join('+')}`);
-        }catch{}
-      }
-      const opts=byStart.get(next)||[];
-      // nejdřív delší sloučené díly, potom jednotlivé verze
-      opts.sort((a,b)=>(b.end-b.start)-(a.end-a.start));
-      for(const p of opts){chosen.push(p); await dfs(p.end+1); chosen.pop(); if(attempts>4000) return;}
-    }
-    await dfs(0);
-  }
-  console.log(`SCATTERED B64 COMPLETE attempts=${attempts} found=${found.size}/${expected.size}`);
+function tokens(p) {
+  const stop = new Set(['project','memory','binary','final','source','sources','recovery','bundle','bundles','chunk','chunks','document','documents','report','web','pdf','b64','xz','original','upload','uploads']);
+  return new Set(p.toLowerCase().split(/[^a-z0-9]+/).filter(t => t.length >= 2 && !stop.has(t) && !/^20\d{2}$/.test(t)));
 }
-await recoverScatteredBase64Parts();
+function overlap(a, b) {
+  let n = 0;
+  for (const t of a) if (b.has(t)) n++;
+  return n;
+}
 
+const { stdout: list } = await execFileAsync('git', ['rev-list', '--objects', '--all'], { encoding: 'utf8', maxBuffer: 96 * 1024 * 1024 });
+const objects = new Map();
+for (const line of list.split('\n')) {
+  const i = line.indexOf(' '); if (i < 0) continue;
+  const oid = line.slice(0, i), p = line.slice(i + 1);
+  if (!objects.has(oid)) objects.set(oid, p);
+}
+console.log(`HISTORY OBJECTS ${objects.size}`);
+
+// 1) Přesné binární PDF/XZ a jednotlivě dekódovatelné base64 zdroje. Záměrně
+// kontrolujeme i netypické názvy, pokud vypadají jako historický důkazní zdroj.
+const likely = /(?:\.pdf$|\.xz$|\.b64$|binary|bundle|source|127234|49467|gfaa|msz|necinnost|uvk|43826|3103|prostejov|stiznost|rozklad|policie)/i;
+const b64Pieces = [];
+const tails = [];
+for (const [oid, p] of objects) {
+  if (found.size === expected.size) break;
+  if (!likely.test(p)) continue;
+  let data; try { data = await blob(oid); } catch { continue; }
+  await inspect(data, `git:${p}@${oid}`);
+  const s = base64Text(data);
+  if (!s) continue;
+  try { await inspect(Buffer.from(s, 'base64'), `git-b64:${p}@${oid}`); } catch {}
+  const base = path.posix.basename(p);
+  const m = base.match(/^(?:chunk-)?(\d{1,3})(?:-(\d{1,3}))?\.b64$/i);
+  const item = { oid, p, base, text: s, tok: tokens(p) };
+  if (m) {
+    item.start = Number(m[1]); item.end = m[2] ? Number(m[2]) : item.start;
+    if (item.end >= item.start && item.end - item.start <= 80) b64Pieces.push(item);
+  } else if (/\.b64$/i.test(base)) tails.push(item);
+}
+console.log(`GLOBAL B64 PARTS ${b64Pieces.length}; TAILS ${tails.length}`);
+
+// 2) Globální union solver napříč adresáři a větvemi. To je podstatná pojistka:
+// jednotlivé části jednoho původního PDF mohly skončit v různých pracovních adresářích.
+// Spojujeme pouze souvislé číselné rozsahy, začínáme částí 0 s PDF/XZ signaturou a
+// výsledek přijmeme pouze při shodě jednoho z devíti kanonických SHA-256.
+const byStart = new Map();
+for (const p of b64Pieces) {
+  if (!byStart.has(p.start)) byStart.set(p.start, []);
+  byStart.get(p.start).push(p);
+}
+const starts = (byStart.get(0) || []).filter(p => p.text.startsWith('JVBERi0') || p.text.startsWith('/Td6WFo'));
+let attempts = 0;
+const MAX_ATTEMPTS = 30000;
+const tried = new Set();
+
+async function testEncoded(encoded, label) {
+  if (!encoded || encoded.length < 8 || encoded.length % 4 === 1) return;
+  const sig = sha256(Buffer.from(encoded.slice(0, Math.min(encoded.length, 4096))));
+  const key = `${encoded.length}:${sig}`;
+  if (tried.has(key)) return;
+  tried.add(key); attempts++;
+  try { await inspect(Buffer.from(encoded, 'base64'), label); } catch {}
+}
+
+for (const first of starts) {
+  if (found.size === expected.size || attempts >= MAX_ATTEMPTS) break;
+  const seed = first.tok;
+  const chosen = [first];
+  async function dfs(next, encoded) {
+    if (found.size === expected.size || attempts >= MAX_ATTEMPTS) return;
+    await testEncoded(encoded, `union:${chosen.map(p => `${p.p}@${p.oid.slice(0,7)}`).join('+')}`);
+
+    // Nenumerický historický konec (typicky *.xz.b64) se smí připojit jen při
+    // sémantické vazbě na začátek, aby nevznikla nekontrolovaná kartézská exploze.
+    for (const tail of tails) {
+      if (attempts >= MAX_ATTEMPTS) break;
+      if (overlap(seed, tail.tok) > 0) await testEncoded(encoded + tail.text, `union-tail:${chosen.map(p => p.p).join('+')}+${tail.p}`);
+    }
+
+    let opts = (byStart.get(next) || []).filter(p => overlap(seed, p.tok) > 0 || overlap(first.tok, p.tok) > 0);
+    opts = opts.sort((a, b) => overlap(seed, b.tok) - overlap(seed, a.tok) || (b.end - b.start) - (a.end - a.start));
+    // Stejný rozsah může mít mnoho historických verzí. Zachováme všechny, ale tvrdě
+    // omezíme větev; správnost stejně určuje až kryptografický hash výsledku.
+    for (const p of opts.slice(0, 24)) {
+      chosen.push(p);
+      await dfs(p.end + 1, encoded + p.text);
+      chosen.pop();
+      if (found.size === expected.size || attempts >= MAX_ATTEMPTS) return;
+    }
+  }
+  await dfs(first.end + 1, first.text);
+}
+console.log(`GLOBAL UNION COMPLETE attempts=${attempts} found=${found.size}/${expected.size}`);
+
+// 3) Diagnostická pojistka pro budoucí regresi: nikdy nevydáváme „nalezeno“ bez přesného
+// hashového důkazu a nikdy nevyžadujeme historický 108dílný monolit jako jediný zdroj.
 console.log(`HISTORY BLOB RECOVERY ${found.size}/${expected.size}`);
