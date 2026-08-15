@@ -19,23 +19,80 @@ const expected = {
   'documents/report-04082026-010/33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf': 'd461ad6eacc569ba8d86c4ce640a3f6273ff67ae48fc5ea57f1f8653ce0e2a40'
 };
 
+const byHash = new Map(Object.entries(expected).map(([relative, sha]) => [sha, relative]));
 const exists = async file => access(file, constants.F_OK).then(() => true).catch(() => false);
 const hash = data => createHash('sha256').update(data).digest('hex');
+const verified = new Set();
 
-async function verifyAndWrite(relative, data, source) {
+async function acceptCandidate(relative, data, source) {
   const wanted = expected[relative];
   if (!wanted) throw new Error(`Neznámý cíl ${relative}`);
-  if (!data.subarray(0, 5).equals(Buffer.from('%PDF-'))) throw new Error(`${relative}: ${source} nevytvořil PDF`);
+  if (!Buffer.isBuffer(data)) data = Buffer.from(data);
+  if (!data.subarray(0, 5).equals(Buffer.from('%PDF-'))) {
+    console.log(`PDF CANDIDATE REJECTED ${relative}: není PDF source=${source}`);
+    return false;
+  }
   const actual = hash(data);
-  if (actual !== wanted) throw new Error(`${relative}: SHA-256 ${actual} neodpovídá ${wanted} (${source})`);
+  if (actual !== wanted) {
+    console.log(`PDF CANDIDATE REJECTED ${relative}: sha256=${actual} expected=${wanted} source=${source}`);
+    return false;
+  }
   const target = path.join(outputRoot, relative);
   await mkdir(path.dirname(target), { recursive: true });
   await writeFile(target, data);
+  verified.add(relative);
   console.log(`PDF VERIFIED ${relative} ${actual} source=${source}`);
+  return true;
 }
 
-// 1) Znovupoužitelné zdroje po jednotlivých dokumentech. Nový zdroj se přidává sem,
-// nikoli do jednoho monolitického archivu; chyba jednoho PDF tak neblokuje obnovu ostatních.
+async function recoverExactPdfBlobsFromGitHistory() {
+  // checkout ve workflow používá fetch-depth: 0 a stáhne všechny větve. Tímto se každé
+  // přesné PDF, které kdy bylo dosažitelné z libovolného refu, stává automaticky obnovitelným,
+  // i když bylo později smazáno, přejmenováno nebo odpojeno od main.
+  let stdout;
+  try {
+    ({ stdout } = await execFileAsync('git', ['rev-list', '--objects', '--all'], {
+      encoding: 'utf8', maxBuffer: 64 * 1024 * 1024
+    }));
+  } catch (error) {
+    console.log(`GIT HISTORY RECOVERY SKIPPED: ${error.message}`);
+    return;
+  }
+
+  const pdfObjects = new Map();
+  for (const line of stdout.split('\n')) {
+    if (!line) continue;
+    const space = line.indexOf(' ');
+    if (space < 0) continue;
+    const sha = line.slice(0, space);
+    const name = line.slice(space + 1);
+    if (!/\.pdf$/i.test(name)) continue;
+    if (!pdfObjects.has(sha)) pdfObjects.set(sha, name);
+  }
+
+  console.log(`GIT HISTORY SCAN: ${pdfObjects.size} unikátních historických PDF blobů.`);
+  for (const [blobSha, historicPath] of pdfObjects) {
+    if (verified.size === Object.keys(expected).length) break;
+    let data;
+    try {
+      ({ stdout: data } = await execFileAsync('git', ['cat-file', 'blob', blobSha], {
+        encoding: null, maxBuffer: 32 * 1024 * 1024
+      }));
+    } catch {
+      continue;
+    }
+    if (!Buffer.isBuffer(data) || !data.subarray(0, 5).equals(Buffer.from('%PDF-'))) continue;
+    const actual = hash(data);
+    const relative = byHash.get(actual);
+    if (!relative || verified.has(relative)) continue;
+    await acceptCandidate(relative, data, `git-history:${historicPath}@${blobSha}`);
+  }
+}
+
+await recoverExactPdfBlobsFromGitHistory();
+
+// Znovupoužitelné zdroje po jednotlivých dokumentech. Kandidát, který hashově nesedí,
+// už nezastaví diagnostiku ostatních dokumentů; selže až závěrečná publikační brána.
 const directSources = [
   {
     relative: 'documents/report-04082026-010/25-mv-127234-2-obp-2026-2026-08-11.pdf',
@@ -49,44 +106,56 @@ const directSources = [
 ];
 
 for (const item of directSources) {
+  if (verified.has(item.relative)) continue;
   if (!(await Promise.all(item.chunks.map(exists))).every(Boolean)) continue;
   let encoded = '';
   for (const chunk of item.chunks) encoded += (await readFile(chunk, 'utf8')).trim();
-  await verifyAndWrite(item.relative, Buffer.from(encoded, 'base64'), `direct:${item.chunks.join(',')}`);
+  await acceptCandidate(item.relative, Buffer.from(encoded, 'base64'), `direct:${item.chunks.join(',')}`);
 }
 
-// 2) Již uložený komprimovaný zdroj stížnosti MSZ (PDF 30).
+// Již uložený komprimovaný zdroj stížnosti MSZ (PDF 30).
+const mszRelative = 'documents/report-04082026-010/30-dvorak-stiznost-msz-necinnost-infz-2026-07-31.pdf';
 const mszSource = 'project-memory/binary-final/msz-necinnost.xz.b64';
-if (await exists(mszSource)) {
-  const xz = Buffer.from((await readFile(mszSource, 'utf8')).trim(), 'base64');
-  const tmp = '/tmp/godot-msz-necinnost.pdf.xz';
-  await writeFile(tmp, xz);
-  const { stdout } = await execFileAsync('xz', ['-dc', tmp], { encoding: 'buffer', maxBuffer: 20 * 1024 * 1024 });
-  await rm(tmp, { force: true });
-  await verifyAndWrite('documents/report-04082026-010/30-dvorak-stiznost-msz-necinnost-infz-2026-07-31.pdf', stdout, `xz:${mszSource}`);
+if (!verified.has(mszRelative) && await exists(mszSource)) {
+  try {
+    const xz = Buffer.from((await readFile(mszSource, 'utf8')).trim(), 'base64');
+    const tmp = '/tmp/godot-msz-necinnost.pdf.xz';
+    await writeFile(tmp, xz);
+    const { stdout } = await execFileAsync('xz', ['-dc', tmp], { encoding: null, maxBuffer: 20 * 1024 * 1024 });
+    await rm(tmp, { force: true });
+    await acceptCandidate(mszRelative, stdout, `xz:${mszSource}`);
+  } catch (error) {
+    console.log(`PDF CANDIDATE REJECTED ${mszRelative}: xz error ${error.message}`);
+  }
 }
 
-// 3) Přechodová kompatibilita se starým 108dílným archivem. Použije se jen tehdy,
-// je-li skutečně kompletní a potřebujeme z něj doplnit dosud chybějící PDF.
+// Přechodová kompatibilita se starým 108dílným archivem. Použije se jen tehdy,
+// je-li skutečně kompletní. Neúplný monolit už nikdy nesmí blokovat jednotlivé zdroje.
 const chunksDir = 'project-memory/binary-bundle-2026-08-15';
 if (await exists(chunksDir)) {
   const names = (await readdir(chunksDir)).filter(name => /^chunk-\d{3}\.b64$/.test(name)).sort();
   if (names.length === 108) {
+    let contiguous = true;
     for (let i = 0; i < names.length; i++) {
       const expectedName = `chunk-${String(i).padStart(3, '0')}.b64`;
-      if (names[i] !== expectedName) throw new Error(`Legacy balík není souvislý: očekáváno ${expectedName}, nalezeno ${names[i]}`);
+      if (names[i] !== expectedName) { contiguous = false; break; }
     }
-    let encoded = '';
-    for (const name of names) encoded += (await readFile(`${chunksDir}/${name}`, 'utf8')).trim();
-    const archive = Buffer.from(encoded, 'base64');
-    const archiveHash = hash(archive);
-    if (archiveHash !== 'f814095514a232208c150636028ef918d989cf4c04655e1b79abbe5e96a8b5a8') throw new Error(`SHA-256 legacy balíku nesedí: ${archiveHash}`);
-    const archivePath = '/tmp/godot-pdfs-2026-08-15.tar.xz';
-    await writeFile(archivePath, archive);
-    await execFileAsync('tar', ['-xJf', archivePath, '-C', outputRoot], { maxBuffer: 20 * 1024 * 1024 });
-    await rm(archivePath, { force: true });
+    if (contiguous) {
+      let encoded = '';
+      for (const name of names) encoded += (await readFile(`${chunksDir}/${name}`, 'utf8')).trim();
+      const archive = Buffer.from(encoded, 'base64');
+      const archiveHash = hash(archive);
+      if (archiveHash === 'f814095514a232208c150636028ef918d989cf4c04655e1b79abbe5e96a8b5a8') {
+        const archivePath = '/tmp/godot-pdfs-2026-08-15.tar.xz';
+        await writeFile(archivePath, archive);
+        await execFileAsync('tar', ['-xJf', archivePath, '-C', outputRoot], { maxBuffer: 20 * 1024 * 1024 });
+        await rm(archivePath, { force: true });
+      } else {
+        console.log(`Legacy balík ignorován: SHA-256 ${archiveHash} nesedí.`);
+      }
+    }
   } else {
-    console.log(`Legacy balík ignorován: ${names.length}/108 částí. Jednotlivé zdroje mají přednost.`);
+    console.log(`Legacy balík ignorován: ${names.length}/108 částí. Jednotlivé zdroje a historie Git mají přednost.`);
   }
 }
 
@@ -100,6 +169,11 @@ for (const [relative, wanted] of Object.entries(expected)) {
   if (!data.subarray(0, 5).equals(Buffer.from('%PDF-'))) throw new Error(`${relative}: výsledný soubor není PDF`);
   const actual = hash(data);
   if (actual !== wanted) throw new Error(`${relative}: výsledný SHA-256 ${actual} neodpovídá ${wanted}`);
+  verified.add(relative);
 }
-if (missing.length) throw new Error(`Chybí ověřené binární zdroje pro ${missing.length} PDF: ${missing.join(' | ')}`);
+if (missing.length) {
+  const message = `Chybí ověřené binární zdroje pro ${missing.length} PDF: ${missing.join(' | ')}`;
+  console.error(`::error title=PDF materialization::${message}`);
+  throw new Error(message);
+}
 console.log(`Materializováno a SHA-256 ověřeno ${Object.keys(expected).length} PDF pro Godot.`);
