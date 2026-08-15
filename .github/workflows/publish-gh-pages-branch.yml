@@ -34,6 +34,8 @@ jobs:
         run: node scripts/materialize-godot-pdf-bundle.mjs
       - name: Spustit jediný kanonický build
         run: node scripts/build-site.mjs
+      - name: Doplnit opačné vazby stát na naše předchozí podání
+        run: node scripts/patch-godot-reverse-reactions.mjs
       - name: Finalizovat veřejné popisky bez změny kanonických dat
         run: node scripts/finalize-public-labels.mjs
       - name: Ověřit Evidence Lab 2.0 před publikací
@@ -49,6 +51,11 @@ jobs:
           grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' web/zpravy/04082026-010.html
           ! grep -q 'Pavouk český křižák z Branibor' web/zpravy/04082026-010.html
           ! grep -q 'href="web/' web/zpravy/04082026-010.html
+          grep -q 'href="zpravy/04082026-010.html#chronologie">Godot online →</a>' web/index.html
+          grep -q 'Naše podání, na které orgán reaguje' web/zpravy/04082026-010.html
+          grep -q 'grid-auto-columns:minmax(0,1fr)' web/layout-fix.css
+          grep -q 'grid-template-columns:260px minmax(0,1fr)' web/live-dockets.css
+          grep -q 'grid-template-columns:repeat(3,minmax(0,1fr))' web/live-dockets.css
           grep -q '"schema_version": "2.2"' web/data/build-manifest.json
           grep -q '"build_entrypoint": "scripts/build-site.mjs"' web/data/build-manifest.json
           grep -q '"registry_hard_errors": 0' web/data/build-manifest.json
@@ -61,24 +68,24 @@ jobs:
           grep -q 'Otevřít ověřenou veřejnou kopii PDF' web/listiny/doc-cz-kpr-2026-08-03-kpr-5080-2026.html
           ! grep -Eqi '<a href="[^"]*verejna-kopie\.pdf"[^>]*>[^<]*originál' web/zpravy/04082026-010.html
           test -f web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf
-          test -f web/documents/report-04082026-010/kpr-5772-2026-1-2026-07-30-verejna-kopie.pdf
-          test -f web/documents/report-04082026-010/kpr-5080-2026-2026-08-03-verejna-kopie.pdf
           test "$(head -c 5 web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf)" = '%PDF-'
-          test "$(head -c 5 web/documents/report-04082026-010/kpr-5772-2026-1-2026-07-30-verejna-kopie.pdf)" = '%PDF-'
-          test "$(head -c 5 web/documents/report-04082026-010/kpr-5080-2026-2026-08-03-verejna-kopie.pdf)" = '%PDF-'
-          for f in \
-            25-mv-127234-2-obp-2026-2026-08-11.pdf \
-            26-gfaa-rozklad-mv-127234-2-obp-2026-2026-08-12.pdf \
-            27-mk-49467-2026-socns-2026-08-12.pdf \
-            28-dvorak-odvolani-nsz-sin-55-2026-19-2026-08-01.pdf \
-            29-dvorak-odvolani-msz-sin-48-2026-12-2026-07-31.pdf \
-            30-dvorak-stiznost-msz-necinnost-infz-2026-07-31.pdf \
-            31-policie-uvk-pp-ppr-43826-2-cj-2026-990210-pd-2026-08-14.pdf \
-            32-dvorak-stiznost-uvk-pp-pcr-2026-08-14.pdf \
-            33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf; do
-            test -f "web/documents/report-04082026-010/$f"
-            test "$(head -c 5 "web/documents/report-04082026-010/$f")" = '%PDF-'
-          done
+          cat > /tmp/godot-pdf-sha256.txt <<'EOF'
+          c65c9cc5f12eab03f69c4ea1bf642c3078f4858153b385e80f141da6ea334a55  web/documents/report-04082026-010/25-mv-127234-2-obp-2026-2026-08-11.pdf
+          769392aa996dda284c927b9bee9fbee1c364daade8d2a1867fe7fa380d4b3cc2  web/documents/report-04082026-010/26-gfaa-rozklad-mv-127234-2-obp-2026-2026-08-12.pdf
+          bb23820c9a02a17a976f0a746def4c53f4afa413fb708259e25a59d6a2f0f3b1  web/documents/report-04082026-010/27-mk-49467-2026-socns-2026-08-12.pdf
+          021a9c83a3079ab0b6e26205c510e6d8b1633dfe3c30c57c3048538942fb91b3  web/documents/report-04082026-010/28-dvorak-odvolani-nsz-sin-55-2026-19-2026-08-01.pdf
+          564fa5536735679523d976664eb805fa82987c7699134a15f483c530b4a40e02  web/documents/report-04082026-010/29-dvorak-odvolani-msz-sin-48-2026-12-2026-07-31.pdf
+          77e623a6b0af714d479ec8b8c4fda8ea3fef0d2330f0dc6fcf541258c73e9dec  web/documents/report-04082026-010/30-dvorak-stiznost-msz-necinnost-infz-2026-07-31.pdf
+          823d7ec58d9ed6de4abde4f0636eb1d87d9d16c331ac7d143c2342621999c88c  web/documents/report-04082026-010/31-policie-uvk-pp-ppr-43826-2-cj-2026-990210-pd-2026-08-14.pdf
+          f74b439f6d99826a7f49b32e08e2f908017c4e840a2b8837dd241fbc582f765d  web/documents/report-04082026-010/32-dvorak-stiznost-uvk-pp-pcr-2026-08-14.pdf
+          d461ad6eacc569ba8d86c4ce640a3f6273ff67ae48fc5ea57f1f8653ce0e2a40  web/documents/report-04082026-010/33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf
+          EOF
+          sed -i 's/^          //' /tmp/godot-pdf-sha256.txt
+          sha256sum -c /tmp/godot-pdf-sha256.txt
+          while read -r sha file; do
+            rel="${file#web/}"
+            grep -q "$rel" web/zpravy/04082026-010.html
+          done < /tmp/godot-pdf-sha256.txt
       - name: Připravit kořen webu a kompatibilní cestu /web
         shell: bash
         run: |
@@ -107,5 +114,4 @@ jobs:
           git push --force origin HEAD:gh-pages
       - name: Souhrn
         run: |
-          echo "Evidence Lab 2.0 byl po úspěšné validaci publikován pouze do větve gh-pages."
-          echo "Kořenové URL i kompatibilní /web/ URL jsou součástí stejného ověřeného buildu."
+          echo "Evidence Lab 2.0 byl publikován až po hashové kontrole devíti nových PDF, přímého vstupu do Godota a symetrických lišt."

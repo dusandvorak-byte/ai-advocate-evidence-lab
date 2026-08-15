@@ -22,12 +22,16 @@ const run = (cmd, args) => new Promise((resolve, reject) => {
   child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${cmd} skončil kódem ${code}`)));
 });
 const names = (await readdir(chunksDir)).filter(name => /^chunk-\d{3}\.b64$/.test(name)).sort();
-if (names.length !== 102) throw new Error(`Binární balík má ${names.length} částí; očekáváno 102.`);
+if (names.length !== 108) throw new Error(`Binární balík má ${names.length} částí; očekáváno 108.`);
+for (let i = 0; i < names.length; i += 1) {
+  const expectedName = `chunk-${String(i).padStart(3, '0')}.b64`;
+  if (names[i] !== expectedName) throw new Error(`Binární balík není souvislý: očekáváno ${expectedName}, nalezeno ${names[i]}.`);
+}
 let encoded = '';
 for (const name of names) encoded += (await readFile(`${chunksDir}/${name}`, 'utf8')).trim();
 const archive = Buffer.from(encoded, 'base64');
 const archiveHash = createHash('sha256').update(archive).digest('hex');
-if (archiveHash !== 'ac42184e6e4825ee1b4bfb115a73d0095219cebcaf46259d8824a658d7df0c60') throw new Error(`SHA-256 binárního balíku nesedí: ${archiveHash}`);
+if (archiveHash !== 'f814095514a232208c150636028ef918d989cf4c04655e1b79abbe5e96a8b5a8') throw new Error(`SHA-256 binárního balíku nesedí: ${archiveHash}`);
 await writeFile(archivePath, archive);
 await mkdir(`${outputRoot}/documents/report-04082026-010`, { recursive: true });
 await run('tar', ['-xJf', archivePath, '-C', outputRoot]);
