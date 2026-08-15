@@ -16,27 +16,22 @@ const expected = {
   'documents/report-04082026-010/32-dvorak-stiznost-uvk-pp-pcr-2026-08-14.pdf': 'f74b439f6d99826a7f49b32e08e2f908017c4e840a2b8837dd241fbc582f765d',
   'documents/report-04082026-010/33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf': 'd461ad6eacc569ba8d86c4ce640a3f6273ff67ae48fc5ea57f1f8653ce0e2a40'
 };
-
 const run = (cmd, args) => new Promise((resolve, reject) => {
   const child = spawn(cmd, args, { stdio: 'inherit' });
   child.on('error', reject);
   child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${cmd} skončil kódem ${code}`)));
 });
-
 const names = (await readdir(chunksDir)).filter(name => /^chunk-\d{3}\.b64$/.test(name)).sort();
 if (names.length !== 121) throw new Error(`Binární balík má ${names.length} částí; očekáváno 121.`);
 let encoded = '';
 for (const name of names) encoded += (await readFile(`${chunksDir}/${name}`, 'utf8')).trim();
 const archive = Buffer.from(encoded, 'base64');
 const archiveHash = createHash('sha256').update(archive).digest('hex');
-if (archiveHash !== '4c0e6ec03051d1c194bdb362196c131367236e77617bf6f76d3c0386dc1e335a') {
-  throw new Error(`SHA-256 binárního balíku nesedí: ${archiveHash}`);
-}
+if (archiveHash !== 'ac42184e6e4825ee1b4bfb115a73d0095219cebcaf46259d8824a658d7df0c60') throw new Error(`SHA-256 binárního balíku nesedí: ${archiveHash}`);
 await writeFile(archivePath, archive);
 await mkdir(`${outputRoot}/documents/report-04082026-010`, { recursive: true });
 await run('tar', ['-xJf', archivePath, '-C', outputRoot]);
 await rm(archivePath, { force: true });
-
 for (const [relative, sha] of Object.entries(expected)) {
   const data = await readFile(`${outputRoot}/${relative}`);
   if (!data.subarray(0, 5).equals(Buffer.from('%PDF-'))) throw new Error(`${relative} není PDF`);
