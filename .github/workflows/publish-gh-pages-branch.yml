@@ -30,6 +30,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Obnovit přesné PDF z historických binárních zdrojů
+        run: node scripts/recover-historical-binary-blobs.mjs
       - name: Materializovat a hashově ověřit aktuální PDF Godota
         run: node scripts/materialize-godot-pdf-bundle.mjs
       - name: Spustit jediný kanonický build
