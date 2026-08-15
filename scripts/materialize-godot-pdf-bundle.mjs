@@ -22,7 +22,7 @@ const run = (cmd, args) => new Promise((resolve, reject) => {
   child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${cmd} skončil kódem ${code}`)));
 });
 const names = (await readdir(chunksDir)).filter(name => /^chunk-\d{3}\.b64$/.test(name)).sort();
-if (names.length !== 121) throw new Error(`Binární balík má ${names.length} částí; očekáváno 121.`);
+if (names.length !== 102) throw new Error(`Binární balík má ${names.length} částí; očekáváno 102.`);
 let encoded = '';
 for (const name of names) encoded += (await readFile(`${chunksDir}/${name}`, 'utf8')).trim();
 const archive = Buffer.from(encoded, 'base64');
