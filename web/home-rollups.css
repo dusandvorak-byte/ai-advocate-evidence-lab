@@ -267,3 +267,10 @@
 #live-dockets.home-rollup-stack-primary > #procesni-casovace[open] a {
   text-decoration-color: rgba(255,255,255,.8);
 }
+
+/* Bílé historické referenční karty zůstávají černým písmem čitelné i uvnitř
+   jinak tmavě modrého rozbaleného bloku procesních časovačů. */
+#live-dockets.home-rollup-stack-primary > #procesni-casovace[open] .historical-notice,
+#live-dockets.home-rollup-stack-primary > #procesni-casovace[open] .historical-notice * {
+  color: #111 !important;
+}
