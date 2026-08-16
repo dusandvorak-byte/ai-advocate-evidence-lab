@@ -5,6 +5,7 @@ const styles = await readFile('web/home-rollups.css', 'utf8');
 const home = await readFile('web/index.html', 'utf8');
 const englishHome = await readFile('web/en.html', 'utf8');
 const newsFeed = await readFile('web/news-feed.js', 'utf8');
+const siteSearch = await readFile('web/site-search.js', 'utf8');
 const publishWorkflow = await readFile('.github/workflows/publish-gh-pages-branch.yml', 'utf8');
 const timerBuilder = await readFile('scripts/build-process-timers.mjs', 'utf8');
 const englishGodot = await readFile('web/news/04082026-010.html', 'utf8');
@@ -111,6 +112,8 @@ for (const stale of ['Czech canonical report:', 'Czech authorial report:', 'Czec
 const mergedEnglishReport = await readFile('web/news/23072026-003.html', 'utf8');
 if (!mergedEnglishReport.includes('url=/ai-advocate-evidence-lab/news/24072026-005.html')) throw new Error('Sloučený report 23072026-003 nemá anglické přesměrování');
 if (newsFeed.includes('item.hrefEn || item.href')) throw new Error('Anglický feed stále dovoluje tichý návrat na český článek');
+if (siteSearch.includes('item.hrefEn || item.href')) throw new Error('Anglické vyhledávání stále dovoluje tichý návrat na český článek');
+if (!siteSearch.includes('English search requires hrefEn for every published report')) throw new Error('Anglické vyhledávání nekontroluje úplnost anglických odkazů');
 if (!publishWorkflow.includes('grep -q "live-dockets.js?v=${version}" /tmp/verified-site/en.html')
   || !publishWorkflow.includes('grep -q "news-feed.js?v=${version}" /tmp/verified-site/en.html')) {
   throw new Error('Workflow neverzuje anglické lišty a anglický zdroj zpráv proti mezipaměti');
