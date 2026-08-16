@@ -6,8 +6,10 @@ const currentOverridesPath = 'project-memory/process-timer-overrides-2026-08-12.
 const documentSourcesPath = 'project-memory/document-sources.json';
 const institutionsPath = 'project-memory/institutions.json';
 const eudaResponsePath = 'project-memory/euda-response-2026-08-07.json';
+const englishTranslationsPath = 'project-memory/english-process-timer-translations.json';
 const targetPath = 'web/data/process-timers.json';
 const homePath = 'web/index.html';
+const englishHomePath = 'web/en.html';
 const godotPath = 'web/zpravy/04082026-010.html';
 const eudaArticlePath = 'web/zpravy/07082026-011.html';
 const cssTag = '<link rel="stylesheet" href="process-timers.css">';
@@ -67,11 +69,13 @@ const currentOverrides = JSON.parse(await readFile(currentOverridesPath, 'utf8')
 const documentSources = JSON.parse(await readFile(documentSourcesPath, 'utf8'));
 const institutionsRegistry = JSON.parse(await readFile(institutionsPath, 'utf8'));
 const eudaResponse = JSON.parse(await readFile(eudaResponsePath, 'utf8'));
+const englishTranslations = JSON.parse(await readFile(englishTranslationsPath, 'utf8'));
 if (!Array.isArray(registry.timers) || !Array.isArray(registry.historical_notice_points)) throw new Error('process-timers.json nemá očekávanou strukturu');
 if (!Array.isArray(overrides.patches)) throw new Error('process-timer-overrides.json nemá pole patches');
 if (!Array.isArray(currentOverrides.patches)) throw new Error('process-timer-overrides-2026-08-12.json nemá pole patches');
 if (!Array.isArray(documentSources.sources)) throw new Error('document-sources.json nemá pole sources');
 if (!Array.isArray(institutionsRegistry.institutions)) throw new Error('institutions.json nemá pole institutions');
+if (!englishTranslations.timers || typeof englishTranslations.timers !== 'object') throw new Error('Anglický registr časovačů nemá objekt timers');
 
 const institutionNames = new Map(institutionsRegistry.institutions.map(item => [item.id, item.name || item.title || item.id]));
 const canonicalDocuments = [];
@@ -216,6 +220,45 @@ const row = item => {
   </article>`;
 };
 
+const englishEntities = new Map([
+  ['Policejní prezidium České republiky', 'Police Presidium of the Czech Republic'],
+  ['Odbor vnitřní kontroly Policejního prezidia České republiky', 'Internal Control Office of the Police Presidium'],
+  ['Okresní soud v Prostějově', 'Prostějov District Court'], ['Krajský soud v Brně', 'Brno Regional Court'],
+  ['Ministerstvo spravedlnosti', 'Ministry of Justice'], ['ministr spravedlnosti', 'Minister of Justice'],
+  ['Ministerstvo vnitra', 'Ministry of the Interior'], ['ministr vnitra', 'Minister of the Interior'],
+  ['Nejvyšší státní zastupitelství', 'Supreme Public Prosecutor’s Office'],
+  ['Úřad pro ochranu osobních údajů', 'Office for Personal Data Protection'],
+  ['Městské státní zastupitelství v Praze', 'Prague Municipal Public Prosecutor’s Office'],
+  ['Vrchní státní zastupitelství v Praze', 'Prague High Public Prosecutor’s Office'],
+  ['příslušný orgán', 'competent authority'], ['evidovaný účastník řízení', 'recorded participant']
+]);
+const translateEntity = value => englishEntities.get(value) || value;
+const englishRegime = item => {
+  if (item.id === 'timer-preaction-euda-2026-08-07') return 'Two months under Article 265 TFEU; acknowledgement of receipt is not itself a substantive position.';
+  if (item.id === 'timer-admin-kpr-175-2026-08-03') return '60 days under Section 175(5) of the Czech Code of Administrative Procedure.';
+  if (item.id === 'timer-admin-krpt-infz-2026-07-27') return '15 days, extendable by up to 10 days under the Freedom of Information Act; the notified date is 21 August 2026.';
+  if (item.id === 'timer-admin-mk-2026-07-22') return 'Basic period of 30 days under Section 71 of the Code of Administrative Procedure, subject to statutory extension in a complex matter.';
+  if (item.id === 'timer-admin-mv-rozklad-127234-2026') return '15 working days for the administrative appeal under Section 16(3) of the Freedom of Information Act.';
+  if (item.id === 'timer-admin-msz-stiznost-necinnost-2026-07-31' || item.id === 'timer-admin-kpr-repeat-16a-2026-08-10') return 'Seven days for full self-remedy or submission to the superior authority under Section 16a(5) of the Freedom of Information Act.';
+  if (item.id === 'timer-admin-nsz-odvolani-sin55-2026' || item.id === 'timer-admin-msz-odvolani-sin48-2026') return 'Following period under the Freedom of Information Act, counted from delivery of the appeal.';
+  if (item.id === 'timer-preaction-nsz-2026-07-14') return 'Author-requested checkpoints: interim response by 21 August and final position by 11 September 2026; these are not general statutory periods.';
+  if (item.category === 'court') return 'No universal fixed statutory number of days for the merits decision is recorded; the proceeding must be conducted without undue delay.';
+  if (item.category === 'review_supervision') return 'No universal fixed statutory number of days for completion of this review or supervision is documented.';
+  if (item.category === 'criminal_historical') return 'Historical evidence branch; the timer does not prove an offence or inactivity in every individual filing.';
+  if (item.category === 'current_remedies') return 'The exact period depends on the applicable procedural regime; without a documented numerical period, only elapsed time is shown.';
+  return 'The applicable period depends on the documented procedural regime.';
+};
+const englishRow = item => {
+  const translation = englishTranslations.timers[item.id];
+  if (!translation?.title || !translation?.event) throw new Error(`Missing complete English timer translation: ${item.id}`);
+  const countStart = item.count_from_date || item.start_date;
+  const end = item.end_date || '';
+  const { recipient, actor } = displayParties(item);
+  const linkHref = item.source_document_id ? `news/04082026-010.html#en-${item.source_document_id}` : 'news/04082026-010.html#chronology';
+  const forAuthority = item.for_authority ? `<p class="timer-basis"><b>For:</b> ${escapeHtml(translateEntity(item.for_authority))}</p>` : '';
+  return `<article class="process-timer" data-process-timer data-limit-kind="${escapeHtml(item.limit_kind || '')}" data-start-date="${escapeHtml(countStart)}" data-event-date="${escapeHtml(item.start_date)}" data-timer-id="${escapeHtml(item.id)}"${item.source_document_id ? ` data-source-document-id="${escapeHtml(item.source_document_id)}"` : ''}${end ? ` data-end-date="${escapeHtml(end)}"` : ''}><div class="timer-value"><span data-elapsed-days>…</span> / <span>days tracked</span></div><div class="timer-detail"><h4><a href="${linkHref}">${escapeHtml(translation.title)}</a></h4><p class="timer-basis"><b>When:</b> ${escapeHtml(item.start_date)}</p><p class="timer-basis"><b>To:</b> ${escapeHtml(translateEntity(recipient))}</p>${forAuthority}<p class="timer-basis"><b>Reference:</b> ${escapeHtml(item.reference)}</p><p class="timer-basis"><b>From:</b> ${escapeHtml(translateEntity(actor))}</p><p class="timer-basis"><b>What happened:</b> ${escapeHtml(translation.event)}</p>${item.count_from_date ? `<p class="timer-basis"><b>Day 1:</b> ${escapeHtml(item.count_from_date)}</p>` : ''}<p class="timer-basis"><b>Time limit / procedural regime:</b> ${escapeHtml(englishRegime(item))}</p></div></article>`;
+};
+
 // Právně kvalifikované ruční časovače se zobrazí v témže prioritním bloku, ale ne podruhé v administrativní sekci.
 const derivedPriority = registry.timers.filter(item => item.category === 'current_remedies');
 const manualPriority = registry.timers.filter(item => legallyQualifiedPriority.has(item.id));
@@ -232,6 +275,13 @@ const categories = order.filter(category => category !== 'current_remedies').map
 
 const notices = registry.historical_notice_points.map(item => `<article class="historical-notice"><h4>${escapeHtml(item.date)} · ${escapeHtml(item.title)}</h4><p>${escapeHtml(item.evidence)}</p><p><b>Význam pro projekt:</b> ${escapeHtml(item.boundary)}</p></article>`).join('');
 const timerBody = `${prioritySection}${categories}<h3>Historický společný referenční bod vědomosti státu</h3>${notices}`;
+const englishCategoryLabels = { current_remedies: 'Current complaints and appeals', court: 'Courts', pre_action: 'Pre-action and preliminary demands', administrative: 'Administrative and information proceedings', review_supervision: 'Reviews and supervision', criminal_historical: 'Historical criminal-evidence branch' };
+const englishSections = order.map(category => {
+  const items = category === 'current_remedies' ? priorityTimers : regularTimers.filter(item => item.category === category);
+  if (!items.length) return '';
+  return `<section class="timer-category${category === 'current_remedies' ? ' timer-category-priority' : ''}" data-timer-category="${category}"><h3>${englishCategoryLabels[category]} <span class="timer-category-count">(${items.length})</span></h3><div class="timer-grid">${items.map(englishRow).join('')}</div></section>`;
+}).join('');
+const englishHomeSection = `${timerBegin}<details id="procesni-casovace" class="process-timers process-timers-dropdown"><summary><span>Live procedural timers</span><strong>${registry.timers.length} active timers · expand</strong></summary><div class="process-timers-dropdown-body">${englishSections}</div></details>${timerEnd}`;
 const godotSection = `${timerBegin}<section id="procesni-casovace" class="process-timers"><header><div><p class="section-label">DŮSLEDKY · ŽIVÉ PROCESNÍ ČASOVAČE</p><h2>Živé procesní časovače</h2></div></header><p class="timer-legend">Tento blok následuje až po chronologii listin veřejných institucí od 1. května 2026. Jde o odvozené procesní důsledky chronologie, nikoli o její náhradu.</p>${timerBody}</section>${timerEnd}`;
 const homeSection = `${timerBegin}<details id="procesni-casovace" class="process-timers process-timers-dropdown"><summary><span>Živé procesní časovače</span><strong>${registry.timers.length} aktivních časovačů · rozbalit</strong></summary><div class="process-timers-dropdown-body">${timerBody}</div></details>${timerEnd}`;
 
@@ -253,6 +303,13 @@ home = home.replace(homeMarker, `${homeSection}\n${homeMarker}`);
 home = injectAssets(home);
 assertRequiredTimersRendered(home, 'Titulní stránka');
 await writeFile(homePath, home, 'utf8');
+
+let englishHome = removeGeneratedTimerBlock(await readFile(englishHomePath, 'utf8'), 'details');
+if (!englishHome.includes(homeMarker)) throw new Error('English front page has no shared-news-feed marker for timers');
+englishHome = englishHome.replace(homeMarker, `${englishHomeSection}\n${homeMarker}`);
+englishHome = injectAssets(englishHome);
+assertRequiredTimersRendered(englishHome, 'English front page');
+await writeFile(englishHomePath, englishHome, 'utf8');
 
 let godot = removeGeneratedTimerBlock(await readFile(godotPath, 'utf8'), 'section');
 const chronologyMarker = '<ol id="chronologie-seznam">';
