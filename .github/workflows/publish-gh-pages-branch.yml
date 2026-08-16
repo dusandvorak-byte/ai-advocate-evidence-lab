@@ -120,9 +120,14 @@ jobs:
           mkdir -p /tmp/verified-site/web
           cp -a /tmp/verified-site-copy/. /tmp/verified-site/web/
           version="${GITHUB_SHA:0:12}"
-          sed -E -i "s#src=\"live-dockets\\.js(\\?v=[^\"]*)?\"#src=\"live-dockets.js?v=${version}\"#g" /tmp/verified-site/index.html /tmp/verified-site/web/index.html
+          while IFS= read -r -d '' html_file; do
+            sed -E -i "s#src=\"live-dockets\\.js(\\?v=[^\"]*)?\"#src=\"live-dockets.js?v=${version}\"#g" "$html_file"
+            sed -E -i "s#src=\"news-feed\\.js(\\?v=[^\"]*)?\"#src=\"news-feed.js?v=${version}\"#g" "$html_file"
+          done < <(find /tmp/verified-site -type f -name '*.html' -print0)
           sed -E -i "s#const cssHref = 'home-rollups\\.css(\\?v=[^']*)?'#const cssHref = 'home-rollups.css?v=${version}'#g" /tmp/verified-site/live-dockets.js /tmp/verified-site/web/live-dockets.js
           grep -q "live-dockets.js?v=${version}" /tmp/verified-site/index.html
+          grep -q "live-dockets.js?v=${version}" /tmp/verified-site/en.html
+          grep -q "news-feed.js?v=${version}" /tmp/verified-site/en.html
           grep -q "home-rollups.css?v=${version}" /tmp/verified-site/live-dockets.js
           touch /tmp/verified-site/.nojekyll
           touch /tmp/verified-site/web/.nojekyll
