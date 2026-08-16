@@ -1,6 +1,7 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 
 const htmlFiles = (await readdir('web', { recursive: true })).filter(path => path.endsWith('.html'));
+const translationAssetVersion = '20260817-1';
 let eligible = 0;
 let updated = 0;
 for (const relativePath of htmlFiles) {
@@ -13,8 +14,9 @@ for (const relativePath of htmlFiles) {
     html = html.replace('</head>', '<link rel="stylesheet" href="/ai-advocate-evidence-lab/language-menu.css"></head>');
   }
   if (!html.includes('auto-translate.js')) {
-    html = html.replace('</body>', '<script src="/ai-advocate-evidence-lab/auto-translate.js" defer></script></body>');
+    html = html.replace('</body>', `<script src="/ai-advocate-evidence-lab/auto-translate.js?v=${translationAssetVersion}" defer></script></body>`);
   }
+  html = html.replace(/src="(?:\/ai-advocate-evidence-lab\/)?auto-translate\.js(?:\?v=[^"]*)?"/g, `src="/ai-advocate-evidence-lab/auto-translate.js?v=${translationAssetVersion}"`);
   if (!html.includes('auto-translate.js') || !html.includes('language-menu.css')) throw new Error(`${path}: jazyková nabídka nebyla vložena`);
   if (html !== before) {
     await writeFile(path, html, 'utf8');
