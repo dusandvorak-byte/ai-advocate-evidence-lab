@@ -32,6 +32,9 @@ for (const abbreviation of ['MS v Praze', 'OS Praha 4', 'OS Prostějov', 'OS Ost
 for (const fullName of ['Městský soud v Praze', 'Obvodní soud pro Prahu 4', 'Okresní soud v Prostějově', 'Okresní soud v Ostravě', 'Vrchním soudem v Praze']) {
   if (!caseRows.some(item => item.label.includes(fullName))) throw new Error(`V aktivních soudních řízeních chybí celý název: ${fullName}`);
 }
+for (const fullName of ['Prague Municipal Court', 'Prague 4 District Court', 'Prostějov District Court', 'Ostrava District Court', 'Prague High Court']) {
+  if (!script.includes(fullName)) throw new Error(`V anglických aktivních soudních řízeních chybí celý název: ${fullName}`);
+}
 for (let index = 1; index < caseRows.length; index += 1) {
   if (caseRows[index - 1].date > caseRows[index].date) {
     throw new Error(`Soudní řízení nejsou chronologicky: ${caseRows[index - 1].label} → ${caseRows[index].label}`);
@@ -81,6 +84,7 @@ for (const required of ["['pt', 'Português']", 'Přeložit / Translate', '100+ 
   if (!automaticTranslation.includes(required)) throw new Error(`Automatickému překladu chybí: ${required}`);
 }
 if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Further current reports')) throw new Error('Anglická titulní stránka nemá blok dalších aktuálních zpráv');
+if (/href="zpravy\/\d{8}-\d{3}\.html/.test(englishHome)) throw new Error('Anglická titulní stránka stále odkazuje na český článek');
 if (englishHome.includes('class="quick-memory"') || englishHome.includes('href="#memory"')) throw new Error('Anglická titulní stránka stále obsahuje zrušený vedlejší blok Case memory');
 if (!styles.includes('#traffic.utility-grid') || !styles.includes('#traffic.utility-grid > .desk')) throw new Error('Anglická důkazní přepážka nemá plnou šířku');
 for (const label of ['Godot online → every report has a source', 'Active court proceedings since 1 May 2026', 'Live procedural timers']) {
@@ -143,6 +147,9 @@ if (!englishGodot.includes('data-english-chronology-count="67"') || englishGodot
   throw new Error(`Anglický Godot nemá úplných 67 záznamů: ${englishGodotRecords}`);
 }
 if (englishGodotOutgoing !== 10) throw new Error(`Anglický Godot nemá všech 10 navazujících podání: ${englishGodotOutgoing}`);
+for (const id of ['case-cz-ms-praha-45t1-2024','case-cz-ms-praha-18a17-2026','case-cz-ms-praha-8ad9-2026','case-cz-os-praha4-10c69-2026','case-cz-ms-praha-18a23-2026','case-cz-os-pro-2t104-2010-obnova','case-cz-os-pro-prevence-2026','case-cz-os-ostrava-15t11-2025','case-cz-ms-praha-15a44-2026']) {
+  if (!englishGodot.includes(`id="${id}"`)) throw new Error(`Anglickému Godotu chybí soudní řízení ${id}`);
+}
 for (const field of ['Date:', 'From:', 'Reference:', 'What happened:', 'To:', 'For:']) {
   if (!englishGodot.includes(`<b>${field}</b>`)) throw new Error(`Anglickému Godotu chybí pole ${field}`);
 }
