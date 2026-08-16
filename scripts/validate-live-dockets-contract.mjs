@@ -88,13 +88,14 @@ for (const field of ['When:', 'To:', 'Reference:', 'From:', 'What happened:', 'T
 for (const czechField of ['<b>Kdy:</b>', '<b>Komu:</b>', '<b>Kdo:</b>', '<b>Co se stalo:</b>', 'Živé procesní časovače']) {
   if (englishHome.includes(czechField)) throw new Error(`V anglických časovačích zůstal český text: ${czechField}`);
 }
-for (const page of [home, englishHome]) if (!page.includes('src="auto-translate.js"')) throw new Error('Titulní stránka nemá nabídku automatických překladů');
+for (const page of [home, englishHome]) if (!page.includes('auto-translate.js')) throw new Error('Titulní stránka nemá nabídku automatických překladů');
 for (const required of ["['pt', 'Português']", 'Přeložit / Translate', '100+ dalších jazyků / other languages', 'Czech official records and PDFs remain controlling', 'role="dialog"']) {
   if (!automaticTranslation.includes(required)) throw new Error(`Automatickému překladu chybí: ${required}`);
 }
 if (!automaticTranslation.includes("location.hostname.endsWith('.translate.goog')")) throw new Error('Překladač nezabraňuje vnořenému překladu již přeložené stránky');
 if (!automaticTranslation.includes("startsWith('en') ? 'en' : 'cs'")) throw new Error('Překladač neurčuje zdrojový jazyk podle stránky');
 if (/link\.target\s*=\s*['_"]blank/.test(automaticTranslation)) throw new Error('Jazykové odkazy stále otevírají další karty');
+if (!englishHome.includes('auto-translate.js?v=20260817-1')) throw new Error('Anglická titulní stránka neverzuje překladový skript proti mezipaměti');
 if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Further current reports')) throw new Error('Anglická titulní stránka nemá blok dalších aktuálních zpráv');
 if (/href="zpravy\/\d{8}-\d{3}\.html/.test(englishHome)) throw new Error('Anglická titulní stránka stále odkazuje na český článek');
 if (englishHome.includes('class="quick-memory"') || englishHome.includes('href="#memory"')) throw new Error('Anglická titulní stránka stále obsahuje zrušený vedlejší blok Case memory');
