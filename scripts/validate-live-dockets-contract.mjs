@@ -122,9 +122,9 @@ const publicWorkingPhrases = [
 const publicFiles = (await readdir('web', { recursive: true })).filter(path => path.endsWith('.html'));
 for (const path of publicFiles) {
   const html = await readFile(`web/${path}`, 'utf8');
-  if ((html.includes('class="topline"') || html.includes('class="language-menu"'))
+  if (html.includes('</head>') && html.includes('</body>')
     && (!html.includes('auto-translate.js') || !html.includes('language-menu.css'))) {
-    throw new Error(`Veřejná stránka web/${path} se záhlavím nemá společnou jazykovou nabídku`);
+    throw new Error(`Veřejná stránka web/${path} nemá společnou jazykovou nabídku`);
   }
   for (const phrase of publicWorkingPhrases) {
     if (html.includes(phrase)) throw new Error(`Ve veřejném souboru web/${path} zůstal pracovní text: ${phrase}`);
