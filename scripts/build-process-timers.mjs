@@ -98,12 +98,20 @@ const remedyDocuments = outgoing.filter(doc => {
   return doc.document_type === 'appeal' || remedyPattern.test(text);
 });
 const manuallyRepresentedDocIds = new Set([...timerMap.values()].map(item => item.source_document_id).filter(Boolean));
+const remedyRoutes = new Map([
+  ['doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960', { recipient: 'Policejní prezidium České republiky', for_authority: 'Odbor vnitřní kontroly Policejního prezidia České republiky' }],
+  ['doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53', { recipient: 'Okresní soud v Prostějově', for_authority: 'Krajský soud v Brně' }],
+  ['doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54', { recipient: 'Okresní soud v Prostějově', for_authority: 'Krajský soud v Brně' }],
+  ['doc-cz-dd-2026-08-10-stiznost-necinnost-msp', { recipient: 'Ministerstvo spravedlnosti', for_authority: 'ministr spravedlnosti' }]
+]);
 for (const doc of remedyDocuments) {
   if (manuallyRepresentedDocIds.has(doc.id)) continue;
   const timerId = `timer-remedy-${doc.id}`;
   const reaction = (doc.relations || []).find(rel => rel.type === 'reakce_na' && rel.target_id);
   const reactionTarget = reaction ? documentsById.get(reaction.target_id) : null;
-  const recipient = (reactionTarget ? institutionNames.get(reactionTarget.institution_id) : null)
+  const route = remedyRoutes.get(doc.id) || {};
+  const recipient = route.recipient
+    || (reactionTarget ? institutionNames.get(reactionTarget.institution_id) : null)
     || institutionNames.get(doc.institution_id)
     || doc.institution_id
     || 'příslušný orgán';
@@ -118,15 +126,16 @@ for (const doc of remedyDocuments) {
     category: 'current_remedies',
     title: `${recipient} – ${doc.user_title}`,
     recipient,
+    ...(route.for_authority ? { for_authority: route.for_authority } : {}),
     actor,
     reference: doc.reference || doc.id,
     start_date: doc.issue_date,
     count_from_date: addOneDay(doc.issue_date),
-    start_date_basis: `${doc.user_title}. Podání je v kanonickém registru vedeno jako doručené/podané dne ${doc.issue_date}; tento den je den 0 a následující den je den 1.`,
+    start_date_basis: `${doc.user_title}. Podáno a doručeno dne ${doc.issue_date}; tento den je den 0 a následující den je den 1.`,
     status: 'active_derived_remedy',
     limit_kind: 'remedy_regime_requires_verified_override',
     limit_label: 'opravný prostředek – přesná lhůta dle konkrétního procesního režimu',
-    legal_basis: 'Položka je odvozena automaticky z kanonického registru. Pokud není zvlášť ověřena přesná číselná lhůta k vyřízení, web ji nevymýšlí; právně kvalifikovaný override ji může doplnit.',
+    legal_basis: 'Přesná lhůta k vyřízení se odvíjí od konkrétního procesního režimu. Bez doložené číselné lhůty se uvádí pouze běh od evidovaného data.',
     source_document_id: doc.id,
     href,
     derived_from_canonical_document: true
@@ -200,9 +209,10 @@ const row = item => {
   const nextEvent = item.next_event ? `<p class="timer-basis"><b>Další úkon:</b> ${escapeHtml(item.next_event)}</p>` : '';
   const countNote = item.count_from_date ? `<p class="timer-basis"><b>Den 1 běhu:</b> ${escapeHtml(item.count_from_date)}</p>` : '';
   const { recipient, actor } = displayParties(item);
+  const forAuthority = item.for_authority ? `<p class="timer-basis"><b>Pro:</b> ${escapeHtml(item.for_authority)}</p>` : '';
   return `<article class="process-timer" data-process-timer data-limit-kind="${escapeHtml(item.limit_kind || '')}" data-start-date="${escapeHtml(countStart)}" data-event-date="${escapeHtml(item.start_date)}" data-timer-id="${escapeHtml(item.id)}"${item.source_document_id ? ` data-source-document-id="${escapeHtml(item.source_document_id)}"` : ''}${end ? ` data-end-date="${escapeHtml(end)}"` : ''}>
     <div class="timer-value"><span data-elapsed-days>…</span> / <span>${escapeHtml(item.limit_label)}</span></div>
-    <div class="timer-detail"><h4>${title}</h4><p class="timer-basis"><b>Kdy:</b> ${escapeHtml(item.start_date)}</p><p class="timer-basis"><b>Komu:</b> ${escapeHtml(recipient)}</p><p class="timer-basis"><b>Č. j. / sp. zn.:</b> ${escapeHtml(item.reference)}</p><p class="timer-basis"><b>Kdo:</b> ${escapeHtml(actor)}</p><p class="timer-basis"><b>Co se stalo:</b> ${escapeHtml(item.start_date_basis)}</p>${countNote}<p class="timer-basis"><b>Lhůta / procesní režim:</b> ${escapeHtml(item.legal_basis)}${due}</p>${history}${nextEvent}</div>
+    <div class="timer-detail"><h4>${title}</h4><p class="timer-basis"><b>Kdy:</b> ${escapeHtml(item.start_date)}</p><p class="timer-basis"><b>Komu:</b> ${escapeHtml(recipient)}</p>${forAuthority}<p class="timer-basis"><b>Č. j. / sp. zn.:</b> ${escapeHtml(item.reference)}</p><p class="timer-basis"><b>Kdo:</b> ${escapeHtml(actor)}</p><p class="timer-basis"><b>Co se stalo:</b> ${escapeHtml(item.start_date_basis)}</p>${countNote}<p class="timer-basis"><b>Lhůta / procesní režim:</b> ${escapeHtml(item.legal_basis)}${due}</p>${history}${nextEvent}</div>
   </article>`;
 };
 
