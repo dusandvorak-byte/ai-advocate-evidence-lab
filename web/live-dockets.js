@@ -18,15 +18,15 @@
   const godotHref = 'zpravy/04082026-010.html';
   // Chronologicky podle počátku právě sledovaného soudního řízení.
   const courtCases = [
-    ['2025-07-29', 'MS v Praze sp. zn. 45 T 1/2024 – vratka VS', `${godotHref}#case-cz-ms-praha-45t1-2024`],
-    ['2026-05-01', 'MS v Praze sp. zn. 18 A 17/2026 – NCOZ', `${godotHref}#case-cz-ms-praha-18a17-2026`],
-    ['2026-05-31', 'MS v Praze sp. zn. 8 Ad 9/2026 – MZ', `${godotHref}#case-cz-ms-praha-8ad9-2026`],
-    ['2026-06-04', 'OS Praha 4 sp. zn. 10 C 69/2026 – Česká televize', `${godotHref}#case-cz-os-praha4-10c69-2026`],
-    ['2026-06-15', 'MS v Praze sp. zn. 18 A 23/2026 – MSp', `${godotHref}#case-cz-ms-praha-18a23-2026`],
-    ['2026-07-12', 'OS Prostějov sp. zn. 2 T 104/2010 – obnova', `${godotHref}#case-cz-os-pro-2t104-2010-obnova`],
-    ['2026-07-12', 'OS Prostějov – prevence 2026', `${godotHref}#case-cz-os-pro-prevence-2026`],
-    ['2026-07-22', 'OS Ostrava sp. zn. 15 T 11/2025', `${godotHref}#procesni-casovace`],
-    ['2026-07-23', 'MS v Praze sp. zn. 15 A 44/2026 – MV', 'zpravy/23072026-004.html']
+    ['2025-07-29', 'Městský soud v Praze, sp. zn. 45 T 1/2024 – vráceno Vrchním soudem v Praze', `${godotHref}#case-cz-ms-praha-45t1-2024`],
+    ['2026-05-01', 'Městský soud v Praze, sp. zn. 18 A 17/2026 – NCOZ', `${godotHref}#case-cz-ms-praha-18a17-2026`],
+    ['2026-05-31', 'Městský soud v Praze, sp. zn. 8 Ad 9/2026 – Ministerstvo zdravotnictví', `${godotHref}#case-cz-ms-praha-8ad9-2026`],
+    ['2026-06-04', 'Obvodní soud pro Prahu 4, sp. zn. 10 C 69/2026 – Česká televize', `${godotHref}#case-cz-os-praha4-10c69-2026`],
+    ['2026-06-15', 'Městský soud v Praze, sp. zn. 18 A 23/2026 – Ministerstvo spravedlnosti', `${godotHref}#case-cz-ms-praha-18a23-2026`],
+    ['2026-07-12', 'Okresní soud v Prostějově, sp. zn. 2 T 104/2010 – obnova', `${godotHref}#case-cz-os-pro-2t104-2010-obnova`],
+    ['2026-07-12', 'Okresní soud v Prostějově – prevence 2026', `${godotHref}#case-cz-os-pro-prevence-2026`],
+    ['2026-07-22', 'Okresní soud v Ostravě, sp. zn. 15 T 11/2025', `${godotHref}#procesni-casovace`],
+    ['2026-07-23', 'Městský soud v Praze, sp. zn. 15 A 44/2026 – Ministerstvo vnitra', 'zpravy/23072026-004.html']
   ].sort(([dateA], [dateB]) => dateA.localeCompare(dateB));
 
   const summaryMarkup = title =>
