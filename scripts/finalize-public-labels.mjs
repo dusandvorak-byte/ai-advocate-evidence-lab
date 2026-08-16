@@ -32,15 +32,14 @@ for (const file of htmlFiles) {
 }
 
 await import('./finalize-chronology-order.mjs');
-await import('./build-home-rollups.mjs');
 
 const home = await readFile('web/index.html', 'utf8');
+const liveDockets = await readFile('web/live-dockets.js', 'utf8');
+for (const label of ['Godot online → každá zpráva má zdroj', 'Aktivní soudní řízení od 1. května 2026', 'Živé procesní časovače']) {
+  if (!liveDockets.includes(label)) throw new Error(`Finální generátor postrádá lištu: ${label}`);
+}
+if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Finální titulní strana nenačítá generátor tří lišt');
+if (liveDockets.includes('Předžalobní řízení on-line od 1. května 2026') || liveDockets.includes('Státní láska online od 1. května 2026')) throw new Error('Finální generátor obsahuje zrušené lišty');
 const article = await readFile('web/zpravy/04082026-010.html', 'utf8');
-const rollupCount = (home.match(/data-home-rollup=/g) || []).length;
-if (rollupCount !== 6) throw new Error(`Finální titulní strana nemá přesně šest lišt: ${rollupCount}`);
-if ((home.match(/id="home-rollup-stack"/g) || []).length !== 1) throw new Error('Finální titulní strana nemá právě jeden kanonický zásobník šesti lišt');
-if (home.includes('class="edition-bar"') || /Aktualizováno\s+\d/i.test(home)) throw new Error('Finální titulní strana stále obsahuje odstraněnou lištu aktualizace');
-if (!home.includes('data-home-rollup="godot"') || !home.includes('href="zpravy/04082026-010.html#chronologie"')) throw new Error('Státu lásky čas nevede přímo do chronologie');
-if (!home.includes('data-home-rollup="lead"') || !home.includes('href="zpravy/07082026-011.html"')) throw new Error('CannaInsider.EU NEWS nevede přímo na report 07082026-011');
 if (!/<li\b[^>]*\bid="doc-[^"]+"[^>]*><b>Datum:<\/b>/.test(article)) throw new Error('Finální chronologie nezačíná Datem');
-console.log(`Veřejná formulace sjednocena (${replacements} náhrad); šest lišt a chronologie Datum → Kdo → Č. j./sp. zn. → Co se stalo byly finálně ověřeny.`);
+console.log(`Veřejná formulace sjednocena (${replacements} náhrad); smlouva tří lišt a chronologie byly finálně ověřeny.`);
