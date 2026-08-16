@@ -35,6 +35,14 @@
   ],
   "document_exceptions": [
     {
+      "id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
+      "reason": "Záznam ze dne 19. 5. 2026 je z rozhodnutí autora webu veden pouze jako stabilní evidenční listina bez samostatného PDF."
+    },
+    {
+      "id": "doc-cz-osz-olo-2026-05-12-sin-22-2025-95",
+      "reason": "Listina OSZ Olomouc je z rozhodnutí autora webu vedena pouze jako stabilní evidenční listina bez samostatného PDF."
+    },
+    {
       "id": "doc-eu-euda-2026-08-07-ack-article-265-tfeu",
       "reason": "Potvrzení bylo doručeno jako e-mail bez samostatného úředního PDF; veřejný záznam proto odkazuje na evidenční stránku a související doložené dokumenty."
     }

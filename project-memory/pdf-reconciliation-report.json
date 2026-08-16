@@ -1,58 +1,23 @@
 {
-  "generated_at": "2026-08-16T12:00:19.704Z",
+  "generated_at": "2026-08-16T12:28:51.924Z",
   "active_pdf_policy": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
   "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
   "ownership_axiom": "user-named-pdf-never-state-original",
   "override_registry": "project-memory/pdf-link-overrides.json",
-  "physical_pdf_count": 92,
-  "usable_physical_pdf_count": 91,
+  "physical_pdf_count": 93,
+  "usable_physical_pdf_count": 92,
   "invalid_physical_files": [
     "web/documents/report-25072026-007/18-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf"
   ],
   "source_manifest_pdf_count": 22,
-  "linked_pdf_count": 58,
+  "linked_pdf_count": 59,
   "newly_linked": [],
-  "override_changes": [
-    {
-      "id": "doc-cz-mz-2026-05-29-mzdr-13429-2026-3-olzp",
-      "previous_pdf": null,
-      "pdf": "documents/report-04082026-010/34-mzdr-13429-2026-3-olzp-2026-05-29.pdf",
-      "reason": "Přesný originál MZ byl ověřen SHA-256 33086830279d85789e32590b0e725ce969ae222694e8f4d936b49b9cec7850dd."
-    },
-    {
-      "id": "doc-cz-rrtv-2026-07-16-rrtv-7757-2026-fej",
-      "previous_pdf": null,
-      "pdf": "documents/report-04082026-010/35-rrtv-7757-2026-fej-2026-07-16.pdf",
-      "reason": "Přesný originál RRTV byl ověřen SHA-256 c43c816b79295749c5da876050d540689ce8c80c85939ab4f0dc3478b5c7a6af."
-    }
-  ],
+  "override_changes": [],
   "invalidated": [],
   "unresolved": [],
-  "required_pdf_document_count": 48,
-  "required_without_active_pdf_count": 3,
-  "required_without_active_pdf": [
-    {
-      "id": "doc-cz-osz-olo-2026-05-12-sin-22-2025-95",
-      "institution_id": "CZ-OSZ-OLO",
-      "reference": "SIN 22/2025-95",
-      "issue_date": "2026-05-12",
-      "intended_pdf": null
-    },
-    {
-      "id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
-      "institution_id": "CZ-KPR",
-      "reference": "KPR 4093/2026",
-      "issue_date": "2026-05-19",
-      "intended_pdf": null
-    },
-    {
-      "id": "doc-cz-pcr-ncoz-2026-05-22-ncoz-4324-2-cj-2026-4100pi",
-      "institution_id": "CZ-PCR-NCOZ",
-      "reference": "NCOZ-4324-2/ČJ-2026-4100PI",
-      "issue_date": "2026-05-22",
-      "intended_pdf": null
-    }
-  ],
+  "required_pdf_document_count": 46,
+  "required_without_active_pdf_count": 0,
+  "required_without_active_pdf": [],
   "unmatched_publishable": [
     {
       "id": "doc-cz-exe-lib-2026-05-06-131-ex-8674-15-127",
@@ -88,12 +53,6 @@
       "id": "doc-cz-ks-brn-2026-05-22-fj-61060-2026-ksbr",
       "institution_id": "CZ-KS-BRN",
       "reference": "Fj 61060/2026/KSBR",
-      "issue_date": "2026-05-22"
-    },
-    {
-      "id": "doc-cz-pcr-ncoz-2026-05-22-ncoz-4324-2-cj-2026-4100pi",
-      "institution_id": "CZ-PCR-NCOZ",
-      "reference": "NCOZ-4324-2/ČJ-2026-4100PI",
       "issue_date": "2026-05-22"
     },
     {

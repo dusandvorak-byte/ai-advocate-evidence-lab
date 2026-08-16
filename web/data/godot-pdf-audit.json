@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-16T12:00:20.048Z",
+  "generated_at": "2026-08-16T12:28:52.250Z",
   "article": "web/zpravy/04082026-010.html",
   "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
   "active_pdf_scope": [
@@ -32,81 +32,19 @@
     "CZ-CT",
     "CZ-CSSZ"
   ],
-  "document_exception_count": 1,
-  "article_pdf_link_count": 56,
+  "document_exception_count": 3,
+  "article_pdf_link_count": 57,
   "broken_article_pdf_link_count": 0,
   "broken_article_pdf_links": [],
-  "eligible_institution_document_count": 48,
-  "eligible_with_active_pdf_count": 45,
-  "eligible_without_active_pdf_count": 3,
-  "eligible_without_active_pdf": [
-    {
-      "id": "doc-cz-osz-olo-2026-05-12-sin-22-2025-95",
-      "institution_id": "CZ-OSZ-OLO",
-      "institution": "Okresní státní zastupitelství v Olomouci",
-      "institution_type": "prosecution",
-      "issue_date": "2026-05-12",
-      "reference": "SIN 22/2025-95",
-      "title": "Vyrozumění o zastavení řízení",
-      "intended_pdf": null
-    },
-    {
-      "id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
-      "institution_id": "CZ-KPR",
-      "institution": "Kancelář prezidenta republiky",
-      "institution_type": "executive_office",
-      "issue_date": "2026-05-19",
-      "reference": "KPR 4093/2026",
-      "title": "Evidence žádosti o milost a konopné amnestie",
-      "intended_pdf": null
-    },
-    {
-      "id": "doc-cz-pcr-ncoz-2026-05-22-ncoz-4324-2-cj-2026-4100pi",
-      "institution_id": "CZ-PCR-NCOZ",
-      "institution": "Národní centrála proti organizovanému zločinu",
-      "institution_type": "police",
-      "issue_date": "2026-05-22",
-      "reference": "NCOZ-4324-2/ČJ-2026-4100PI",
-      "title": "Sdělení k žádosti o informace",
-      "intended_pdf": null
-    }
-  ],
-  "required_document_count": 48,
-  "required_with_active_pdf_count": 45,
-  "required_without_active_pdf_count": 3,
-  "required_without_active_pdf": [
-    {
-      "id": "doc-cz-osz-olo-2026-05-12-sin-22-2025-95",
-      "institution_id": "CZ-OSZ-OLO",
-      "institution": "Okresní státní zastupitelství v Olomouci",
-      "institution_type": "prosecution",
-      "issue_date": "2026-05-12",
-      "reference": "SIN 22/2025-95",
-      "title": "Vyrozumění o zastavení řízení",
-      "intended_pdf": null
-    },
-    {
-      "id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
-      "institution_id": "CZ-KPR",
-      "institution": "Kancelář prezidenta republiky",
-      "institution_type": "executive_office",
-      "issue_date": "2026-05-19",
-      "reference": "KPR 4093/2026",
-      "title": "Evidence žádosti o milost a konopné amnestie",
-      "intended_pdf": null
-    },
-    {
-      "id": "doc-cz-pcr-ncoz-2026-05-22-ncoz-4324-2-cj-2026-4100pi",
-      "institution_id": "CZ-PCR-NCOZ",
-      "institution": "Národní centrála proti organizovanému zločinu",
-      "institution_type": "police",
-      "issue_date": "2026-05-22",
-      "reference": "NCOZ-4324-2/ČJ-2026-4100PI",
-      "title": "Sdělení k žádosti o informace",
-      "intended_pdf": null
-    }
-  ],
-  "exempt_document_count": 20,
+  "eligible_institution_document_count": 46,
+  "eligible_with_active_pdf_count": 46,
+  "eligible_without_active_pdf_count": 0,
+  "eligible_without_active_pdf": [],
+  "required_document_count": 46,
+  "required_with_active_pdf_count": 46,
+  "required_without_active_pdf_count": 0,
+  "required_without_active_pdf": [],
+  "exempt_document_count": 22,
   "exempt_documents": [
     {
       "id": "doc-cz-exe-lib-2026-05-06-131-ex-8674-15-127",
@@ -125,6 +63,24 @@
       "reference": "18 A 17/2026-15",
       "has_active_pdf": false,
       "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-osz-olo-2026-05-12-sin-22-2025-95",
+      "institution_id": "CZ-OSZ-OLO",
+      "institution_type": "prosecution",
+      "issue_date": "2026-05-12",
+      "reference": "SIN 22/2025-95",
+      "has_active_pdf": false,
+      "exemption_reason": "Listina OSZ Olomouc je z rozhodnutí autora webu vedena pouze jako stabilní evidenční listina bez samostatného PDF."
+    },
+    {
+      "id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
+      "institution_id": "CZ-KPR",
+      "institution_type": "executive_office",
+      "issue_date": "2026-05-19",
+      "reference": "KPR 4093/2026",
+      "has_active_pdf": false,
+      "exemption_reason": "Záznam ze dne 19. 5. 2026 je z rozhodnutí autora webu veden pouze jako stabilní evidenční listina bez samostatného PDF."
     },
     {
       "id": "doc-cz-ks-brn-2026-05-20-fj-61061-2026-ksbr",
@@ -289,7 +245,7 @@
       "exemption_reason": "institution-type-exception"
     }
   ],
-  "registry_pdf_document_count": 58,
+  "registry_pdf_document_count": 59,
   "invalid_registry_pdf_link_count": 0,
   "invalid_registry_pdf_links": [],
   "reaction_document_count": 7,
@@ -297,9 +253,9 @@
   "missing_rendered_reactions": [],
   "missing_reaction_pdf_link_count": 0,
   "missing_reaction_pdf_links": [],
-  "repository_pdf_count": 92,
-  "usable_repository_pdf_count": 91,
-  "usable_public_pdf_count": 91,
+  "repository_pdf_count": 93,
+  "usable_repository_pdf_count": 92,
+  "usable_public_pdf_count": 92,
   "usable_pdf_outside_public_tree_count": 0,
   "usable_pdf_outside_public_tree": []
 }

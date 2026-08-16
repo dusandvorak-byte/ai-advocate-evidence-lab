@@ -224,9 +224,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/36-ncoz-4324-2-cj-2026-4100pi-2026-05-22.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1815,7 +1816,7 @@
     }
   ],
   "reconciliation": {
-    "updated_at": "2026-08-16T12:00:19.703Z",
+    "updated_at": "2026-08-16T12:28:51.923Z",
     "active_pdf_policy": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
     "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
     "ownership_axiom": "user-named-pdf-never-state-original",
@@ -1826,17 +1827,17 @@
       "project-memory/report-20260812-explicit-pdf-owners-sources.json"
     ],
     "override_registry": "project-memory/pdf-link-overrides.json",
-    "physical_pdf_count": 92,
-    "usable_physical_pdf_count": 91,
+    "physical_pdf_count": 93,
+    "usable_physical_pdf_count": 92,
     "invalid_physical_pdf_count": 1,
-    "linked_pdf_count": 58,
+    "linked_pdf_count": 59,
     "newly_linked_count": 0,
-    "override_change_count": 2,
+    "override_change_count": 0,
     "invalidated_link_count": 0,
     "unresolved_count": 0,
-    "unmatched_publishable_count": 18,
-    "required_pdf_document_count": 48,
-    "required_without_active_pdf_count": 3
+    "unmatched_publishable_count": 17,
+    "required_pdf_document_count": 46,
+    "required_without_active_pdf_count": 0
   },
   "normalization": {
     "updated_at": "2026-08-16T11:54:08.166Z",

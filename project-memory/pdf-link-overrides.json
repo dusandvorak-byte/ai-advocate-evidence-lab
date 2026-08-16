@@ -15,6 +15,11 @@
       "reason": "Název souboru, datum listiny a obsah odpovídají oznámení KPR ze dne 5. 6. 2026."
     },
     {
+      "document_id": "doc-cz-pcr-ncoz-2026-05-22-ncoz-4324-2-cj-2026-4100pi",
+      "pdf": "documents/report-04082026-010/36-ncoz-4324-2-cj-2026-4100pi-2026-05-22.pdf",
+      "reason": "Přesný originál NCOZ byl ověřen podle obsahu a SHA-256 7743a0d0cf03b00423cf85a2baf619ccd0dbb467c953afdffe8cb1bef4548b4f."
+    },
+    {
       "document_id": "doc-cz-mz-2026-05-29-mzdr-13429-2026-3-olzp",
       "pdf": "documents/report-04082026-010/34-mzdr-13429-2026-3-olzp-2026-05-29.pdf",
       "reason": "Přesný originál MZ byl ověřen SHA-256 33086830279d85789e32590b0e725ce969ae222694e8f4d936b49b9cec7850dd."
