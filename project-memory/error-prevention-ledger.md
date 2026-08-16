@@ -98,6 +98,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: anglický článek byl udržován ručně a build nekontroloval úplnost proti kanonickým registrům dokumentů.
 - Pojistka: jediný generátor nyní vyžaduje přesně 67 státních či veřejných záznamů a 10 našich navazujících podání, odmítne chybějící překlad a validační skript kontroluje veřejný výstup `67/67 + 10/10`. Podání bez doložené vazby zůstávají samostatně a nejsou uměle přiřazována.
 
+### Navigace „Právě teď“ vedla jen na neúčinnou kotvu titulní stránky
+
+- Projev: kliknutí změnilo URL na `#prave-ted`, ale návštěvníka nepřivedlo k poslednímu rozhodnutí státu.
+- Příčina: navigace byla navázána na starý pomocný blok titulní stránky místo kanonické chronologie.
+- Pojistka: synchronizační generátor odvozuje poslední státní záznam podle data a ID a odkazuje přímo na jeho kotvu ve „Státu lásky čas“; validační skript ověřuje odkaz i existenci cílové kotvy.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
