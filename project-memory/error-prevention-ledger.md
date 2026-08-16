@@ -76,6 +76,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: kontrolní pravidla buildu byla omylem vložena také do veřejného HTML.
 - Pojistka: kontrolní pravidla zůstávají pouze ve validačním skriptu; ten zakazuje jejich návrat do generátoru a současně vynucuje veřejné pořadí `Kdy → Komu → Č. j. / sp. zn. → Kdo → Co se stalo`.
 
+### Záměna adresáta a podatele v automatickém časovači
+
+- Projev: u odvozené stížnosti se v polích „Komu“ a „Kdo“ objevila stejná osoba.
+- Příčina: název instituce u našeho dokumentu byl použit současně jako adresát i autor.
+- Pojistka: automatický časovač odvozuje adresáta z instituce napadené listiny ve vazbě `reakce_na`, zatímco podatele ukládá samostatně; veřejná karta tyto dvě hodnoty už pouze vykresluje.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
