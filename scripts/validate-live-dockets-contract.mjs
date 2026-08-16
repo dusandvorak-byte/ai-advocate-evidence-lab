@@ -5,6 +5,7 @@ const styles = await readFile('web/home-rollups.css', 'utf8');
 const home = await readFile('web/index.html', 'utf8');
 const englishHome = await readFile('web/en.html', 'utf8');
 const newsFeed = await readFile('web/news-feed.js', 'utf8');
+const publishWorkflow = await readFile('.github/workflows/publish-gh-pages-branch.yml', 'utf8');
 
 const requiredBars = [
   'Godot online → každá zpráva má zdroj',
@@ -65,6 +66,10 @@ for (const label of ['Godot online → every report has a source', 'Active court
 }
 for (const id of ['07082026-011','04082026-010','28072026-009','25072026-007','24072026-006','24072026-005','23072026-004','22072026-002','20072026-001']) {
   if (!newsFeed.includes(`hrefEn: 'news/${id}.html'`)) throw new Error(`Zpráva ${id} nemá skutečnou anglickou stránku`);
+}
+if (!publishWorkflow.includes('grep -q "live-dockets.js?v=${version}" /tmp/verified-site/en.html')
+  || !publishWorkflow.includes('grep -q "news-feed.js?v=${version}" /tmp/verified-site/en.html')) {
+  throw new Error('Workflow neverzuje anglické lišty a anglický zdroj zpráv proti mezipaměti');
 }
 
 console.log(`Smlouva titulní stránky: 3 lišty; ${caseRows.length} soudních řízení chronologicky; olejově modrá #285b6f; bílé písmo včetně časovačů; mobilní skládání; důkazní přepážka přes celou stránku.`);
