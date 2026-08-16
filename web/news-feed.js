@@ -23,8 +23,8 @@ const cannaNews = [
     score: '9/9',
     titleCs: 'Státu lásky čas',
     titleEn: 'A time for the state to love',
-    summaryCs: 'Chronologický seznam 55 dokumentů sbírky Godot on-line od 6. května do 3. srpna 2026.',
-    summaryEn: 'A chronological list of 55 documents in the Godot online collection, from 6 May to 3 August 2026.',
+    summaryCs: 'Chronologický seznam 67 listin sbírky Godot on-line od 6. května do 14. srpna 2026.',
+    summaryEn: 'A chronological list of 67 public records in the Godot online collection, from 6 May to 14 August 2026.',
     keywordsCs: 'Státu lásky čas Godot chronologie dokumenty KPR NSZ NCOZ soudy státní zastupitelství 2026',
     keywordsEn: 'Godot chronology documents KPR public prosecution courts 2026',
     href: 'zpravy/04082026-010.html'
