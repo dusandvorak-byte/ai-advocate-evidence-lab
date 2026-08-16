@@ -26,6 +26,12 @@ for (const obsolete of ['Předžalobní řízení on-line od 1. května 2026', '
 const caseRows = [...script.matchAll(/\['(\d{4}-\d{2}-\d{2})',\s*'([^']+)',\s*[^\]]+\]/g)]
   .map(([, date, label]) => ({ date, label }));
 if (caseRows.length !== 9) throw new Error(`Očekáváno devět soudních řízení, nalezeno ${caseRows.length}`);
+for (const abbreviation of ['MS v Praze', 'OS Praha 4', 'OS Prostějov', 'OS Ostrava', 'vratka VS']) {
+  if (caseRows.some(item => item.label.includes(abbreviation))) throw new Error(`V názvu aktivního soudního řízení zůstala zkratka: ${abbreviation}`);
+}
+for (const fullName of ['Městský soud v Praze', 'Obvodní soud pro Prahu 4', 'Okresní soud v Prostějově', 'Okresní soud v Ostravě', 'Vrchním soudem v Praze']) {
+  if (!caseRows.some(item => item.label.includes(fullName))) throw new Error(`V aktivních soudních řízeních chybí celý název: ${fullName}`);
+}
 for (let index = 1; index < caseRows.length; index += 1) {
   if (caseRows[index - 1].date > caseRows[index].date) {
     throw new Error(`Soudní řízení nejsou chronologicky: ${caseRows[index - 1].label} → ${caseRows[index].label}`);
