@@ -36,16 +36,18 @@ for (const path of [...files, ...listiny]) {
 
 const home = await readFile('web/index.html', 'utf8');
 const article = await readFile('web/zpravy/04082026-010.html', 'utf8');
+const liveDockets = await readFile('web/live-dockets.js', 'utf8');
 
 const requiredBars = [
-  'Aktivní soudní řízení on-line od 1. května 2026',
-  'Předžalobní řízení on-line od 1. května 2026',
-  'Státní láska online od 1. května 2026'
+  'Godot online → každá zpráva má zdroj',
+  'Aktivní soudní řízení od 1. května 2026',
+  'Živé procesní časovače'
 ];
 
 for (const label of requiredBars) {
-  if (!home.includes(label)) throw new Error(`Na titulní stránce chybí lišta: ${label}`);
+  if (!liveDockets.includes(label)) throw new Error(`V generátoru titulní stránky chybí lišta: ${label}`);
 }
+if (liveDockets.includes('Předžalobní řízení on-line od 1. května 2026') || liveDockets.includes('Státní láska online od 1. května 2026')) throw new Error('Generátor titulní stránky obsahuje zrušené lišty');
 if (!article.includes(correctTitle)) throw new Error('Článek neobsahuje správný název Pavouka s Godotem');
 if (article.includes(wrongTitle)) throw new Error('Článek stále obsahuje chybný název s křižákem z Branibor');
 if (!article.includes('id="chronologie-seznam"')) throw new Error('Článek neobsahuje sestavenou chronologii');

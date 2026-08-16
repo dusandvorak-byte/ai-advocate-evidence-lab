@@ -32,11 +32,14 @@ for (const file of htmlFiles) {
 }
 
 await import('./finalize-chronology-order.mjs');
-await import('./build-home-rollups.mjs');
 
 const home = await readFile('web/index.html', 'utf8');
-if ((home.match(/data-home-rollup=/g) || []).length !== 6) throw new Error('Finální titulní strana nemá přesně šest lišt');
-if (home.includes('class="edition-bar"')) throw new Error('Finální titulní strana stále obsahuje edition-bar');
+const liveDockets = await readFile('web/live-dockets.js', 'utf8');
+for (const label of ['Godot online → každá zpráva má zdroj', 'Aktivní soudní řízení od 1. května 2026', 'Živé procesní časovače']) {
+  if (!liveDockets.includes(label)) throw new Error(`Finální generátor postrádá lištu: ${label}`);
+}
+if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Finální titulní strana nenačítá generátor tří lišt');
+if (liveDockets.includes('Předžalobní řízení on-line od 1. května 2026') || liveDockets.includes('Státní láska online od 1. května 2026')) throw new Error('Finální generátor obsahuje zrušené lišty');
 const article = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!/<li\b[^>]*\bid="doc-[^"]+"[^>]*><b>Datum:<\/b>/.test(article)) throw new Error('Finální chronologie nezačíná Datem');
-console.log(`Veřejná formulace sjednocena (${replacements} náhrad); šest lišt a chronologie byly materializovány finálně.`);
+console.log(`Veřejná formulace sjednocena (${replacements} náhrad); smlouva tří lišt a chronologie byly finálně ověřeny.`);

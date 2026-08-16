@@ -9,6 +9,7 @@ const documents = registry.documents;
 const institutionMap = new Map(institutions.institutions.map(item => [item.id, item]));
 const stateRecords = documents.filter(item => item.issue_date >= '2026-05-01' && item.document_type === 'state_record');
 const stateCount = stateRecords.length;
+const activePdfCount = documents.filter(item => item.public?.pdf).length;
 const latestIssueDate = stateRecords.map(item => item.issue_date).sort().at(-1);
 if (!latestIssueDate) throw new Error('Registr neobsahuje žádnou státní listinu od 1. května 2026');
 
@@ -137,7 +138,7 @@ await update('web/index.html', [
 
 await update('web/en.html', [
   [/data-current-date>[^<]+</, `data-current-date>${enDisplayDate}<`, 'datum'],
-  [/<span>Updated [^<]+<\/span>/i, `<span>Updated ${day} August ${year} · ${stateCount} state and public-institution records in the canonical chronology</span>`, 'souhrn data a počtu']
+  [/<span>Updated [^<]+<\/span>/i, `<span>Updated ${day} August ${year} · ${stateCount} state and public-institution records in the canonical chronology · ${activePdfCount} verified public PDFs</span>`, 'souhrn data a počtu']
 ], 'en');
 
 const churchCzLead = `<article class="lead-story"><div class="story-image"><img src="assets/konopna-cirkev-logo.jpg" alt="Logo Konopné církve"><span>Konopná církev</span></div><div class="story-copy"><p class="kicker">PASTÝŘSKÉ LISTY · NOVÉ ŘÍZENÍ POTVRZENO 12. 8. 2026</p><h1><a href="listiny/doc-cz-mk-2026-08-12-mk-49467-2026-socns.html">Nové řízení Konopné církve je formálně zahájeno od 26. června 2026.</a></h1><p class="standfirst">Ministerstvo kultury vede řízení pod sp. zn. MK-S 6893/2026 a oznámilo oprávněné úřední osoby. KPR současně odmítla součinnost při vyvěšení konopné standarty.</p><div class="score score-red"><strong>9/9</strong><span>ZÁSADNÍ PROCESNÍ LISTINA · AKTIVNÍ ŘÍZENÍ</span></div><div class="facts"><p><b>Ministerstvo kultury:</b> č. j. MK 49467/2026 SOCNS ze dne 12. srpna 2026.</p><p><b>Kancelář prezidenta republiky:</b> č. j. 4873/2026 ze dne 12. srpna 2026; originální PDF je veřejně aktivní.</p></div></div></article>`;
@@ -158,7 +159,7 @@ const churchEnNodes = `<div class="node-grid"><article><span>MINISTRY OF CULTURE
 
 await update('web/kc/en.html', [
   [/(<header class="topline"><span>)[^<]+/, `$1${enDisplayDate}`, 'datum'],
-  [/<section class="newsroom-alert" id="live">[\s\S]*?<\/section>/, `<section class="newsroom-alert" id="live"><b>LIVE CHURCH RECORD</b><span>On 12 August 2026, the Ministry of Culture formally confirmed that the new proceeding began on 26 June 2026. The canonical chronology contains ${stateCount} state and public-institution records.</span><a href="listiny/doc-cz-mk-2026-08-12-mk-49467-2026-socns.html" hreflang="cs">Open the Czech evidence record →</a></section>`, 'aktuální mezinárodní církevní zpráva'],
+  [/<section class="newsroom-alert" id="live">[\s\S]*?<\/section>/, `<section class="newsroom-alert" id="live"><b>LIVE CHURCH RECORD</b><span>On 12 August 2026, the Ministry of Culture formally confirmed that the new proceeding began on 26 June 2026. The canonical chronology contains ${stateCount} state and public-institution records and ${activePdfCount} verified public PDFs.</span><a href="listiny/doc-cz-mk-2026-08-12-mk-49467-2026-socns.html" hreflang="cs">Open the Czech evidence record →</a></section>`, 'aktuální mezinárodní církevní zpráva'],
   [/<article class="lead-story">[\s\S]*?<\/article>/, churchEnLead, 'hlavní mezinárodní církevní zpráva'],
   [/<aside class="news-rail">[\s\S]*?<\/aside>/, churchEnRail, 'mezinárodní církevní důkazní síť'],
   [/<div class="node-grid">[\s\S]*?<\/div>/, churchEnNodes, 'mezinárodní církevní uzly']
@@ -193,8 +194,15 @@ for (const [label, path] of surfaces) {
   }
 }
 
+for (const path of ['web/en.html', 'web/kc/en.html']) {
+  const html = await readFile(path, 'utf8');
+  if (!html.includes(`${stateCount} state and public-institution records`) || !html.includes(`${activePdfCount} verified public PDFs`)) {
+    throw new Error(`${path}: anglická plocha není synchronizována s kanonickými počty`);
+  }
+}
+
 const czHome = await readFile('web/index.html', 'utf8');
 if (/Aktualizováno\s+\d/i.test(czHome)) throw new Error('Titulní stránka obsahuje zakázaný duplicitní údaj Aktualizováno');
 if (!czHome.includes(`data-current-date>${czDisplayDate}<`)) throw new Error('Titulní stránka nemá dnešní kanonické datum');
 
-console.log(`Veřejné varianty synchronizovány: ${czDisplayDate}; ${stateCount} státních listin; 4/4 plochy obsahují stejné tři nejnovější evidenční záznamy.`);
+console.log(`Veřejné varianty synchronizovány: ${czDisplayDate}; ${stateCount} státních listin; ${activePdfCount} aktivních PDF; 4/4 plochy obsahují stejné tři nejnovější evidenční záznamy.`);

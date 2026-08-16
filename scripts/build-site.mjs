@@ -54,7 +54,6 @@ if (privacyRegistry.status !== 'binding' || privacyRegistry.alliance_organizatio
 if (registryAudit.hard_error_count !== 0) throw new Error('Audit kanonických registrů obsahuje tvrdé chyby');
 
 await run('scripts/build-dynamic-chronology.mjs');
-await run('scripts/finalize-homepage.mjs');
 await run('scripts/sync-public-surfaces.mjs');
 await run('scripts/build-deadlines.mjs');
 await run('scripts/build-process-timers.mjs');
@@ -79,7 +78,10 @@ article = article
   .replaceAll("href='web/documents/", "href='documents/");
 await writeFile(output.article, article, 'utf8');
 const home = await readFile(output.home, 'utf8');
-for (const bar of ['Aktivní soudní řízení on-line od 1. května 2026','Předžalobní řízení on-line od 1. května 2026','Státní láska online od 1. května 2026']) if (!home.includes(bar)) throw new Error(`Na titulní stránce chybí lišta: ${bar}`);
+const liveDockets = await readFile('web/live-dockets.js', 'utf8');
+for (const bar of ['Godot online → každá zpráva má zdroj','Aktivní soudní řízení od 1. května 2026','Živé procesní časovače']) if (!liveDockets.includes(bar)) throw new Error(`Generátor titulní stránky neobsahuje lištu: ${bar}`);
+for (const obsolete of ['Předžalobní řízení on-line od 1. května 2026','Státní láska online od 1. května 2026']) if (liveDockets.includes(obsolete)) throw new Error(`Generátor obsahuje zrušenou lištu: ${obsolete}`);
+if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Titulní stránka nenačítá kanonický generátor tří lišt');
 if (!home.includes('id="procesni-casovace"')) throw new Error('Titulní stránka neobsahuje procesní časovače');
 if (!article.includes('id="procesni-casovace"')) throw new Error('Godot neobsahuje procesní časovače');
 if (!article.includes(correctTitle)) throw new Error('Článek neobsahuje správný Godotův název');
@@ -90,7 +92,7 @@ if (/href=["']web\/documents\//i.test(article)) throw new Error('Ve veřejném H
 const chronologyCount = (article.match(/<li id="doc-[^"]*"/g) || []).length;
 if (chronologyCount !== expectedStateCount) throw new Error(`Rozpor chronologie: Godot ${chronologyCount}, státní a veřejné listiny ${expectedStateCount}`);
 if (!article.includes(`Stát: ${expectedStateCount} evidovaných listin`)) throw new Error(`Godot neobsahuje odvozený státní počet ${expectedStateCount}`);
-if (!home.includes(`<strong data-state-document-count>${expectedStateCount}</strong>`)) throw new Error(`Titulní stránka neobsahuje odvozený státní počet ${expectedStateCount}`);
+if (!home.includes('id="latest-records"')) throw new Error('Titulní stránka neobsahuje synchronizované nejnovější listiny');
 
 await mkdir(output.data, { recursive: true });
 await copyFile(source.documents, `${output.data}/documents-2026.json`);

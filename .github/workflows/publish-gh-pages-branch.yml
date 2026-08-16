@@ -40,6 +40,8 @@ jobs:
         run: node scripts/patch-godot-reverse-reactions.mjs
       - name: Finalizovat veřejné popisky bez změny kanonických dat
         run: node scripts/finalize-public-labels.mjs
+      - name: Znovu ověřit PDF po všech finálních úpravách
+        run: node scripts/audit-godot-pdf-links.mjs
       - name: Ověřit Evidence Lab 2.0 před publikací
         shell: bash
         run: |
@@ -53,7 +55,12 @@ jobs:
           grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' web/zpravy/04082026-010.html
           ! grep -q 'Pavouk český křižák z Branibor' web/zpravy/04082026-010.html
           ! grep -q 'href="web/' web/zpravy/04082026-010.html
-          grep -q 'href="zpravy/04082026-010.html#chronologie">Godot online →</a>' web/index.html
+          grep -q 'Godot online → každá zpráva má zdroj' web/live-dockets.js
+          grep -q 'Aktivní soudní řízení od 1. května 2026' web/live-dockets.js
+          grep -q 'Živé procesní časovače' web/live-dockets.js
+          ! grep -q 'Předžalobní řízení on-line od 1. května 2026' web/live-dockets.js
+          ! grep -q 'Státní láska online od 1. května 2026' web/live-dockets.js
+          grep -q '<script src="live-dockets.js" defer></script>' web/index.html
           grep -q 'Naše podání, na které orgán reaguje' web/zpravy/04082026-010.html
           grep -q 'grid-auto-columns:minmax(0,1fr)' web/layout-fix.css
           grep -q 'grid-template-columns:260px minmax(0,1fr)' web/live-dockets.css
@@ -81,6 +88,9 @@ jobs:
           823d7ec58d9ed6de4abde4f0636eb1d87d9d16c331ac7d143c2342621999c88c  web/documents/report-04082026-010/31-policie-uvk-pp-ppr-43826-2-cj-2026-990210-pd-2026-08-14.pdf
           f74b439f6d99826a7f49b32e08e2f908017c4e840a2b8837dd241fbc582f765d  web/documents/report-04082026-010/32-dvorak-stiznost-uvk-pp-pcr-2026-08-14.pdf
           d461ad6eacc569ba8d86c4ce640a3f6273ff67ae48fc5ea57f1f8653ce0e2a40  web/documents/report-04082026-010/33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf
+          33086830279d85789e32590b0e725ce969ae222694e8f4d936b49b9cec7850dd  web/documents/report-04082026-010/34-mzdr-13429-2026-3-olzp-2026-05-29.pdf
+          c43c816b79295749c5da876050d540689ce8c80c85939ab4f0dc3478b5c7a6af  web/documents/report-04082026-010/35-rrtv-7757-2026-fej-2026-07-16.pdf
+          7743a0d0cf03b00423cf85a2baf619ccd0dbb467c953afdffe8cb1bef4548b4f  web/documents/report-04082026-010/36-ncoz-4324-2-cj-2026-4100pi-2026-05-22.pdf
           EOF
           sed -i 's/^          //' /tmp/godot-pdf-sha256.txt
           sha256sum -c /tmp/godot-pdf-sha256.txt
@@ -88,6 +98,13 @@ jobs:
             rel="${file#web/}"
             grep -q "$rel" web/zpravy/04082026-010.html
           done < /tmp/godot-pdf-sha256.txt
+          grep -q '67 state and public-institution records' web/en.html
+          grep -q '59 verified public PDFs' web/en.html
+          grep -q '67 state and public-institution records' web/kc/en.html
+          grep -q '59 verified public PDFs' web/kc/en.html
+          grep -q 'NCOZ-4324-2/ČJ-2026-4100PI' web/en.html
+          grep -q '"required_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
+          grep -q '"broken_article_pdf_link_count": 0' web/data/godot-pdf-audit.json
       - name: Připravit kořen webu a kompatibilní cestu /web
         shell: bash
         run: |
@@ -116,4 +133,4 @@ jobs:
           git push --force origin HEAD:gh-pages
       - name: Souhrn
         run: |
-          echo "Evidence Lab 2.0 byl publikován až po hashové kontrole devíti nových PDF, přímého vstupu do Godota a symetrických lišt."
+          echo "Evidence Lab 2.0 byl publikován jediným workflow až po hashové kontrole dvanácti PDF, auditu 46/46 povinných listin, smlouvě tří lišt a synchronizaci anglických ploch."
