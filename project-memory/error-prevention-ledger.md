@@ -104,6 +104,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: navigace byla navázána na starý pomocný blok titulní stránky místo kanonické chronologie.
 - Pojistka: synchronizační generátor odvozuje poslední státní záznam podle data a ID a odkazuje přímo na jeho kotvu ve „Státu lásky čas“; validační skript ověřuje odkaz i existenci cílové kotvy.
 
+### Anglický archiv zobrazoval anglické titulky, ale otevíral české články
+
+- Projev: návštěvník v anglickém archivu klikl na anglický titulek a byl přesměrován na českou verzi zprávy; sloučený report 23072026-003 neměl anglické přesměrování.
+- Příčina: archivní odkazy nebyly součástí generátoru anglických zpráv a zůstaly na cestě `zpravy/`.
+- Pojistka: generátor přepisuje každý archivní odkaz na odpovídající cestu `news/`, vytváří anglické přesměrování sloučeného reportu a validační skript zakazuje návrat českých cest u všech anglických archivních položek.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
