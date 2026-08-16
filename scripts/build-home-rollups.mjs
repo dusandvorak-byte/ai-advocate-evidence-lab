@@ -40,13 +40,13 @@ const latestRecords = [...stateRecords]
   .slice(0, 3);
 
 const courtLinks = [
-  ['OS Prostějov sp. zn. 2 T 104/2010 – obnova', '#case-cz-os-pro-2t104-2010-obnova'],
-  ['OS Prostějov – prevence 2026', '#case-cz-os-pro-prevence-2026'],
-  ['OS Praha 4 sp. zn. 10 C 69/2026 – Česká televize', '#case-cz-os-praha4-10c69-2026'],
-  ['MS v Praze sp. zn. 18 A 17/2026 – NCOZ', '#case-cz-ms-praha-18a17-2026'],
-  ['MS v Praze sp. zn. 18 A 23/2026 – MSp', '#case-cz-ms-praha-18a23-2026'],
-  ['MS v Praze sp. zn. 8 Ad 9/2026 – MZ', '#case-cz-ms-praha-8ad9-2026'],
-  ['MS v Praze sp. zn. 45 T 1/2024 – vratka VS', '#case-cz-ms-praha-45t1-2024']
+  ['Okresní soud v Prostějově, sp. zn. 2 T 104/2010 – obnova', '#case-cz-os-pro-2t104-2010-obnova'],
+  ['Okresní soud v Prostějově – prevence 2026', '#case-cz-os-pro-prevence-2026'],
+  ['Obvodní soud pro Prahu 4, sp. zn. 10 C 69/2026 – Česká televize', '#case-cz-os-praha4-10c69-2026'],
+  ['Městský soud v Praze, sp. zn. 18 A 17/2026 – NCOZ', '#case-cz-ms-praha-18a17-2026'],
+  ['Městský soud v Praze, sp. zn. 18 A 23/2026 – Ministerstvo spravedlnosti', '#case-cz-ms-praha-18a23-2026'],
+  ['Městský soud v Praze, sp. zn. 8 Ad 9/2026 – Ministerstvo zdravotnictví', '#case-cz-ms-praha-8ad9-2026'],
+  ['Městský soud v Praze, sp. zn. 45 T 1/2024 – vráceno Vrchním soudem v Praze', '#case-cz-ms-praha-45t1-2024']
 ];
 const pretrialLinks = [
   ['OSZ Prostějov – prevence 2026', '#case-cz-osz-pro-prevence-2026'],
