@@ -1,36 +1,127 @@
 {
-  "generated_at": "2026-08-12T12:32:45.781Z",
-  "active_pdf_policy": "Aktivní PDF se zachovává u všech veřejných institucí a u všech našich podání, pokud fyzický PDF soubor existuje, je použitelný a jednoznačně přiřaditelný. Reconciler nesmí skrývat PDF jen podle typu původce.",
-  "physical_pdf_count": 81,
-  "usable_physical_pdf_count": 80,
+  "generated_at": "2026-08-16T11:54:08.273Z",
+  "active_pdf_policy": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
+  "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
+  "ownership_axiom": "user-named-pdf-never-state-original",
+  "override_registry": "project-memory/pdf-link-overrides.json",
+  "physical_pdf_count": 90,
+  "usable_physical_pdf_count": 89,
   "invalid_physical_files": [
     "web/documents/report-25072026-007/18-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf"
   ],
-  "source_manifest_pdf_count": 21,
-  "linked_pdf_count": 47,
-  "newly_linked": [
+  "source_manifest_pdf_count": 22,
+  "linked_pdf_count": 56,
+  "newly_linked": [],
+  "override_changes": [
+    {
+      "id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
+      "previous_pdf": "documents/report-04082026-010/06-kpr-4093-2026-2026-06-05.pdf",
+      "pdf": null,
+      "reason": "Soubor označený datem 5. 6. 2026 není originálem evidenčního záznamu ze dne 19. 5. 2026."
+    },
+    {
+      "id": "doc-cz-kpr-2026-06-05-kpr-4093-2026",
+      "previous_pdf": null,
+      "pdf": "documents/report-04082026-010/06-kpr-4093-2026-2026-06-05.pdf",
+      "reason": "Název souboru, datum listiny a obsah odpovídají oznámení KPR ze dne 5. 6. 2026."
+    },
     {
       "id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
-      "reference": "15 Nt 3103/2026-53",
-      "pdf": "documents/report-04082026-010/23-dvorak-stiznost-15-nt-3103-2026-53-2026-08-11.pdf",
-      "score": 128,
-      "reasons": [
-        "full-reference",
-        "year"
-      ]
-    }
-  ],
-  "invalidated": [
+      "previous_pdf": null,
+      "pdf": "documents/report-04082026-010/33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf",
+      "reason": "Přesný originál usnesení OS Prostějov byl ověřen SHA-256 d461ad6eacc569ba8d86c4ce640a3f6273ff67ae48fc5ea57f1f8653ce0e2a40."
+    },
     {
-      "id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
-      "institution_id": "CZ-DD",
-      "invalid_pdf": "web/documents/report-04082026-010/23-dvorak-stiznost-15-nt-3103-2026-53-2026-08-11.pdf",
-      "reason": "duplicate-public-pdf-owned-by:doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53"
+      "id": "doc-cz-mv-2026-08-11-mv-127234-2-obp-2026",
+      "previous_pdf": null,
+      "pdf": "documents/report-04082026-010/25-mv-127234-2-obp-2026-2026-08-11.pdf",
+      "reason": "Přesný originál MV byl ověřen SHA-256 c65c9cc5f12eab03f69c4ea1bf642c3078f4858153b385e80f141da6ea334a55."
+    },
+    {
+      "id": "doc-cz-mk-2026-08-12-mk-49467-2026-socns",
+      "previous_pdf": null,
+      "pdf": "documents/report-04082026-010/27-mk-49467-2026-socns-2026-08-12.pdf",
+      "reason": "Přesný originál MK byl ověřen SHA-256 bb23820c9a02a17a976f0a746def4c53f4afa413fb708259e25a59d6a2f0f3b1."
+    },
+    {
+      "id": "doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026",
+      "previous_pdf": null,
+      "pdf": "documents/report-04082026-010/26-gfaa-rozklad-mv-127234-2-obp-2026-2026-08-12.pdf",
+      "reason": "Přesný rozklad byl ověřen SHA-256 769392aa996dda284c927b9bee9fbee1c364daade8d2a1867fe7fa380d4b3cc2."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-01-odvolani-nsz-sin-55-2026-19",
+      "previous_pdf": null,
+      "pdf": "documents/report-04082026-010/28-dvorak-odvolani-nsz-sin-55-2026-19-2026-08-01.pdf",
+      "reason": "Přesné odvolání bylo ověřeno SHA-256 021a9c83a3079ab0b6e26205c510e6d8b1633dfe3c30c57c3048538942fb91b3."
+    },
+    {
+      "id": "doc-cz-dd-2026-07-31-odvolani-msz-sin-48-2026-12",
+      "previous_pdf": null,
+      "pdf": "documents/report-04082026-010/29-dvorak-odvolani-msz-sin-48-2026-12-2026-07-31.pdf",
+      "reason": "Přesné odvolání bylo ověřeno SHA-256 564fa5536735679523d976664eb805fa82987c7699134a15f483c530b4a40e02."
+    },
+    {
+      "id": "doc-cz-dd-2026-07-31-stiznost-msz-necinnost-infz",
+      "previous_pdf": null,
+      "pdf": "documents/report-04082026-010/30-dvorak-stiznost-msz-necinnost-infz-2026-07-31.pdf",
+      "reason": "Přesná stížnost byla ověřena SHA-256 77e623a6b0af714d479ec8b8c4fda8ea3fef0d2330f0dc6fcf541258c73e9dec."
+    },
+    {
+      "id": "doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd",
+      "previous_pdf": null,
+      "pdf": "documents/report-04082026-010/31-policie-uvk-pp-ppr-43826-2-cj-2026-990210-pd-2026-08-14.pdf",
+      "reason": "Přesná odpověď ÚVK PP byla ověřena SHA-256 823d7ec58d9ed6de4abde4f0636eb1d87d9d16c331ac7d143c2342621999c88c."
+    },
+    {
+      "id": "doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960",
+      "previous_pdf": null,
+      "pdf": "documents/report-04082026-010/32-dvorak-stiznost-uvk-pp-pcr-2026-08-14.pdf",
+      "reason": "Přesné naše podání bylo ověřeno SHA-256 f74b439f6d99826a7f49b32e08e2f908017c4e840a2b8837dd241fbc582f765d."
     }
   ],
-  "withheld_by_policy": [],
+  "invalidated": [],
   "unresolved": [],
-  "unmatched_eligible": [
+  "required_pdf_document_count": 48,
+  "required_without_active_pdf_count": 5,
+  "required_without_active_pdf": [
+    {
+      "id": "doc-cz-osz-olo-2026-05-12-sin-22-2025-95",
+      "institution_id": "CZ-OSZ-OLO",
+      "reference": "SIN 22/2025-95",
+      "issue_date": "2026-05-12",
+      "intended_pdf": null
+    },
+    {
+      "id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
+      "institution_id": "CZ-KPR",
+      "reference": "KPR 4093/2026",
+      "issue_date": "2026-05-19",
+      "intended_pdf": null
+    },
+    {
+      "id": "doc-cz-pcr-ncoz-2026-05-22-ncoz-4324-2-cj-2026-4100pi",
+      "institution_id": "CZ-PCR-NCOZ",
+      "reference": "NCOZ-4324-2/ČJ-2026-4100PI",
+      "issue_date": "2026-05-22",
+      "intended_pdf": null
+    },
+    {
+      "id": "doc-cz-mz-2026-05-29-mzdr-13429-2026-3-olzp",
+      "institution_id": "CZ-MZ",
+      "reference": "MZDR 13429/2026-3/OLZP",
+      "issue_date": "2026-05-29",
+      "intended_pdf": null
+    },
+    {
+      "id": "doc-cz-rrtv-2026-07-16-rrtv-7757-2026-fej",
+      "institution_id": "CZ-RRTV",
+      "reference": "RRTV/7757/2026-fej",
+      "issue_date": "2026-07-16",
+      "intended_pdf": null
+    }
+  ],
+  "unmatched_publishable": [
     {
       "id": "doc-cz-exe-lib-2026-05-06-131-ex-8674-15-127",
       "institution_id": "CZ-EXE-LIB",
@@ -92,12 +183,6 @@
       "issue_date": "2026-06-05"
     },
     {
-      "id": "doc-cz-kpr-2026-06-05-kpr-4093-2026",
-      "institution_id": "CZ-KPR",
-      "reference": "KPR 4093/2026",
-      "issue_date": "2026-06-05"
-    },
-    {
       "id": "doc-cz-exe-plz-2026-06-10-134-ex-07180-19-509",
       "institution_id": "CZ-EXE-PLZ",
       "reference": "134 EX 07180/19-509",
@@ -156,12 +241,6 @@
       "institution_id": "EU-EUDA",
       "reference": "bez samostatného č. j./sp. zn. v e-mailu",
       "issue_date": "2026-08-07"
-    },
-    {
-      "id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
-      "institution_id": "CZ-DD",
-      "reference": "proti 15 Nt 3103/2026-53",
-      "issue_date": "2026-08-11"
     }
   ],
   "unlinked_usable_physical_pdfs": [

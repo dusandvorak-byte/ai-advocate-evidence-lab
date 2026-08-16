@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-08-12T12:32:45.830Z",
+  "generated_at": "2026-08-16T11:54:08.322Z",
   "hard_error_count": 0,
-  "human_review_count": 1,
+  "human_review_count": 6,
   "counts": {
-    "documents": 69,
-    "institutions": 40,
+    "documents": 77,
+    "institutions": 41,
     "cases": 7,
     "deadlines": 0
   },
@@ -15,6 +15,31 @@
       "type": "missing_case",
       "document_id": "doc-cz-kpr-2026-08-12-4873-2026",
       "case_id": "case-cz-kpr-tri-vetve"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-mv-2026-08-11-mv-127234-2-obp-2026",
+      "case_id": "case-cz-mv-infz-ganja-for-all-animals"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-mk-2026-08-12-mk-49467-2026-socns",
+      "case_id": "case-cz-mk-konopna-cirkev"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026",
+      "case_id": "case-cz-mv-infz-ganja-for-all-animals"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd",
+      "case_id": "case-cz-pcr-ku-interni-prezkum"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960",
+      "case_id": "case-cz-pcr-ku-interni-prezkum"
     }
   ],
   "rule": "Duplicity a neplatné veřejné cesty blokují build. Neúplné vazby se nikdy nedoplňují odhadem a čekají na lidskou kontrolu."

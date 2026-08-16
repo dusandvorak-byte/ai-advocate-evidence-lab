@@ -122,10 +122,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": "documents/report-04082026-010/06-kpr-4093-2026-2026-06-05.pdf",
+        "pdf": null,
         "sha256": null,
-        "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "verification_status": "catalogued_pdf_override_none",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -346,9 +346,10 @@
       "topics": [],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/06-kpr-4093-2026-2026-06-05.pdf",
         "sha256": null,
-        "verification_status": "catalogued"
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1447,10 +1448,11 @@
       ],
       "public": {
         "html": null,
-        "pdf": "documents/report-04082026-010/23-dvorak-stiznost-15-nt-3103-2026-53-2026-08-11.pdf",
+        "pdf": "documents/report-04082026-010/33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf",
+        "intended_pdf": "documents/report-04082026-010/33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf",
         "sha256": "d461ad6eacc569ba8d86c4ce640a3f6273ff67ae48fc5ea57f1f8653ce0e2a40",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "project-memory/pdf-link-overrides.json"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1476,9 +1478,9 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "sha256": null,
-        "verification_status": "duplicate_public_file_rejected"
+        "pdf": "documents/report-04082026-010/23-dvorak-stiznost-15-nt-3103-2026-53-2026-08-11.pdf",
+        "sha256": "41c6dc1b554fdc5206391866f787ae1906d7ae5aed1953a3665aa0cda1ecf8d0",
+        "verification_status": "published"
       },
       "relations": [
         {
@@ -1521,42 +1523,333 @@
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification",
-      "chronology_sequence": 64,
+      "chronology_sequence": 65,
       "evidence_note": "Jednostránková listina byla uživatelem převzata z datové schránky a doložena dne 12. 8. 2026. KPR reaguje na podání ze dne 5. 6. 2026. Odpověď představuje odmítnutí požadované součinnosti; sama o sobě nerozhoduje o zákonnosti ani věcné správnosti záměru."
+    },
+    {
+      "id": "doc-cz-mv-2026-08-11-mv-127234-2-obp-2026",
+      "user_title": "Ministerstvo vnitra odmítlo žádost Ganja For All Animals, z.s. podle § 11b InfZ s odůvodněním, že nedisponuje žádnou z požadovaných informací",
+      "issue_date": "2026-08-11",
+      "received_date": "2026-08-12",
+      "institution_id": "CZ-MV",
+      "reference": "MV-127234-2/OBP-2026",
+      "case_ids": [
+        "case-cz-mv-infz-ganja-for-all-animals"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "Ministerstvo vnitra",
+        "Ganja For All Animals, z.s.",
+        "InfZ",
+        "§ 11b InfZ",
+        "§ 15 InfZ",
+        "odmítnutí žádosti",
+        "rozklad"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/25-mv-127234-2-obp-2026-2026-08-11.pdf",
+        "sha256": "c65c9cc5f12eab03f69c4ea1bf642c3078f4858153b385e80f141da6ea334a55",
+        "verification_status": "published",
+        "intended_pdf": "documents/report-04082026-010/25-mv-127234-2-obp-2026-2026-08-11.pdf",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification",
+      "chronology_sequence": 64,
+      "evidence_note": "Rozhodnutí Ministerstva vnitra, odboru bezpečnostní politiky, ze dne 11. 8. 2026, č. j. MV-127234-2/OBP-2026. Povinný subjekt podle § 15 InfZ odmítl žádost Ganja For All Animals, z.s. s použitím § 11b InfZ, protože podle odůvodnění ministerstvo nedisponuje žádnou z požadovaných informací. Pro chronologii je rozhodné datum rozhodnutí 11. 8. 2026; elektronický podpis je datován 12. 8. 2026. Přesný doložený PDF zdroj má SHA-256 c65c9cc5f12eab03f69c4ea1bf642c3078f4858153b385e80f141da6ea334a55."
+    },
+    {
+      "id": "doc-cz-mk-2026-08-12-mk-49467-2026-socns",
+      "user_title": "Ministerstvo kultury formálně potvrdilo zahájení řízení o novém řízení a novém rozhodnutí podle § 101 písm. b) správního řádu již dnem 26. 6. 2026",
+      "issue_date": "2026-08-12",
+      "received_date": "2026-08-12",
+      "institution_id": "CZ-MK",
+      "reference": "MK 49467/2026 SOCNS",
+      "case_ids": [
+        "case-cz-mk-konopna-cirkev"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "Ministerstvo kultury",
+        "Konopná církev",
+        "nové řízení",
+        "nové rozhodnutí",
+        "§ 101 písm. b) správního řádu",
+        "MK-S 6893/2026",
+        "registrace církve"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-mk-2026-08-12-mk-49467-2026-socns.html",
+        "pdf": "documents/report-04082026-010/27-mk-49467-2026-socns-2026-08-12.pdf",
+        "sha256": "bb23820c9a02a17a976f0a746def4c53f4afa413fb708259e25a59d6a2f0f3b1",
+        "verification_status": "published",
+        "intended_pdf": "documents/report-04082026-010/27-mk-49467-2026-socns-2026-08-12.pdf",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "follows",
+          "target": "doc-cz-mk-2026-07-22-mk-45728-2026-socns"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification",
+      "chronology_sequence": 66,
+      "evidence_note": "Klíčová procesní listina. Ministerstvo jako registrující orgán podle zákona č. 3/2002 Sb. výslovně oznamuje zahájení řízení o návrhu na provedení nového řízení a vydání nového rozhodnutí podle § 101 písm. b) správního řádu dnem 26. 6. 2026. Nové řízení vede pod sp. zn. MK-S 6893/2026. Přesný doložený PDF zdroj má SHA-256 bb23820c9a02a17a976f0a746def4c53f4afa413fb708259e25a59d6a2f0f3b1."
+    },
+    {
+      "id": "doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026",
+      "user_title": "Ganja For All Animals, z.s. podala rozklad proti odmítnutí žádosti Ministerstvem vnitra; namítá nepřezkoumatelnost, neprokázání kumulativních podmínek § 11b InfZ a absenci doloženého vyhledávání",
+      "issue_date": "2026-08-12",
+      "received_date": "2026-08-12",
+      "institution_id": "CZ-GFAA",
+      "reference": "Rozklad k MV-127234-2/OBP-2026",
+      "case_ids": [
+        "case-cz-mv-infz-ganja-for-all-animals"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "Ganja For All Animals, z.s.",
+        "Ministerstvo vnitra",
+        "rozklad",
+        "InfZ",
+        "§ 11b InfZ",
+        "§ 16 InfZ",
+        "§ 152 správního řádu",
+        "přeprava vzorku krve",
+        "toxikologie",
+        "THC",
+        "THCA"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/26-gfaa-rozklad-mv-127234-2-obp-2026-2026-08-12.pdf",
+        "sha256": "769392aa996dda284c927b9bee9fbee1c364daade8d2a1867fe7fa380d4b3cc2",
+        "verification_status": "published",
+        "intended_pdf": "documents/report-04082026-010/26-gfaa-rozklad-mv-127234-2-obp-2026-2026-08-12.pdf",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-mv-2026-08-11-mv-127234-2-obp-2026"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "chronology_sequence": null,
+      "evidence_note": "Šestistránkový rozklad ze dne 12. 8. 2026 proti rozhodnutí MV ze dne 11. 8. 2026, č. j. MV-127234-2/OBP-2026. Rozklad napadá rozhodnutí v celém rozsahu. Jádrem je námitka, že MV odmítlo deset samostatných bodů žádosti jediným tvrzením, že nedisponuje žádnou z požadovaných informací, aniž popsalo vyhledávání, posoudilo zákonnou povinnost informacemi disponovat či možnost získat je jednoduchými úkony. Jde o naše navazující podání, proto nezvyšuje státní čítač 66. Přesný doložený PDF zdroj má SHA-256 769392aa996dda284c927b9bee9fbee1c364daade8d2a1867fe7fa380d4b3cc2."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-01-odvolani-nsz-sin-55-2026-19",
+      "user_title": "Odvolání proti rozhodnutí Nejvyššího státního zastupitelství ze dne 30. 7. 2026, č. j. SIN 55/2026-19",
+      "issue_date": "2026-08-01",
+      "received_date": "2026-08-01",
+      "institution_id": "CZ-DD",
+      "reference": "odvolání proti SIN 55/2026-19",
+      "case_ids": [],
+      "document_type": "appeal",
+      "topics": [
+        "odvolání",
+        "InfZ",
+        "NSZ",
+        "ÚOOÚ",
+        "SIN 55/2026-19"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/28-dvorak-odvolani-nsz-sin-55-2026-19-2026-08-01.pdf",
+        "intended_pdf": "documents/report-04082026-010/28-dvorak-odvolani-nsz-sin-55-2026-19-2026-08-01.pdf",
+        "sha256": "021a9c83a3079ab0b6e26205c510e6d8b1633dfe3c30c57c3048538942fb91b3",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-nsz-2026-07-30-sin-55-2026-19"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Odvolatel Mgr. Dušan Dvořák podal dne 1. 8. 2026 odvolání v celém rozsahu proti rozhodnutí NSZ SIN 55/2026-19; odvolacím orgánem je ÚOOÚ prostřednictvím NSZ. Datum listiny je současně evidováno jako datum podání/doručení."
+    },
+    {
+      "id": "doc-cz-dd-2026-07-31-odvolani-msz-sin-48-2026-12",
+      "user_title": "Odvolání proti rozhodnutí Městského státního zastupitelství v Praze ze dne 30. 7. 2026, č. j. Sin 48/2026-12",
+      "issue_date": "2026-07-31",
+      "received_date": "2026-07-31",
+      "institution_id": "CZ-DD",
+      "reference": "odvolání proti Sin 48/2026-12",
+      "case_ids": [],
+      "document_type": "appeal",
+      "topics": [
+        "odvolání",
+        "InfZ",
+        "MSZ Praha",
+        "VSZ Praha",
+        "Sin 48/2026-12"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/29-dvorak-odvolani-msz-sin-48-2026-12-2026-07-31.pdf",
+        "intended_pdf": "documents/report-04082026-010/29-dvorak-odvolani-msz-sin-48-2026-12-2026-07-31.pdf",
+        "sha256": "564fa5536735679523d976664eb805fa82987c7699134a15f483c530b4a40e02",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-msz-pha-2026-07-30-sin-48-2026-12"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Mgr. Dušan Dvořák podal dne 31. 7. 2026 prostřednictvím MSZ Praha odvolání k VSZ Praha proti rozhodnutí Sin 48/2026-12 v celém rozsahu. Datum listiny je současně evidováno jako datum podání/doručení."
+    },
+    {
+      "id": "doc-cz-dd-2026-07-31-stiznost-msz-necinnost-infz",
+      "user_title": "Stížnost podle § 16a InfZ na nečinnost Městského státního zastupitelství v Praze při žádostech doručených 8. a 13. 7. 2026",
+      "issue_date": "2026-07-31",
+      "received_date": "2026-07-31",
+      "institution_id": "CZ-DD",
+      "reference": "stížnost podle § 16a InfZ – žádosti 8. 7. a 13. 7. 2026",
+      "case_ids": [],
+      "document_type": "appeal",
+      "topics": [
+        "stížnost",
+        "§ 16a InfZ",
+        "nečinnost",
+        "MSZ Praha",
+        "VSZ Praha",
+        "žádost 8. 7. 2026",
+        "žádost 13. 7. 2026"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/30-dvorak-stiznost-msz-necinnost-infz-2026-07-31.pdf",
+        "intended_pdf": "documents/report-04082026-010/30-dvorak-stiznost-msz-necinnost-infz-2026-07-31.pdf",
+        "sha256": "77e623a6b0af714d479ec8b8c4fda8ea3fef0d2330f0dc6fcf541258c73e9dec",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Stížnost Mgr. Dušana Dvořáka podle § 16a odst. 1 písm. b) InfZ na neposkytnutí informací, nevydání rozhodnutí a neoznámení prodloužení lhůty u žádostí doručených MSZ Praha 8. a 13. 7. 2026. Podána 31. 7. 2026 prostřednictvím MSZ Praha k VSZ Praha."
+    },
+    {
+      "id": "doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd",
+      "user_title": "Úřad vnitřní kontroly Policejního prezidia se prohlásil za věcně nepříslušný k vyřízení stížnosti na nečinnost Kriminalistického ústavu a postoupil ji kanceláři ředitele KÚ",
+      "issue_date": "2026-08-14",
+      "received_date": "2026-08-14",
+      "institution_id": "CZ-PCR-PP",
+      "reference": "PPR-43826-2/ČJ-2026-990210-PD",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "stížnost",
+        "Úřad vnitřní kontroly",
+        "Kriminalistický ústav",
+        "THC",
+        "interní přezkum",
+        "postoupení"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd.html",
+        "pdf": "documents/report-04082026-010/31-policie-uvk-pp-ppr-43826-2-cj-2026-990210-pd-2026-08-14.pdf",
+        "intended_pdf": "documents/report-04082026-010/31-policie-uvk-pp-ppr-43826-2-cj-2026-990210-pd-2026-08-14.pdf",
+        "sha256": "823d7ec58d9ed6de4abde4f0636eb1d87d9d16c331ac7d143c2342621999c88c",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "ÚVK PP uvedl, že podání posoudil podle skutečného obsahu dle § 37 odst. 1 správního řádu, není věcně příslušný k adekvátní reakci a postoupil věc kanceláři ředitele Kriminalistického ústavu k případným dalším opatřením."
+    },
+    {
+      "id": "doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960",
+      "user_title": "Stížnost na postup Policie ČR při vyřizování bodu 3 podání ze dne 27. května 2026 a žádost o přešetření interního odborného a kontrolního přezkumu měření THC",
+      "issue_date": "2026-08-14",
+      "received_date": "2026-08-14",
+      "institution_id": "CZ-PCR-PP",
+      "reference": "PPR-24960/ČJ-2026-990810; KU-4139/ČJ-2026-2305KM",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "stížnost",
+        "THC",
+        "THCA",
+        "dekarboxylace",
+        "SOP",
+        "nejistota měření",
+        "Kriminalistický ústav"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/32-dvorak-stiznost-uvk-pp-pcr-2026-08-14.pdf",
+        "intended_pdf": "documents/report-04082026-010/32-dvorak-stiznost-uvk-pp-pcr-2026-08-14.pdf",
+        "sha256": "f74b439f6d99826a7f49b32e08e2f908017c4e840a2b8837dd241fbc582f765d",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Podání žádá přešetření dosavadního postupu Policie ČR, určení příslušného útvaru, transparentní evidenci a věcné odborné prověření reprezentativnosti vzorků, homogenizace, SOP, THC/THCA, dekarboxylace, nejistot měření, validace a kontroly kvality."
     }
   ],
   "reconciliation": {
-    "updated_at": "2026-08-12T12:32:45.779Z",
-    "active_pdf_policy": "Aktivní PDF se zachovává u všech veřejných institucí a u všech našich podání, pokud fyzický PDF soubor existuje, je použitelný a jednoznačně přiřaditelný. Reconciler nesmí skrývat PDF jen podle typu původce.",
+    "updated_at": "2026-08-16T11:54:08.272Z",
+    "active_pdf_policy": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
+    "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
+    "ownership_axiom": "user-named-pdf-never-state-original",
     "source_manifests": [
       "project-memory/report-04082026-010-sources.json",
       "project-memory/report-20260810-osz-pdf-owner-sources.json",
-      "project-memory/report-20260810-pdf-repair-sources.json"
+      "project-memory/report-20260810-pdf-repair-sources.json",
+      "project-memory/report-20260812-explicit-pdf-owners-sources.json"
     ],
-    "physical_pdf_count": 81,
-    "usable_physical_pdf_count": 80,
+    "override_registry": "project-memory/pdf-link-overrides.json",
+    "physical_pdf_count": 90,
+    "usable_physical_pdf_count": 89,
     "invalid_physical_pdf_count": 1,
-    "linked_pdf_count": 47,
-    "newly_linked_count": 1,
-    "invalidated_link_count": 1,
-    "withheld_by_policy_count": 0,
+    "linked_pdf_count": 56,
+    "newly_linked_count": 0,
+    "override_change_count": 11,
+    "invalidated_link_count": 0,
     "unresolved_count": 0,
-    "unmatched_eligible_count": 22
+    "unmatched_publishable_count": 20,
+    "required_pdf_document_count": 48,
+    "required_without_active_pdf_count": 5
   },
   "normalization": {
-    "updated_at": "2026-08-12T12:32:45.620Z",
+    "updated_at": "2026-08-16T11:54:08.166Z",
     "rule": "Kanonická pracovní množina vzniká výhradně z document-sources.json. Všechny zdroje se slučují podle stabilního ID; veřejné výstupy a čítače nesmějí udržovat vlastní paralelní seznam dokumentů.",
     "source_manifest": "project-memory/document-sources.json",
-    "source_count": 4,
-    "source_documents_before_deduplication": 80,
-    "merged_document_count": 69,
+    "source_count": 6,
+    "source_documents_before_deduplication": 96,
+    "merged_document_count": 77,
     "institution_aliases": {
       "CZ-OSZ-PRO": "CZ-OSZ-PV",
       "CZ-PCR-KRPM": "CZ-PCR-KRPO"
     },
     "filled_user_titles_from_existing_title": 0,
-    "incoming_from_state_or_public_institution": 64,
-    "outgoing_from_user_or_alliance": 5,
+    "incoming_from_state_or_public_institution": 67,
+    "outgoing_from_user_or_alliance": 10,
     "unclassified": 0
   },
   "canonical_sources_manifest": "project-memory/document-sources.json",
@@ -1564,6 +1857,8 @@
     "project-memory/documents-2026.json",
     "project-memory/documents-2026-supplement-2026-08-10.json",
     "project-memory/documents-2026-supplement-2026-08-11.json",
-    "project-memory/documents-2026-supplement-2026-08-12.json"
+    "project-memory/documents-2026-supplement-2026-08-12.json",
+    "project-memory/documents-2026-supplement-2026-08-13-remedies.json",
+    "project-memory/documents-2026-supplement-2026-08-14.json"
   ]
 }

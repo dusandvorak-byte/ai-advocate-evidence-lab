@@ -1,13 +1,7 @@
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
-import { execFile } from 'node:child_process';
-import { promisify } from 'node:util';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const execFileAsync = promisify(execFile);
-const sourcePath = 'project-memory/direct-pdf-bundle-2026-08-16/godot-pdfs.tar.xz.b64';
-const archivePath = '/tmp/godot-pdfs-2026-08-16.tar.xz';
-const archiveSha256 = '14f9bcc938403ed4b615a5a5879ec8e40b4bc7b6691114b0e6e035cdb91e6e31';
 const outputRoot = 'web';
 
 const expected = new Map([
@@ -22,37 +16,8 @@ const expected = new Map([
   ['documents/report-04082026-010/33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf', 'd461ad6eacc569ba8d86c4ce640a3f6273ff67ae48fc5ea57f1f8653ce0e2a40']
 ]);
 
-const historicalBlobs = new Map([
-  ['documents/report-04082026-010/28-dvorak-odvolani-nsz-sin-55-2026-19-2026-08-01.pdf', '158c83a6606f2216f60c93d03473ddc3628a5781'],
-  ['documents/report-04082026-010/29-dvorak-odvolani-msz-sin-48-2026-12-2026-07-31.pdf', '6390ad22a54d50eca0794b913a7a22f975fcbc0c']
-]);
-
 const sha256 = data => createHash('sha256').update(data).digest('hex');
 const pdfHeader = Buffer.from('%PDF-');
-
-const encoded = (await readFile(sourcePath, 'utf8')).replace(/\s+/g, '');
-if (!encoded || encoded.length % 4 === 1 || !/^[A-Za-z0-9+/=]+$/.test(encoded)) {
-  throw new Error(`${sourcePath}: neplatný base64 zdroj`);
-}
-const archive = Buffer.from(encoded, 'base64');
-const actualArchiveHash = sha256(archive);
-if (actualArchiveHash !== archiveSha256) {
-  throw new Error(`SHA-256 PDF archivu nesedí: ${actualArchiveHash}; očekáváno ${archiveSha256}`);
-}
-await writeFile(archivePath, archive);
-await mkdir(`${outputRoot}/documents/report-04082026-010`, { recursive: true });
-await execFileAsync('tar', ['-xJf', archivePath, '-C', outputRoot], { maxBuffer: 64 * 1024 * 1024 });
-await rm(archivePath, { force: true });
-
-for (const [relative, oid] of historicalBlobs) {
-  const { stdout } = await execFileAsync('git', ['cat-file', 'blob', oid], {
-    encoding: null,
-    maxBuffer: 64 * 1024 * 1024
-  });
-  const target = path.join(outputRoot, relative);
-  await mkdir(path.dirname(target), { recursive: true });
-  await writeFile(target, stdout);
-}
 
 for (const [relative, expectedHash] of expected) {
   const file = path.join(outputRoot, relative);
@@ -70,4 +35,4 @@ for (const [relative, expectedHash] of expected) {
   console.log(`PDF VERIFIED ${relative} ${actual} ${data.length} B`);
 }
 
-console.log(`Materializováno a kryptograficky ověřeno ${expected.size}/9 PDF Godota z jediného kanonického archivu a dvou historických blobů.`);
+console.log(`Kryptograficky ověřeno ${expected.size}/9 přímo verzovaných PDF Godota.`);
