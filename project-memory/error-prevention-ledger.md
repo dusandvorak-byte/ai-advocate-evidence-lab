@@ -133,6 +133,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Projev: karty uváděly například „MS v Praze“, „OS Prostějov“ nebo nesprávně zkrácené „OS Praha 4“.
 - Pojistka: kanonický generátor používá celé úřední názvy Městského soudu v Praze, Obvodního soudu pro Prahu 4, okresních soudů i Vrchního soudu v Praze; validační skript návrat soudních zkratek zakazuje.
 
+### Anglická titulní stránka měla anglické nadpisy, ale české karty a cíle
+
+- Projev: rozbalená soudní řízení, nejnovější listina a odkazy hlavního článku či termínů vracely návštěvníka k českému obsahu.
+- Příčina: sdílený klientský generátor lokalizoval pouze názvy tří lišt a synchronizátor překládal jen část textů.
+- Pojistka: anglická varianta má devět plně anglických soudních názvů a odpovídající kotvy v anglickém Godotovi; nejnovější listiny i redakční odkazy vedou na anglické stránky. Kontrola zakazuje číselné cesty `zpravy/` na anglické titulní stránce.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
