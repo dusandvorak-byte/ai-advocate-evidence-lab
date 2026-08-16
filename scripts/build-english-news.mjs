@@ -102,5 +102,5 @@ const render = report => `<!doctype html>
 <footer><div class="brand"><b>CannaInsider.EU</b><span>INTERNATIONAL EVIDENCE REPORTER</span></div><p><b>Operator: Cannabis is The Cure, z. s.</b></p><p>The score indicates relevance and review priority, not a legal outcome.</p></footer></body></html>`;
 
 await mkdir('web/news', { recursive: true });
-for (const report of reports) await writeFile(`web/news/${report.id}.html`, render(report), 'utf8');
-console.log(`English news editions generated: ${reports.length}/${reports.length}.`);
+for (const report of reports.filter(item => item.id !== '04082026-010')) await writeFile(`web/news/${report.id}.html`, render(report), 'utf8');
+console.log(`English editorial news editions generated: ${reports.length - 1}/${reports.length - 1}; Godot is generated separately as a complete chronology.`);
