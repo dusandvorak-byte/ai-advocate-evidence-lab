@@ -90,7 +90,7 @@ ${detail('state-love', 'Státní láska online od 1. května 2026', 'číst jako
 ${detail('latest', `Státu lásky čas do ${todayCz} →`, 'poslední tři polibky státu →', `<div class="latest-record-grid">${latestCards}</div>`, true)}
 ${direct('godot', `Státu lásky čas od 1. května 2026 do ${todayCz} znamená celkem ${stateCount} vášnivých polibků státních orgánů při čekání na Godota →`, '', godotHref)}
 ${direct('lead', 'ZPRÁVA DNE · CANNAINSIDER.EU NEWS · 7. 8. 2026 · EVROPSKÁ VĚTEV · REPORT 07082026-011 →', '', leadHref)}
-<a class="rollup-build-compatibility" href="${godotHref}" hidden>Godot online →</a>
+<a hidden class="rollup-build-compatibility" href="${godotHref}">Godot online →</a>
 </section>`;
 
 function removeBalancedElementById(html, id) {
