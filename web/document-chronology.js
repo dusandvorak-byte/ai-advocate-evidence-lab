@@ -52,20 +52,25 @@
     parent.append(anchor);
   };
 
-  const appendInlineDocument = (documentItem, parent, institutionMap, kind) => {
+  const appendInlineDocument = (documentItem, parent, institutionMap, relationLabel) => {
     const institution = institutionMap.get(documentItem.institution_id);
     const name = institution?.name_cs || institution?.name || documentItem.institution_id || 'Původce neuveden';
-    parent.append(document.createTextNode(` a ${kind} Datum: ${formatDate(documentItem.issue_date)} · Kdo: `));
+    parent.append(document.createTextNode(' · '));
+    const relationNode = document.createElement('strong');
+    relationNode.className = 'chronology-relation-label';
+    relationNode.textContent = relationLabel;
+    parent.append(relationNode);
+    parent.append(document.createTextNode(` Datum: ${formatDate(documentItem.issue_date)} · Kdo: `));
     const institutionNode = document.createElement('strong');
     institutionNode.textContent = name;
     parent.append(institutionNode);
     parent.append(document.createTextNode(` · Č. j. / sp. zn.: ${documentItem.reference || 'bez samostatného č. j./sp. zn.'}`));
     parent.append(document.createTextNode(` · Co se stalo: ${documentItem.user_title || 'popis úkonu dosud nedoložen'}`));
-    const label = documentItem.document_type === 'user_submission_attachment' ? 'důkazní příloha PDF' : 'naše podání PDF';
-    appendLink(parent, resolveLink(documentItem, label));
+    const linkLabel = documentItem.document_type === 'user_submission_attachment' ? 'důkazní příloha PDF' : 'naše podání PDF';
+    appendLink(parent, resolveLink(documentItem, linkLabel));
   };
 
-  const createItem = (documentItem, institution, reactionsByTarget, attachmentsByTarget, institutionMap) => {
+  const createItem = (documentItem, institution, stateResponsesByDocument, userReactionsByState, attachmentsByTarget, institutionMap) => {
     const item = document.createElement('li');
     item.id = documentItem.id;
     item.dataset.issueDate = documentItem.issue_date || '';
@@ -80,11 +85,22 @@
     item.append(document.createTextNode(` · Co se stalo: ${documentItem.user_title || 'popis úkonu dosud nedoložen'}`));
     appendLink(item, resolveLink(documentItem));
 
-    const reactions = [...(reactionsByTarget.get(documentItem.id) || [])].sort(compareDocuments);
+    const precedingSubmissions = [...(stateResponsesByDocument.get(documentItem.id) || [])].sort(compareDocuments);
+    for (const submission of precedingSubmissions) {
+      appendInlineDocument(submission, item, institutionMap, 'Reakce orgánu veřejné moci na podání:');
+      const attachments = [...(attachmentsByTarget.get(submission.id) || [])].sort(compareDocuments);
+      for (const attachment of attachments) {
+        appendInlineDocument(attachment, item, institutionMap, 'Příloha předchozího podání:');
+      }
+    }
+
+    const reactions = [...(userReactionsByState.get(documentItem.id) || [])].sort(compareDocuments);
     for (const reaction of reactions) {
-      appendInlineDocument(reaction, item, institutionMap, 'reakce');
+      appendInlineDocument(reaction, item, institutionMap, 'Reakce na vyjádření orgánu veřejné moci:');
       const attachments = [...(attachmentsByTarget.get(reaction.id) || [])].sort(compareDocuments);
-      for (const attachment of attachments) appendInlineDocument(attachment, item, institutionMap, 'příloha');
+      for (const attachment of attachments) {
+        appendInlineDocument(attachment, item, institutionMap, 'Příloha následného podání:');
+      }
     }
     return item;
   };
@@ -111,33 +127,41 @@
     const stateById = new Map(stateDocuments.map(item => [item.id, item]));
     const outgoingDocuments = mainDocuments.filter(item => item.submission_side === 'outgoing_from_user_or_alliance');
 
-    const reactionsByTarget = new Map();
+    const allById = new Map(allDocuments.map(item => [item.id, item]));
+    const outgoingById = new Map(outgoingDocuments.map(item => [item.id, item]));
+    const stateResponsesByDocument = new Map();
+    const userReactionsByState = new Map();
     const attachmentsByTarget = new Map();
-    for (const documentItem of outgoingDocuments) {
-      const reactionTargets = (documentItem.relations || [])
-        .filter(rel => (rel.type || rel.relation_type) === 'reakce_na')
-        .map(rel => rel.target_id || rel.document_id)
-        .filter(targetId => targetId && stateById.has(targetId))
-        .sort((a, b) => compareStateDocuments(stateById.get(a), stateById.get(b)));
-      if (reactionTargets.length) {
-        const targetId = reactionTargets.at(-1);
-        const bucket = reactionsByTarget.get(targetId) || [];
-        bucket.push(documentItem);
-        reactionsByTarget.set(targetId, bucket);
-      }
+
+    const addRelation = (map, targetId, documentItem) => {
+      const bucket = map.get(targetId) || [];
+      if (!bucket.some(item => item.id === documentItem.id)) bucket.push(documentItem);
+      map.set(targetId, bucket);
+    };
+
+    for (const documentItem of allDocuments) {
       for (const rel of documentItem.relations || []) {
         const type = rel.type || rel.relation_type;
         const targetId = rel.target_id || rel.document_id;
-        if (type !== 'priloha_k' || !targetId) continue;
-        const bucket = attachmentsByTarget.get(targetId) || [];
-        bucket.push(documentItem);
-        attachmentsByTarget.set(targetId, bucket);
+        if (!targetId) continue;
+
+        if (type === 'reakce_na') {
+          if (outgoingById.has(documentItem.id) && stateById.has(targetId)) {
+            addRelation(userReactionsByState, targetId, documentItem);
+          } else if (stateById.has(documentItem.id) && outgoingById.has(targetId)) {
+            addRelation(stateResponsesByDocument, documentItem.id, allById.get(targetId));
+          }
+        }
+
+        if (type === 'priloha_k' && outgoingById.has(documentItem.id)) {
+          addRelation(attachmentsByTarget, targetId, documentItem);
+        }
       }
     }
 
     mainList.textContent = '';
     for (const documentItem of stateDocuments) {
-      mainList.append(createItem(documentItem, institutionMap.get(documentItem.institution_id), reactionsByTarget, attachmentsByTarget, institutionMap));
+      mainList.append(createItem(documentItem, institutionMap.get(documentItem.institution_id), stateResponsesByDocument, userReactionsByState, attachmentsByTarget, institutionMap));
     }
 
     const meta = document.querySelector('.article-header .news-meta');
@@ -156,7 +180,7 @@
       oldList.start = stateDocuments.length + 1;
       for (const documentItem of olderDocuments) {
         if (documentItem.submission_side === 'incoming_from_state_or_public_institution' || documentItem.document_type === 'state_record') {
-          oldList.append(createItem(documentItem, institutionMap.get(documentItem.institution_id), reactionsByTarget, attachmentsByTarget, institutionMap));
+          oldList.append(createItem(documentItem, institutionMap.get(documentItem.institution_id), stateResponsesByDocument, userReactionsByState, attachmentsByTarget, institutionMap));
         }
       }
       const timers = document.getElementById('procesni-casovace');
