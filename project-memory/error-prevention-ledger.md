@@ -70,6 +70,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: souběžná práce nad stejným repozitářem.
 - Pojistka: opravy se provádějí v čistém dočasném worktree z aktuálního `origin/main`; cizí změny se neobnovují ani nemažou.
 
+### Pracovní návod zveřejněný uvnitř procesních časovačů
+
+- Projev: po rozbalení se návštěvníkovi zobrazil interní text „Povinný formát / Počítání / Úplnost“.
+- Příčina: kontrolní pravidla buildu byla omylem vložena také do veřejného HTML.
+- Pojistka: kontrolní pravidla zůstávají pouze ve validačním skriptu; ten zakazuje jejich návrat do generátoru a současně vynucuje veřejné pořadí `Kdy → Komu → Č. j. / sp. zn. → Kdo → Co se stalo`.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
