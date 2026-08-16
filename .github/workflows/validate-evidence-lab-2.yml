@@ -40,6 +40,9 @@ jobs:
       - name: Spustit jediný kanonický build
         run: node scripts/build-site.mjs
 
+      - name: Ověřit tři lišty, barvy a chronologii soudních řízení
+        run: node scripts/validate-live-dockets-contract.mjs
+
       - name: Ověřit manifest Evidence Lab 2.0
         shell: bash
         run: |

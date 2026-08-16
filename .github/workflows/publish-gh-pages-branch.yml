@@ -42,6 +42,8 @@ jobs:
         run: node scripts/finalize-public-labels.mjs
       - name: Znovu ověřit PDF po všech finálních úpravách
         run: node scripts/audit-godot-pdf-links.mjs
+      - name: Ověřit tři lišty, barvy a chronologii soudních řízení
+        run: node scripts/validate-live-dockets-contract.mjs
       - name: Ověřit Evidence Lab 2.0 před publikací
         shell: bash
         run: |
