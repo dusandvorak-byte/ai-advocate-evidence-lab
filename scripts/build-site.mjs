@@ -59,6 +59,7 @@ await run('scripts/build-english-news.mjs');
 await run('scripts/build-deadlines.mjs');
 await run('scripts/build-process-timers.mjs');
 await run('scripts/build-english-godot.mjs');
+await run('scripts/build-language-access.mjs');
 await run('scripts/build-operational-state.mjs');
 await run('scripts/audit-godot-pdf-links.mjs');
 
