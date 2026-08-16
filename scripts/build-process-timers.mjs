@@ -81,6 +81,7 @@ for (const source of documentSources.sources) {
   canonicalDocuments.push(...parsed.documents);
 }
 const documents = [...new Map(canonicalDocuments.map(item => [item.id, item])).values()];
+const documentsById = new Map(documents.map(item => [item.id, item]));
 
 const timerMap = new Map(registry.timers.map(item => [item.id, { ...item }]));
 for (const patch of [...overrides.patches, ...currentOverrides.patches]) {
@@ -161,6 +162,24 @@ const labels = {
 const order = ['current_remedies', 'court', 'pre_action', 'administrative', 'review_supervision', 'criminal_historical'];
 const legallyQualifiedPriority = new Set(REQUIRED_CURRENT_TIMER_IDS);
 
+const displayParties = item => {
+  const sourceDocument = item.source_document_id ? documentsById.get(item.source_document_id) : null;
+  const titleParts = String(item.title || '').split(/\s+[–—]\s+/, 2);
+  const recipient = item.recipient || titleParts[0] || 'příslušný orgán';
+  const sourceActor = sourceDocument?.submission_side === 'outgoing_from_user_or_alliance'
+    ? (sourceDocument.institution_id === 'CZ-GFAA'
+      ? 'Ganja For All Animals, z.s.'
+      : sourceDocument.institution_id === 'CZ-CITC'
+        ? (institutionNames.get('CZ-CITC') || 'Cannabis is The Cure, z.s.')
+        : 'Mgr. Dušan Dvořák')
+    : (sourceDocument ? institutionNames.get(sourceDocument.institution_id) : null);
+  const actor = item.actor
+    || sourceActor
+    || titleParts[1]
+    || 'evidovaný účastník řízení';
+  return { recipient, actor };
+};
+
 const row = item => {
   const end = item.end_date || '';
   const countStart = item.count_from_date || item.start_date;
@@ -169,9 +188,10 @@ const row = item => {
   const history = item.process_history ? `<p class="timer-basis"><b>Průběh:</b> ${escapeHtml(item.process_history)}</p>` : '';
   const nextEvent = item.next_event ? `<p class="timer-basis"><b>Další úkon:</b> ${escapeHtml(item.next_event)}</p>` : '';
   const countNote = item.count_from_date ? `<p class="timer-basis"><b>Den 1 běhu:</b> ${escapeHtml(item.count_from_date)}</p>` : '';
+  const { recipient, actor } = displayParties(item);
   return `<article class="process-timer" data-process-timer data-limit-kind="${escapeHtml(item.limit_kind || '')}" data-start-date="${escapeHtml(countStart)}" data-event-date="${escapeHtml(item.start_date)}" data-timer-id="${escapeHtml(item.id)}"${item.source_document_id ? ` data-source-document-id="${escapeHtml(item.source_document_id)}"` : ''}${end ? ` data-end-date="${escapeHtml(end)}"` : ''}>
     <div class="timer-value"><span data-elapsed-days>…</span> / <span>${escapeHtml(item.limit_label)}</span></div>
-    <div class="timer-detail"><h4>${title}</h4><p class="timer-basis"><b>Kdo:</b> ${escapeHtml(item.title)}</p><p class="timer-basis"><b>Datum doručení/podání:</b> ${escapeHtml(item.start_date)}</p>${countNote}<p class="timer-basis"><b>Č. j. / sp. zn.:</b> ${escapeHtml(item.reference)}</p><p class="timer-basis"><b>Co se stalo:</b> ${escapeHtml(item.start_date_basis)}</p><p class="timer-basis"><b>Lhůta / procesní režim:</b> ${escapeHtml(item.legal_basis)}${due}</p>${history}${nextEvent}</div>
+    <div class="timer-detail"><h4>${title}</h4><p class="timer-basis"><b>Kdy:</b> ${escapeHtml(item.start_date)}</p><p class="timer-basis"><b>Komu:</b> ${escapeHtml(recipient)}</p><p class="timer-basis"><b>Č. j. / sp. zn.:</b> ${escapeHtml(item.reference)}</p><p class="timer-basis"><b>Kdo:</b> ${escapeHtml(actor)}</p><p class="timer-basis"><b>Co se stalo:</b> ${escapeHtml(item.start_date_basis)}</p>${countNote}<p class="timer-basis"><b>Lhůta / procesní režim:</b> ${escapeHtml(item.legal_basis)}${due}</p>${history}${nextEvent}</div>
   </article>`;
 };
 
@@ -190,7 +210,7 @@ const categories = order.filter(category => category !== 'current_remedies').map
 }).join('');
 
 const notices = registry.historical_notice_points.map(item => `<article class="historical-notice"><h4>${escapeHtml(item.date)} · ${escapeHtml(item.title)}</h4><p>${escapeHtml(item.evidence)}</p><p><b>Význam pro projekt:</b> ${escapeHtml(item.boundary)}</p></article>`).join('');
-const timerBody = `<p class="timer-legend"><b>Povinný formát:</b> kdo · datum · č. j./sp. zn. · co se stalo. <b>Počítání:</b> den doručení je den 0 a následující den je den 1. <b>Úplnost:</b> každá kanonicky evidovaná stížnost, odvolání a rozklad od ${remedySince} se musí objevit automaticky; chybějící karta zastaví build.</p>${prioritySection}${categories}<h3>Historický společný referenční bod vědomosti státu</h3>${notices}`;
+const timerBody = `${prioritySection}${categories}<h3>Historický společný referenční bod vědomosti státu</h3>${notices}`;
 const godotSection = `${timerBegin}<section id="procesni-casovace" class="process-timers"><header><div><p class="section-label">DŮSLEDKY · ŽIVÉ PROCESNÍ ČASOVAČE</p><h2>Živé procesní časovače</h2></div></header><p class="timer-legend">Tento blok následuje až po chronologii listin veřejných institucí od 1. května 2026. Jde o odvozené procesní důsledky chronologie, nikoli o její náhradu.</p>${timerBody}</section>${timerEnd}`;
 const homeSection = `${timerBegin}<details id="procesni-casovace" class="process-timers process-timers-dropdown"><summary><span>Živé procesní časovače</span><strong>${registry.timers.length} aktivních časovačů · rozbalit</strong></summary><div class="process-timers-dropdown-body">${timerBody}</div></details>${timerEnd}`;
 
