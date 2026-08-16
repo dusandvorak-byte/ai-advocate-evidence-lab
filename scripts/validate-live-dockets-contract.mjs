@@ -106,6 +106,8 @@ for (const id of ['04082026-010','28072026-009','25072026-007','24072026-006','2
   if (!englishArchive.includes(`href="news/${id}.html"`)) throw new Error(`Anglický archiv nevede na anglickou zprávu ${id}`);
   if (englishArchive.includes(`href="zpravy/${id}.html"`)) throw new Error(`Anglický archiv stále vede na českou zprávu ${id}`);
 }
+if (/href="news\/\d{8}-\d{3}\.html" hreflang="cs"/.test(englishArchive)) throw new Error('Anglický archiv označuje anglický článek jako český');
+for (const stale of ['Czech canonical report:', 'Czech authorial report:', 'Czech report with source.']) if (englishArchive.includes(stale)) throw new Error(`Anglický archiv obsahuje zastaralý popis: ${stale}`);
 const mergedEnglishReport = await readFile('web/news/23072026-003.html', 'utf8');
 if (!mergedEnglishReport.includes('url=/ai-advocate-evidence-lab/news/24072026-005.html')) throw new Error('Sloučený report 23072026-003 nemá anglické přesměrování');
 if (newsFeed.includes('item.hrefEn || item.href')) throw new Error('Anglický feed stále dovoluje tichý návrat na český článek');
