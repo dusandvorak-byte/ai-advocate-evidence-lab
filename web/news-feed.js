@@ -145,9 +145,9 @@ if (feed) {
   feed.innerHTML = visibleNews.map(item => `
     <article class="news-card">
       <p class="kicker">${english ? item.dateEn : item.dateCs} · REPORT ${item.id}</p>
-      <h2><a href="${english ? (item.hrefEn || item.href) : item.href}"${english && !item.hrefEn ? ' hreflang="cs"' : ''}>${english ? item.titleEn : item.titleCs}</a></h2>
+      <h2><a href="${english ? item.hrefEn : item.href}">${english ? item.titleEn : item.titleCs}</a></h2>
       <p>${english ? item.summaryEn : item.summaryCs}</p>
-      <div class="news-meta"><span>${item.score}</span>${english && !item.hrefEn ? '<span>Czech report</span>' : ''}</div>
+      <div class="news-meta"><span>${item.score}</span></div>
     </article>
   `).join('');
 }
