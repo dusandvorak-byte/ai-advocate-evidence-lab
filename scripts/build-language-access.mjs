@@ -6,7 +6,7 @@ let updated = 0;
 for (const relativePath of htmlFiles) {
   const path = `web/${relativePath}`;
   let html = await readFile(path, 'utf8');
-  if (!html.includes('class="topline"') && !html.includes('class="language-menu"')) continue;
+  if (!html.includes('</head>') || !html.includes('</body>')) continue;
   eligible += 1;
   const before = html;
   if (!html.includes('language-menu.css')) {
