@@ -92,6 +92,9 @@ for (const page of [home, englishHome]) if (!page.includes('src="auto-translate.
 for (const required of ["['pt', 'Português']", 'Přeložit / Translate', '100+ dalších jazyků / other languages', 'Czech official records and PDFs remain controlling', 'role="dialog"']) {
   if (!automaticTranslation.includes(required)) throw new Error(`Automatickému překladu chybí: ${required}`);
 }
+if (!automaticTranslation.includes("location.hostname.endsWith('.translate.goog')")) throw new Error('Překladač nezabraňuje vnořenému překladu již přeložené stránky');
+if (!automaticTranslation.includes("startsWith('en') ? 'en' : 'cs'")) throw new Error('Překladač neurčuje zdrojový jazyk podle stránky');
+if (/link\.target\s*=\s*['_"]blank/.test(automaticTranslation)) throw new Error('Jazykové odkazy stále otevírají další karty');
 if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Further current reports')) throw new Error('Anglická titulní stránka nemá blok dalších aktuálních zpráv');
 if (/href="zpravy\/\d{8}-\d{3}\.html/.test(englishHome)) throw new Error('Anglická titulní stránka stále odkazuje na český článek');
 if (englishHome.includes('class="quick-memory"') || englishHome.includes('href="#memory"')) throw new Error('Anglická titulní stránka stále obsahuje zrušený vedlejší blok Case memory');
@@ -160,6 +163,19 @@ if (!englishGodot.includes('data-english-chronology-count="67"') || englishGodot
   throw new Error(`Anglický Godot nemá úplných 67 záznamů: ${englishGodotRecords}`);
 }
 if (englishGodotOutgoing !== 10) throw new Error(`Anglický Godot nemá všech 10 navazujících podání: ${englishGodotOutgoing}`);
+for (const match of englishHome.matchAll(/href="news\/04082026-010\.html#en-([^"]+)"/g)) {
+  const outgoingId = match[1];
+  if (!englishGodot.includes(`id="en-${outgoingId}"`)) {
+    throw new Error(`Anglický časovač vede na chybějící kotvu navazujícího podání: en-${outgoingId}`);
+  }
+}
+if (!czechGodot.includes('id="chronologie"')) throw new Error('Českému Godotovi chybí kanonická kotva chronologie');
+for (const match of englishGodot.matchAll(/href="zpravy\/04082026-010\.html#([^"]+)"/g)) {
+  const czechAnchor = match[1];
+  if (!czechGodot.includes(`id="${czechAnchor}"`)) {
+    throw new Error(`Anglický Godot vede na chybějící českou kotvu: ${czechAnchor}`);
+  }
+}
 for (const id of ['case-cz-ms-praha-45t1-2024','case-cz-ms-praha-18a17-2026','case-cz-ms-praha-8ad9-2026','case-cz-os-praha4-10c69-2026','case-cz-ms-praha-18a23-2026','case-cz-os-pro-2t104-2010-obnova','case-cz-os-pro-prevence-2026','case-cz-os-ostrava-15t11-2025','case-cz-ms-praha-15a44-2026']) {
   if (!englishGodot.includes(`id="${id}"`)) throw new Error(`Anglickému Godotu chybí soudní řízení ${id}`);
 }
