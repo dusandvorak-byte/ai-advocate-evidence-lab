@@ -179,3 +179,49 @@
 .home-rollup-stack-primary .process-timers-dropdown-body {
   color: var(--ink, #111);
 }
+
+
+/* Aktivní soudní řízení: čtvercové chronologické karty. */
+.home-rollup-stack-primary .court .live-docket-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 16px 18px 18px;
+  background: #f4f1e8;
+}
+.home-rollup-stack-primary .court .live-docket-links a {
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  box-sizing: border-box;
+  border: 1px solid #173f50;
+  background: #fff;
+  color: #173f50;
+  text-align: center;
+  font-weight: 800;
+  line-height: 1.32;
+  text-decoration: none;
+}
+.home-rollup-stack-primary .court .live-docket-links a:hover,
+.home-rollup-stack-primary .court .live-docket-links a:focus-visible {
+  background: #e4edf0;
+  outline: 3px solid #285b6f;
+  outline-offset: -3px;
+}
+@media (max-width: 760px) {
+  .home-rollup-stack-primary .court .live-docket-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 480px) {
+  .home-rollup-stack-primary .court .live-docket-links {
+    grid-template-columns: 1fr;
+  }
+  .home-rollup-stack-primary .court .live-docket-links a {
+    aspect-ratio: auto;
+    min-height: 150px;
+  }
+}
