@@ -41,7 +41,15 @@
   document.getElementById('live-dockets')?.remove();
   document.querySelector('.godot-rollup')?.remove();
   document.querySelector('.godot-rollup-link')?.remove();
-  document.querySelector('.lead-rollup')?.remove();
+
+  // Starší build obalil hlavní článek do šesté roletky. Článek je důležitý
+  // zpravodajský obsah: před odstraněním staré roletky jej vždy zachováme.
+  const leadSection = document.querySelector('.news-lead');
+  const legacyLeadRollup = document.querySelector('.lead-rollup');
+  const embeddedLeadCard = legacyLeadRollup?.querySelector('.lead-card');
+  if (leadSection && embeddedLeadCard) leadSection.replaceChildren(embeddedLeadCard);
+  else legacyLeadRollup?.remove();
+
   document.querySelector('.lead-rollup-link')?.remove();
   document.getElementById('latest-records')?.remove();
   document.querySelector('.newsroom-alert')?.remove();
