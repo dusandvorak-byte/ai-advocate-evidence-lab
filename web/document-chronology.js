@@ -16,29 +16,8 @@
     String(a.received_date || '').localeCompare(String(b.received_date || '')) ||
     String(a.id || '').localeCompare(String(b.id || ''));
 
-  const tailPriority = new Map([
-    ['doc-eu-euda-2026-08-07-ack-article-265-tfeu', 0],
-    ['doc-cz-kpr-2026-08-07-kpr-5772-2026-2', 1],
-    ['doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54', 2],
-    ['doc-cz-ms-pha-2026-08-10-18-a-23-2026-130', 3],
-    ['doc-cz-ms-pha-2026-08-10-18-a-23-2026-131', 4]
-  ]);
-
-  const compareStateDocuments = (a, b) => {
-    const sa = Number.isInteger(a.chronology_sequence) ? a.chronology_sequence : null;
-    const sb = Number.isInteger(b.chronology_sequence) ? b.chronology_sequence : null;
-    if (sa !== null || sb !== null) {
-      if (sa === null) return -1;
-      if (sb === null) return 1;
-      if (sa !== sb) return sa - sb;
-    }
-    const date = String(a.issue_date || '').localeCompare(String(b.issue_date || ''));
-    if (date) return date;
-    const pa = tailPriority.has(a.id) ? tailPriority.get(a.id) : 999;
-    const pb = tailPriority.has(b.id) ? tailPriority.get(b.id) : 999;
-    if (pa !== pb) return pa - pb;
-    return compareDocuments(a, b);
-  };
+  // Jediným primárním klíčem chronologie je datum vydání listiny.
+  const compareStateDocuments = (a, b) => compareDocuments(a, b);
 
   const findChronologyList = () => {
     const heading = document.getElementById('chronologie');
@@ -76,11 +55,10 @@
   const appendInlineDocument = (documentItem, parent, institutionMap, kind) => {
     const institution = institutionMap.get(documentItem.institution_id);
     const name = institution?.name_cs || institution?.name || documentItem.institution_id || 'Původce neuveden';
-    parent.append(document.createTextNode(` a ${kind} Kdo: `));
+    parent.append(document.createTextNode(` a ${kind} Datum: ${formatDate(documentItem.issue_date)} · Kdo: `));
     const institutionNode = document.createElement('strong');
     institutionNode.textContent = name;
     parent.append(institutionNode);
-    parent.append(document.createTextNode(` · Datum: ${formatDate(documentItem.issue_date)}`));
     parent.append(document.createTextNode(` · Č. j. / sp. zn.: ${documentItem.reference || 'bez samostatného č. j./sp. zn.'}`));
     parent.append(document.createTextNode(` · Co se stalo: ${documentItem.user_title || 'popis úkonu dosud nedoložen'}`));
     const label = documentItem.document_type === 'user_submission_attachment' ? 'důkazní příloha PDF' : 'naše podání PDF';
@@ -97,8 +75,7 @@
     institutionNode.className = 'institution';
     institutionNode.textContent = institution?.name_cs || institution?.name || documentItem.institution_id || 'Původce neuveden';
 
-    item.append(document.createTextNode('Kdo: '), institutionNode);
-    item.append(document.createTextNode(` · Datum: ${formatDate(documentItem.issue_date)}`));
+    item.append(document.createTextNode(`Datum: ${formatDate(documentItem.issue_date)} · Kdo: `), institutionNode);
     item.append(document.createTextNode(` · Č. j. / sp. zn.: ${documentItem.reference || 'bez samostatného č. j./sp. zn.'}`));
     item.append(document.createTextNode(` · Co se stalo: ${documentItem.user_title || 'popis úkonu dosud nedoložen'}`));
     appendLink(item, resolveLink(documentItem));
