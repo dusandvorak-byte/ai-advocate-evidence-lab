@@ -1,4 +1,5 @@
 (() => {
+  const isEnglish = document.documentElement.lang === 'en';
   const cssHref = 'home-rollups.css';
   if (!document.querySelector(`link[href="${cssHref}"]`)) {
     const link = document.createElement('link');
@@ -9,7 +10,9 @@
 
   const brandSubtitle = document.querySelector('.masthead .brand span');
   if (brandSubtitle) {
-    brandSubtitle.textContent = 'Reportér důkazů kartelu, korupce a zločinů státu ve věci konopí';
+    brandSubtitle.textContent = isEnglish
+      ? 'Evidence reporter on state conduct, corruption and cannabis policy'
+      : 'Reportér důkazů kartelu, korupce a zločinů státu ve věci konopí';
   }
 
   const godotHref = 'zpravy/04082026-010.html';
@@ -27,7 +30,7 @@
   ].sort(([dateA], [dateB]) => dateA.localeCompare(dateB));
 
   const summaryMarkup = title =>
-    `<span class="rollup-title">${title}</span><span class="rollup-prompt">číst jako investigativu s láskou →</span><span class="rollup-heart">❤️</span><b class="rollup-action">Rozbalit →</b>`;
+    `<span class="rollup-title">${title}</span><span class="rollup-prompt">${isEnglish ? 'read as an investigation with love →' : 'číst jako investigativu s láskou →'}</span><span class="rollup-heart">❤️</span><b class="rollup-action">${isEnglish ? 'Expand →' : 'Rozbalit →'}</b>`;
 
   const makeDetails = (title, className, body) => {
     const details = document.createElement('details');
@@ -61,13 +64,13 @@
   const wrapper = document.createElement('section');
   wrapper.id = 'live-dockets';
   wrapper.className = 'live-dockets home-rollup-stack home-rollup-stack-primary';
-  wrapper.setAttribute('aria-label', 'Tři hlavní důkazní vstupy');
+  wrapper.setAttribute('aria-label', isEnglish ? 'Three primary evidence entries' : 'Tři hlavní důkazní vstupy');
 
   const godot = document.createElement('a');
   godot.className = 'home-rollup home-rollup-link godot';
   godot.href = godotHref;
-  godot.innerHTML = summaryMarkup('Godot online → každá zpráva má zdroj');
-  godot.setAttribute('aria-label', 'Otevřít stránku Státu lásky čas – Godot online');
+  godot.innerHTML = summaryMarkup(isEnglish ? 'Godot online → every report has a source' : 'Godot online → každá zpráva má zdroj');
+  godot.setAttribute('aria-label', isEnglish ? 'Open the State Love Time chronology – Godot online' : 'Otevřít stránku Státu lásky čas – Godot online');
   wrapper.append(godot);
 
   const courtGrid = document.createElement('div');
@@ -79,14 +82,21 @@
     link.dataset.startDate = startDate;
     courtGrid.append(link);
   });
-  wrapper.append(makeDetails('Aktivní soudní řízení od 1. května 2026', 'court', courtGrid));
+  wrapper.append(makeDetails(isEnglish ? 'Active court proceedings since 1 May 2026' : 'Aktivní soudní řízení od 1. května 2026', 'court', courtGrid));
 
   const timers = document.getElementById('procesni-casovace');
   if (timers) {
     timers.classList.add('home-rollup', 'timers-rollup');
     const summary = timers.querySelector(':scope > summary');
-    if (summary) summary.innerHTML = summaryMarkup('Živé procesní časovače');
+    if (summary) summary.innerHTML = summaryMarkup(isEnglish ? 'Live procedural timers' : 'Živé procesní časovače');
     wrapper.append(timers);
+  } else if (isEnglish) {
+    const timerBody = document.createElement('div');
+    timerBody.className = 'rollup-body process-timers-dropdown-body';
+    timerBody.innerHTML = `<a href="${godotHref}#procesni-casovace" hreflang="cs">Open the source-linked list of proceedings with running time periods →</a>`;
+    const timerDetails = makeDetails('Live procedural timers', 'timers-rollup', timerBody);
+    timerDetails.id = 'procesni-casovace';
+    wrapper.append(timerDetails);
   }
 
   if (editionBar) editionBar.replaceWith(wrapper);
