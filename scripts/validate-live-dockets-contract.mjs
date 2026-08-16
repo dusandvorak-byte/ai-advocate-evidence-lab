@@ -79,6 +79,14 @@ if (!home.includes(`<a href="${nowHref}">Právě teď</a>`)) throw new Error('Od
 const czechGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!czechGodot.includes(`id="${latestStateRecord.id}"`)) throw new Error('Cíl odkazu Právě teď v českém Godotovi neexistuje');
 if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
+const englishTimerCount = (englishHome.match(/data-timer-id="/g) || []).length;
+if (englishTimerCount !== 36) throw new Error(`Anglická titulní stránka nemá všech 36 časovačů: ${englishTimerCount}`);
+for (const field of ['When:', 'To:', 'Reference:', 'From:', 'What happened:', 'Time limit / procedural regime:']) {
+  if (!englishHome.includes(`<b>${field}</b>`)) throw new Error(`Anglickým časovačům chybí pole ${field}`);
+}
+for (const czechField of ['<b>Kdy:</b>', '<b>Komu:</b>', '<b>Kdo:</b>', '<b>Co se stalo:</b>', 'Živé procesní časovače']) {
+  if (englishHome.includes(czechField)) throw new Error(`V anglických časovačích zůstal český text: ${czechField}`);
+}
 for (const page of [home, englishHome]) if (!page.includes('src="auto-translate.js"')) throw new Error('Titulní stránka nemá nabídku automatických překladů');
 for (const required of ["['pt', 'Português']", 'Přeložit / Translate', '100+ dalších jazyků / other languages', 'Czech official records and PDFs remain controlling', 'role="dialog"']) {
   if (!automaticTranslation.includes(required)) throw new Error(`Automatickému překladu chybí: ${required}`);
