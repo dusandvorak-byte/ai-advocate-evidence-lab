@@ -1,0 +1,65 @@
+name: Publikovat prezentační povrch bez zásahu do důkazů
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web/live-dockets.js'
+      - 'web/home-rollups.css'
+      - '.github/workflows/publish-surface-assets.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: evidence-lab-surface
+  cancel-in-progress: true
+
+jobs:
+  publish-surface:
+    name: Ověřit a publikovat pouze povolené prezentační soubory
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Načíst main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: source
+      - name: Načíst produkční gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: pages
+      - name: Ověřit tříroletkovou smlouvu
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q "Godot online → každá zpráva má zdroj" source/web/live-dockets.js
+          grep -q "Aktivní soudní řízení od 1. května 2026" source/web/live-dockets.js
+          grep -q "Živé procesní časovače" source/web/live-dockets.js
+          ! grep -q "lead-card')?.remove" source/web/live-dockets.js
+          grep -q "#semafor.utility-grid" source/web/home-rollups.css
+      - name: Promítnout pouze povolené soubory
+        shell: bash
+        run: |
+          set -euo pipefail
+          install -m 0644 source/web/live-dockets.js pages/live-dockets.js
+          install -m 0644 source/web/home-rollups.css pages/home-rollups.css
+          install -m 0644 source/web/live-dockets.js pages/web/live-dockets.js
+          install -m 0644 source/web/home-rollups.css pages/web/home-rollups.css
+      - name: Publikovat do gh-pages
+        working-directory: pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- live-dockets.js home-rollups.css web/live-dockets.js web/home-rollups.css; then
+            echo "Produkční povrch je již aktuální."
+            exit 0
+          fi
+          git add live-dockets.js home-rollups.css web/live-dockets.js web/home-rollups.css
+          git commit -m "Publish verified presentation surface from $GITHUB_SHA"
+          git push origin HEAD:gh-pages
