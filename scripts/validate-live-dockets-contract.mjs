@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 
 const script = await readFile('web/live-dockets.js', 'utf8');
 const styles = await readFile('web/home-rollups.css', 'utf8');
@@ -77,12 +77,32 @@ if (!publishWorkflow.includes('grep -q "live-dockets.js?v=${version}" /tmp/verif
 for (const forbidden of ['<b>Povinný formát:</b>', '<b>Počítání:</b>', '<b>Úplnost:</b>']) {
   if (timerBuilder.includes(forbidden)) throw new Error(`Generátor časovačů stále obsahuje pracovní text: ${forbidden}`);
 }
-const timerFieldOrder = ['<b>Kdy:</b>', '<b>Komu:</b>', '<b>Č. j. / sp. zn.:</b>', '<b>Kdo:</b>', '<b>Co se stalo:</b>'];
+const timerFieldOrder = ['<b>Kdy:</b>', '<b>Komu:</b>', '<b>Pro:</b>', '<b>Č. j. / sp. zn.:</b>', '<b>Kdo:</b>', '<b>Co se stalo:</b>'];
+const routedTimerStart = home.indexOf('data-timer-id="timer-admin-nsz-odvolani-sin55-2026"');
+const routedTimerEnd = home.indexOf('</article>', routedTimerStart);
+const routedTimer = routedTimerStart >= 0 && routedTimerEnd > routedTimerStart
+  ? home.slice(routedTimerStart, routedTimerEnd)
+  : '';
 let previousTimerField = -1;
 for (const field of timerFieldOrder) {
-  const position = timerBuilder.indexOf(field);
+  const position = routedTimer.indexOf(field);
   if (position < 0 || position <= previousTimerField) throw new Error(`Nesprávné pořadí údajů časovače u pole ${field}`);
   previousTimerField = position;
+}
+
+const publicWorkingPhrases = [
+  'Povinný formát:', 'Počítání:', 'Úplnost:',
+  'chybějící karta zastaví build', 'build kontroluje úplnost',
+  'právně kvalifikovaný override',
+  'Položka je odvozena automaticky z kanonického registru',
+  'Podání je v kanonickém registru vedeno jako'
+];
+const publicFiles = (await readdir('web', { recursive: true })).filter(path => path.endsWith('.html'));
+for (const path of publicFiles) {
+  const html = await readFile(`web/${path}`, 'utf8');
+  for (const phrase of publicWorkingPhrases) {
+    if (html.includes(phrase)) throw new Error(`Ve veřejném souboru web/${path} zůstal pracovní text: ${phrase}`);
+  }
 }
 
 console.log(`Smlouva titulní stránky: 3 lišty; ${caseRows.length} soudních řízení chronologicky; olejově modrá #285b6f; bílé písmo včetně časovačů; mobilní skládání; důkazní přepážka přes celou stránku.`);
