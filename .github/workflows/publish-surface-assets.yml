@@ -50,6 +50,7 @@ jobs:
           install -m 0644 source/web/live-dockets.js pages/web/live-dockets.js
           install -m 0644 source/web/home-rollups.css pages/web/home-rollups.css
           version="${GITHUB_SHA:0:12}"
+          sed -E -i "s#const cssHref = 'home-rollups\\.css(\\?v=[^']*)?'#const cssHref = 'home-rollups.css?v=${version}'#g" pages/live-dockets.js pages/web/live-dockets.js
           sed -E -i "s#src=\"live-dockets\\.js(\\?v=[^\"]*)?\"#src=\"live-dockets.js?v=${version}\"#g" pages/index.html pages/web/index.html
       - name: Publikovat do gh-pages
         working-directory: pages
