@@ -118,3 +118,37 @@
   .home-rollup-stack .rollup-title{font-size:.92rem}
   .home-rollup-stack .rollup-prompt{font-size:.74rem}
 }
+
+
+/* Titulní stránka: závazná tříroletková skladba od 16. 8. 2026. */
+.home-rollup-stack-primary {
+  width: min(100%, var(--page-shell-width, 1240px));
+  max-width: var(--page-shell-width, 1240px);
+  margin: 18px auto 28px;
+}
+.home-rollup-stack-primary > .home-rollup {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+.home-rollup-stack-primary > .home-rollup + .home-rollup {
+  margin-top: 10px;
+}
+.home-rollup-stack-primary .rollup-body {
+  padding: 18px;
+  background: rgba(255,255,255,.96);
+}
+.home-rollup-stack-primary .rollup-body a {
+  display: block;
+  font: 800 15px/1.4 var(--sans);
+}
+.home-rollup-stack-primary .process-timers-dropdown-body {
+  width: 100%;
+}
+#semafor.utility-grid {
+  grid-template-columns: minmax(0,1fr);
+  width: 100%;
+}
+#semafor.utility-grid > .desk {
+  width: 100%;
+}
