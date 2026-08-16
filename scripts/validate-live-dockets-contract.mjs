@@ -8,6 +8,7 @@ const newsFeed = await readFile('web/news-feed.js', 'utf8');
 const publishWorkflow = await readFile('.github/workflows/publish-gh-pages-branch.yml', 'utf8');
 const timerBuilder = await readFile('scripts/build-process-timers.mjs', 'utf8');
 const englishGodot = await readFile('web/news/04082026-010.html', 'utf8');
+const canonicalDocuments = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
 
 const requiredBars = [
   'Godot online → každá zpráva má zdroj',
@@ -59,6 +60,14 @@ if (!styles.includes('#semafor.utility-grid')
   throw new Error('Důkazní přepážka nemá smlouvu plné šířky');
 }
 if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Titulní stránka nenačítá generátor lišt');
+const latestStateRecord = canonicalDocuments.documents
+  .filter(item => item.issue_date >= '2026-05-01' && item.document_type === 'state_record')
+  .sort((a, b) => String(a.issue_date).localeCompare(String(b.issue_date)) || String(a.id).localeCompare(String(b.id)))
+  .at(-1);
+const nowHref = `zpravy/04082026-010.html#${latestStateRecord.id}`;
+if (!home.includes(`<a href="${nowHref}">Právě teď</a>`)) throw new Error('Odkaz Právě teď nevede na poslední rozhodnutí státu v Godotovi');
+const czechGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
+if (!czechGodot.includes(`id="${latestStateRecord.id}"`)) throw new Error('Cíl odkazu Právě teď v českém Godotovi neexistuje');
 if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
 if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Further current reports')) throw new Error('Anglická titulní stránka nemá blok dalších aktuálních zpráv');
 if (englishHome.includes('class="quick-memory"') || englishHome.includes('href="#memory"')) throw new Error('Anglická titulní stránka stále obsahuje zrušený vedlejší blok Case memory');
