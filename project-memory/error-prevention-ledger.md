@@ -40,6 +40,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Náprava: tyto tři commity byly vráceny; zdrojem pravdy je třílišťová smlouva.
 - Pojistka: `scripts/validate-live-dockets-contract.mjs` musí vyžadovat přesně tři lišty a workflow jej spouští před publikací.
 
+### Bílé historické karty s bílým písmem
+
+- Projev: dvě bílé karty pod nadpisem „Historický společný referenční bod vědomosti státu“ nebyly v rozbalených časovačích čitelné.
+- Příčina: obecné pravidlo pro bílé písmo v tmavě modrém bloku přebarvilo také potomky bílých karet.
+- Pojistka: `.historical-notice` a všechny její vnořené prvky mají výslovně černé písmo; validační skript tuto výjimku vyžaduje.
+
 ### Riziko přepsání rozpracovaných souborů
 
 - Projev: hlavní pracovní strom obsahoval mnoho nesouvisejících změn.
