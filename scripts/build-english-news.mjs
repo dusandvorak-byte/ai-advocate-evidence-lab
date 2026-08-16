@@ -113,6 +113,7 @@ for (const id of translatedIds) {
   archive = archive.replaceAll(`href="news/${id}.html" hreflang="cs"`, `href="news/${id}.html"`);
 }
 archive = archive
+  .replace('href="#search">Search</a>', 'href="en.html#search">Search</a>')
   .replace('Czech canonical report: a living chronology', 'Complete English chronology: a living record')
   .replace('Czech authorial report:', 'English evidence report:')
   .replaceAll('Czech report with complete filing.', 'English report with links to the complete Czech filing.')
