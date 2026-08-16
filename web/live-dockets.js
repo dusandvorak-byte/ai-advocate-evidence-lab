@@ -84,5 +84,5 @@
     wrapper.append(timers);
   }
 
-  editionBar.insertAdjacentElement('afterend', wrapper);
+  editionBar.replaceWith(wrapper);
 })();
