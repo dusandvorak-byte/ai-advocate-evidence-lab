@@ -101,13 +101,24 @@ const manuallyRepresentedDocIds = new Set([...timerMap.values()].map(item => ite
 for (const doc of remedyDocuments) {
   if (manuallyRepresentedDocIds.has(doc.id)) continue;
   const timerId = `timer-remedy-${doc.id}`;
-  const actor = institutionNames.get(doc.institution_id) || doc.institution_id || 'Naše podání';
   const reaction = (doc.relations || []).find(rel => rel.type === 'reakce_na' && rel.target_id);
+  const reactionTarget = reaction ? documentsById.get(reaction.target_id) : null;
+  const recipient = (reactionTarget ? institutionNames.get(reactionTarget.institution_id) : null)
+    || institutionNames.get(doc.institution_id)
+    || doc.institution_id
+    || 'příslušný orgán';
+  const actor = doc.institution_id === 'CZ-GFAA'
+    ? 'Ganja For All Animals, z.s.'
+    : doc.institution_id === 'CZ-CITC'
+      ? (institutionNames.get('CZ-CITC') || 'Cannabis is The Cure, z.s.')
+      : 'Mgr. Dušan Dvořák';
   const href = reaction ? `zpravy/04082026-010.html#${reaction.target_id}` : `listiny/${doc.id}.html`;
   timerMap.set(timerId, {
     id: timerId,
     category: 'current_remedies',
-    title: `${actor} – ${doc.user_title}`,
+    title: `${recipient} – ${doc.user_title}`,
+    recipient,
+    actor,
     reference: doc.reference || doc.id,
     start_date: doc.issue_date,
     count_from_date: addOneDay(doc.issue_date),
