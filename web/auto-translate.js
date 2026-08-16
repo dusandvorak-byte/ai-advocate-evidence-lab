@@ -11,11 +11,12 @@
   ];
   const translateUrl = code => `https://translate.google.com/translate?sl=auto&tl=${encodeURIComponent(code)}&u=${encodeURIComponent(location.href)}`;
   const googleWebUrl = `https://translate.google.com/?sl=auto&op=websites&u=${encodeURIComponent(location.href)}`;
-  const host = document.querySelector('.language-menu div') || document.querySelector('.topline');
-  if (!host || document.querySelector('[data-machine-language-menu]')) return;
+  const host = document.querySelector('.language-menu div') || document.querySelector('.topline') || document.body;
+  if (document.querySelector('[data-machine-language-menu]')) return;
 
   const details = document.createElement('details');
   details.className = 'machine-language-menu';
+  if (host === document.body) details.classList.add('machine-language-floating');
   details.dataset.machineLanguageMenu = '';
   details.innerHTML = `<summary>🌍 Automatic translation</summary><div class="machine-language-panel"><p><b>Choose a language</b></p><p class="machine-translation-note">Machine translation is provided for orientation. Czech official records and PDFs remain controlling.</p><div class="machine-language-grid"></div><a class="all-machine-languages" target="_blank" rel="noopener" href="${googleWebUrl}">100+ other languages via Google Translate →</a></div>`;
   const grid = details.querySelector('.machine-language-grid');
