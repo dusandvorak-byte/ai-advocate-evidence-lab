@@ -101,7 +101,7 @@ const reactionCard = (item, label = 'Subsequent filing') => {
       : null;
   const forAuthority = timer?.for_authority ? translateRoute(timer.for_authority) : null;
   const from = timer?.actor ? translateRoute(timer.actor) : translations.institutions[item.institution_id];
-  return `<aside class="chronology-reaction" data-outgoing-id="${escapeHtml(item.id)}"><p class="kicker">${escapeHtml(label)}</p><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p>${to ? `<p><b>To:</b> ${escapeHtml(to)}</p>` : ''}${forAuthority ? `<p><b>For:</b> ${escapeHtml(forAuthority)}</p>` : ''}<p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p><p><b>From:</b> ${escapeHtml(from)}</p><p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)}</p></aside>`;
+  return `<aside id="en-${escapeHtml(item.id)}" class="chronology-reaction" data-outgoing-id="${escapeHtml(item.id)}"><p class="kicker">${escapeHtml(label)}</p><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p>${to ? `<p><b>To:</b> ${escapeHtml(to)}</p>` : ''}${forAuthority ? `<p><b>For:</b> ${escapeHtml(forAuthority)}</p>` : ''}<p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p><p><b>From:</b> ${escapeHtml(from)}</p><p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)}</p></aside>`;
 };
 
 const chronologyItem = item => {
@@ -125,7 +125,7 @@ const courtProceedings = [
   ['2026-07-22', 'case-cz-os-ostrava-15t11-2025', 'Ostrava District Court, case 15 T 11/2025'],
   ['2026-07-23', 'case-cz-ms-praha-15a44-2026', 'Prague Municipal Court, case 15 A 44/2026 – Ministry of the Interior']
 ];
-const courtProceedingsHtml = courtProceedings.map(([date, id, label]) => `<article id="${id}" class="chronology-reaction" data-court-start="${date}"><p><b>Start:</b> ${escapeHtml(formatDate(date))}</p><h3>${escapeHtml(label)}</h3><p><a href="zpravy/04082026-010.html#${id}" hreflang="cs">Czech proceeding and source context →</a></p></article>`).join('');
+const courtProceedingsHtml = courtProceedings.map(([date, id, label]) => `<article id="${id}" class="chronology-reaction" data-court-start="${date}"><p><b>Start:</b> ${escapeHtml(formatDate(date))}</p><h3>${escapeHtml(label)}</h3><p><a href="zpravy/04082026-010.html#chronologie" hreflang="cs">Czech chronology and source context →</a></p></article>`).join('');
 const linkedOutgoingIds = new Set([...reactionsByTarget.values(), ...attachmentsByTarget.values()].flat().map(item => item.id));
 const unlinkedOutgoing = outgoingDocuments.filter(item => !linkedOutgoingIds.has(item.id)).sort(compareDocuments);
 const unlinkedSection = unlinkedOutgoing.length
