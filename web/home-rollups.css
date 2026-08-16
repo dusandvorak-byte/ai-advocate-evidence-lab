@@ -152,3 +152,30 @@
 #semafor.utility-grid > .desk {
   width: 100%;
 }
+
+
+/* Trvalá barevnost tří hlavních lišt: olejově modrá a bílé písmo. */
+.home-rollup-stack-primary > .home-rollup,
+.home-rollup-stack-primary > details.home-rollup,
+.home-rollup-stack-primary > a.home-rollup {
+  background: #285b6f;
+  color: #fff;
+}
+.home-rollup-stack-primary > .home-rollup:hover,
+.home-rollup-stack-primary > .home-rollup:focus-visible,
+.home-rollup-stack-primary > details.home-rollup > summary:hover,
+.home-rollup-stack-primary > details.home-rollup > summary:focus-visible {
+  background: #1f4a5c;
+  color: #fff;
+}
+.home-rollup-stack-primary > .home-rollup .rollup-title,
+.home-rollup-stack-primary > .home-rollup .rollup-prompt,
+.home-rollup-stack-primary > .home-rollup .rollup-heart,
+.home-rollup-stack-primary > .home-rollup .rollup-action,
+.home-rollup-stack-primary > a.home-rollup {
+  color: #fff;
+}
+.home-rollup-stack-primary .live-docket-links,
+.home-rollup-stack-primary .process-timers-dropdown-body {
+  color: var(--ink, #111);
+}
