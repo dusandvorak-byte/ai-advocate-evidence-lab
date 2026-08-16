@@ -116,6 +116,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: text o budoucích jazycích byl pouze informativní a neobsahoval funkci.
 - Pojistka: hlavní veřejné plochy načítají společnou nabídku automatického překladu s přímou portugalštinou, dalšími hlavními jazyky a vstupem do nabídky více než 100 jazyků; strojový překlad je vždy oddělen od rozhodujících českých listin.
 
+### Jazyková nabídka byla jen na titulních stránkách
+
+- Projev: po otevření konkrétní zprávy nebo evidenční stránky návštěvník o přístup k automatickému překladu přišel.
+- Příčina: překladač vkládal pouze synchronizátor čtyř hlavních veřejných ploch.
+- Pojistka: poslední krok jediného veřejného buildu prochází všechny HTML stránky se záhlavím a připojuje společný překladový skript i styl; validační kontrola odmítne každou stránku se záhlavím, která je nemá.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
