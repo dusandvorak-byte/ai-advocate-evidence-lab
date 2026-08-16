@@ -110,6 +110,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: archivní odkazy nebyly součástí generátoru anglických zpráv a zůstaly na cestě `zpravy/`.
 - Pojistka: generátor přepisuje každý archivní odkaz na odpovídající cestu `news/`, vytváří anglické přesměrování sloučeného reportu a validační skript zakazuje návrat českých cest u všech anglických archivních položek.
 
+### Jazyková nabídka slibovala další jazyky, ale neumožňovala překlad
+
+- Projev: portugalský ani jiný návštěvník bez znalosti angličtiny neměl na co kliknout.
+- Příčina: text o budoucích jazycích byl pouze informativní a neobsahoval funkci.
+- Pojistka: hlavní veřejné plochy načítají společnou nabídku automatického překladu s přímou portugalštinou, dalšími hlavními jazyky a vstupem do nabídky více než 100 jazyků; strojový překlad je vždy oddělen od rozhodujících českých listin.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
