@@ -46,6 +46,18 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: obecné pravidlo pro bílé písmo v tmavě modrém bloku přebarvilo také potomky bílých karet.
 - Pojistka: `.historical-notice` a všechny její vnořené prvky mají výslovně černé písmo; validační skript tuto výjimku vyžaduje.
 
+### Anglická verze označená za synchronizovanou po opravě pouhých lišt
+
+- Projev: anglická stránka měla nové tři lišty, ale chyběl jí blok dalších aktuálních zpráv, důkazní přepážka zůstala jen ve dvou třetinách stránky a obsahovala zrušený vedlejší blok Case memory.
+- Příčina: kontrola porovnávala jen počet a barvy lišt, nikoli úplné pořadí hlavních redakčních bloků.
+- Pojistka: build nyní vynucuje anglické pořadí článek → vyhledávač → další zprávy → termíny → důkazní přepážka, odstraňuje Case memory a kontroluje plnou šířku přepážky.
+
+### Anglické titulky odkazovaly na nepřeložené české články
+
+- Projev: z devíti zpráv měla vlastní anglickou stránku pouze jedna; osm anglických titulků vedlo na český report.
+- Příčina: datový zdroj dovoloval chybějící `hrefEn` nahradit českým `href` a označit odkaz pouze jako Czech report.
+- Pojistka: všech devět zpráv musí mít vlastní `news/<report-id>.html`; chybějící `hrefEn` zastaví validační workflow.
+
 ### Riziko přepsání rozpracovaných souborů
 
 - Projev: hlavní pracovní strom obsahoval mnoho nesouvisejících změn.
