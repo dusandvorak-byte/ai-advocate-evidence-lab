@@ -245,3 +245,25 @@
   background: #1f4a5c;
   color: #fff;
 }
+
+
+/* Rozbalené procesní časovače: bílé písmo na tmavě modrém podkladu. */
+#live-dockets.home-rollup-stack-primary > #procesni-casovace[open],
+#live-dockets.home-rollup-stack-primary > #procesni-casovace[open] .process-timers-dropdown-body {
+  background: #285b6f;
+  color: #fff !important;
+}
+#live-dockets.home-rollup-stack-primary > #procesni-casovace[open] .process-timers-dropdown-body *,
+#live-dockets.home-rollup-stack-primary > #procesni-casovace[open] .process-timer,
+#live-dockets.home-rollup-stack-primary > #procesni-casovace[open] .timer-value,
+#live-dockets.home-rollup-stack-primary > #procesni-casovace[open] .timer-detail,
+#live-dockets.home-rollup-stack-primary > #procesni-casovace[open] a {
+  color: #fff !important;
+}
+#live-dockets.home-rollup-stack-primary > #procesni-casovace[open] .process-timer,
+#live-dockets.home-rollup-stack-primary > #procesni-casovace[open] .timer-category {
+  border-color: rgba(255,255,255,.62);
+}
+#live-dockets.home-rollup-stack-primary > #procesni-casovace[open] a {
+  text-decoration-color: rgba(255,255,255,.8);
+}
