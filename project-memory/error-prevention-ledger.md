@@ -58,6 +58,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: datový zdroj dovoloval chybějící `hrefEn` nahradit českým `href` a označit odkaz pouze jako Czech report.
 - Pojistka: všech devět zpráv musí mít vlastní `news/<report-id>.html`; chybějící `hrefEn` zastaví validační workflow.
 
+### Mezipaměť anglické stránky držela staré skripty
+
+- Projev: nasazené anglické HTML již obsahovalo správnou skladbu, ale prohlížeč vykresloval staré české odkazy a úzkou přepážku.
+- Příčina: publikační workflow přidávalo verzi pouze ke skriptu českého `index.html`; anglický `en.html` načítal nezměněné URL `live-dockets.js` a `news-feed.js`.
+- Pojistka: workflow verzováním podle commitu přepisuje oba skripty ve všech publikovaných HTML souborech a výslovně kontroluje anglickou titulní stránku.
+
 ### Riziko přepsání rozpracovaných souborů
 
 - Projev: hlavní pracovní strom obsahoval mnoho nesouvisejících změn.
