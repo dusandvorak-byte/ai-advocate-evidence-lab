@@ -149,7 +149,12 @@
   grid-template-columns: minmax(0,1fr);
   width: 100%;
 }
-#semafor.utility-grid > .desk {
+#traffic.utility-grid {
+  grid-template-columns: minmax(0,1fr);
+  width: 100%;
+}
+#semafor.utility-grid > .desk,
+#traffic.utility-grid > .desk {
   width: 100%;
 }
 
