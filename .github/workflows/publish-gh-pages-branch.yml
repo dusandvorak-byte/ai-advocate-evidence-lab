@@ -119,6 +119,11 @@ jobs:
           cp -a web/. /tmp/verified-site-copy/
           mkdir -p /tmp/verified-site/web
           cp -a /tmp/verified-site-copy/. /tmp/verified-site/web/
+          version="${GITHUB_SHA:0:12}"
+          sed -E -i "s#src=\"live-dockets\\.js(\\?v=[^\"]*)?\"#src=\"live-dockets.js?v=${version}\"#g" /tmp/verified-site/index.html /tmp/verified-site/web/index.html
+          sed -E -i "s#const cssHref = 'home-rollups\\.css(\\?v=[^']*)?'#const cssHref = 'home-rollups.css?v=${version}'#g" /tmp/verified-site/live-dockets.js /tmp/verified-site/web/live-dockets.js
+          grep -q "live-dockets.js?v=${version}" /tmp/verified-site/index.html
+          grep -q "home-rollups.css?v=${version}" /tmp/verified-site/live-dockets.js
           touch /tmp/verified-site/.nojekyll
           touch /tmp/verified-site/web/.nojekyll
           printf '%s\n' "$GITHUB_SHA" > /tmp/verified-site/.source-commit
