@@ -51,10 +51,12 @@
   wrapper.className = 'live-dockets home-rollup-stack home-rollup-stack-primary';
   wrapper.setAttribute('aria-label', 'Tři hlavní důkazní vstupy');
 
-  const godotBody = document.createElement('div');
-  godotBody.className = 'rollup-body';
-  godotBody.innerHTML = `<a href="${godotHref}">Otevřít stránku Státu lásky čas – Godot online →</a>`;
-  wrapper.append(makeDetails('Godot online → každá zpráva má zdroj', 'godot', godotBody));
+  const godot = document.createElement('a');
+  godot.className = 'home-rollup home-rollup-link godot';
+  godot.href = godotHref;
+  godot.innerHTML = summaryMarkup('Godot online → každá zpráva má zdroj');
+  godot.setAttribute('aria-label', 'Otevřít stránku Státu lásky čas – Godot online');
+  wrapper.append(godot);
 
   const courtGrid = document.createElement('div');
   courtGrid.className = 'live-docket-links';
