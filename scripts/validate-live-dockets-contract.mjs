@@ -6,6 +6,7 @@ const home = await readFile('web/index.html', 'utf8');
 const englishHome = await readFile('web/en.html', 'utf8');
 const newsFeed = await readFile('web/news-feed.js', 'utf8');
 const publishWorkflow = await readFile('.github/workflows/publish-gh-pages-branch.yml', 'utf8');
+const timerBuilder = await readFile('scripts/build-process-timers.mjs', 'utf8');
 
 const requiredBars = [
   'Godot online → každá zpráva má zdroj',
@@ -71,6 +72,17 @@ if (newsFeed.includes('item.hrefEn || item.href')) throw new Error('Anglický fe
 if (!publishWorkflow.includes('grep -q "live-dockets.js?v=${version}" /tmp/verified-site/en.html')
   || !publishWorkflow.includes('grep -q "news-feed.js?v=${version}" /tmp/verified-site/en.html')) {
   throw new Error('Workflow neverzuje anglické lišty a anglický zdroj zpráv proti mezipaměti');
+}
+
+for (const forbidden of ['<b>Povinný formát:</b>', '<b>Počítání:</b>', '<b>Úplnost:</b>']) {
+  if (timerBuilder.includes(forbidden)) throw new Error(`Generátor časovačů stále obsahuje pracovní text: ${forbidden}`);
+}
+const timerFieldOrder = ['<b>Kdy:</b>', '<b>Komu:</b>', '<b>Č. j. / sp. zn.:</b>', '<b>Kdo:</b>', '<b>Co se stalo:</b>'];
+let previousTimerField = -1;
+for (const field of timerFieldOrder) {
+  const position = timerBuilder.indexOf(field);
+  if (position < 0 || position <= previousTimerField) throw new Error(`Nesprávné pořadí údajů časovače u pole ${field}`);
+  previousTimerField = position;
 }
 
 console.log(`Smlouva titulní stránky: 3 lišty; ${caseRows.length} soudních řízení chronologicky; olejově modrá #285b6f; bílé písmo včetně časovačů; mobilní skládání; důkazní přepážka přes celou stránku.`);
