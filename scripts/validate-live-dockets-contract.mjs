@@ -7,6 +7,7 @@ const englishHome = await readFile('web/en.html', 'utf8');
 const newsFeed = await readFile('web/news-feed.js', 'utf8');
 const publishWorkflow = await readFile('.github/workflows/publish-gh-pages-branch.yml', 'utf8');
 const timerBuilder = await readFile('scripts/build-process-timers.mjs', 'utf8');
+const englishGodot = await readFile('web/news/04082026-010.html', 'utf8');
 
 const requiredBars = [
   'Godot online → každá zpráva má zdroj',
@@ -103,6 +104,19 @@ for (const path of publicFiles) {
   for (const phrase of publicWorkingPhrases) {
     if (html.includes(phrase)) throw new Error(`Ve veřejném souboru web/${path} zůstal pracovní text: ${phrase}`);
   }
+}
+
+const englishGodotRecords = (englishGodot.match(/data-document-id="doc-/g) || []).length;
+const englishGodotOutgoing = (englishGodot.match(/data-outgoing-id="/g) || []).length;
+if (!englishGodot.includes('data-english-chronology-count="67"') || englishGodotRecords !== 67) {
+  throw new Error(`Anglický Godot nemá úplných 67 záznamů: ${englishGodotRecords}`);
+}
+if (englishGodotOutgoing !== 10) throw new Error(`Anglický Godot nemá všech 10 navazujících podání: ${englishGodotOutgoing}`);
+for (const field of ['Date:', 'From:', 'Reference:', 'What happened:', 'To:', 'For:']) {
+  if (!englishGodot.includes(`<b>${field}</b>`)) throw new Error(`Anglickému Godotu chybí pole ${field}`);
+}
+for (const czechField of ['Datum:', 'Kdo:', 'Č. j. / sp. zn.:', 'Co se stalo:']) {
+  if (englishGodot.includes(`<b>${czechField}</b>`)) throw new Error(`V anglickém Godotu zůstalo české pole ${czechField}`);
 }
 
 console.log(`Smlouva titulní stránky: 3 lišty; ${caseRows.length} soudních řízení chronologicky; olejově modrá #285b6f; bílé písmo včetně časovačů; mobilní skládání; důkazní přepážka přes celou stránku.`);
