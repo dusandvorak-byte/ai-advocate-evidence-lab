@@ -139,6 +139,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: sdílený klientský generátor lokalizoval pouze názvy tří lišt a synchronizátor překládal jen část textů.
 - Pojistka: anglická varianta má devět plně anglických soudních názvů a odpovídající kotvy v anglickém Godotovi; nejnovější listiny i redakční odkazy vedou na anglické stránky. Kontrola zakazuje číselné cesty `zpravy/` na anglické titulní stránce.
 
+### Anglické živé časovače byly jen odkazem na český seznam
+
+- Projev: třetí anglická lišta neobsahovala stejné procesní karty jako česká verze.
+- Příčina: generátor zapisoval 36 časovačů pouze do české titulní stránky a anglický klient vytvářel náhradní odkaz.
+- Pojistka: stejný kanonický generátor nyní zapisuje 36 samostatně přeložených anglických karet s poli `When → To → For → Reference → From → What happened` a anglickým procesním režimem. Chybějící překlad nebo jiný počet zastaví build.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
