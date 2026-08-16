@@ -145,6 +145,18 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: generátor zapisoval 36 časovačů pouze do české titulní stránky a anglický klient vytvářel náhradní odkaz.
 - Pojistka: stejný kanonický generátor nyní zapisuje 36 samostatně přeložených anglických karet s poli `When → To → For → Reference → From → What happened` a anglickým procesním režimem. Chybějící překlad nebo jiný počet zastaví build.
 
+### Anglické odkazy vypadaly správně, ale jejich kotvy neexistovaly
+
+- Projev: devět časovačů odkazovalo na anglická navazující podání a devět karet řízení na český kontext, ale po kliknutí se stránka neposunula na cílový záznam.
+- Příčina: generátor zapsal identifikátor podání pouze do atributu `data-outgoing-id` a karty řízení skládaly české kotvy, které česká stránka nevytváří.
+- Pojistka: každé anglické navazující podání dostává skutečné `id="en-…"`, karty řízení odkazují na existující kanonickou českou chronologii a validační skript kontroluje existenci každé takové cílové kotvy.
+
+### Překladová nabídka se spouštěla znovu uvnitř přeložené stránky
+
+- Projev: po volbě dalšího jazyka se mohl překlad řetězit přes již přeloženou adresu, otevírat další karty a rozbít navigaci.
+- Příčina: společný skript nerozlišoval původní web od kopie na doméně překladače a používal automatickou detekci zdrojového jazyka.
+- Pojistka: na doméně `.translate.goog` se vlastní nabídka znovu nevkládá, zdrojový jazyk se určuje z `lang` původní stránky a překlad pokračuje ve stejné kartě. Další změnu těchto pravidel hlídá validační skript.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
