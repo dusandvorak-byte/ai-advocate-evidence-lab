@@ -12,6 +12,10 @@ const stateCount = stateRecords.length;
 const activePdfCount = documents.filter(item => item.public?.pdf).length;
 const latestIssueDate = stateRecords.map(item => item.issue_date).sort().at(-1);
 if (!latestIssueDate) throw new Error('Registr neobsahuje žádnou státní listinu od 1. května 2026');
+const latestStateRecord = [...stateRecords]
+  .sort((a, b) => String(a.issue_date).localeCompare(String(b.issue_date)) || String(a.id).localeCompare(String(b.id)))
+  .at(-1);
+const latestStateDecisionHref = `zpravy/04082026-010.html#${latestStateRecord.id}`;
 
 const escapeHtml = value => String(value ?? '')
   .replaceAll('&', '&amp;')
@@ -133,7 +137,8 @@ const update = async (path, transforms, lang, insertLatest = true) => {
 
 await update('web/index.html', [
   [/data-current-date>[^<]+</, `data-current-date>${czDisplayDate}<`, 'jediné veřejné datum'],
-  [/<span>Aktualizováno [^<]+<\/span>/i, '', 'duplicitní datum aktualizace', true]
+  [/<span>Aktualizováno [^<]+<\/span>/i, '', 'duplicitní datum aktualizace', true],
+  [/<a href="(?:#prave-ted|zpravy\/04082026-010\.html#[^"]+)">Právě teď<\/a>/, `<a href="${latestStateDecisionHref}">Právě teď</a>`, 'odkaz Právě teď na poslední rozhodnutí státu']
 ], 'cs');
 
 await update('web/en.html', [
