@@ -14,7 +14,8 @@ const cannaNews = [
     summaryEn: 'EUDA was formally called upon under Article 265 TFEU to define its position on the comparability of THC and THC/THCA analytical methods across EU Member States.',
     keywordsCs: 'EUDA Lorraine Nolan článek 265 SFEU THC THCA analytické metody harmonizace srovnatelnost Evropská unie',
     keywordsEn: 'EUDA Lorraine Nolan Article 265 TFEU THC THCA analytical methods harmonisation comparability European Union',
-    href: 'zpravy/07082026-011.html'
+    href: 'zpravy/07082026-011.html',
+    hrefEn: 'news/07082026-011.html'
   },
   {
     id: '04082026-010',
@@ -27,7 +28,8 @@ const cannaNews = [
     summaryEn: 'A chronological list of 67 public records in the Godot online collection, from 6 May to 14 August 2026.',
     keywordsCs: 'Státu lásky čas Godot chronologie dokumenty KPR NSZ NCOZ soudy státní zastupitelství 2026',
     keywordsEn: 'Godot chronology documents KPR public prosecution courts 2026',
-    href: 'zpravy/04082026-010.html'
+    href: 'zpravy/04082026-010.html',
+    hrefEn: 'news/04082026-010.html'
   },
   {
     id: '28072026-009',
@@ -40,7 +42,8 @@ const cannaNews = [
     summaryEn: 'Five filings, the Prague–Brno–Prague route and supervision of a file missing material records: an authorial online evidence diary.',
     keywordsCs: 'Lenka Bradáčová NSZ MSZ Praha MSZ Brno VSZ Praha 6 NZN 1737/2026 1 VZN 1678/2026 on-line důkazní deník',
     keywordsEn: 'Lenka Bradáčová Supreme Public Prosecutor Prague Brno 6 NZN 1737/2026 1 VZN 1678/2026 online evidence diary',
-    href: 'zpravy/28072026-009.html'
+    href: 'zpravy/28072026-009.html',
+    hrefEn: 'news/28072026-009.html'
   },
   {
     id: '25072026-007',
@@ -53,7 +56,8 @@ const cannaNews = [
     summaryEn: 'An evidence map replaces the flowers: the filing asks for review of supervision conducted on an incomplete file and for an exact map of the divided proceedings.',
     keywordsCs: 'Nejvyšší státní zastupitelství NSZ 6 NZN 1737/2026 Lenka Bradáčová dohled přezkum evidenční mapa',
     keywordsEn: 'Supreme Public Prosecutor NSZ 6 NZN 1737/2026 Lenka Bradáčová supervision review evidence map',
-    href: 'zpravy/25072026-007.html'
+    href: 'zpravy/25072026-007.html',
+    hrefEn: 'news/25072026-007.html'
   },
   {
     id: '24072026-006',
@@ -66,7 +70,8 @@ const cannaNews = [
     summaryEn: 'The Ministry of Culture says it is examining the filing very carefully and will report its findings and next step by 31 August 2026.',
     keywordsCs: 'Ministerstvo kultury Konopná církev rozhodnutí 31. srpna 2026 termín žádost',
     keywordsEn: 'Ministry of Culture Cannabis Church decision 31 August 2026 date application',
-    href: 'zpravy/24072026-006.html'
+    href: 'zpravy/24072026-006.html',
+    hrefEn: 'news/24072026-006.html'
   },
   {
     id: '24072026-005',
@@ -93,7 +98,8 @@ const cannaNews = [
     summaryEn: 'An intervention action challenges the combined handling of two distinct complaints.',
     keywordsCs: 'Ministerstvo vnitra zásahová žaloba Městský soud Praha kompetence stížnosti 2026',
     keywordsEn: 'Ministry of the Interior intervention action Prague Municipal Court jurisdiction complaints 2026',
-    href: 'zpravy/23072026-004.html'
+    href: 'zpravy/23072026-004.html',
+    hrefEn: 'news/23072026-004.html'
   },
   {
     id: '22072026-002',
@@ -106,7 +112,8 @@ const cannaNews = [
     summaryEn: 'An alliance filing asks case 45 T 1/2024 to document the sample, method and measurement uncertainty.',
     keywordsCs: 'Městský soud Praha 45 T 1/2024 THC THCA měření vzorek metoda nejistota',
     keywordsEn: 'Prague Municipal Court 45 T 1/2024 THC THCA measurement sample method uncertainty',
-    href: 'zpravy/22072026-002.html'
+    href: 'zpravy/22072026-002.html',
+    hrefEn: 'news/22072026-002.html'
   },
   {
     id: '20072026-001',
@@ -119,7 +126,8 @@ const cannaNews = [
     summaryEn: 'The Police confirmed receipt and filing without further action; no substantive reply arrived.',
     keywordsCs: 'Policie Olomoucký kraj KRPM-100092-2/ČJ-2026-1412UO předžalobní výzva preventivní podání',
     keywordsEn: 'Police Olomouc Region KRPM-100092-2/ČJ-2026-1412UO pre-action demand preventive filing',
-    href: 'zpravy/20072026-001.html'
+    href: 'zpravy/20072026-001.html',
+    hrefEn: 'news/20072026-001.html'
   }
 ];
 
