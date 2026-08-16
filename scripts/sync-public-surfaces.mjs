@@ -165,7 +165,9 @@ await update('web/en.html', [
     .replaceAll('href="zpravy/07082026-011.html"', 'href="news/07082026-011.html"')
     .replaceAll('href="zpravy/25072026-007.html"', 'href="news/25072026-007.html"')
     .replaceAll('href="zpravy/24072026-006.html"', 'href="news/24072026-006.html"')
-    .replaceAll('href="zpravy/04082026-010.html"', 'href="news/04082026-010.html"');
+    .replaceAll('href="zpravy/04082026-010.html"', 'href="news/04082026-010.html"')
+    .replaceAll('Czech report and sources →', 'Report and controlling sources →')
+    .replace('<p class="capability-status">International rollout</p><h3>Language selector</h3><ul><li>English is the international entry.</li><li>Additional languages will be generated from the same canonical content.</li><li>The selector should preserve article/document context.</li></ul>', '<p class="capability-status">Available now</p><h3>Language selector</h3><ul><li>English is the international editorial edition.</li><li>Portuguese and other languages are available through clearly labelled machine translation.</li><li>Czech official records and PDFs remain controlling.</li></ul>');
   if (!html.includes('data-shared-news-feed')) {
     const sharedNews = '<section class="shared-news-feed" aria-labelledby="shared-news-heading-en"><div class="news-section-head"><h2 id="shared-news-heading-en">Further current reports</h2><a href="news/index.html">Chronological archive →</a></div><div class="news-grid" data-shared-news-feed data-exclude-ids="07082026-011 04082026-010 24072026-006"></div></section>';
     if (!html.includes('<section class="deadline-watch"')) throw new Error('web/en.html: chybí bod pro vložení dalších aktuálních zpráv');
