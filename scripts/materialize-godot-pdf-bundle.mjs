@@ -7,7 +7,7 @@ import path from 'node:path';
 const execFileAsync = promisify(execFile);
 const sourcePath = 'project-memory/direct-pdf-bundle-2026-08-16/godot-pdfs.tar.xz.b64';
 const archivePath = '/tmp/godot-pdfs-2026-08-16.tar.xz';
-const archiveSha256 = '1a89a63a993d13628dd113db37b2c27097817bce15c1e6fbc30aa5038e137200';
+const archiveSha256 = '14f9bcc938403ed4b615a5a5879ec8e40b4bc7b6691114b0e6e035cdb91e6e31';
 const outputRoot = 'web';
 
 const expected = new Map([
