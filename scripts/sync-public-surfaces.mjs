@@ -141,6 +141,23 @@ await update('web/en.html', [
   [/<span>Updated [^<]+<\/span>/i, `<span>Updated ${day} August ${year} · ${stateCount} state and public-institution records in the canonical chronology · ${activePdfCount} verified public PDFs</span>`, 'souhrn data a počtu']
 ], 'en');
 
+// Anglická titulní stránka musí mít stejnou redakční skladbu jako česká:
+// článek → vyhledávač → další zprávy → termíny → důkazní přepážka.
+{
+  const englishPath = 'web/en.html';
+  let html = await readFile(englishPath, 'utf8');
+  html = html
+    .replace('<a href="#memory">Case memory</a>', '')
+    .replace(/<aside class="quick-memory" id="memory">[\s\S]*?<\/aside>/, '')
+    .replace('Lorraine Nolan with love. A call for a kiss from the governorate of the Protectorate of Böhmen und Groß Cannabis Mähren', 'Lorraine Nolan with love');
+  if (!html.includes('data-shared-news-feed')) {
+    const sharedNews = '<section class="shared-news-feed" aria-labelledby="shared-news-heading-en"><div class="news-section-head"><h2 id="shared-news-heading-en">Further current reports</h2><a href="news/index.html">Chronological archive →</a></div><div class="news-grid" data-shared-news-feed data-exclude-ids="07082026-011 04082026-010 24072026-006"></div></section>';
+    if (!html.includes('<section class="deadline-watch"')) throw new Error('web/en.html: chybí bod pro vložení dalších aktuálních zpráv');
+    html = html.replace('<section class="deadline-watch"', `${sharedNews}<section class="deadline-watch"`);
+  }
+  await writeFile(englishPath, html, 'utf8');
+}
+
 const churchCzLead = `<article class="lead-story"><div class="story-image"><img src="assets/konopna-cirkev-logo.jpg" alt="Logo Konopné církve"><span>Konopná církev</span></div><div class="story-copy"><p class="kicker">PASTÝŘSKÉ LISTY · NOVÉ ŘÍZENÍ POTVRZENO 12. 8. 2026</p><h1><a href="listiny/doc-cz-mk-2026-08-12-mk-49467-2026-socns.html">Nové řízení Konopné církve je formálně zahájeno od 26. června 2026.</a></h1><p class="standfirst">Ministerstvo kultury vede řízení pod sp. zn. MK-S 6893/2026 a oznámilo oprávněné úřední osoby. KPR současně odmítla součinnost při vyvěšení konopné standarty.</p><div class="score score-red"><strong>9/9</strong><span>ZÁSADNÍ PROCESNÍ LISTINA · AKTIVNÍ ŘÍZENÍ</span></div><div class="facts"><p><b>Ministerstvo kultury:</b> č. j. MK 49467/2026 SOCNS ze dne 12. srpna 2026.</p><p><b>Kancelář prezidenta republiky:</b> č. j. 4873/2026 ze dne 12. srpna 2026; originální PDF je veřejně aktivní.</p></div></div></article>`;
 const churchCzRail = `<aside class="news-rail"><p class="section-label">AKTUÁLNÍ DŮKAZNÍ SÍŤ</p><article><p class="kicker">MINISTERSTVO KULTURY · 12. SRPNA 2026</p><h2><a href="listiny/doc-cz-mk-2026-08-12-mk-49467-2026-socns.html">MK 49467/2026 SOCNS</a></h2><p>Formální potvrzení nového řízení od 26. června 2026.</p></article><article><p class="kicker">KPR · 12. SRPNA 2026</p><h2><a href="listiny/doc-cz-kpr-2026-08-12-4873-2026.html">Konopná standarta nad Hradem</a></h2><p>KPR odmítla požadovanou součinnost; originální listina je veřejně propojena.</p></article></aside>`;
 const churchCzNodes = `<div class="node-grid"><article><span>MINISTERSTVO KULTURY</span><h3>MK 49467/2026 SOCNS</h3></article><article><span>KPR</span><h3>4873/2026 · konopná standarta</h3></article><article><span>GODOT ONLINE</span><h3>${stateCount} státních a veřejných listin</h3></article></div>`;
