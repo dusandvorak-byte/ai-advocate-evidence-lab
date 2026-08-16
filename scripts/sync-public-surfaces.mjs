@@ -132,6 +132,7 @@ const update = async (path, transforms, lang, insertLatest = true) => {
     }
     html = insertLatestAtMainStart(html, lang);
   }
+  if (!html.includes('src="auto-translate.js"')) html = html.replace('</body>', '<script src="auto-translate.js" defer></script></body>');
   await writeFile(path, html, 'utf8');
 };
 
@@ -188,7 +189,7 @@ await update('web/kc/en.html', [
 ], 'en');
 
 await update('web/news/index.html', [
-  [/(<a href="zpravy\/04082026-010\.html"[^>]*>A time for the state to love<\/a><\/h2><p>)[^<]+/, `$1Czech canonical report: a living chronology of ${stateCount} state and public-institution records through ${latestEn}, with linked responses and source PDFs.`, 'Godot v anglickém archivu']
+  [/(<a href="(?:news|zpravy)\/04082026-010\.html"[^>]*>A time for the state to love<\/a><\/h2><p>)[^<]+/, `$1Czech canonical report: a living chronology of ${stateCount} state and public-institution records through ${latestEn}, with linked responses and source PDFs.`, 'Godot v anglickém archivu']
 ], 'en', false);
 
 await update('web/zpravy/index.html', [
