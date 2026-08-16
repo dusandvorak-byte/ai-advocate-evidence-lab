@@ -155,7 +155,7 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 - Projev: po volbě dalšího jazyka se mohl překlad řetězit přes již přeloženou adresu, otevírat další karty a rozbít navigaci.
 - Příčina: společný skript nerozlišoval původní web od kopie na doméně překladače a používal automatickou detekci zdrojového jazyka.
-- Pojistka: na doméně `.translate.goog` se vlastní nabídka znovu nevkládá, zdrojový jazyk se určuje z `lang` původní stránky a překlad pokračuje ve stejné kartě. Další změnu těchto pravidel hlídá validační skript.
+- Pojistka: na doméně `.translate.goog` se vlastní nabídka znovu nevkládá, zdrojový jazyk se určuje z `lang` původní stránky a překlad pokračuje ve stejné kartě. Překladový skript má povinnou verzi v URL, aby prohlížeče nepoužívaly starou kopii; další změnu těchto pravidel hlídá validační skript.
 
 ## Povinný postup před publikací
 
