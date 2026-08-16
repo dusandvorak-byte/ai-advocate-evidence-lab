@@ -195,7 +195,11 @@ for (const [label, path] of surfaces) {
 }
 
 for (const path of ['web/en.html', 'web/kc/en.html']) {
-  const html = await readFile(path, 'utf8');
+  let html = await readFile(path, 'utf8');
+  if (path === 'web/en.html' && !html.includes('src="live-dockets.js"')) {
+    html = html.replace('</body>', '<script src="live-dockets.js" defer></script></body>');
+    await writeFile(path, html, 'utf8');
+  }
   if (!html.includes(`${stateCount} state and public-institution records`) || !html.includes(`${activePdfCount} verified public PDFs`)) {
     throw new Error(`${path}: anglická plocha není synchronizována s kanonickými počty`);
   }
