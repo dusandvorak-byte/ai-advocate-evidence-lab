@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 const script = await readFile('web/live-dockets.js', 'utf8');
 const styles = await readFile('web/home-rollups.css', 'utf8');
 const home = await readFile('web/index.html', 'utf8');
+const englishHome = await readFile('web/en.html', 'utf8');
 
 const requiredBars = [
   'Godot online → každá zpráva má zdroj',
@@ -51,5 +52,9 @@ if (!styles.includes('#semafor.utility-grid')
   throw new Error('Důkazní přepážka nemá smlouvu plné šířky');
 }
 if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Titulní stránka nenačítá generátor lišt');
+if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
+for (const label of ['Godot online → every report has a source', 'Active court proceedings since 1 May 2026', 'Live procedural timers']) {
+  if (!script.includes(label)) throw new Error(`Chybí anglická hlavní lišta: ${label}`);
+}
 
 console.log(`Smlouva titulní stránky: 3 lišty; ${caseRows.length} soudních řízení chronologicky; olejově modrá #285b6f; bílé písmo včetně časovačů; mobilní skládání; důkazní přepážka přes celou stránku.`);
