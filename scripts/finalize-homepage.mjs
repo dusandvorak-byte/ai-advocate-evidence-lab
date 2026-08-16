@@ -13,13 +13,13 @@ const link = (label, href) => `<a href="${href}">${label}</a>`;
 const section = `<section id="live-dockets" class="live-dockets" aria-label="Živá řízení a státní dokumenty">
   <p class="state-decision-counter"><strong data-state-document-count>${stateCount}</strong><span>Od 1. května 2026 stát a veřejné instituce vydaly tolik doložených rozhodnutí, sdělení a dalších procesních listin.</span></p>
   <section class="live-docket-bar court"><h2>Aktivní soudní řízení on-line od 1. května 2026</h2><div class="live-docket-links">
-    ${link('OS Prostějov sp. zn. 2 T 104/2010 – obnova','zpravy/04082026-010.html#case-cz-os-pro-2t104-2010-obnova')}
-    ${link('OS Prostějov – prevence 2026','zpravy/04082026-010.html#case-cz-os-pro-prevence-2026')}
-    ${link('OS Praha 4 sp. zn. 10 C 69/2026 – Česká televize','zpravy/04082026-010.html#case-cz-os-praha4-10c69-2026')}
-    ${link('MS v Praze sp. zn. 18 A 17/2026 – NCOZ','zpravy/04082026-010.html#case-cz-ms-praha-18a17-2026')}
-    ${link('MS v Praze sp. zn. 18 A 23/2026 – MSp','zpravy/04082026-010.html#case-cz-ms-praha-18a23-2026')}
-    ${link('MS v Praze sp. zn. 8 Ad 9/2026 – MZ','zpravy/04082026-010.html#case-cz-ms-praha-8ad9-2026')}
-    ${link('MS v Praze sp. zn. 45 T 1/2024 – vratka VS','zpravy/04082026-010.html#case-cz-ms-praha-45t1-2024')}
+    ${link('Okresní soud v Prostějově, sp. zn. 2 T 104/2010 – obnova','zpravy/04082026-010.html#case-cz-os-pro-2t104-2010-obnova')}
+    ${link('Okresní soud v Prostějově – prevence 2026','zpravy/04082026-010.html#case-cz-os-pro-prevence-2026')}
+    ${link('Obvodní soud pro Prahu 4, sp. zn. 10 C 69/2026 – Česká televize','zpravy/04082026-010.html#case-cz-os-praha4-10c69-2026')}
+    ${link('Městský soud v Praze, sp. zn. 18 A 17/2026 – NCOZ','zpravy/04082026-010.html#case-cz-ms-praha-18a17-2026')}
+    ${link('Městský soud v Praze, sp. zn. 18 A 23/2026 – Ministerstvo spravedlnosti','zpravy/04082026-010.html#case-cz-ms-praha-18a23-2026')}
+    ${link('Městský soud v Praze, sp. zn. 8 Ad 9/2026 – Ministerstvo zdravotnictví','zpravy/04082026-010.html#case-cz-ms-praha-8ad9-2026')}
+    ${link('Městský soud v Praze, sp. zn. 45 T 1/2024 – vráceno Vrchním soudem v Praze','zpravy/04082026-010.html#case-cz-ms-praha-45t1-2024')}
   </div></section>
   <section class="live-docket-bar pretrial"><h2>Předžalobní řízení on-line od 1. května 2026</h2><div class="live-docket-links">
     ${link('OSZ Prostějov – prevence 2026','zpravy/04082026-010.html#case-cz-osz-pro-prevence-2026')}
