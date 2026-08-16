@@ -122,6 +122,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: překladač vkládal pouze synchronizátor čtyř hlavních veřejných ploch.
 - Pojistka: poslední krok jediného veřejného buildu prochází všechny HTML stránky se záhlavím a připojuje společný překladový skript i styl; validační kontrola odmítne každou stránku se záhlavím, která je nemá.
 
+### Evidenční listiny neměly záhlaví pro vložení jazykové nabídky
+
+- Projev: překladač fungoval v článcích, ale při přímém otevření evidenční listiny zmizel.
+- Příčina: první plošná kontrola vybírala jen HTML s prvkem `.topline` nebo jazykovým menu.
+- Pojistka: build nyní pokrývá každou úplnou veřejnou HTML stránku; tam, kde není záhlaví, skript zobrazí plovoucí jazykové tlačítko. Originální PDF zůstávají nedotčenými českými zdroji.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
