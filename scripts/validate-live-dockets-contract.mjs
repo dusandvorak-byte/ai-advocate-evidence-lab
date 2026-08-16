@@ -33,6 +33,9 @@ for (const declaration of ['background: #285b6f;', 'color: #fff;', 'color: #fff 
 if (!styles.includes('#live-dockets.home-rollup-stack-primary > #procesni-casovace[open]')) {
   throw new Error('Chybí samostatná barevná smlouva rozbalených časovačů');
 }
+if (!styles.includes('#procesni-casovace[open] .historical-notice *') || !styles.includes('color: #111 !important;')) {
+  throw new Error('Bílé historické referenční karty nemají vynucené černé písmo');
+}
 
 // Mobilní smlouva: lišty nesmějí přesáhnout obrazovku a rozbalené soudní
 // karty se na telefonu skládají do jediného sloupce.
