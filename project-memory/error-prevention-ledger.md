@@ -92,6 +92,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Projev: odstranění jedné věty z titulní stránky nezaručovalo, že stejný nebo jiný technický návod nezůstal v článku či jazykové variantě.
 - Pojistka: validační skript prochází všechny publikované HTML soubory pod `web/` a při výskytu známých pracovních formulací zastaví sestavení.
 
+### Anglický Godot označený za úplný, přestože obsahoval jen redakční výběr
+
+- Projev: anglická stránka působila jako překlad české chronologie, ale nezahrnovala všechny evidované listiny a navazující podání.
+- Příčina: anglický článek byl udržován ručně a build nekontroloval úplnost proti kanonickým registrům dokumentů.
+- Pojistka: jediný generátor nyní vyžaduje přesně 67 státních či veřejných záznamů a 10 našich navazujících podání, odmítne chybějící překlad a validační skript kontroluje veřejný výstup `67/67 + 10/10`. Podání bez doložené vazby zůstávají samostatně a nejsou uměle přiřazována.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
