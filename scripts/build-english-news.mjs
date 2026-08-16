@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
 const reports = [
   {
@@ -103,4 +103,13 @@ const render = report => `<!doctype html>
 
 await mkdir('web/news', { recursive: true });
 for (const report of reports.filter(item => item.id !== '04082026-010')) await writeFile(`web/news/${report.id}.html`, render(report), 'utf8');
-console.log(`English editorial news editions generated: ${reports.length - 1}/${reports.length - 1}; Godot is generated separately as a complete chronology.`);
+const mergedRedirect = `<!doctype html><html lang="en"><head><base href="../"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0; url=/ai-advocate-evidence-lab/news/24072026-005.html"><link rel="canonical" href="/ai-advocate-evidence-lab/news/24072026-005.html"><title>Report merged | CannaInsider.EU</title></head><body><p>This address was merged into the complete report <a href="news/24072026-005.html">REPORT 24072026-005</a>.</p></body></html>`;
+await writeFile('web/news/23072026-003.html', mergedRedirect, 'utf8');
+
+const translatedIds = [...reports.map(item => item.id), '24072026-005'];
+let archive = await readFile('web/news/index.html', 'utf8');
+for (const id of translatedIds) {
+  archive = archive.replaceAll(`href="zpravy/${id}.html"`, `href="news/${id}.html"`);
+}
+await writeFile('web/news/index.html', archive, 'utf8');
+console.log(`English news editions generated: ${translatedIds.length}/${translatedIds.length}; merged report 23072026-003 redirects to its English edition; Godot is generated separately as a complete chronology.`);
