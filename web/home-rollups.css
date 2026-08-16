@@ -225,3 +225,23 @@
     min-height: 150px;
   }
 }
+
+
+/* Záhlaví všech tří lišt musí přebít starší styly procesních časovačů. */
+#live-dockets.home-rollup-stack-primary > a.home-rollup,
+#live-dockets.home-rollup-stack-primary > details.home-rollup > summary,
+#live-dockets.home-rollup-stack-primary > details#procesni-casovace > summary {
+  background: #285b6f;
+  color: #fff;
+}
+#live-dockets.home-rollup-stack-primary > details.home-rollup > summary *,
+#live-dockets.home-rollup-stack-primary > details#procesni-casovace > summary * {
+  color: #fff;
+}
+#live-dockets.home-rollup-stack-primary > a.home-rollup:hover,
+#live-dockets.home-rollup-stack-primary > a.home-rollup:focus-visible,
+#live-dockets.home-rollup-stack-primary > details.home-rollup > summary:hover,
+#live-dockets.home-rollup-stack-primary > details.home-rollup > summary:focus-visible {
+  background: #1f4a5c;
+  color: #fff;
+}
