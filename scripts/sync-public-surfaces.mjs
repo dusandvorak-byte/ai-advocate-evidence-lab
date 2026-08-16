@@ -62,11 +62,17 @@ const localizedCopy = {
     'doc-cz-mv-2026-08-11-mv-127234-2-obp-2026': 'Ministerstvo vnitra odmítlo žádost Ganja For All Animals, z.s., podle § 11b informačního zákona.'
   },
   en: {
+    'doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd': 'The Police Presidium’s Internal Control Office declared that it lacked subject-matter jurisdiction over the complaint concerning inactivity by the Institute of Criminalistics and transferred it to the office of the Institute’s director.',
     'doc-cz-mk-2026-08-12-mk-49467-2026-socns': 'The Ministry of Culture confirmed that the new registration proceeding for the Church of Cannabis began on 26 June 2026.',
     'doc-cz-kpr-2026-08-12-4873-2026': 'The Office of the President declined to assist with the plan to fly a cannabis standard above Prague Castle.',
     'doc-cz-mv-2026-08-11-mv-127234-2-obp-2026': 'The Ministry of the Interior refused the information request filed by Ganja For All Animals under Section 11b of the Czech Freedom of Information Act.'
   }
 };
+const englishInstitutionNames = new Map([
+  ['CZ-PCR-PP', 'Police Presidium of the Czech Republic'],
+  ['CZ-MK', 'Ministry of Culture'],
+  ['CZ-KPR', 'Office of the President of the Republic']
+]);
 
 function detailHref(item) {
   return publicPath(item.public?.html || `listiny/${item.id}.html`);
@@ -74,7 +80,7 @@ function detailHref(item) {
 
 function institutionName(item, lang) {
   const institution = institutionMap.get(item.institution_id) || {};
-  if (lang === 'en') return institution.name_en || institution.name || institution.name_cs || item.institution_id;
+  if (lang === 'en') return englishInstitutionNames.get(item.institution_id) || institution.name_en || institution.name || institution.name_cs || item.institution_id;
   return institution.name_cs || institution.name || item.institution_id;
 }
 
@@ -82,14 +88,14 @@ function latestSection(lang) {
   const isEn = lang === 'en';
   const cards = latestRecords.map(item => {
     const title = localizedCopy[lang][item.id] || item.user_title;
-    const detail = detailHref(item);
+    const detail = isEn ? `news/04082026-010.html#en-${item.id}` : detailHref(item);
     const pdf = item.public?.pdf ? publicPath(item.public.pdf) : null;
     const pdfControl = pdf
       ? `<a class="latest-record-pdf" href="${escapeHtml(pdf)}" target="_blank" rel="noopener">${isEn ? 'Original PDF' : 'Originální PDF'}</a>`
       : `<span class="latest-record-pending">${isEn ? 'Evidence page; PDF not yet public' : 'Evidenční stránka; PDF dosud není veřejné'}</span>`;
     return `<article class="latest-record-card" data-document-id="${escapeHtml(item.id)}"><p class="kicker">${escapeHtml(isEn ? formatEnDate(item.issue_date) : formatCzDate(item.issue_date))} · ${escapeHtml(institutionName(item, lang))}</p><h3><a href="${escapeHtml(detail)}"${isEn ? ' hreflang="cs"' : ''}>${escapeHtml(title)}</a></h3><p class="latest-record-reference">${escapeHtml(item.reference || (isEn ? 'No separate reference number' : 'Bez samostatného č. j.'))}</p>${pdfControl}</article>`;
   }).join('');
-  return `<section id="latest-records" class="latest-records" aria-label="${isEn ? 'Latest verified records' : 'Nejnovější ověřené listiny'}"><header><p class="section-label">${isEn ? 'LATEST VERIFIED RECORDS' : 'NEJNOVĚJŠÍ OVĚŘENÉ LISTINY'}</p><h2>${isEn ? `Canonical evidence memory through ${latestEn}` : `Kanonická důkazní paměť do ${latestCz}`}</h2><p>${isEn ? `${stateCount} state and public-institution records are synchronized across all public surfaces.` : `${stateCount} listin státu a veřejných institucí je synchronizováno na všech veřejných plochách.`}</p></header><div class="latest-record-grid">${cards}</div></section>`;
+  return `<section id="latest-records" class="latest-records" aria-label="${isEn ? 'Latest verified records' : 'Nejnovější ověřené listiny'}"><header><p class="section-label">${isEn ? 'LATEST VERIFIED RECORDS' : 'NEJNOVĚJŠÍ OVĚŘENÉ LISTINY'}</p><h2>${isEn ? `Canonical evidence memory through ${latestEn}` : `Kanonická důkazní paměť do ${latestCz}`}</h2><p>${isEn ? `${stateCount} state and public-institution records and ${activePdfCount} verified public PDFs are synchronized across all public surfaces.` : `${stateCount} listin státu a veřejných institucí je synchronizováno na všech veřejných plochách.`}</p></header><div class="latest-record-grid">${cards}</div></section>`;
 }
 
 function removeSectionById(html, id) {
@@ -144,7 +150,7 @@ await update('web/index.html', [
 
 await update('web/en.html', [
   [/data-current-date>[^<]+</, `data-current-date>${enDisplayDate}<`, 'datum'],
-  [/<span>Updated [^<]+<\/span>/i, `<span>Updated ${day} August ${year} · ${stateCount} state and public-institution records in the canonical chronology · ${activePdfCount} verified public PDFs</span>`, 'souhrn data a počtu']
+  [/<span>Updated [^<]+<\/span>/i, '', 'duplicitní datum aktualizace', true]
 ], 'en');
 
 // Anglická titulní stránka musí mít stejnou redakční skladbu jako česká:
@@ -155,7 +161,11 @@ await update('web/en.html', [
   html = html
     .replace('<a href="#memory">Case memory</a>', '')
     .replace(/<aside class="quick-memory" id="memory">[\s\S]*?<\/aside>/, '')
-    .replace('Lorraine Nolan with love. A call for a kiss from the governorate of the Protectorate of Böhmen und Groß Cannabis Mähren', 'Lorraine Nolan with love');
+    .replace('Lorraine Nolan with love. A call for a kiss from the governorate of the Protectorate of Böhmen und Groß Cannabis Mähren', 'Lorraine Nolan with love')
+    .replaceAll('href="zpravy/07082026-011.html"', 'href="news/07082026-011.html"')
+    .replaceAll('href="zpravy/25072026-007.html"', 'href="news/25072026-007.html"')
+    .replaceAll('href="zpravy/24072026-006.html"', 'href="news/24072026-006.html"')
+    .replaceAll('href="zpravy/04082026-010.html"', 'href="news/04082026-010.html"');
   if (!html.includes('data-shared-news-feed')) {
     const sharedNews = '<section class="shared-news-feed" aria-labelledby="shared-news-heading-en"><div class="news-section-head"><h2 id="shared-news-heading-en">Further current reports</h2><a href="news/index.html">Chronological archive →</a></div><div class="news-grid" data-shared-news-feed data-exclude-ids="07082026-011 04082026-010 24072026-006"></div></section>';
     if (!html.includes('<section class="deadline-watch"')) throw new Error('web/en.html: chybí bod pro vložení dalších aktuálních zpráv');
