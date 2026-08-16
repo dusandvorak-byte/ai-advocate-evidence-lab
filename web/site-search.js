@@ -1,14 +1,15 @@
 (() => {
   const english = document.documentElement.lang === 'en';
   const news = Array.isArray(window.cannaNews) ? window.cannaNews : [];
+  if (english && news.some(item => !item.hrefEn)) throw new Error('English search requires hrefEn for every published report');
   const entries = news.map(item => ({
-    href: english ? (item.hrefEn || item.href) : item.href,
+    href: english ? item.hrefEn : item.href,
     date: english ? item.dateEn : item.dateCs,
     score: item.score,
     title: english ? item.titleEn : item.titleCs,
     summary: english ? item.summaryEn : item.summaryCs,
     keywords: `${item.id} ${item.dateCs} ${item.dateEn} ${item.score} ${english ? item.keywordsEn : item.keywordsCs}`,
-    isCzechOnly: english && !item.hrefEn
+    isCzechOnly: false
   }));
 
   const normalise = value => String(value || '')
