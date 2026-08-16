@@ -19,6 +19,12 @@ const formatDate = value => {
 
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^web\//, '');
 const referenceText = item => String(item.reference || '').trim() || 'no separate reference number recorded';
+const englishReferenceText = item => referenceText(item)
+  .replace(/^bez samostatného č\. j\.\/sp\. zn\. v e-mailu$/i, 'no separate reference number in the email')
+  .replace(/^odvolání proti /i, 'appeal against ')
+  .replace(/^Rozklad k /i, 'administrative appeal against ')
+  .replace(/^proti /i, 'against ')
+  .replace(/^stížnost podle § 16a InfZ – žádosti /i, 'complaint under Section 16a of the Freedom of Information Act – requests ');
 const compareDocuments = (a, b) => String(a.issue_date).localeCompare(String(b.issue_date)) || String(a.id).localeCompare(String(b.id));
 
 const manifest = JSON.parse(await readFile(documentManifestPath, 'utf8'));
@@ -95,7 +101,7 @@ const reactionCard = (item, label = 'Subsequent filing') => {
       : null;
   const forAuthority = timer?.for_authority ? translateRoute(timer.for_authority) : null;
   const from = timer?.actor ? translateRoute(timer.actor) : translations.institutions[item.institution_id];
-  return `<aside class="chronology-reaction" data-outgoing-id="${escapeHtml(item.id)}"><p class="kicker">${escapeHtml(label)}</p><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p>${to ? `<p><b>To:</b> ${escapeHtml(to)}</p>` : ''}${forAuthority ? `<p><b>For:</b> ${escapeHtml(forAuthority)}</p>` : ''}<p><b>Reference:</b> ${escapeHtml(referenceText(item))}</p><p><b>From:</b> ${escapeHtml(from)}</p><p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)}</p></aside>`;
+  return `<aside class="chronology-reaction" data-outgoing-id="${escapeHtml(item.id)}"><p class="kicker">${escapeHtml(label)}</p><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p>${to ? `<p><b>To:</b> ${escapeHtml(to)}</p>` : ''}${forAuthority ? `<p><b>For:</b> ${escapeHtml(forAuthority)}</p>` : ''}<p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p><p><b>From:</b> ${escapeHtml(from)}</p><p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)}</p></aside>`;
 };
 
 const chronologyItem = item => {
@@ -104,7 +110,7 @@ const chronologyItem = item => {
     const attachments = (attachmentsByTarget.get(reaction.id) || []).sort(compareDocuments).map(attachment => reactionCard(attachment, 'Evidentiary annex')).join('');
     return `${reactionCard(reaction)}${attachments}`;
   }).join('');
-  return `<li id="en-${escapeHtml(item.id)}" data-document-id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}"><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p><p><b>From:</b> ${escapeHtml(translations.institutions[item.institution_id])}</p><p><b>Reference:</b> ${escapeHtml(referenceText(item))}</p><p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)} · <a href="zpravy/04082026-010.html#${escapeHtml(item.id)}" hreflang="cs">Czech chronology entry</a></p>${reactionHtml}</li>`;
+  return `<li id="en-${escapeHtml(item.id)}" data-document-id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}"><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p><p><b>From:</b> ${escapeHtml(translations.institutions[item.institution_id])}</p><p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p><p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)} · <a href="zpravy/04082026-010.html#${escapeHtml(item.id)}" hreflang="cs">Czech chronology entry</a></p>${reactionHtml}</li>`;
 };
 
 const chronology = stateDocuments.map(chronologyItem).join('');
