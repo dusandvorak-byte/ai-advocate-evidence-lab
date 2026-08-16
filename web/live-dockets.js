@@ -47,7 +47,7 @@
   const leadSection = document.querySelector('.news-lead');
   const legacyLeadRollup = document.querySelector('.lead-rollup');
   const embeddedLeadCard = legacyLeadRollup?.querySelector('.lead-card');
-  if (leadSection && embeddedLeadCard) leadSection.replaceChildren(embeddedLeadCard);
+  if (leadSection && embeddedLeadCard) leadSection.replaceChildren(embeddedLeadCard.cloneNode(true));
   else legacyLeadRollup?.remove();
 
   document.querySelector('.lead-rollup-link')?.remove();
