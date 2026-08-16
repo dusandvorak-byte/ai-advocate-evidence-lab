@@ -18,7 +18,7 @@
   details.className = 'machine-language-menu';
   if (host === document.body) details.classList.add('machine-language-floating');
   details.dataset.machineLanguageMenu = '';
-  details.innerHTML = `<summary>🌍 Automatic translation</summary><div class="machine-language-panel"><p><b>Choose a language</b></p><p class="machine-translation-note">Machine translation is provided for orientation. Czech official records and PDFs remain controlling.</p><div class="machine-language-grid"></div><a class="all-machine-languages" target="_blank" rel="noopener" href="${googleWebUrl}">100+ other languages via Google Translate →</a></div>`;
+  details.innerHTML = `<summary aria-label="Přeložit stránku do jiného jazyka / Translate this page">🌍 Přeložit / Translate</summary><div class="machine-language-panel" role="dialog" aria-label="Jazyk / Language"><p><b>Jazyk / Language</b></p><p class="machine-translation-note">Strojový překlad slouží k orientaci. Machine translation is provided for orientation. Czech official records and PDFs remain controlling.</p><div class="machine-language-grid"></div><a class="all-machine-languages" target="_blank" rel="noopener" href="${googleWebUrl}">100+ dalších jazyků / other languages →</a></div>`;
   const grid = details.querySelector('.machine-language-grid');
   for (const [code, label] of languages) {
     const link = document.createElement('a');
