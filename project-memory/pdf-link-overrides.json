@@ -15,6 +15,16 @@
       "reason": "Název souboru, datum listiny a obsah odpovídají oznámení KPR ze dne 5. 6. 2026."
     },
     {
+      "document_id": "doc-cz-mz-2026-05-29-mzdr-13429-2026-3-olzp",
+      "pdf": "documents/report-04082026-010/34-mzdr-13429-2026-3-olzp-2026-05-29.pdf",
+      "reason": "Přesný originál MZ byl ověřen SHA-256 33086830279d85789e32590b0e725ce969ae222694e8f4d936b49b9cec7850dd."
+    },
+    {
+      "document_id": "doc-cz-rrtv-2026-07-16-rrtv-7757-2026-fej",
+      "pdf": "documents/report-04082026-010/35-rrtv-7757-2026-fej-2026-07-16.pdf",
+      "reason": "Přesný originál RRTV byl ověřen SHA-256 c43c816b79295749c5da876050d540689ce8c80c85939ab4f0dc3478b5c7a6af."
+    },
+    {
       "document_id": "doc-cz-mv-2026-08-11-mv-127234-2-obp-2026",
       "pdf": "documents/report-04082026-010/25-mv-127234-2-obp-2026-2026-08-11.pdf",
       "reason": "Přesný originál MV byl ověřen SHA-256 c65c9cc5f12eab03f69c4ea1bf642c3078f4858153b385e80f141da6ea334a55."

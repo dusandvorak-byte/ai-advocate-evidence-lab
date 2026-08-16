@@ -1,51 +1,305 @@
 {
-  "generated_at": "2026-08-12T12:32:46.281Z",
+  "generated_at": "2026-08-16T12:00:20.048Z",
   "article": "web/zpravy/04082026-010.html",
-  "article_pdf_link_count": 47,
+  "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
+  "active_pdf_scope": [
+    "ministry",
+    "executive_office",
+    "prosecution",
+    "police",
+    "police_lab",
+    "public_institution",
+    "independent_authority",
+    "eu_agency",
+    "executive"
+  ],
+  "required_pdf_scope": [
+    "ministry",
+    "executive_office",
+    "prosecution",
+    "police",
+    "police_lab",
+    "public_institution",
+    "independent_authority",
+    "eu_agency",
+    "executive"
+  ],
+  "exempt_institution_types": [
+    "court",
+    "court_enforcement"
+  ],
+  "exempt_institution_ids": [
+    "CZ-CT",
+    "CZ-CSSZ"
+  ],
+  "document_exception_count": 1,
+  "article_pdf_link_count": 56,
   "broken_article_pdf_link_count": 0,
   "broken_article_pdf_links": [],
-  "eligible_institution_document_count": 41,
-  "eligible_with_active_pdf_count": 37,
-  "eligible_without_active_pdf_count": 4,
+  "eligible_institution_document_count": 48,
+  "eligible_with_active_pdf_count": 45,
+  "eligible_without_active_pdf_count": 3,
   "eligible_without_active_pdf": [
     {
       "id": "doc-cz-osz-olo-2026-05-12-sin-22-2025-95",
       "institution_id": "CZ-OSZ-OLO",
       "institution": "Okresní státní zastupitelství v Olomouci",
+      "institution_type": "prosecution",
       "issue_date": "2026-05-12",
       "reference": "SIN 22/2025-95",
-      "title": "Vyrozumění o zastavení řízení"
+      "title": "Vyrozumění o zastavení řízení",
+      "intended_pdf": null
+    },
+    {
+      "id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
+      "institution_id": "CZ-KPR",
+      "institution": "Kancelář prezidenta republiky",
+      "institution_type": "executive_office",
+      "issue_date": "2026-05-19",
+      "reference": "KPR 4093/2026",
+      "title": "Evidence žádosti o milost a konopné amnestie",
+      "intended_pdf": null
     },
     {
       "id": "doc-cz-pcr-ncoz-2026-05-22-ncoz-4324-2-cj-2026-4100pi",
       "institution_id": "CZ-PCR-NCOZ",
       "institution": "Národní centrála proti organizovanému zločinu",
+      "institution_type": "police",
       "issue_date": "2026-05-22",
       "reference": "NCOZ-4324-2/ČJ-2026-4100PI",
-      "title": "Sdělení k žádosti o informace"
-    },
-    {
-      "id": "doc-cz-mz-2026-05-29-mzdr-13429-2026-3-olzp",
-      "institution_id": "CZ-MZ",
-      "institution": "Ministerstvo zdravotnictví",
-      "issue_date": "2026-05-29",
-      "reference": "MZDR 13429/2026-3/OLZP",
-      "title": "Vyřízení stížnosti"
-    },
-    {
-      "id": "doc-cz-kpr-2026-06-05-kpr-4093-2026",
-      "institution_id": "CZ-KPR",
-      "institution": "Kancelář prezidenta republiky",
-      "issue_date": "2026-06-05",
-      "reference": "KPR 4093/2026",
-      "title": "Oznámení o nevyhovění žádosti o milost"
+      "title": "Sdělení k žádosti o informace",
+      "intended_pdf": null
     }
   ],
+  "required_document_count": 48,
+  "required_with_active_pdf_count": 45,
+  "required_without_active_pdf_count": 3,
+  "required_without_active_pdf": [
+    {
+      "id": "doc-cz-osz-olo-2026-05-12-sin-22-2025-95",
+      "institution_id": "CZ-OSZ-OLO",
+      "institution": "Okresní státní zastupitelství v Olomouci",
+      "institution_type": "prosecution",
+      "issue_date": "2026-05-12",
+      "reference": "SIN 22/2025-95",
+      "title": "Vyrozumění o zastavení řízení",
+      "intended_pdf": null
+    },
+    {
+      "id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
+      "institution_id": "CZ-KPR",
+      "institution": "Kancelář prezidenta republiky",
+      "institution_type": "executive_office",
+      "issue_date": "2026-05-19",
+      "reference": "KPR 4093/2026",
+      "title": "Evidence žádosti o milost a konopné amnestie",
+      "intended_pdf": null
+    },
+    {
+      "id": "doc-cz-pcr-ncoz-2026-05-22-ncoz-4324-2-cj-2026-4100pi",
+      "institution_id": "CZ-PCR-NCOZ",
+      "institution": "Národní centrála proti organizovanému zločinu",
+      "institution_type": "police",
+      "issue_date": "2026-05-22",
+      "reference": "NCOZ-4324-2/ČJ-2026-4100PI",
+      "title": "Sdělení k žádosti o informace",
+      "intended_pdf": null
+    }
+  ],
+  "exempt_document_count": 20,
+  "exempt_documents": [
+    {
+      "id": "doc-cz-exe-lib-2026-05-06-131-ex-8674-15-127",
+      "institution_id": "CZ-EXE-LIB",
+      "institution_type": "court_enforcement",
+      "issue_date": "2026-05-06",
+      "reference": "131 EX 8674/15-127",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-05-07-18-a-17-2026-15",
+      "institution_id": "CZ-MS-PHA",
+      "institution_type": "court",
+      "issue_date": "2026-05-07",
+      "reference": "18 A 17/2026-15",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-ks-brn-2026-05-20-fj-61061-2026-ksbr",
+      "institution_id": "CZ-KS-BRN",
+      "institution_type": "court",
+      "issue_date": "2026-05-20",
+      "reference": "Fj 61061/2026/KSBR",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-ks-brn-2026-05-21-fj-61072-2026-ksbr",
+      "institution_id": "CZ-KS-BRN",
+      "institution_type": "court",
+      "issue_date": "2026-05-21",
+      "reference": "Fj 61072/2026/KSBR",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-ks-brn-2026-05-22-fj-61060-2026-ksbr",
+      "institution_id": "CZ-KS-BRN",
+      "institution_type": "court",
+      "issue_date": "2026-05-22",
+      "reference": "Fj 61060/2026/KSBR",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-ct-2026-06-01-ct-338889-2025-38",
+      "institution_id": "CZ-CT",
+      "institution_type": "public_institution",
+      "issue_date": "2026-06-01",
+      "reference": "CT 338889/2025-38",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-id-exception"
+    },
+    {
+      "id": "doc-cz-cssz-2026-06-05-30000-03006091-26",
+      "institution_id": "CZ-CSSZ",
+      "institution_type": "public_institution",
+      "issue_date": "2026-06-05",
+      "reference": "30000/03006091/26",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-id-exception"
+    },
+    {
+      "id": "doc-cz-exe-plz-2026-06-10-134-ex-07180-19-509",
+      "institution_id": "CZ-EXE-PLZ",
+      "institution_type": "court_enforcement",
+      "issue_date": "2026-06-10",
+      "reference": "134 EX 07180/19-509",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-cssz-2026-06-16-cj-00002-2026",
+      "institution_id": "CZ-CSSZ",
+      "institution_type": "public_institution",
+      "issue_date": "2026-06-16",
+      "reference": "CJ 00002/2026",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-id-exception"
+    },
+    {
+      "id": "doc-cz-exe-lib-2026-06-22-131-ex-8674-15-143",
+      "institution_id": "CZ-EXE-LIB",
+      "institution_type": "court_enforcement",
+      "issue_date": "2026-06-22",
+      "reference": "131 EX 8674/15-143",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-06-23-18-a-23-2026-25",
+      "institution_id": "CZ-MS-PHA",
+      "institution_type": "court",
+      "issue_date": "2026-06-23",
+      "reference": "18 A 23/2026-25",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-os-pha4-2026-07-07-10-c-69-2026-14",
+      "institution_id": "CZ-OS-PHA4",
+      "institution_type": "court",
+      "issue_date": "2026-07-07",
+      "reference": "10 C 69/2026-14",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-07-09-8-ad-9-2026-22",
+      "institution_id": "CZ-MS-PHA",
+      "institution_type": "court",
+      "issue_date": "2026-07-09",
+      "reference": "8 Ad 9/2026-22",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-ks-ost-2026-07-13-fj-68842-2026-ksos",
+      "institution_id": "CZ-KS-OST",
+      "institution_type": "court",
+      "issue_date": "2026-07-13",
+      "reference": "Fj 68842/2026/KSOS",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-os-pha4-2026-07-14-10-c-69-2026-49",
+      "institution_id": "CZ-OS-PHA4",
+      "institution_type": "court",
+      "issue_date": "2026-07-14",
+      "reference": "10 C 69/2026-49",
+      "has_active_pdf": false,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-eu-euda-2026-08-07-ack-article-265-tfeu",
+      "institution_id": "EU-EUDA",
+      "institution_type": "eu_agency",
+      "issue_date": "2026-08-07",
+      "reference": "bez samostatného č. j./sp. zn. v e-mailu",
+      "has_active_pdf": false,
+      "exemption_reason": "Potvrzení bylo doručeno jako e-mail bez samostatného úředního PDF; veřejný záznam proto odkazuje na evidenční stránku a související doložené dokumenty."
+    },
+    {
+      "id": "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54",
+      "institution_id": "CZ-OS-PRO",
+      "institution_type": "court",
+      "issue_date": "2026-08-07",
+      "reference": "15 Nt 3105/2026-54",
+      "has_active_pdf": true,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-130",
+      "institution_id": "CZ-MS-PHA",
+      "institution_type": "court",
+      "issue_date": "2026-08-10",
+      "reference": "18 A 23/2026-130",
+      "has_active_pdf": true,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-131",
+      "institution_id": "CZ-MS-PHA",
+      "institution_type": "court",
+      "issue_date": "2026-08-10",
+      "reference": "18 A 23/2026-131",
+      "has_active_pdf": true,
+      "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
+      "institution_id": "CZ-OS-PRO",
+      "institution_type": "court",
+      "issue_date": "2026-08-07",
+      "reference": "15 Nt 3103/2026-53",
+      "has_active_pdf": true,
+      "exemption_reason": "institution-type-exception"
+    }
+  ],
+  "registry_pdf_document_count": 58,
   "invalid_registry_pdf_link_count": 0,
   "invalid_registry_pdf_links": [],
-  "repository_pdf_count": 81,
-  "usable_repository_pdf_count": 80,
-  "usable_public_pdf_count": 80,
+  "reaction_document_count": 7,
+  "missing_rendered_reaction_count": 0,
+  "missing_rendered_reactions": [],
+  "missing_reaction_pdf_link_count": 0,
+  "missing_reaction_pdf_links": [],
+  "repository_pdf_count": 92,
+  "usable_repository_pdf_count": 91,
+  "usable_public_pdf_count": 91,
   "usable_pdf_outside_public_tree_count": 0,
   "usable_pdf_outside_public_tree": []
 }
