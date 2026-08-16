@@ -128,6 +128,11 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: první plošná kontrola vybírala jen HTML s prvkem `.topline` nebo jazykovým menu.
 - Pojistka: build nyní pokrývá každou úplnou veřejnou HTML stránku; tam, kde není záhlaví, skript zobrazí plovoucí jazykové tlačítko. Originální PDF zůstávají nedotčenými českými zdroji.
 
+### Aktivní soudní řízení používala zkratky názvů soudů
+
+- Projev: karty uváděly například „MS v Praze“, „OS Prostějov“ nebo nesprávně zkrácené „OS Praha 4“.
+- Pojistka: kanonický generátor používá celé úřední názvy Městského soudu v Praze, Obvodního soudu pro Prahu 4, okresních soudů i Vrchního soudu v Praze; validační skript návrat soudních zkratek zakazuje.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
