@@ -110,6 +110,13 @@ const translatedIds = [...reports.map(item => item.id), '24072026-005'];
 let archive = await readFile('web/news/index.html', 'utf8');
 for (const id of translatedIds) {
   archive = archive.replaceAll(`href="zpravy/${id}.html"`, `href="news/${id}.html"`);
+  archive = archive.replaceAll(`href="news/${id}.html" hreflang="cs"`, `href="news/${id}.html"`);
 }
+archive = archive
+  .replace('Czech canonical report: a living chronology', 'Complete English chronology: a living record')
+  .replace('Czech authorial report:', 'English evidence report:')
+  .replaceAll('Czech report with complete filing.', 'English report with links to the complete Czech filing.')
+  .replaceAll('Czech report with four complete sources.', 'English report with links to four complete Czech sources.')
+  .replaceAll('Czech report with source.', 'English report with a link to the controlling Czech source.');
 await writeFile('web/news/index.html', archive, 'utf8');
 console.log(`English news editions generated: ${translatedIds.length}/${translatedIds.length}; merged report 23072026-003 redirects to its English edition; Godot is generated separately as a complete chronology.`);
