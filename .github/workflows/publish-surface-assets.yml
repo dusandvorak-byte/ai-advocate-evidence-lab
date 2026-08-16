@@ -49,6 +49,8 @@ jobs:
           install -m 0644 source/web/home-rollups.css pages/home-rollups.css
           install -m 0644 source/web/live-dockets.js pages/web/live-dockets.js
           install -m 0644 source/web/home-rollups.css pages/web/home-rollups.css
+          version="${GITHUB_SHA:0:12}"
+          sed -E -i "s#src=\"live-dockets\\.js(\\?v=[^\"]*)?\"#src=\"live-dockets.js?v=${version}\"#g" pages/index.html pages/web/index.html
       - name: Publikovat do gh-pages
         working-directory: pages
         shell: bash
@@ -56,10 +58,10 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- live-dockets.js home-rollups.css web/live-dockets.js web/home-rollups.css; then
+          if git diff --quiet -- index.html live-dockets.js home-rollups.css web/index.html web/live-dockets.js web/home-rollups.css; then
             echo "Produkční povrch je již aktuální."
             exit 0
           fi
-          git add live-dockets.js home-rollups.css web/live-dockets.js web/home-rollups.css
+          git add index.html live-dockets.js home-rollups.css web/index.html web/live-dockets.js web/home-rollups.css
           git commit -m "Publish verified presentation surface from $GITHUB_SHA"
           git push origin HEAD:gh-pages
