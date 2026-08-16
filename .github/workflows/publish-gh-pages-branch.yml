@@ -96,7 +96,9 @@ jobs:
           sha256sum -c /tmp/godot-pdf-sha256.txt
           while read -r sha file; do
             rel="${file#web/}"
-            grep -q "$rel" web/zpravy/04082026-010.html
+            if ! grep -q "$rel" web/zpravy/04082026-010.html; then
+              grep -Rqs "$rel" web/listiny
+            fi
           done < /tmp/godot-pdf-sha256.txt
           grep -q '67 state and public-institution records' web/en.html
           grep -q '59 verified public PDFs' web/en.html
