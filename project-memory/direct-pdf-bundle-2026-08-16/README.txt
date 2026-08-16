@@ -1,0 +1,1 @@
+Kanonický binární archiv PDF 25–27 a 30–33. Archiv je materializován skriptem scripts/materialize-godot-pdf-bundle.mjs a přijat pouze při shodě SHA-256. PDF 28–29 jsou získána z přesně určených historických Git blobů a rovněž hashově ověřena.
