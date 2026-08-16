@@ -9,6 +9,7 @@ const publishWorkflow = await readFile('.github/workflows/publish-gh-pages-branc
 const timerBuilder = await readFile('scripts/build-process-timers.mjs', 'utf8');
 const englishGodot = await readFile('web/news/04082026-010.html', 'utf8');
 const canonicalDocuments = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
+const automaticTranslation = await readFile('web/auto-translate.js', 'utf8');
 
 const requiredBars = [
   'Godot online → každá zpráva má zdroj',
@@ -69,6 +70,10 @@ if (!home.includes(`<a href="${nowHref}">Právě teď</a>`)) throw new Error('Od
 const czechGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!czechGodot.includes(`id="${latestStateRecord.id}"`)) throw new Error('Cíl odkazu Právě teď v českém Godotovi neexistuje');
 if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
+for (const page of [home, englishHome]) if (!page.includes('src="auto-translate.js"')) throw new Error('Titulní stránka nemá nabídku automatických překladů');
+for (const required of ["['pt', 'Português']", '100+ other languages via Google Translate', 'Czech official records and PDFs remain controlling']) {
+  if (!automaticTranslation.includes(required)) throw new Error(`Automatickému překladu chybí: ${required}`);
+}
 if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Further current reports')) throw new Error('Anglická titulní stránka nemá blok dalších aktuálních zpráv');
 if (englishHome.includes('class="quick-memory"') || englishHome.includes('href="#memory"')) throw new Error('Anglická titulní stránka stále obsahuje zrušený vedlejší blok Case memory');
 if (!styles.includes('#traffic.utility-grid') || !styles.includes('#traffic.utility-grid > .desk')) throw new Error('Anglická důkazní přepážka nemá plnou šířku');
