@@ -82,6 +82,16 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: název instituce u našeho dokumentu byl použit současně jako adresát i autor.
 - Pojistka: automatický časovač odvozuje adresáta z instituce napadené listiny ve vazbě `reakce_na`, zatímco podatele ukládá samostatně; veřejná karta tyto dvě hodnoty už pouze vykresluje.
 
+### Smíšení doručovacího a rozhodujícího orgánu
+
+- Projev: jediná položka „Komu“ nerozlišila orgán, přes který se opravný prostředek podává, a orgán, který o něm rozhoduje.
+- Pojistka: karty používají samostatné `Komu` a podmíněné `Pro`; pole `Pro` se zobrazí pouze při doloženém cílovém orgánu. Kontrola pořadí vynucuje `Kdy → Komu → Pro → Č. j. / sp. zn. → Kdo → Co se stalo`.
+
+### Pracovní text na jiné veřejné stránce
+
+- Projev: odstranění jedné věty z titulní stránky nezaručovalo, že stejný nebo jiný technický návod nezůstal v článku či jazykové variantě.
+- Pojistka: validační skript prochází všechny publikované HTML soubory pod `web/` a při výskytu známých pracovních formulací zastaví sestavení.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
