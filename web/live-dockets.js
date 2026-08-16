@@ -36,7 +36,8 @@
   };
 
   const editionBar = document.querySelector('.edition-bar');
-  if (!editionBar) return;
+  const placementAnchor = editionBar || document.querySelector('.nav');
+  if (!placementAnchor) return;
 
   document.getElementById('live-dockets')?.remove();
   document.querySelector('.godot-rollup')?.remove();
@@ -84,5 +85,6 @@
     wrapper.append(timers);
   }
 
-  editionBar.replaceWith(wrapper);
+  if (editionBar) editionBar.replaceWith(wrapper);
+  else placementAnchor.insertAdjacentElement('afterend', wrapper);
 })();
