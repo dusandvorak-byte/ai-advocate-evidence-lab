@@ -233,6 +233,14 @@ const englishEntities = new Map([
   ['příslušný orgán', 'competent authority'], ['evidovaný účastník řízení', 'recorded participant']
 ]);
 const translateEntity = value => englishEntities.get(value) || value;
+const englishTimerReference = value => String(value || '')
+  .replace(/^mj\. /i, 'including ')
+  .replace(/^č\. j\. /i, 'ref. ')
+  .replace(/^sp\. zn\. /i, 'case ')
+  .replace(/^napadené /i, 'challenged ')
+  .replace(/^žádosti /i, 'requests ')
+  .replace(/^proti /i, 'against ')
+  .replace(/^od /i, 'since ');
 const englishRegime = item => {
   if (item.id === 'timer-preaction-euda-2026-08-07') return 'Two months under Article 265 TFEU; acknowledgement of receipt is not itself a substantive position.';
   if (item.id === 'timer-admin-kpr-175-2026-08-03') return '60 days under Section 175(5) of the Czech Code of Administrative Procedure.';
@@ -256,7 +264,7 @@ const englishRow = item => {
   const { recipient, actor } = displayParties(item);
   const linkHref = item.source_document_id ? `news/04082026-010.html#en-${item.source_document_id}` : 'news/04082026-010.html#chronology';
   const forAuthority = item.for_authority ? `<p class="timer-basis"><b>For:</b> ${escapeHtml(translateEntity(item.for_authority))}</p>` : '';
-  return `<article class="process-timer" data-process-timer data-limit-kind="${escapeHtml(item.limit_kind || '')}" data-start-date="${escapeHtml(countStart)}" data-event-date="${escapeHtml(item.start_date)}" data-timer-id="${escapeHtml(item.id)}"${item.source_document_id ? ` data-source-document-id="${escapeHtml(item.source_document_id)}"` : ''}${end ? ` data-end-date="${escapeHtml(end)}"` : ''}><div class="timer-value"><span data-elapsed-days>…</span> / <span>days tracked</span></div><div class="timer-detail"><h4><a href="${linkHref}">${escapeHtml(translation.title)}</a></h4><p class="timer-basis"><b>When:</b> ${escapeHtml(item.start_date)}</p><p class="timer-basis"><b>To:</b> ${escapeHtml(translateEntity(recipient))}</p>${forAuthority}<p class="timer-basis"><b>Reference:</b> ${escapeHtml(item.reference)}</p><p class="timer-basis"><b>From:</b> ${escapeHtml(translateEntity(actor))}</p><p class="timer-basis"><b>What happened:</b> ${escapeHtml(translation.event)}</p>${item.count_from_date ? `<p class="timer-basis"><b>Day 1:</b> ${escapeHtml(item.count_from_date)}</p>` : ''}<p class="timer-basis"><b>Time limit / procedural regime:</b> ${escapeHtml(englishRegime(item))}</p></div></article>`;
+  return `<article class="process-timer" data-process-timer data-limit-kind="${escapeHtml(item.limit_kind || '')}" data-start-date="${escapeHtml(countStart)}" data-event-date="${escapeHtml(item.start_date)}" data-timer-id="${escapeHtml(item.id)}"${item.source_document_id ? ` data-source-document-id="${escapeHtml(item.source_document_id)}"` : ''}${end ? ` data-end-date="${escapeHtml(end)}"` : ''}><div class="timer-value"><span data-elapsed-days>…</span> / <span>days tracked</span></div><div class="timer-detail"><h4><a href="${linkHref}">${escapeHtml(translation.title)}</a></h4><p class="timer-basis"><b>When:</b> ${escapeHtml(item.start_date)}</p><p class="timer-basis"><b>To:</b> ${escapeHtml(translateEntity(recipient))}</p>${forAuthority}<p class="timer-basis"><b>Reference:</b> ${escapeHtml(englishTimerReference(item.reference))}</p><p class="timer-basis"><b>From:</b> ${escapeHtml(translateEntity(actor))}</p><p class="timer-basis"><b>What happened:</b> ${escapeHtml(translation.event)}</p>${item.count_from_date ? `<p class="timer-basis"><b>Day 1:</b> ${escapeHtml(item.count_from_date)}</p>` : ''}<p class="timer-basis"><b>Time limit / procedural regime:</b> ${escapeHtml(englishRegime(item))}</p></div></article>`;
 };
 
 // Právně kvalifikované ruční časovače se zobrazí v témže prioritním bloku, ale ne podruhé v administrativní sekci.
