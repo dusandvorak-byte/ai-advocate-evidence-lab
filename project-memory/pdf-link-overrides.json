@@ -73,6 +73,56 @@
       "document_id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
       "pdf": "documents/report-04082026-010/33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf",
       "reason": "Přesný originál usnesení OS Prostějov byl ověřen SHA-256 d461ad6eacc569ba8d86c4ce640a3f6273ff67ae48fc5ea57f1f8653ce0e2a40."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-15-doplneni-stiznosti-ministr-vnitra",
+      "pdf": "documents/report-04082026-010/37-dvorak-doplneni-stiznosti-ministr-vnitra-2026-08-15.pdf",
+      "reason": "Přesné podání bylo ověřeno SHA-256 254948b580136a43c241967adfe201ff7b15799f2aa1c576235bb8d685d6af84."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-15-zadost-prezkum-policejni-prezident",
+      "pdf": "documents/report-04082026-010/38-dvorak-zadost-prezkum-policejni-prezident-2026-08-15.pdf",
+      "reason": "Přesné podání bylo ověřeno SHA-256 2ac2992ec565f077348f7c658be2f39b52429254cad46583e13fc21adb4e0e5d."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-15-podnet-gibs",
+      "pdf": "documents/report-04082026-010/39-dvorak-podnet-gibs-2026-08-15.pdf",
+      "reason": "Přesné podání bylo ověřeno SHA-256 b04c916173e879be3bfbf193aef7a81f7b10353903654af11e0224efa17303e3."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-15-doplneni-prezkumu-msz-praha",
+      "pdf": "documents/report-04082026-010/40-dvorak-doplneni-prezkumu-msz-praha-2026-08-15.pdf",
+      "reason": "Přesné podání bylo ověřeno SHA-256 4bb35cc4a2e9e554e71ddea79818d6599895fe163e14abc18597507d583ee4d6."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-15-doplneni-dohledu-vsz-praha-olomouc",
+      "pdf": "documents/report-04082026-010/41-dvorak-doplneni-dohledu-vsz-praha-olomouc-2026-08-15.pdf",
+      "reason": "Přesné podání bylo ověřeno SHA-256 2deebd074ffcc4524f9ff3dd2d2a0fa0487b3b39ad8623fa8a90facdd2fcaede."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-15-seste-doplneni-predzalobni-vyzvy-nsz",
+      "pdf": "documents/report-04082026-010/42-dvorak-seste-doplneni-predzalobni-vyzvy-nsz-2026-08-15.pdf",
+      "reason": "Přesné podání bylo ověřeno SHA-256 ddb0e632f1eb6781790135ec34418e9b0a8b3252a2740727c1213ba9421d6102."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-15-doplneni-zaloby-15-a-44-2026",
+      "pdf": "documents/report-04082026-010/43-dvorak-doplneni-zaloby-15-a-44-2026-2026-08-15.pdf",
+      "reason": "Přesné podání bylo ověřeno SHA-256 83c0d93a5359f4205497cf0f5499f670b35c51baba6139fd26fcb6e88ef546a0."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-15-zadost-soucinnost-osz-prostejov",
+      "pdf": "documents/report-04082026-010/44-dvorak-zadost-soucinnost-osz-prostejov-2026-08-15.pdf",
+      "reason": "Přesné podání bylo ověřeno SHA-256 d7285bca1c0a0934c11157eee82c8f4473311a72b293180cff77c7fde89d4717."
+    },
+    {
+      "document_id": "doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026",
+      "pdf": "documents/report-04082026-010/45-citc-stiznost-kpr-5080-2026-2026-08-03.pdf",
+      "reason": "Přesná stížnost byla ověřena SHA-256 3d88548cb7402de4c232167a56c0b2f4e86138217ad9397b0a914042556ce167."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-15-souhrnna-zprava-kpr-milost-amnestie",
+      "pdf": "documents/report-04082026-010/46-dvorak-souhrnna-zprava-kpr-milost-amnestie-2026-08-15.pdf",
+      "reason": "Přesné souhrnné podání bylo ověřeno SHA-256 a0f1367d11af16093eb8471a1b0d7b3588c38afaf1fe232d1c8519cb36565d62."
     }
   ]
 }

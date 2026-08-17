@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-16T12:28:52.250Z",
+  "generated_at": "2026-08-17T09:09:05.067Z",
   "article": "web/zpravy/04082026-010.html",
   "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
   "active_pdf_scope": [
@@ -33,18 +33,18 @@
     "CZ-CSSZ"
   ],
   "document_exception_count": 3,
-  "article_pdf_link_count": 57,
+  "article_pdf_link_count": 67,
   "broken_article_pdf_link_count": 0,
   "broken_article_pdf_links": [],
-  "eligible_institution_document_count": 46,
-  "eligible_with_active_pdf_count": 46,
+  "eligible_institution_document_count": 52,
+  "eligible_with_active_pdf_count": 52,
   "eligible_without_active_pdf_count": 0,
   "eligible_without_active_pdf": [],
-  "required_document_count": 46,
-  "required_with_active_pdf_count": 46,
+  "required_document_count": 52,
+  "required_with_active_pdf_count": 52,
   "required_without_active_pdf_count": 0,
   "required_without_active_pdf": [],
-  "exempt_document_count": 22,
+  "exempt_document_count": 23,
   "exempt_documents": [
     {
       "id": "doc-cz-exe-lib-2026-05-06-131-ex-8674-15-127",
@@ -243,19 +243,28 @@
       "reference": "15 Nt 3103/2026-53",
       "has_active_pdf": true,
       "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-dd-2026-08-15-doplneni-zaloby-15-a-44-2026",
+      "institution_id": "CZ-MS-PHA",
+      "institution_type": "court",
+      "issue_date": "2026-08-15",
+      "reference": "15 A 44/2026",
+      "has_active_pdf": true,
+      "exemption_reason": "institution-type-exception"
     }
   ],
-  "registry_pdf_document_count": 59,
+  "registry_pdf_document_count": 69,
   "invalid_registry_pdf_link_count": 0,
   "invalid_registry_pdf_links": [],
-  "reaction_document_count": 7,
+  "reaction_document_count": 17,
   "missing_rendered_reaction_count": 0,
   "missing_rendered_reactions": [],
   "missing_reaction_pdf_link_count": 0,
   "missing_reaction_pdf_links": [],
-  "repository_pdf_count": 93,
-  "usable_repository_pdf_count": 92,
-  "usable_public_pdf_count": 92,
+  "repository_pdf_count": 103,
+  "usable_repository_pdf_count": 102,
+  "usable_public_pdf_count": 102,
   "usable_pdf_outside_public_tree_count": 0,
   "usable_pdf_outside_public_tree": []
 }

@@ -543,6 +543,42 @@
       "source_document_id": "doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960",
       "href": "listiny/doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960.html",
       "derived_from_canonical_document": true
+    },
+    {
+      "id": "timer-remedy-doc-cz-dd-2026-08-15-doplneni-stiznosti-ministr-vnitra",
+      "category": "current_remedies",
+      "title": "Policejní prezidium České republiky – Doplnění stížnosti ministru vnitra o vyjádření Policejního prezidia ze dne 14. srpna 2026 a žádost o řídicí a kontrolní opatření",
+      "recipient": "Policejní prezidium České republiky",
+      "actor": "Mgr. Dušan Dvořák",
+      "reference": "bez samostatného č. j./sp. zn. v podání",
+      "start_date": "2026-08-15",
+      "count_from_date": "2026-08-16",
+      "start_date_basis": "Doplnění stížnosti ministru vnitra o vyjádření Policejního prezidia ze dne 14. srpna 2026 a žádost o řídicí a kontrolní opatření. Podáno a doručeno dne 2026-08-15; tento den je den 0 a následující den je den 1.",
+      "status": "active_derived_remedy",
+      "limit_kind": "remedy_regime_requires_verified_override",
+      "limit_label": "opravný prostředek – přesná lhůta dle konkrétního procesního režimu",
+      "legal_basis": "Přesná lhůta k vyřízení se odvíjí od konkrétního procesního režimu. Bez doložené číselné lhůty se uvádí pouze běh od evidovaného data.",
+      "source_document_id": "doc-cz-dd-2026-08-15-doplneni-stiznosti-ministr-vnitra",
+      "href": "zpravy/04082026-010.html#doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd",
+      "derived_from_canonical_document": true
+    },
+    {
+      "id": "timer-remedy-doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026",
+      "category": "current_remedies",
+      "title": "Kancelář prezidenta republiky – Stížnost podle § 175 správního řádu proti postupu Kanceláře prezidenta republiky ve sdělení č. j. KPR 5080/2026 ze dne 3. srpna 2026",
+      "recipient": "Kancelář prezidenta republiky",
+      "actor": "Cannabis is The Cure, z. s.",
+      "reference": "KPR 5080/2026",
+      "start_date": "2026-08-03",
+      "count_from_date": "2026-08-04",
+      "start_date_basis": "Stížnost podle § 175 správního řádu proti postupu Kanceláře prezidenta republiky ve sdělení č. j. KPR 5080/2026 ze dne 3. srpna 2026. Podáno a doručeno dne 2026-08-03; tento den je den 0 a následující den je den 1.",
+      "status": "active_derived_remedy",
+      "limit_kind": "remedy_regime_requires_verified_override",
+      "limit_label": "opravný prostředek – přesná lhůta dle konkrétního procesního režimu",
+      "legal_basis": "Přesná lhůta k vyřízení se odvíjí od konkrétního procesního režimu. Bez doložené číselné lhůty se uvádí pouze běh od evidovaného data.",
+      "source_document_id": "doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026",
+      "href": "zpravy/04082026-010.html#doc-cz-kpr-2026-08-03-kpr-5080-2026",
+      "derived_from_canonical_document": true
     }
   ],
   "historical_notice_points": [
@@ -570,7 +606,7 @@
   "remedy_derivation": {
     "source_manifest": "project-memory/document-sources.json",
     "since": "2026-07-01",
-    "canonical_remedy_documents": 9,
-    "automatically_derived": 4
+    "canonical_remedy_documents": 11,
+    "automatically_derived": 6
   }
 }

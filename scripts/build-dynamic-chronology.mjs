@@ -142,7 +142,8 @@ for (const item of outgoingDocuments) {
 const renderInlineReaction = item => {
   const link = documentLink(item, item.document_type === 'user_submission_attachment' ? 'příloha PDF' : 'reakce PDF');
   const target = link.external ? ' target="_blank" rel="noopener"' : '';
-  return `<span class="chronology-reaction"> · <b>${item.document_type === 'user_submission_attachment' ? 'Příloha' : 'Reakce'} ${escapeHtml(formatDate(item.issue_date))}:</b> ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a></span>`;
+  const label = item.document_type === 'user_submission_attachment' ? 'Příloha' : 'Reakce na podání orgánu veřejné moci';
+  return `<span class="chronology-reaction"> · <b>${label}:</b> ${escapeHtml(formatDate(item.issue_date))} · ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a></span>`;
 };
 
 const renderChronologyItem = item => {
@@ -158,7 +159,7 @@ const renderChronologyItem = item => {
     const nested = (attachmentsByTarget.get(reaction.id) || []).sort(compareDocuments).map(renderInlineReaction).join('');
     return `${renderInlineReaction(reaction)}${nested}`;
   }).join('');
-  return `<li id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}" data-institution-id="${escapeHtml(item.institution_id)}"><b>Kdo:</b> <span class="institution">${escapeHtml(name)}</span> · <b>Datum:</b> ${escapeHtml(formatDate(item.issue_date))} · <b>Č. j. / sp. zn.:</b> ${escapeHtml(referenceText(item))} · <b>Co se stalo:</b> ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a>${cases}${inline}</li>`;
+  return `<li id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}" data-institution-id="${escapeHtml(item.institution_id)}"><b>Datum:</b> ${escapeHtml(formatDate(item.issue_date))} · <b>Kdo:</b> <span class="institution">${escapeHtml(name)}</span> · <b>Č. j. / sp. zn.:</b> ${escapeHtml(referenceText(item))} · <b>Co se stalo:</b> ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a>${cases}${inline}</li>`;
 };
 
 const caseIndex = `<section id="rizeni-online" class="case-anchor-index"><h3>Aktivní uzly řízení</h3>${caseAnchors.map(([id, label]) => `<article id="${id}" class="case-anchor-node"><h4>${escapeHtml(label)}</h4><p>Související listiny a procesní kroky jsou průběžně řazeny v chronologii výše.</p></article>`).join('')}</section>`;

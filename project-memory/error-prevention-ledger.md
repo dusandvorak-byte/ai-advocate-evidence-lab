@@ -170,6 +170,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - První nedostatečná oprava: samotné `<base href="../">` fungovalo v původním webu, ale překladová proxy je při přepisu odkazů nerespektovala; německý test stále skončil na `/kc/listiny/...` a chybě 404.
 - Pojistka: synchronizátor ponechává základní cestu a současně převádí všechny místní odkazy, obrázky a skripty církevních webů na jednoznačné absolutní cesty `/ai-advocate-evidence-lab/...`. Build odmítne návrat relativní cesty k listinám, článkům, PDF, aktivům nebo církevním stránkám.
 
+### Navazující podání byla evidována, ale mohla se odpojit od původní listiny
+
+- Projev: reakce uživatele byly vedeny samostatně nebo se při dalším buildu nezobrazily přímo pod konkrétním úkonem orgánu veřejné moci.
+- Příčina: chyběla kanonická vazba `reakce_na` a přesná kontrola cílové položky i veřejné PDF cesty.
+- Pojistka: každá reakce má stabilní ID, vazbu `reakce_na`, hashově ověřené PDF a anglický popis. Build vyžaduje jednu reakci pod položkou 47 a všech sedm reakcí pod položkou 67, včetně přesných aktivních PDF odkazů; chronologie vždy začíná polem `Datum`.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.

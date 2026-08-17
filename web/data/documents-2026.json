@@ -1813,10 +1813,362 @@
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship",
       "evidence_note": "Podání žádá přešetření dosavadního postupu Policie ČR, určení příslušného útvaru, transparentní evidenci a věcné odborné prověření reprezentativnosti vzorků, homogenizace, SOP, THC/THCA, dekarboxylace, nejistot měření, validace a kontroly kvality."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-15-zadost-soucinnost-osz-prostejov",
+      "user_title": "Žádost Okresnímu státnímu zastupitelství v Prostějově o součinnost, procesní poučení a informaci o reakci policie na přezkum",
+      "issue_date": "2026-08-15",
+      "received_date": "2026-08-15",
+      "institution_id": "CZ-OSZ-PV",
+      "recipient_en": "Prostějov District Public Prosecutor’s Office",
+      "reference": "ZN 4/2026-6",
+      "case_ids": [
+        "case-cz-osz-pro-prevence-2026",
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "žádost o součinnost",
+        "procesní poučení",
+        "nečinnost",
+        "Kriminalistický ústav",
+        "Policejní prezidium"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/44-dvorak-zadost-soucinnost-osz-prostejov-2026-08-15.pdf",
+        "sha256": "d7285bca1c0a0934c11157eee82c8f4473311a72b293180cff77c7fde89d4717",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-osz-pro-2026-07-28-zn-4-2026-6"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Podání informuje OSZ o následném postupu Kriminalistického ústavu a Úřadu vnitřní kontroly Policejního prezidia a žádá o součinnost, jednoznačné procesní poučení a sdělení stavu preventivního podání."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-15-doplneni-stiznosti-ministr-vnitra",
+      "user_title": "Doplnění stížnosti ministru vnitra o vyjádření Policejního prezidia ze dne 14. srpna 2026 a žádost o řídicí a kontrolní opatření",
+      "issue_date": "2026-08-15",
+      "received_date": "2026-08-15",
+      "institution_id": "CZ-MV",
+      "recipient_en": "Minister of the Interior",
+      "reference": "bez samostatného č. j./sp. zn. v podání",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "stížnost",
+        "doplnění",
+        "Policejní prezidium",
+        "Kriminalistický ústav"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/37-dvorak-doplneni-stiznosti-ministr-vnitra-2026-08-15.pdf",
+        "sha256": "254948b580136a43c241967adfe201ff7b15799f2aa1c576235bb8d685d6af84",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Podání předkládá vyjádření Policejního prezidia ze dne 14. srpna 2026 jako nový podklad a žádá ministra vnitra o řídicí a kontrolní opatření."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-15-zadost-prezkum-policejni-prezident",
+      "user_title": "Žádost policejnímu prezidentovi o nadřízený a nestranný přezkum postupu při vyřízení podání ke Kriminalistickému ústavu",
+      "issue_date": "2026-08-15",
+      "received_date": "2026-08-15",
+      "institution_id": "CZ-PCR-PP",
+      "recipient_en": "Police President of the Czech Republic",
+      "reference": "bez samostatného č. j./sp. zn. v podání",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "žádost o přezkum",
+        "policejní prezident",
+        "Kriminalistický ústav"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/38-dvorak-zadost-prezkum-policejni-prezident-2026-08-15.pdf",
+        "sha256": "2ac2992ec565f077348f7c658be2f39b52429254cad46583e13fc21adb4e0e5d",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Podání žádá podle § 97 zákona o Policii ČR o nadřízený a nestranný přezkum způsobu vyřízení podání a oddělení této otázky od pozdější stížnosti na nečinnost."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-15-podnet-gibs",
+      "user_title": "Podnět Generální inspekci bezpečnostních sborů k prověření vymezených skutkových hypotéz a zachování podkladové dokumentace k měření THC",
+      "issue_date": "2026-08-15",
+      "received_date": "2026-08-15",
+      "institution_id": "CZ-GIBS",
+      "recipient_en": "General Inspection of Security Forces",
+      "reference": "bez samostatného č. j./sp. zn. v podání",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "podnět",
+        "GIBS",
+        "THC",
+        "laboratorní dokumentace"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/39-dvorak-podnet-gibs-2026-08-15.pdf",
+        "sha256": "b04c916173e879be3bfbf193aef7a81f7b10353903654af11e0224efa17303e3",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Podnět žádá prověření konkrétních skutkových hypotéz a zachování podkladové dokumentace; výslovně netvrdí, že se konkrétní osoba dopustila protiprávního jednání."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-15-doplneni-prezkumu-msz-praha",
+      "user_title": "Doplnění přezkumu postupu Obvodního státního zastupitelství pro Prahu 7 pro Městské státní zastupitelství v Praze o nový záznam Policejního prezidia",
+      "issue_date": "2026-08-15",
+      "received_date": "2026-08-15",
+      "institution_id": "CZ-MSZ-PHA",
+      "recipient_en": "Prague Municipal Public Prosecutor’s Office",
+      "reference": "bez samostatného č. j./sp. zn. v podání",
+      "case_ids": [
+        "case-cz-msz-praha-prezkumy"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "doplnění přezkumu",
+        "OSZ Praha 7",
+        "Policejní prezidium"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/40-dvorak-doplneni-prezkumu-msz-praha-2026-08-15.pdf",
+        "sha256": "4bb35cc4a2e9e554e71ddea79818d6599895fe163e14abc18597507d583ee4d6",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Podání žádá založit a vyhodnotit nový záznam Policejního prezidia v probíhajícím přezkumu postupu Obvodního státního zastupitelství pro Prahu 7."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-15-doplneni-dohledu-vsz-praha-olomouc",
+      "user_title": "Doplnění dohledu Vrchnímu státnímu zastupitelství v Praze a Vrchnímu státnímu zastupitelství v Olomouci o vyjádření Policejního prezidia ze dne 14. srpna 2026",
+      "issue_date": "2026-08-15",
+      "received_date": "2026-08-15",
+      "institution_id": "CZ-VSZ-PHA",
+      "recipient_en": "Prague and Olomouc High Public Prosecutor’s Offices",
+      "reference": "bez samostatného č. j./sp. zn. v podání",
+      "case_ids": [
+        "case-cz-vsz-praha-dohled-msz",
+        "case-cz-vsz-olomouc-dohled-ksz-brno"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "doplnění dohledu",
+        "VSZ Praha",
+        "VSZ Olomouc",
+        "Policejní prezidium"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/41-dvorak-doplneni-dohledu-vsz-praha-olomouc-2026-08-15.pdf",
+        "sha256": "2deebd074ffcc4524f9ff3dd2d2a0fa0487b3b39ad8623fa8a90facdd2fcaede",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Společné podání žádá obě vrchní státní zastupitelství o doplnění a koordinaci dohledového přezkumu s ohledem na vyjádření Policejního prezidia ze dne 14. srpna 2026."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-15-seste-doplneni-predzalobni-vyzvy-nsz",
+      "user_title": "Šesté doplnění předžalobní výzvy Nejvyššímu státnímu zastupitelství ve věci sp. zn. 6 NZN 1737/2026",
+      "issue_date": "2026-08-15",
+      "received_date": "2026-08-15",
+      "institution_id": "CZ-NSZ",
+      "recipient_en": "Supreme Public Prosecutor’s Office",
+      "reference": "6 NZN 1737/2026",
+      "case_ids": [
+        "case-cz-nsz-predzalobni-vyzva"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "předžalobní výzva",
+        "doplnění",
+        "NSZ",
+        "Policejní prezidium"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/42-dvorak-seste-doplneni-predzalobni-vyzvy-nsz-2026-08-15.pdf",
+        "sha256": "ddb0e632f1eb6781790135ec34418e9b0a8b3252a2740727c1213ba9421d6102",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Šesté doplnění předkládá vývoj do 15. srpna 2026 a žádá jednotné, nezávislé a přezkoumatelné vyřízení souvisejících větví."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-15-doplneni-zaloby-15-a-44-2026",
+      "user_title": "Souhrnné důkazní doplnění zásahové žaloby proti Ministerstvu vnitra u Městského soudu v Praze, sp. zn. 15 A 44/2026",
+      "issue_date": "2026-08-15",
+      "received_date": "2026-08-15",
+      "institution_id": "CZ-MS-PHA",
+      "recipient_en": "Prague Municipal Court",
+      "reference": "15 A 44/2026",
+      "case_ids": [
+        "case-cz-ms-praha-15a44-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "zásahová žaloba",
+        "doplnění důkazů",
+        "Ministerstvo vnitra",
+        "Policejní prezidium"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/43-dvorak-doplneni-zaloby-15-a-44-2026-2026-08-15.pdf",
+        "sha256": "83c0d93a5359f4205497cf0f5499f670b35c51baba6139fd26fcb6e88ef546a0",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Důkazní doplnění předkládá vyjádření Policejního prezidia jako nový záznam k tvrzenému pokračujícímu stavu a naléhavosti; žalobu, její důvody ani petit nemění."
+    },
+    {
+      "id": "doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026",
+      "user_title": "Stížnost podle § 175 správního řádu proti postupu Kanceláře prezidenta republiky ve sdělení č. j. KPR 5080/2026 ze dne 3. srpna 2026",
+      "issue_date": "2026-08-03",
+      "received_date": "2026-08-04",
+      "institution_id": "CZ-CITC",
+      "recipient_en": "Office of the President of the Republic",
+      "reference": "KPR 5080/2026",
+      "case_ids": [
+        "case-cz-kpr-tri-vetve"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "stížnost",
+        "KPR",
+        "milost",
+        "konopná amnestie"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/45-citc-stiznost-kpr-5080-2026-2026-08-03.pdf",
+        "sha256": "3d88548cb7402de4c232167a56c0b2f4e86138217ad9397b0a914042556ce167",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-kpr-2026-08-03-kpr-5080-2026"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Stížnost napadá správnost, úplnost a přezkoumatelnost administrativního postupu KPR ve sdělení KPR 5080/2026 a žádá prošetření, nápravu a písemné vyrozumění."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-15-souhrnna-zprava-kpr-milost-amnestie",
+      "user_title": "Souhrnná zpráva Kanceláři prezidenta republiky o vývoji do 15. srpna 2026 k žádosti o milost, konopnou amnestii a rehabilitaci",
+      "issue_date": "2026-08-15",
+      "received_date": "2026-08-15",
+      "institution_id": "CZ-DD",
+      "recipient_en": "Office of the President of the Republic",
+      "reference": "KPR 4093/2026; KPR 5080/2026; KPR 5772/2026",
+      "case_ids": [
+        "case-cz-kpr-tri-vetve"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "souhrnná zpráva",
+        "KPR",
+        "milost",
+        "konopná amnestie",
+        "rehabilitace"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/46-dvorak-souhrnna-zprava-kpr-milost-amnestie-2026-08-15.pdf",
+        "sha256": "a0f1367d11af16093eb8471a1b0d7b3588c38afaf1fe232d1c8519cb36565d62",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-kpr-2026-08-03-kpr-5080-2026"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Souhrnné podání předkládá prezidentu republiky a KPR vývoj do 15. srpna 2026 jako podporu žádosti o individuální milost a širší humanitární posouzení; nové listiny nepředkládá jako automatický důkaz nezákonnosti každého dřívějšího odsouzení."
     }
   ],
   "reconciliation": {
-    "updated_at": "2026-08-16T12:28:51.923Z",
+    "updated_at": "2026-08-17T09:09:02.996Z",
     "active_pdf_policy": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
     "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
     "ownership_axiom": "user-named-pdf-never-state-original",
@@ -1827,32 +2179,32 @@
       "project-memory/report-20260812-explicit-pdf-owners-sources.json"
     ],
     "override_registry": "project-memory/pdf-link-overrides.json",
-    "physical_pdf_count": 93,
-    "usable_physical_pdf_count": 92,
+    "physical_pdf_count": 103,
+    "usable_physical_pdf_count": 102,
     "invalid_physical_pdf_count": 1,
-    "linked_pdf_count": 59,
+    "linked_pdf_count": 69,
     "newly_linked_count": 0,
-    "override_change_count": 0,
+    "override_change_count": 9,
     "invalidated_link_count": 0,
     "unresolved_count": 0,
     "unmatched_publishable_count": 17,
-    "required_pdf_document_count": 46,
+    "required_pdf_document_count": 52,
     "required_without_active_pdf_count": 0
   },
   "normalization": {
-    "updated_at": "2026-08-16T11:54:08.166Z",
+    "updated_at": "2026-08-17T09:09:02.765Z",
     "rule": "Kanonická pracovní množina vzniká výhradně z document-sources.json. Všechny zdroje se slučují podle stabilního ID; veřejné výstupy a čítače nesmějí udržovat vlastní paralelní seznam dokumentů.",
     "source_manifest": "project-memory/document-sources.json",
-    "source_count": 6,
-    "source_documents_before_deduplication": 96,
-    "merged_document_count": 77,
+    "source_count": 7,
+    "source_documents_before_deduplication": 116,
+    "merged_document_count": 87,
     "institution_aliases": {
       "CZ-OSZ-PRO": "CZ-OSZ-PV",
       "CZ-PCR-KRPM": "CZ-PCR-KRPO"
     },
     "filled_user_titles_from_existing_title": 0,
     "incoming_from_state_or_public_institution": 67,
-    "outgoing_from_user_or_alliance": 10,
+    "outgoing_from_user_or_alliance": 20,
     "unclassified": 0
   },
   "canonical_sources_manifest": "project-memory/document-sources.json",
@@ -1862,6 +2214,7 @@
     "project-memory/documents-2026-supplement-2026-08-11.json",
     "project-memory/documents-2026-supplement-2026-08-12.json",
     "project-memory/documents-2026-supplement-2026-08-13-remedies.json",
-    "project-memory/documents-2026-supplement-2026-08-14.json"
+    "project-memory/documents-2026-supplement-2026-08-14.json",
+    "project-memory/documents-2026-supplement-2026-08-15.json"
   ]
 }

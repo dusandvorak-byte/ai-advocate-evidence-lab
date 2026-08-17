@@ -1,15 +1,15 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-08-12T12:32:46.148Z",
+  "generated_at": "2026-08-17T09:09:04.240Z",
   "timezone": "Europe/Prague",
   "counters": {
-    "state_and_public_institutions": 64,
-    "our_submissions": 5,
+    "state_and_public_institutions": 67,
+    "our_submissions": 20,
     "unclassified": 0,
-    "total_documents": 69
+    "total_documents": 87
   },
   "classification_quality": {
-    "explicit": 69,
+    "explicit": 87,
     "safely_derived": 0,
     "human_review_required": 0,
     "rule": "Nezařazené položky se nikdy nepřičítají k našim ani státním podáním bez doložené klasifikace."
