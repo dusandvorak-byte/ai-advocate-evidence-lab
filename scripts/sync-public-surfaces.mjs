@@ -127,7 +127,8 @@ function insertLatestAtMainStart(html, lang) {
 
 const update = async (path, transforms, lang, insertLatest = true) => {
   let html = await readFile(path, 'utf8');
-  if (path.startsWith('web/kc/') && !html.includes('<base href="../">')) {
+  if (path.startsWith('web/kc/')) {
+    html = html.replace(/<base\b[^>]*>/g, '');
     html = html.replace('<head>', '<head><base href="../">');
   }
   for (const [pattern, replacement, label, optional = false] of transforms) {
@@ -144,6 +145,11 @@ const update = async (path, transforms, lang, insertLatest = true) => {
     html = insertLatestAtMainStart(html, lang);
   }
   if (!html.includes('src="auto-translate.js"')) html = html.replace('</body>', '<script src="auto-translate.js" defer></script></body>');
+  if (path.startsWith('web/kc/')) {
+    html = html.replace('<base href="../">', '<base data-church-root="../">');
+    html = html.replace(/\b(href|src)="(?!https?:|\/|#|mailto:)([^"]+)"/g, '$1="/ai-advocate-evidence-lab/$2"');
+    html = html.replace('<base data-church-root="../">', '<base href="../">');
+  }
   await writeFile(path, html, 'utf8');
 };
 
@@ -232,7 +238,7 @@ const surfaces = [
 for (const [label, path] of surfaces) {
   const html = await readFile(path, 'utf8');
   for (const stylesheet of ['styles.css', 'brand.css', 'latest-records.css']) {
-    if (!html.includes(`href="${stylesheet}"`)) throw new Error(`${label}: chybí společný ${stylesheet}`);
+    if (!new RegExp(`href="(?:/ai-advocate-evidence-lab/)?${stylesheet.replace('.', '\\.')}"`).test(html)) throw new Error(`${label}: chybí společný ${stylesheet}`);
   }
   if (!html.includes('class="topline"') || !html.includes('class="masthead"') || !html.includes('class="nav"')) {
     throw new Error(`${label}: chybí společná rámová komponenta`);
@@ -265,6 +271,9 @@ if (!churchEn.includes(`<header class="topline"><span>${enDisplayDate}</span>`))
 for (const [label, html] of [['český', churchCz], ['anglický', churchEn]]) {
   if (!html.includes('<base href="../">')) throw new Error(`${label} web Konopné církve nemá společný kořen odkazů`);
   if (html.includes('href="kc/listiny/')) throw new Error(`${label} web Konopné církve obsahuje chybnou cestu kc/listiny`);
+  for (const relativeRoot of ['href="listiny/', 'href="news/', 'href="documents/', 'src="assets/', 'href="kc/']) {
+    if (html.includes(relativeRoot)) throw new Error(`${label} web Konopné církve obsahuje relativní cestu nevhodnou pro překladač: ${relativeRoot}`);
+  }
 }
 if (!canonicalCz.match(new RegExp(`<header class="topline">\\s*<span>${czDisplayDate.replaceAll('.', '\\.')}</span>`))) throw new Error('Česká kanonická chronologie nemá dnešní pražské datum');
 
