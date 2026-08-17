@@ -100,6 +100,10 @@ if (/link\.target\s*=\s*['_"]blank/.test(automaticTranslation)) throw new Error(
 if (!englishHome.includes('auto-translate.js?v=20260817-1')) throw new Error('Anglická titulní stránka neverzuje překladový skript proti mezipaměti');
 for (const [label, page] of [['český', churchCzPage], ['anglický', churchEnPage]]) {
   if (!page.includes('<base href="../">')) throw new Error(`${label} církevní web nemá společný kořen pro články a listiny`);
+  if (!page.includes('href="/ai-advocate-evidence-lab/listiny/')) throw new Error(`${label} církevní web nemá absolutní kořenovou cestu k evidenční listině`);
+  for (const relativeRoot of ['href="listiny/', 'href="news/', 'href="documents/', 'src="assets/', 'href="kc/']) {
+    if (page.includes(relativeRoot)) throw new Error(`${label} církevní web obsahuje relativní cestu nevhodnou pro automatický překlad: ${relativeRoot}`);
+  }
 }
 if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Further current reports')) throw new Error('Anglická titulní stránka nemá blok dalších aktuálních zpráv');
 if (/href="zpravy\/\d{8}-\d{3}\.html/.test(englishHome)) throw new Error('Anglická titulní stránka stále odkazuje na český článek');
