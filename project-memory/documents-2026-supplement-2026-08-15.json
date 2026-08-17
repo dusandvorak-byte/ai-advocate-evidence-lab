@@ -1,6 +1,44 @@
 {
   "documents": [
     {
+      "id": "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-en",
+      "language": "en",
+      "user_title": "Anglická formální výzva European Union Drugs Agency k jednání podle čl. 265 SFEU ve věci srovnatelnosti analytických metod stanovení THC",
+      "issue_date": "2026-08-07", "received_date": "2026-08-07", "institution_id": "CZ-CITC",
+      "recipient_en": "European Union Drugs Agency", "reference": "bez samostatného č. j./sp. zn. v podání",
+      "case_ids": [], "document_type": "user_submission",
+      "topics": ["EUDA", "čl. 265 SFEU", "THC", "THCA", "analytické metody"],
+      "public": {"html": null, "pdf": "documents/report-04082026-010/47-citc-formal-call-euda-article-265-tfeu-2026-08-07-en.pdf", "sha256": "4610354fba0177c3f4f86ce0a95d11501a38c721d139012ebb34dc739aa772ee", "verification_status": "sha256_verified"},
+      "relations": [{"type": "podani_na_ktere_organ_reaguje", "target_id": "doc-eu-euda-2026-08-07-ack-article-265-tfeu"}],
+      "submission_side": "outgoing_from_user_or_alliance", "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Anglická výzva žádá EUDA o výkon jejích vlastních úkolů podle nařízení (EU) 2023/1322 v oblasti vědecké kvality, srovnatelnosti a harmonizace analytických metod; nežádá zásah do pravomoci českých soudů."
+    },
+    {
+      "id": "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-cs",
+      "language": "cs",
+      "user_title": "Česká verze formální výzvy EUDA k jednání podle čl. 265 SFEU",
+      "issue_date": "2026-08-07", "received_date": "2026-08-07", "institution_id": "CZ-CITC",
+      "recipient_en": "European Union Drugs Agency", "reference": "česká jazyková verze",
+      "case_ids": [], "document_type": "user_submission_attachment",
+      "topics": ["EUDA", "čl. 265 SFEU", "česká verze"],
+      "public": {"html": null, "pdf": "documents/report-04082026-010/48-citc-formalni-vyzva-euda-cl-265-sfeu-2026-08-07-cs.pdf", "sha256": "20cb3d21353f6722376ba7446e8a97965693eacd817b13f9ae7dbc947cbcb67f", "verification_status": "sha256_verified"},
+      "relations": [{"type": "priloha_k", "target_id": "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-en"}],
+      "submission_side": "outgoing_from_user_or_alliance", "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Česká jazyková verze téže formální výzvy EUDA ze dne 7. srpna 2026."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-15-dopis-laura-ramos-cannareporter-euda",
+      "user_title": "Dopis editorce CannaReporter.eu Lauře Ramos o případu Paula Santose, měření THC a formální výzvě EUDA",
+      "issue_date": "2026-08-15", "received_date": "2026-08-15", "institution_id": "CZ-DD",
+      "recipient_en": "Laura Ramos, Editor-in-Chief of CannaReporter.eu", "reference": "bez samostatného č. j./sp. zn. v dopisu",
+      "case_ids": [], "document_type": "user_submission",
+      "topics": ["CannaReporter", "Laura Ramos", "EUDA", "Paulo Santos", "THC", "analytické metody"],
+      "public": {"html": null, "pdf": "documents/report-04082026-010/49-dvorak-letter-laura-ramos-cannareporter-euda-2026-08-15.pdf", "sha256": "af8cb4d09ce4bb3e52422df3d40c8f199b711cb03d17720368bcf5817f78a6a0", "verification_status": "sha256_verified"},
+      "relations": [{"type": "reakce_na", "target_id": "doc-eu-euda-2026-08-07-ack-article-265-tfeu"}],
+      "submission_side": "outgoing_from_user_or_alliance", "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Dopis předkládá editorce portugalského CannaReporter.eu paralelu mezi případem Paula Santose a českými spory o srovnatelnost měření THC a informuje o formální výzvě EUDA."
+    },
+    {
       "id": "doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026",
       "user_title": "Stížnost podle § 175 správního řádu proti postupu Kanceláře prezidenta republiky ve sdělení č. j. KPR 5080/2026 ze dne 3. srpna 2026",
       "issue_date": "2026-08-03", "received_date": "2026-08-04", "institution_id": "CZ-CITC",

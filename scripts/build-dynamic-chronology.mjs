@@ -116,14 +116,17 @@ const stateDocuments = mainDocuments
 const outgoingDocuments = mainDocuments.filter(item => item.submission_side === 'outgoing_from_user_or_alliance');
 
 const reactionsByTarget = new Map();
+const precedingByTarget = new Map();
 for (const item of outgoingDocuments) {
   for (const rel of item.relations || []) {
-    if ((rel.type || rel.relation_type) !== 'reakce_na') continue;
+    const type = rel.type || rel.relation_type;
+    const map = type === 'reakce_na' ? reactionsByTarget : type === 'podani_na_ktere_organ_reaguje' ? precedingByTarget : null;
+    if (!map) continue;
     const targetId = rel.target_id || rel.document_id;
     if (!targetId) continue;
-    const bucket = reactionsByTarget.get(targetId) || [];
+    const bucket = map.get(targetId) || [];
     bucket.push(item);
-    reactionsByTarget.set(targetId, bucket);
+    map.set(targetId, bucket);
   }
 }
 
@@ -139,10 +142,15 @@ for (const item of outgoingDocuments) {
   }
 }
 
-const renderInlineReaction = item => {
-  const link = documentLink(item, item.document_type === 'user_submission_attachment' ? 'příloha PDF' : 'reakce PDF');
+const renderInlineReaction = (item, relationLabel = null) => {
+  const linkLabel = item.document_type === 'user_submission_attachment'
+    ? 'příloha PDF'
+    : relationLabel === 'Podání, na které orgán veřejné moci reaguje'
+      ? 'podání PDF'
+      : 'reakce PDF';
+  const link = documentLink(item, linkLabel);
   const target = link.external ? ' target="_blank" rel="noopener"' : '';
-  const label = item.document_type === 'user_submission_attachment' ? 'Příloha' : 'Reakce na podání orgánu veřejné moci';
+  const label = relationLabel || (item.document_type === 'user_submission_attachment' ? 'Příloha' : 'Reakce na podání orgánu veřejné moci');
   return `<span class="chronology-reaction"> · <b>${label}:</b> ${escapeHtml(formatDate(item.issue_date))} · ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a></span>`;
 };
 
@@ -155,7 +163,12 @@ const renderChronologyItem = item => {
     ? `<span class="case-links">Řízení: ${item.case_ids.map(id => `<a href="#${escapeHtml(id)}">${escapeHtml(id)}</a>`).join(', ')}</span>`
     : '';
   const reactions = (reactionsByTarget.get(item.id) || []).sort(compareDocuments);
-  const inline = reactions.map(reaction => {
+  const preceding = (precedingByTarget.get(item.id) || []).sort(compareDocuments);
+  const renderWithAttachments = (entry, label = null) => {
+    const nested = (attachmentsByTarget.get(entry.id) || []).sort(compareDocuments).map(attachment => renderInlineReaction(attachment)).join('');
+    return `${renderInlineReaction(entry, label)}${nested}`;
+  };
+  const inline = preceding.map(entry => renderWithAttachments(entry, 'Podání, na které orgán veřejné moci reaguje')).join('') + reactions.map(reaction => {
     const nested = (attachmentsByTarget.get(reaction.id) || []).sort(compareDocuments).map(renderInlineReaction).join('');
     return `${renderInlineReaction(reaction)}${nested}`;
   }).join('');

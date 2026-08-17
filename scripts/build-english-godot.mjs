@@ -69,13 +69,14 @@ const translateRoute = value => routeTranslations.get(value) || value;
 const timersByDocument = new Map(timers.timers.filter(item => item.source_document_id).map(item => [item.source_document_id, item]));
 
 const reactionsByTarget = new Map();
+const precedingByTarget = new Map();
 const attachmentsByTarget = new Map();
 for (const item of outgoingDocuments) {
   for (const relation of item.relations || []) {
     const type = relation.type || relation.relation_type;
     const targetId = relation.target_id || relation.document_id;
     if (!targetId) continue;
-    const map = type === 'reakce_na' ? reactionsByTarget : type === 'priloha_k' ? attachmentsByTarget : null;
+    const map = type === 'reakce_na' ? reactionsByTarget : type === 'podani_na_ktere_organ_reaguje' ? precedingByTarget : type === 'priloha_k' ? attachmentsByTarget : null;
     if (!map) continue;
     const bucket = map.get(targetId) || [];
     bucket.push(item);
@@ -85,14 +86,14 @@ for (const item of outgoingDocuments) {
 
 const sourceLink = item => {
   const published = item.public || {};
-  if (published.pdf) return `<a href="${escapeHtml(publicPath(published.pdf))}" target="_blank" rel="noopener">Original Czech PDF</a>`;
+  if (published.pdf) return `<a href="${escapeHtml(publicPath(published.pdf))}" target="_blank" rel="noopener">${item.language === 'en' ? 'Original English PDF' : 'Original Czech PDF'}</a>`;
   if (published.html) return `<a href="${escapeHtml(publicPath(published.html))}">Czech evidence record</a>`;
   return `<a href="listiny/${escapeHtml(item.id)}.html">Czech evidence record</a>`;
 };
 
 const reactionCard = (item, label = 'Subsequent filing') => {
   const timer = timersByDocument.get(item.id);
-  const relation = (item.relations || []).find(rel => (rel.type || rel.relation_type) === 'reakce_na');
+  const relation = (item.relations || []).find(rel => ['reakce_na', 'podani_na_ktere_organ_reaguje'].includes(rel.type || rel.relation_type));
   const targetDocument = relation ? documentsById.get(relation.target_id || relation.document_id) : null;
   const to = timer?.recipient
     ? translateRoute(timer.recipient)
@@ -107,12 +108,17 @@ const reactionCard = (item, label = 'Subsequent filing') => {
 };
 
 const chronologyItem = item => {
+  const preceding = (precedingByTarget.get(item.id) || []).sort(compareDocuments);
   const reactions = (reactionsByTarget.get(item.id) || []).sort(compareDocuments);
+  const precedingHtml = preceding.map(entry => {
+    const attachments = (attachmentsByTarget.get(entry.id) || []).sort(compareDocuments).map(attachment => reactionCard(attachment, 'Czech-language version')).join('');
+    return `${reactionCard(entry, 'Filing to which the authority responded')}${attachments}`;
+  }).join('');
   const reactionHtml = reactions.map(reaction => {
     const attachments = (attachmentsByTarget.get(reaction.id) || []).sort(compareDocuments).map(attachment => reactionCard(attachment, 'Evidentiary annex')).join('');
     return `${reactionCard(reaction)}${attachments}`;
   }).join('');
-  return `<li id="en-${escapeHtml(item.id)}" data-document-id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}"><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p><p><b>From:</b> ${escapeHtml(translations.institutions[item.institution_id])}</p><p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p><p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)} · <a href="zpravy/04082026-010.html#${escapeHtml(item.id)}" hreflang="cs">Czech chronology entry</a></p>${reactionHtml}</li>`;
+  return `<li id="en-${escapeHtml(item.id)}" data-document-id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}"><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p><p><b>From:</b> ${escapeHtml(translations.institutions[item.institution_id])}</p><p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p><p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)} · <a href="zpravy/04082026-010.html#${escapeHtml(item.id)}" hreflang="cs">Czech chronology entry</a></p>${precedingHtml}${reactionHtml}</li>`;
 };
 
 const chronology = stateDocuments.map(chronologyItem).join('');
@@ -131,7 +137,7 @@ const courtProceedingsHtml = courtProceedings.map(([date, id, label]) => `<artic
 const currentEnglishDate = new Intl.DateTimeFormat('en-GB', {
   day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Prague'
 }).format(new Date()).toLocaleUpperCase('en-GB');
-const linkedOutgoingIds = new Set([...reactionsByTarget.values(), ...attachmentsByTarget.values()].flat().map(item => item.id));
+const linkedOutgoingIds = new Set([...reactionsByTarget.values(), ...precedingByTarget.values(), ...attachmentsByTarget.values()].flat().map(item => item.id));
 const unlinkedOutgoing = outgoingDocuments.filter(item => !linkedOutgoingIds.has(item.id)).sort(compareDocuments);
 const unlinkedSection = unlinkedOutgoing.length
   ? `<section><h2>Additional tracked filings without an explicit reaction link</h2><p>These filings are translated and retained separately because the canonical registry does not identify a specific state record to which they should be attached.</p>${unlinkedOutgoing.map(item => reactionCard(item, 'Separately tracked filing')).join('')}</section>`
@@ -142,4 +148,4 @@ const html = `<!doctype html>
 <main class="article-shell"><article><header class="article-header"><p class="kicker">GODOT ONLINE · COMPLETE ENGLISH CHRONOLOGY</p><h1>A time for the state to love — Godot online</h1><p class="standfirst">A complete English rendering of 67 source-linked records issued by Czech state bodies and public institutions from 1 May 2026.</p><div class="score score-red"><strong>67/67</strong><span>PUBLIC RECORDS TRANSLATED · CZECH SOURCES CONTROL</span></div><div class="news-meta"><span>From 1 May 2026</span><span>Author: Mgr. Dušan Dvořák</span></div></header><div class="article-body"><section class="evidence-boundary"><h2>Evidence boundary</h2><p>The Czech official records and linked Czech PDFs remain the controlling sources. This page translates the project’s factual descriptions; it does not replace the originals or provide legal advice.</p><p>A transfer, referral, acknowledgement, review or opening of a proceeding is reported as a procedural act. It is not presented as proof of wrongdoing or as a prediction of the final outcome.</p><p>For subsequent filings, <b>To</b> identifies the receiving authority, while <b>For</b> identifies a separately documented authority expected to decide or substantively handle the filing. “For” is omitted when no distinct authority is documented.</p></section><section><h2>Active court proceedings since 1 May 2026</h2><div class="live-docket-links">${courtProceedingsHtml}</div></section><h2 id="chronology">Proceedings from 1 May 2026 — when will Godot arrive?</h2><ol class="english-chronology" data-english-chronology-count="${stateDocuments.length}">${chronology}</ol>${unlinkedSection}</div></article></main><footer><div class="brand"><b>CannaInsider.EU</b><span>INTERNATIONAL EVIDENCE REPORTER</span></div><p><b>Operator: Cannabis is The Cure, z. s.</b></p><p>Czech official records remain controlling. Human review is required before relying on a translation.</p></footer></body></html>`;
 
 await writeFile(targetPath, html, 'utf8');
-console.log(`English Godot: ${stateDocuments.length}/67 public records and ${outgoingDocuments.length}/20 translated outgoing filings (${unlinkedOutgoing.length} separately tracked).`);
+console.log(`English Godot: ${stateDocuments.length}/67 public records and ${outgoingDocuments.length}/23 translated outgoing filings (${unlinkedOutgoing.length} separately tracked).`);

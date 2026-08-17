@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-08-17T09:09:02.997Z",
+  "generated_at": "2026-08-17T10:09:21.151Z",
   "active_pdf_policy": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
   "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
   "ownership_axiom": "user-named-pdf-never-state-original",
   "override_registry": "project-memory/pdf-link-overrides.json",
-  "physical_pdf_count": 103,
-  "usable_physical_pdf_count": 102,
+  "physical_pdf_count": 106,
+  "usable_physical_pdf_count": 105,
   "invalid_physical_files": [
     "web/documents/report-25072026-007/18-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf"
   ],
   "source_manifest_pdf_count": 22,
-  "linked_pdf_count": 69,
+  "linked_pdf_count": 72,
   "newly_linked": [],
   "override_changes": [
     {

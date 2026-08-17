@@ -176,6 +176,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: chyběla kanonická vazba `reakce_na` a přesná kontrola cílové položky i veřejné PDF cesty.
 - Pojistka: každá reakce má stabilní ID, vazbu `reakce_na`, hashově ověřené PDF a anglický popis. Build vyžaduje jednu reakci pod položkou 47 a všech sedm reakcí pod položkou 67, včetně přesných aktivních PDF odkazů; chronologie vždy začíná polem `Datum`.
 
+### Předchozí podání bylo chybně zaměnitelné za odpověď orgánu
+
+- Projev: PDF formální výzvy mohlo být označeno jako odpověď EUDA, přestože jde o podání, na které EUDA teprve reagovala.
+- Příčina: chronologie uměla vykreslit pouze následnou vazbu `reakce_na`, nikoli opačný směr.
+- Pojistka: kanonická vazba `podani_na_ktere_organ_reaguje` se vykresluje samostatným popiskem „Podání, na které orgán veřejné moci reaguje“; validační skript u položky 59 vyžaduje anglickou i českou výzvu a oddělenou následnou reakci s přesnými PDF odkazy.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.

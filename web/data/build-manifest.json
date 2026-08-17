@@ -1,6 +1,6 @@
 {
   "schema_version": "2.2",
-  "generated_at": "2026-08-17T09:09:05.113Z",
+  "generated_at": "2026-08-17T10:09:23.786Z",
   "build_entrypoint": "scripts/build-site.mjs",
   "canonical_sources": {
     "documents": "project-memory/documents-2026.json",
@@ -26,14 +26,14 @@
   "godot_pdf_audit": "data/godot-pdf-audit.json",
   "process_timers": "data/process-timers.json",
   "counts": {
-    "documents": 87,
+    "documents": 90,
     "institutions": 42,
     "cases": 7,
     "deadlines": 0,
     "process_timers": 21,
     "chronology_items": 67,
-    "public_pdf_links": 69,
-    "physical_pdf_files": 103,
+    "public_pdf_links": 72,
+    "physical_pdf_files": 106,
     "unresolved_pdf_matches": 0,
     "eligible_institution_documents": 52,
     "eligible_with_active_pdf": 52,
@@ -42,7 +42,7 @@
     "registry_hard_errors": 0,
     "registry_human_review_required": 18,
     "state_public_submissions": 67,
-    "our_submissions": 20,
+    "our_submissions": 23,
     "unclassified_submission_side": 0,
     "submission_classification_human_review_required": 0
   },
@@ -175,6 +175,9 @@
     "documents/report-04082026-010/42-dvorak-seste-doplneni-predzalobni-vyzvy-nsz-2026-08-15.pdf",
     "documents/report-04082026-010/43-dvorak-doplneni-zaloby-15-a-44-2026-2026-08-15.pdf",
     "documents/report-04082026-010/45-citc-stiznost-kpr-5080-2026-2026-08-03.pdf",
-    "documents/report-04082026-010/46-dvorak-souhrnna-zprava-kpr-milost-amnestie-2026-08-15.pdf"
+    "documents/report-04082026-010/46-dvorak-souhrnna-zprava-kpr-milost-amnestie-2026-08-15.pdf",
+    "documents/report-04082026-010/47-citc-formal-call-euda-article-265-tfeu-2026-08-07-en.pdf",
+    "documents/report-04082026-010/48-citc-formalni-vyzva-euda-cl-265-sfeu-2026-08-07-cs.pdf",
+    "documents/report-04082026-010/49-dvorak-letter-laura-ramos-cannareporter-euda-2026-08-15.pdf"
   ]
 }

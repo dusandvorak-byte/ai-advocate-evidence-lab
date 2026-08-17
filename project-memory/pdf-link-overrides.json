@@ -123,6 +123,21 @@
       "document_id": "doc-cz-dd-2026-08-15-souhrnna-zprava-kpr-milost-amnestie",
       "pdf": "documents/report-04082026-010/46-dvorak-souhrnna-zprava-kpr-milost-amnestie-2026-08-15.pdf",
       "reason": "Přesné souhrnné podání bylo ověřeno SHA-256 a0f1367d11af16093eb8471a1b0d7b3588c38afaf1fe232d1c8519cb36565d62."
+    },
+    {
+      "document_id": "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-en",
+      "pdf": "documents/report-04082026-010/47-citc-formal-call-euda-article-265-tfeu-2026-08-07-en.pdf",
+      "reason": "Anglická formální výzva EUDA byla ověřena SHA-256 4610354fba0177c3f4f86ce0a95d11501a38c721d139012ebb34dc739aa772ee."
+    },
+    {
+      "document_id": "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-cs",
+      "pdf": "documents/report-04082026-010/48-citc-formalni-vyzva-euda-cl-265-sfeu-2026-08-07-cs.pdf",
+      "reason": "Česká verze formální výzvy EUDA byla ověřena SHA-256 20cb3d21353f6722376ba7446e8a97965693eacd817b13f9ae7dbc947cbcb67f."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-15-dopis-laura-ramos-cannareporter-euda",
+      "pdf": "documents/report-04082026-010/49-dvorak-letter-laura-ramos-cannareporter-euda-2026-08-15.pdf",
+      "reason": "Dopis Lauře Ramos byl ověřen SHA-256 af8cb4d09ce4bb3e52422df3d40c8f199b711cb03d17720368bcf5817f78a6a0."
     }
   ]
 }

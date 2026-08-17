@@ -176,7 +176,7 @@ if (!englishGodot.includes(`<header class="topline"><span>${expectedEnglishDate}
 if (!englishGodot.includes('data-english-chronology-count="67"') || englishGodotRecords !== 67) {
   throw new Error(`Anglický Godot nemá úplných 67 záznamů: ${englishGodotRecords}`);
 }
-if (englishGodotOutgoing !== 20) throw new Error(`Anglický Godot nemá všech 20 navazujících podání: ${englishGodotOutgoing}`);
+if (englishGodotOutgoing !== 23) throw new Error(`Anglický Godot nemá všech 23 navazujících podání: ${englishGodotOutgoing}`);
 const chronologyBlock = id => {
   const start = czechGodot.indexOf(`<li id="${id}"`);
   const end = start < 0 ? -1 : czechGodot.indexOf('</li>', start);
@@ -185,6 +185,7 @@ const chronologyBlock = id => {
 };
 const item47 = chronologyBlock('doc-cz-osz-pro-2026-07-28-zn-4-2026-6');
 const item56 = chronologyBlock('doc-cz-kpr-2026-08-03-kpr-5080-2026');
+const item59 = chronologyBlock('doc-eu-euda-2026-08-07-ack-article-265-tfeu');
 const item67 = chronologyBlock('doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd');
 const expectedItem47Pdf = '44-dvorak-zadost-soucinnost-osz-prostejov-2026-08-15.pdf';
 const expectedItem67Pdfs = [
@@ -203,6 +204,11 @@ for (const pdf of ['45-citc-stiznost-kpr-5080-2026-2026-08-03.pdf', '46-dvorak-s
 for (const pdf of expectedItem67Pdfs) if (!item67.includes(pdf)) throw new Error(`Položce 67 chybí aktivní PDF reakce: ${pdf}`);
 if ((item47.match(/Reakce na podání orgánu veřejné moci:/g) || []).length !== 1) throw new Error('Položka 47 nemá právě jednu požadovanou reakci');
 if ((item56.match(/Reakce na podání orgánu veřejné moci:/g) || []).length !== 2) throw new Error('Položka 56 nemá právě dvě požadované reakce');
+for (const pdf of ['47-citc-formal-call-euda-article-265-tfeu-2026-08-07-en.pdf', '48-citc-formalni-vyzva-euda-cl-265-sfeu-2026-08-07-cs.pdf', '49-dvorak-letter-laura-ramos-cannareporter-euda-2026-08-15.pdf']) {
+  if (!item59.includes(pdf)) throw new Error(`Položce 59 chybí aktivní PDF: ${pdf}`);
+}
+if ((item59.match(/Podání, na které orgán veřejné moci reaguje:/g) || []).length !== 1) throw new Error('Položka 59 nemá právě jednu předchozí výzvu EUDA');
+if ((item59.match(/Reakce na podání orgánu veřejné moci:/g) || []).length !== 1) throw new Error('Položka 59 nemá právě jednu následnou reakci');
 if ((item67.match(/Reakce na podání orgánu veřejné moci:/g) || []).length !== 7) throw new Error('Položka 67 nemá právě sedm požadovaných reakcí');
 if (!item47.includes('<b>Datum:</b>') || item47.indexOf('<b>Datum:</b>') > item47.indexOf('<b>Kdo:</b>')) throw new Error('Chronologie nezačíná polem Datum');
 for (const match of englishHome.matchAll(/href="news\/04082026-010\.html#en-([^"]+)"/g)) {

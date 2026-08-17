@@ -2165,10 +2165,113 @@
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship",
       "evidence_note": "Souhrnné podání předkládá prezidentu republiky a KPR vývoj do 15. srpna 2026 jako podporu žádosti o individuální milost a širší humanitární posouzení; nové listiny nepředkládá jako automatický důkaz nezákonnosti každého dřívějšího odsouzení."
+    },
+    {
+      "id": "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-en",
+      "user_title": "Anglická formální výzva European Union Drugs Agency k jednání podle čl. 265 SFEU ve věci srovnatelnosti analytických metod stanovení THC",
+      "issue_date": "2026-08-07",
+      "received_date": "2026-08-07",
+      "institution_id": "CZ-CITC",
+      "recipient_en": "European Union Drugs Agency",
+      "reference": "bez samostatného č. j./sp. zn. v podání",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "EUDA",
+        "čl. 265 SFEU",
+        "THC",
+        "THCA",
+        "analytické metody"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/47-citc-formal-call-euda-article-265-tfeu-2026-08-07-en.pdf",
+        "sha256": "4610354fba0177c3f4f86ce0a95d11501a38c721d139012ebb34dc739aa772ee",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "podani_na_ktere_organ_reaguje",
+          "target_id": "doc-eu-euda-2026-08-07-ack-article-265-tfeu"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Anglická výzva žádá EUDA o výkon jejích vlastních úkolů podle nařízení (EU) 2023/1322 v oblasti vědecké kvality, srovnatelnosti a harmonizace analytických metod; nežádá zásah do pravomoci českých soudů.",
+      "language": "en"
+    },
+    {
+      "id": "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-cs",
+      "user_title": "Česká verze formální výzvy EUDA k jednání podle čl. 265 SFEU",
+      "issue_date": "2026-08-07",
+      "received_date": "2026-08-07",
+      "institution_id": "CZ-CITC",
+      "recipient_en": "European Union Drugs Agency",
+      "reference": "česká jazyková verze",
+      "case_ids": [],
+      "document_type": "user_submission_attachment",
+      "topics": [
+        "EUDA",
+        "čl. 265 SFEU",
+        "česká verze"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/48-citc-formalni-vyzva-euda-cl-265-sfeu-2026-08-07-cs.pdf",
+        "sha256": "20cb3d21353f6722376ba7446e8a97965693eacd817b13f9ae7dbc947cbcb67f",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-en"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Česká jazyková verze téže formální výzvy EUDA ze dne 7. srpna 2026.",
+      "language": "cs"
+    },
+    {
+      "id": "doc-cz-dd-2026-08-15-dopis-laura-ramos-cannareporter-euda",
+      "user_title": "Dopis editorce CannaReporter.eu Lauře Ramos o případu Paula Santose, měření THC a formální výzvě EUDA",
+      "issue_date": "2026-08-15",
+      "received_date": "2026-08-15",
+      "institution_id": "CZ-DD",
+      "recipient_en": "Laura Ramos, Editor-in-Chief of CannaReporter.eu",
+      "reference": "bez samostatného č. j./sp. zn. v dopisu",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "CannaReporter",
+        "Laura Ramos",
+        "EUDA",
+        "Paulo Santos",
+        "THC",
+        "analytické metody"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/49-dvorak-letter-laura-ramos-cannareporter-euda-2026-08-15.pdf",
+        "sha256": "af8cb4d09ce4bb3e52422df3d40c8f199b711cb03d17720368bcf5817f78a6a0",
+        "verification_status": "published",
+        "source_manifest": "project-memory/pdf-link-overrides.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-eu-euda-2026-08-07-ack-article-265-tfeu"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Dopis předkládá editorce portugalského CannaReporter.eu paralelu mezi případem Paula Santose a českými spory o srovnatelnost měření THC a informuje o formální výzvě EUDA."
     }
   ],
   "reconciliation": {
-    "updated_at": "2026-08-17T09:09:02.996Z",
+    "updated_at": "2026-08-17T10:09:21.149Z",
     "active_pdf_policy": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
     "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
     "ownership_axiom": "user-named-pdf-never-state-original",
@@ -2179,10 +2282,10 @@
       "project-memory/report-20260812-explicit-pdf-owners-sources.json"
     ],
     "override_registry": "project-memory/pdf-link-overrides.json",
-    "physical_pdf_count": 103,
-    "usable_physical_pdf_count": 102,
+    "physical_pdf_count": 106,
+    "usable_physical_pdf_count": 105,
     "invalid_physical_pdf_count": 1,
-    "linked_pdf_count": 69,
+    "linked_pdf_count": 72,
     "newly_linked_count": 0,
     "override_change_count": 9,
     "invalidated_link_count": 0,
@@ -2192,19 +2295,19 @@
     "required_without_active_pdf_count": 0
   },
   "normalization": {
-    "updated_at": "2026-08-17T09:09:02.765Z",
+    "updated_at": "2026-08-17T10:09:20.782Z",
     "rule": "Kanonická pracovní množina vzniká výhradně z document-sources.json. Všechny zdroje se slučují podle stabilního ID; veřejné výstupy a čítače nesmějí udržovat vlastní paralelní seznam dokumentů.",
     "source_manifest": "project-memory/document-sources.json",
     "source_count": 7,
-    "source_documents_before_deduplication": 116,
-    "merged_document_count": 87,
+    "source_documents_before_deduplication": 122,
+    "merged_document_count": 90,
     "institution_aliases": {
       "CZ-OSZ-PRO": "CZ-OSZ-PV",
       "CZ-PCR-KRPM": "CZ-PCR-KRPO"
     },
     "filled_user_titles_from_existing_title": 0,
     "incoming_from_state_or_public_institution": 67,
-    "outgoing_from_user_or_alliance": 20,
+    "outgoing_from_user_or_alliance": 23,
     "unclassified": 0
   },
   "canonical_sources_manifest": "project-memory/document-sources.json",
