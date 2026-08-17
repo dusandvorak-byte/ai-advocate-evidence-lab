@@ -84,7 +84,7 @@ home = home.replace(/<div class="news-stack">[\s\S]*?<\/div>\s*<\/section>/, `<d
   <article class="news-card"><p class="kicker">24. 7. 2026 · REPORT 24072026-006</p><h3><a href="zpravy/24072026-006.html">Konopná církev nechce zázrak. Chce rozhodnutí</a></h3><div class="news-meta"><span>8/9 · Vysoká relevance</span></div></article>
 </div></section>`);
 
-home = home.replace(/data-exclude-ids="[^"]*"/, 'data-exclude-ids="15082026-012 04082026-010 24072026-006"');
+home = home.replace(/data-exclude-ids="[^"]*"/, 'data-exclude-ids="04082026-010 24072026-006"');
 if (!home.includes('<link rel="stylesheet" href="live-dockets.css">')) home = home.replace('</head>', '  <link rel="stylesheet" href="live-dockets.css">\n</head>');
 if (!home.includes('<script src="live-dockets.js" defer></script>')) home = home.replace('</body>', '  <script src="live-dockets.js" defer></script>\n</body>');
 // Každý globální vstup do Godota vede přímo na chronologii Státu lásky čas.

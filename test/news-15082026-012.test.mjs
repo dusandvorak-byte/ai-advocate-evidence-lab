@@ -30,6 +30,8 @@ for (const [_, href] of pastoralLinks) {
 assert.match(article, /<a href="\/ai-advocate-evidence-lab\/zpravy\/22072026-002\.html"><b>Více o kauze 45 T 1\/2024 a námitkách aliance Cannabis is The Cure na CannaInsider\.EU<\/b><\/a>/);
 assert.match(feed, /id: '15082026-012'/);
 assert.match(feed, /hrefEn: 'news\/15082026-012\.html'/);
+assert.match(feed, /Deset pastýřských listů gubernátorům protektorátu k oslavě Nanebevzetí dne 15\. srpna 2026, pražské soudní termíny ve věci 45 T 1\/2024 a pozvánka na Noc básníků\./);
+assert.ok(feed.indexOf("id: '15082026-012'") < feed.indexOf("id: '07082026-011'"), 'Zpráva z 15. srpna musí být před zprávou ze 7. srpna');
 assert.match(archive, /REPORT 15082026-012/);
 assert.match(churchSync, /zpravy\/15082026-012\.html/);
 assert.match(englishBuilder, /id: '15082026-012'/);

@@ -10,7 +10,7 @@ const cannaNews = [
     score: '9/9',
     titleCs: 'Desatero pastýřských listů z Evropy u Ospělova',
     titleEn: 'Ten pastoral letters from Europe near Ospělov',
-    summaryCs: 'Deset pastýřských listů ze dne 15. srpna 2026 k oslavě Nanebevzetí Panny Marie, soudní termíny ve věci 45 T 1/2024 a pozvánka na Noc básníků.',
+    summaryCs: 'Deset pastýřských listů gubernátorům protektorátu k oslavě Nanebevzetí dne 15. srpna 2026, pražské soudní termíny ve věci 45 T 1/2024 a pozvánka na Noc básníků.',
     summaryEn: 'Ten pastoral letters celebrating the Assumption on 15 August 2026, hearing dates in case 45 T 1/2024 and an invitation to the Night of Poets.',
     keywordsCs: 'Konopná církev pastýřské listy Nanebevzetí Panny Marie Ospělov Noc básníků 45 T 1/2024',
     keywordsEn: 'Church of Cannabis pastoral letters Assumption Ospelov Night of Poets 45 T 1/2024',
