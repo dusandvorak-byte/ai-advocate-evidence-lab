@@ -4,6 +4,20 @@
  */
 const cannaNews = [
   {
+    id: '15082026-012',
+    dateCs: '15. 8. 2026',
+    dateEn: '15 August 2026',
+    score: '9/9',
+    titleCs: 'Desatero pastýřských listů z Evropy u Ospělova',
+    titleEn: 'Ten pastoral letters from Europe near Ospělov',
+    summaryCs: 'Deset podání ze dne 15. srpna 2026, autorská satirická stylizace, soudní termíny ve věci 45 T 1/2024 a pozvánka na Noc básníků.',
+    summaryEn: 'Ten filings dated 15 August 2026, authorial satire, hearing dates in case 45 T 1/2024 and an invitation to the Night of Poets.',
+    keywordsCs: 'Konopná církev pastýřské listy Nanebevzetí Panny Marie Ospělov Noc básníků 45 T 1/2024',
+    keywordsEn: 'Church of Cannabis pastoral letters Assumption Ospelov Night of Poets 45 T 1/2024',
+    href: 'zpravy/15082026-012.html',
+    hrefEn: null
+  },
+  {
     id: '07082026-011',
     dateCs: '7. 8. 2026',
     dateEn: '7 August 2026',
@@ -142,12 +156,16 @@ if (feed) {
       .filter(Boolean)
   );
   const visibleNews = cannaNews.filter(item => !excluded.has(item.id));
-  feed.innerHTML = visibleNews.map(item => `
+  feed.innerHTML = visibleNews.map(item => {
+    const target = english ? (item.hrefEn || item.href) : item.href;
+    const languageHint = english && !item.hrefEn ? ' hreflang="cs"' : '';
+    return `
     <article class="news-card">
       <p class="kicker">${english ? item.dateEn : item.dateCs} · REPORT ${item.id}</p>
-      <h2><a href="${english ? item.hrefEn : item.href}">${english ? item.titleEn : item.titleCs}</a></h2>
+      <h2><a href="${target}"${languageHint}>${english ? item.titleEn : item.titleCs}</a></h2>
       <p>${english ? item.summaryEn : item.summaryCs}</p>
       <div class="news-meta"><span>${item.score}</span></div>
     </article>
-  `).join('');
+  `;
+  }).join('');
 }

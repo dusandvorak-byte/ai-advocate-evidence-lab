@@ -10,6 +10,21 @@ for (const relativePath of htmlFiles) {
   if (!html.includes('</head>') || !html.includes('</body>')) continue;
   eligible += 1;
   const before = html;
+  const languageCssTags = html.match(/<link[^>]+href="(?:\/ai-advocate-evidence-lab\/)?language-menu\.css"[^>]*>/g) || [];
+  if (languageCssTags.length > 1) {
+    let kept = false;
+    html = html.replace(/<link[^>]+href="(?:\/ai-advocate-evidence-lab\/)?language-menu\.css"[^>]*>/g, tag => kept ? '' : (kept = true, tag));
+  }
+  const latestRecordCssTags = html.match(/<link[^>]+href="(?:\/ai-advocate-evidence-lab\/)?latest-records\.css"[^>]*>/g) || [];
+  if (latestRecordCssTags.length > 1) {
+    let kept = false;
+    html = html.replace(/<link[^>]+href="(?:\/ai-advocate-evidence-lab\/)?latest-records\.css"[^>]*>/g, tag => kept ? '' : (kept = true, tag));
+  }
+  const translationTags = html.match(/<script[^>]+src="(?:\/ai-advocate-evidence-lab\/)?auto-translate\.js(?:\?v=[^"]*)?"[^>]*><\/script>/g) || [];
+  if (translationTags.length > 1) {
+    let kept = false;
+    html = html.replace(/<script[^>]+src="(?:\/ai-advocate-evidence-lab\/)?auto-translate\.js(?:\?v=[^"]*)?"[^>]*><\/script>/g, tag => kept ? '' : (kept = true, tag));
+  }
   if (!html.includes('language-menu.css')) {
     html = html.replace('</head>', '<link rel="stylesheet" href="/ai-advocate-evidence-lab/language-menu.css"></head>');
   }

@@ -60,17 +60,17 @@ function removeSectionById(html, id) {
 }
 
 let home = await readFile(homePath, 'utf8');
-home = home.replace(/<section class="newsroom-alert" id="prave-ted">[\s\S]*?<\/section>/, `<section class="newsroom-alert" id="prave-ted"><b>HLAVNÍ ZPRÁVA DNE</b><span>EUDA dne 7. srpna 2026 potvrdila přijetí formální výzvy podle čl. 265 SFEU.</span><a href="zpravy/07082026-011.html">Číst celý článek →</a></section>`);
+home = home.replace(/<section class="newsroom-alert" id="prave-ted">[\s\S]*?<\/section>/, `<section class="newsroom-alert" id="prave-ted"><b>HLAVNÍ ZPRÁVA DNE</b><span>Desatero pastýřských listů ze dne 15. srpna 2026 propojuje deset podání s jejich veřejnými PDF.</span><a href="zpravy/15082026-012.html">Číst celý článek →</a></section>`);
 
 const leadCard = `<article class="lead-card">
   <figure><img src="assets/votruba/write-lawmakers.jpg" alt="Černobílá kresba Jiřího Votruby: ruka zapisuje zprávu"><figcaption>Jiří Votruba</figcaption></figure>
-  <div><p class="kicker">HLAVNÍ ZPRÁVA DNE · CANNAINSIDER NEWS · 7. 8. 2026 · EVROPSKÁ VĚTEV · REPORT 07082026-011</p>
-  <h1><a href="zpravy/07082026-011.html">Lorraine Nolan s láskou</a></h1>
-  <p class="standfirst">EUDA potvrdila přijetí formální výzvy k jednání podle čl. 265 SFEU. Evropská větev sleduje srovnatelnost analytických metod stanovení THC a THC/THCA.</p>
-  <div class="score score-red"><strong>9/9</strong><span>EVROPSKÁ PROCESNÍ VĚTEV · FORMÁLNÍ VÝZVA K JEDNÁNÍ</span></div>
-  <div class="news-meta"><span>7. 8. 2026</span><span>EUDA</span><span>čl. 265 SFEU</span><span>Česká autorská verze</span></div></div>
+  <div><p class="kicker">HLAVNÍ ZPRÁVA DNE · CANNAINSIDER.EU NEWS · 15. 8. 2026 · PASTÝŘSKÉ LISTY · REPORT 15082026-012</p>
+  <h1><a href="zpravy/15082026-012.html">Desatero pastýřských listů z Evropy u Ospělova</a></h1>
+  <p class="standfirst">Deset podání s aktivními PDF, soudní termíny ve věci 45 T 1/2024 a pozvánka na Noc básníků 21. srpna.</p>
+  <div class="score score-red"><strong>9/9</strong><span>AUTORSKÝ KOMENTÁŘ · DOLOŽENÁ PODÁNÍ · LIDSKÁ KONTROLA</span></div>
+  <div class="news-meta"><span>15. 8. 2026</span><span>Konopná církev</span><span>10 podání v PDF</span><span>Jiří Votruba</span></div></div>
 </article>`;
-const leadRollup = `<details class="home-rollup home-rollup-heavy lead-rollup"><summary><span class="rollup-title">ZPRÁVA DNE · CANNAINSIDER.EU NEWS · 7. 8. 2026 · EVROPSKÁ VĚTEV · REPORT 07082026-011 →</span><span class="rollup-prompt"></span><span class="rollup-heart">❤️</span><b>Rozbalit →</b></summary>${leadCard}</details>`;
+const leadRollup = `<details class="home-rollup home-rollup-heavy lead-rollup"><summary><span class="rollup-title">ZPRÁVA DNE · CANNAINSIDER.EU NEWS · 15. 8. 2026 · PASTÝŘSKÉ LISTY · REPORT 15082026-012 →</span><span class="rollup-prompt"></span><span class="rollup-heart">❤️</span><b>Rozbalit →</b></summary>${leadCard}</details>`;
 
 home = home.replace(/<details class="home-rollup home-rollup-heavy lead-rollup">[\s\S]*?<\/details>/, leadRollup);
 if (!home.includes('class="home-rollup home-rollup-heavy lead-rollup"')) {
@@ -84,7 +84,7 @@ home = home.replace(/<div class="news-stack">[\s\S]*?<\/div>\s*<\/section>/, `<d
   <article class="news-card"><p class="kicker">24. 7. 2026 · REPORT 24072026-006</p><h3><a href="zpravy/24072026-006.html">Konopná církev nechce zázrak. Chce rozhodnutí</a></h3><div class="news-meta"><span>8/9 · Vysoká relevance</span></div></article>
 </div></section>`);
 
-home = home.replace(/data-exclude-ids="[^"]*"/, 'data-exclude-ids="07082026-011 04082026-010 24072026-006"');
+home = home.replace(/data-exclude-ids="[^"]*"/, 'data-exclude-ids="15082026-012 04082026-010 24072026-006"');
 if (!home.includes('<link rel="stylesheet" href="live-dockets.css">')) home = home.replace('</head>', '  <link rel="stylesheet" href="live-dockets.css">\n</head>');
 if (!home.includes('<script src="live-dockets.js" defer></script>')) home = home.replace('</body>', '  <script src="live-dockets.js" defer></script>\n</body>');
 // Každý globální vstup do Godota vede přímo na chronologii Státu lásky čas.
