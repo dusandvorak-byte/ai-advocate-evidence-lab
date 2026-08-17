@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-17T10:09:23.771Z",
+  "generated_at": "2026-08-17T13:52:07.120Z",
   "article": "web/zpravy/04082026-010.html",
   "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
   "active_pdf_scope": [
@@ -33,7 +33,7 @@
     "CZ-CSSZ"
   ],
   "document_exception_count": 3,
-  "article_pdf_link_count": 70,
+  "article_pdf_link_count": 72,
   "broken_article_pdf_link_count": 0,
   "broken_article_pdf_links": [],
   "eligible_institution_document_count": 52,
@@ -44,7 +44,7 @@
   "required_with_active_pdf_count": 52,
   "required_without_active_pdf_count": 0,
   "required_without_active_pdf": [],
-  "exempt_document_count": 23,
+  "exempt_document_count": 24,
   "exempt_documents": [
     {
       "id": "doc-cz-exe-lib-2026-05-06-131-ex-8674-15-127",
@@ -115,7 +115,7 @@
       "institution_type": "public_institution",
       "issue_date": "2026-06-01",
       "reference": "CT 338889/2025-38",
-      "has_active_pdf": false,
+      "has_active_pdf": true,
       "exemption_reason": "institution-id-exception"
     },
     {
@@ -252,19 +252,28 @@
       "reference": "15 A 44/2026",
       "has_active_pdf": true,
       "exemption_reason": "institution-type-exception"
+    },
+    {
+      "id": "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
+      "institution_id": "CZ-CT",
+      "institution_type": "public_institution",
+      "issue_date": "2026-08-15",
+      "reference": "CT 338889/2025; 10 C 69/2026",
+      "has_active_pdf": true,
+      "exemption_reason": "institution-id-exception"
     }
   ],
-  "registry_pdf_document_count": 72,
+  "registry_pdf_document_count": 74,
   "invalid_registry_pdf_link_count": 0,
   "invalid_registry_pdf_links": [],
-  "reaction_document_count": 18,
+  "reaction_document_count": 19,
   "missing_rendered_reaction_count": 0,
   "missing_rendered_reactions": [],
   "missing_reaction_pdf_link_count": 0,
   "missing_reaction_pdf_links": [],
-  "repository_pdf_count": 106,
-  "usable_repository_pdf_count": 105,
-  "usable_public_pdf_count": 105,
+  "repository_pdf_count": 108,
+  "usable_repository_pdf_count": 107,
+  "usable_public_pdf_count": 107,
   "usable_pdf_outside_public_tree_count": 0,
   "usable_pdf_outside_public_tree": []
 }

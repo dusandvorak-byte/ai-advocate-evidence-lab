@@ -1,6 +1,18 @@
 {
   "documents": [
     {
+      "id": "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
+      "user_title": "Důrazná stížnost generálnímu řediteli České televize a předsedovi Rady České televize na trvající nečinnost a výzva k věcnému projednání a smírnému řešení",
+      "issue_date": "2026-08-15", "received_date": "2026-08-15", "institution_id": "CZ-CT",
+      "recipient_en": "Director-General of Czech Television and Chair of the Czech Television Council", "reference": "CT 338889/2025; 10 C 69/2026",
+      "case_ids": ["case-cz-os-praha4-10c69-2026"], "document_type": "user_submission",
+      "topics": ["Česká televize", "Rada České televize", "stížnost", "nečinnost", "smír", "THC"],
+      "public": {"html": null, "pdf": "documents/report-04082026-010/51-dvorak-stiznost-ct-rada-ct-necinnost-smir-2026-08-15.pdf", "sha256": "4cd9cddb5cb4749959d07a46ef83f0965d10b4b55aee820dfe2e94d0cfd8849d", "verification_status": "sha256_verified"},
+      "relations": [{"type": "reakce_na", "target_id": "doc-cz-ct-2026-06-01-ct-338889-2025-38"}],
+      "submission_side": "outgoing_from_user_or_alliance", "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Podání je adresováno generálnímu řediteli České televize a předsedovi Rady ČT. Žádá věcné projednání, stanovisko k podkladům a smírné řešení; výslovně uvádí, že nejde o stížnost podle § 175 správního řádu."
+    },
+    {
       "id": "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-en",
       "language": "en",
       "user_title": "Anglická formální výzva European Union Drugs Agency k jednání podle čl. 265 SFEU ve věci srovnatelnosti analytických metod stanovení THC",

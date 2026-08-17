@@ -579,6 +579,24 @@
       "source_document_id": "doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026",
       "href": "zpravy/04082026-010.html#doc-cz-kpr-2026-08-03-kpr-5080-2026",
       "derived_from_canonical_document": true
+    },
+    {
+      "id": "timer-remedy-doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
+      "category": "current_remedies",
+      "title": "Česká televize – Důrazná stížnost generálnímu řediteli České televize a předsedovi Rady České televize na trvající nečinnost a výzva k věcnému projednání a smírnému řešení",
+      "recipient": "Česká televize",
+      "actor": "Mgr. Dušan Dvořák",
+      "reference": "CT 338889/2025; 10 C 69/2026",
+      "start_date": "2026-08-15",
+      "count_from_date": "2026-08-16",
+      "start_date_basis": "Důrazná stížnost generálnímu řediteli České televize a předsedovi Rady České televize na trvající nečinnost a výzva k věcnému projednání a smírnému řešení. Podáno a doručeno dne 2026-08-15; tento den je den 0 a následující den je den 1.",
+      "status": "active_derived_remedy",
+      "limit_kind": "remedy_regime_requires_verified_override",
+      "limit_label": "opravný prostředek – přesná lhůta dle konkrétního procesního režimu",
+      "legal_basis": "Přesná lhůta k vyřízení se odvíjí od konkrétního procesního režimu. Bez doložené číselné lhůty se uvádí pouze běh od evidovaného data.",
+      "source_document_id": "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
+      "href": "zpravy/04082026-010.html#doc-cz-ct-2026-06-01-ct-338889-2025-38",
+      "derived_from_canonical_document": true
     }
   ],
   "historical_notice_points": [
@@ -606,7 +624,7 @@
   "remedy_derivation": {
     "source_manifest": "project-memory/document-sources.json",
     "since": "2026-07-01",
-    "canonical_remedy_documents": 11,
-    "automatically_derived": 6
+    "canonical_remedy_documents": 12,
+    "automatically_derived": 7
   }
 }

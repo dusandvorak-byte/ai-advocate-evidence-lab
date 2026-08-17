@@ -83,7 +83,7 @@ const czechGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!czechGodot.includes(`id="${latestStateRecord.id}"`)) throw new Error('Cíl odkazu Právě teď v českém Godotovi neexistuje');
 if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
 const englishTimerCount = (englishHome.match(/data-timer-id="/g) || []).length;
-if (englishTimerCount !== 38) throw new Error(`Anglická titulní stránka nemá všech 38 časovačů: ${englishTimerCount}`);
+if (englishTimerCount !== 39) throw new Error(`Anglická titulní stránka nemá všech 39 časovačů: ${englishTimerCount}`);
 for (const field of ['When:', 'To:', 'Reference:', 'From:', 'What happened:', 'Time limit / procedural regime:']) {
   if (!englishHome.includes(`<b>${field}</b>`)) throw new Error(`Anglickým časovačům chybí pole ${field}`);
 }
@@ -176,18 +176,23 @@ if (!englishGodot.includes(`<header class="topline"><span>${expectedEnglishDate}
 if (!englishGodot.includes('data-english-chronology-count="67"') || englishGodotRecords !== 67) {
   throw new Error(`Anglický Godot nemá úplných 67 záznamů: ${englishGodotRecords}`);
 }
-if (englishGodotOutgoing !== 23) throw new Error(`Anglický Godot nemá všech 23 navazujících podání: ${englishGodotOutgoing}`);
+if (englishGodotOutgoing !== 24) throw new Error(`Anglický Godot nemá všech 24 navazujících podání: ${englishGodotOutgoing}`);
 const chronologyBlock = id => {
   const start = czechGodot.indexOf(`<li id="${id}"`);
   const end = start < 0 ? -1 : czechGodot.indexOf('</li>', start);
   if (start < 0 || end < 0) throw new Error(`Českému Godotu chybí položka ${id}`);
   return czechGodot.slice(start, end);
 };
+const item13 = chronologyBlock('doc-cz-ct-2026-06-01-ct-338889-2025-38');
 const item47 = chronologyBlock('doc-cz-osz-pro-2026-07-28-zn-4-2026-6');
 const item56 = chronologyBlock('doc-cz-kpr-2026-08-03-kpr-5080-2026');
 const item59 = chronologyBlock('doc-eu-euda-2026-08-07-ack-article-265-tfeu');
 const item67 = chronologyBlock('doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd');
 const expectedItem47Pdf = '44-dvorak-zadost-soucinnost-osz-prostejov-2026-08-15.pdf';
+for (const pdf of ['50-ct-338889-2025-38-odmitnuti-smiru-2026-06-01.pdf', '51-dvorak-stiznost-ct-rada-ct-necinnost-smir-2026-08-15.pdf']) {
+  if (!item13.includes(pdf)) throw new Error(`Položce 13 chybí aktivní PDF: ${pdf}`);
+}
+if ((item13.match(/Reakce na podání orgánu veřejné moci:/g) || []).length !== 1) throw new Error('Položka 13 nemá právě jednu požadovanou reakci');
 const expectedItem67Pdfs = [
   '37-dvorak-doplneni-stiznosti-ministr-vnitra-2026-08-15.pdf',
   '38-dvorak-zadost-prezkum-policejni-prezident-2026-08-15.pdf',

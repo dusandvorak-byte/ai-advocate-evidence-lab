@@ -1,6 +1,6 @@
 {
   "schema_version": "2.2",
-  "generated_at": "2026-08-17T10:09:23.786Z",
+  "generated_at": "2026-08-17T13:52:07.131Z",
   "build_entrypoint": "scripts/build-site.mjs",
   "canonical_sources": {
     "documents": "project-memory/documents-2026.json",
@@ -26,23 +26,23 @@
   "godot_pdf_audit": "data/godot-pdf-audit.json",
   "process_timers": "data/process-timers.json",
   "counts": {
-    "documents": 90,
+    "documents": 91,
     "institutions": 42,
     "cases": 7,
     "deadlines": 0,
     "process_timers": 21,
     "chronology_items": 67,
-    "public_pdf_links": 72,
-    "physical_pdf_files": 106,
+    "public_pdf_links": 74,
+    "physical_pdf_files": 108,
     "unresolved_pdf_matches": 0,
     "eligible_institution_documents": 52,
     "eligible_with_active_pdf": 52,
     "eligible_without_active_pdf": 0,
     "broken_godot_pdf_links": 0,
     "registry_hard_errors": 0,
-    "registry_human_review_required": 18,
+    "registry_human_review_required": 19,
     "state_public_submissions": 67,
-    "our_submissions": 23,
+    "our_submissions": 24,
     "unclassified_submission_side": 0,
     "submission_classification_human_review_required": 0
   },
@@ -112,6 +112,7 @@
     "documents/report-04082026-010/02-ppr-24960-8-cj-2026-990810-2026-05-22.pdf",
     "documents/report-04082026-010/36-ncoz-4324-2-cj-2026-4100pi-2026-05-22.pdf",
     "documents/report-04082026-010/34-mzdr-13429-2026-3-olzp-2026-05-29.pdf",
+    "documents/report-04082026-010/50-ct-338889-2025-38-odmitnuti-smiru-2026-06-01.pdf",
     "documents/report-04082026-010/04-ncoz-4324-4-cj-2026-4100pi-2026-06-01.pdf",
     "documents/report-04082026-010/05-msp-19-2026-odka-roz-7-2026-06-03.pdf",
     "documents/report-04082026-010/06-kpr-4093-2026-2026-06-05.pdf",
@@ -178,6 +179,7 @@
     "documents/report-04082026-010/46-dvorak-souhrnna-zprava-kpr-milost-amnestie-2026-08-15.pdf",
     "documents/report-04082026-010/47-citc-formal-call-euda-article-265-tfeu-2026-08-07-en.pdf",
     "documents/report-04082026-010/48-citc-formalni-vyzva-euda-cl-265-sfeu-2026-08-07-cs.pdf",
-    "documents/report-04082026-010/49-dvorak-letter-laura-ramos-cannareporter-euda-2026-08-15.pdf"
+    "documents/report-04082026-010/49-dvorak-letter-laura-ramos-cannareporter-euda-2026-08-15.pdf",
+    "documents/report-04082026-010/51-dvorak-stiznost-ct-rada-ct-necinnost-smir-2026-08-15.pdf"
   ]
 }

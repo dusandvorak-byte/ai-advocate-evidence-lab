@@ -182,6 +182,11 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: chronologie uměla vykreslit pouze následnou vazbu `reakce_na`, nikoli opačný směr.
 - Pojistka: kanonická vazba `podani_na_ktere_organ_reaguje` se vykresluje samostatným popiskem „Podání, na které orgán veřejné moci reaguje“; validační skript u položky 59 vyžaduje anglickou i českou výzvu a oddělenou následnou reakci s přesnými PDF odkazy.
 
+### Originál úkonu a následná stížnost nesmějí zůstat oddělené
+
+- Projev: položka České televize obsahovala pouze evidenční popis bez originálního PDF a pozdější stížnost nebyla připojena k odmítnutí smíru.
+- Pojistka: položka 13 musí po každém buildu obsahovat hashově ověřené PDF odpovědi ČT ze dne 1. června 2026 a právě jednu následnou reakci ze dne 15. srpna 2026 s vlastním aktivním PDF; stejná vazba se překládá do anglické chronologie.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.

@@ -138,6 +138,16 @@
       "document_id": "doc-cz-dd-2026-08-15-dopis-laura-ramos-cannareporter-euda",
       "pdf": "documents/report-04082026-010/49-dvorak-letter-laura-ramos-cannareporter-euda-2026-08-15.pdf",
       "reason": "Dopis Lauře Ramos byl ověřen SHA-256 af8cb4d09ce4bb3e52422df3d40c8f199b711cb03d17720368bcf5817f78a6a0."
+    },
+    {
+      "document_id": "doc-cz-ct-2026-06-01-ct-338889-2025-38",
+      "pdf": "documents/report-04082026-010/50-ct-338889-2025-38-odmitnuti-smiru-2026-06-01.pdf",
+      "reason": "Odpověď České televize na návrh smíru byla ověřena SHA-256 d3fe12fd3209be4984dcf291f945337d2d7033e94b26561e9c547e1e10850fa8."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
+      "pdf": "documents/report-04082026-010/51-dvorak-stiznost-ct-rada-ct-necinnost-smir-2026-08-15.pdf",
+      "reason": "Stížnost České televizi a Radě ČT byla ověřena SHA-256 4cd9cddb5cb4749959d07a46ef83f0965d10b4b55aee820dfe2e94d0cfd8849d."
     }
   ]
 }

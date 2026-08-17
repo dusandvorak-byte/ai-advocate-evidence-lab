@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-08-17T10:09:21.421Z",
+  "generated_at": "2026-08-17T13:52:06.419Z",
   "hard_error_count": 0,
-  "human_review_count": 18,
+  "human_review_count": 19,
   "counts": {
-    "documents": 90,
+    "documents": 91,
     "institutions": 42,
     "cases": 7,
     "deadlines": 0
@@ -100,6 +100,11 @@
       "type": "missing_case",
       "document_id": "doc-cz-dd-2026-08-15-souhrnna-zprava-kpr-milost-amnestie",
       "case_id": "case-cz-kpr-tri-vetve"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
+      "case_id": "case-cz-os-praha4-10c69-2026"
     }
   ],
   "rule": "Duplicity a neplatné veřejné cesty blokují build. Neúplné vazby se nikdy nedoplňují odhadem a čekají na lidskou kontrolu."

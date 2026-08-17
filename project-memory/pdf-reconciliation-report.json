@@ -1,18 +1,24 @@
 {
-  "generated_at": "2026-08-17T10:09:21.151Z",
+  "generated_at": "2026-08-17T13:52:06.370Z",
   "active_pdf_policy": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
   "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
   "ownership_axiom": "user-named-pdf-never-state-original",
   "override_registry": "project-memory/pdf-link-overrides.json",
-  "physical_pdf_count": 106,
-  "usable_physical_pdf_count": 105,
+  "physical_pdf_count": 108,
+  "usable_physical_pdf_count": 107,
   "invalid_physical_files": [
     "web/documents/report-25072026-007/18-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf"
   ],
   "source_manifest_pdf_count": 22,
-  "linked_pdf_count": 72,
+  "linked_pdf_count": 74,
   "newly_linked": [],
   "override_changes": [
+    {
+      "id": "doc-cz-ct-2026-06-01-ct-338889-2025-38",
+      "previous_pdf": null,
+      "pdf": "documents/report-04082026-010/50-ct-338889-2025-38-odmitnuti-smiru-2026-06-01.pdf",
+      "reason": "Odpověď České televize na návrh smíru byla ověřena SHA-256 d3fe12fd3209be4984dcf291f945337d2d7033e94b26561e9c547e1e10850fa8."
+    },
     {
       "id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
       "previous_pdf": null,
@@ -109,12 +115,6 @@
       "institution_id": "CZ-KS-BRN",
       "reference": "Fj 61060/2026/KSBR",
       "issue_date": "2026-05-22"
-    },
-    {
-      "id": "doc-cz-ct-2026-06-01-ct-338889-2025-38",
-      "institution_id": "CZ-CT",
-      "reference": "CT 338889/2025-38",
-      "issue_date": "2026-06-01"
     },
     {
       "id": "doc-cz-cssz-2026-06-05-30000-03006091-26",
