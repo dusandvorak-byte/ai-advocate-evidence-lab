@@ -163,6 +163,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: synchronizátor odvozoval veřejné datum z UTC a navíc měl název měsíce pevně nastavený na srpen.
 - Pojistka: všechny čtyři hlavní veřejné plochy používají kalendářní datum v časovém pásmu `Europe/Prague`, měsíc se formátuje automaticky a build samostatně kontroluje české i anglické záhlaví Konopné církve.
 
+### Přeložený církevní web zachoval jazyk, ale článek skončil chybou 404
+
+- Projev: návštěvník zůstal v portugalštině, avšak odkaz `listiny/...` se z adresáře `/kc/` přeložil na neexistující `/kc/listiny/...`.
+- Příčina: česká ani anglická církevní stránka neměla deklarovaný společný kořen relativních cest.
+- Pojistka: synchronizátor vkládá do obou církevních stránek `<base href="../">`; odkazy na články, listiny, PDF, obrázky i skripty se proto vyhodnocují od kořene Evidence Labu a validační skript chybějící základní cestu odmítne.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
