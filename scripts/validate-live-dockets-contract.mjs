@@ -160,6 +160,10 @@ for (const path of publicFiles) {
 
 const englishGodotRecords = (englishGodot.match(/data-document-id="doc-/g) || []).length;
 const englishGodotOutgoing = (englishGodot.match(/data-outgoing-id="/g) || []).length;
+const expectedEnglishDate = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Prague'
+}).format(new Date()).toLocaleUpperCase('en-GB');
+if (!englishGodot.includes(`<header class="topline"><span>${expectedEnglishDate}</span>`)) throw new Error('Anglická kanonická chronologie nemá dnešní pražské datum');
 if (!englishGodot.includes('data-english-chronology-count="67"') || englishGodotRecords !== 67) {
   throw new Error(`Anglický Godot nemá úplných 67 záznamů: ${englishGodotRecords}`);
 }
