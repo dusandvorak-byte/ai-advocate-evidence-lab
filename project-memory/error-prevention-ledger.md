@@ -157,6 +157,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: společný skript nerozlišoval původní web od kopie na doméně překladače a používal automatickou detekci zdrojového jazyka.
 - Pojistka: na doméně `.translate.goog` se vlastní nabídka znovu nevkládá, zdrojový jazyk se určuje z `lang` původní stránky a překlad pokračuje ve stejné kartě. Překladový skript má povinnou verzi v URL, aby prohlížeče nepoužívaly starou kopii; další změnu těchto pravidel hlídá validační skript.
 
+### Církevní weby zobrazovaly v Praze včerejší datum
+
+- Projev: česká i anglická stránka Konopné církve zůstala po půlnoci na 16. srpnu, přestože v Česku už bylo 17. srpna.
+- Příčina: synchronizátor odvozoval veřejné datum z UTC a navíc měl název měsíce pevně nastavený na srpen.
+- Pojistka: všechny čtyři hlavní veřejné plochy používají kalendářní datum v časovém pásmu `Europe/Prague`, měsíc se formátuje automaticky a build samostatně kontroluje české i anglické záhlaví Konopné církve.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
