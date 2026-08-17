@@ -67,7 +67,7 @@ const leadCard = `<article class="lead-card">
   <div><p class="kicker">HLAVNÍ ZPRÁVA DNE · CANNAINSIDER.EU NEWS · 15. 8. 2026 · PASTÝŘSKÉ LISTY · REPORT 15082026-012</p>
   <h1><a href="zpravy/15082026-012.html">Desatero pastýřských listů z Evropy u Ospělova</a></h1>
   <p class="standfirst">Deset podání s aktivními PDF, soudní termíny ve věci 45 T 1/2024 a pozvánka na Noc básníků 21. srpna.</p>
-  <div class="score score-red"><strong>9/9</strong><span>AUTORSKÝ KOMENTÁŘ · DOLOŽENÁ PODÁNÍ · LIDSKÁ KONTROLA</span></div>
+  <div class="score score-red"><strong>9/9</strong><span>DESET PASTÝŘSKÝCH LISTŮ · AKTIVNÍ PDF</span></div>
   <div class="news-meta"><span>15. 8. 2026</span><span>Konopná církev</span><span>10 podání v PDF</span><span>Jiří Votruba</span></div></div>
 </article>`;
 const leadRollup = `<details class="home-rollup home-rollup-heavy lead-rollup"><summary><span class="rollup-title">ZPRÁVA DNE · CANNAINSIDER.EU NEWS · 15. 8. 2026 · PASTÝŘSKÉ LISTY · REPORT 15082026-012 →</span><span class="rollup-prompt"></span><span class="rollup-heart">❤️</span><b>Rozbalit →</b></summary>${leadCard}</details>`;

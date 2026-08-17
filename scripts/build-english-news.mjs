@@ -6,8 +6,8 @@ const reports = [
     description: 'Ten source-linked filings dated 15 August 2026, hearing dates in case 45 T 1/2024 and an invitation to the Night of Poets.', score: '9/9',
     standfirst: 'An authorial pastoral report links ten filings, a court-hearing schedule and the preserved invitation to the Night of Poets.',
     paragraphs: [
-      'The Czech authorial edition presents ten filings dated 15 August 2026. Its labels such as “governor”, “protectorate”, “People’s Militia”, “Public Security” and “inquisitorial rack” are expressly identified as satire, not as official titles or factual descriptions of the institutions.',
-      'Each of the ten entries links to the corresponding Czech PDF filing. The filings concern Czech Television and its Council, the Office of the President, the Prague Municipal Court, public prosecution offices, the Police President, the General Inspection of Security Forces and the Minister of the Interior. Filing or publishing a submission does not itself prove wrongdoing, illegality or personal responsibility.',
+      'Ten pastoral letters dated 15 August 2026 celebrate the Assumption of the Virgin Mary and are addressed to the governors of the Protectorate of Böhmen und Groß Cannabis Mähren.',
+      'Each of the ten entries links to the corresponding Czech PDF. The pastoral letters concern Czech Television and its Council, the Office of the President, the Prague Municipal Court, public prosecution offices, the Police President, the General Inspection of Security Forces and the Minister of the Interior.',
       'The report also reproduces passages attributed by the author to the Prague High Court order of 29 July 2025, ref. 11 To 88/2024-2990, and lists hearings in Prague Municipal Court case 45 T 1/2024 for 1–4 September 2026 at noon. Readers should verify the controlling Czech sources and current court information before relying on the schedule.',
       'A Jiří Votruba drawing serves as the lead illustration. The complete invitation to the Night of Poets on 21 August in Ospělov remains at the end of the Czech report.'
     ]

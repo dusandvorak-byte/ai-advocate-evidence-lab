@@ -13,8 +13,11 @@ const [article, feed, archive, churchSync, churchPage, englishBuilder] = await P
 assert.match(article, /REPORT 15082026-012/);
 assert.match(article, /assets\/votruba\/write-lawmakers\.jpg/);
 assert.match(article, /assets\/noc-basniku-21-srpna-ospelov\.jpg/);
-assert.match(article, /autorskou satirickou stylizací/);
-assert.match(article, /Podání ani jejich zveřejnění samy nepotvrzují pochybení/);
+assert.match(article, /Deset pastýřských listů ze dne 15\. srpna 2026 k oslavě Nanebevzetí Panny Marie adresovaných gubernátorům protektorátu Böhmen und Groß Cannabis Mähren\./);
+assert.doesNotMatch(article, /Redakční a důkazní hranice/);
+assert.match(article, /\.poets-invitation img\{filter:none!important;mix-blend-mode:normal!important\}/);
+assert.match(article, /Capo di Tuti CannabisTherapy/);
+assert.doesNotMatch(article, /Capo di Tuti Capis/);
 assert.doesNotMatch(article, /href="1\\\)%09https:/);
 
 const pastoralLinks = [...article.matchAll(/<li><a href="([^"]+\.pdf)"[^>]*><em>([^<]+)<\/em><\/a><\/li>/g)];
