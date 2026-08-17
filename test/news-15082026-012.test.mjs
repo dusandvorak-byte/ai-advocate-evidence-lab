@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import { access, readFile } from 'node:fs/promises';
 
-const [article, feed, archive, churchSync, churchPage] = await Promise.all([
+const [article, feed, archive, churchSync, churchPage, englishBuilder] = await Promise.all([
   readFile('web/zpravy/15082026-012.html', 'utf8'),
   readFile('web/news-feed.js', 'utf8'),
   readFile('web/zpravy/index.html', 'utf8'),
   readFile('scripts/sync-public-surfaces.mjs', 'utf8'),
-  readFile('web/kc/index.html', 'utf8')
+  readFile('web/kc/index.html', 'utf8'),
+  readFile('scripts/build-english-news.mjs', 'utf8')
 ]);
 
 assert.match(article, /REPORT 15082026-012/);
@@ -25,8 +26,10 @@ for (const [_, href] of pastoralLinks) {
 
 assert.match(article, /<a href="\/ai-advocate-evidence-lab\/zpravy\/22072026-002\.html"><b>Více o kauze 45 T 1\/2024 a námitkách aliance Cannabis is The Cure na CannaInsider\.EU<\/b><\/a>/);
 assert.match(feed, /id: '15082026-012'/);
+assert.match(feed, /hrefEn: 'news\/15082026-012\.html'/);
 assert.match(archive, /REPORT 15082026-012/);
 assert.match(churchSync, /zpravy\/15082026-012\.html/);
+assert.match(englishBuilder, /id: '15082026-012'/);
 assert.equal((churchPage.match(/latest-records\.css/g) || []).length, 1, 'Církevní stránka smí načítat společný styl jen jednou');
 assert.equal((churchPage.match(/auto-translate\.js/g) || []).length, 1, 'Církevní stránka smí načítat překladač jen jednou');
 

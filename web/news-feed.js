@@ -15,7 +15,7 @@ const cannaNews = [
     keywordsCs: 'Konopná církev pastýřské listy Nanebevzetí Panny Marie Ospělov Noc básníků 45 T 1/2024',
     keywordsEn: 'Church of Cannabis pastoral letters Assumption Ospelov Night of Poets 45 T 1/2024',
     href: 'zpravy/15082026-012.html',
-    hrefEn: null
+    hrefEn: 'news/15082026-012.html'
   },
   {
     id: '07082026-011',
@@ -156,16 +156,12 @@ if (feed) {
       .filter(Boolean)
   );
   const visibleNews = cannaNews.filter(item => !excluded.has(item.id));
-  feed.innerHTML = visibleNews.map(item => {
-    const target = english ? (item.hrefEn || item.href) : item.href;
-    const languageHint = english && !item.hrefEn ? ' hreflang="cs"' : '';
-    return `
+  feed.innerHTML = visibleNews.map(item => `
     <article class="news-card">
       <p class="kicker">${english ? item.dateEn : item.dateCs} · REPORT ${item.id}</p>
-      <h2><a href="${target}"${languageHint}>${english ? item.titleEn : item.titleCs}</a></h2>
+      <h2><a href="${english ? item.hrefEn : item.href}">${english ? item.titleEn : item.titleCs}</a></h2>
       <p>${english ? item.summaryEn : item.summaryCs}</p>
       <div class="news-meta"><span>${item.score}</span></div>
     </article>
-  `;
-  }).join('');
+  `).join('');
 }
