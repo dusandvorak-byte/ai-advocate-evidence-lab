@@ -36,10 +36,12 @@ const formatEnDate = value => {
 };
 
 const now = new Date();
-const day = now.getUTCDate();
-const year = now.getUTCFullYear();
-const czDisplayDate = `${day}. SRPNA ${year}`;
-const enDisplayDate = `${day} AUGUST ${year}`;
+const czDisplayDate = new Intl.DateTimeFormat('cs-CZ', {
+  day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Prague'
+}).format(now).toLocaleUpperCase('cs-CZ');
+const enDisplayDate = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Prague'
+}).format(now).toLocaleUpperCase('en-GB');
 const latest = new Date(`${latestIssueDate}T00:00:00Z`);
 const latestCz = `${latest.getUTCDate()}. srpna ${latest.getUTCFullYear()}`;
 const latestEn = `${latest.getUTCDate()} August ${latest.getUTCFullYear()}`;
@@ -188,6 +190,15 @@ await update('web/kc/index.html', [
   [/<div class="node-grid">[\s\S]*?<\/div>/, churchCzNodes, 'církevní uzly']
 ], 'cs');
 
+// Kanonická česká chronologie je živá veřejná plocha, proto její horní datum
+// musí odpovídat témuž pražskému kalendářnímu dni jako titulní a církevní weby.
+{
+  const godotPath = 'web/zpravy/04082026-010.html';
+  let html = await readFile(godotPath, 'utf8');
+  html = html.replace(/(<header class="topline">\s*<span>)[^<]+/, `$1${czDisplayDate}`);
+  await writeFile(godotPath, html, 'utf8');
+}
+
 const churchEnLead = `<article class="lead-story"><div class="story-image"><img src="assets/konopna-cirkev-logo.jpg" alt="Church of Cannabis logo"><span>Church of Cannabis</span></div><div class="story-copy"><p class="kicker">PASTORAL LETTERS · NEW PROCEEDING CONFIRMED 12 AUGUST 2026</p><h1><a href="listiny/doc-cz-mk-2026-08-12-mk-49467-2026-socns.html" hreflang="cs">The new Church of Cannabis proceeding formally began on 26 June 2026.</a></h1><p class="standfirst">The Ministry of Culture is conducting the proceeding under file MK-S 6893/2026 and identified the authorised officials. The Office of the President separately declined to assist with flying the cannabis standard.</p><div class="score score-red"><strong>9/9</strong><span>KEY PROCEDURAL RECORD · ACTIVE PROCEEDING</span></div><div class="facts"><p><b>Ministry of Culture:</b> ref. MK 49467/2026 SOCNS, dated 12 August 2026.</p><p><b>Office of the President:</b> ref. 4873/2026, dated 12 August 2026; the original PDF is publicly linked.</p></div></div></article>`;
 const churchEnRail = `<aside class="news-rail"><p class="section-label">CURRENT EVIDENCE NETWORK</p><article><p class="kicker">MINISTRY OF CULTURE · 12 AUGUST 2026</p><h2><a href="listiny/doc-cz-mk-2026-08-12-mk-49467-2026-socns.html" hreflang="cs">MK 49467/2026 SOCNS</a></h2><p>Formal confirmation that the new proceeding began on 26 June 2026.</p></article><article><p class="kicker">OFFICE OF THE PRESIDENT · 12 AUGUST 2026</p><h2><a href="listiny/doc-cz-kpr-2026-08-12-4873-2026.html" hreflang="cs">Cannabis standard above Prague Castle</a></h2><p>The requested assistance was declined; the original Czech record is publicly linked.</p></article></aside>`;
 const churchEnNodes = `<div class="node-grid"><article><span>MINISTRY OF CULTURE</span><h3>MK 49467/2026 SOCNS</h3></article><article><span>OFFICE OF THE PRESIDENT</span><h3>4873/2026 · cannabis standard</h3></article><article><span>GODOT ONLINE</span><h3>${stateCount} state and public-institution records</h3></article></div>`;
@@ -243,5 +254,11 @@ for (const path of ['web/en.html', 'web/kc/en.html']) {
 const czHome = await readFile('web/index.html', 'utf8');
 if (/Aktualizováno\s+\d/i.test(czHome)) throw new Error('Titulní stránka obsahuje zakázaný duplicitní údaj Aktualizováno');
 if (!czHome.includes(`data-current-date>${czDisplayDate}<`)) throw new Error('Titulní stránka nemá dnešní kanonické datum');
+const churchCz = await readFile('web/kc/index.html', 'utf8');
+const churchEn = await readFile('web/kc/en.html', 'utf8');
+const canonicalCz = await readFile('web/zpravy/04082026-010.html', 'utf8');
+if (!churchCz.includes(`<header class="topline"><span>${czDisplayDate}</span>`)) throw new Error('Český web Konopné církve nemá dnešní pražské datum');
+if (!churchEn.includes(`<header class="topline"><span>${enDisplayDate}</span>`)) throw new Error('Anglický web Konopné církve nemá dnešní pražské datum');
+if (!canonicalCz.match(new RegExp(`<header class="topline">\\s*<span>${czDisplayDate.replaceAll('.', '\\.')}</span>`))) throw new Error('Česká kanonická chronologie nemá dnešní pražské datum');
 
 console.log(`Veřejné varianty synchronizovány: ${czDisplayDate}; ${stateCount} státních listin; ${activePdfCount} aktivních PDF; 4/4 plochy obsahují stejné tři nejnovější evidenční záznamy.`);
