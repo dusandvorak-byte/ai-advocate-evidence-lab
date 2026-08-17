@@ -187,6 +187,11 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Projev: položka České televize obsahovala pouze evidenční popis bez originálního PDF a pozdější stížnost nebyla připojena k odmítnutí smíru.
 - Pojistka: položka 13 musí po každém buildu obsahovat hashově ověřené PDF odpovědi ČT ze dne 1. června 2026 a právě jednu následnou reakci ze dne 15. srpna 2026 s vlastním aktivním PDF; stejná vazba se překládá do anglické chronologie.
 
+### Zkrácený popis úkonu vypustil rozhodující důvod a částku
+
+- Projev: položka 4 uváděla pouze „Vyrozumění o zastavení řízení“ a nezachovala důvod zastavení ani částku.
+- Pojistka: validační smlouva vyžaduje u listiny SIN 22/2025-95 úplné znění o zastavení pro nezaplacení částky 6 800 Kč za vydání informací; stejný význam musí obsahovat anglická chronologie.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.

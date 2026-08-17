@@ -71,7 +71,7 @@
     },
     {
       "id": "doc-cz-osz-olo-2026-05-12-sin-22-2025-95",
-      "user_title": "Vyrozumění o zastavení řízení",
+      "user_title": "Vyrozumění o zastavení řízení pro nezaplacení částky 6 800 Kč za vydání informací",
       "issue_date": "2026-05-12",
       "received_date": null,
       "institution_id": "CZ-OSZ-OLO",
@@ -2309,7 +2309,7 @@
     }
   ],
   "reconciliation": {
-    "updated_at": "2026-08-17T13:52:06.370Z",
+    "updated_at": "2026-08-17T14:07:55.723Z",
     "active_pdf_policy": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
     "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
     "ownership_axiom": "user-named-pdf-never-state-original",
@@ -2325,7 +2325,7 @@
     "invalid_physical_pdf_count": 1,
     "linked_pdf_count": 74,
     "newly_linked_count": 0,
-    "override_change_count": 10,
+    "override_change_count": 9,
     "invalidated_link_count": 0,
     "unresolved_count": 0,
     "unmatched_publishable_count": 16,
@@ -2333,7 +2333,7 @@
     "required_without_active_pdf_count": 0
   },
   "normalization": {
-    "updated_at": "2026-08-17T13:52:06.213Z",
+    "updated_at": "2026-08-17T14:07:55.596Z",
     "rule": "Kanonická pracovní množina vzniká výhradně z document-sources.json. Všechny zdroje se slučují podle stabilního ID; veřejné výstupy a čítače nesmějí udržovat vlastní paralelní seznam dokumentů.",
     "source_manifest": "project-memory/document-sources.json",
     "source_count": 7,

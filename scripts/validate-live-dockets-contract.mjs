@@ -184,6 +184,8 @@ const chronologyBlock = id => {
   return czechGodot.slice(start, end);
 };
 const item13 = chronologyBlock('doc-cz-ct-2026-06-01-ct-338889-2025-38');
+const item4 = chronologyBlock('doc-cz-osz-olo-2026-05-12-sin-22-2025-95');
+if (!item4.includes('Vyrozumění o zastavení řízení pro nezaplacení částky 6 800 Kč za vydání informací')) throw new Error('Položka 4 nemá úplný důvod zastavení řízení a částku 6 800 Kč');
 const item47 = chronologyBlock('doc-cz-osz-pro-2026-07-28-zn-4-2026-6');
 const item56 = chronologyBlock('doc-cz-kpr-2026-08-03-kpr-5080-2026');
 const item59 = chronologyBlock('doc-eu-euda-2026-08-07-ack-article-265-tfeu');

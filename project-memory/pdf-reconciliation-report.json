@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-17T13:52:06.370Z",
+  "generated_at": "2026-08-17T14:07:55.723Z",
   "active_pdf_policy": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
   "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
   "ownership_axiom": "user-named-pdf-never-state-original",
@@ -13,12 +13,6 @@
   "linked_pdf_count": 74,
   "newly_linked": [],
   "override_changes": [
-    {
-      "id": "doc-cz-ct-2026-06-01-ct-338889-2025-38",
-      "previous_pdf": null,
-      "pdf": "documents/report-04082026-010/50-ct-338889-2025-38-odmitnuti-smiru-2026-06-01.pdf",
-      "reason": "Odpověď České televize na návrh smíru byla ověřena SHA-256 d3fe12fd3209be4984dcf291f945337d2d7033e94b26561e9c547e1e10850fa8."
-    },
     {
       "id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
       "previous_pdf": null,

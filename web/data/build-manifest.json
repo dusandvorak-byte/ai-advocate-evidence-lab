@@ -1,6 +1,6 @@
 {
   "schema_version": "2.2",
-  "generated_at": "2026-08-17T13:52:07.131Z",
+  "generated_at": "2026-08-17T14:07:56.519Z",
   "build_entrypoint": "scripts/build-site.mjs",
   "canonical_sources": {
     "documents": "project-memory/documents-2026.json",
