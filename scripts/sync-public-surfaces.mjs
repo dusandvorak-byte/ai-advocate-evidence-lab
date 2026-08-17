@@ -127,6 +127,9 @@ function insertLatestAtMainStart(html, lang) {
 
 const update = async (path, transforms, lang, insertLatest = true) => {
   let html = await readFile(path, 'utf8');
+  if (path.startsWith('web/kc/') && !html.includes('<base href="../">')) {
+    html = html.replace('<head>', '<head><base href="../">');
+  }
   for (const [pattern, replacement, label, optional = false] of transforms) {
     if (!pattern.test(html)) {
       if (optional) continue;
@@ -259,6 +262,10 @@ const churchEn = await readFile('web/kc/en.html', 'utf8');
 const canonicalCz = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!churchCz.includes(`<header class="topline"><span>${czDisplayDate}</span>`)) throw new Error('Český web Konopné církve nemá dnešní pražské datum');
 if (!churchEn.includes(`<header class="topline"><span>${enDisplayDate}</span>`)) throw new Error('Anglický web Konopné církve nemá dnešní pražské datum');
+for (const [label, html] of [['český', churchCz], ['anglický', churchEn]]) {
+  if (!html.includes('<base href="../">')) throw new Error(`${label} web Konopné církve nemá společný kořen odkazů`);
+  if (html.includes('href="kc/listiny/')) throw new Error(`${label} web Konopné církve obsahuje chybnou cestu kc/listiny`);
+}
 if (!canonicalCz.match(new RegExp(`<header class="topline">\\s*<span>${czDisplayDate.replaceAll('.', '\\.')}</span>`))) throw new Error('Česká kanonická chronologie nemá dnešní pražské datum');
 
 console.log(`Veřejné varianty synchronizovány: ${czDisplayDate}; ${stateCount} státních listin; ${activePdfCount} aktivních PDF; 4/4 plochy obsahují stejné tři nejnovější evidenční záznamy.`);
