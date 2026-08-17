@@ -11,6 +11,8 @@ const timerBuilder = await readFile('scripts/build-process-timers.mjs', 'utf8');
 const englishGodot = await readFile('web/news/04082026-010.html', 'utf8');
 const canonicalDocuments = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
 const automaticTranslation = await readFile('web/auto-translate.js', 'utf8');
+const churchCzPage = await readFile('web/kc/index.html', 'utf8');
+const churchEnPage = await readFile('web/kc/en.html', 'utf8');
 
 const requiredBars = [
   'Godot online → každá zpráva má zdroj',
@@ -96,6 +98,9 @@ if (!automaticTranslation.includes("location.hostname.endsWith('.translate.goog'
 if (!automaticTranslation.includes("startsWith('en') ? 'en' : 'cs'")) throw new Error('Překladač neurčuje zdrojový jazyk podle stránky');
 if (/link\.target\s*=\s*['_"]blank/.test(automaticTranslation)) throw new Error('Jazykové odkazy stále otevírají další karty');
 if (!englishHome.includes('auto-translate.js?v=20260817-1')) throw new Error('Anglická titulní stránka neverzuje překladový skript proti mezipaměti');
+for (const [label, page] of [['český', churchCzPage], ['anglický', churchEnPage]]) {
+  if (!page.includes('<base href="../">')) throw new Error(`${label} církevní web nemá společný kořen pro články a listiny`);
+}
 if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Further current reports')) throw new Error('Anglická titulní stránka nemá blok dalších aktuálních zpráv');
 if (/href="zpravy\/\d{8}-\d{3}\.html/.test(englishHome)) throw new Error('Anglická titulní stránka stále odkazuje na český článek');
 if (englishHome.includes('class="quick-memory"') || englishHome.includes('href="#memory"')) throw new Error('Anglická titulní stránka stále obsahuje zrušený vedlejší blok Case memory');
