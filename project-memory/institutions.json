@@ -269,6 +269,13 @@
       "short_name": "Ganja For All Animals"
     },
     {
+      "id": "CZ-KHSOC",
+      "country": "CZ",
+      "type": "public_health_authority",
+      "name": "Krajská hygienická stanice Olomouckého kraje se sídlem v Olomouci",
+      "short_name": "KHS Olomouckého kraje"
+    },
+    {
       "id": "EU-EUDA",
       "country": "EU",
       "type": "eu_agency",

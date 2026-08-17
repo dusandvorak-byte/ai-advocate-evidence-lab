@@ -1,6 +1,6 @@
 {
   "schema_version": "2.2",
-  "generated_at": "2026-08-17T14:07:56.519Z",
+  "generated_at": "2026-08-17T16:27:42.401Z",
   "build_entrypoint": "scripts/build-site.mjs",
   "canonical_sources": {
     "documents": "project-memory/documents-2026.json",
@@ -26,22 +26,22 @@
   "godot_pdf_audit": "data/godot-pdf-audit.json",
   "process_timers": "data/process-timers.json",
   "counts": {
-    "documents": 91,
-    "institutions": 42,
+    "documents": 93,
+    "institutions": 43,
     "cases": 7,
     "deadlines": 0,
     "process_timers": 21,
-    "chronology_items": 67,
-    "public_pdf_links": 74,
-    "physical_pdf_files": 108,
+    "chronology_items": 69,
+    "public_pdf_links": 76,
+    "physical_pdf_files": 110,
     "unresolved_pdf_matches": 0,
-    "eligible_institution_documents": 52,
-    "eligible_with_active_pdf": 52,
+    "eligible_institution_documents": 53,
+    "eligible_with_active_pdf": 53,
     "eligible_without_active_pdf": 0,
     "broken_godot_pdf_links": 0,
     "registry_hard_errors": 0,
     "registry_human_review_required": 19,
-    "state_public_submissions": 67,
+    "state_public_submissions": 69,
     "our_submissions": 24,
     "unclassified_submission_side": 0,
     "submission_classification_human_review_required": 0
@@ -180,6 +180,8 @@
     "documents/report-04082026-010/47-citc-formal-call-euda-article-265-tfeu-2026-08-07-en.pdf",
     "documents/report-04082026-010/48-citc-formalni-vyzva-euda-cl-265-sfeu-2026-08-07-cs.pdf",
     "documents/report-04082026-010/49-dvorak-letter-laura-ramos-cannareporter-euda-2026-08-15.pdf",
-    "documents/report-04082026-010/51-dvorak-stiznost-ct-rada-ct-necinnost-smir-2026-08-15.pdf"
+    "documents/report-04082026-010/51-dvorak-stiznost-ct-rada-ct-necinnost-smir-2026-08-15.pdf",
+    "documents/report-04082026-010/58-ppr-42608-3-cj-2026-990810-2026-08-17.pdf",
+    "documents/report-04082026-010/59-khsoc-33066-2026-spr-2026-08-17.pdf"
   ]
 }

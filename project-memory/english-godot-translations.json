@@ -1,6 +1,7 @@
 {
   "schema_version": "1.0",
   "institutions": {
+    "CZ-KHSOC": "Olomouc Region Public Health Authority",
     "CZ-KPR": "Office of the President of the Republic",
     "CZ-MV": "Ministry of the Interior",
     "CZ-MSP": "Ministry of Justice",
@@ -131,6 +132,8 @@
     "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-en": "The English formal call asked EUDA to perform its own tasks under Regulation (EU) 2023/1322 concerning scientific quality, comparability and harmonisation of analytical methods; it did not ask EUDA to interfere with the jurisdiction of Czech courts",
     "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-cs": "Czech-language version of the same formal call to EUDA dated 7 August 2026",
     "doc-cz-dd-2026-08-15-dopis-laura-ramos-cannareporter-euda": "A letter to CannaReporter.eu Editor-in-Chief Laura Ramos described a parallel between the Paulo Santos case and Czech disputes over the comparability of THC measurements, and informed her of the formal call to EUDA",
-    "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir": "A complaint to the Director-General of Czech Television and the Chair of the Czech Television Council requested substantive consideration of the submitted records, a response and an attempt at settlement; the filing expressly stated that it was not a complaint under Section 175 of the Code of Administrative Procedure"
+    "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir": "A complaint to the Director-General of Czech Television and the Chair of the Czech Television Council requested substantive consideration of the submitted records, a response and an attempt at settlement; the filing expressly stated that it was not a complaint under Section 175 of the Code of Administrative Procedure",
+    "doc-cz-pcr-pp-2026-08-17-ppr-42608-3-cj-2026-990810": "The Police Presidium provided information on the receipt, custody, transport and handover of venous blood samples; it stated that its internal instruments do not regulate the requested chain-of-custody details or a maximum transport time and that since 1 January 2021 it has issued no methodology on defects in sample transport or handover",
+    "doc-cz-khsoc-2026-08-17-khsoc-33066-2026-spr": "The Olomouc Region Public Health Authority provided information on hygiene requirements for transporting biological material; it stated that it does not inspect the temperature regime because it lacks subject-matter jurisdiction, has no specific methodology for the listed non-conformities and has conducted no such inspection since 1 January 2021"
   }
 }
