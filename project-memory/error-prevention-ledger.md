@@ -167,7 +167,8 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 - Projev: návštěvník zůstal v portugalštině, avšak odkaz `listiny/...` se z adresáře `/kc/` přeložil na neexistující `/kc/listiny/...`.
 - Příčina: česká ani anglická církevní stránka neměla deklarovaný společný kořen relativních cest.
-- Pojistka: synchronizátor vkládá do obou církevních stránek `<base href="../">`; odkazy na články, listiny, PDF, obrázky i skripty se proto vyhodnocují od kořene Evidence Labu a validační skript chybějící základní cestu odmítne.
+- První nedostatečná oprava: samotné `<base href="../">` fungovalo v původním webu, ale překladová proxy je při přepisu odkazů nerespektovala; německý test stále skončil na `/kc/listiny/...` a chybě 404.
+- Pojistka: synchronizátor ponechává základní cestu a současně převádí všechny místní odkazy, obrázky a skripty církevních webů na jednoznačné absolutní cesty `/ai-advocate-evidence-lab/...`. Build odmítne návrat relativní cesty k listinám, článkům, PDF, aktivům nebo církevním stránkám.
 
 ## Povinný postup před publikací
 
