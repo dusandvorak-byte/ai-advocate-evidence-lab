@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-17T16:27:42.389Z",
+  "generated_at": "2026-08-18T10:12:16.765Z",
   "article": "web/zpravy/04082026-010.html",
   "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
   "active_pdf_scope": [
@@ -33,15 +33,15 @@
     "CZ-CSSZ"
   ],
   "document_exception_count": 3,
-  "article_pdf_link_count": 74,
+  "article_pdf_link_count": 77,
   "broken_article_pdf_link_count": 0,
   "broken_article_pdf_links": [],
-  "eligible_institution_document_count": 53,
-  "eligible_with_active_pdf_count": 53,
+  "eligible_institution_document_count": 54,
+  "eligible_with_active_pdf_count": 54,
   "eligible_without_active_pdf_count": 0,
   "eligible_without_active_pdf": [],
-  "required_document_count": 53,
-  "required_with_active_pdf_count": 53,
+  "required_document_count": 54,
+  "required_with_active_pdf_count": 54,
   "required_without_active_pdf_count": 0,
   "required_without_active_pdf": [],
   "exempt_document_count": 24,
@@ -263,7 +263,7 @@
       "exemption_reason": "institution-id-exception"
     }
   ],
-  "registry_pdf_document_count": 76,
+  "registry_pdf_document_count": 78,
   "invalid_registry_pdf_link_count": 0,
   "invalid_registry_pdf_links": [],
   "reaction_document_count": 19,
@@ -271,9 +271,9 @@
   "missing_rendered_reactions": [],
   "missing_reaction_pdf_link_count": 0,
   "missing_reaction_pdf_links": [],
-  "repository_pdf_count": 110,
-  "usable_repository_pdf_count": 109,
-  "usable_public_pdf_count": 109,
+  "repository_pdf_count": 112,
+  "usable_repository_pdf_count": 111,
+  "usable_public_pdf_count": 111,
   "usable_pdf_outside_public_tree_count": 0,
   "usable_pdf_outside_public_tree": []
 }

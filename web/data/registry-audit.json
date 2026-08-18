@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-08-17T16:27:40.766Z",
+  "generated_at": "2026-08-18T10:12:15.677Z",
   "hard_error_count": 0,
-  "human_review_count": 19,
+  "human_review_count": 20,
   "counts": {
-    "documents": 93,
-    "institutions": 43,
+    "documents": 95,
+    "institutions": 44,
     "cases": 7,
     "deadlines": 0
   },
@@ -105,6 +105,11 @@
       "type": "missing_case",
       "document_id": "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
       "case_id": "case-cz-os-praha4-10c69-2026"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-nsz-2026-08-13-6-nzn-1737-2026-73",
+      "case_id": "case-cz-ms-praha-18a23-2026"
     }
   ],
   "rule": "Duplicity a neplatné veřejné cesty blokují build. Neúplné vazby se nikdy nedoplňují odhadem a čekají na lidskou kontrolu."

@@ -276,6 +276,13 @@
       "short_name": "KHS Olomouckého kraje"
     },
     {
+      "id": "CZ-SUKL",
+      "country": "CZ",
+      "type": "medicines_regulator",
+      "name": "Státní ústav pro kontrolu léčiv",
+      "short_name": "SÚKL"
+    },
+    {
       "id": "EU-EUDA",
       "country": "EU",
       "type": "eu_agency",

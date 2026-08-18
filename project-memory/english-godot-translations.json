@@ -1,6 +1,7 @@
 {
   "schema_version": "1.0",
   "institutions": {
+    "CZ-SUKL": "State Institute for Drug Control",
     "CZ-KHSOC": "Olomouc Region Public Health Authority",
     "CZ-KPR": "Office of the President of the Republic",
     "CZ-MV": "Ministry of the Interior",
@@ -134,6 +135,8 @@
     "doc-cz-dd-2026-08-15-dopis-laura-ramos-cannareporter-euda": "A letter to CannaReporter.eu Editor-in-Chief Laura Ramos described a parallel between the Paulo Santos case and Czech disputes over the comparability of THC measurements, and informed her of the formal call to EUDA",
     "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir": "A complaint to the Director-General of Czech Television and the Chair of the Czech Television Council requested substantive consideration of the submitted records, a response and an attempt at settlement; the filing expressly stated that it was not a complaint under Section 175 of the Code of Administrative Procedure",
     "doc-cz-pcr-pp-2026-08-17-ppr-42608-3-cj-2026-990810": "The Police Presidium provided information on the receipt, custody, transport and handover of venous blood samples; it stated that its internal instruments do not regulate the requested chain-of-custody details or a maximum transport time and that since 1 January 2021 it has issued no methodology on defects in sample transport or handover",
-    "doc-cz-khsoc-2026-08-17-khsoc-33066-2026-spr": "The Olomouc Region Public Health Authority provided information on hygiene requirements for transporting biological material; it stated that it does not inspect the temperature regime because it lacks subject-matter jurisdiction, has no specific methodology for the listed non-conformities and has conducted no such inspection since 1 January 2021"
+    "doc-cz-khsoc-2026-08-17-khsoc-33066-2026-spr": "The Olomouc Region Public Health Authority provided information on hygiene requirements for transporting biological material; it stated that it does not inspect the temperature regime because it lacks subject-matter jurisdiction, has no specific methodology for the listed non-conformities and has conducted no such inspection since 1 January 2021",
+    "doc-cz-nsz-2026-08-13-6-nzn-1737-2026-73": "The Supreme Public Prosecutor’s Office stated that the requests concerning the Ministry of Justice, the court proceedings and the settlement proposal fell outside its remit, and transferred the part seeking review of the Prostějov District Public Prosecutor’s Office to the Brno Regional Public Prosecutor’s Office. The record is dated 13 August 2026 and was received on 18 August 2026",
+    "doc-cz-sukl-2026-08-17-sukl252539-2026": "The State Institute for Drug Control referred questions 2–7 to the blood decree and the Good Practice Guidelines for Blood Establishments; it stated that it has no specialised inspection methodology and records no requested inspection findings or measures since 1 January 2021"
   }
 }
