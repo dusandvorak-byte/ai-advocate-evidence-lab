@@ -2419,10 +2419,67 @@
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",
       "evidence_note": "SÚKL odkázal u otázek 2 až 7 na vyhlášku o lidské krvi a Good Practice Guidelines for Blood establishments. Uvedl, že specializovanou kontrolní metodikou nedisponuje a od 1. ledna 2021 neeviduje požadované kontrolní závěry či opatření. Přípravek skladovaný nebo přepravovaný mimo stanovené podmínky je podle sdělení určen k likvidaci a tato skutečnost musí být evidována a doložitelná."
+    },
+    {
+      "id": "doc-cz-vsz-pha-2026-08-17-sin-233-2026-9",
+      "user_title": "Rozhodnutí o odvolání proti odmítnutí informace o evidenci a předávání podání",
+      "issue_date": "2026-08-17",
+      "received_date": "2026-08-18",
+      "institution_id": "CZ-VSZ-PHA",
+      "reference": "SIN 233/2026-9",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "InfZ",
+        "odvolání",
+        "evidence podání",
+        "zneužití práva",
+        "státní zastupitelství"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/62-vsz-praha-sin-233-2026-9-2026-08-17.pdf",
+        "sha256": "b703fccf216dd57908b617fb231be5cd1f4e7af97ad97815e4546a9704a97df2",
+        "verification_status": "published",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-18-vsz-os.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Vrchní státní zastupitelství v Praze zamítlo odvolání a potvrdilo rozhodnutí Městského státního zastupitelství v Praze č. j. SIN 48/2026-12, kterým byla odmítnuta žádost o informace o přijetí, evidenci a předávání podání. VSZ označilo napadené rozhodnutí za rozhodnutí na samotné hraně přezkoumatelnosti, jeho odůvodnění však samo rozvedlo a uzavřelo, že žádost představovala zneužití práva. Listina je datována 17. srpna 2026 a byla doručena 18. srpna 2026."
+    },
+    {
+      "id": "doc-cz-os-pro-2026-08-18-15-nt-3104-2026-56",
+      "user_title": "Předvolání k veřejnému zasedání o návrhu na povolení obnovy řízení dne 12. 10. 2026",
+      "issue_date": "2026-08-18",
+      "received_date": "2026-08-18",
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3104/2026-56; souvisí s 2 T 104/2010",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "obnova řízení",
+        "veřejné zasedání",
+        "2 T 104/2010",
+        "12. října 2026"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/63-os-prostejov-15-nt-3104-2026-56-2026-08-18.pdf",
+        "sha256": "cd8356e7854e6737d4a168ae30b0a5e0a0e909f003b2c8b3d745befccd5858f9",
+        "verification_status": "published",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-18-vsz-os.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Okresní soud v Prostějově předvolal Mgr. Dušana Dvořáka k veřejnému zasedání o návrhu na povolení obnovy řízení na 12. října 2026 v 9:00 v jednací síni č. 17. Přítomnost předvolaného označil za nutnou. Současně sdělil, že věci sp. zn. 2 T 104/2010 a 2 T 65/2011 nelze spojit ke společnému řízení, protože byly ukončeny v různém stadiu."
     }
   ],
   "reconciliation": {
-    "updated_at": "2026-08-18T10:12:15.628Z",
+    "updated_at": "2026-08-18T14:45:21.975Z",
     "active_pdf_policy": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
     "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
     "ownership_axiom": "user-named-pdf-never-state-original",
@@ -2433,31 +2490,31 @@
       "project-memory/report-20260812-explicit-pdf-owners-sources.json"
     ],
     "override_registry": "project-memory/pdf-link-overrides.json",
-    "physical_pdf_count": 112,
-    "usable_physical_pdf_count": 111,
+    "physical_pdf_count": 114,
+    "usable_physical_pdf_count": 113,
     "invalid_physical_pdf_count": 1,
-    "linked_pdf_count": 78,
+    "linked_pdf_count": 80,
     "newly_linked_count": 0,
     "override_change_count": 9,
     "invalidated_link_count": 0,
     "unresolved_count": 0,
     "unmatched_publishable_count": 16,
-    "required_pdf_document_count": 54,
+    "required_pdf_document_count": 55,
     "required_without_active_pdf_count": 0
   },
   "normalization": {
-    "updated_at": "2026-08-18T10:12:15.479Z",
+    "updated_at": "2026-08-18T14:45:21.864Z",
     "rule": "Kanonická pracovní množina vzniká výhradně z document-sources.json. Všechny zdroje se slučují podle stabilního ID; veřejné výstupy a čítače nesmějí udržovat vlastní paralelní seznam dokumentů.",
     "source_manifest": "project-memory/document-sources.json",
-    "source_count": 9,
-    "source_documents_before_deduplication": 132,
-    "merged_document_count": 95,
+    "source_count": 10,
+    "source_documents_before_deduplication": 136,
+    "merged_document_count": 97,
     "institution_aliases": {
       "CZ-OSZ-PRO": "CZ-OSZ-PV",
       "CZ-PCR-KRPM": "CZ-PCR-KRPO"
     },
     "filled_user_titles_from_existing_title": 0,
-    "incoming_from_state_or_public_institution": 71,
+    "incoming_from_state_or_public_institution": 73,
     "outgoing_from_user_or_alliance": 24,
     "unclassified": 0
   },
@@ -2471,6 +2528,7 @@
     "project-memory/documents-2026-supplement-2026-08-14.json",
     "project-memory/documents-2026-supplement-2026-08-15.json",
     "project-memory/documents-2026-supplement-2026-08-17.json",
-    "project-memory/documents-2026-supplement-2026-08-18.json"
+    "project-memory/documents-2026-supplement-2026-08-18.json",
+    "project-memory/documents-2026-supplement-2026-08-18-vsz-os.json"
   ]
 }

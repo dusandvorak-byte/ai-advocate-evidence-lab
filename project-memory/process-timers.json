@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_on": "2026-08-07",
+  "updated_on": "2026-08-18",
   "description": "Kanonický registr živých procesních časovačů. Levá hodnota je počet kalendářních dnů od doloženého počátku do dne zobrazení; pravá hodnota je pouze doložená zákonná, smluvená nebo výslovně stanovená procesní lhůta. Není-li univerzální číselná zákonná lhůta, registr ji nevymýšlí.",
   "display_rule": "elapsed_days / legal_or_procedural_limit",
   "categories": ["court", "pre_action", "administrative", "review_supervision", "criminal_historical"],
@@ -68,6 +68,8 @@
       "limit_kind": "no_fixed_numeric_statutory_deadline",
       "limit_label": "bez pevné číselné zákonné lhůty k rozhodnutí",
       "legal_basis": "trestní soudní řízení o mimořádném prostředku – zde není evidována univerzální číselná lhůta k rozhodnutí",
+      "due_date": "2026-10-12",
+      "next_event": "Veřejné zasedání dne 12. října 2026 v 9:00, jednací síň č. 17; předvolání č. j. 15 Nt 3104/2026-56 ze dne 18. srpna 2026.",
       "href": "zpravy/04082026-010.html#case-cz-os-pro-2t104-2010-obnova"
     },
     {

@@ -103,9 +103,9 @@ jobs:
             fi
           done < /tmp/godot-pdf-sha256.txt
           verified_pdf_count="$(jq -r '.linked_pdf_count' web/data/pdf-reconciliation-report.json)"
-          grep -q '71 state and public-institution records' web/en.html
+          grep -q '73 state and public-institution records' web/en.html
           grep -q "${verified_pdf_count} verified public PDFs" web/en.html
-          grep -q '71 state and public-institution records' web/kc/en.html
+          grep -q '73 state and public-institution records' web/kc/en.html
           grep -q "${verified_pdf_count} verified public PDFs" web/kc/en.html
           grep -q 'NCOZ-4324-2/ČJ-2026-4100PI' web/en.html
           grep -q '"required_without_active_pdf_count": 0' web/data/godot-pdf-audit.json

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-18T10:12:16.765Z",
+  "generated_at": "2026-08-18T14:45:23.090Z",
   "article": "web/zpravy/04082026-010.html",
   "active_pdf_policy_file": "project-memory/active-pdf-policy.json",
   "active_pdf_scope": [
@@ -33,18 +33,18 @@
     "CZ-CSSZ"
   ],
   "document_exception_count": 3,
-  "article_pdf_link_count": 77,
+  "article_pdf_link_count": 79,
   "broken_article_pdf_link_count": 0,
   "broken_article_pdf_links": [],
-  "eligible_institution_document_count": 54,
-  "eligible_with_active_pdf_count": 54,
+  "eligible_institution_document_count": 55,
+  "eligible_with_active_pdf_count": 55,
   "eligible_without_active_pdf_count": 0,
   "eligible_without_active_pdf": [],
-  "required_document_count": 54,
-  "required_with_active_pdf_count": 54,
+  "required_document_count": 55,
+  "required_with_active_pdf_count": 55,
   "required_without_active_pdf_count": 0,
   "required_without_active_pdf": [],
-  "exempt_document_count": 24,
+  "exempt_document_count": 25,
   "exempt_documents": [
     {
       "id": "doc-cz-exe-lib-2026-05-06-131-ex-8674-15-127",
@@ -261,9 +261,18 @@
       "reference": "CT 338889/2025; 10 C 69/2026",
       "has_active_pdf": true,
       "exemption_reason": "institution-id-exception"
+    },
+    {
+      "id": "doc-cz-os-pro-2026-08-18-15-nt-3104-2026-56",
+      "institution_id": "CZ-OS-PRO",
+      "institution_type": "court",
+      "issue_date": "2026-08-18",
+      "reference": "15 Nt 3104/2026-56; souvisí s 2 T 104/2010",
+      "has_active_pdf": true,
+      "exemption_reason": "institution-type-exception"
     }
   ],
-  "registry_pdf_document_count": 78,
+  "registry_pdf_document_count": 80,
   "invalid_registry_pdf_link_count": 0,
   "invalid_registry_pdf_links": [],
   "reaction_document_count": 19,
@@ -271,9 +280,9 @@
   "missing_rendered_reactions": [],
   "missing_reaction_pdf_link_count": 0,
   "missing_reaction_pdf_links": [],
-  "repository_pdf_count": 112,
-  "usable_repository_pdf_count": 111,
-  "usable_public_pdf_count": 111,
+  "repository_pdf_count": 114,
+  "usable_repository_pdf_count": 113,
+  "usable_public_pdf_count": 113,
   "usable_pdf_outside_public_tree_count": 0,
   "usable_pdf_outside_public_tree": []
 }

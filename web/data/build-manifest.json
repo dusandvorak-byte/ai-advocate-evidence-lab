@@ -1,6 +1,6 @@
 {
   "schema_version": "2.2",
-  "generated_at": "2026-08-18T10:12:16.385Z",
+  "generated_at": "2026-08-18T14:45:22.712Z",
   "build_entrypoint": "scripts/build-site.mjs",
   "canonical_sources": {
     "documents": "project-memory/documents-2026.json",
@@ -26,22 +26,22 @@
   "godot_pdf_audit": "data/godot-pdf-audit.json",
   "process_timers": "data/process-timers.json",
   "counts": {
-    "documents": 95,
+    "documents": 97,
     "institutions": 44,
     "cases": 7,
     "deadlines": 0,
     "process_timers": 21,
-    "chronology_items": 71,
-    "public_pdf_links": 78,
-    "physical_pdf_files": 112,
+    "chronology_items": 73,
+    "public_pdf_links": 80,
+    "physical_pdf_files": 114,
     "unresolved_pdf_matches": 0,
-    "eligible_institution_documents": 54,
-    "eligible_with_active_pdf": 54,
+    "eligible_institution_documents": 55,
+    "eligible_with_active_pdf": 55,
     "eligible_without_active_pdf": 0,
     "broken_godot_pdf_links": 0,
     "registry_hard_errors": 0,
-    "registry_human_review_required": 20,
-    "state_public_submissions": 71,
+    "registry_human_review_required": 21,
+    "state_public_submissions": 73,
     "our_submissions": 24,
     "unclassified_submission_side": 0,
     "submission_classification_human_review_required": 0
@@ -184,6 +184,8 @@
     "documents/report-04082026-010/58-ppr-42608-3-cj-2026-990810-2026-08-17.pdf",
     "documents/report-04082026-010/59-khsoc-33066-2026-spr-2026-08-17.pdf",
     "documents/report-04082026-010/60-nsz-6-nzn-1737-2026-73-2026-08-13.pdf",
-    "documents/report-04082026-010/61-sukl252539-2026-2026-08-17.pdf"
+    "documents/report-04082026-010/61-sukl252539-2026-2026-08-17.pdf",
+    "documents/report-04082026-010/62-vsz-praha-sin-233-2026-9-2026-08-17.pdf",
+    "documents/report-04082026-010/63-os-prostejov-15-nt-3104-2026-56-2026-08-18.pdf"
   ]
 }
