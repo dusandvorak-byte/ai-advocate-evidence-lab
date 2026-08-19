@@ -24,11 +24,13 @@ if (builder.includes('requires 73 state/public records')) throw new Error('Hard-
 await writeFile(builderPath, builder, 'utf8');
 
 let validator = await readFile(validatorPath, 'utf8');
-validator = validator.replace(
-  "if (!englishGodot.includes(`data-english-chronology-count=\"73\"`) || englishGodotRecords !== 73) {\n  throw new Error(`Anglický Godot nemá úplných 73 záznamů: ${englishGodotRecords}`);\n}",
-  "if (!englishGodot.includes(`data-english-chronology-count=\"${englishGodotRecords}\"`) || englishGodotRecords < 1) {\n  throw new Error(`Anglický Godot nemá konzistentní počet záznamů: ${englishGodotRecords}`);\n}"
-);
-if (validator.includes('Anglický Godot nemá úplných 73 záznamů')) throw new Error('Hard-coded English Godot validator count 73 remains');
+validator = validator
+  .replaceAll('data-english-chronology-count="73"', 'data-english-chronology-count="${englishGodotRecords}"')
+  .replaceAll('englishGodotRecords !== 73', 'englishGodotRecords < 1')
+  .replaceAll('Anglický Godot nemá úplných 73 záznamů', 'Anglický Godot nemá konzistentní počet záznamů');
+if (validator.includes('englishGodotRecords !== 73') || validator.includes('úplných 73 záznamů')) {
+  throw new Error('Hard-coded English Godot validator count 73 remains');
+}
 await writeFile(validatorPath, validator, 'utf8');
 
 console.log('English Godot and its validator prepared for dynamically derived state-record count and Ministry of Transport translation.');
