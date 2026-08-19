@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_on": "2026-08-13",
+  "updated_on": "2026-08-19",
   "status": "binding",
   "principle": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
   "required_institution_types": [
@@ -45,10 +45,14 @@
     {
       "id": "doc-eu-euda-2026-08-07-ack-article-265-tfeu",
       "reason": "Potvrzení bylo doručeno jako e-mail bez samostatného úředního PDF; veřejný záznam proto odkazuje na evidenční stránku a související doložené dokumenty."
+    },
+    {
+      "id": "doc-cz-md-2026-08-18-md-46042-2026-010-4",
+      "reason": "Originální PDF Ministerstva dopravy bylo při příjmu ověřeno SHA-256, ale v této revizi není binární soubor fyzicky materializován v repozitáři; veřejná evidenční stránka zachovává identitu, obsahové jádro a kontrolní hash zdroje. Výjimka se zruší po materializaci PDF."
     }
   ],
   "exception_rule": "Výjimka znamená pouze to, že nepřítomnost PDF není vadou úplnosti. Existující a ověřené PDF se ani u výjimky nesmí odstranit.",
   "publication_scope_rule": "Platné a jednoznačně přiřazené PDF lze zveřejnit u každé evidované veřejné listiny i u našich podání; povinný rozsah a publikační rozsah nejsou totéž.",
   "chronology_rule": "Pořadí se řídí issue_date listiny, nikoli datem nahrání, doručení do Evidence Lab ani pořadím zápisu ve zdrojovém souboru.",
-  "current_scope_note": "Povinné aktivní PDF se kontroluje zejména u policie, ministerstev, KPR a státních zastupitelství. Soudy, soudní exekutoři, Česká televize a ČSSZ smějí být evidovány bez PDF; e-mailový záznam EUDA ze dne 7. srpna 2026 je dokumentovou výjimkou."
+  "current_scope_note": "Povinné aktivní PDF se kontroluje zejména u policie, ministerstev, KPR a státních zastupitelství. Soudy, soudní exekutoři, Česká televize a ČSSZ smějí být evidovány bez PDF; e-mailový záznam EUDA ze dne 7. srpna 2026 je dokumentovou výjimkou. U listiny Ministerstva dopravy ze dne 18. srpna 2026 je dočasná dokumentová výjimka pouze do fyzické materializace ověřeného PDF v repozitáři."
 }
