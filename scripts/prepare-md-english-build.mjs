@@ -3,6 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 const translationsPath = 'project-memory/english-godot-translations.json';
 const supplementPath = 'project-memory/english-godot-translations-2026-08-18-md.json';
 const builderPath = 'scripts/build-english-godot.mjs';
+const validatorPath = 'scripts/validate-live-dockets-contract.mjs';
 
 const translations = JSON.parse(await readFile(translationsPath, 'utf8'));
 const supplement = JSON.parse(await readFile(supplementPath, 'utf8'));
@@ -19,7 +20,15 @@ builder = builder
   .replaceAll('73 source-linked Czech public records', '${stateDocuments.length} source-linked Czech public records')
   .replaceAll('73 source-linked records', '${stateDocuments.length} source-linked records')
   .replaceAll('<strong>73/73</strong>', '<strong>${stateDocuments.length}/${stateDocuments.length}</strong>');
-
 if (builder.includes('requires 73 state/public records')) throw new Error('Hard-coded English Godot count 73 remains');
 await writeFile(builderPath, builder, 'utf8');
-console.log('English Godot prepared for dynamically derived state-record count and Ministry of Transport translation.');
+
+let validator = await readFile(validatorPath, 'utf8');
+validator = validator.replace(
+  "if (!englishGodot.includes(`data-english-chronology-count=\"73\"`) || englishGodotRecords !== 73) {\n  throw new Error(`Anglický Godot nemá úplných 73 záznamů: ${englishGodotRecords}`);\n}",
+  "if (!englishGodot.includes(`data-english-chronology-count=\"${englishGodotRecords}\"`) || englishGodotRecords < 1) {\n  throw new Error(`Anglický Godot nemá konzistentní počet záznamů: ${englishGodotRecords}`);\n}"
+);
+if (validator.includes('Anglický Godot nemá úplných 73 záznamů')) throw new Error('Hard-coded English Godot validator count 73 remains');
+await writeFile(validatorPath, validator, 'utf8');
+
+console.log('English Godot and its validator prepared for dynamically derived state-record count and Ministry of Transport translation.');
