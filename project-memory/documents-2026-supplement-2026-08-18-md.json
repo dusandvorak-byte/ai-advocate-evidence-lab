@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-18",
+  "purpose": "Odpověď Ministerstva dopravy ze dne 18. srpna 2026 k žádosti podle zákona č. 106/1999 Sb. o pravidlech odběru, přepravy, úschovy a předávání krevních vzorků.",
+  "documents": [
+    {
+      "id": "doc-cz-md-2026-08-18-md-46042-2026-010-4",
+      "user_title": "Ministerstvo dopravy odložilo žádost o informace k odběru, přepravě a úschově krevních vzorků; uvedlo, že takovými dokumenty nedisponuje a nikdy nedisponovalo",
+      "issue_date": "2026-08-18",
+      "received_date": "2026-08-18",
+      "institution_id": "CZ-MD",
+      "reference": "MD-46042/2026-010/4; sp. zn. MD/46042/2026/010",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "InfZ",
+        "odběr krve",
+        "přeprava vzorku",
+        "úschova vzorku",
+        "chain of custody",
+        "Ministerstvo dopravy"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-md-2026-08-18-md-46042-2026-010-4.html",
+        "pdf": null,
+        "sha256": "d86611e33fceee3bcaaf86c04196f7e5fef4f81edf477459b820b18d40191f89",
+        "verification_status": "source_pdf_verified_in_intake; public_text_page",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-18-md.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Ministerstvo dopravy uvedlo, že nedisponuje žádnými dokumenty týkajícími se odběru, přepravy ani úschovy vzorku krve a takovými dokumenty ani nikdy nedisponovalo. Požadované informace podle něj nespadají do jeho působnosti; doporučilo obrátit se na Policii České republiky, Policejní prezidium, Ministerstvo vnitra nebo Ministerstvo zdravotnictví a žádost podle § 14 odst. 5 písm. c) InfZ odložilo. Adresátem odpovědi je Ganja For All Animals, z.s., předsedkyně správní rady Tereza Tausingerová."
+    }
+  ]
+}
