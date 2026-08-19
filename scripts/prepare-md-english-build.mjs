@@ -27,7 +27,7 @@ let validator = await readFile(validatorPath, 'utf8');
 const lines = validator.split('\n');
 const patched = [];
 for (const line of lines) {
-  if (line.includes('englishGodot.includes(`data-english-chronology-count=') && line.includes('englishGodotRecords !== 73')) {
+  if (line.includes("englishGodot.includes('data-english-chronology-count=\"73\"')") && line.includes('englishGodotRecords !== 73')) {
     patched.push("const englishGodotDeclaredCount = Number(englishGodot.match(/data-english-chronology-count=\\\"(\\d+)\\\"/)?.[1] || 0);");
     patched.push('if (englishGodotRecords < 1 || englishGodotDeclaredCount !== englishGodotRecords) {');
     continue;
@@ -39,6 +39,9 @@ for (const line of lines) {
   patched.push(line);
 }
 validator = patched.join('\n');
+if (validator.includes('englishGodotRecords !== 73') || validator.includes('úplných 73 záznamů')) {
+  throw new Error('Nepodařilo se odstranit starý pevný počet 73 z validátoru');
+}
 await writeFile(validatorPath, validator, 'utf8');
 
 console.log('English Godot and its validator prepared for dynamically derived state-record count and Ministry of Transport translation.');
