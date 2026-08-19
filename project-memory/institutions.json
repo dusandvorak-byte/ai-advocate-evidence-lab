@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_on": "2026-08-17",
+  "updated_on": "2026-08-19",
   "institutions": [
     {
       "id": "CZ-GIBS",
@@ -43,6 +43,13 @@
       "type": "ministry",
       "name": "Ministerstvo kultury",
       "short_name": "MK"
+    },
+    {
+      "id": "CZ-MD",
+      "country": "CZ",
+      "type": "ministry",
+      "name": "Ministerstvo dopravy",
+      "short_name": "MD"
     },
     {
       "id": "CZ-NSZ",
