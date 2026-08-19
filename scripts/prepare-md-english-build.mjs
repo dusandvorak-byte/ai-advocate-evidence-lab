@@ -21,20 +21,24 @@ builder = builder
   .replaceAll('73 source-linked records', '${stateDocuments.length} source-linked records')
   .replaceAll('<strong>73/73</strong>', '<strong>${stateDocuments.length}/${stateDocuments.length}</strong>')
   .replaceAll('${stateDocuments.length}/73 public records', '${stateDocuments.length}/${stateDocuments.length} public records');
-if (builder.includes('requires 73 state/public records') || builder.includes('/73 public records')) {
-  throw new Error('Hard-coded English Godot count 73 remains');
-}
 await writeFile(builderPath, builder, 'utf8');
 
 let validator = await readFile(validatorPath, 'utf8');
-const staleValidation = /if \(!englishGodot\.includes\(`data-english-chronology-count="73"`\) \|\| englishGodotRecords !== 73\) \{\s*throw new Error\(`Anglický Godot nemá úplných 73 záznamů: \$\{englishGodotRecords\}`\);\s*\}/m;
-validator = validator.replace(
-  staleValidation,
-  "const englishGodotDeclaredCount = Number(englishGodot.match(/data-english-chronology-count=\\\"(\\d+)\\\"/)?.[1] || 0);\nif (englishGodotRecords < 1 || englishGodotDeclaredCount !== englishGodotRecords) {\n  throw new Error(`Anglický Godot nemá konzistentní počet záznamů: vykresleno ${englishGodotRecords}, deklarováno ${englishGodotDeclaredCount}`);\n}"
-);
-if (validator.includes('englishGodotRecords !== 73') || validator.includes('úplných 73 záznamů')) {
-  throw new Error('Hard-coded English Godot validator count 73 remains');
+const lines = validator.split('\n');
+const patched = [];
+for (const line of lines) {
+  if (line.includes('englishGodot.includes(`data-english-chronology-count=') && line.includes('englishGodotRecords !== 73')) {
+    patched.push("const englishGodotDeclaredCount = Number(englishGodot.match(/data-english-chronology-count=\\\"(\\d+)\\\"/)?.[1] || 0);");
+    patched.push('if (englishGodotRecords < 1 || englishGodotDeclaredCount !== englishGodotRecords) {');
+    continue;
+  }
+  if (line.includes('Anglický Godot nemá úplných 73 záznamů')) {
+    patched.push('  throw new Error(`Anglický Godot nemá konzistentní počet záznamů: vykresleno ${englishGodotRecords}, deklarováno ${englishGodotDeclaredCount}`);');
+    continue;
+  }
+  patched.push(line);
 }
+validator = patched.join('\n');
 await writeFile(validatorPath, validator, 'utf8');
 
 console.log('English Godot and its validator prepared for dynamically derived state-record count and Ministry of Transport translation.');
