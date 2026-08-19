@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-20",
+  "purpose": "Městský soud v Praze 8 Ad 9/2026-80 jako jedna státní listina se dvěma přílohami žalovaného; replika žalobce ze dne 20. 8. 2026 jako reakce; a mimořádně naléhavé doplnění žaloby ve věci 18 A 23/2026 ze dne 19. 8. 2026 jako navazující podání k výzvě soudu.",
+  "documents": [
+    {
+      "id": "doc-cz-ms-pha-2026-08-19-8-ad-9-2026-80",
+      "user_title": "Soud zaslal žalobci na vědomí vyjádření a doplnění vyjádření žalovaného Ministerstva zdravotnictví k zásahové žalobě",
+      "issue_date": "2026-08-19",
+      "received_date": "2026-08-19",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "8 Ad 9/2026-80",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["8 Ad 9/2026", "Ministerstvo zdravotnictví", "vyjádření žalovaného", "zásahová žaloba"],
+      "public": {"html": "listiny/doc-cz-ms-pha-2026-08-19-8-ad-9-2026-80.html", "pdf": null, "sha256": "911415c005a9d839cda0e5d598934ecf5471e2b2c686921308588420ca4c7afe", "verification_status": "source_pdf_verified; public_evidence_page"},
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification",
+      "evidence_note": "Hlavní listina: Městský soud v Praze, č. j. 8 Ad 9/2026-80 ze dne 19. 8. 2026. Příloha 1: MZDR 19363/2026-10/PRO, vyjádření žalovaného ze dne 9. 7. 2026. Příloha 2: MZDR 19363/2026-11/PRO, doplnění vyjádření žalovaného ze dne 9. 7. 2026. Evidovat jako jednu státní listinu se dvěma přílohami, nikoli jako tři samostatné položky."
+    },
+    {
+      "id": "doc-cz-dd-2026-08-20-replika-8-ad-9-2026",
+      "user_title": "Replika žalobce k vyjádření a doplnění vyjádření Ministerstva zdravotnictví; návrh na naléhavé projednání bez žádosti o veřejné jednání",
+      "issue_date": "2026-08-20",
+      "received_date": "2026-08-20",
+      "institution_id": "CZ-DD",
+      "reference": "8 Ad 9/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": ["8 Ad 9/2026", "replika", "Ministerstvo zdravotnictví", "naléhavost"],
+      "public": {"html": "listiny/doc-cz-dd-2026-08-20-replika-8-ad-9-2026.html", "pdf": null, "sha256": "17130030d4061c9ca234a712f2bf54eb3e5587caa169549fb49db045117cf95d", "verification_status": "source_pdf_verified; public_evidence_page"},
+      "relations": [{"type":"reakce_na","target_id":"doc-cz-ms-pha-2026-08-19-8-ad-9-2026-80"}],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_batch_classification"
+    },
+    {
+      "id": "doc-cz-dd-2026-08-19-doplneni-18-a-23-2026",
+      "user_title": "Mimořádně naléhavé doplnění žaloby: další listinné důkazy pokračující svévole, institucionálního obrácení odpovědnosti a trvání žalovaného zásahu",
+      "issue_date": "2026-08-19",
+      "received_date": "2026-08-19",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 23/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": ["18 A 23/2026", "Ministerstvo spravedlnosti", "naléhavé doplnění žaloby", "NSZ", "VSZ Praha"],
+      "public": {"html": "listiny/doc-cz-dd-2026-08-19-doplneni-18-a-23-2026.html", "pdf": null, "sha256": null, "verification_status": "file_library_verified; public_evidence_page"},
+      "relations": [
+        {"type":"reakce_na","target_id":"doc-cz-ms-pha-2026-08-10-18-a-23-2026-131"},
+        {"type":"souvisí","target_id":"doc-cz-ms-pha-2026-08-10-18-a-23-2026-130"}
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_batch_classification"
+    }
+  ]
+}
