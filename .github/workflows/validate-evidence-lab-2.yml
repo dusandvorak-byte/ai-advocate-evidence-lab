@@ -37,8 +37,14 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Připravit anglickou překladovou vrstvu pro 74. listinu
+        run: node scripts/prepare-md-english-build.mjs
+
       - name: Spustit jediný kanonický build
         run: node scripts/build-site.mjs
+
+      - name: Finalizovat anglické plochy Ministerstva dopravy
+        run: node scripts/finalize-md-english-surfaces.mjs
 
       - name: Ověřit tři lišty, barvy a chronologii soudních řízení
         run: node scripts/validate-live-dockets-contract.mjs
@@ -60,6 +66,8 @@ jobs:
           test -f web/data/operations-state.json
           test -f web/data/registry-audit.json
           test -f web/zpravy/04082026-010.html
+          grep -q 'Stát: 74 evidovaných listin' web/zpravy/04082026-010.html
+          grep -q 'Ministry of Transport' web/news/04082026-010.html
           ! grep -qi 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
           ! grep -qi 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
 
