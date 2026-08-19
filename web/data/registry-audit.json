@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-19T22:33:38.331Z",
+  "hard_error_count": 0,
+  "human_review_count": 21,
+  "counts": {
+    "documents": 98,
+    "institutions": 45,
+    "cases": 7,
+    "deadlines": 0
+  },
+  "hard_errors": [],
+  "human_review_required": [
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-kpr-2026-08-12-4873-2026",
+      "case_id": "case-cz-kpr-tri-vetve"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-mv-2026-08-11-mv-127234-2-obp-2026",
+      "case_id": "case-cz-mv-infz-ganja-for-all-animals"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-mk-2026-08-12-mk-49467-2026-socns",
+      "case_id": "case-cz-mk-konopna-cirkev"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026",
+      "case_id": "case-cz-mv-infz-ganja-for-all-animals"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd",
+      "case_id": "case-cz-pcr-ku-interni-prezkum"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960",
+      "case_id": "case-cz-pcr-ku-interni-prezkum"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-15-zadost-soucinnost-osz-prostejov",
+      "case_id": "case-cz-osz-pro-prevence-2026"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-15-zadost-soucinnost-osz-prostejov",
+      "case_id": "case-cz-pcr-ku-interni-prezkum"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-15-doplneni-stiznosti-ministr-vnitra",
+      "case_id": "case-cz-pcr-ku-interni-prezkum"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-15-zadost-prezkum-policejni-prezident",
+      "case_id": "case-cz-pcr-ku-interni-prezkum"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-15-podnet-gibs",
+      "case_id": "case-cz-pcr-ku-interni-prezkum"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-15-doplneni-prezkumu-msz-praha",
+      "case_id": "case-cz-msz-praha-prezkumy"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-15-doplneni-dohledu-vsz-praha-olomouc",
+      "case_id": "case-cz-vsz-praha-dohled-msz"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-15-doplneni-dohledu-vsz-praha-olomouc",
+      "case_id": "case-cz-vsz-olomouc-dohled-ksz-brno"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-15-seste-doplneni-predzalobni-vyzvy-nsz",
+      "case_id": "case-cz-nsz-predzalobni-vyzva"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-15-doplneni-zaloby-15-a-44-2026",
+      "case_id": "case-cz-ms-praha-15a44-2026"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026",
+      "case_id": "case-cz-kpr-tri-vetve"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-15-souhrnna-zprava-kpr-milost-amnestie",
+      "case_id": "case-cz-kpr-tri-vetve"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
+      "case_id": "case-cz-os-praha4-10c69-2026"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-nsz-2026-08-13-6-nzn-1737-2026-73",
+      "case_id": "case-cz-ms-praha-18a23-2026"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-os-pro-2026-08-18-15-nt-3104-2026-56",
+      "case_id": "case-cz-os-pro-2t104-2010-obnova"
+    }
+  ],
+  "rule": "Duplicity a neplatné veřejné cesty blokují build. Neúplné vazby se nikdy nedoplňují odhadem a čekají na lidskou kontrolu."
+}
