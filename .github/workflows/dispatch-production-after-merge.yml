@@ -1,0 +1,22 @@
+name: Spustit produkční publikaci po sloučení PR
+
+on:
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  dispatch:
+    name: Spustit kanonický produkční workflow
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Spustit ověřené publikování do gh-pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh workflow run publish-gh-pages-branch.yml --ref main
