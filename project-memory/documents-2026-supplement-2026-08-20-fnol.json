@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-20",
+  "purpose": "Zařazení dokumentu poskytnutého Fakultní nemocnicí Olomouc dne 19. 8. 2026 k žádosti o pravidla přepravy krve a transfuzních přípravků.",
+  "documents": [
+    {
+      "id": "doc-cz-fnol-2026-08-19-stl2015-11-preprava-krve",
+      "user_title": "Fakultní nemocnice Olomouc poskytla k žádosti o přepravu krve doporučení STL2015_11 – Skladování a přeprava krve, krevních složek, suroviny pro další výrobu a transfuzních přípravků",
+      "issue_date": "2026-08-19",
+      "received_date": "2026-08-19",
+      "institution_id": "CZ-FNOL",
+      "reference": "příloha poskytnutá dne 19. 8. 2026; STL2015_11 ze dne 2. 11. 2015",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["Fakultní nemocnice Olomouc", "transfuzní lékařství", "přeprava krve", "teplotní režim", "validace přepravy", "STL2015_11"],
+      "public": {
+        "html": "listiny/doc-cz-fnol-2026-08-19-stl2015-11-preprava-krve.html",
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_pdf_verified; public_evidence_page"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification",
+      "evidence_note": "Zdrojový osmistránkový dokument je Doporučení Společnosti pro transfuzní lékařství ČLS JEP č. STL2015_11 ze dne 2. 11. 2015, verze 1. Pro účely chronologie je evidován dnem 19. 8. 2026, kdy byl podle označení předaného souboru poskytnut Fakultní nemocnicí Olomouc. Dokument stanoví mimo jiné validaci a monitorování přepravy, záznam teploty, limity pro erytrocyty 2–10 °C do 24 hodin a 2–6 °C nad 24 hodin, plazmu pod −25 °C a trombocyty 20–24 °C."
+    }
+  ]
+}
