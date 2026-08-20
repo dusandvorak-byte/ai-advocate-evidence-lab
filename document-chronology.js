@@ -30,6 +30,13 @@
         { type: 'reakce_na', target_id: 'doc-cz-ms-pha-2026-08-10-18-a-23-2026-131' },
         { type: 'souvisí', target_id: 'doc-cz-ms-pha-2026-08-10-18-a-23-2026-130' }
       ]
+    },
+    {
+      id: 'doc-cz-fnol-2026-08-19-stl2015-11-preprava-krve',
+      user_title: 'Fakultní nemocnice Olomouc poskytla k žádosti o přepravu krve doporučení STL2015_11 – Skladování a přeprava krve, krevních složek, suroviny pro další výrobu a transfuzních přípravků',
+      issue_date: '2026-08-19', received_date: '2026-08-19', institution_id: 'CZ-FNOL', reference: 'STL2015_11 ze dne 2. 11. 2015; poskytnuto 19. 8. 2026',
+      document_type: 'state_record', submission_side: 'incoming_from_state_or_public_institution',
+      public: { html: 'listiny/doc-cz-fnol-2026-08-19-stl2015-11-preprava-krve.html', pdf: null }, relations: []
     }
   ];
 
@@ -90,7 +97,7 @@
     item.dataset.institutionId = documentItem.institution_id || '';
     const institutionNode = document.createElement('strong');
     institutionNode.className = 'institution';
-    institutionNode.textContent = institution?.name_cs || institution?.name || documentItem.institution_id || 'Původce neuveden';
+    institutionNode.textContent = institution?.name_cs || institution?.name || (documentItem.institution_id === 'CZ-FNOL' ? 'Fakultní nemocnice Olomouc' : documentItem.institution_id || 'Původce neuveden');
     item.append(document.createTextNode(`Datum: ${formatDate(documentItem.issue_date)} · Kdo: `), institutionNode);
     item.append(document.createTextNode(` · Č. j. / sp. zn.: ${documentItem.reference || 'bez samostatného č. j./sp. zn.'}`));
     item.append(document.createTextNode(` · Co se stalo: ${documentItem.user_title || 'popis úkonu dosud nedoložen'}`));
@@ -111,6 +118,7 @@
     document.getElementById('rizeni-online')?.remove();
     const institutionEntries = Array.isArray(institutions.institutions) ? institutions.institutions : Object.values(institutions.institutions || {});
     const institutionMap = new Map(institutionEntries.map(item => [item.id, item]));
+    if (!institutionMap.has('CZ-FNOL')) institutionMap.set('CZ-FNOL', { id: 'CZ-FNOL', name: 'Fakultní nemocnice Olomouc' });
     const merged = new Map(registry.documents.map(item => [item.id, item]));
     for (const item of HOTFIX_DOCUMENTS) if (!merged.has(item.id)) merged.set(item.id, item);
     const allDocuments = [...merged.values()].filter(item => item.issue_date >= ARCHIVE_FROM).sort(compareDocuments);
