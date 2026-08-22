@@ -1,0 +1,39 @@
+name: Jednorázově uložit opravené Godot PDF odkazy
+
+on:
+  push:
+    branches: [agent/restore-godot-pdf-links-09082026]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-save:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Převzít aktuální main
+        run: |
+          git fetch origin main
+          git merge --no-edit origin/main
+      - name: Spustit stávající kanonický build
+        run: node scripts/build-site.mjs
+      - name: Uložit pouze vygenerované opravy a odstranit jednorázové soubory
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f .github/workflows/oneoff-restore-godot-links.yml .build-triggers/restore-godot-pdf-links-2026-08-09.txt
+          git add project-memory/documents-2026.json project-memory/pdf-reconciliation-report.json web/data/documents-2026.json web/data/godot-pdf-audit.json web/zpravy/04082026-010.html web/listiny
+          if git diff --cached --quiet; then
+            echo "Žádné změny k uložení."
+            exit 0
+          fi
+          git commit -m "Uložit opravené přímé PDF odkazy Godota [skip ci]"
+          git push origin HEAD:agent/restore-godot-pdf-links-09082026
+# druhý push spouští již existující jednorázový workflow
