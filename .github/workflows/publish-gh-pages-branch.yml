@@ -38,6 +38,9 @@ jobs:
       - name: Materializovat a hashově ověřit verzované PDF Godota
         run: node scripts/materialize-godot-pdf-bundle.mjs
 
+      - name: Materializovat a hashově ověřit nové státní PDF 20.–24. 8. 2026
+        run: node scripts/materialize-godot-state-bundle-2026-08-24.mjs
+
       - name: Připravit anglickou překladovou vrstvu
         run: node scripts/prepare-md-english-build.mjs
 
@@ -92,8 +95,6 @@ jobs:
           grep -q '"two_derived_submission_counters": true' web/data/build-manifest.json
           grep -q '"five_alliance_privacy_exemptions": true' web/data/build-manifest.json
 
-          # Žádný ručně zapsaný počet. Stejný počet se musí odvodit z jediného manifestu
-          # a musí sedět na české i anglické veřejné ploše.
           state_count="$(jq -r '.counts.state_public_submissions' web/data/build-manifest.json)"
           verified_pdf_count="$(jq -r '.linked_pdf_count' web/data/pdf-reconciliation-report.json)"
           test "$state_count" -ge 1
@@ -104,7 +105,6 @@ jobs:
           grep -q "${verified_pdf_count} verified public PDFs" web/en.html
           grep -q "${verified_pdf_count} verified public PDFs" web/kc/en.html
 
-          # Tvrdé publikační podmínky: žádná povinná státní listina ani nová reakce bez PDF.
           grep -q '"required_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
           grep -q '"reaction_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
           grep -q '"broken_article_pdf_link_count": 0' web/data/godot-pdf-audit.json
@@ -118,7 +118,6 @@ jobs:
           grep -q 'Otevřít ověřenou veřejnou kopii PDF' web/listiny/doc-cz-kpr-2026-08-03-kpr-5080-2026.html
           ! grep -Eqi '<a href="[^"]*verejna-kopie\.pdf"[^>]*>[^<]*originál' web/zpravy/04082026-010.html
 
-          # Historické kryptografické kotvy zůstávají explicitně kontrolované.
           test -f web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf
           test "$(head -c 5 web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf)" = '%PDF-'
           cat > /tmp/godot-pdf-sha256.txt <<'EOF'
