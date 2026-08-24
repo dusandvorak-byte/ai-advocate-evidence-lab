@@ -26,28 +26,39 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
+
       - name: Použít Node.js 24
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+
       - name: Obnovit přesné PDF z historických binárních zdrojů
         run: node scripts/recover-historical-binary-blobs.mjs
-      - name: Materializovat a hashově ověřit aktuální PDF Godota
+
+      - name: Materializovat a hashově ověřit verzované PDF Godota
         run: node scripts/materialize-godot-pdf-bundle.mjs
-      - name: Připravit anglickou překladovou vrstvu pro 74. listinu
+
+      - name: Připravit anglickou překladovou vrstvu
         run: node scripts/prepare-md-english-build.mjs
+
       - name: Spustit jediný kanonický build
         run: node scripts/build-site.mjs
+
       - name: Doplnit opačné vazby stát na naše předchozí podání
         run: node scripts/patch-godot-reverse-reactions.mjs
+
       - name: Finalizovat veřejné popisky bez změny kanonických dat
         run: node scripts/finalize-public-labels.mjs
+
       - name: Finalizovat anglické plochy Ministerstva dopravy
         run: node scripts/finalize-md-english-surfaces.mjs
+
       - name: Znovu ověřit PDF po všech finálních úpravách
         run: node scripts/audit-godot-pdf-links.mjs
+
       - name: Ověřit tři lišty, barvy a chronologii soudních řízení
         run: node scripts/validate-live-dockets-contract.mjs
+
       - name: Ověřit Evidence Lab 2.0 před publikací
         shell: bash
         run: |
@@ -58,6 +69,8 @@ jobs:
           test -f web/data/pdf-reconciliation-report.json
           test -f web/data/operations-state.json
           test -f web/data/registry-audit.json
+          test -f web/data/godot-pdf-audit.json
+
           grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' web/zpravy/04082026-010.html
           ! grep -q 'Pavouk český křižák z Branibor' web/zpravy/04082026-010.html
           ! grep -q 'href="web/' web/zpravy/04082026-010.html
@@ -71,17 +84,41 @@ jobs:
           grep -q 'grid-auto-columns:minmax(0,1fr)' web/layout-fix.css
           grep -q 'grid-template-columns:260px minmax(0,1fr)' web/live-dockets.css
           grep -q 'grid-template-columns:repeat(3,minmax(0,1fr))' web/live-dockets.css
+
           grep -q '"schema_version": "2.2"' web/data/build-manifest.json
           grep -q '"build_entrypoint": "scripts/build-site.mjs"' web/data/build-manifest.json
           grep -q '"registry_hard_errors": 0' web/data/build-manifest.json
           grep -q '"single_public_build_entrypoint": true' web/data/build-manifest.json
           grep -q '"two_derived_submission_counters": true' web/data/build-manifest.json
           grep -q '"five_alliance_privacy_exemptions": true' web/data/build-manifest.json
+
+          # Žádný ručně zapsaný počet. Stejný počet se musí odvodit z jediného manifestu
+          # a musí sedět na české i anglické veřejné ploše.
+          state_count="$(jq -r '.counts.state_public_submissions' web/data/build-manifest.json)"
+          verified_pdf_count="$(jq -r '.linked_pdf_count' web/data/pdf-reconciliation-report.json)"
+          test "$state_count" -ge 1
+          test "$verified_pdf_count" -ge 1
+          grep -q "Stát: ${state_count} evidovaných listin" web/zpravy/04082026-010.html
+          grep -q "${state_count} state and public-institution records" web/en.html
+          grep -q "${state_count} state and public-institution records" web/kc/en.html
+          grep -q "${verified_pdf_count} verified public PDFs" web/en.html
+          grep -q "${verified_pdf_count} verified public PDFs" web/kc/en.html
+
+          # Tvrdé publikační podmínky: žádná povinná státní listina ani nová reakce bez PDF.
+          grep -q '"required_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
+          grep -q '"reaction_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
+          grep -q '"broken_article_pdf_link_count": 0' web/data/godot-pdf-audit.json
+          grep -q '"invalid_registry_pdf_link_count": 0' web/data/godot-pdf-audit.json
+          grep -q '"missing_rendered_reaction_count": 0' web/data/godot-pdf-audit.json
+          grep -q '"missing_reaction_pdf_link_count": 0' web/data/godot-pdf-audit.json
+
           grep -q 'Otevřít originální listinu v PDF' web/listiny/nsz-6-nzn-1737-2026-15.html
           grep -q 'ověřená veřejná kopie PDF' web/zpravy/04082026-010.html
           grep -q 'Otevřít ověřenou veřejnou kopii PDF' web/listiny/doc-cz-kpr-2026-07-30-kpr-5772-2026-1.html
           grep -q 'Otevřít ověřenou veřejnou kopii PDF' web/listiny/doc-cz-kpr-2026-08-03-kpr-5080-2026.html
           ! grep -Eqi '<a href="[^"]*verejna-kopie\.pdf"[^>]*>[^<]*originál' web/zpravy/04082026-010.html
+
+          # Historické kryptografické kotvy zůstávají explicitně kontrolované.
           test -f web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf
           test "$(head -c 5 web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf)" = '%PDF-'
           cat > /tmp/godot-pdf-sha256.txt <<'EOF'
@@ -106,18 +143,13 @@ jobs:
               grep -Rqs "$rel" web/listiny
             fi
           done < /tmp/godot-pdf-sha256.txt
-          verified_pdf_count="$(jq -r '.linked_pdf_count' web/data/pdf-reconciliation-report.json)"
-          grep -q '75 state and public-institution records' web/en.html
-          grep -q "${verified_pdf_count} verified public PDFs" web/en.html
-          grep -q '75 state and public-institution records' web/kc/en.html
-          grep -q "${verified_pdf_count} verified public PDFs" web/kc/en.html
+
           grep -q 'NCOZ-4324-2/ČJ-2026-4100PI' web/en.html
           grep -q 'Ministry of Transport' web/en.html
           grep -q 'The Ministry of Transport deferred the information request' web/en.html
           grep -q 'Ministry of Transport' web/news/04082026-010.html
           grep -q 'The Ministry of Transport deferred the freedom-of-information request' web/news/04082026-010.html
-          grep -q '"required_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
-          grep -q '"broken_article_pdf_link_count": 0' web/data/godot-pdf-audit.json
+
       - name: Připravit kořen webu a kompatibilní cestu /web
         shell: bash
         run: |
@@ -142,6 +174,7 @@ jobs:
           touch /tmp/verified-site/web/.nojekyll
           printf '%s\n' "$GITHUB_SHA" > /tmp/verified-site/.source-commit
           printf '%s\n' "$GITHUB_SHA" > /tmp/verified-site/web/.source-commit
+
       - name: Publikovat ověřené soubory do jediné větve gh-pages
         shell: bash
         run: |
@@ -154,6 +187,10 @@ jobs:
           git add -A
           git commit -m "Publish verified Evidence Lab 2.0 from $GITHUB_SHA"
           git push --force origin HEAD:gh-pages
+
       - name: Souhrn
+        shell: bash
         run: |
-          echo "Evidence Lab 2.0 byl publikován jediným workflow až po hashové kontrole dvanácti PDF, auditu 46/46 povinných listin, smlouvě tří lišt a synchronizaci anglických ploch."
+          state_count="$(jq -r '.counts.state_public_submissions' web/data/build-manifest.json)"
+          pdf_count="$(jq -r '.linked_pdf_count' web/data/pdf-reconciliation-report.json)"
+          echo "Evidence Lab 2.0 publikován po kanonickém buildu, PDF auditu a jazykové kontrole: ${state_count} státních/veřejných listin, ${pdf_count} ověřených veřejných PDF."
