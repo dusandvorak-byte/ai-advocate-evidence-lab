@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Připravit anglickou překladovou vrstvu pro 74. listinu
+      - name: Připravit anglickou překladovou vrstvu
         run: node scripts/prepare-md-english-build.mjs
 
       - name: Spustit jediný kanonický build
@@ -49,7 +49,7 @@ jobs:
       - name: Ověřit tři lišty, barvy a chronologii soudních řízení
         run: node scripts/validate-live-dockets-contract.mjs
 
-      - name: Ověřit manifest Evidence Lab 2.0
+      - name: Ověřit manifest Evidence Lab 2.0 bez ručních počtů
         shell: bash
         run: |
           set -euo pipefail
@@ -65,8 +65,13 @@ jobs:
           grep -q '"internal_knowledge_not_auto_published": true' web/data/build-manifest.json
           test -f web/data/operations-state.json
           test -f web/data/registry-audit.json
+          test -f web/data/godot-pdf-audit.json
           test -f web/zpravy/04082026-010.html
-          grep -q 'Stát: 74 evidovaných listin' web/zpravy/04082026-010.html
+          state_count="$(jq -r '.counts.state_public_submissions' web/data/build-manifest.json)"
+          test "$state_count" -ge 1
+          grep -q "Stát: ${state_count} evidovaných listin" web/zpravy/04082026-010.html
+          grep -q '"required_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
+          grep -q '"reaction_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
           grep -q 'Ministry of Transport' web/news/04082026-010.html
           ! grep -qi 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
           ! grep -qi 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
