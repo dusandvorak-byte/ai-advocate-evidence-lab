@@ -1,14 +1,19 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const translationsPath = 'project-memory/english-godot-translations.json';
-const supplementPath = 'project-memory/english-godot-translations-2026-08-18-md.json';
+const supplementPaths = [
+  'project-memory/english-godot-translations-2026-08-18-md.json',
+  'project-memory/english-godot-translations-2026-08-24.json'
+];
 const builderPath = 'scripts/build-english-godot.mjs';
 const validatorPath = 'scripts/validate-live-dockets-contract.mjs';
 
 const translations = JSON.parse(await readFile(translationsPath, 'utf8'));
-const supplement = JSON.parse(await readFile(supplementPath, 'utf8'));
-translations.institutions = { ...(translations.institutions || {}), ...(supplement.institutions || {}) };
-translations.documents = { ...(translations.documents || {}), ...(supplement.documents || {}) };
+for (const supplementPath of supplementPaths) {
+  const supplement = JSON.parse(await readFile(supplementPath, 'utf8'));
+  translations.institutions = { ...(translations.institutions || {}), ...(supplement.institutions || {}) };
+  translations.documents = { ...(translations.documents || {}), ...(supplement.documents || {}) };
+}
 await writeFile(translationsPath, `${JSON.stringify(translations, null, 2)}\n`, 'utf8');
 
 let builder = await readFile(builderPath, 'utf8');
@@ -44,4 +49,4 @@ if (validator.includes('englishGodotRecords !== 73') || validator.includes('úpl
 }
 await writeFile(validatorPath, validator, 'utf8');
 
-console.log('English Godot and its validator prepared for dynamically derived state-record count and Ministry of Transport translation.');
+console.log(`English Godot and validator prepared from ${supplementPaths.length} translation supplements with dynamically derived state-record count.`);
