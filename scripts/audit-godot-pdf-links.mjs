@@ -6,7 +6,7 @@ const registryPath = 'project-memory/documents-2026.json';
 const institutionsPath = 'project-memory/institutions.json';
 const policyPath = 'project-memory/active-pdf-policy.json';
 const reportPath = 'web/data/godot-pdf-audit.json';
-const REACTION_PDF_HARD_CUTOFF = '2026-08-19';
+const OUTGOING_PDF_HARD_CUTOFF = '2026-08-19';
 
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 const exists = file => access(file).then(() => true).catch(() => false);
@@ -100,19 +100,24 @@ for (const doc of registryPdfDocuments) {
   if (!await usablePdf(file)) invalidRegistryPdfLinks.push({ id: doc.id, pdf: doc.public.pdf, file });
 }
 
-const reactionDocuments = registry.documents.filter(doc =>
-  doc.submission_side === 'outgoing_from_user_or_alliance'
-  && Array.isArray(doc.relations)
+const outgoingDocuments = registry.documents.filter(doc => doc.submission_side === 'outgoing_from_user_or_alliance');
+const reactionDocuments = outgoingDocuments.filter(doc =>
+  Array.isArray(doc.relations)
   && doc.relations.some(rel => rel.type === 'reakce_na' && (rel.target_id || rel.target))
 );
-const requiredReactionPdfDocuments = reactionDocuments.filter(doc => String(doc.issue_date || '') >= REACTION_PDF_HARD_CUTOFF);
-const reactionsWithoutActivePdf = requiredReactionPdfDocuments.filter(doc => !doc.public?.pdf).map(doc => ({
+
+// Od 19. 8. 2026 musí mít aktivní PDF každé naše nové podání, nikoli jen podání,
+// které už má správně vyplněnou relaci reakce_na. Tím se nesmí ztratit např. samostatný
+// dodatek či opravný prostředek jen proto, že někdo zapomněl vazbu v kanonickém registru.
+const requiredOutgoingPdfDocuments = outgoingDocuments.filter(doc => String(doc.issue_date || '') >= OUTGOING_PDF_HARD_CUTOFF);
+const outgoingWithoutActivePdf = requiredOutgoingPdfDocuments.filter(doc => !doc.public?.pdf).map(doc => ({
   id: doc.id,
   issue_date: doc.issue_date,
   reference: doc.reference,
   title: doc.user_title,
   intended_pdf: doc.public?.intended_pdf || null
 }));
+
 const missingRenderedReactions = [];
 const missingReactionPdfLinks = [];
 for (const reaction of reactionDocuments) {
@@ -174,10 +179,13 @@ const report = {
   invalid_registry_pdf_link_count: invalidRegistryPdfLinks.length,
   invalid_registry_pdf_links: invalidRegistryPdfLinks,
   reaction_document_count: reactionDocuments.length,
-  reaction_pdf_hard_cutoff: REACTION_PDF_HARD_CUTOFF,
-  required_reaction_pdf_document_count: requiredReactionPdfDocuments.length,
-  reaction_without_active_pdf_count: reactionsWithoutActivePdf.length,
-  reactions_without_active_pdf: reactionsWithoutActivePdf,
+  outgoing_pdf_hard_cutoff: OUTGOING_PDF_HARD_CUTOFF,
+  required_outgoing_pdf_document_count: requiredOutgoingPdfDocuments.length,
+  outgoing_without_active_pdf_count: outgoingWithoutActivePdf.length,
+  outgoing_without_active_pdf: outgoingWithoutActivePdf,
+  // compatibility key used by existing workflow checks
+  reaction_without_active_pdf_count: outgoingWithoutActivePdf.length,
+  reactions_without_active_pdf: outgoingWithoutActivePdf,
   missing_rendered_reaction_count: missingRenderedReactions.length,
   missing_rendered_reactions: missingRenderedReactions,
   missing_reaction_pdf_link_count: missingReactionPdfLinks.length,
@@ -196,7 +204,7 @@ if (
   brokenArticlePdfLinks.length
   || requiredWithoutActivePdf.length
   || invalidRegistryPdfLinks.length
-  || reactionsWithoutActivePdf.length
+  || outgoingWithoutActivePdf.length
   || missingRenderedReactions.length
   || missingReactionPdfLinks.length
 ) {
@@ -205,7 +213,7 @@ if (
     `Godot audit selhal: ${brokenArticlePdfLinks.length} nefunkčních PDF [${ids(brokenArticlePdfLinks)}]; `
     + `${requiredWithoutActivePdf.length} povinných institucionálních listin bez PDF [${ids(requiredWithoutActivePdf)}]; `
     + `${invalidRegistryPdfLinks.length} neplatných registrovaných PDF [${ids(invalidRegistryPdfLinks)}]; `
-    + `${reactionsWithoutActivePdf.length} reakcí od ${REACTION_PDF_HARD_CUTOFF} bez PDF [${ids(reactionsWithoutActivePdf)}]; `
+    + `${outgoingWithoutActivePdf.length} našich podání od ${OUTGOING_PDF_HARD_CUTOFF} bez PDF [${ids(outgoingWithoutActivePdf)}]; `
     + `${missingRenderedReactions.length} chybějících inline reakcí [${ids(missingRenderedReactions)}]; `
     + `${missingReactionPdfLinks.length} reakcí bez aktivního PDF odkazu [${ids(missingReactionPdfLinks)}].`
   );
@@ -214,7 +222,7 @@ if (
 console.log(
   `Godot audit: ${articlePdfLinks.length} aktivních PDF odkazů; `
   + `${requiredWithActivePdf.length}/${requiredDocuments.length} povinných institucionálních listin má PDF; `
-  + `${requiredReactionPdfDocuments.length}/${requiredReactionPdfDocuments.length} reakcí od ${REACTION_PDF_HARD_CUTOFF} má PDF; `
+  + `${requiredOutgoingPdfDocuments.length}/${requiredOutgoingPdfDocuments.length} našich podání od ${OUTGOING_PDF_HARD_CUTOFF} má PDF; `
   + `${exemptDocuments.length} dokumentů je v povolené výjimce; `
   + `${reactionDocuments.length}/${reactionDocuments.length} kanonických reakcí vykresleno inline.`
 );
