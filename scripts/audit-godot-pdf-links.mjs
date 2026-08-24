@@ -100,9 +100,6 @@ for (const doc of registryPdfDocuments) {
   if (!await usablePdf(file)) invalidRegistryPdfLinks.push({ id: doc.id, pdf: doc.public.pdf, file });
 }
 
-// Reakce jsou invariant: každé kanonické outgoing podání s relací reakce_na musí být vykresleno
-// uvnitř cílové státní položky. Od 19. 8. 2026 je navíc PDF reakce tvrdou publikační podmínkou:
-// evidenční HTML bez skutečného PDF už nesmí projít jako „hotovo“.
 const reactionDocuments = registry.documents.filter(doc =>
   doc.submission_side === 'outgoing_from_user_or_alliance'
   && Array.isArray(doc.relations)
@@ -136,9 +133,7 @@ for (const reaction of reactionDocuments) {
   const evidenceTokens = [reaction.user_title, reaction.reference].filter(Boolean);
   const hasReactionSignal = targetHtml.includes('chronology-reaction')
     && evidenceTokens.some(token => targetHtml.includes(String(token).slice(0, Math.min(40, String(token).length))));
-  if (!hasReactionSignal) {
-    missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'reaction-not-inline' });
-  }
+  if (!hasReactionSignal) missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'reaction-not-inline' });
   if (reaction.public?.pdf) {
     const pdf = publicPath(reaction.public.pdf);
     if (!targetHtml.includes(`href="${pdf}"`) && !targetHtml.includes(`href='${pdf}'`)) {
@@ -149,9 +144,7 @@ for (const reaction of reactionDocuments) {
 
 const repoPdfFiles = (await walk('.')).filter(file => /\.pdf$/i.test(file));
 const usableRepoPdfs = [];
-for (const file of repoPdfFiles) {
-  if (await usablePdf(file)) usableRepoPdfs.push(file.replace(/^\.\//, ''));
-}
+for (const file of repoPdfFiles) if (await usablePdf(file)) usableRepoPdfs.push(file.replace(/^\.\//, ''));
 const usablePublicPdfs = usableRepoPdfs.filter(file => file.startsWith('web/documents/'));
 const usablePdfOutsidePublicTree = usableRepoPdfs.filter(file => !file.startsWith('web/documents/'));
 
@@ -207,13 +200,14 @@ if (
   || missingRenderedReactions.length
   || missingReactionPdfLinks.length
 ) {
+  const ids = list => list.map(item => item.id || item.reaction_id || item.href).join(', ');
   throw new Error(
-    `Godot audit selhal: ${brokenArticlePdfLinks.length} nefunkčních PDF, `
-    + `${requiredWithoutActivePdf.length} povinných institucionálních listin bez PDF, `
-    + `${invalidRegistryPdfLinks.length} neplatných registrovaných PDF, `
-    + `${reactionsWithoutActivePdf.length} reakcí od ${REACTION_PDF_HARD_CUTOFF} bez PDF, `
-    + `${missingRenderedReactions.length} chybějících inline reakcí, `
-    + `${missingReactionPdfLinks.length} reakcí bez aktivního PDF odkazu.`
+    `Godot audit selhal: ${brokenArticlePdfLinks.length} nefunkčních PDF [${ids(brokenArticlePdfLinks)}]; `
+    + `${requiredWithoutActivePdf.length} povinných institucionálních listin bez PDF [${ids(requiredWithoutActivePdf)}]; `
+    + `${invalidRegistryPdfLinks.length} neplatných registrovaných PDF [${ids(invalidRegistryPdfLinks)}]; `
+    + `${reactionsWithoutActivePdf.length} reakcí od ${REACTION_PDF_HARD_CUTOFF} bez PDF [${ids(reactionsWithoutActivePdf)}]; `
+    + `${missingRenderedReactions.length} chybějících inline reakcí [${ids(missingRenderedReactions)}]; `
+    + `${missingReactionPdfLinks.length} reakcí bez aktivního PDF odkazu [${ids(missingReactionPdfLinks)}].`
   );
 }
 
