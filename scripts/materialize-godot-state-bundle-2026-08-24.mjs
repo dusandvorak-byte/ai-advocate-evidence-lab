@@ -5,7 +5,7 @@ import { spawn } from 'node:child_process';
 const chunksDir = 'project-memory/binary-bundle-2026-08-24-state';
 const archivePath = '/tmp/godot-state-2026-08-24.tar.xz';
 const outputRoot = 'web';
-const expectedArchiveSha256 = 'efdcf4a4adbe07cfcab355559c4355a042de8c698cb408da43429b06c207835c';
+const expectedArchiveSha256 = '0338f8ec8ef1c814a832616ec098cd4f262a63a8b83fc57aa7d3d5a7a2b870b5';
 const expected = {
   'documents/report-04082026-010/64-msz-praha-2-kzn-55-2025-136-2026-08-20.pdf': 'c24e4cf837f1ab70241c7b597846aa59df29b95a9b60a2f3c9c01e3f66e6cc3b',
   'documents/report-04082026-010/65-ku-4139-12-cj-2026-2305km-2026-08-20.pdf': 'a4a4b274aa1607181344240937b6a96f33a09cbefa2bfac5308e418aa1cfb9a3',
