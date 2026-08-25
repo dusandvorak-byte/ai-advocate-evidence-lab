@@ -39,11 +39,14 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Obnovit a kryptograficky ověřit všechna verzovaná PDF z historie
+      - name: Obnovit přesné PDF z historických binárních zdrojů
         run: node scripts/recover-historical-binary-blobs.mjs
 
       - name: Materializovat a hashově ověřit verzované PDF Godota
         run: node scripts/materialize-godot-pdf-bundle.mjs
+
+      - name: Materializovat a hashově ověřit nové státní PDF 20.–24. 8. 2026
+        run: node scripts/materialize-godot-state-bundle-2026-08-24.mjs
 
       - name: Připravit anglickou překladovou vrstvu
         run: node scripts/prepare-md-english-build.mjs
