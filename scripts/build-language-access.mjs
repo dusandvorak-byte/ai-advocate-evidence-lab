@@ -1,7 +1,7 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 
 const htmlFiles = (await readdir('web', { recursive: true })).filter(path => path.endsWith('.html'));
-const translationAssetVersion = '20260825-2255';
+const translationAssetVersion = '20260817-1-fix-20260825-2255';
 let eligible = 0;
 let updated = 0;
 for (const relativePath of htmlFiles) {
