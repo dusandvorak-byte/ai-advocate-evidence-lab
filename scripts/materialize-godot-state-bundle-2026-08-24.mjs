@@ -1,10 +1,32 @@
 import { spawn } from 'node:child_process';
+import { readFile, writeFile } from 'node:fs/promises';
 
 const run = (cmd, args) => new Promise((resolve, reject) => {
   const child = spawn(cmd, args, { stdio: 'inherit' });
   child.on('error', reject);
   child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${cmd} ${args.join(' ')} exited ${code}`)));
 });
+
+async function patchEnglishTimerTranslations() {
+  const file = 'project-memory/english-process-timer-translations.json';
+  const data = JSON.parse(await readFile(file, 'utf8'));
+  data.timers ||= {};
+  const additions = {
+    'timer-remedy-doc-cz-ekk-dd-gf-2026-08-24-ostrava-frydek-brno-doplneni': {
+      title: 'Ostrava, Frýdek-Místek and Brno branches – urgent evidentiary supplement',
+      event: 'The filing of 24 August 2026 submitted the new Police records of 20 and 24 August and requested coordinated consideration of the connected criminal, review and supervisory branches.'
+    }
+  };
+  let changed = 0;
+  for (const [id, value] of Object.entries(additions)) {
+    if (!data.timers[id]) {
+      data.timers[id] = value;
+      changed++;
+    }
+  }
+  await writeFile(file, JSON.stringify(data, null, 2) + '\n');
+  console.log(`English timer translation patch: ${changed} added`);
+}
 
 async function main() {
   try {
@@ -13,6 +35,7 @@ async function main() {
     await run('python3', ['-m', 'pip', 'install', '--disable-pip-version-check', 'reportlab']);
   }
   await run('python3', ['scripts/materialize-godot-state-text-pdfs.py']);
+  await patchEnglishTimerTranslations();
 }
 
 main().catch(err => {
