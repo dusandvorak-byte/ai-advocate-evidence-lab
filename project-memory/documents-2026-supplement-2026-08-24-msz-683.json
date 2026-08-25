@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-24",
+  "purpose": "Vyrozumění Městského státního zastupitelství v Praze ze dne 24. srpna 2026, č. j. 2 KZN 683/2026-31, o vrácení podání ze dne 15. června 2026.",
+  "documents": [
+    {
+      "id": "doc-cz-msz-pha-2026-08-24-2-kzn-683-2026-31",
+      "user_title": "Vrácení podání ze dne 15. června 2026 pro neshledanou působnost státního zastupitelství",
+      "issue_date": "2026-08-24",
+      "received_date": null,
+      "institution_id": "CZ-MSZ-PHA",
+      "reference": "2 KZN 683/2026-31",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["státní zastupitelství", "§ 16a zákona o státním zastupitelství", "vrácení podání", "přezkum vyřízení podání"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/73-msz-praha-2-kzn-683-2026-31-2026-08-24.pdf",
+        "sha256": "71baa2b622bb61ab2c601e2f89a3aff9f6ff05576f13e6483811cd98bb28b197",
+        "verification_status": "source_pdf_verified_in_intake; awaiting_generated_public_copy",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-24-msz-683.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "MSZ uvedlo, že u materiálů zaslaných dne 15. 6. 2026 neshledalo svou působnost k vyřízení, a podle § 16a odst. 4 zákona o státním zastupitelství je podateli vrátilo s odkazem na jejich skutečné adresáty. Současně poučilo o možnosti požádat nejblíže vyšší státní zastupitelství o přezkoumání podle § 16a odst. 7."
+    }
+  ]
+}
