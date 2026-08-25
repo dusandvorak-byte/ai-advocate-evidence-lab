@@ -31,6 +31,24 @@ ITEMS = [
         "registry": ROOT / "project-memory/documents-2026-supplement-2026-08-24-msz-683.json",
         "id": "doc-cz-msz-pha-2026-08-24-2-kzn-683-2026-31",
     },
+    {
+        "filename": "74-ms-praha-15-a-44-2026-43-2026-08-25.pdf",
+        "source": ROOT / "project-memory/state-text-sources-2026-08-25/74-ms-praha-15-a-44-2026-43.txt",
+        "registry": ROOT / "project-memory/documents-2026-supplement-2026-08-25-courts.json",
+        "id": "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43",
+    },
+    {
+        "filename": "75-os-prostejov-15-nt-3106-2026-predvolani-2026-08-25.pdf",
+        "source": ROOT / "project-memory/state-text-sources-2026-08-25/75-os-prostejov-15-nt-3106-2026-predvolani.txt",
+        "registry": ROOT / "project-memory/documents-2026-supplement-2026-08-25-courts.json",
+        "id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-predvolani",
+    },
+    {
+        "filename": "76-os-prostejov-15-nt-3106-2026-neslouceni-2026-08-25.pdf",
+        "source": ROOT / "project-memory/state-text-sources-2026-08-25/76-os-prostejov-15-nt-3106-2026-neslouceni.txt",
+        "registry": ROOT / "project-memory/documents-2026-supplement-2026-08-25-courts.json",
+        "id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-neslouceni",
+    },
 ]
 
 FONT_CANDIDATES = [
@@ -112,7 +130,7 @@ def main():
         rel = target.relative_to(WEB).as_posix()
         patch_registry(item["registry"], item["id"], rel, digest)
         print(f"GENERATED LATE STATE PDF {rel} {digest}")
-    print("LATE STATE PDF MATERIALIZATION COMPLETE 2/2")
+    print(f"LATE STATE PDF MATERIALIZATION COMPLETE {len(ITEMS)}/{len(ITEMS)}")
 
 
 if __name__ == "__main__":
