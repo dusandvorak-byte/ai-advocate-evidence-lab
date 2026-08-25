@@ -1,0 +1,165 @@
+Příloha č. 1 k RŘ KÚ č. 54/2021
+
+METODIKA ODBĚRU REPREZENTATIVNÍHO VZORKU
+ROSTLINNÉHO MATERIÁLU
+(1) Pro účely této metodiky se rozumí
+a) pěstírnou
+místo, kde se pěstují rostliny konopí,
+b) definovaným prostorem pěstírny
+prostor, ve kterém se nacházejí rostliny vzhledově shodné odrůdy a ve stejné
+vegetativní fázi (např. rostliny ve fázi květu, růstu, rostliny ve fázi zakořeňování –
+tzv. řízky); tyto rostliny se označí jako jedna stopa.
+(2) Ze zajištěného definovaného prostoru pěstírny se níže uvedeným způsobem
+odebere reprezentativní vzorek nadzemních částí rostlin (bez kořenového systému),
+které jsou vzhledově (výškou a charakterem růstu) podobné.
+(3) Nejprve se zaznamená přesný počet rostlin v definovaném prostoru pěstírny
+(vzhledem k nevysušenému stavu je údaj o neustále se v tu dobu měnící hmotnosti
+vysychajícího rostlinného materiálu irelevantní).
+(4) Dle tabulky č. 1 se dále určí množství rostlin, jež bude odebráno
+z definovaného prostoru pěstírny jako reprezentativní vzorek. Z tabulky č. 1 vyplývá,
+že do 10 ks zajištěných rostlin se odebírá plný počet rostlin, do 100 ks rostlin se odebírá
+10 rostlin a nad 100 ks rostlin se postupuje podle vzorce1) √a (druhá odmocnina
+z celkového počtu zajištěných rostlin - celé vyšší číslo).
+Tabulka č. 1: počet rostlin pro odběr reprezentativního vzorku
+a
+
+X
+
+a
+
+X
+
+1-10
+
+10
+
+289 (257-289)
+
+17
+
+100 (11-100)
+
+10
+
+324 (290-324)
+
+18
+
+121 (101-121)
+
+11
+
+361 (325-361)
+
+19
+
+144 (122-144)
+
+12
+
+400 (362-400)
+
+20
+
+169 (145-169)
+
+13
+
+441 (401-441)
+
+21
+
+196 (170-196)
+
+14
+
+484 (442-484)
+
+22
+
+225 (197-225)
+
+15
+
+529 (485-529)
+
+23
+
+256 (226-256)
+
+16
+
+576 (530-576)
+
+24
+
+a…celkový počet rostlin v definovaném prostoru pěstírny
+X…počet rostlin odebraných jako reprezentativní vzorek
+
+(5) Nakonec se přistoupí k odběru reprezentativního vzorku rostlin
+z definovaného prostoru pěstírny. Podle počtu rostlin v pěstírně se z tabulky č. 1, resp.
+při vyšším počtu zajištěných rostlin podle vzorce1) √a, odečte požadovaný počet
+reprezentativních vzorků rostlin. Podle počtu rostlin odebíraných jako reprezentativní
+vzorek se definovaný prostor pěstírny rozdělí na stejný počet sektorů, přičemž
+1)
+
+ENFSI-UNODC: Guidelines on Representative Drug Sampling. United Nations, New York,
+2009.
+
+Příloha č. 1 k RŘ KÚ č. 54/2021
+
+Strana 2
+
+z každého sektoru se odebere rostlina, jež se nachází v jeho středu. Tato rostlina
+reprezentuje průměr ze všech rostlin z celého sektoru a nejlépe eliminuje možné
+odlišné podmínky pěstování rostlin umístěných při jeho okrajích. Jednotlivé sektory a
+místa odběru jsou orientačně zobrazeny na schématu č. 1. Dále je vhodné viditelně
+označit vybrané rostliny (alobal, barevné fáborky, apod.), definovaný prostor pěstírny
+fotograficky dokumentovat a až poté zajistit tento reprezentativní vzorek. Takto
+vybraný reprezentativní vzorek se odebírá pokud možno do jednoho obalu, který se
+následně vhodně zapečetí.
+Schéma č. 1: orientační poloha rostlin pro odběr reprezentativního vzorku
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(6) V případě pěstíren se zajištěnými rostlinami v různém stadiu růstu se zajistí
+vzorky rostlin všech vývojových stupňů jako různé stopy (počet vývojových stupňů =
+počet stop).
+(7) V případě, kdy se v pěstírně nacházejí řízky a rostliny v raném stadiu
+zralosti, tyto se odeberou pro analýzu všechny.
+(8) Před vlastní kvantitativní analýzou se zajištěné rostliny usuší do rovnovážné
+vlhkosti a poté se určí celková hmotnost usušených rostlin2).
+(9) Pokud je zkušební položka v surovém – čerstvém stavu, musí její sušení
+začít co nejdříve, v každém případě do 48 hodin od zajištění, přičemž se používá
+jakákoli metoda sušení s teplotou nižší než 70°C3). Rostlinný materiál se usuší tak, aby
+měl obsah vody maximálně 13 % (tj. obsah sušiny 87 % a více). Po vysušení se takový
+materiál bez rozdrcení uskladní v temnu při laboratorní teplotě.
+
+2)
+
+3)
+
+ENFSI-UNODC: Guidelines on Sampling of Illicit Drugs for Quantitative Analysis. Ref.
+Code: DWG-GQS-002, April 2014; UNODC: Recommended Methods for the Identification
+and Analysis of Cannabis and Cannabis Products. United Nations, New York, 2009.
+Nařízení komise (ES) č. 1155/2017 ze dne 15. února 2017, příloha 1, v platném znění.
+
+
