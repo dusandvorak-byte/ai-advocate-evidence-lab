@@ -44,7 +44,8 @@ async function patchEnglishGodotTranslations() {
     'doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021-priloha-1': 'Attachment to KRPT-203594-7/ČJ-2026-0700KR: methodology for taking a representative sample of plant material, Annex 1 to Director’s Order No. 54/2021.',
     'doc-cz-pcr-krpt-2026-08-20-metodicko-odborne-vyjezdy-okte': 'Attachment to KRPT-203594-7/ČJ-2026-0700KR: overview of methodological and expert visits, inter-laboratory tests and destruction records from 2009–2019.',
     'doc-cz-pcr-krpt-2026-08-20-krpt-203594-8-cj-2026-0700kr': 'Decision partially refusing the freedom-of-information request. The Police stated that the Frýdek-Místek forensic unit had no SOP for determining THC in 2009–2019, no written methodology for homogenisation or THC/THCA determination, no uncertainty-of-measurement methodology and no validation protocols; part of the historical control documentation had been destroyed.',
-    'doc-cz-pcr-pp-2026-08-24-ppr-44020-2-cj-2026-990210-pd': 'The Internal Control Office of the Police Presidium declined superior review under Section 97(3) of the Police Act because the preceding mandatory examination under Section 97 by the competent Institute of Criminalistics had not taken place; it placed the filing of 15 August 2026 on file without further measures.'
+    'doc-cz-pcr-pp-2026-08-24-ppr-44020-2-cj-2026-990210-pd': 'The Internal Control Office of the Police Presidium declined superior review under Section 97(3) of the Police Act because the preceding mandatory examination under Section 97 by the competent Institute of Criminalistics had not taken place; it placed the filing of 15 August 2026 on file without further measures.',
+    'doc-cz-msz-pha-2026-08-24-2-kzn-683-2026-31': 'The Prague Municipal Public Prosecutor’s Office returned the materials submitted on 15 June 2026 after finding that they did not fall within the competence of the public prosecution service. It referred the submitter to the actual addressees and advised that the disposition could be submitted for review to the immediately superior public prosecutor’s office under Section 16a(7) of the Public Prosecutor’s Office Act.'
   };
   let changed = 0;
   for (const [id, value] of Object.entries(additions)) {
@@ -64,6 +65,7 @@ async function main() {
     await run('python3', ['-m', 'pip', 'install', '--disable-pip-version-check', 'reportlab']);
   }
   await run('python3', ['scripts/materialize-godot-state-text-pdfs.py']);
+  await run('python3', ['scripts/materialize-godot-late-state-pdfs.py']);
   await patchEnglishTimerTranslations();
   await patchEnglishGodotTranslations();
 }
