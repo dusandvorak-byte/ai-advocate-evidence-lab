@@ -75,6 +75,7 @@ async function main() {
     await run('python3', ['-m', 'pip', 'install', '--disable-pip-version-check', 'reportlab']);
   }
   await run('python3', ['scripts/materialize-godot-state-text-pdfs.py']);
+  await run('node', ['scripts/materialize-godot-reaction-pdfs.mjs']);
   await patchEnglishTimerTranslations();
   await patchEnglishGodotTranslations();
 }
