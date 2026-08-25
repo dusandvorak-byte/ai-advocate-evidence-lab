@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "batch_date": "2026-08-24",
-  "purpose": "Nové státní listiny a navazující reakce z 20.-24. srpna 2026 pro Státu lásky čas. Státní listiny se evidují jednotlivě včetně tří příloh KŘP MSK; reakce se vážou relací reakce_na k listině, na kterou procesně navazují. PDF cesty jsou uvedeny jako intended_pdf a smějí se přepnout na public.pdf až po fyzickém vložení a hashové kontrole souboru.",
+  "purpose": "Pouze nové státní listiny z 20.–24. srpna 2026 pro Státu lásky čas. Uživatelské reakce nejsou součástí této publikační dávky.",
   "documents": [
     {
       "id": "doc-cz-msz-pha-2026-08-20-2-kzn-55-2025-136",
@@ -123,130 +123,6 @@
       "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/71-ppr-44020-2-cj-2026-990210-pd-2026-08-24.pdf", "sha256": null, "verification_status": "source_pdf_verified; awaiting_public_binary"},
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
-      "submission_side_basis": "explicit_batch_classification"
-    },
-
-    {
-      "id": "doc-cz-dd-2026-08-21-mv-druhe-nalehave-doplneni-stiznosti",
-      "user_title": "Druhé naléhavé doplnění stížností ministrovi vnitra: nové úřední důkazy KŘP MSK ze dne 20. 8. 2026, rozpor v historické metodické dokumentaci a žádost o okamžité uchování zbývajících důkazů",
-      "issue_date": "2026-08-21",
-      "received_date": "2026-08-21",
-      "institution_id": "CZ-DD",
-      "reference": "MV-108890-3/TP-2026; MV-97289-3/TP-2026; MV-114818-2/TP-2026",
-      "case_ids": [],
-      "document_type": "user_submission",
-      "topics": ["Ministerstvo vnitra", "stížnost", "THC", "SOP", "uchování důkazů", "skartace"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/72-dvorak-mv-druhe-nalehave-doplneni-stiznosti-2026-08-21.pdf", "sha256": null, "verification_status": "file_library_verified; awaiting_public_binary"},
-      "relations": [
-        {"type":"reakce_na","target_id":"doc-cz-pcr-krpt-2026-08-20-krpt-203594-7-cj-2026-0700kr"},
-        {"type":"reakce_na","target_id":"doc-cz-pcr-krpt-2026-08-20-krpt-203594-8-cj-2026-0700kr"}
-      ],
-      "submission_side": "outgoing_from_user_or_alliance",
-      "submission_side_basis": "explicit_batch_classification"
-    },
-    {
-      "id": "doc-cz-dd-2026-08-21-ms-praha-15-a-44-2026-doplneni",
-      "user_title": "Další naléhavé důkazní doplnění žaloby ve věci 15 A 44/2026: nové úřední důkazy Policie ČR ze dne 20. 8. 2026, rozporná tvrzení o historických SOP a používání ENFSI-UNODC a potvrzená skartace části dokumentace",
-      "issue_date": "2026-08-21",
-      "received_date": "2026-08-21",
-      "institution_id": "CZ-DD",
-      "reference": "15 A 44/2026",
-      "case_ids": [],
-      "document_type": "user_submission",
-      "topics": ["Městský soud v Praze", "15 A 44/2026", "Ministerstvo vnitra", "THC", "SOP", "skartace"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/73-dvorak-ms-praha-15-a-44-2026-doplneni-2026-08-21.pdf", "sha256": null, "verification_status": "file_library_verified; awaiting_public_binary"},
-      "relations": [
-        {"type":"reakce_na","target_id":"doc-cz-pcr-krpt-2026-08-20-krpt-203594-7-cj-2026-0700kr"},
-        {"type":"reakce_na","target_id":"doc-cz-pcr-krpt-2026-08-20-krpt-203594-8-cj-2026-0700kr"}
-      ],
-      "submission_side": "outgoing_from_user_or_alliance",
-      "submission_side_basis": "explicit_batch_classification"
-    },
-    {
-      "id": "doc-cz-dd-2026-08-22-os-prostejov-2-t-104-2010-dodatek",
-      "user_title": "Mimořádně naléhavý dodatek k návrhu na povolení obnovy řízení ve věci 2 T 104/2010: nové úřední důkazy Policie ČR ze dne 20. 8. 2026",
-      "issue_date": "2026-08-22",
-      "received_date": "2026-08-22",
-      "institution_id": "CZ-DD",
-      "reference": "2 T 104/2010; ZN 4/2026; KRPM-100092/ČJ-2026-1412UO",
-      "case_ids": ["case-cz-os-pro-2t104-2010-obnova"],
-      "document_type": "user_submission",
-      "topics": ["obnova řízení", "2 T 104/2010", "THC", "SOP", "skartace"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/74-dvorak-os-prostejov-2-t-104-2010-dodatek-2026-08-22.pdf", "sha256": null, "verification_status": "file_library_verified; awaiting_public_binary"},
-      "relations": [
-        {"type":"reakce_na","target_id":"doc-cz-pcr-ku-2026-08-20-ku-4139-12-cj-2026-2305km"},
-        {"type":"reakce_na","target_id":"doc-cz-pcr-krpt-2026-08-20-krpt-203594-7-cj-2026-0700kr"},
-        {"type":"reakce_na","target_id":"doc-cz-pcr-krpt-2026-08-20-krpt-203594-8-cj-2026-0700kr"}
-      ],
-      "submission_side": "outgoing_from_user_or_alliance",
-      "submission_side_basis": "explicit_batch_classification"
-    },
-    {
-      "id": "doc-cz-dd-2026-08-22-nsz-sedme-doplneni-karny-podnet",
-      "user_title": "Sedmé doplnění předžalobní výzvy ze dne 14. 7. 2026 a kárný podnět ve vztahu k postupu JUDr. Lenky Chmelové; nové úřední důkazy Policie ČR ze dne 20. 8. 2026",
-      "issue_date": "2026-08-22",
-      "received_date": "2026-08-22",
-      "institution_id": "CZ-DD",
-      "reference": "6 NZN 1737/2026",
-      "case_ids": ["case-cz-nsz-predzalobni-vyzva"],
-      "document_type": "user_submission",
-      "topics": ["NSZ", "předžalobní výzva", "kárný podnět", "6 NZN 1737/2026", "THC"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/75-dvorak-nsz-sedme-doplneni-karny-podnet-2026-08-22.pdf", "sha256": null, "verification_status": "file_library_verified; awaiting_public_binary"},
-      "relations": [{"type":"reakce_na","target_id":"doc-cz-nsz-2026-08-13-6-nzn-1737-2026-73"}],
-      "submission_side": "outgoing_from_user_or_alliance",
-      "submission_side_basis": "explicit_batch_classification"
-    },
-    {
-      "id": "doc-cz-dd-2026-08-24-vsz-praha-prezkum-msz-2-kzn-55-2025-136",
-      "user_title": "Žádost VSZ v Praze o přezkoumání vyřízení MSZ v Praze ze dne 20. 8. 2026 a mimořádně naléhavý důkazní dodatek do dohledové věci 1 VZN 1678/2026",
-      "issue_date": "2026-08-24",
-      "received_date": "2026-08-24",
-      "institution_id": "CZ-DD",
-      "reference": "1 VZN 1678/2026; napadené 2 KZN 55/2025-136",
-      "case_ids": ["case-cz-vsz-praha-dohled-msz"],
-      "document_type": "user_submission",
-      "topics": ["VSZ Praha", "přezkum vyřízení", "MSZ Praha", "1 VZN 1678/2026", "THC"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/76-dvorak-vsz-praha-prezkum-msz-2026-08-24.pdf", "sha256": null, "verification_status": "file_library_verified; awaiting_public_binary"},
-      "relations": [{"type":"reakce_na","target_id":"doc-cz-msz-pha-2026-08-20-2-kzn-55-2025-136"}],
-      "submission_side": "outgoing_from_user_or_alliance",
-      "submission_side_basis": "explicit_batch_classification"
-    },
-    {
-      "id": "doc-cz-dd-2026-08-24-policejni-prezident-doplneni-prezkumu",
-      "user_title": "Naléhavé doplnění žádosti policejnímu prezidentovi o přezkoumání: po nových listinách ze dnů 20. a 24. 8. 2026 je namítán uzavřený procesní kruh mezi KÚ a Úřadem vnitřní kontroly a požadován nestranný přezkum a ochrana důkazů",
-      "issue_date": "2026-08-24",
-      "received_date": "2026-08-24",
-      "institution_id": "CZ-DD",
-      "reference": "PPR-24960/ČJ-2026-990810; KU-4139/ČJ-2026-2305KM; PPR-44020-2/ČJ-2026-990210-PD",
-      "case_ids": ["case-cz-pcr-ku-interni-prezkum"],
-      "document_type": "user_submission",
-      "topics": ["policejní prezident", "přezkum", "Kriminalistický ústav", "Úřad vnitřní kontroly", "uchování důkazů"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/77-dvorak-policejni-prezident-doplneni-prezkumu-2026-08-24.pdf", "sha256": null, "verification_status": "file_library_verified; awaiting_public_binary"},
-      "relations": [
-        {"type":"reakce_na","target_id":"doc-cz-pcr-pp-2026-08-24-ppr-44020-2-cj-2026-990210-pd"},
-        {"type":"reakce_na","target_id":"doc-cz-pcr-ku-2026-08-20-ku-4139-12-cj-2026-2305km"}
-      ],
-      "submission_side": "outgoing_from_user_or_alliance",
-      "submission_side_basis": "explicit_batch_classification"
-    },
-    {
-      "id": "doc-cz-dd-2026-08-24-gibs-doplneni-trestniho-oznameni",
-      "user_title": "Mimořádně naléhavé doplnění trestního oznámení GIBS ze dne 15. 8. 2026 o nové úřední důkazy z 20.-24. 8. 2026 a opakovaná žádost o bezodkladné zajištění laboratorní, metodické a kontrolní dokumentace",
-      "issue_date": "2026-08-24",
-      "received_date": "2026-08-24",
-      "institution_id": "CZ-DD",
-      "reference": "navazuje na trestní oznámení GIBS ze dne 15. 8. 2026",
-      "case_ids": ["case-cz-pcr-ku-interni-prezkum"],
-      "document_type": "user_submission",
-      "topics": ["GIBS", "trestní oznámení", "zajištění důkazů", "THC", "SOP", "skartace"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/78-dvorak-gibs-doplneni-trestniho-oznameni-2026-08-24.pdf", "sha256": null, "verification_status": "file_library_verified; awaiting_public_binary"},
-      "relations": [
-        {"type":"reakce_na","target_id":"doc-cz-pcr-pp-2026-08-24-ppr-44020-2-cj-2026-990210-pd"},
-        {"type":"reakce_na","target_id":"doc-cz-pcr-ku-2026-08-20-ku-4139-12-cj-2026-2305km"},
-        {"type":"reakce_na","target_id":"doc-cz-pcr-krpt-2026-08-20-krpt-203594-7-cj-2026-0700kr"},
-        {"type":"reakce_na","target_id":"doc-cz-pcr-krpt-2026-08-20-krpt-203594-8-cj-2026-0700kr"}
-      ],
-      "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_batch_classification"
     }
   ]
