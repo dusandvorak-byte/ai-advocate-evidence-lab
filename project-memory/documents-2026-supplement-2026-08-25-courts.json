@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-25",
+  "purpose": "Tři nové soudní listiny ze dne 25. srpna 2026: usnesení Městského soudu v Praze ve věci 15 A 44/2026 a dvě listiny Okresního soudu v Prostějově ve věci 15 Nt 3106/2026.",
+  "documents": [
+    {
+      "id": "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43",
+      "user_title": "Usnesení: zásahová žaloba proti Ministerstvu vnitra se odmítá",
+      "issue_date": "2026-08-25",
+      "received_date": null,
+      "institution_id": "CZ-MS-PHA",
+      "reference": "15 A 44/2026-43",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["správní soudnictví", "zásahová žaloba", "Ministerstvo vnitra", "odmítnutí žaloby", "kasační stížnost"],
+      "public": {"html": null,"pdf": null,"intended_pdf": "documents/report-04082026-010/74-ms-praha-15-a-44-2026-43-2026-08-25.pdf","sha256": "0f374e7dc47072120d82d6d702aad01ea03a6a6d7a9665e9a281cbf39e878d6d","verification_status": "source_pdf_verified_in_intake; awaiting_generated_public_copy","source_manifest": "project-memory/documents-2026-supplement-2026-08-25-courts.json"},
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Městský soud v Praze usnesením ze dne 25. 8. 2026 odmítl žalobu na ochranu před nezákonným zásahem Ministerstva vnitra. Soud uzavřel, že způsob vyřízení stížností podle § 175 správního řádu přípisem MV ze dne 21. 7. 2026 č. j. MV-114818-2/TP-2026 není způsobilý zasáhnout do právní sféry žalobce; žalobu odmítl podle § 46 odst. 1 písm. a) s. ř. s. Poučení stanoví dvoutýdenní lhůtu ke kasační stížnosti od doručení rozhodnutí."
+    },
+    {
+      "id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-predvolani",
+      "user_title": "Předvolání k veřejnému zasedání o návrhu na povolení obnovy řízení dne 13. října 2026 v 9:00",
+      "issue_date": "2026-08-25",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3106/2026",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["trestní řízení", "obnova řízení", "veřejné zasedání", "2 T 104/2010"],
+      "public": {"html": null,"pdf": null,"intended_pdf": "documents/report-04082026-010/75-os-prostejov-15-nt-3106-2026-predvolani-2026-08-25.pdf","sha256": "efd7aa6f60e7cc3ad414972fcf8a468526e7e183a6a35d2d3d6ab0a295f23ec0","verification_status": "source_pdf_verified_in_intake; awaiting_generated_public_copy","source_manifest": "project-memory/documents-2026-supplement-2026-08-25-courts.json"},
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Okresní soud v Prostějově předvolal Mgr. Dušana Dvořáka k veřejnému zasedání dne 13. 10. 2026 v 09:00, jednací síň č. 18, II. poschodí, o návrhu dříve obviněného na povolení obnovy řízení. Přílohou předvolání je odvolání."
+    },
+    {
+      "id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-neslouceni",
+      "user_title": "Sdělení: věci 2 T 104/2010 a 2 T 65/2011 nelze spojit ke společnému řízení",
+      "issue_date": "2026-08-25",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3106/2026",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["trestní řízení", "obnova řízení", "spojení věcí", "2 T 104/2010", "2 T 65/2011"],
+      "public": {"html": null,"pdf": null,"intended_pdf": "documents/report-04082026-010/76-os-prostejov-15-nt-3106-2026-neslouceni-2026-08-25.pdf","sha256": "f66c9d67d65d5d0ac0042b294592a945321cf2ddf2a8225dce565dc432d8b9ee","verification_status": "source_pdf_verified_in_intake; awaiting_generated_public_copy","source_manifest": "project-memory/documents-2026-supplement-2026-08-25-courts.json"},
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Okresní soud v Prostějově sdělil, že řízení vedená pod sp. zn. 2 T 104/2010 a 2 T 65/2011 byla ukončena v různém stadiu řízení, a proto není z procesního hlediska možné jejich spojení ke společnému řízení."
+    }
+  ]
+}
