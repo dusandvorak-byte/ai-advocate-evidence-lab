@@ -15,6 +15,10 @@ async function patchEnglishTimerTranslations() {
     'timer-remedy-doc-cz-ekk-dd-gf-2026-08-24-ostrava-frydek-brno-doplneni': {
       title: 'Ostrava, Frýdek-Místek and Brno branches – urgent evidentiary supplement',
       event: 'The filing of 24 August 2026 submitted the new Police records of 20 and 24 August and requested coordinated consideration of the connected criminal, review and supervisory branches.'
+    },
+    'timer-remedy-doc-cz-dd-2026-08-22-ks-brno-9-to-315-316-doplneni': {
+      title: 'Brno Regional Court, cases 9 To 315/2026 and 9 To 316/2026 – urgent supplement to the complaints',
+      event: 'The filing of 22 August 2026 submitted the new Police records of 20 August and requested that they be assessed together with the pending complaints and the related reopening branch.'
     }
   };
   let changed = 0;
