@@ -1,12 +1,26 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, readdir, writeFile } from 'node:fs/promises';
 
 const documentsPath = 'project-memory/documents-2026.json';
 const sourcesPath = 'project-memory/document-sources.json';
+const sourceDir = 'project-memory';
+const supplementPattern = /^documents-2026-supplement-.*\.json$/;
 const readJson = async path => JSON.parse(await readFile(path, 'utf8'));
 
 const sourceManifest = await readJson(sourcesPath);
 if (sourceManifest.status !== 'binding' || !Array.isArray(sourceManifest.sources) || !sourceManifest.sources.length) {
   throw new Error('document-sources.json není platný závazný manifest zdrojů');
+}
+
+// Tvrdá pojistka proti opakované chybě „soubor existuje, ale build o něm neví“.
+// Každý supplement v project-memory musí být výslovně součástí závazného manifestu.
+const listedSourcePaths = new Set(sourceManifest.sources.map(item => item.path));
+const supplementFiles = (await readdir(sourceDir))
+  .filter(name => supplementPattern.test(name))
+  .map(name => `${sourceDir}/${name}`)
+  .sort();
+const unlistedSupplements = supplementFiles.filter(path => !listedSourcePaths.has(path));
+if (unlistedSupplements.length) {
+  throw new Error(`Kanonický build odmítnut: supplement mimo document-sources.json: ${unlistedSupplements.join(', ')}`);
 }
 
 const sourceRegistries = [];
@@ -102,9 +116,11 @@ for (const doc of registry.documents) {
 
 registry.normalization = {
   updated_at: new Date().toISOString(),
-  rule: 'Kanonická pracovní množina vzniká výhradně z document-sources.json. Všechny zdroje se slučují podle stabilního ID; veřejné výstupy a čítače nesmějí udržovat vlastní paralelní seznam dokumentů.',
+  rule: 'Kanonická pracovní množina vzniká výhradně z document-sources.json. Každý supplement musí být v manifestu; všechny zdroje se slučují podle stabilního ID; veřejné výstupy a čítače nesmějí udržovat vlastní paralelní seznam dokumentů.',
   source_manifest: sourcesPath,
   source_count: sourceManifest.sources.length,
+  discovered_supplement_count: supplementFiles.length,
+  unlisted_supplement_count: unlistedSupplements.length,
   source_documents_before_deduplication: sourceRegistries.reduce((sum, item) => sum + item.data.documents.length, 0),
   merged_document_count: registry.documents.length,
   institution_aliases: Object.fromEntries(institutionAliases),
@@ -115,4 +131,4 @@ registry.normalization = {
 };
 
 await writeFile(documentsPath, `${JSON.stringify(registry, null, 2)}\n`, 'utf8');
-console.log(`Normalizace kanonických dat: ${sourceManifest.sources.length} zdroje přes ${sourcesPath}; stát/veřejné instituce ${incoming}; naše podání ${outgoing}; nezařazené ${unclassified}; celkem ${registry.documents.length}.`);
+console.log(`Normalizace kanonických dat: ${sourceManifest.sources.length} zdrojů přes ${sourcesPath}; ${supplementFiles.length} supplementů zkontrolováno; stát/veřejné instituce ${incoming}; naše podání ${outgoing}; nezařazené ${unclassified}; celkem ${registry.documents.length}.`);

@@ -10,12 +10,12 @@ on:
       runner:
         description: 'GitHub-hosted runner pro validační failover'
         required: true
-        default: 'macos-14'
+        default: 'ubuntu-24.04'
         type: choice
         options:
+          - ubuntu-24.04
           - macos-14
           - windows-2025
-          - ubuntu-24.04
 
 permissions:
   contents: read
@@ -26,30 +26,56 @@ env:
 jobs:
   validate:
     name: Ověřit architekturu a sestavit web bez publikace
-    runs-on: ${{ inputs.runner || 'macos-14' }}
-    timeout-minutes: 10
+    runs-on: ${{ inputs.runner || 'ubuntu-24.04' }}
+    timeout-minutes: 15
     steps:
       - name: Načíst zvolenou větev
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Použít Node.js 24
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Připravit anglickou překladovou vrstvu pro 74. listinu
+      - name: Připravit generátor ověřených veřejných PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --disable-pip-version-check reportlab
+
+      - name: Obnovit a kryptograficky ověřit všechna verzovaná PDF z historie
+        run: node scripts/recover-historical-binary-blobs.mjs
+
+      - name: Materializovat a hashově ověřit verzované PDF Godota
+        run: node scripts/materialize-godot-pdf-bundle.mjs
+
+      - name: Vytvořit ověřené veřejné PDF nových státních listin 20.–24. 8. 2026
+        run: node scripts/materialize-godot-state-bundle-2026-08-24.mjs
+
+      - name: Připravit anglickou překladovou vrstvu
         run: node scripts/prepare-md-english-build.mjs
 
       - name: Spustit jediný kanonický build
         run: node scripts/build-site.mjs
 
+      - name: Doplnit opačné vazby stát na naše předchozí podání
+        run: node scripts/patch-godot-reverse-reactions.mjs
+
+      - name: Finalizovat veřejné popisky bez změny kanonických dat
+        run: node scripts/finalize-public-labels.mjs
+
       - name: Finalizovat anglické plochy Ministerstva dopravy
         run: node scripts/finalize-md-english-surfaces.mjs
+
+      - name: Ověřit PDF odkazy Godota
+        run: node scripts/audit-godot-pdf-links.mjs
 
       - name: Ověřit tři lišty, barvy a chronologii soudních řízení
         run: node scripts/validate-live-dockets-contract.mjs
 
-      - name: Ověřit manifest Evidence Lab 2.0
+      - name: Ověřit manifest Evidence Lab 2.0 bez ručních počtů
         shell: bash
         run: |
           set -euo pipefail
@@ -65,9 +91,24 @@ jobs:
           grep -q '"internal_knowledge_not_auto_published": true' web/data/build-manifest.json
           test -f web/data/operations-state.json
           test -f web/data/registry-audit.json
+          test -f web/data/godot-pdf-audit.json
+          test -f web/data/generated-state-pdf-manifest.json
           test -f web/zpravy/04082026-010.html
-          grep -q 'Stát: 74 evidovaných listin' web/zpravy/04082026-010.html
+          test "$(jq -r '.count' web/data/generated-state-pdf-manifest.json)" = '8'
+          state_count="$(jq -r '.counts.state_public_submissions' web/data/build-manifest.json)"
+          test "$state_count" -ge 82
+          grep -q "Stát: ${state_count} evidovaných listin" web/zpravy/04082026-010.html
+          grep -q '"required_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
+          grep -q '"reaction_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
           grep -q 'Ministry of Transport' web/news/04082026-010.html
+          grep -q '2 KZN 55/2025-136' web/zpravy/04082026-010.html
+          grep -q 'KU-4139-12/ČJ-2026-2305KM' web/zpravy/04082026-010.html
+          grep -q 'KRPT-203594-8/ČJ-2026-0700KR' web/zpravy/04082026-010.html
+          grep -q 'PPR-44020-2/ČJ-2026-990210-PD' web/zpravy/04082026-010.html
+          for f in web/documents/report-04082026-010/{64-msz-praha-2-kzn-55-2025-136-2026-08-20,65-ku-4139-12-cj-2026-2305km-2026-08-20,66-krpt-203594-7-cj-2026-0700kr-2026-08-20,67-krpt-priloha-rr-ku-54-2021,68-krpt-priloha-rr-ku-54-2021-priloha-1,69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019,70-krpt-203594-8-cj-2026-0700kr-2026-08-20,71-ppr-44020-2-cj-2026-990210-pd-2026-08-24}.pdf; do
+            test -f "$f"
+            test "$(head -c 5 "$f")" = '%PDF-'
+          done
           ! grep -qi 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
           ! grep -qi 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
 

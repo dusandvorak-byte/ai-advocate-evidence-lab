@@ -1,14 +1,19 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const translationsPath = 'project-memory/english-godot-translations.json';
-const supplementPath = 'project-memory/english-godot-translations-2026-08-18-md.json';
+const supplementPaths = [
+  'project-memory/english-godot-translations-2026-08-18-md.json',
+  'project-memory/english-godot-translations-2026-08-24.json'
+];
 const builderPath = 'scripts/build-english-godot.mjs';
 const validatorPath = 'scripts/validate-live-dockets-contract.mjs';
 
 const translations = JSON.parse(await readFile(translationsPath, 'utf8'));
-const supplement = JSON.parse(await readFile(supplementPath, 'utf8'));
-translations.institutions = { ...(translations.institutions || {}), ...(supplement.institutions || {}) };
-translations.documents = { ...(translations.documents || {}), ...(supplement.documents || {}) };
+for (const supplementPath of supplementPaths) {
+  const supplement = JSON.parse(await readFile(supplementPath, 'utf8'));
+  translations.institutions = { ...(translations.institutions || {}), ...(supplement.institutions || {}) };
+  translations.documents = { ...(translations.documents || {}), ...(supplement.documents || {}) };
+}
 await writeFile(translationsPath, `${JSON.stringify(translations, null, 2)}\n`, 'utf8');
 
 let builder = await readFile(builderPath, 'utf8');
@@ -36,12 +41,17 @@ for (const line of lines) {
     patched.push('  throw new Error(`Anglický Godot nemá konzistentní počet záznamů: vykresleno ${englishGodotRecords}, deklarováno ${englishGodotDeclaredCount}`);');
     continue;
   }
+  if (line.includes('if (englishGodotOutgoing !== 24)')) {
+    patched.push("const expectedEnglishOutgoing = canonicalDocuments.documents.filter(item => item.issue_date >= '2026-05-01' && item.submission_side === 'outgoing_from_user_or_alliance').length;");
+    patched.push('if (englishGodotOutgoing !== expectedEnglishOutgoing) throw new Error(`Anglický Godot nemá všechna kanonická navazující podání: ${englishGodotOutgoing}/${expectedEnglishOutgoing}`);');
+    continue;
+  }
   patched.push(line);
 }
 validator = patched.join('\n');
-if (validator.includes('englishGodotRecords !== 73') || validator.includes('úplných 73 záznamů')) {
-  throw new Error('Nepodařilo se odstranit starý pevný počet 73 z validátoru');
+if (validator.includes('englishGodotRecords !== 73') || validator.includes('úplných 73 záznamů') || validator.includes('englishGodotOutgoing !== 24')) {
+  throw new Error('Nepodařilo se odstranit staré pevné počty z validátoru');
 }
 await writeFile(validatorPath, validator, 'utf8');
 
-console.log('English Godot and its validator prepared for dynamically derived state-record count and Ministry of Transport translation.');
+console.log(`English Godot and validator prepared from ${supplementPaths.length} translation supplements with dynamically derived state and outgoing counts.`);
