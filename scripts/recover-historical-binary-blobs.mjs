@@ -16,15 +16,7 @@ const expected = new Map([
   ['77e623a6b0af714d479ec8b8c4fda8ea3fef0d2330f0dc6fcf541258c73e9dec','documents/report-04082026-010/30-dvorak-stiznost-msz-necinnost-infz-2026-07-31.pdf'],
   ['823d7ec58d9ed6de4abde4f0636eb1d87d9d16c331ac7d143c2342621999c88c','documents/report-04082026-010/31-policie-uvk-pp-ppr-43826-2-cj-2026-990210-pd-2026-08-14.pdf'],
   ['f74b439f6d99826a7f49b32e08e2f908017c4e840a2b8837dd241fbc582f765d','documents/report-04082026-010/32-dvorak-stiznost-uvk-pp-pcr-2026-08-14.pdf'],
-  ['d461ad6eacc569ba8d86c4ce640a3f6273ff67ae48fc5ea57f1f8653ce0e2a40','documents/report-04082026-010/33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf'],
-  ['c24e4cf837f1ab70241c7b597846aa59df29b95a9b60a2f3c9c01e3f66e6cc3b','documents/report-04082026-010/64-msz-praha-2-kzn-55-2025-136-2026-08-20.pdf'],
-  ['a4a4b274aa1607181344240937b6a96f33a09cbefa2bfac5308e418aa1cfb9a3','documents/report-04082026-010/65-ku-4139-12-cj-2026-2305km-2026-08-20.pdf'],
-  ['cae03ec6d647aa39064260a52164549849483b53816030656548a8f9666dac68','documents/report-04082026-010/66-krpt-203594-7-cj-2026-0700kr-2026-08-20.pdf'],
-  ['dfac68dbff3515010d51a2dbf79e0b62b0e509ccebcca694096b6db090b71e4c','documents/report-04082026-010/67-krpt-priloha-rr-ku-54-2021.pdf'],
-  ['052d465511629241c5372effec61219cec92ed8127ff81c4054f6a33bf20402e','documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf'],
-  ['a98a173c6eaebb6d39131d8888da0eeff09c0bcee3fb217d1ed0b790c5e23444','documents/report-04082026-010/69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf'],
-  ['24a8650b8933ac4b6c9cb5b37e3318c4bbbccf3b47cd089e94d25c3ba3c97a68','documents/report-04082026-010/70-krpt-203594-8-cj-2026-0700kr-2026-08-20.pdf'],
-  ['4a9a7fdd5857bf403946ada1ea39ab4994bf9371aae36553841de749cd85969d','documents/report-04082026-010/71-ppr-44020-2-cj-2026-990210-pd-2026-08-24.pdf']
+  ['d461ad6eacc569ba8d86c4ce640a3f6273ff67ae48fc5ea57f1f8653ce0e2a40','documents/report-04082026-010/33-os-prostejov-15-nt-3103-2026-53-2026-08-07.pdf']
 ]);
 const sha256 = b => createHash('sha256').update(b).digest('hex');
 const found = new Set();
@@ -103,7 +95,7 @@ for (const line of list.split('\n')) {
 }
 console.log(`HISTORY OBJECTS ${objects.size}`);
 
-const likely = /(?:\.pdf$|\.xz$|\.b64$|binary|bundle|source|127234|49467|gfaa|msz|necinnost|uvk|43826|3103|prostejov|stiznost|rozklad|policie|krpt|203594|4139|44020|okte)/i;
+const likely = /(?:\.pdf$|\.xz$|\.b64$|binary|bundle|source|127234|49467|gfaa|msz|necinnost|uvk|43826|3103|prostejov|stiznost|rozklad|policie)/i;
 const b64Pieces = [];
 const tails = [];
 for (const [oid, p] of objects) {
