@@ -52,7 +52,7 @@ jobs:
         run: node scripts/materialize-godot-pdf-bundle.mjs
 
       - name: Vytvořit ověřené veřejné PDF nových státních listin 20.–24. 8. 2026
-        run: python3 scripts/materialize-godot-state-text-pdfs.py
+        run: node scripts/materialize-godot-state-bundle-2026-08-24.mjs
 
       - name: Připravit anglickou překladovou vrstvu
         run: node scripts/prepare-md-english-build.mjs
