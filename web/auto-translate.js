@@ -34,29 +34,9 @@
   }
 
   // Jeden živý odvozený počet pro českou titulní stranu, angličtinu i Konopnou církev.
-  // Zdroj je stejný produkční registr, z něhož se počítá chronologie Státu lásky čas.
+  // Tento skript je načten až po live-dockets.js, takže není potřeba MutationObserver.
+  // Dřívější observer opakovaně přepisoval DOM a mohl zablokovat hlavní vlákno prohlížeče.
   const godotHref = sourceLanguage === 'en' ? 'news/04082026-010.html' : 'zpravy/04082026-010.html';
-  let cachedStateCount = null;
-  let loadingStateCount = null;
-
-  const loadStateCount = () => {
-    if (Number.isInteger(cachedStateCount)) return Promise.resolve(cachedStateCount);
-    if (loadingStateCount) return loadingStateCount;
-    loadingStateCount = fetch('data/operations-state.json', { cache: 'no-store' })
-      .then(response => {
-        if (!response.ok) throw new Error(`operations-state ${response.status}`);
-        return response.json();
-      })
-      .then(data => {
-        const value = data?.counters?.state_and_public_institutions;
-        if (!Number.isInteger(value)) throw new Error('Chybí odvozený počet státních listin');
-        cachedStateCount = value;
-        return value;
-      })
-      .catch(() => null)
-      .finally(() => { loadingStateCount = null; });
-    return loadingStateCount;
-  };
 
   const enhanceGodotCrosslinks = count => {
     if (!Number.isInteger(count)) return;
@@ -65,18 +45,17 @@
       ? `Godot online · ${count} state and public-institution records since 1 May 2026 → State Love Time`
       : `Godot online · ${count} listin státu a veřejných institucí od 1. května 2026 → Státu lásky čas`;
 
-    // První hlavní lišta na titulní stránce: číslo je přímo v odkazu na Godota.
     const godotBar = document.querySelector('#live-dockets a.godot');
     if (godotBar) {
-      godotBar.href = godotHref;
+      if (godotBar.getAttribute('href') !== godotHref) godotBar.href = godotHref;
       const title = godotBar.querySelector('.rollup-title');
-      if (title) title.textContent = titleText;
-      godotBar.setAttribute('aria-label', isEnglish
+      if (title && title.textContent !== titleText) title.textContent = titleText;
+      const aria = isEnglish
         ? `Open State Love Time – ${count} state and public-institution records since 1 May 2026`
-        : `Otevřít Státu lásky čas – ${count} listin státu a veřejných institucí od 1. května 2026`);
+        : `Otevřít Státu lásky čas – ${count} listin státu a veřejných institucí od 1. května 2026`;
+      if (godotBar.getAttribute('aria-label') !== aria) godotBar.setAttribute('aria-label', aria);
     }
 
-    // Konopná církev CZ/EN: uzel GODOT ONLINE je skutečný odkaz na příslušnou jazykovou chronologii.
     document.querySelectorAll('.node-grid article').forEach(article => {
       const label = article.querySelector('span')?.textContent?.trim().toUpperCase();
       if (label !== 'GODOT ONLINE') return;
@@ -85,16 +64,16 @@
       const linkText = isEnglish
         ? `${count} state and public-institution records → State Love Time`
         : `${count} listin státu a veřejných institucí → Státu lásky čas`;
-      heading.innerHTML = `<a href="${godotHref}">${linkText}</a>`;
+      const expected = `<a href="${godotHref}">${linkText}</a>`;
+      if (heading.innerHTML !== expected) heading.innerHTML = expected;
     });
   };
 
-  const refreshGodotCrosslinks = () => loadStateCount().then(enhanceGodotCrosslinks);
-  refreshGodotCrosslinks();
-
-  // live-dockets.js vytváří první lištu až po načtení stránky; observer ji doplní bez závodu skriptů.
-  const observer = new MutationObserver(() => {
-    if (Number.isInteger(cachedStateCount)) enhanceGodotCrosslinks(cachedStateCount);
-  });
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+  fetch('data/operations-state.json', { cache: 'no-store' })
+    .then(response => {
+      if (!response.ok) throw new Error(`operations-state ${response.status}`);
+      return response.json();
+    })
+    .then(data => enhanceGodotCrosslinks(data?.counters?.state_and_public_institutions))
+    .catch(error => console.warn('Godot count unavailable:', error));
 })();
