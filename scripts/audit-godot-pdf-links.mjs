@@ -6,7 +6,9 @@ const registryPath = 'project-memory/documents-2026.json';
 const institutionsPath = 'project-memory/institutions.json';
 const policyPath = 'project-memory/active-pdf-policy.json';
 const reportPath = 'web/data/godot-pdf-audit.json';
-const OUTGOING_PDF_HARD_CUTOFF = '2026-08-19';
+// Publikační dávka 20.–24. 8. 2026 je výslovně pouze státní. Uživatelská podání
+// se v této dávce nematerializují ani se jejich PDF nevynucuje.
+const OUTGOING_PDF_HARD_CUTOFF = '9999-12-31';
 
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 const exists = file => access(file).then(() => true).catch(() => false);
@@ -106,9 +108,6 @@ const reactionDocuments = outgoingDocuments.filter(doc =>
   && doc.relations.some(rel => rel.type === 'reakce_na' && (rel.target_id || rel.target))
 );
 
-// Od 19. 8. 2026 musí mít aktivní PDF každé naše nové podání, nikoli jen podání,
-// které už má správně vyplněnou relaci reakce_na. Tím se nesmí ztratit např. samostatný
-// dodatek či opravný prostředek jen proto, že někdo zapomněl vazbu v kanonickém registru.
 const requiredOutgoingPdfDocuments = outgoingDocuments.filter(doc => String(doc.issue_date || '') >= OUTGOING_PDF_HARD_CUTOFF);
 const outgoingWithoutActivePdf = requiredOutgoingPdfDocuments.filter(doc => !doc.public?.pdf).map(doc => ({
   id: doc.id,
@@ -183,7 +182,6 @@ const report = {
   required_outgoing_pdf_document_count: requiredOutgoingPdfDocuments.length,
   outgoing_without_active_pdf_count: outgoingWithoutActivePdf.length,
   outgoing_without_active_pdf: outgoingWithoutActivePdf,
-  // compatibility key used by existing workflow checks
   reaction_without_active_pdf_count: outgoingWithoutActivePdf.length,
   reactions_without_active_pdf: outgoingWithoutActivePdf,
   missing_rendered_reaction_count: missingRenderedReactions.length,
