@@ -224,3 +224,5 @@ console.log(
   + `${exemptDocuments.length} dokumentů je v povolené výjimce; `
   + `${reactionDocuments.length}/${reactionDocuments.length} kanonických reakcí vykresleno inline.`
 );
+
+await import('./validate-publication-surfaces.mjs');
