@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-26",
+  "purpose": "Sdělení Krajského soudu v Ostravě o postoupení stížnosti předsedkyni Okresního soudu v Ostravě ve věci 15 T 11/2025.",
+  "documents": [
+    {
+      "id": "doc-cz-ks-ost-2026-08-26-st-82-2026-15-t-11-2025",
+      "user_title": "Sdělení o postoupení stížnosti předsedkyni Okresního soudu v Ostravě ve věci 15 T 11/2025",
+      "issue_date": "2026-08-26",
+      "received_date": "2026-08-26",
+      "institution_id": "CZ-KS-OST",
+      "reference": "St 82/2026; souvisí s 15 T 11/2025",
+      "case_ids": ["15 T 11/2025"],
+      "document_type": "state_record",
+      "topics": ["stížnost na postup soudu", "postoupení stížnosti", "Okresní soud v Ostravě", "15 T 11/2025"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/78-ks-ostrava-st-82-2026-15-t-11-2025-2026-08-26.pdf",
+        "sha256": null,
+        "verification_status": "source_pdf_verified_in_intake; awaiting_generated_public_copy",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-26-ks-ostrava.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Krajský soud v Ostravě potvrdil, že dne 24. 8. 2026 obdržel stížnost Edukativní konopné kliniky, z.s. na postup v řízení Okresního soudu v Ostravě vedeném pod sp. zn. 15 T 11/2025. Protože k vyřízení stížnosti je příslušná předsedkyně Okresního soudu v Ostravě, Krajský soud jí stížnost dne 26. 8. 2026 postoupil."
+    }
+  ]
+}
