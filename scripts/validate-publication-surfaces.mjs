@@ -1,6 +1,8 @@
 import { access, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
+await import('./normalize-public-assets.mjs');
+
 const ROOT = 'web';
 const readJson = async file => JSON.parse(await readFile(file, 'utf8'));
 const registry = await readJson('project-memory/documents-2026.json');
