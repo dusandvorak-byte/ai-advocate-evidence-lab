@@ -92,14 +92,24 @@ for (const file of criticalHtml) {
   const dir = path.dirname(file);
   for (const match of html.matchAll(/\b(?:href|src)=["']([^"']+)["']/gi)) {
     const raw = match[1];
-    if (!raw || raw.startsWith('#') || /^(?:https?:|mailto:|tel:|javascript:|data:)/i.test(raw)) continue;
+    if (!raw || raw.startsWith('#') || /^(?:mailto:|tel:|javascript:|data:)/i.test(raw)) continue;
+    if (/^https?:/i.test(raw)) continue;
     const clean = raw.split('#')[0].split('?')[0];
     if (!clean) continue;
     let target;
-    if (clean.startsWith('/ai-advocate-evidence-lab/')) target = path.join(ROOT, clean.slice('/ai-advocate-evidence-lab/'.length));
-    else if (clean.startsWith('/')) continue;
-    else if (baseHref && !baseHref.startsWith('http') && !baseHref.startsWith('/')) target = path.normalize(path.join(dir, baseHref, clean));
-    else target = path.normalize(path.join(dir, clean));
+    if (clean.startsWith('/ai-advocate-evidence-lab/')) {
+      target = path.join(ROOT, clean.slice('/ai-advocate-evidence-lab/'.length));
+    } else if (clean.startsWith('/')) {
+      continue;
+    } else if (baseHref && /^https?:/i.test(baseHref)) {
+      const resolved = new URL(clean, baseHref);
+      if (!resolved.pathname.startsWith('/ai-advocate-evidence-lab/')) continue;
+      target = path.join(ROOT, resolved.pathname.slice('/ai-advocate-evidence-lab/'.length));
+    } else if (baseHref && !baseHref.startsWith('/')) {
+      target = path.normalize(path.join(dir, baseHref, clean));
+    } else {
+      target = path.normalize(path.join(dir, clean));
+    }
     hrefTargets.push([file, raw, target]);
   }
 }
