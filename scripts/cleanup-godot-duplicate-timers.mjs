@@ -35,4 +35,5 @@ for (const marker of staleStartCandidates) {
 }
 
 await writeFile(path, html, 'utf8');
-console.log('Godot duplicate timer cleanup complete.');
+await import('./normalize-public-assets.mjs');
+console.log('Godot duplicate timer cleanup complete; veřejné CSS/JS assety deduplikovány.');
