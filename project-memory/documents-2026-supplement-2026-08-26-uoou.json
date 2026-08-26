@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-26",
+  "purpose": "Nová státní listina Úřadu pro ochranu osobních údajů ze dne 26. srpna 2026 k odvolání proti rozhodnutí NSZ č. j. SIN 55/2026-19.",
+  "documents": [
+    {
+      "id": "doc-cz-uoou-2026-08-26-uoou-05841-26-3",
+      "user_title": "Sdělení k dotazu na stav řízení o odvolání proti SIN 55/2026-19",
+      "issue_date": "2026-08-26",
+      "received_date": "2026-08-26",
+      "institution_id": "CZ-UOOU",
+      "reference": "UOOU-05841/26-3",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["InfZ", "odvolání", "Nejvyšší státní zastupitelství", "ÚOOÚ", "SIN 55/2026-19", "lhůta"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/77-uoou-05841-26-3-2026-08-26.pdf",
+        "sha256": "25459d2c5fe8e6508cb644bd659f32b2b56a9ad3b7080db693de152212079633",
+        "verification_status": "source_pdf_verified_in_intake; awaiting_generated_public_copy",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-26-uoou.json"
+      },
+      "relations": [
+        {"type": "reaction_to", "target_id": "doc-cz-dd-2026-08-01-odvolani-nsz-sin-55-2026-19"}
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "ÚOOÚ dne 26. 8. 2026 sdělil, že NSZ odeslalo odvolání se spisem dne 12. 8. 2026, avšak ÚOOÚ je obdržel až 17. 8. 2026. Podle ÚOOÚ od tohoto doručení běží lhůta dle § 16 odst. 3 InfZ a její poslední den připadá na 1. 9. 2026. Úřad současně uvedl, že ve věci dosud nebyl učiněn žádný procesní úkon. Podnět ze dne 14. 7. 2026 a dodatek ze dne 12. 8. 2026 má vyřídit jiný útvar samostatným přípisem."
+    }
+  ]
+}
