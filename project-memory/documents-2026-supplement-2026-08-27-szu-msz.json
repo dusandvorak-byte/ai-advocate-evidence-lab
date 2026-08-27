@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-27",
+  "purpose": "Tři nové státní listiny pro chronologii Státu lásky čas.",
+  "documents": [
+    {
+      "id": "doc-cz-szu-2026-08-25-szu-10724-2026",
+      "user_title": "Informace k přepravě, uchovávání a předávání vzorků lidské krve",
+      "issue_date": "2026-08-25",
+      "received_date": null,
+      "institution_id": "CZ-SZU",
+      "reference": "SZU/10724/2026",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["InfZ", "přeprava krve", "biologický materiál", "laboratorní vzorky"],
+      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/79-szu-10724-2026-2026-08-25.pdf", "sha256": null, "verification_status": "source_pdf_received; awaiting_public_copy", "source_manifest": "project-memory/documents-2026-supplement-2026-08-27-szu-msz.json"},
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "SZÚ částečně poskytl informace k žádosti z 5. 8. 2026. Uvedl zejména, že preanalytická fáze a přeprava diagnostických vzorků je odpovědností zasílajícího zdravotnického zařízení; při příjmu pracovník senzoricky kontroluje kvalitu vzorku a SZÚ od 1. 1. 2021 neeviduje znehodnocení, odmítnutí ani zpochybnění krevního vzorku z důvodu přepravních podmínek."
+    },
+    {
+      "id": "doc-cz-szu-2026-08-26-szu-10724-2026-rozhodnuti",
+      "user_title": "Rozhodnutí o částečném odmítnutí žádosti o informace",
+      "issue_date": "2026-08-26",
+      "received_date": null,
+      "institution_id": "CZ-SZU",
+      "reference": "SZU/10724/2026",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["InfZ", "§ 11b", "přeprava krve", "biologický materiál"],
+      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/80-szu-10724-2026-rozhodnuti-2026-08-26.pdf", "sha256": null, "verification_status": "source_pdf_received; awaiting_public_copy", "source_manifest": "project-memory/documents-2026-supplement-2026-08-27-szu-msz.json"},
+      "relations": [{"type":"follows","target_id":"doc-cz-szu-2026-08-25-szu-10724-2026"}],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "SZÚ podle § 11b InfZ částečně odmítl žádost v šesti bodech týkajících se metodik, teplotních podmínek, přepravy bez validovaného boxu, přepravy při vysokých teplotách, monitorování teploty a obecně použitelných norem či akreditačních požadavků. Poučení uvádí odvolání do 15 dnů od doručení prostřednictvím SZÚ k ÚOOÚ."
+    },
+    {
+      "id": "doc-cz-msz-pha-2026-08-27-3-kzn-974-2026-100",
+      "user_title": "Vyrozumění o výsledku dohledu nad OSZ pro Prahu 4",
+      "issue_date": "2026-08-27",
+      "received_date": null,
+      "institution_id": "CZ-MSZ-PHA",
+      "reference": "3 KZN 974/2026-100",
+      "case_ids": ["1 ZN 320/2026", "1 VZN 1678/2026"],
+      "document_type": "state_record",
+      "topics": ["dohled", "OSZ Praha 4", "státní zastupitelství", "§ 329", "§ 330", "měření THC"],
+      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/81-msz-praha-3-kzn-974-2026-100-2026-08-27.pdf", "sha256": null, "verification_status": "source_pdf_received; awaiting_public_copy", "source_manifest": "project-memory/documents-2026-supplement-2026-08-27-szu-msz.json"},
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "MSZ v Praze přezkoumalo postup OSZ pro Prahu 4 ve věci 1 ZN 320/2026 a podnět k výkonu dohledu odložilo jako nedůvodný. Uvedlo, že nebylo zjištěno pochybení vyžadující nápravu podle § 12d zákona o státním zastupitelství, stanovisko označilo za konečné a poučilo, že další obsahově shodné podněty již nebudou přezkoumávány ani potvrzovány."
+    }
+  ]
+}
