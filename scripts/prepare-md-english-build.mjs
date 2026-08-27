@@ -4,7 +4,8 @@ const translationsPath = 'project-memory/english-godot-translations.json';
 const supplementPaths = [
   'project-memory/english-godot-translations-2026-08-18-md.json',
   'project-memory/english-godot-translations-2026-08-24.json',
-  'project-memory/english-godot-translations-2026-08-26.json'
+  'project-memory/english-godot-translations-2026-08-26.json',
+  'project-memory/english-godot-translations-2026-08-27.json'
 ];
 const builderPath = 'scripts/build-english-godot.mjs';
 const validatorPath = 'scripts/validate-live-dockets-contract.mjs';
