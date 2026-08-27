@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_on": "2026-08-20",
+  "updated_on": "2026-08-27",
   "institutions": [
     {"id":"CZ-GIBS","country":"CZ","type":"inspection","name":"Generální inspekce bezpečnostních sborů","short_name":"GIBS"},
     {"id":"CZ-KPR","country":"CZ","type":"executive_office","name":"Kancelář prezidenta republiky","short_name":"KPR"},
@@ -44,6 +44,7 @@
     {"id":"CZ-KHSOC","country":"CZ","type":"public_health_authority","name":"Krajská hygienická stanice Olomouckého kraje se sídlem v Olomouci","short_name":"KHS Olomouckého kraje"},
     {"id":"CZ-FNOL","country":"CZ","type":"public_health_institution","name":"Fakultní nemocnice Olomouc","short_name":"FN Olomouc"},
     {"id":"CZ-SUKL","country":"CZ","type":"medicines_regulator","name":"Státní ústav pro kontrolu léčiv","short_name":"SÚKL"},
+    {"id":"CZ-SZU","country":"CZ","type":"public_health_institution","name":"Státní zdravotní ústav","short_name":"SZÚ"},
     {"id":"EU-EUDA","country":"EU","type":"eu_agency","name":"European Union Drugs Agency","short_name":"EUDA"},
     {"id":"EU-CJEU","country":"EU","type":"court","name":"Soudní dvůr Evropské unie","short_name":"SDEU"},
     {"id":"EU-EC","country":"EU","type":"executive","name":"Evropská komise","short_name":"EK"},
