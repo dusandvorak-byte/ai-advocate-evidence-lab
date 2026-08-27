@@ -31,6 +31,24 @@ ITEMS = [
         "target": "78-ks-ostrava-st-82-2026-15-t-11-2025-2026-08-26.pdf",
         "label": "KS OSTRAVA",
     },
+    {
+        "registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-27-szu-msz.json",
+        "source": ROOT / "project-memory" / "state-text-sources-2026-08-27" / "79-szu-10724-2026-2026-08-25.txt",
+        "target": "79-szu-10724-2026-2026-08-25.pdf",
+        "label": "SZU 25-08",
+    },
+    {
+        "registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-27-szu-msz.json",
+        "source": ROOT / "project-memory" / "state-text-sources-2026-08-27" / "80-szu-10724-2026-decision-2026-08-26.txt",
+        "target": "80-szu-10724-2026-rozhodnuti-2026-08-26.pdf",
+        "label": "SZU 26-08",
+    },
+    {
+        "registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-27-szu-msz.json",
+        "source": ROOT / "project-memory" / "state-text-sources-2026-08-27" / "81-msz-praha-3-kzn-974-2026-100-2026-08-27.txt",
+        "target": "81-msz-praha-3-kzn-974-2026-100-2026-08-27.pdf",
+        "label": "MSZ PRAHA 27-08",
+    },
 ]
 
 FONT_CANDIDATES = [
