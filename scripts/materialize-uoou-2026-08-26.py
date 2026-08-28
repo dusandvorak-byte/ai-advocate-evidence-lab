@@ -49,6 +49,12 @@ ITEMS = [
         "target": "81-msz-praha-3-kzn-974-2026-100-2026-08-27.pdf",
         "label": "MSZ PRAHA 27-08",
     },
+    {
+        "registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-28-ms-8-ad-9.json",
+        "source": ROOT / "project-memory" / "state-text-sources-2026-08-28" / "82-ms-praha-8-ad-9-2026-85-2026-08-28.txt",
+        "target": "82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf",
+        "label": "MS PRAHA 8 AD 9 28-08",
+    },
 ]
 
 FONT_CANDIDATES = [
