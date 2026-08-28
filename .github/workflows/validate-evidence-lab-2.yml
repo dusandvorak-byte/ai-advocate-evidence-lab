@@ -54,6 +54,9 @@ jobs:
       - name: Vytvořit ověřené veřejné PDF nových státních listin 20.–24. 8. 2026
         run: node scripts/materialize-godot-state-bundle-2026-08-24.mjs
 
+      - name: Materializovat ověřené veřejné PDF nových listin 26.–28. 8. 2026
+        run: python3 scripts/materialize-uoou-2026-08-26.py
+
       - name: Připravit anglickou překladovou vrstvu
         run: node scripts/prepare-md-english-build.mjs
 
@@ -98,6 +101,10 @@ jobs:
           state_count="$(jq -r '.counts.state_public_submissions' web/data/build-manifest.json)"
           test "$state_count" -ge 82
           grep -q "Stát: ${state_count} evidovaných listin" web/zpravy/04082026-010.html
+          grep -q "data-english-chronology-count=\"${state_count}\"" web/news/04082026-010.html
+          grep -q '8 Ad 9/2026-85' web/zpravy/04082026-010.html
+          grep -q '8 Ad 9/2026-85' web/news/04082026-010.html
+          grep -q '82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf' web/zpravy/04082026-010.html
           grep -q '"required_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
           grep -q '"reaction_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
           grep -q 'Ministry of Transport' web/news/04082026-010.html
@@ -109,6 +116,8 @@ jobs:
             test -f "$f"
             test "$(head -c 5 "$f")" = '%PDF-'
           done
+          test -f web/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf
+          test "$(head -c 5 web/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf)" = '%PDF-'
           ! grep -qi 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
           ! grep -qi 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
 
