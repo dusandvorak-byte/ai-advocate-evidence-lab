@@ -1,12 +1,11 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, readdir, writeFile } from 'node:fs/promises';
 
 const translationsPath = 'project-memory/english-godot-translations.json';
-const supplementPaths = [
-  'project-memory/english-godot-translations-2026-08-18-md.json',
-  'project-memory/english-godot-translations-2026-08-24.json',
-  'project-memory/english-godot-translations-2026-08-26.json',
-  'project-memory/english-godot-translations-2026-08-27.json'
-];
+const translationSupplementPattern = /^english-godot-translations-\d{4}-\d{2}-\d{2}(?:-[^.]+)?\.json$/;
+const supplementPaths = (await readdir('project-memory'))
+  .filter(name => translationSupplementPattern.test(name))
+  .map(name => `project-memory/${name}`)
+  .sort();
 const builderPath = 'scripts/build-english-godot.mjs';
 const validatorPath = 'scripts/validate-live-dockets-contract.mjs';
 
@@ -56,4 +55,4 @@ if (validator.includes('englishGodotRecords !== 73') || validator.includes('úpl
 }
 await writeFile(validatorPath, validator, 'utf8');
 
-console.log(`English Godot and validator prepared from ${supplementPaths.length} translation supplements with dynamically derived state and outgoing counts.`);
+console.log(`English Godot and validator prepared from ${supplementPaths.length} automatically discovered translation supplements with dynamically derived state and outgoing counts.`);
