@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-28",
+  "purpose": "Nová soudní listina Městského soudu v Praze ze dne 28. srpna 2026 ve věci 8 Ad 9/2026.",
+  "documents": [
+    {
+      "id": "doc-cz-ms-pha-2026-08-28-8-ad-9-2026-85",
+      "user_title": "Usnesení: zásahová žaloba proti Ministerstvu zdravotnictví se odmítá a soudní poplatek 2 000 Kč se vrací",
+      "issue_date": "2026-08-28",
+      "received_date": null,
+      "institution_id": "CZ-MS-PHA",
+      "reference": "8 Ad 9/2026-85",
+      "case_ids": ["8 Ad 9/2026"],
+      "document_type": "state_record",
+      "topics": ["správní soudnictví", "zásahová žaloba", "Ministerstvo zdravotnictví", "léčebné konopí", "vysoce návyková látka", "odmítnutí žaloby", "vrácení soudního poplatku", "kasační stížnost"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf",
+        "sha256": null,
+        "verification_status": "source_pdf_received; awaiting_generated_public_copy",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-28-ms-8-ad-9.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Městský soud v Praze usnesením ze dne 28. 8. 2026 odmítl zásahovou žalobu proti Ministerstvu zdravotnictví podle § 46 odst. 1 písm. a) s. ř. s. Soud uzavřel, že napadené označování léčebného konopí jako „vysoce návykové látky“ není individuálním úkonem veřejné moci přímo namířeným proti žalobci a zásahovou žalobou nelze dosáhnout přezkumu či změny obecného regulatorního režimu. Žádný z účastníků nemá právo na náhradu nákladů řízení. Po právní moci se žalobci vrací celý zaplacený soudní poplatek 2 000 Kč, protože návrh byl odmítnut před prvním jednáním podle § 10 odst. 3 zákona č. 549/1991 Sb.; soud vyzval ke sdělení bankovního spojení do 10 dnů. Kasační stížnost lze podat do dvou týdnů od doručení."
+    }
+  ]
+}
