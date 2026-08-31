@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-31",
+  "purpose": "Dvě nové státní listiny Ministerstva kultury pro chronologii Státu lásky čas a návazné plochy Konopné církve.",
+  "documents": [
+    {
+      "id": "doc-cz-mk-2026-08-31-mk-53547-2026-socns",
+      "user_title": "Usnesení o zastavení řízení o návrhu na nové rozhodnutí ve věci registrace Konopné církve",
+      "issue_date": "2026-08-31",
+      "received_date": null,
+      "institution_id": "CZ-MK",
+      "reference": "MK 53547/2026 SOCNS",
+      "case_ids": ["MK-S 6893/2026 SOCNS", "MK-S 8978/2016 OC"],
+      "document_type": "state_record",
+      "topics": ["Konopná církev", "registrace církve", "nové řízení", "§ 101 správního řádu", "§ 102 správního řádu", "náboženský pluralismus", "rozklad"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": null,
+        "sha256": null,
+        "verification_status": "source_pdf_received_in_file_library; public_binary_copy_pending",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-31-mk-church.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Ministerstvo kultury zastavilo řízení o návrhu přípravného výboru Konopné církve na provedení nového řízení a vydání nového rozhodnutí podle § 101 písm. b) správního řádu. Uznalo, že původní žádost o registraci byla pravomocně zamítnuta, ale dospělo k závěru, že nové právní, skutkové, důkazní a věroučné okolnosti neodůvodňují vydání vyhovujícího rozhodnutí. Změnu právního režimu konopí, forenzní otázky THC/THCA, unijní otázky a režim náboženských předmětů označilo pro registraci za nerelevantní; podrobnější vysvětlení učení církve nepovažovalo za novou skutečnost a znovu uzavřelo, že Konopná církev podle jeho názoru nesplňuje zákonné vymezení církve a náboženské společnosti. Proti usnesení lze podat rozklad do 15 dnů od doručení; rozklad nemá odkladný účinek."
+    },
+    {
+      "id": "doc-cz-mk-2026-08-31-mk-53559-2026-socns",
+      "user_title": "Odpovědi Ministerstva kultury na otázky k procesnímu stavu a registraci Konopné církve",
+      "issue_date": "2026-08-31",
+      "received_date": null,
+      "institution_id": "CZ-MK",
+      "reference": "MK 53559/2026 SOCNS",
+      "case_ids": ["MK-S 6893/2026 SOCNS", "MK-S 8978/2016 OC"],
+      "document_type": "state_record",
+      "topics": ["Konopná církev", "procesní stav", "registrace církve", "náboženské předměty", "Soudní dvůr EU", "THC", "THCA", "náboženský pluralismus"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": null,
+        "sha256": null,
+        "verification_status": "source_pdf_received_in_file_library; public_binary_copy_pending",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-31-mk-church.json"
+      },
+      "relations": [
+        {"type": "related_state_record", "target_id": "doc-cz-mk-2026-08-31-mk-53547-2026-socns"}
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Ministerstvo kultury odpovědělo na otázky z podání z 26. 6. a 7. 7. 2026 a navazujících podání. Potvrdilo, že původní řízení o registraci Konopné církve bylo pravomocně skončeno zamítnutím z roku 2019, že přípravný výbor a jeho zmocněnec byli a jsou evidováni jako účastníci, a odkázalo na souběžné usnesení MK 53547/2026 SOCNS. Ministerstvo uvedlo, že nemá působnost posuzovat forenzní metodiku THC/THCA, stanovisko Evropské komise ani dánské podklady; otázky unijního práva a předběžných otázek označilo v této registrační věci za nerelevantní. Současně uvedlo, že podání posoudilo podle skutečného obsahu, zásad dobré správy, náboženské neutrality a ochrany náboženského pluralismu a nabídlo případné osobní setkání k dalším otázkám k meritu věci."
+    }
+  ]
+}
