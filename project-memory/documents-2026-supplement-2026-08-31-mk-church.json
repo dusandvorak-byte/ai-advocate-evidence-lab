@@ -16,9 +16,9 @@
       "public": {
         "html": null,
         "pdf": null,
-        "intended_pdf": null,
+        "intended_pdf": "documents/report-04082026-010/84-mk-53547-2026-socns-2026-08-31.pdf",
         "sha256": null,
-        "verification_status": "source_pdf_received_in_file_library; public_binary_copy_pending",
+        "verification_status": "verified_text_source_received; awaiting_generated_public_copy",
         "source_manifest": "project-memory/documents-2026-supplement-2026-08-31-mk-church.json"
       },
       "relations": [],
@@ -39,9 +39,9 @@
       "public": {
         "html": null,
         "pdf": null,
-        "intended_pdf": null,
+        "intended_pdf": "documents/report-04082026-010/85-mk-53559-2026-socns-2026-08-31.pdf",
         "sha256": null,
-        "verification_status": "source_pdf_received_in_file_library; public_binary_copy_pending",
+        "verification_status": "verified_text_source_received; awaiting_generated_public_copy",
         "source_manifest": "project-memory/documents-2026-supplement-2026-08-31-mk-church.json"
       },
       "relations": [
