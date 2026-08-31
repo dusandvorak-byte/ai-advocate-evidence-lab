@@ -19,54 +19,18 @@ WEB = ROOT / "web"
 OUT = WEB / "documents" / "report-04082026-010"
 
 ITEMS = [
-    {
-        "registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-26-uoou.json",
-        "source": ROOT / "project-memory" / "state-text-sources-2026-08-26" / "77-uoou-05841-26-3.txt",
-        "target": "77-uoou-05841-26-3-2026-08-26.pdf",
-        "label": "UOOU",
-    },
-    {
-        "registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-26-ks-ostrava.json",
-        "source": ROOT / "project-memory" / "state-text-sources-2026-08-26" / "78-ks-ostrava-st-82-2026.txt",
-        "target": "78-ks-ostrava-st-82-2026-15-t-11-2025-2026-08-26.pdf",
-        "label": "KS OSTRAVA",
-    },
-    {
-        "registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-27-szu-msz.json",
-        "source": ROOT / "project-memory" / "state-text-sources-2026-08-27" / "79-szu-10724-2026-2026-08-25.txt",
-        "target": "79-szu-10724-2026-2026-08-25.pdf",
-        "label": "SZU 25-08",
-    },
-    {
-        "registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-27-szu-msz.json",
-        "source": ROOT / "project-memory" / "state-text-sources-2026-08-27" / "80-szu-10724-2026-decision-2026-08-26.txt",
-        "target": "80-szu-10724-2026-rozhodnuti-2026-08-26.pdf",
-        "label": "SZU 26-08",
-    },
-    {
-        "registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-27-szu-msz.json",
-        "source": ROOT / "project-memory" / "state-text-sources-2026-08-27" / "81-msz-praha-3-kzn-974-2026-100-2026-08-27.txt",
-        "target": "81-msz-praha-3-kzn-974-2026-100-2026-08-27.pdf",
-        "label": "MSZ PRAHA 27-08",
-    },
-    {
-        "registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-27-msz-103.json",
-        "source": ROOT / "project-memory" / "state-text-sources-2026-08-27" / "83-msz-praha-3-kzn-974-2026-103-2026-08-27.txt",
-        "target": "83-msz-praha-3-kzn-974-2026-103-2026-08-27.pdf",
-        "label": "MSZ PRAHA 27-08 OSZ7",
-    },
-    {
-        "registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-28-ms-8-ad-9.json",
-        "source": ROOT / "project-memory" / "state-text-sources-2026-08-28" / "82-ms-praha-8-ad-9-2026-85-2026-08-28.txt",
-        "target": "82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf",
-        "label": "MS PRAHA 8 AD 9 28-08",
-    },
+    {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-26-uoou.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-26" / "77-uoou-05841-26-3.txt", "target": "77-uoou-05841-26-3-2026-08-26.pdf", "label": "UOOU"},
+    {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-26-ks-ostrava.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-26" / "78-ks-ostrava-st-82-2026.txt", "target": "78-ks-ostrava-st-82-2026-15-t-11-2025-2026-08-26.pdf", "label": "KS OSTRAVA"},
+    {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-27-szu-msz.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-27" / "79-szu-10724-2026-2026-08-25.txt", "target": "79-szu-10724-2026-2026-08-25.pdf", "label": "SZU 25-08"},
+    {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-27-szu-msz.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-27" / "80-szu-10724-2026-decision-2026-08-26.txt", "target": "80-szu-10724-2026-rozhodnuti-2026-08-26.pdf", "label": "SZU 26-08"},
+    {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-27-szu-msz.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-27" / "81-msz-praha-3-kzn-974-2026-100-2026-08-27.txt", "target": "81-msz-praha-3-kzn-974-2026-100-2026-08-27.pdf", "label": "MSZ PRAHA 27-08"},
+    {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-27-msz-103.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-27" / "83-msz-praha-3-kzn-974-2026-103-2026-08-27.txt", "target": "83-msz-praha-3-kzn-974-2026-103-2026-08-27.pdf", "label": "MSZ PRAHA 27-08 OSZ7"},
+    {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-28-ms-8-ad-9.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-28" / "82-ms-praha-8-ad-9-2026-85-2026-08-28.txt", "target": "82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf", "label": "MS PRAHA 8 AD 9 28-08"},
+    {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-31-mk-church.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-31" / "84-mk-53547-2026-socns.txt", "target": "84-mk-53547-2026-socns-2026-08-31.pdf", "label": "MK 53547 31-08"},
+    {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-31-mk-church.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-31" / "85-mk-53559-2026-socns.txt", "target": "85-mk-53559-2026-socns-2026-08-31.pdf", "label": "MK 53559 31-08"},
 ]
 
-FONT_CANDIDATES = [
-    Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
-    Path("/usr/share/fonts/dejavu/DejaVuSans.ttf"),
-]
+FONT_CANDIDATES = [Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"), Path("/usr/share/fonts/dejavu/DejaVuSans.ttf")]
 
 def find_font():
     for p in FONT_CANDIDATES:
@@ -94,21 +58,10 @@ def materialize(item, warning, body, meta):
         raise SystemExit(f"Missing source {source}")
     if not registry_path.exists():
         raise SystemExit(f"Missing registry {registry_path}")
-
     OUT.mkdir(parents=True, exist_ok=True)
     target = OUT / item["target"]
-    doc = SimpleDocTemplate(
-        str(target), pagesize=A4,
-        rightMargin=18*mm, leftMargin=18*mm,
-        topMargin=17*mm, bottomMargin=18*mm,
-        title=target.stem,
-        author="Evidence Lab / veřejná kopie z ověřeného textového přepisu",
-    )
-    story = [
-        Paragraph("OVĚŘENÁ VEŘEJNÁ KOPIE PDF", warning),
-        Paragraph("Tato veřejná kopie byla vytvořena z ověřeného textového přepisu listiny. Nejde o byte-identický originální soubor; obsah je publikován pro veřejnou evidenci a čitelnost.", meta),
-        Spacer(1, 4*mm),
-    ]
+    doc = SimpleDocTemplate(str(target), pagesize=A4, rightMargin=18*mm, leftMargin=18*mm, topMargin=17*mm, bottomMargin=18*mm, title=target.stem, author="Evidence Lab / veřejná kopie z ověřeného textového přepisu")
+    story = [Paragraph("OVĚŘENÁ VEŘEJNÁ KOPIE PDF", warning), Paragraph("Tato veřejná kopie byla vytvořena z ověřeného textového přepisu listiny. Nejde o byte-identický originální soubor; obsah je publikován pro veřejnou evidenci a čitelnost.", meta), Spacer(1, 4*mm)]
     for raw in source.read_text(encoding="utf-8").splitlines():
         if not raw.strip():
             story.append(Spacer(1, 2.2*mm))
@@ -117,7 +70,6 @@ def materialize(item, warning, body, meta):
     doc.build(story, onFirstPage=page_number, onLaterPages=page_number)
     if target.read_bytes()[:5] != b"%PDF-":
         raise SystemExit(f"Generated file is not a PDF: {target}")
-
     digest = sha256(target)
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
     rel = target.relative_to(WEB).as_posix()
