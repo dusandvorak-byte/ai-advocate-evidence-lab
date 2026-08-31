@@ -16,9 +16,9 @@
       "public": {
         "html": null,
         "pdf": null,
-        "intended_pdf": "documents/report-04082026-010/msz-praha-3-kzn-974-2026-103-2026-08-27.pdf",
+        "intended_pdf": "documents/report-04082026-010/83-msz-praha-3-kzn-974-2026-103-2026-08-27.pdf",
         "sha256": null,
-        "verification_status": "source_pdf_received; awaiting_public_copy",
+        "verification_status": "verified_text_source_received; awaiting_generated_public_copy",
         "source_manifest": "project-memory/documents-2026-supplement-2026-08-27-msz-103.json"
       },
       "relations": [],
