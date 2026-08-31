@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-08-27",
+  "purpose": "Nová státní listina pro chronologii Státu lásky čas.",
+  "documents": [
+    {
+      "id": "doc-cz-msz-pha-2026-08-27-3-kzn-974-2026-103",
+      "user_title": "Vyrozumění o výsledku dohledu nad OSZ pro Prahu 7",
+      "issue_date": "2026-08-27",
+      "received_date": null,
+      "institution_id": "CZ-MSZ-PHA",
+      "reference": "3 KZN 974/2026-103",
+      "case_ids": ["ZN 87/2026"],
+      "document_type": "state_record",
+      "topics": ["dohled", "OSZ Praha 7", "Ministerstvo vnitra", "státní zastupitelství", "§ 329", "§ 330", "měření THC"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/msz-praha-3-kzn-974-2026-103-2026-08-27.pdf",
+        "sha256": null,
+        "verification_status": "source_pdf_received; awaiting_public_copy",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-27-msz-103.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "MSZ v Praze přezkoumalo postup OSZ pro Prahu 7 ve věci ZN 87/2026 na základě podání z 29. 7. 2026, doplněného 15. 8. 2026. Podnět k výkonu dohledu odložilo jako nedůvodný; uzavřelo, že postoupená část podání týkající se úředních osob Ministerstva vnitra neobsahuje dostatečně konkretizované skutečnosti důvodně nasvědčující trestnému činu podle § 329, § 330 ani jiného ustanovení trestního zákoníku. MSZ označilo stanovisko za konečné a poučilo, že další obsahově shodné podněty již nebudou přezkoumávány ani potvrzovány."
+    }
+  ]
+}
