@@ -1,7 +1,10 @@
-import './finalize-public-labels-base.mjs';
-import './finalize-public-layout.mjs';
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+
+// Tyto finalizační kroky musí běžet deterministicky za sebou. Statické sourozenecké
+// importy s top-level await se mohou vyhodnocovat souběžně a vytvářet falešné pády validace.
+await import('./finalize-public-labels-base.mjs');
+await import('./finalize-public-layout.mjs');
 
 const oldText = 'Každá zpráva má mít dohledatelný zdroj';
 const newText = 'Každá zpráva má dohledatelný zdroj';
@@ -62,6 +65,7 @@ for (const file of surfacePaths) {
     .replace(/data-state-document-count>\d+</g, `data-state-document-count>${stateCount}<`)
     .replace(/<h2>Kanonická důkazní paměť do [^<]+<\/h2>/g, `<h2>Kanonická důkazní paměť do ${latestCz}</h2>`)
     .replace(/<h2>Canonical evidence memory through [^<]+<\/h2>/g, `<h2>Canonical evidence memory through ${latestEn}</h2>`)
+    .replace(/The canonical chronology now links \d+ public records/g, `The canonical chronology now links ${stateCount} public records`)
     .replaceAll('Anonymizovaná veřejná kopie PDF', 'Ověřená anonymizovaná veřejná kopie PDF')
     .replaceAll('Anonymised public PDF copy', 'Verified anonymised public PDF copy');
   await writeFile(file, html, 'utf8');
@@ -72,12 +76,14 @@ const enHome = await readFile('web/en.html', 'utf8');
 const churchHome = await readFile('web/kc/index.html', 'utf8');
 const churchEn = await readFile('web/kc/en.html', 'utf8');
 const liveDockets = await readFile('web/live-dockets.js', 'utf8');
+const newsFeed = await readFile('web/news-feed.js', 'utf8');
 for (const label of ['Godot online → každá zpráva má zdroj', 'Aktivní soudní řízení od 1. května 2026', 'Živé procesní časovače']) {
   if (!liveDockets.includes(label)) throw new Error(`Finální generátor postrádá lištu: ${label}`);
 }
 if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Finální titulní strana nenačítá generátor tří lišt');
 if (liveDockets.includes('Předžalobní řízení on-line od 1. května 2026') || liveDockets.includes('Státní láska online od 1. května 2026')) throw new Error('Finální generátor obsahuje zrušené lišty');
 if (liveDockets.includes("document.getElementById('latest-records')?.remove()")) throw new Error('RUNTIME-GATE: live-dockets.js odstraňuje synchronizovaný blok nejnovějších listin');
+if (/Chronologický seznam \d+ listin sbírky Godot/i.test(newsFeed) || /chronological list of \d+ public records in the Godot/i.test(newsFeed)) throw new Error('NEWS-FEED-GATE: sdílený feed obsahuje ručně zapsaný počet Godota');
 const article = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!/<li\b[^>]*\bid="doc-[^"]+"[^>]*><b>Datum:<\/b>/.test(article)) throw new Error('Finální chronologie nezačíná Datem');
 
@@ -90,6 +96,7 @@ const requireText = (name, text, needle) => {
 requireText('cz-state-count', article, `Stát: ${stateCount} evidovaných listin`);
 requireText('cz-home-static-count', home, `data-state-document-count>${stateCount}<`);
 requireText('en-state-count', enHome, `${stateCount} state and public-institution records`);
+requireText('en-newsroom-derived-count', enHome, `The canonical chronology now links ${stateCount} public records`);
 requireText('church-cz-state-count', churchHome, `${stateCount} listin státu a veřejných institucí`);
 requireText('church-en-state-count', churchEn, `${stateCount} state and public-institution records`);
 requireText('en-pdf-count', enHome, `${verifiedPdfCount} verified public PDFs`);
@@ -118,4 +125,4 @@ requireText('kpr-5080-public-copy-label', kpr5080, 'Otevřít ověřenou veřejn
 requireText('uoou-record', article, 'UOOU-05841/26-3');
 requireText('current-date', article, '1. 9. 2026');
 
-console.log(`Veřejná formulace sjednocena (${replacements} náhrad); 4/4 plochy, aktuální počty, datum poslední listiny, runtime nejnovějších záznamů a produkční brána byly finálně ověřeny.`);
+console.log(`Veřejná formulace sjednocena (${replacements} náhrad); 4/4 plochy, aktuální počty, datum poslední listiny, runtime nejnovějších záznamů, sdílený news feed a produkční brána byly finálně ověřeny.`);
