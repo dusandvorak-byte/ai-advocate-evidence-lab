@@ -58,7 +58,8 @@
   else legacyLeadRollup?.remove();
 
   document.querySelector('.lead-rollup-link')?.remove();
-  document.getElementById('latest-records')?.remove();
+  // Nejnovější kanonické listiny jsou synchronizační plocha 4/4 a nesmějí se
+  // při runtime odstranit poté, co je build ověřil jako aktuální.
   document.querySelector('.newsroom-alert')?.remove();
 
   const wrapper = document.createElement('section');
