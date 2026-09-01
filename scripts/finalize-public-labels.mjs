@@ -1,7 +1,10 @@
-import './finalize-public-labels-base.mjs';
-import './finalize-public-layout.mjs';
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+
+// Tyto finalizační kroky musí běžet deterministicky za sebou. Statické sourozenecké
+// importy s top-level await se mohou vyhodnocovat souběžně a vytvářet falešné pády validace.
+await import('./finalize-public-labels-base.mjs');
+await import('./finalize-public-layout.mjs');
 
 const oldText = 'Každá zpráva má mít dohledatelný zdroj';
 const newText = 'Každá zpráva má dohledatelný zdroj';
