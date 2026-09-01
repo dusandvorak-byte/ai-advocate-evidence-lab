@@ -103,7 +103,11 @@ for (const item of documents) {
 
 const documentLink = (item, fallbackLabel = 'originál PDF') => {
   const published = item.public || {};
-  if (published.pdf) return { href: normalizePublicPath(published.pdf), label: fallbackLabel, external: true };
+  if (published.pdf) {
+    const href = normalizePublicPath(published.pdf);
+    const label = /(?:verejna-kopie|public-copy)\.pdf$/i.test(href) ? 'anonymizovaná veřejná kopie PDF' : fallbackLabel;
+    return { href, label, external: true };
+  }
   if (published.html) return { href: normalizePublicPath(published.html), label: 'stránka listiny', external: false };
   return { href: `listiny/${item.id}.html`, label: 'evidenční stránka', external: false };
 };

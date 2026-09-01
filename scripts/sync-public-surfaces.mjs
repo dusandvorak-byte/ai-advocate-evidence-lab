@@ -92,8 +92,11 @@ function latestSection(lang) {
     const title = localizedCopy[lang][item.id] || item.user_title;
     const detail = isEn ? `news/04082026-010.html#en-${item.id}` : detailHref(item);
     const pdf = item.public?.pdf ? publicPath(item.public.pdf) : null;
+    const pdfLabel = /(?:verejna-kopie|public-copy)\.pdf$/i.test(pdf || '')
+      ? (isEn ? 'Anonymised public PDF copy' : 'Anonymizovaná veřejná kopie PDF')
+      : (isEn ? 'Original PDF' : 'Originální PDF');
     const pdfControl = pdf
-      ? `<a class="latest-record-pdf" href="${escapeHtml(pdf)}" target="_blank" rel="noopener">${isEn ? 'Original PDF' : 'Originální PDF'}</a>`
+      ? `<a class="latest-record-pdf" href="${escapeHtml(pdf)}" target="_blank" rel="noopener">${pdfLabel}</a>`
       : `<span class="latest-record-pending">${isEn ? 'Evidence page; PDF not yet public' : 'Evidenční stránka; PDF dosud není veřejné'}</span>`;
     return `<article class="latest-record-card" data-document-id="${escapeHtml(item.id)}"><p class="kicker">${escapeHtml(isEn ? formatEnDate(item.issue_date) : formatCzDate(item.issue_date))} · ${escapeHtml(institutionName(item, lang))}</p><h3><a href="${escapeHtml(detail)}"${isEn ? ' hreflang="cs"' : ''}>${escapeHtml(title)}</a></h3><p class="latest-record-reference">${escapeHtml(item.reference || (isEn ? 'No separate reference number' : 'Bez samostatného č. j.'))}</p>${pdfControl}</article>`;
   }).join('');

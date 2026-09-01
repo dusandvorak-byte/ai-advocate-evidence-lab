@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-01",
+  "purpose": "Odpověď Ministerstva zdravotnictví k pravidlům přepravy krevních vzorků a transfuzních přípravků pro chronologii Státu lásky čas.",
+  "documents": [
+    {
+      "id": "doc-cz-mz-2026-09-01-mzdr-21970-2026-3-min-kan",
+      "user_title": "Odpověď Ministerstva zdravotnictví k odběru, přepravě a kontrole krevních vzorků a transfuzních přípravků",
+      "issue_date": "2026-09-01",
+      "received_date": null,
+      "institution_id": "CZ-MZ",
+      "reference": "MZDR 21970/2026-3/MIN/KAN",
+      "case_ids": ["MZDR 21970/2026-1/MIN/KAN"],
+      "document_type": "state_record",
+      "topics": ["zákon č. 106/1999 Sb.", "krevní vzorky", "transfuzní přípravky", "přeprava", "teplotní režim", "validace přepravy", "kontrola", "SÚKL"],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/86-mzdr-21970-2026-3-min-kan-2026-09-01-verejna-kopie.pdf",
+        "intended_pdf": "documents/report-04082026-010/86-mzdr-21970-2026-3-min-kan-2026-09-01-verejna-kopie.pdf",
+        "sha256": "50d18a53324b42ac41f8b00c8a1bfdaac4fb2b99ae4e0699037a833356ad705d",
+        "verification_status": "anonymized_public_copy_from_received_original; third_person_name_replaced_with_initials; not_byte_identical_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-01-mz-blood-transport.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Ministerstvo zdravotnictví odpovědělo spolku Ganja For All Animals, z.s., na deset bodů žádosti podle zákona č. 106/1999 Sb. k odběru, uchovávání a přepravě krevních vzorků, krve a transfuzních přípravků. Odkázalo zejména na zákon č. 372/2011 Sb., vyhlášky č. 444/2024 Sb. a č. 143/2008 Sb., normu ČSN EN ISO 15189:2023 a doporučení Společnosti pro transfuzní lékařství ČLS JEP. Popsalo skladovací teploty, validaci přepravních boxů a vozů a monitorování přepravy. Současně uvedlo, že nemá vzory požadovaných záznamů a protokolů ani neeviduje kontrolní závěry, metodická stanoviska či záznamy o řešených teplotních nebo časových odchylkách od 1. ledna 2021; v těchto částech žádost odmítlo. Za dozor nad krevními bankami, zařízeními transfuzní služby a poskytovateli zdravotních služeb označilo Státní ústav pro kontrolu léčiv."
+    }
+  ]
+}
