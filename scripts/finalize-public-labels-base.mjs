@@ -22,12 +22,14 @@ for (const path of [...files, ...listiny]) {
   content = content.replaceAll("'web/documents/", "'documents/");
 
   // Odvozená veřejná kopie se nikdy nesmí vydávat za původní binární originál.
+  // Popisek se odvozuje z veřejné cesty PDF a sjednocuje i starší označení
+  // „anonymizovaná veřejná kopie PDF“ na závazné „ověřená veřejná kopie PDF“.
   content = content.replace(
-    /<a href="([^"]*verejna-kopie\.pdf)"([^>]*)>originál PDF<\/a>/gi,
+    /<a href="([^"]*verejna-kopie\.pdf)"([^>]*)>(?:originál PDF|anonymizovaná veřejná kopie PDF|ověřená veřejná kopie PDF)<\/a>/gi,
     '<a href="$1"$2>ověřená veřejná kopie PDF</a>'
   );
   content = content.replace(
-    /<a href="([^"]*verejna-kopie\.pdf)"([^>]*)>Otevřít originální listinu v PDF<\/a>/gi,
+    /<a href="([^"]*verejna-kopie\.pdf)"([^>]*)>(?:Otevřít originální listinu v PDF|Otevřít anonymizovanou veřejnou kopii PDF|Otevřít ověřenou veřejnou kopii PDF)<\/a>/gi,
     '<a href="$1"$2>Otevřít ověřenou veřejnou kopii PDF</a>'
   );
 
@@ -53,14 +55,14 @@ if (article.includes(wrongTitle)) throw new Error('Článek stále obsahuje chyb
 if (!article.includes('id="chronologie-seznam"')) throw new Error('Článek neobsahuje sestavenou chronologii');
 if (/aktivní originály/i.test(article)) throw new Error('Článek stále obsahuje samostatný blok aktivních originálů');
 if (/href="web\/documents\//i.test(article)) throw new Error('Článek obsahuje nefunkční PDF odkaz s prefixem web/');
-if (/<a href="[^"]*verejna-kopie\.pdf"[^>]*>\s*(?:originál PDF|Otevřít originální listinu v PDF)\s*<\/a>/i.test(article)) {
-  throw new Error('Odvozená veřejná kopie je v článku chybně označena jako originál');
+if (/<a href="[^"]*verejna-kopie\.pdf"[^>]*>\s*(?:originál PDF|Otevřít originální listinu v PDF|anonymizovaná veřejná kopie PDF|Otevřít anonymizovanou veřejnou kopii PDF)\s*<\/a>/i.test(article)) {
+  throw new Error('Odvozená veřejná kopie je v článku chybně nebo nejednotně označena');
 }
 
 for (const path of listiny) {
   const content = await readFile(path, 'utf8');
-  if (/<a href="[^"]*verejna-kopie\.pdf"[^>]*>\s*Otevřít originální listinu v PDF\s*<\/a>/i.test(content)) {
-    throw new Error(`Odvozená veřejná kopie je na ${path} chybně označena jako originál`);
+  if (/<a href="[^"]*verejna-kopie\.pdf"[^>]*>\s*(?:Otevřít originální listinu v PDF|Otevřít anonymizovanou veřejnou kopii PDF)\s*<\/a>/i.test(content)) {
+    throw new Error(`Odvozená veřejná kopie je na ${path} chybně nebo nejednotně označena`);
   }
 }
 
