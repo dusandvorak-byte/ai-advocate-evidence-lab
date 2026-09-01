@@ -86,7 +86,13 @@ for (const item of outgoingDocuments) {
 
 const sourceLink = item => {
   const published = item.public || {};
-  if (published.pdf) return `<a href="${escapeHtml(publicPath(published.pdf))}" target="_blank" rel="noopener">${item.language === 'en' ? 'Original English PDF' : 'Original Czech PDF'}</a>`;
+  if (published.pdf) {
+    const href = publicPath(published.pdf);
+    const label = /(?:verejna-kopie|public-copy)\.pdf$/i.test(href)
+      ? 'Anonymised public PDF copy'
+      : (item.language === 'en' ? 'Original English PDF' : 'Original Czech PDF');
+    return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener">${label}</a>`;
+  }
   if (published.html) return `<a href="${escapeHtml(publicPath(published.html))}">Czech evidence record</a>`;
   return `<a href="listiny/${escapeHtml(item.id)}.html">Czech evidence record</a>`;
 };
