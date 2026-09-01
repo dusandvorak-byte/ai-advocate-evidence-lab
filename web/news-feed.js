@@ -38,8 +38,8 @@ const cannaNews = [
     score: '9/9',
     titleCs: 'Státu lásky čas',
     titleEn: 'A time for the state to love',
-    summaryCs: 'Chronologický seznam 67 listin sbírky Godot on-line od 6. května do 14. srpna 2026.',
-    summaryEn: 'A chronological list of 67 public records in the Godot online collection, from 6 May to 14 August 2026.',
+    summaryCs: 'Živá chronologická mapa veřejných listin sbírky Godot on-line od května 2026; aktuální počet se odvozuje z kanonického registru.',
+    summaryEn: 'A living chronological map of public records in the Godot online collection since May 2026; the current count is derived from the canonical registry.',
     keywordsCs: 'Státu lásky čas Godot chronologie dokumenty KPR NSZ NCOZ soudy státní zastupitelství 2026',
     keywordsEn: 'Godot chronology documents KPR public prosecution courts 2026',
     href: 'zpravy/04082026-010.html',
@@ -119,49 +119,16 @@ const cannaNews = [
     id: '22072026-002',
     dateCs: '22. 7. 2026',
     dateEn: '22 July 2026',
-    score: '9/9',
-    titleCs: 'U každé konopné stopy ukažte vzorek, metodu i nejistotu měření',
-    titleEn: 'Show the sample, method and measurement uncertainty for every cannabis trace',
-    summaryCs: 'Podnět aliance žádá v řízení 45 T 1/2024 přesně doložit vzorek, metodu a nejistotu měření.',
-    summaryEn: 'An alliance filing asks case 45 T 1/2024 to document the sample, method and measurement uncertainty.',
-    keywordsCs: 'Městský soud Praha 45 T 1/2024 THC THCA měření vzorek metoda nejistota',
-    keywordsEn: 'Prague Municipal Court 45 T 1/2024 THC THCA measurement sample method uncertainty',
+    score: '8/9',
+    titleCs: 'Ministerstvo zdravotnictví: bezprostředně nezasáhneme',
+    titleEn: 'Ministry of Health: no immediate intervention',
+    summaryCs: 'Ministerstvo zdravotnictví odmítlo bezprostředně zasáhnout do sporu o metodiku stanovení THC.',
+    summaryEn: 'The Ministry of Health declined an immediate intervention in the dispute over the THC measurement methodology.',
+    keywordsCs: 'Ministerstvo zdravotnictví THC metodika stanovení konopí 2026',
+    keywordsEn: 'Ministry of Health THC methodology cannabis 2026',
     href: 'zpravy/22072026-002.html',
     hrefEn: 'news/22072026-002.html'
-  },
-  {
-    id: '20072026-001',
-    dateCs: '20. 7. 2026',
-    dateEn: '20 July 2026',
-    score: '9/9',
-    titleCs: 'Policie výzvu uložila. Jinými slovy: šuplík se opět zavřel',
-    titleEn: 'The Police filed the demand. In other words: the drawer closed again',
-    summaryCs: 'Policie potvrdila přijetí a uložení podání bez dalšího opatření; věcná odpověď nepřišla.',
-    summaryEn: 'The Police confirmed receipt and filing without further action; no substantive reply arrived.',
-    keywordsCs: 'Policie Olomoucký kraj KRPM-100092-2/ČJ-2026-1412UO předžalobní výzva preventivní podání',
-    keywordsEn: 'Police Olomouc Region KRPM-100092-2/ČJ-2026-1412UO pre-action demand preventive filing',
-    href: 'zpravy/20072026-001.html',
-    hrefEn: 'news/20072026-001.html'
   }
 ];
 
 window.cannaNews = cannaNews;
-
-const feed = document.querySelector('[data-shared-news-feed]');
-if (feed) {
-  const english = document.documentElement.lang === 'en';
-  const excluded = new Set(
-    String(feed.dataset.excludeIds || '')
-      .split(/\s+/)
-      .filter(Boolean)
-  );
-  const visibleNews = cannaNews.filter(item => !excluded.has(item.id));
-  feed.innerHTML = visibleNews.map(item => `
-    <article class="news-card">
-      <p class="kicker">${english ? item.dateEn : item.dateCs} · REPORT ${item.id}</p>
-      <h2><a href="${english ? item.hrefEn : item.href}">${english ? item.titleEn : item.titleCs}</a></h2>
-      <p>${english ? item.summaryEn : item.summaryCs}</p>
-      <div class="news-meta"><span>${item.score}</span></div>
-    </article>
-  `).join('');
-}
