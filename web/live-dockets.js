@@ -16,17 +16,17 @@
   }
 
   const godotHref = isEnglish ? 'news/04082026-010.html' : 'zpravy/04082026-010.html';
-  // Chronologicky podle počátku právě sledovaného soudního řízení.
+  // Chronologicky podle počátku právě aktivní procesní fáze.
   const courtCases = [
     ['2025-07-29', 'Městský soud v Praze, sp. zn. 45 T 1/2024 – vráceno Vrchním soudem v Praze', 'Prague Municipal Court, case 45 T 1/2024 – returned by the Prague High Court', 'case-cz-ms-praha-45t1-2024'],
     ['2026-05-01', 'Městský soud v Praze, sp. zn. 18 A 17/2026 – NCOZ', 'Prague Municipal Court, case 18 A 17/2026 – National Centre against Organised Crime', 'case-cz-ms-praha-18a17-2026'],
-    ['2026-05-31', 'Městský soud v Praze, sp. zn. 8 Ad 9/2026 – Ministerstvo zdravotnictví', 'Prague Municipal Court, case 8 Ad 9/2026 – Ministry of Health', 'case-cz-ms-praha-8ad9-2026'],
     ['2026-06-04', 'Obvodní soud pro Prahu 4, sp. zn. 10 C 69/2026 – Česká televize', 'Prague 4 District Court, case 10 C 69/2026 – Czech Television', 'case-cz-os-praha4-10c69-2026'],
     ['2026-06-15', 'Městský soud v Praze, sp. zn. 18 A 23/2026 – Ministerstvo spravedlnosti', 'Prague Municipal Court, case 18 A 23/2026 – Ministry of Justice', 'case-cz-ms-praha-18a23-2026'],
     ['2026-07-12', 'Okresní soud v Prostějově, sp. zn. 2 T 104/2010 – obnova', 'Prostějov District Court, case 2 T 104/2010 – reopening', 'case-cz-os-pro-2t104-2010-obnova'],
     ['2026-07-12', 'Okresní soud v Prostějově – prevence 2026', 'Prostějov District Court – preventive filing 2026', 'case-cz-os-pro-prevence-2026'],
-    ['2026-07-22', 'Okresní soud v Ostravě, sp. zn. 15 T 11/2025', 'Ostrava District Court, case 15 T 11/2025', 'case-cz-os-ostrava-15t11-2025'],
-    ['2026-07-23', 'Městský soud v Praze, sp. zn. 15 A 44/2026 – Ministerstvo vnitra', 'Prague Municipal Court, case 15 A 44/2026 – Ministry of the Interior', 'case-cz-ms-praha-15a44-2026']
+    ['2026-08-24', 'Krajský soud v Ostravě – stížnostní řízení 5 To 248/2026 ve věci 15 T 11/2025', 'Ostrava Regional Court – complaint proceedings 5 To 248/2026 in case 15 T 11/2025', 'procesni-casovace'],
+    ['2026-08-31', 'Městský soud v Praze – nová zásahová žaloba proti SÚKL', 'Prague Municipal Court – new intervention action against SÚKL', 'procesni-casovace'],
+    ['2026-09-01', 'Nejvyšší správní soud – kasační stížnost ve věci 15 A 44/2026', 'Supreme Administrative Court – cassation complaint in case 15 A 44/2026', 'procesni-casovace']
   ].sort(([dateA], [dateB]) => dateA.localeCompare(dateB));
 
   const summaryMarkup = title =>
@@ -49,8 +49,6 @@
   document.querySelector('.godot-rollup')?.remove();
   document.querySelector('.godot-rollup-link')?.remove();
 
-  // Starší build obalil hlavní článek do šesté roletky. Článek je důležitý
-  // zpravodajský obsah: před odstraněním staré roletky jej vždy zachováme.
   const leadSection = document.querySelector('.news-lead');
   const legacyLeadRollup = document.querySelector('.lead-rollup');
   const embeddedLeadCard = legacyLeadRollup?.querySelector('.lead-card');
@@ -58,8 +56,6 @@
   else legacyLeadRollup?.remove();
 
   document.querySelector('.lead-rollup-link')?.remove();
-  // Nejnovější kanonické listiny jsou synchronizační plocha 4/4 a nesmějí se
-  // při runtime odstranit poté, co je build ověřil jako aktuální.
   document.querySelector('.newsroom-alert')?.remove();
 
   const wrapper = document.createElement('section');
