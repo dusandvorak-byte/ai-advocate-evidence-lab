@@ -18,7 +18,8 @@
     {"path":"scripts/build-dynamic-chronology.mjs","role":"chronology_and_evidence_pages","allowed_caller":"scripts/build-site.mjs"},
     {"path":"scripts/finalize-homepage.mjs","role":"homepage_generation","allowed_caller":"scripts/build-site.mjs"},
     {"path":"scripts/build-deadlines.mjs","role":"deadline_view_generation","allowed_caller":"scripts/build-site.mjs"},
-    {"path":"scripts/build-operational-state.mjs","role":"derived_counters_and_deadline_state","allowed_caller":"scripts/build-site.mjs"}
+    {"path":"scripts/build-operational-state.mjs","role":"derived_counters_and_deadline_state","allowed_caller":"scripts/build-site.mjs"},
+    {"path":"scripts/normalize-godot-link-labels.mjs","role":"canonical_godot_link_label_normalization","allowed_caller":"scripts/build-site.mjs"}
   ],
   "canonical_generated_outputs": [
     "web/index.html",
