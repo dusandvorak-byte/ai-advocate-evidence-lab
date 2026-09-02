@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-01",
+  "purpose": "Vyrozumění MSZ v Praze o způsobu vyřízení podání týkajících se postupu Nejvyššího státního zastupitelství pro chronologii Státu lásky čas.",
+  "documents": [
+    {
+      "id": "doc-cz-msz-pha-2026-09-01-3-kzn-974-2026-108",
+      "user_title": "MSZ v Praze uzavírá podání k postupu NSZ po vrácení věci z Brna",
+      "issue_date": "2026-09-01",
+      "received_date": "2026-09-02",
+      "institution_id": "CZ-MSZ-PHA",
+      "reference": "3 KZN 974/2026-108",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["Nejvyšší státní zastupitelství", "MSZ Brno", "3 ZN 140/2026-3", "§ 16a zákona o státním zastupitelství", "trestní oznámení", "§ 158 trestního řádu", "§ 329", "§ 330", "metodika THC", "přezkum VSZ Praha"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/87-msz-praha-3-kzn-974-2026-108-2026-09-01.pdf",
+        "sha256": null,
+        "verification_status": "verified_text_source_received; awaiting_generated_public_copy",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-01-msz-108.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "MSZ v Praze znovu posoudilo část podání Mgr. Dušana Dvořáka ze dne 27. 5. 2026 a navazující podání ze dnů 14., 15. a 19. 7. 2026 poté, co MSZ v Brně vrátilo postoupenou část věci přípisem 3 ZN 140/2026-3. MSZ v Praze uzavřelo, že podání v části týkající se osob působících nebo dříve působících u Nejvyššího státního zastupitelství neobsahují konkrétní skutečnosti důvodně nasvědčující spáchání trestného činu podle § 329, § 330 ani jiného ustanovení trestního zákoníku. Podání proto podle § 16a zákona o státním zastupitelství bez dalšího opatření založilo a považuje je za vyřízená. Současně výslovně poučilo o možnosti požádat podle § 16a odst. 7 o přezkoumání způsobu vyřízení u Vrchního státního zastupitelství v Praze."
+    }
+  ]
+}
