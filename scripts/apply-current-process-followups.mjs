@@ -54,12 +54,16 @@ for(const path of htmlPaths){
   const isEn=path.includes('/en.html')||path.includes('/news/');
   for(const [id,x] of Object.entries(english)){
     const t=timers.get(id); const re=articleRe(id);
-    if(!re.test(html)) throw new Error(`FOLLOWUP-GATE: ${path} missing ${id}`);
+    if(!re.test(html)) continue;
     re.lastIndex=0;
     html=html.replace(re,isEn?renderEn(t,x):renderCz(t));
   }
   if(/69\s*\/\s*30 dnů základně/.test(html)) throw new Error(`FOLLOWUP-GATE: ${path} still exposes obsolete MK timer`);
   if(/38\s*\/\s*15 \+ až 10 dnů/.test(html)) throw new Error(`FOLLOWUP-GATE: ${path} still exposes obsolete KRPT timer`);
   await writeFile(path,html,'utf8');
+}
+for (const required of ['web/index.html','web/en.html','web/zpravy/04082026-010.html']) {
+  const html=await readFile(required,'utf8');
+  for (const id of Object.keys(english)) if(!html.includes(`data-timer-id="${id}"`)) throw new Error(`FOLLOWUP-GATE: ${required} missing required active timer ${id}`);
 }
 console.log('Aktivní procesní fáze posunuty: KRPT → odvolání 24. 8. 2026; MK → rozklad 1. 9. 2026.');
