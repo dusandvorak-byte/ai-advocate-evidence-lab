@@ -118,11 +118,11 @@ for (const key of ['required_without_active_pdf_count','reaction_without_active_
 const kpr5772 = await readFile('web/listiny/doc-cz-kpr-2026-07-30-kpr-5772-2026-1.html', 'utf8');
 const kpr5080 = await readFile('web/listiny/doc-cz-kpr-2026-08-03-kpr-5080-2026.html', 'utf8');
 const nsz = await readFile('web/listiny/nsz-6-nzn-1737-2026-15.html', 'utf8');
-requireText('nsz-original-label', nsz, 'Otevřít originální listinu v PDF');
-requireText('article-public-copy-label', article, 'ověřená veřejná kopie PDF');
-requireText('kpr-5772-public-copy-label', kpr5772, 'Otevřít ověřenou veřejnou kopii PDF');
-requireText('kpr-5080-public-copy-label', kpr5080, 'Otevřít ověřenou veřejnou kopii PDF');
+requireText('nsz-document-label', nsz, 'Dokument v PDF');
+requireText('article-document-label', article, 'Dokument v PDF');
+requireText('kpr-5772-document-label', kpr5772, 'Dokument v PDF');
+requireText('kpr-5080-document-label', kpr5080, 'Dokument v PDF');
 requireText('uoou-record', article, 'UOOU-05841/26-3');
 requireText('current-date', article, '1. 9. 2026');
 
-console.log(`Veřejná formulace sjednocena (${replacements} náhrad); 4/4 plochy, aktuální počty, datum poslední listiny, runtime nejnovějších záznamů, sdílený news feed a produkční brána byly finálně ověřeny.`);
+console.log(`Veřejná formulace sjednocena (${replacements} náhrad); 4/4 plochy, aktuální počty, datum poslední listiny, jednotné popisky dokumentů, runtime nejnovějších záznamů, sdílený news feed a produkční brána byly finálně ověřeny.`);
