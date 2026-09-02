@@ -75,8 +75,8 @@ jobs:
       - name: Ověřit PDF odkazy Godota
         run: node scripts/audit-godot-pdf-links.mjs
 
-      - name: Ověřit tři lišty, barvy a chronologii soudních řízení
-        run: node scripts/validate-live-dockets-contract.mjs
+      - name: Ověřit dynamické procesní řetězce, lhůty a aktivní soudní větve
+        run: node scripts/validate-process-chain-contract.mjs
 
       - name: Ověřit manifest Evidence Lab 2.0 bez ručních počtů
         shell: bash
