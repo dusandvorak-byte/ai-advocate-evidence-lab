@@ -61,6 +61,7 @@ await run('scripts/build-process-timers.mjs');
 await run('scripts/build-english-godot.mjs');
 await run('scripts/apply-process-timer-genealogy.mjs');
 await run('scripts/apply-current-process-followups.mjs');
+await run('scripts/apply-process-chain-layout.mjs');
 await run('scripts/build-language-access.mjs');
 await run('scripts/normalize-godot-link-labels.mjs');
 await run('scripts/build-operational-state.mjs');
@@ -99,6 +100,8 @@ const chronologyCount = (article.match(/<li id="doc-[^"]*"/g) || []).length;
 if (chronologyCount !== expectedStateCount) throw new Error(`Rozpor chronologie: Godot ${chronologyCount}, státní a veřejné listiny ${expectedStateCount}`);
 if (!article.includes(`Stát: ${expectedStateCount} evidovaných listin`)) throw new Error(`Godot neobsahuje odvozený státní počet ${expectedStateCount}`);
 if (!home.includes('id="latest-records"')) throw new Error('Titulní stránka neobsahuje synchronizované nejnovější listiny');
+if (!article.includes('process-chain-strip')) throw new Error('Godot neobsahuje nové široké procesní řetězce');
+if (!article.includes('č. j. / sp. zn.')) throw new Error('Procesní řetězce neobsahují povinný popisek č. j. / sp. zn.');
 
 await mkdir(output.data, { recursive: true });
 await copyFile(source.documents, `${output.data}/documents-2026.json`);
