@@ -59,6 +59,7 @@ await run('scripts/build-english-news.mjs');
 await run('scripts/build-deadlines.mjs');
 await run('scripts/build-process-timers.mjs');
 await run('scripts/build-english-godot.mjs');
+await run('scripts/apply-process-timer-genealogy.mjs');
 await run('scripts/build-language-access.mjs');
 await run('scripts/normalize-godot-link-labels.mjs');
 await run('scripts/build-operational-state.mjs');
@@ -106,6 +107,7 @@ await copyFile(source.timers, `${output.data}/process-timers-source.json`);
 await copyFile(source.axioms, `${output.data}/publication-axioms.json`);
 await copyFile('project-memory/pdf-reconciliation-report.json', `${output.data}/pdf-reconciliation-report.json`);
 const publicPdfLinks = [...new Set(documentsRegistry.documents.map(item => item.public?.pdf).filter(Boolean).map(publicPath))];
+const finalTimerRegistry = await readJson(`${output.data}/process-timers.json`);
 const manifest = {
   schema_version: '2.2', generated_at: new Date().toISOString(), build_entrypoint: 'scripts/build-site.mjs', canonical_sources: source,
   architecture_version: architectureRegistry.schema_version, project_goals_count: goalsRegistry.goals.length,
@@ -114,7 +116,7 @@ const manifest = {
   registry_audit: 'data/registry-audit.json', pdf_reconciliation_report: 'data/pdf-reconciliation-report.json', godot_pdf_audit: 'data/godot-pdf-audit.json', process_timers: 'data/process-timers.json',
   counts: {
     documents: documentsRegistry.documents.length, institutions: institutionsRegistry.institutions.length, cases: registryAudit.counts.cases,
-    deadlines: deadlinesRegistry.deadlines.length, process_timers: timersRegistry.timers.length, chronology_items: chronologyCount, public_pdf_links: publicPdfLinks.length,
+    deadlines: deadlinesRegistry.deadlines.length, process_timers: finalTimerRegistry.timers.length, chronology_items: chronologyCount, public_pdf_links: publicPdfLinks.length,
     physical_pdf_files: documentsRegistry.reconciliation?.physical_pdf_count ?? null, unresolved_pdf_matches: documentsRegistry.reconciliation?.unresolved_count ?? null,
     eligible_institution_documents: godotPdfAudit.eligible_institution_document_count, eligible_with_active_pdf: godotPdfAudit.eligible_with_active_pdf_count,
     eligible_without_active_pdf: godotPdfAudit.eligible_without_active_pdf_count, broken_godot_pdf_links: godotPdfAudit.broken_article_pdf_link_count,
@@ -134,4 +136,4 @@ const manifest = {
   public_pdf_links: publicPdfLinks
 };
 await writeFile(`${output.data}/build-manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
-console.log(`Evidence Lab 2.0 build: stát/veřejné instituce ${expectedStateCount}; naše podání ${expectedOurCount}; celkem ${expectedTotalCount}; titulní strana = Godot = manifest; ${publicPdfLinks.length} aktivních PDF; ${timersRegistry.timers.length} živých procesních časovačů.`);
+console.log(`Evidence Lab 2.0 build: stát/veřejné instituce ${expectedStateCount}; naše podání ${expectedOurCount}; celkem ${expectedTotalCount}; titulní strana = Godot = manifest; ${publicPdfLinks.length} aktivních PDF; ${finalTimerRegistry.timers.length} živých procesních časovačů.`);
