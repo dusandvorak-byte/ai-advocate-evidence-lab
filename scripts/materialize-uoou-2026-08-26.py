@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import base64
+import gzip
 import hashlib
 import html
 import json
@@ -28,6 +30,7 @@ ITEMS = [
     {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-28-ms-8-ad-9.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-28" / "82-ms-praha-8-ad-9-2026-85-2026-08-28.txt", "target": "82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf", "label": "MS PRAHA 8 AD 9 28-08"},
     {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-31-mk-church.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-31" / "84-mk-53547-2026-socns.txt", "target": "84-mk-53547-2026-socns-2026-08-31.pdf", "label": "MK 53547 31-08"},
     {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-31-mk-church.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-31" / "85-mk-53559-2026-socns.txt", "target": "85-mk-53559-2026-socns-2026-08-31.pdf", "label": "MK 53559 31-08"},
+    {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-09-01-msz-108.json", "source": ROOT / "project-memory" / "state-text-sources-2026-09-01" / "87-msz-praha-3-kzn-974-2026-108-2026-09-01.txt.gz.b64", "target": "87-msz-praha-3-kzn-974-2026-108-2026-09-01.pdf", "label": "MSZ PRAHA 01-09 108"},
 ]
 
 FONT_CANDIDATES = [Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"), Path("/usr/share/fonts/dejavu/DejaVuSans.ttf")]
@@ -44,6 +47,14 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: f.read(1024 * 1024), b""):
             h.update(chunk)
     return h.hexdigest()
+
+def read_source_text(source: Path) -> str:
+    if source.name.endswith('.txt.gz.b64'):
+        try:
+            return gzip.decompress(base64.b64decode(source.read_text(encoding='ascii').strip())).decode('utf-8')
+        except Exception as exc:
+            raise SystemExit(f"Cannot decode compressed verified text source {source}: {exc}") from exc
+    return source.read_text(encoding="utf-8")
 
 def page_number(canvas, doc):
     canvas.saveState()
@@ -62,7 +73,7 @@ def materialize(item, warning, body, meta):
     target = OUT / item["target"]
     doc = SimpleDocTemplate(str(target), pagesize=A4, rightMargin=18*mm, leftMargin=18*mm, topMargin=17*mm, bottomMargin=18*mm, title=target.stem, author="Evidence Lab / veřejná kopie z ověřeného textového přepisu")
     story = [Paragraph("OVĚŘENÁ VEŘEJNÁ KOPIE PDF", warning), Paragraph("Tato veřejná kopie byla vytvořena z ověřeného textového přepisu listiny. Nejde o byte-identický originální soubor; obsah je publikován pro veřejnou evidenci a čitelnost.", meta), Spacer(1, 4*mm)]
-    for raw in source.read_text(encoding="utf-8").splitlines():
+    for raw in read_source_text(source).splitlines():
         if not raw.strip():
             story.append(Spacer(1, 2.2*mm))
         else:
