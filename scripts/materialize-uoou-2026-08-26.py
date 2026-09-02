@@ -30,7 +30,7 @@ ITEMS = [
     {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-28-ms-8-ad-9.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-28" / "82-ms-praha-8-ad-9-2026-85-2026-08-28.txt", "target": "82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf", "label": "MS PRAHA 8 AD 9 28-08"},
     {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-31-mk-church.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-31" / "84-mk-53547-2026-socns.txt", "target": "84-mk-53547-2026-socns-2026-08-31.pdf", "label": "MK 53547 31-08"},
     {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-08-31-mk-church.json", "source": ROOT / "project-memory" / "state-text-sources-2026-08-31" / "85-mk-53559-2026-socns.txt", "target": "85-mk-53559-2026-socns-2026-08-31.pdf", "label": "MK 53559 31-08"},
-    {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-09-01-msz-108.json", "source": ROOT / "project-memory" / "state-text-sources-2026-09-01" / "87-msz-praha-3-kzn-974-2026-108-2026-09-01.txt.gz.b64", "target": "87-msz-praha-3-kzn-974-2026-108-2026-09-01.pdf", "label": "MSZ PRAHA 01-09 108"},
+    {"registry": ROOT / "project-memory" / "documents-2026-supplement-2026-09-01-msz-108.json", "source": ROOT / "project-memory" / "state-text-sources-2026-09-01" / "87-msz-praha-3-kzn-974-2026-108-2026-09-01.txt.gz.b64", "target": "87-msz-praha-3-kzn-974-2026-108-2026-09-01-verejna-kopie.pdf", "label": "MSZ PRAHA 01-09 108"},
 ]
 
 FONT_CANDIDATES = [Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"), Path("/usr/share/fonts/dejavu/DejaVuSans.ttf")]
