@@ -28,8 +28,8 @@ const normalizeGodot = async (path, lang) => {
     if (olStart !== -1 && olEnd !== -1) {
       const before = html.slice(0, olStart);
       let block = html.slice(olStart, olEnd + 5);
-      block = replaceAnchorTextByHref(block, '\\.pdf(?:[?#][^"\\']*)?', pdfLabel);
-      block = replaceAnchorTextByHref(block, '(?:listiny|news\\/04082026-010\\.html#)[^"\\']*', evidenceLabel);
+      block = replaceAnchorTextByHref(block, "\\.pdf(?:[?#][^\"']*)?", pdfLabel);
+      block = replaceAnchorTextByHref(block, "(?:listiny|news\\/04082026-010\\.html#)[^\"']*", evidenceLabel);
       html = before + block + html.slice(olEnd + 5);
     }
   }
@@ -57,7 +57,7 @@ const listiny = await readdir('web/listiny');
 for (const name of listiny.filter(name => name.endsWith('.html'))) {
   const path = `web/listiny/${name}`;
   let html = await readFile(path, 'utf8');
-  html = replaceAnchorTextByHref(html, '\\.pdf(?:[?#][^"\\']*)?', 'Dokument v PDF');
+  html = replaceAnchorTextByHref(html, "\\.pdf(?:[?#][^\"']*)?", 'Dokument v PDF');
   html = html.replace(/<p><b>Originální PDF:<\/b>[\s\S]*?<\/p>/gi, '<p><b>Evidenční stránka</b></p>');
   await writeFile(path, html, 'utf8');
 }
