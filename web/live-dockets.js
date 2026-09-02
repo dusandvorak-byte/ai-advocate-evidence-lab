@@ -24,7 +24,7 @@
     ['2026-06-15', 'Městský soud v Praze, sp. zn. 18 A 23/2026 – Ministerstvo spravedlnosti', 'Prague Municipal Court, case 18 A 23/2026 – Ministry of Justice', 'case-cz-ms-praha-18a23-2026'],
     ['2026-07-12', 'Okresní soud v Prostějově, sp. zn. 2 T 104/2010 – obnova', 'Prostějov District Court, case 2 T 104/2010 – reopening', 'case-cz-os-pro-2t104-2010-obnova'],
     ['2026-07-12', 'Okresní soud v Prostějově – prevence 2026', 'Prostějov District Court – preventive filing 2026', 'case-cz-os-pro-prevence-2026'],
-    ['2026-08-24', 'Krajský soud v Ostravě – stížnostní řízení 5 To 248/2026 ve věci 15 T 11/2025', 'Ostrava Regional Court – complaint proceedings 5 To 248/2026 in case 15 T 11/2025', 'procesni-casovace'],
+    ['2026-08-24', 'Krajský soud v Ostravě – stížnostní řízení sp. zn. 5 To 248/2026 ve věci Okresního soudu v Ostravě sp. zn. 15 T 11/2025', 'Ostrava Regional Court – complaint proceedings case 5 To 248/2026 concerning Ostrava District Court case 15 T 11/2025', 'procesni-casovace'],
     ['2026-08-31', 'Městský soud v Praze – nová zásahová žaloba proti SÚKL', 'Prague Municipal Court – new intervention action against SÚKL', 'procesni-casovace'],
     ['2026-09-01', 'Nejvyšší správní soud – kasační stížnost ve věci 15 A 44/2026', 'Supreme Administrative Court – cassation complaint in case 15 A 44/2026', 'procesni-casovace']
   ].sort(([dateA], [dateB]) => dateA.localeCompare(dateB));
