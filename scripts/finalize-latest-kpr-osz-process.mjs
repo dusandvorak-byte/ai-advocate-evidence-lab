@@ -2,6 +2,8 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 const timerPath = 'web/data/process-timers.json';
 const htmlPaths = ['web/index.html','web/en.html','web/zpravy/04082026-010.html','web/news/04082026-010.html'];
+const BEGIN='<!-- PROCESS-TIMERS:BEGIN -->';
+const END='<!-- PROCESS-TIMERS:END -->';
 const updates = {
   'timer-review-nsz-6nzn-2026': {
     step: {date:'2026-09-03', reference:'č. j. 1 ZN 7061/2026-79', actor:'OSZ Frýdek-Místek', action:'vyrozumění o vyřízení; podání založena bez dalšího opatření; poučení o možnosti požádat KSZ Ostrava o přezkoumání podle § 16a odst. 7'},
@@ -42,20 +44,10 @@ const dedupeTimerArticles = html => {
     return article;
   });
 };
-const sectionById = (html,id) => {
-  const marker = `id="${id}"`;
-  const pos = html.indexOf(marker);
-  if (pos < 0) return null;
-  const start = html.lastIndexOf('<section',pos);
-  if (start < 0) return null;
-  const token = /<section\b|<\/section>/g;
-  token.lastIndex = start;
-  let depth = 0, m;
-  while ((m = token.exec(html))) {
-    if (m[0].startsWith('<section')) depth += 1; else depth -= 1;
-    if (depth === 0) return {start,end:token.lastIndex,html:html.slice(start,token.lastIndex)};
-  }
-  return null;
+const markerBlock = html => {
+  const a=html.indexOf(BEGIN), b=html.indexOf(END,a+BEGIN.length);
+  if(a<0||b<0) return null;
+  return {start:a,end:b+END.length,html:html.slice(a,b+END.length)};
 };
 
 for (const path of htmlPaths) {
@@ -83,20 +75,19 @@ for (const path of htmlPaths) {
   await writeFile(path,html,'utf8');
 }
 
-// EN Godot musí mít stejný kanonický blok časovačů jako EN titulní stránka.
-// Dřívější generátor vytvářel anglickou chronologii bez této sekce a až validator odhalil 0/37.
+// EN Godot must carry the exact canonical generated timer block from EN home.
+// Markers are the contract; element type (<details>/<section>) is intentionally irrelevant.
 {
   const enHome = await readFile('web/en.html','utf8');
   let enGodot = await readFile('web/news/04082026-010.html','utf8');
-  const sourceSection = sectionById(enHome,'procesni-casovace');
-  if (!sourceSection) throw new Error('LATEST-PROCESS-GATE: EN titulní stránka nemá procesni-casovace');
-  const targetSection = sectionById(enGodot,'procesni-casovace');
-  if (targetSection) enGodot = enGodot.slice(0,targetSection.start) + sourceSection.html + enGodot.slice(targetSection.end);
+  const source = markerBlock(enHome);
+  if (!source) throw new Error('LATEST-PROCESS-GATE: EN home lacks PROCESS-TIMERS markers');
+  const target = markerBlock(enGodot);
+  if (target) enGodot = enGodot.slice(0,target.start)+source.html+enGodot.slice(target.end);
   else {
-    const anchor = enGodot.indexOf('<section id="lhuty-a-necinnost"');
-    if (anchor >= 0) enGodot = enGodot.slice(0,anchor) + sourceSection.html + enGodot.slice(anchor);
-    else if (enGodot.includes('</main>')) enGodot = enGodot.replace('</main>', `${sourceSection.html}</main>`);
-    else throw new Error('LATEST-PROCESS-GATE: EN Godot nemá místo pro vložení procesních časovačů');
+    const anchor = enGodot.indexOf('</main>');
+    if(anchor<0) throw new Error('LATEST-PROCESS-GATE: EN Godot lacks </main> insertion anchor');
+    enGodot = enGodot.slice(0,anchor)+source.html+enGodot.slice(anchor);
   }
   await writeFile('web/news/04082026-010.html',dedupeTimerArticles(enGodot),'utf8');
 }
@@ -111,4 +102,4 @@ for (const path of htmlPaths) {
 }
 const cz = await readFile('web/zpravy/04082026-010.html','utf8');
 for (const needle of ['2026-09-03','1 ZN 7061/2026-79','2026-09-02','KPR 5080/2026']) if (!cz.includes(needle)) throw new Error(`LATEST-PROCESS-GATE: chybí ${needle}`);
-console.log(`KPR 2. 9. a OSZ Frýdek-Místek 3. 9. promítnuty; CZ/EN home i Godot mají ${registryIds.size} unikátních timer ID bez duplicit.`);
+console.log(`KPR 2. 9. a OSZ Frýdek-Místek 3. 9. promítnuty; CZ/EN home i Godot mají ${registryIds.size} unikátních timer ID; EN Godot blok je synchronizován přes kanonické markery.`);
