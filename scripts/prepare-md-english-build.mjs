@@ -47,12 +47,17 @@ for (const line of lines) {
     patched.push('if (englishGodotOutgoing !== expectedEnglishOutgoing) throw new Error(`Anglický Godot nemá všechna kanonická navazující podání: ${englishGodotOutgoing}/${expectedEnglishOutgoing}`);');
     continue;
   }
+  if (line.includes('if (englishTimerCount !== 39)')) {
+    patched.push('const czechTimerCount = (home.match(/data-timer-id="/g) || []).length;');
+    patched.push('if (englishTimerCount < 1 || englishTimerCount !== czechTimerCount) throw new Error(`CZ/EN počet procesních časovačů není shodný: ${czechTimerCount}/${englishTimerCount}`);');
+    continue;
+  }
   patched.push(line);
 }
 validator = patched.join('\n');
-if (validator.includes('englishGodotRecords !== 73') || validator.includes('úplných 73 záznamů') || validator.includes('englishGodotOutgoing !== 24')) {
+if (validator.includes('englishGodotRecords !== 73') || validator.includes('úplných 73 záznamů') || validator.includes('englishGodotOutgoing !== 24') || validator.includes('englishTimerCount !== 39')) {
   throw new Error('Nepodařilo se odstranit staré pevné počty z validátoru');
 }
 await writeFile(validatorPath, validator, 'utf8');
 
-console.log(`English Godot and validator prepared from ${supplementPaths.length} automatically discovered translation supplements with dynamically derived state and outgoing counts.`);
+console.log(`English Godot and validator prepared from ${supplementPaths.length} automatically discovered translation supplements with dynamically derived state, outgoing and timer counts.`);
