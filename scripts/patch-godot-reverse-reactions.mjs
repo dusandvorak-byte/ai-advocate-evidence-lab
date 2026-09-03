@@ -20,6 +20,7 @@ const isState = item => item?.submission_side === 'incoming_from_state_or_public
 
 let article = await readFile(articlePath, 'utf8');
 let injected = 0;
+const generatedFragments = [];
 for (const state of documents.filter(isState)) {
   const sources = (state.relations || [])
     .filter(rel => (rel.type || rel.relation_type) === 'reakce_na')
@@ -36,12 +37,17 @@ for (const state of documents.filter(isState)) {
   const extra = sources.map(source => {
     const pdf = source.public?.pdf ? publicPath(source.public.pdf) : null;
     const href = pdf || `listiny/${source.id}.html`;
-    const label = pdf ? 'podání PDF' : 'evidenční stránka';
+    const label = pdf ? 'Dokument v PDF' : 'Evidenční stránka';
     const target = pdf ? ' target="_blank" rel="noopener"' : '';
     return `<span class="chronology-reaction chronology-reaction-source"> · <b>Naše podání, na které orgán reaguje ${escapeHtml(formatDate(source.issue_date))}:</b> ${escapeHtml(source.user_title)} · <a href="${escapeHtml(href)}"${target}>${label}</a></span>`;
   }).join('');
+  generatedFragments.push(extra);
   article = article.slice(0, start) + block + extra + article.slice(end);
   injected += sources.length;
 }
+const generated = generatedFragments.join('');
+const generatedLabels = [...generated.matchAll(/<a\b[^>]*>([^<]+)<\/a>/g)].map(match => match[1].trim());
+const invalidLabels = generatedLabels.filter(label => !['Dokument v PDF', 'Evidenční stránka'].includes(label));
+if (invalidLabels.length) throw new Error(`REVERSE-REACTION-GATE: nepovolené veřejné popisky: ${[...new Set(invalidLabels)].join(', ')}`);
 await writeFile(articlePath, article, 'utf8');
-console.log(`Godot: doplněno ${injected} opačných vazeb stát → naše předchozí podání.`);
+console.log(`Godot: doplněno ${injected} opačných vazeb stát → naše předchozí podání; nově vložené vazby používají pouze Dokument v PDF / Evidenční stránka.`);

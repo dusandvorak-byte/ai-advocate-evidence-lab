@@ -1,10 +1,9 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-// Tyto finalizační kroky musí běžet deterministicky za sebou. Statické sourozenecké
-// importy s top-level await se mohou vyhodnocovat souběžně a vytvářet falešné pády validace.
 await import('./finalize-public-labels-base.mjs');
 await import('./finalize-public-layout.mjs');
+await import('./finalize-latest-kpr-osz-process.mjs');
 
 const oldText = 'Každá zpráva má mít dohledatelný zdroj';
 const newText = 'Každá zpráva má dohledatelný zdroj';
@@ -45,19 +44,16 @@ const verifiedPdfCount = pdfReport?.linked_pdf_count;
 if (!Number.isInteger(stateCount) || stateCount < 1) throw new Error(`PRODUCTION-GATE state-count: neplatná hodnota ${stateCount}`);
 if (!Number.isInteger(verifiedPdfCount) || verifiedPdfCount < 1) throw new Error(`PRODUCTION-GATE pdf-count: neplatná hodnota ${verifiedPdfCount}`);
 
-const stateDates = (registry.documents || [])
-  .filter(item => item.issue_date >= '2026-05-01' && (item.document_type === 'state_record' || item.submission_side === 'incoming_from_state_or_public_institution'))
-  .map(item => item.issue_date)
-  .filter(Boolean)
-  .sort();
+const stateRecords = (registry.documents || [])
+  .filter(item => item.issue_date >= '2026-05-01' && (item.document_type === 'state_record' || item.submission_side === 'incoming_from_state_or_public_institution'));
+const canonicalById = new Map((registry.documents || []).map(item => [item.id, item]));
+const stateDates = stateRecords.map(item => item.issue_date).filter(Boolean).sort();
 const latestIssueDate = stateDates.at(-1);
 if (!latestIssueDate) throw new Error('PRODUCTION-GATE latest-date: chybí datum poslední státní listiny');
 const latestDate = new Date(`${latestIssueDate}T12:00:00Z`);
 const latestCz = new Intl.DateTimeFormat('cs-CZ', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(latestDate);
 const latestEn = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(latestDate);
 
-// Finální veřejné plochy musí být samy o sobě konzistentní i před spuštěním JS:
-// žádný historický ruční počet, správný konec časové osy a jednotné označení veřejné kopie.
 const surfacePaths = ['web/index.html', 'web/en.html', 'web/kc/index.html', 'web/kc/en.html'];
 for (const file of surfacePaths) {
   let html = await readFile(file, 'utf8');
@@ -87,11 +83,11 @@ if (/Chronologický seznam \d+ listin sbírky Godot/i.test(newsFeed) || /chronol
 const article = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!/<li\b[^>]*\bid="doc-[^"]+"[^>]*><b>Datum:<\/b>/.test(article)) throw new Error('Finální chronologie nezačíná Datem');
 
-// Produkční brána musí při chybě uvést konkrétní porušený kontrakt, nikoli pouze exit code 1.
 const requireText = (name, text, needle) => {
   if (!text.includes(needle)) throw new Error(`PRODUCTION-GATE ${name}: chybí ${JSON.stringify(needle)}`);
   console.log(`PRODUCTION-GATE OK: ${name}`);
 };
+const latestIds = html => [...html.matchAll(/<article\s+class="latest-record-card"\s+data-document-id="([^"]+)"/g)].map(m => m[1]);
 
 requireText('cz-state-count', article, `Stát: ${stateCount} evidovaných listin`);
 requireText('cz-home-static-count', home, `data-state-document-count>${stateCount}<`);
@@ -105,9 +101,18 @@ requireText('cz-latest-date', home, `Kanonická důkazní paměť do ${latestCz}
 requireText('en-latest-date', enHome, `Canonical evidence memory through ${latestEn}`);
 requireText('church-cz-latest-date', churchHome, `Kanonická důkazní paměť do ${latestCz}`);
 requireText('church-en-latest-date', churchEn, `Canonical evidence memory through ${latestEn}`);
-for (const [name, surface] of [['cz-home', home], ['en-home', enHome], ['church-cz', churchHome], ['church-en', churchEn]]) {
+
+const surfaces = [['cz-home',home],['en-home',enHome],['church-cz',churchHome],['church-en',churchEn]];
+const czLatest = latestIds(home);
+if (czLatest.length !== 3) throw new Error(`PRODUCTION-GATE latest-record-count: očekávány 3 karty, nalezeno ${czLatest.length}`);
+for (const id of czLatest) {
+  if (!canonicalById.has(id)) throw new Error(`PRODUCTION-GATE latest-record-canonical: ${id} není v kanonickém registru`);
+}
+if (!czLatest.some(id => canonicalById.get(id)?.issue_date === latestIssueDate)) throw new Error('PRODUCTION-GATE latest-record-date: mezi nejnovějšími kartami není listina s nejnovějším kanonickým datem');
+for (const [name,surface] of surfaces) {
   requireText(`${name}-latest-records`, surface, 'id="latest-records"');
-  requireText(`${name}-latest-mzdr`, surface, 'MZDR 21970/2026-3/MIN/KAN');
+  const ids = latestIds(surface);
+  if (JSON.stringify(ids) !== JSON.stringify(czLatest)) throw new Error(`PRODUCTION-GATE ${name}-latest-parity: ${JSON.stringify(ids)} != ${JSON.stringify(czLatest)}`);
 }
 
 for (const key of ['required_without_active_pdf_count','reaction_without_active_pdf_count','broken_article_pdf_link_count','invalid_registry_pdf_link_count','missing_rendered_reaction_count','missing_reaction_pdf_link_count']) {
@@ -123,6 +128,7 @@ requireText('article-document-label', article, 'Dokument v PDF');
 requireText('kpr-5772-document-label', kpr5772, 'Dokument v PDF');
 requireText('kpr-5080-document-label', kpr5080, 'Dokument v PDF');
 requireText('uoou-record', article, 'UOOU-05841/26-3');
-requireText('current-date', article, '1. 9. 2026');
+requireText('latest-kpr', article, 'KPR 5080/2026');
+requireText('latest-osz-fm', article, '1 ZN 7061/2026-79');
 
-console.log(`Veřejná formulace sjednocena (${replacements} náhrad); 4/4 plochy, aktuální počty, datum poslední listiny, jednotné popisky dokumentů, runtime nejnovějších záznamů, sdílený news feed a produkční brána byly finálně ověřeny.`);
+console.log(`Veřejná formulace sjednocena (${replacements} náhrad); 4/4 plochy, aktuální počty, dynamická parita nejnovějších karet a produkční brána byly finálně ověřeny.`);

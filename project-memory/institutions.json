@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_on": "2026-08-27",
+  "updated_on": "2026-09-03",
   "institutions": [
     {"id":"CZ-GIBS","country":"CZ","type":"inspection","name":"Generální inspekce bezpečnostních sborů","short_name":"GIBS"},
     {"id":"CZ-KPR","country":"CZ","type":"executive_office","name":"Kancelář prezidenta republiky","short_name":"KPR"},
@@ -17,6 +17,7 @@
     {"id":"CZ-MSZ-PHA","country":"CZ","type":"prosecution","name":"Městské státní zastupitelství v Praze","short_name":"MSZ Praha"},
     {"id":"CZ-MSZ-BRN","country":"CZ","type":"prosecution","name":"Městské státní zastupitelství v Brně","short_name":"MSZ Brno"},
     {"id":"CZ-OSZ-PV","country":"CZ","type":"prosecution","name":"Okresní státní zastupitelství v Prostějově","short_name":"OSZ Prostějov"},
+    {"id":"CZ-OSZ-FM","country":"CZ","type":"prosecution","name":"Okresní státní zastupitelství ve Frýdku-Místku","short_name":"OSZ Frýdek-Místek"},
     {"id":"CZ-OSZ-OLO","country":"CZ","type":"prosecution","name":"Okresní státní zastupitelství v Olomouci","short_name":"OSZ Olomouc"},
     {"id":"CZ-OSZ-PHA2","country":"CZ","type":"prosecution","name":"Obvodní státní zastupitelství pro Prahu 2","short_name":"OSZ Praha 2"},
     {"id":"CZ-OSZ-PHA4","country":"CZ","type":"prosecution","name":"Obvodní státní zastupitelství pro Prahu 4","short_name":"OSZ Praha 4"},

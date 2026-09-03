@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "status": "binding_extension",
+  "updated_on": "2026-09-03",
+  "purpose": "Chybová paměť a provozní odolnost publikačního workflow; každá opakovatelná chyba se mění v automatickou bránu.",
+  "axioms": [
+    {
+      "id": "institution-language-parity-at-registration",
+      "text": "Nové institution_id se nesmí považovat za úplně zaregistrované, dokud ve stejném atomickém balíku neexistuje český a anglický/international název a preflight neověří použití na všech relevantních veřejných plochách. Chybějící překlad instituce musí být zachycen před CI, nikoli až při veřejném buildu."
+    },
+    {
+      "id": "dynamic-latest-record-contract",
+      "text": "Žádný validator nesmí natvrdo očekávat konkrétní č. j., sp. zn., dokument ani ruční počet jako nejnovější. Identita nejnovějších záznamů se odvozuje ze stejného kanonického výběru jako veřejný generátor a parita se kontroluje podle stabilních document_id na všech čtyřech veřejných plochách."
+    },
+    {
+      "id": "publication-state-machine-and-write-blocked-fallback",
+      "text": "Každá publikační dávka prochází stavovým automatem prepared → preflight-passed → validation → merge → production → live-verified. Pokud technická nebo bezpečnostní kontrola zabrání zápisu, dávka přechází do write-blocked s jedinou konkrétní příčinou; zachová se beze změny, neopakují se slepé pokusy a stav se nesmí označit jako commit, merge nebo deployment."
+    },
+    {
+      "id": "error-becomes-gate",
+      "text": "Každá zjištěná opakovatelná chyba se po určení kořenové příčiny převádí na preflight nebo validační kontrakt. Po pádu CI se před dalším během zkontrolují všechny bezprostředně související invarianty stejné třídy; GitHub Actions se nepoužívá jako řádkový debugger."
+    },
+    {
+      "id": "terminal-state-response-closes-active-segment",
+      "text": "Státní listina, která věc vyřizuje nebo uzavírá, musí v témže publikačním balíku vstoupit do chronologie a do posledního článku správného širokého procesního řádku, ukončit dosavadní aktivní segment a zachovat datum + č. j. / sp. zn. Dostupný další opravný prostředek se nesmí označit jako aktivní, dokud není skutečně podán."
+    }
+  ]
+}
