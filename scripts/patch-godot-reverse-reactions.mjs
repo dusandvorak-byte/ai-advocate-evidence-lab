@@ -36,7 +36,7 @@ for (const state of documents.filter(isState)) {
   const extra = sources.map(source => {
     const pdf = source.public?.pdf ? publicPath(source.public.pdf) : null;
     const href = pdf || `listiny/${source.id}.html`;
-    const label = pdf ? 'podání PDF' : 'evidenční stránka';
+    const label = pdf ? 'Dokument v PDF' : 'Evidenční stránka';
     const target = pdf ? ' target="_blank" rel="noopener"' : '';
     return `<span class="chronology-reaction chronology-reaction-source"> · <b>Naše podání, na které orgán reaguje ${escapeHtml(formatDate(source.issue_date))}:</b> ${escapeHtml(source.user_title)} · <a href="${escapeHtml(href)}"${target}>${label}</a></span>`;
   }).join('');
@@ -44,4 +44,5 @@ for (const state of documents.filter(isState)) {
   injected += sources.length;
 }
 await writeFile(articlePath, article, 'utf8');
-console.log(`Godot: doplněno ${injected} opačných vazeb stát → naše předchozí podání.`);
+if (/>(?:podání PDF|evidenční stránka)</i.test(article)) throw new Error('REVERSE-REACTION-GATE: reverzní linker znovu zavedl nepovolený veřejný popisek');
+console.log(`Godot: doplněno ${injected} opačných vazeb stát → naše předchozí podání; použity pouze Dokument v PDF / Evidenční stránka.`);
