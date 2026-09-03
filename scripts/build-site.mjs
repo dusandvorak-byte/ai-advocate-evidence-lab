@@ -23,9 +23,15 @@ const run = script => new Promise((resolve, reject) => {
   child.on('error', reject);
   child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${script} skončil kódem ${code}`)));
 });
+const runPython = script => new Promise((resolve, reject) => {
+  const child = spawn('python3', [script], { stdio: 'inherit' });
+  child.on('error', reject);
+  child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${script} skončil kódem ${code}`)));
+});
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 
 await run('scripts/validate-architecture.mjs');
+await runPython('scripts/materialize-state-pdfs-2026-09-03.py');
 await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/reconcile-public-pdfs.mjs');
 await run('scripts/audit-registries.mjs');
