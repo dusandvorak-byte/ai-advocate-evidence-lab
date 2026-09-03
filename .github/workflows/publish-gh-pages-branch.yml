@@ -121,11 +121,11 @@ jobs:
           grep -q '"missing_rendered_reaction_count": 0' web/data/godot-pdf-audit.json
           grep -q '"missing_reaction_pdf_link_count": 0' web/data/godot-pdf-audit.json
 
-          grep -q 'Otevřít originální listinu v PDF' web/listiny/nsz-6-nzn-1737-2026-15.html
-          grep -q 'ověřená veřejná kopie PDF' web/zpravy/04082026-010.html
-          grep -q 'Otevřít ověřenou veřejnou kopii PDF' web/listiny/doc-cz-kpr-2026-07-30-kpr-5772-2026-1.html
-          grep -q 'Otevřít ověřenou veřejnou kopii PDF' web/listiny/doc-cz-kpr-2026-08-03-kpr-5080-2026.html
-          ! grep -Eqi '<a href="[^"]*verejna-kopie\.pdf"[^>]*>[^<]*originál' web/zpravy/04082026-010.html
+          grep -q '>Dokument v PDF<' web/listiny/nsz-6-nzn-1737-2026-15.html
+          grep -q '>Dokument v PDF<' web/zpravy/04082026-010.html
+          grep -q '>Dokument v PDF<' web/listiny/doc-cz-kpr-2026-07-30-kpr-5772-2026-1.html
+          grep -q '>Dokument v PDF<' web/listiny/doc-cz-kpr-2026-08-03-kpr-5080-2026.html
+          ! grep -Eqi '>Otevřít (originální listinu v PDF|ověřenou veřejnou kopii PDF)<' web/zpravy/04082026-010.html web/listiny/*.html
 
           test -f web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf
           test "$(head -c 5 web/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf)" = '%PDF-'
