@@ -18,16 +18,27 @@ const updates = {
     activeEn:'The Section 175 complaint was dealt with on 2 September 2026 under ref. KPR 5080/2026. The Office also stated that later submissions under KPR 5080/2026 had not yet been decided; no new remedy is presumed unless a filing is documented.',
     deadlineCs:'60 dnů – § 175 odst. 5 správního řádu – stížnost vyřízena 2. 9. 2026 / další podání pod KPR 5080/2026 – dosud nerozhodnuta; přesná lhůta podle konkrétního procesního režimu',
     deadlineEn:'60 days – Section 175(5) of the Code of Administrative Procedure – complaint dealt with on 2 September 2026 / later submissions under KPR 5080/2026 – not yet decided; exact period depends on the applicable procedural regime'
+  },
+  'timer-remedy-doc-cz-ekk-dd-gf-2026-08-24-ostrava-frydek-brno-doplneni': {
+    step: {date:'2026-08-24', reference:'sp. zn. 5 To 248/2026; původní sp. zn. 15 T 11/2025; St 82/2026', actor:'Krajský soud v Ostravě / Okresní soud v Ostravě', action:'navazující stížnostní řízení u Krajského soudu v Ostravě; důkazní doplnění z 24. 8. 2026 patří do téže procesní genealogie'},
+    activeCs:'Ostravská větev pokračuje u Krajského soudu v Ostravě pod sp. zn. 5 To 248/2026; původní věc je vedena u Okresního soudu v Ostravě pod sp. zn. 15 T 11/2025.',
+    activeEn:'The Ostrava branch continues before the Ostrava Regional Court under case 5 To 248/2026; the original matter is Ostrava District Court case 15 T 11/2025.',
+    deadlineCs:'stížnostní řízení 5 To 248/2026 – bez doložené univerzální pevné číselné lhůty k rozhodnutí',
+    deadlineEn:'complaint proceedings 5 To 248/2026 – no documented universal fixed numerical period for a decision'
   }
 };
 
 const esc = value => String(value ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
 const data = JSON.parse(await readFile(timerPath,'utf8'));
-for (const timer of data.timers || []) {
-  const update = updates[timer.id];
-  if (!update) continue;
+const timerById = new Map((data.timers||[]).map(t=>[t.id,t]));
+for (const [id,update] of Object.entries(updates)) {
+  const timer=timerById.get(id);
+  if (!timer) {
+    if (id.includes('ostrava-frydek-brno')) throw new Error(`LATEST-PROCESS-GATE: chybí kanonický ostravský timer ${id}`);
+    continue;
+  }
   timer.process_steps = Array.isArray(timer.process_steps) ? timer.process_steps : [];
-  if (!timer.process_steps.some(step => step.date === update.step.date && String(step.reference).includes(update.step.reference.replace(/^č\. j\. /,'')))) timer.process_steps.push(update.step);
+  if (!timer.process_steps.some(step => step.date === update.step.date && String(step.reference).includes(update.step.reference.split(';')[0].replace(/^č\. j\. /,'').replace(/^sp\. zn\. /,'')))) timer.process_steps.push(update.step);
   timer.process_steps.sort((a,b) => String(a.date).localeCompare(String(b.date)));
   timer.active_chain_status = update.activeCs;
   timer.deadline_chain = update.deadlineCs.split(' / ');
@@ -54,6 +65,7 @@ for (const path of htmlPaths) {
   let html = await readFile(path,'utf8');
   const en = path.includes('/en.html') || path.includes('/news/');
   for (const [id,update] of Object.entries(updates)) {
+    if(!timerById.has(id)) continue;
     const marker = `data-timer-id="${id}"`;
     const start = html.indexOf(marker);
     if (start < 0) continue;
@@ -65,9 +77,10 @@ for (const path of htmlPaths) {
     const deadline = en ? update.deadlineEn : update.deadlineCs;
     article = article.replace(/(<div class="process-chain-caption"><b>[^<]+<\/b>)[\s\S]*?(<\/div><div class="process-chain-strip")/, `$1 ${esc(active)}$2`);
     article = article.replace(/(<div class="process-deadline-chain"[^>]*><span>[^<]+<\/span> )[\s\S]*?(<\/div>)/, `$1${esc(deadline)}$2`);
-    if (!article.includes(`datetime="${update.step.date}"`) || !article.includes(update.step.reference)) {
+    if (!article.includes(update.step.reference.split(';')[0])) {
       const wrapEnd = article.lastIndexOf('</div></div></article>');
       if (wrapEnd > -1) article = article.slice(0,wrapEnd) + stepHtml(update.step,en) + article.slice(wrapEnd);
+      else article=article.replace('</article>',`<div class="process-chain-wrap"><div class="process-chain-caption"><b>${en?'Process chain':'Procesní řetězec'}:</b> ${esc(active)}</div><div class="process-chain-strip" role="list">${stepHtml(update.step,en).replace(/^<span[^>]*>→<\/span>/,'')}</div></div></article>`);
     }
     html = html.slice(0,articleStart) + article + html.slice(articleEnd + 10);
   }
@@ -75,8 +88,6 @@ for (const path of htmlPaths) {
   await writeFile(path,html,'utf8');
 }
 
-// EN Godot must carry the exact canonical generated timer block from EN home.
-// Markers are the contract; element type (<details>/<section>) is intentionally irrelevant.
 {
   const enHome = await readFile('web/en.html','utf8');
   let enGodot = await readFile('web/news/04082026-010.html','utf8');
@@ -101,5 +112,5 @@ for (const path of htmlPaths) {
   if (unique.size !== registryIds.size || [...registryIds].some(id => !unique.has(id))) throw new Error(`LATEST-PROCESS-GATE: ${path} nemá úplnou paritu časovačů ${unique.size}/${registryIds.size}`);
 }
 const cz = await readFile('web/zpravy/04082026-010.html','utf8');
-for (const needle of ['2026-09-03','1 ZN 7061/2026-79','2026-09-02','KPR 5080/2026']) if (!cz.includes(needle)) throw new Error(`LATEST-PROCESS-GATE: chybí ${needle}`);
-console.log(`KPR 2. 9. a OSZ Frýdek-Místek 3. 9. promítnuty; CZ/EN home i Godot mají ${registryIds.size} unikátních timer ID; EN Godot blok je synchronizován přes kanonické markery.`);
+for (const needle of ['2026-09-03','1 ZN 7061/2026-79','2026-09-02','KPR 5080/2026','5 To 248/2026','15 T 11/2025']) if (!cz.includes(needle)) throw new Error(`LATEST-PROCESS-GATE: chybí ${needle}`);
+console.log(`KPR, OSZ Frýdek-Místek a ostravská 5 To 248/2026 genealogie promítnuty; CZ/EN home i Godot mají ${registryIds.size} unikátních timer ID.`);
