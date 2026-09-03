@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-03",
+  "purpose": "KPR 5080/2026 a větev OSZ Frýdek-Místek 1 ZN 7061/2026: návazná podání, vyřízení a dnešní státní reakce pro Státu lásky čas a procesní řetězce.",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-08-29-kpr-5080-2026-nalehave-pozvani",
+      "user_title": "Naléhavé pozvání prezidentu republiky k návštěvě výzkumnické farmy v Ospělově v rámci věci KPR 5080/2026",
+      "issue_date": "2026-08-29",
+      "received_date": "2026-08-29",
+      "institution_id": "CZ-DD",
+      "reference": "KPR 5080/2026",
+      "case_ids": ["case-cz-kpr-tri-vetve"],
+      "document_type": "user_submission",
+      "topics": ["KPR", "KPR 5080/2026", "milost", "amnestie", "Ospělov", "návštěva prezidenta", "měření THC"],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/dvorak-kpr-5080-2026-nalehave-pozvani-2026-08-29.pdf",
+        "sha256": "e440dc222b510e38eb884ea45a0265b37eaec7b4e6dd44845b74404529cf225a",
+        "verification_status": "published_original_pdf",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-03-kpr-osz-fm.json"
+      },
+      "relations": [{"type": "souvisí", "target_id": "doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026"}],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_author_and_recipient"
+    },
+    {
+      "id": "doc-cz-kpr-2026-09-02-kpr-5080-2026-vyrizeni-stiznosti",
+      "user_title": "Vedoucí KPR vyřídil stížnost k postupu KPR; současně výslovně uvedl, že o dalších podáních vedených pod KPR 5080/2026 dosud nebylo rozhodnuto",
+      "issue_date": "2026-09-02",
+      "received_date": "2026-09-03",
+      "institution_id": "CZ-KPR",
+      "reference": "KPR 5080/2026",
+      "case_ids": ["case-cz-kpr-tri-vetve"],
+      "document_type": "state_record",
+      "topics": ["KPR", "KPR 5080/2026", "stížnost", "§ 175 správního řádu", "milost", "amnestie", "další podání dosud nerozhodnuta", "10 As 211/2022"],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/kpr-5080-2026-vyrizeni-stiznosti-2026-09-02.pdf",
+        "sha256": "263c0b59be1ee11209a82a84f0646159dd862c0a4263a2d692c3aa71bd5987bb",
+        "verification_status": "published_original_pdf",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-03-kpr-osz-fm.json"
+      },
+      "relations": [{"type": "reakce_na", "target_id": "doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026"}],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "KPR dne 2. 9. 2026 pod č. j. KPR 5080/2026 vyřídila stížnost proti postupu KPR. V témže dopise uvedla, že žádost o revokaci rozhodnutí podaná 5. 6. 2026 byla opakovaně doplňována a že o dalších podáních učiněných po tomto datu dosud nebylo rozhodnuto; tato podání jsou evidována pod KPR 5080/2026. Další procesní krok uživatele se zatím nepředjímá."
+    },
+    {
+      "id": "doc-cz-dd-2026-09-02-osz-fm-1-zn-7061-2026-doplneni",
+      "user_title": "Mimořádně naléhavé doplnění podnětu OSZ Frýdek-Místek: nová skutečnost KÚ × Úřad vnitřní kontroly PP; doplnění výslovně neobnovuje běžící lhůtu",
+      "issue_date": "2026-09-02",
+      "received_date": "2026-09-02",
+      "institution_id": "CZ-DD",
+      "reference": "1 ZN 7061/2026; 4 KZN 7116/2026; 3 VZN 239/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": ["OSZ Frýdek-Místek", "1 ZN 7061/2026", "KSZ Ostrava", "4 KZN 7116/2026", "VSZ Olomouc", "3 VZN 239/2026", "OKTE Frýdek-Místek", "KÚ", "Úřad vnitřní kontroly PP", "dvouměsíční lhůta"],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/dvorak-osz-fm-1-zn-7061-2026-doplneni-2026-09-02.pdf",
+        "sha256": "21d131c58196491dc9da05b35116cf77d31dc0cf299aee7e404e3265f9e9a2fc",
+        "verification_status": "published_original_pdf",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-03-kpr-osz-fm.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_author_and_recipient"
+    },
+    {
+      "id": "doc-cz-osz-fm-2026-09-03-1-zn-7061-2026-79",
+      "user_title": "OSZ Frýdek-Místek vyřídilo podání k postupu OKTE bez dalšího opatření a poučilo o možnosti požádat KSZ Ostrava o přezkoumání vyřízení podle § 16a odst. 7",
+      "issue_date": "2026-09-03",
+      "received_date": "2026-09-03",
+      "institution_id": "CZ-OSZ-FM",
+      "reference": "1 ZN 7061/2026-79",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["OSZ Frýdek-Místek", "1 ZN 7061/2026-79", "OKTE Frýdek-Místek", "KRPT-2727/KT-2012", "skartace", "§ 16a odst. 7 zákona o státním zastupitelství", "KSZ Ostrava", "přezkum vyřízení"],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/osz-fm-1-zn-7061-2026-79-2026-09-03-verejna-kopie.pdf",
+        "sha256": "ce6f46b5091832c1559e52f71624a3c893d98653a343efc39ada3ccd5fc7f83c",
+        "verification_status": "published_verified_public_copy_not_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-03-kpr-osz-fm.json"
+      },
+      "relations": [{"type": "reakce_na", "target_id": "doc-cz-dd-2026-09-02-osz-fm-1-zn-7061-2026-doplneni"}],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "OSZ Frýdek-Místek dne 3. 9. 2026 pod č. j. 1 ZN 7061/2026-79 potvrdilo přijetí podání ze dnů 21., 27., 29. a 30. 7., 24. 8. a 2. 9. 2026, uzavřelo, že neshledalo skutečnosti důvodně nasvědčující spáchání trestného činu, podání založilo bez dalšího opatření a výslovně poučilo o možnosti požádat Krajské státní zastupitelství v Ostravě o přezkoumání vyřízení. Žádný navazující přezkum se bez doloženého podání nepředjímá."
+    }
+  ]
+}
