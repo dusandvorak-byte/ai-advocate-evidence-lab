@@ -57,6 +57,9 @@ jobs:
       - name: Materializovat ověřené veřejné PDF nových listin 26.–28. 8. 2026
         run: python3 scripts/materialize-uoou-2026-08-26.py
 
+      - name: Materializovat KPR a OSZ Frýdek-Místek z 2.–3. 9. 2026
+        run: python3 scripts/materialize-state-pdfs-2026-09-03.py
+
       - name: Připravit anglickou překladovou vrstvu
         run: node scripts/prepare-md-english-build.mjs
 
@@ -96,12 +99,18 @@ jobs:
           test -f web/data/registry-audit.json
           test -f web/data/godot-pdf-audit.json
           test -f web/data/generated-state-pdf-manifest.json
+          test -f web/data/generated-state-pdf-manifest-2026-09-03.json
           test -f web/zpravy/04082026-010.html
           test "$(jq -r '.count' web/data/generated-state-pdf-manifest.json)" = '8'
+          test "$(jq -r '.count' web/data/generated-state-pdf-manifest-2026-09-03.json)" = '2'
           state_count="$(jq -r '.counts.state_public_submissions' web/data/build-manifest.json)"
-          test "$state_count" -ge 82
+          test "$state_count" -ge 84
           grep -q "Stát: ${state_count} evidovaných listin" web/zpravy/04082026-010.html
           grep -q "data-english-chronology-count=\"${state_count}\"" web/news/04082026-010.html
+          grep -q 'KPR 5080/2026' web/zpravy/04082026-010.html
+          grep -q '1 ZN 7061/2026-79' web/zpravy/04082026-010.html
+          grep -q '1 ZN 7061/2026-79' web/news/04082026-010.html
+          grep -q '2026-09-03' web/zpravy/04082026-010.html
           grep -q '8 Ad 9/2026-85' web/zpravy/04082026-010.html
           grep -q '8 Ad 9/2026-85' web/news/04082026-010.html
           grep -q '82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf' web/zpravy/04082026-010.html
@@ -113,6 +122,10 @@ jobs:
           grep -q 'KRPT-203594-8/ČJ-2026-0700KR' web/zpravy/04082026-010.html
           grep -q 'PPR-44020-2/ČJ-2026-990210-PD' web/zpravy/04082026-010.html
           for f in web/documents/report-04082026-010/{64-msz-praha-2-kzn-55-2025-136-2026-08-20,65-ku-4139-12-cj-2026-2305km-2026-08-20,66-krpt-203594-7-cj-2026-0700kr-2026-08-20,67-krpt-priloha-rr-ku-54-2021,68-krpt-priloha-rr-ku-54-2021-priloha-1,69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019,70-krpt-203594-8-cj-2026-0700kr-2026-08-20,71-ppr-44020-2-cj-2026-990210-pd-2026-08-24}.pdf; do
+            test -f "$f"
+            test "$(head -c 5 "$f")" = '%PDF-'
+          done
+          for f in web/documents/report-04082026-010/{kpr-5080-2026-vyrizeni-stiznosti-2026-09-02-verejna-kopie,osz-fm-1-zn-7061-2026-79-2026-09-03-verejna-kopie}.pdf; do
             test -f "$f"
             test "$(head -c 5 "$f")" = '%PDF-'
           done
