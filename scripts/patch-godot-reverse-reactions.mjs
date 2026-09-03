@@ -20,6 +20,7 @@ const isState = item => item?.submission_side === 'incoming_from_state_or_public
 
 let article = await readFile(articlePath, 'utf8');
 let injected = 0;
+const generatedFragments = [];
 for (const state of documents.filter(isState)) {
   const sources = (state.relations || [])
     .filter(rel => (rel.type || rel.relation_type) === 'reakce_na')
@@ -40,9 +41,11 @@ for (const state of documents.filter(isState)) {
     const target = pdf ? ' target="_blank" rel="noopener"' : '';
     return `<span class="chronology-reaction chronology-reaction-source"> · <b>Naše podání, na které orgán reaguje ${escapeHtml(formatDate(source.issue_date))}:</b> ${escapeHtml(source.user_title)} · <a href="${escapeHtml(href)}"${target}>${label}</a></span>`;
   }).join('');
+  generatedFragments.push(extra);
   article = article.slice(0, start) + block + extra + article.slice(end);
   injected += sources.length;
 }
+const generated = generatedFragments.join('');
+if (/>(?:podání PDF|evidenční stránka)</i.test(generated)) throw new Error('REVERSE-REACTION-GATE: tento generátor vytvořil nepovolený veřejný popisek');
 await writeFile(articlePath, article, 'utf8');
-if (/>(?:podání PDF|evidenční stránka)</i.test(article)) throw new Error('REVERSE-REACTION-GATE: reverzní linker znovu zavedl nepovolený veřejný popisek');
-console.log(`Godot: doplněno ${injected} opačných vazeb stát → naše předchozí podání; použity pouze Dokument v PDF / Evidenční stránka.`);
+console.log(`Godot: doplněno ${injected} opačných vazeb stát → naše předchozí podání; nově vložené vazby používají pouze Dokument v PDF / Evidenční stránka.`);
