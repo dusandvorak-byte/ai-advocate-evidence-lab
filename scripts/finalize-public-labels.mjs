@@ -3,6 +3,7 @@ import path from 'node:path';
 
 await import('./finalize-public-labels-base.mjs');
 await import('./finalize-public-layout.mjs');
+await import('./finalize-latest-kpr-osz-process.mjs');
 
 const oldText = 'Každá zpráva má mít dohledatelný zdroj';
 const newText = 'Každá zpráva má dohledatelný zdroj';
