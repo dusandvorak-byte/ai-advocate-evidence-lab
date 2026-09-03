@@ -19,7 +19,7 @@ const updates = {
     deadlineCs:'60 dnů – § 175 odst. 5 správního řádu – stížnost vyřízena 2. 9. 2026 / další podání pod KPR 5080/2026 – dosud nerozhodnuta; přesná lhůta podle konkrétního procesního režimu',
     deadlineEn:'60 days – Section 175(5) of the Code of Administrative Procedure – complaint dealt with on 2 September 2026 / later submissions under KPR 5080/2026 – not yet decided; exact period depends on the applicable procedural regime'
   },
-  'timer-remedy-doc-cz-ekk-dd-gf-2026-08-24-ostrava-frydek-brno-doplneni': {
+  'timer-court-ks-ostrava-15t11-2025': {
     step: {date:'2026-08-24', reference:'sp. zn. 5 To 248/2026; původní sp. zn. 15 T 11/2025; St 82/2026', actor:'Krajský soud v Ostravě / Okresní soud v Ostravě', action:'navazující stížnostní řízení u Krajského soudu v Ostravě; důkazní doplnění z 24. 8. 2026 patří do téže procesní genealogie'},
     activeCs:'Ostravská větev pokračuje u Krajského soudu v Ostravě pod sp. zn. 5 To 248/2026; původní věc je vedena u Okresního soudu v Ostravě pod sp. zn. 15 T 11/2025.',
     activeEn:'The Ostrava branch continues before the Ostrava Regional Court under case 5 To 248/2026; the original matter is Ostrava District Court case 15 T 11/2025.',
@@ -33,12 +33,10 @@ const data = JSON.parse(await readFile(timerPath,'utf8'));
 const timerById = new Map((data.timers||[]).map(t=>[t.id,t]));
 for (const [id,update] of Object.entries(updates)) {
   const timer=timerById.get(id);
-  if (!timer) {
-    if (id.includes('ostrava-frydek-brno')) throw new Error(`LATEST-PROCESS-GATE: chybí kanonický ostravský timer ${id}`);
-    continue;
-  }
+  if (!timer) throw new Error(`LATEST-PROCESS-GATE: chybí kanonický timer ${id}`);
   timer.process_steps = Array.isArray(timer.process_steps) ? timer.process_steps : [];
-  if (!timer.process_steps.some(step => step.date === update.step.date && String(step.reference).includes(update.step.reference.split(';')[0].replace(/^č\. j\. /,'').replace(/^sp\. zn\. /,'')))) timer.process_steps.push(update.step);
+  const keyReference=update.step.reference.split(';')[0].replace(/^č\. j\. /,'').replace(/^sp\. zn\. /,'');
+  if (!timer.process_steps.some(step => step.date === update.step.date && String(step.reference).includes(keyReference))) timer.process_steps.push(update.step);
   timer.process_steps.sort((a,b) => String(a.date).localeCompare(String(b.date)));
   timer.active_chain_status = update.activeCs;
   timer.deadline_chain = update.deadlineCs.split(' / ');
@@ -65,7 +63,6 @@ for (const path of htmlPaths) {
   let html = await readFile(path,'utf8');
   const en = path.includes('/en.html') || path.includes('/news/');
   for (const [id,update] of Object.entries(updates)) {
-    if(!timerById.has(id)) continue;
     const marker = `data-timer-id="${id}"`;
     const start = html.indexOf(marker);
     if (start < 0) continue;
