@@ -34,6 +34,15 @@ for (const timer of data.timers || []) {
 await writeFile(timerPath, JSON.stringify(data,null,2)+'\n','utf8');
 
 const stepHtml = (step,en) => `<span class="process-chain-arrow" aria-hidden="true">→</span><div class="process-chain-step" role="listitem"><time datetime="${esc(step.date)}">${esc(step.date)}</time><span class="process-chain-reference"><b>${en?'Ref. / case no.':'č. j. / sp. zn.'}:</b> ${esc(step.reference)}</span><span class="process-chain-actor">${esc(step.actor)}</span><span class="process-chain-action">${esc(step.action)}</span></div>`;
+const dedupeTimerArticles = html => {
+  const seen = new Set();
+  return html.replace(/<article class="process-timer"[^>]*data-timer-id="([^"]+)"[^>]*>[\s\S]*?<\/article>/g, (article,id) => {
+    if (seen.has(id)) return '';
+    seen.add(id);
+    return article;
+  });
+};
+
 for (const path of htmlPaths) {
   let html = await readFile(path,'utf8');
   const en = path.includes('/en.html') || path.includes('/news/');
@@ -55,9 +64,18 @@ for (const path of htmlPaths) {
     }
     html = html.slice(0,articleStart) + article + html.slice(articleEnd + 10);
   }
+  html = dedupeTimerArticles(html);
   await writeFile(path,html,'utf8');
 }
 
+const registryIds = new Set((data.timers || []).map(t => t.id));
+for (const path of htmlPaths) {
+  const html = await readFile(path,'utf8');
+  const ids = [...html.matchAll(/data-timer-id="([^"]+)"/g)].map(m=>m[1]);
+  const unique = new Set(ids);
+  if (ids.length !== unique.size) throw new Error(`LATEST-PROCESS-GATE: ${path} obsahuje duplicitní timer ID`);
+  if (unique.size !== registryIds.size || [...registryIds].some(id => !unique.has(id))) throw new Error(`LATEST-PROCESS-GATE: ${path} nemá úplnou paritu časovačů ${unique.size}/${registryIds.size}`);
+}
 const cz = await readFile('web/zpravy/04082026-010.html','utf8');
 for (const needle of ['2026-09-03','1 ZN 7061/2026-79','2026-09-02','KPR 5080/2026']) if (!cz.includes(needle)) throw new Error(`LATEST-PROCESS-GATE: chybí ${needle}`);
-console.log('KPR 2. 9. a OSZ Frýdek-Místek 3. 9. promítnuty do procesních řetězců; uzavřené fáze již neběží a nedoložený opravný prostředek se nepředjímá.');
+console.log(`KPR 2. 9. a OSZ Frýdek-Místek 3. 9. promítnuty; 4/4 procesní plochy mají ${registryIds.size} unikátních timer ID bez duplicit.`);
