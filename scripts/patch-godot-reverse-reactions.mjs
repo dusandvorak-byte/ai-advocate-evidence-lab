@@ -46,6 +46,8 @@ for (const state of documents.filter(isState)) {
   injected += sources.length;
 }
 const generated = generatedFragments.join('');
-if (/>(?:podání PDF|evidenční stránka)</i.test(generated)) throw new Error('REVERSE-REACTION-GATE: tento generátor vytvořil nepovolený veřejný popisek');
+const generatedLabels = [...generated.matchAll(/<a\b[^>]*>([^<]+)<\/a>/g)].map(match => match[1].trim());
+const invalidLabels = generatedLabels.filter(label => !['Dokument v PDF', 'Evidenční stránka'].includes(label));
+if (invalidLabels.length) throw new Error(`REVERSE-REACTION-GATE: nepovolené veřejné popisky: ${[...new Set(invalidLabels)].join(', ')}`);
 await writeFile(articlePath, article, 'utf8');
 console.log(`Godot: doplněno ${injected} opačných vazeb stát → naše předchozí podání; nově vložené vazby používají pouze Dokument v PDF / Evidenční stránka.`);
