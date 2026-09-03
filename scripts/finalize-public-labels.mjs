@@ -45,16 +45,20 @@ const verifiedPdfCount = pdfReport?.linked_pdf_count;
 if (!Number.isInteger(stateCount) || stateCount < 1) throw new Error(`PRODUCTION-GATE state-count: neplatná hodnota ${stateCount}`);
 if (!Number.isInteger(verifiedPdfCount) || verifiedPdfCount < 1) throw new Error(`PRODUCTION-GATE pdf-count: neplatná hodnota ${verifiedPdfCount}`);
 
-const stateDates = (registry.documents || [])
-  .filter(item => item.issue_date >= '2026-05-01' && (item.document_type === 'state_record' || item.submission_side === 'incoming_from_state_or_public_institution'))
-  .map(item => item.issue_date)
-  .filter(Boolean)
-  .sort();
+const stateRecords = (registry.documents || [])
+  .filter(item => item.issue_date >= '2026-05-01' && (item.document_type === 'state_record' || item.submission_side === 'incoming_from_state_or_public_institution'));
+const stateDates = stateRecords.map(item => item.issue_date).filter(Boolean).sort();
 const latestIssueDate = stateDates.at(-1);
 if (!latestIssueDate) throw new Error('PRODUCTION-GATE latest-date: chybí datum poslední státní listiny');
 const latestDate = new Date(`${latestIssueDate}T12:00:00Z`);
 const latestCz = new Intl.DateTimeFormat('cs-CZ', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(latestDate);
 const latestEn = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(latestDate);
+const latestStateReferences = [...stateRecords]
+  .sort((a,b) => String(b.issue_date).localeCompare(String(a.issue_date)) || String(b.id).localeCompare(String(a.id)))
+  .slice(0,3)
+  .map(item => String(item.reference || '').trim())
+  .filter(Boolean);
+if (!latestStateReferences.length) throw new Error('PRODUCTION-GATE latest-records: chybí reference nejnovějších státních listin');
 
 // Finální veřejné plochy musí být samy o sobě konzistentní i před spuštěním JS:
 // žádný historický ruční počet, správný konec časové osy a jednotné označení veřejné kopie.
@@ -107,7 +111,7 @@ requireText('church-cz-latest-date', churchHome, `Kanonická důkazní paměť d
 requireText('church-en-latest-date', churchEn, `Canonical evidence memory through ${latestEn}`);
 for (const [name, surface] of [['cz-home', home], ['en-home', enHome], ['church-cz', churchHome], ['church-en', churchEn]]) {
   requireText(`${name}-latest-records`, surface, 'id="latest-records"');
-  requireText(`${name}-latest-mzdr`, surface, 'MZDR 21970/2026-3/MIN/KAN');
+  for (const reference of latestStateReferences) requireText(`${name}-latest-${reference}`, surface, reference);
 }
 
 for (const key of ['required_without_active_pdf_count','reaction_without_active_pdf_count','broken_article_pdf_link_count','invalid_registry_pdf_link_count','missing_rendered_reaction_count','missing_reaction_pdf_link_count']) {
@@ -123,6 +127,6 @@ requireText('article-document-label', article, 'Dokument v PDF');
 requireText('kpr-5772-document-label', kpr5772, 'Dokument v PDF');
 requireText('kpr-5080-document-label', kpr5080, 'Dokument v PDF');
 requireText('uoou-record', article, 'UOOU-05841/26-3');
-requireText('current-date', article, '1. 9. 2026');
+for (const reference of latestStateReferences) requireText(`article-latest-${reference}`, article, reference);
 
-console.log(`Veřejná formulace sjednocena (${replacements} náhrad); 4/4 plochy, aktuální počty, datum poslední listiny, jednotné popisky dokumentů, runtime nejnovějších záznamů, sdílený news feed a produkční brána byly finálně ověřeny.`);
+console.log(`Veřejná formulace sjednocena (${replacements} náhrad); 4/4 plochy, aktuální počty, datum poslední listiny, dynamicky odvozené nejnovější záznamy, jednotné popisky dokumentů, runtime nejnovějších záznamů, sdílený news feed a produkční brána byly finálně ověřeny.`);
