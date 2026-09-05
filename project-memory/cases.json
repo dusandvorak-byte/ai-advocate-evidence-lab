@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_on": "2026-08-05",
+  "updated_on": "2026-09-05",
   "cases": [
     {
       "id": "CASE-CZ-NSZ-6NZN1737-2026",
@@ -65,6 +65,15 @@
       "status": "active",
       "opened_on": "2026-07-27",
       "topics": ["OKTE Frýdek-Místek", "SOP", "THC", "THCA", "analytické metody", "zákon 106/1999 Sb."]
+    },
+    {
+      "id": "case-cz-os-pro-2t104-2010-obnova",
+      "institution_id": "CZ-OS-PRO",
+      "reference": "2 T 104/2010 / 15 Nt 3104/2026",
+      "title": "Návrh na povolení obnovy řízení ve věci 2 T 104/2010",
+      "status": "active",
+      "opened_on": "2026-07-12",
+      "topics": ["obnova řízení", "2 T 104/2010", "15 Nt 3104/2026", "veřejné zasedání"]
     }
   ]
 }
