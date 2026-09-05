@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_on": "2026-09-03",
+  "updated_on": "2026-09-05",
   "institutions": [
     {"id":"CZ-GIBS","country":"CZ","type":"inspection","name":"Generální inspekce bezpečnostních sborů","short_name":"GIBS"},
     {"id":"CZ-KPR","country":"CZ","type":"executive_office","name":"Kancelář prezidenta republiky","short_name":"KPR"},
@@ -25,6 +25,7 @@
     {"id":"CZ-OS-PRO","country":"CZ","type":"court","name":"Okresní soud v Prostějově","short_name":"OS Prostějov"},
     {"id":"CZ-OS-PHA4","country":"CZ","type":"court","name":"Obvodní soud pro Prahu 4","short_name":"OS Praha 4"},
     {"id":"CZ-MS-PHA","country":"CZ","type":"court","name":"Městský soud v Praze","short_name":"MS Praha"},
+    {"id":"CZ-NSS","country":"CZ","type":"court","name":"Nejvyšší správní soud","short_name":"NSS"},
     {"id":"CZ-KS-BRN","country":"CZ","type":"court","name":"Krajský soud v Brně","short_name":"KS Brno"},
     {"id":"CZ-KS-OST","country":"CZ","type":"court","name":"Krajský soud v Ostravě","short_name":"KS Ostrava"},
     {"id":"CZ-EXE-LIB","country":"CZ","type":"court_enforcement","name":"Soudní exekutor – Liberec","short_name":"Exekutor Liberec"},

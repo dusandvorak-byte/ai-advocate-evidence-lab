@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-04",
+  "purpose": "Nejvyšší správní soud, č. j. 6 As 207/2026-13: informace o řízení a výzva k doložení osobních, majetkových a výdělkových poměrů v kasační větvi navazující na MS Praha 15 A 44/2026-43.",
+  "documents": [
+    {
+      "id": "doc-cz-nss-2026-09-04-6-as-207-2026-13",
+      "user_title": "Informace o řízení a výzva k doložení osobních, majetkových a výdělkových poměrů v kasačním řízení",
+      "issue_date": "2026-09-04",
+      "received_date": null,
+      "institution_id": "CZ-NSS",
+      "reference": "6 As 207/2026-13; navazuje na 15 A 44/2026-43",
+      "case_ids": ["case-cz-ms-praha-15a44-2026"],
+      "document_type": "state_record",
+      "topics": ["Nejvyšší správní soud", "kasační stížnost", "6 As 207/2026", "15 A 44/2026", "Ministerstvo vnitra", "osvobození od soudních poplatků", "ustanovení zástupce", "majetkové poměry", "lhůta jeden týden od doručení"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/nss-6-as-207-2026-13-2026-09-04.pdf",
+        "sha256": "8789e5196db30ee2b84db0d5b025c82f4b56e2efa75ecc2fd757373cfd098596",
+        "verification_status": "source_pdf_verified_in_intake; awaiting_public_binary_materialization",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-04-nss.json"
+      },
+      "relations": [
+        {"type": "navazuje_na", "target_id": "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43"}
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Nejvyšší správní soud dne 4. 9. 2026 pod č. j. 6 As 207/2026-13 sdělil, že dne 2. 9. 2026 obdržel kasační stížnost proti usnesení Městského soudu v Praze ze dne 25. 8. 2026, č. j. 15 A 44/2026-43. Vzhledem k žádosti o osvobození od soudních poplatků a ustanovení advokáta vyzval stěžovatele k vyplnění a zaslání formuláře o osobních, majetkových a výdělkových poměrech ve lhůtě jednoho týdne od doručení výzvy. Datum doručení této listiny není v předloženém prameni doloženo, proto se konkrétní konec lhůty nevypočítává. Věc vede šestý senát NSS."
+    }
+  ]
+}
