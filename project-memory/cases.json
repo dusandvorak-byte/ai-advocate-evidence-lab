@@ -74,6 +74,15 @@
       "status": "active",
       "opened_on": "2026-07-12",
       "topics": ["obnova řízení", "2 T 104/2010", "15 Nt 3104/2026", "veřejné zasedání"]
+    },
+    {
+      "id": "case-cz-ms-praha-15a44-2026",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "15 A 44/2026 / NSS 6 As 207/2026",
+      "title": "Zásahová žaloba proti Ministerstvu vnitra a navazující kasační řízení",
+      "status": "active_cassation",
+      "opened_on": "2026-07-23",
+      "topics": ["zásahová žaloba", "Ministerstvo vnitra", "15 A 44/2026", "kasační stížnost", "6 As 207/2026", "Nejvyšší správní soud"]
     }
   ]
 }
