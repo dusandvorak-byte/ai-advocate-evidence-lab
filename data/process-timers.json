@@ -1,0 +1,1041 @@
+{
+  "schema_version": "1.0",
+  "updated_on": "2026-08-18",
+  "description": "Kanonický registr živých procesních časovačů. Levá hodnota je počet kalendářních dnů od doloženého počátku do dne zobrazení; pravá hodnota je pouze doložená zákonná, smluvená nebo výslovně stanovená procesní lhůta. Není-li univerzální číselná zákonná lhůta, registr ji nevymýšlí.",
+  "display_rule": "elapsed_days / legal_or_procedural_limit",
+  "categories": [
+    "court",
+    "pre_action",
+    "administrative",
+    "review_supervision",
+    "criminal_historical"
+  ],
+  "timers": [
+    {
+      "id": "timer-court-18a17-2026",
+      "category": "court",
+      "title": "MS v Praze sp. zn. 18 A 17/2026 – NCOZ",
+      "reference": "18 A 17/2026",
+      "start_date": "2026-05-01",
+      "start_date_basis": "Žaloba proti NCOZ podána 1. května 2026; doloženo navazujícími podáními a evidencí projektu.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez pevné číselné zákonné lhůty k rozhodnutí",
+      "legal_basis": "soudní řízení – povinnost rozhodovat bez zbytečných průtahů; zde není evidována univerzální číselná lhůta k meritornímu rozhodnutí",
+      "href": "zpravy/04082026-010.html#case-cz-ms-praha-18a17-2026"
+    },
+    {
+      "id": "timer-court-8ad9-2026",
+      "category": "court",
+      "title": "MS v Praze – nová zásahová žaloba proti SÚKL; navazuje na 8 Ad 9/2026",
+      "reference": "nová žaloba 31. 8. 2026 · souvisící 8 Ad 9/2026-85",
+      "start_date": "2026-08-31",
+      "start_date_basis": "Původní řízení 8 Ad 9/2026 skončilo usnesením Městského soudu v Praze ze dne 28. 8. 2026, č. j. 8 Ad 9/2026-85. Dne 31. 8. 2026 byla podána nová zásahová žaloba proti SÚKL, která na tuto větev výslovně navazuje.",
+      "status": "active_successor_court_case",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "nová zásahová žaloba proti SÚKL – aktivní soudní řízení",
+      "legal_basis": "§ 82 a násl. s. ř. s.; aktivní je nová žaloba z 31. 8. 2026, nikoli skončené řízení 8 Ad 9/2026",
+      "href": "zpravy/04082026-010.html#procesni-casovace",
+      "process_history": "31. 5. 2026 žaloba proti MZ → 28. 8. 2026 usnesení 8 Ad 9/2026-85, původní žaloba odmítnuta → 31. 8. 2026 nová zásahová žaloba proti SÚKL.",
+      "deadline_chain": [
+        "soudní řízení 8 Ad 9/2026 – bez pevné číselné lhůty k meritornímu rozhodnutí",
+        "nová zásahová žaloba proti SÚKL – bez pevné číselné lhůty k meritornímu rozhodnutí"
+      ]
+    },
+    {
+      "id": "timer-court-10c69-2026",
+      "category": "court",
+      "title": "OS Praha 4 sp. zn. 10 C 69/2026 – Česká televize",
+      "reference": "10 C 69/2026",
+      "start_date": "2026-06-04",
+      "start_date_basis": "Navazující podání projektu označují sjednocené znění žaloby proti České televizi ze dne 4. června 2026.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez pevné číselné zákonné lhůty k rozhodnutí",
+      "legal_basis": "civilní soudní řízení – bez evidované univerzální číselné lhůty k meritornímu rozhodnutí",
+      "href": "zpravy/04082026-010.html#case-cz-os-praha4-10c69-2026"
+    },
+    {
+      "id": "timer-court-18a23-2026",
+      "category": "court",
+      "title": "MS v Praze sp. zn. 18 A 23/2026 – Ministerstvo spravedlnosti",
+      "reference": "18 A 23/2026",
+      "start_date": "2026-06-15",
+      "start_date_basis": "Zdrojová žaloba proti Ministerstvu spravedlnosti je datována 15. června 2026.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez pevné číselné zákonné lhůty k rozhodnutí",
+      "legal_basis": "soudní řízení – bez evidované univerzální číselné lhůty k meritornímu rozhodnutí",
+      "href": "zpravy/04082026-010.html#case-cz-ms-praha-18a23-2026"
+    },
+    {
+      "id": "timer-court-os-pro-obnova-2026",
+      "category": "court",
+      "title": "OS Prostějov – obnova řízení 2026: stížnostní fáze po rozhodnutích ze 7. 8. 2026",
+      "reference": "mj. 15 Nt 3103/2026-53 · 15 Nt 3105/2026-54",
+      "start_date": "2026-08-07",
+      "start_date_basis": "OS Prostějov dne 7. 8. 2026 rozhodl o návrzích na obnovu. Původní čekání na rozhodnutí tím skončilo; navazující stížnosti byly podány 10.–11. 8. 2026 a větev je nyní ve stížnostní fázi.",
+      "status": "active_complaint_stage",
+      "limit_kind": "no_fixed_numeric_statutory_deadline_for_complaint_decision",
+      "limit_label": "stížnostní fáze – bez pevné číselné lhůty soudu k rozhodnutí",
+      "legal_basis": "časovač sleduje aktuální stížnostní fázi, nikoli již skončené rozhodování OS o návrhu na obnovu",
+      "due_date": "2026-10-12",
+      "next_event": "Veřejné zasedání dne 12. října 2026 v 9:00, jednací síň č. 17; předvolání č. j. 15 Nt 3104/2026-56 ze dne 18. srpna 2026.",
+      "href": "zpravy/04082026-010.html#doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
+      "process_history": "12. 7. návrh na obnovu; 7. 8. rozhodnutí OS; 10.–11. 8. navazující stížnosti."
+    },
+    {
+      "id": "timer-court-os-pro-prevence-2026",
+      "category": "court",
+      "title": "OS Prostějov – preventivní podání 2026",
+      "reference": "prevence 2026",
+      "start_date": "2026-07-12",
+      "start_date_basis": "Preventivní podání OS Prostějov a Policii ČR je datováno 12. července 2026.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez pevné číselné zákonné lhůty",
+      "legal_basis": "preventivní procesní podání – konkrétní univerzální číselná lhůta k vyřízení není v registru doložena",
+      "href": "zpravy/04082026-010.html#case-cz-os-pro-prevence-2026",
+      "process_steps": [
+        {
+          "date": "2026-07-12",
+          "reference": "sp. zn. 1 ZT 11/2010; nové preventivní podání bez samostatného č. j.",
+          "actor": "Mgr. Dušan Dvořák → OSZ / OS / PČR Prostějov",
+          "action": "preventivní podání a žádost o součinnost"
+        },
+        {
+          "date": "2026-07-28",
+          "reference": "č. j. ZN 4/2026-6",
+          "actor": "OSZ Prostějov",
+          "action": "navazující přípis k preventivnímu podání"
+        },
+        {
+          "date": "2026-08-15",
+          "reference": "č. j. ZN 4/2026-6",
+          "actor": "Mgr. Dušan Dvořák → OSZ Prostějov",
+          "action": "doplnění; žádost o poučení a prověření stavu preventivního podání"
+        }
+      ],
+      "process_chain_title": "OSZ Prostějov – preventivní podání z 12. 7. 2026 a doplnění",
+      "active_chain_status": "Preventivní podání zůstává jednou procesní větví; doplnění nevytvářejí nový časovač.",
+      "process_history": "2026-07-12 · sp. zn. 1 ZT 11/2010; nové preventivní podání bez samostatného č. j. · Mgr. Dušan Dvořák → OSZ / OS / PČR Prostějov: preventivní podání a žádost o součinnost → 2026-07-28 · č. j. ZN 4/2026-6 · OSZ Prostějov: navazující přípis k preventivnímu podání → 2026-08-15 · č. j. ZN 4/2026-6 · Mgr. Dušan Dvořák → OSZ Prostějov: doplnění; žádost o poučení a prověření stavu preventivního podání",
+      "deadline_chain": [
+        "preventivní podání – bez doložené univerzální pevné číselné lhůty"
+      ]
+    },
+    {
+      "id": "timer-court-mv-2026-07-23",
+      "category": "court",
+      "title": "NSS – kasační stížnost ve věci 15 A 44/2026 proti Ministerstvu vnitra",
+      "reference": "15 A 44/2026-43 · kasační stížnost 1. 9. 2026",
+      "start_date": "2026-09-01",
+      "start_date_basis": "Městský soud v Praze usnesením ze dne 25. 8. 2026, č. j. 15 A 44/2026-43, žalobu odmítl. Dne 1. 9. 2026 byla proti tomuto usnesení podána kasační stížnost k Nejvyššímu správnímu soudu.",
+      "status": "active_cassation_stage",
+      "limit_kind": "cassation_pending",
+      "limit_label": "kasační řízení před NSS – aktivní procesní krok",
+      "legal_basis": "§ 102 a násl. s. ř. s.; původní žaloba již není aktivním krokem, aktivní je podaná kasační stížnost",
+      "href": "zpravy/04082026-010.html#procesni-casovace",
+      "process_history": "23. 7. 2026 zásahová žaloba proti Ministerstvu vnitra → 25. 8. 2026 usnesení 15 A 44/2026-43, žaloba odmítnuta → 1. 9. 2026 kasační stížnost k NSS.",
+      "deadline_chain": [
+        "řízení 15 A 44/2026 – bez pevné číselné lhůty k meritornímu rozhodnutí",
+        "kasační řízení před NSS – bez pevné číselné lhůty k meritornímu rozhodnutí"
+      ]
+    },
+    {
+      "id": "timer-court-45t1-2024",
+      "category": "court",
+      "title": "MS v Praze sp. zn. 45 T 1/2024 – nové projednání po vrácení Vrchním soudem",
+      "reference": "45 T 1/2024 · VS Praha 11 To 88/2024-2990",
+      "start_date": "2025-07-29",
+      "start_date_basis": "Vrchní soud v Praze usnesením ze dne 29. července 2025, č. j. 11 To 88/2024-2990, zrušil výroky rozsudku Městského soudu v Praze ze dne 7. května 2024, č. j. 45 T 1/2024-2430, a věc vrátil soudu prvního stupně.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez pevné číselné zákonné lhůty k rozhodnutí",
+      "legal_basis": "trestní soudní řízení po vrácení věci odvolacím soudem",
+      "href": "zpravy/04082026-010.html#case-cz-ms-praha-45t1-2024",
+      "next_event": "Jednání je evidováno na 1. a 2. září 2026 od 12:00."
+    },
+    {
+      "id": "timer-preaction-nsz-2026-07-14",
+      "category": "pre_action",
+      "title": "NSZ – předžalobní výzva ze dne 14. 7. 2026 a její dodatky",
+      "reference": "6 NZN 1737/2026",
+      "start_date": "2026-07-14",
+      "start_date_basis": "Předžalobní výzva byla podána 14. 7. 2026. Další podání se vedou jako dodatky téže procesní větve, nikoli jako samostatné časovače.",
+      "status": "active_genealogy",
+      "limit_kind": "author_set_specific_date",
+      "limit_days": 14,
+      "limit_label": "nejzazší dobrovolný termín pro konečné stanovisko 11. 9. 2026",
+      "legal_basis": "termíny výslovně stanovené podatelem v 5. dodatku; nejde o obecné zákonné lhůty a nemění zákonné lhůty ani již vzniklá procesní oprávnění",
+      "href": "zpravy/04082026-010.html#case-cz-nsz-predzalobni-vyzva",
+      "due_date": "2026-09-11",
+      "process_history": "2026-07-14 · sp. zn. 6 NZN 1737/2026 · Mgr. Dušan Dvořák → NSZ: předžalobní výzva → 2026-07-25 · sp. zn. 6 NZN 1737/2026 · Mgr. Dušan Dvořák → NSZ: další doplnění předžalobní výzvy → 2026-07-27 · sp. zn. 6 NZN 1737/2026 · Mgr. Dušan Dvořák → NSZ: další dodatek → 2026-07-29 · sp. zn. 6 NZN 1737/2026 · Mgr. Dušan Dvořák → NSZ: další dodatek → 2026-08-01 · sp. zn. 6 NZN 1737/2026 · Mgr. Dušan Dvořák → NSZ: 5. dodatek; stanoveny kontrolní termíny → 2026-08-15 · sp. zn. 6 NZN 1737/2026 · Mgr. Dušan Dvořák → NSZ: další doplnění → 2026-08-22 · sp. zn. 6 NZN 1737/2026 · Mgr. Dušan Dvořák → NSZ: další doplnění → 2026-08-28 · sp. zn. 6 NZN 1737/2026 · Mgr. Dušan Dvořák → NSZ: mimořádně naléhavé doplnění",
+      "process_steps": [
+        {
+          "date": "2026-07-14",
+          "reference": "sp. zn. 6 NZN 1737/2026",
+          "actor": "Mgr. Dušan Dvořák → NSZ",
+          "action": "předžalobní výzva"
+        },
+        {
+          "date": "2026-07-25",
+          "reference": "sp. zn. 6 NZN 1737/2026",
+          "actor": "Mgr. Dušan Dvořák → NSZ",
+          "action": "další doplnění předžalobní výzvy"
+        },
+        {
+          "date": "2026-07-27",
+          "reference": "sp. zn. 6 NZN 1737/2026",
+          "actor": "Mgr. Dušan Dvořák → NSZ",
+          "action": "další dodatek"
+        },
+        {
+          "date": "2026-07-29",
+          "reference": "sp. zn. 6 NZN 1737/2026",
+          "actor": "Mgr. Dušan Dvořák → NSZ",
+          "action": "další dodatek"
+        },
+        {
+          "date": "2026-08-01",
+          "reference": "sp. zn. 6 NZN 1737/2026",
+          "actor": "Mgr. Dušan Dvořák → NSZ",
+          "action": "5. dodatek; stanoveny kontrolní termíny"
+        },
+        {
+          "date": "2026-08-15",
+          "reference": "sp. zn. 6 NZN 1737/2026",
+          "actor": "Mgr. Dušan Dvořák → NSZ",
+          "action": "další doplnění"
+        },
+        {
+          "date": "2026-08-22",
+          "reference": "sp. zn. 6 NZN 1737/2026",
+          "actor": "Mgr. Dušan Dvořák → NSZ",
+          "action": "další doplnění"
+        },
+        {
+          "date": "2026-08-28",
+          "reference": "sp. zn. 6 NZN 1737/2026",
+          "actor": "Mgr. Dušan Dvořák → NSZ",
+          "action": "mimořádně naléhavé doplnění"
+        }
+      ],
+      "process_chain_title": "NSZ – předžalobní výzva a všechny dodatky",
+      "active_chain_status": "Aktivní zůstává nejzazší dobrovolný termín 11. 9. 2026; dodatky původní lhůtu samy neobnovují.",
+      "deadline_chain": [
+        "do 21. 8. 2026 alespoň sdělení",
+        "do 11. 9. 2026 konečné stanovisko"
+      ]
+    },
+    {
+      "id": "timer-preaction-euda-2026-08-07",
+      "category": "pre_action",
+      "title": "EUDA – výzva k jednání podle čl. 265 SFEU",
+      "reference": "čl. 265 SFEU · nařízení (EU) 2023/1322 · e-mail EUDA bez samostatného č. j.",
+      "start_date": "2026-08-07",
+      "start_date_basis": "Dušan Dvořák dne 7. srpna 2026 v 09:14 zaslal EUDA formální výzvu k jednání podle čl. 265 SFEU; EUDA téhož dne v 17:06:35 potvrdila přijetí korespondence.",
+      "status": "active_acknowledged",
+      "limit_kind": "statutory_months",
+      "limit_months": 2,
+      "limit_label": "2 měsíce – čl. 265 SFEU",
+      "legal_basis": "čl. 265 SFEU: po předchozí výzvě k jednání se sleduje, zda dotčený orgán do dvou měsíců vymezí své stanovisko; potvrzení přijetí samo není v registru vedeno jako věcné vymezení stanoviska",
+      "href": "zpravy/07082026-011.html",
+      "process_history": "EUDA – 7. 8. 2026 17:06:35 – bez samostatného č. j. – Bibi Fátima Seedat, Administrative agent, Directorate, z adresy EUDA Executive Director: potvrzení přijetí korespondence, příslib pečlivého posouzení vznesených bodů a odpovědi v dalším průběhu; upozornění na období dovolených a možné prodloužení reakční doby."
+    },
+    {
+      "id": "timer-admin-kpr-175-2026-08-03",
+      "category": "administrative",
+      "title": "KPR – stížnost podle § 175 správního řádu",
+      "reference": "KPR 5080/2026",
+      "start_date": "2026-08-03",
+      "start_date_basis": "Stížnost proti postupu KPR je datována 3. srpna 2026.",
+      "status": "active",
+      "limit_kind": "statutory_days",
+      "limit_days": 60,
+      "limit_label": "60 dnů – § 175 odst. 5 správního řádu",
+      "legal_basis": "§ 175 odst. 5 zákona č. 500/2004 Sb.",
+      "href": "zpravy/04082026-010.html#case-cz-kpr-tri-vetve",
+      "process_history": "2026-08-03 · sp. zn. KPR 5080/2026 · Mgr. Dušan Dvořák → KPR: stížnost podle § 175 správního řádu → 2026-08-29 · sp. zn. KPR 5080/2026 · Mgr. Dušan Dvořák → KPR: naléhavé doplnění / návazné podání → 2026-09-02 · č. j. KPR 5080/2026 · KPR: vyřízení stížnosti podle § 175; současně sděleno, že o dalších podáních vedených pod KPR 5080/2026 dosud nebylo rozhodnuto",
+      "process_steps": [
+        {
+          "date": "2026-08-03",
+          "reference": "sp. zn. KPR 5080/2026",
+          "actor": "Mgr. Dušan Dvořák → KPR",
+          "action": "stížnost podle § 175 správního řádu"
+        },
+        {
+          "date": "2026-08-29",
+          "reference": "sp. zn. KPR 5080/2026",
+          "actor": "Mgr. Dušan Dvořák → KPR",
+          "action": "naléhavé doplnění / návazné podání"
+        },
+        {
+          "date": "2026-09-02",
+          "reference": "č. j. KPR 5080/2026",
+          "actor": "KPR",
+          "action": "vyřízení stížnosti podle § 175; současně sděleno, že o dalších podáních vedených pod KPR 5080/2026 dosud nebylo rozhodnuto"
+        }
+      ],
+      "process_chain_title": "KPR – stížnost podle § 175 a všechny dodatky",
+      "active_chain_status": "Stížnost podle § 175 byla vyřízena 2. 9. 2026 pod č. j. KPR 5080/2026. KPR současně uvedla, že o dalších podáních pod KPR 5080/2026 dosud nebylo rozhodnuto; žádný nový opravný prostředek se bez doloženého podání nepředjímá.",
+      "deadline_chain": [
+        "60 dnů – § 175 odst. 5 správního řádu – stížnost vyřízena 2. 9. 2026",
+        "další podání pod KPR 5080/2026 – dosud nerozhodnuta; přesná lhůta podle konkrétního procesního režimu"
+      ]
+    },
+    {
+      "id": "timer-admin-krpt-infz-2026-07-27",
+      "category": "administrative",
+      "title": "KŘP Moravskoslezského kraje / Ministerstvo vnitra – odvolání ve věci SOP OKTE Frýdek-Místek",
+      "reference": "KRPT-203594-8/ČJ-2026-0700KR · odvolání 24. 8. 2026",
+      "start_date": "2026-08-24",
+      "start_date_basis": "Žádost byla podána a doručena 27. 7. 2026. KŘP dne 20. 8. 2026 vydalo částečnou odpověď KRPT-203594-7/ČJ-2026-0700KR a rozhodnutí KRPT-203594-8/ČJ-2026-0700KR. Proti rozhodnutí bylo dne 24. 8. 2026 podáno a doručeno odvolání Ministerstvu vnitra prostřednictvím KŘP.",
+      "status": "active_appeal_stage",
+      "limit_kind": "infz_appeal_pending",
+      "limit_days": 25,
+      "limit_label": "odvolání podle § 16 InfZ – aktivní odvolací fáze",
+      "legal_basis": "§ 16 zákona č. 106/1999 Sb.; původní lhůta žádosti již neběží, aktivní je odvolání podané a doručené 24. 8. 2026.",
+      "due_date": null,
+      "href": "zpravy/04082026-010.html#case-cz-pcr-ku-interni-prezkum",
+      "process_history": "27. 7. 2026 žádost o SOP → 5. 8. 2026 oznámení o prodloužení lhůty → 20. 8. 2026 částečná odpověď a rozhodnutí → 24. 8. 2026 odvolání proti KRPT-203594-8/ČJ-2026-0700KR.",
+      "deadline_chain": [
+        "15 dnů + až 10 dnů – žádost podle InfZ",
+        "odvolání podle § 16 InfZ – navazující odvolací lhůta"
+      ]
+    },
+    {
+      "id": "timer-admin-mk-2026-07-22",
+      "category": "administrative",
+      "title": "Ministerstvo kultury – rozklad proti usnesení MK 53547/2026 SOCNS",
+      "reference": "MK-S 6893/2026 SOCNS · MK 53547/2026 SOCNS · MK 53559/2026 SOCNS",
+      "start_date": "2026-09-01",
+      "start_date_basis": "Ministerstvo kultury dne 31. 8. 2026 usnesením č. j. MK 53547/2026 SOCNS zastavilo řízení podle § 101 písm. b) správního řádu a samostatným sdělením č. j. MK 53559/2026 SOCNS odpovědělo na navazující otázky. Dne 1. 9. 2026 byl podán a doručen rozklad proti usnesení; vyjádření k MK 53559/2026 SOCNS bylo přiloženo jako podklad rozkladového řízení.",
+      "status": "active_remonstrance_stage",
+      "limit_kind": "remonstrance_pending",
+      "limit_label": "rozklad podle § 152 správního řádu – aktivní rozkladová fáze",
+      "legal_basis": "§ 152 správního řádu; původní lhůta řízení do 31. 8. 2026 skončila vydáním usnesení, aktivní je rozklad podaný a doručený 1. 9. 2026.",
+      "due_date": null,
+      "href": "zpravy/04082026-010.html#procesni-casovace",
+      "limit_days": 30,
+      "process_history": "26. 6. 2026 zahájení nového řízení → 7. 7. 2026 doplnění → 22. 7. 2026 sdělení MK → 24. 7. 2026 procesní upřesnění → 12. 8. 2026 potvrzení zahájení a sp. zn. MK-S 6893/2026 SOCNS → 19. 8. 2026 další podání → 31. 8. 2026 usnesení MK 53547/2026 SOCNS o zastavení řízení a sdělení MK 53559/2026 SOCNS → 1. 9. 2026 rozklad a vyjádření jako příloha rozkladu.",
+      "deadline_chain": [
+        "30 dnů základně; ve složité věci možnost zákonného prodloužení",
+        "rozklad podle § 152 správního řádu – navazující rozkladové řízení"
+      ]
+    },
+    {
+      "id": "timer-review-nsz-6nzn-2026",
+      "category": "review_supervision",
+      "title": "NSZ – podněty a přezkumná větev 6 NZN 1737/2026",
+      "reference": "6 NZN 1737/2026",
+      "start_date": "2026-04-27",
+      "start_date_basis": "Kanonický registr cases.json vede větev jako otevřenou od 27. dubna 2026.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez doložené univerzální číselné zákonné lhůty",
+      "legal_basis": "přezkumná/dohledová činnost státního zastupitelství; zákon upravuje dohled, nikoli zde univerzální počet dnů",
+      "href": "zpravy/04082026-010.html#case-cz-nsz-predzalobni-vyzva",
+      "process_steps": [
+        {
+          "date": "2026-04-20",
+          "reference": "bez přiděleného č. j. / sp. zn.",
+          "actor": "Mgr. Dušan Dvořák → NSZ",
+          "action": "první podání v této procesní větvi"
+        },
+        {
+          "date": "2026-04-25",
+          "reference": "sp. zn. 6 NZN 1737/2026",
+          "actor": "Mgr. Dušan Dvořák → NSZ",
+          "action": "stížnost zahrnující také podání z 20. 4."
+        },
+        {
+          "date": "2026-05-08",
+          "reference": "sp. zn. 6 NZN 1737/2026",
+          "actor": "Mgr. Dušan Dvořák → NSZ",
+          "action": "doplnění stížnosti"
+        },
+        {
+          "date": "2026-05-12",
+          "reference": "sp. zn. 6 NZN 1737/2026",
+          "actor": "Mgr. Dušan Dvořák → NSZ",
+          "action": "další doplnění stížnosti"
+        },
+        {
+          "date": "2026-05-13",
+          "reference": "č. j. 6 NZN 1737/2026-32",
+          "actor": "NSZ",
+          "action": "postoupeno Městskému státnímu zastupitelství v Praze"
+        },
+        {
+          "date": "2026-06-11",
+          "reference": "č. j. 3 KZN 197/2026-12",
+          "actor": "MSZ Praha",
+          "action": "část věci postoupena KSZ Ostrava"
+        },
+        {
+          "date": "2026-07-08",
+          "reference": "č. j. 4 KZN 7116/2026-45",
+          "actor": "KSZ Ostrava",
+          "action": "část OKTE Frýdek-Místek postoupena OSZ Frýdek-Místek; vedeno pod sp. zn. 1 ZN 7061/2026"
+        },
+        {
+          "date": "2026-07-20",
+          "reference": "sp. zn. 4 KZN 7116/2026 / 1 ZN 7061/2026",
+          "actor": "Mgr. Dušan Dvořák",
+          "action": "další doplnění původního podání"
+        },
+        {
+          "date": "2026-07-29",
+          "reference": "č. j. 4 KZN 7116/2026-50",
+          "actor": "KSZ Ostrava",
+          "action": "doplnění z 20. 7. postoupeno OSZ Frýdek-Místek"
+        },
+        {
+          "date": "2026-08-24",
+          "reference": "sp. zn. 1 ZN 7061/2026; 4 KZN 7116/2026",
+          "actor": "Mgr. Dušan Dvořák / Edukativní konopná klinika",
+          "action": "mimořádně naléhavé důkazní doplnění"
+        },
+        {
+          "date": "2026-09-02",
+          "reference": "sp. zn. 1 ZN 7061/2026; 4 KZN 7116/2026; 3 VZN 239/2026",
+          "actor": "Mgr. Dušan Dvořák → OSZ Frýdek-Místek",
+          "action": "další mimořádně naléhavé doplnění; nová skutečnost KÚ × ÚVK PP; lhůta se nepřerušuje ani neobnovuje"
+        },
+        {
+          "date": "2026-09-03",
+          "reference": "č. j. 1 ZN 7061/2026-79",
+          "actor": "OSZ Frýdek-Místek",
+          "action": "vyrozumění o vyřízení; podání založena bez dalšího opatření; poučení o možnosti požádat KSZ Ostrava o přezkoumání podle § 16a odst. 7"
+        }
+      ],
+      "process_chain_title": "NSZ → MSZ Praha → KSZ Ostrava → OSZ Frýdek-Místek – OKTE / 1 ZN 7061/2026",
+      "active_chain_status": "OSZ Frýdek-Místek vyřídilo věc dne 3. 9. 2026 pod č. j. 1 ZN 7061/2026-79. Původní běh je uzavřen; přezkum u KSZ Ostrava je pouze dostupný procesní krok, dokud není doloženo jeho podání.",
+      "process_history": "2026-04-20 · bez přiděleného č. j. / sp. zn. · Mgr. Dušan Dvořák → NSZ: první podání v této procesní větvi → 2026-04-25 · sp. zn. 6 NZN 1737/2026 · Mgr. Dušan Dvořák → NSZ: stížnost zahrnující také podání z 20. 4. → 2026-05-08 · sp. zn. 6 NZN 1737/2026 · Mgr. Dušan Dvořák → NSZ: doplnění stížnosti → 2026-05-12 · sp. zn. 6 NZN 1737/2026 · Mgr. Dušan Dvořák → NSZ: další doplnění stížnosti → 2026-05-13 · č. j. 6 NZN 1737/2026-32 · NSZ: postoupeno Městskému státnímu zastupitelství v Praze → 2026-06-11 · č. j. 3 KZN 197/2026-12 · MSZ Praha: část věci postoupena KSZ Ostrava → 2026-07-08 · č. j. 4 KZN 7116/2026-45 · KSZ Ostrava: část OKTE Frýdek-Místek postoupena OSZ Frýdek-Místek; vedeno pod sp. zn. 1 ZN 7061/2026 → 2026-07-20 · sp. zn. 4 KZN 7116/2026 / 1 ZN 7061/2026 · Mgr. Dušan Dvořák: další doplnění původního podání → 2026-07-29 · č. j. 4 KZN 7116/2026-50 · KSZ Ostrava: doplnění z 20. 7. postoupeno OSZ Frýdek-Místek → 2026-08-24 · sp. zn. 1 ZN 7061/2026; 4 KZN 7116/2026 · Mgr. Dušan Dvořák / Edukativní konopná klinika: mimořádně naléhavé důkazní doplnění → 2026-09-02 · sp. zn. 1 ZN 7061/2026; 4 KZN 7116/2026; 3 VZN 239/2026 · Mgr. Dušan Dvořák → OSZ Frýdek-Místek: další mimořádně naléhavé doplnění; nová skutečnost KÚ × ÚVK PP; lhůta se nepřerušuje ani neobnovuje → 2026-09-03 · č. j. 1 ZN 7061/2026-79 · OSZ Frýdek-Místek: vyrozumění o vyřízení; podání založena bez dalšího opatření; poučení o možnosti požádat KSZ Ostrava o přezkoumání podle § 16a odst. 7",
+      "deadline_chain": [
+        "2 měsíce – § 16a odst. 6 zákona o státním zastupitelství – uzavřeno vyřízením 3. 9. 2026"
+      ]
+    },
+    {
+      "id": "timer-review-msz-praha-3kzn197-2026",
+      "category": "review_supervision",
+      "title": "MSZ v Praze sp. zn. 3 KZN 197/2026 – hlavní rozdělovací a interní větev; není totožná s jednotlivými § 16a přezkumy",
+      "reference": "3 KZN 197/2026 · č. j. 3 KZN 197/2026-12 · č. j. 3 KZN 197/2026-18 · související 2 KZN 55/2026",
+      "start_date": "2026-06-11",
+      "start_date_basis": "MSZ v Praze dne 11. června 2026, č. j. 3 KZN 197/2026-12, rozdělilo soubor převzatý od NSZ mezi KSZ v Ostravě, MSZ v Brně, vlastní větev MSZ v Praze a OSZ pro Prahu 2, 4 a 7.",
+      "status": "active_count_unresolved",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez doložené univerzální číselné zákonné lhůty; přesný počet přezkumných spisů MSZ nebyl vydán",
+      "legal_basis": "vnitřní a přezkumné postupy státního zastupitelství; tato položka je zastřešující procesní uzel, nikoli jeden z jednotlivých přezkumů podle § 16a odst. 7",
+      "href": "zpravy/04082026-010.html#case-cz-msz-praha-prezkumy",
+      "process_history": "MSZ Praha – 11. 6. 2026 – č. j. 3 KZN 197/2026-12 – rozdělení podání; MSZ Praha – 17. 6. 2026 – č. j. 3 KZN 197/2026-18 – část týkající se NCOZ postoupena specializovanému oddělení MSZ; MSZ Praha v další komunikaci uvádělo též sp. zn. 2 KZN 55/2026; MSZ Praha – 30. 7. 2026 – č. j. SIN 48/2026-12 – odmítlo vydat informace umožňující přesně identifikovat spisové značky přezkumných řízení."
+    },
+    {
+      "id": "timer-review-vsz-praha-1vzn1678-2026",
+      "category": "review_supervision",
+      "title": "VSZ Praha – dohledy a přezkumy v jedné procesní větvi",
+      "reference": "1 VZN 1678/2026",
+      "start_date": "2026-06-22",
+      "start_date_basis": "Kanonický registr cases.json vede dohledovou větev jako otevřenou od 22. června 2026.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez doložené univerzální číselné zákonné lhůty",
+      "legal_basis": "§ 12c a § 12d zákona č. 283/1993 Sb. upravují dohled; registr neuvádí univerzální číselnou lhůtu k jeho skončení",
+      "href": "zpravy/04082026-010.html#case-cz-vsz-praha-dohled-msz",
+      "process_history": "2026-06-16 · bez přiděleného č. j. / sp. zn. · Mgr. Dušan Dvořák → VSZ Praha: podnět k výkonu dohledu → 2026-06-22 · č. j. 1 VZN 1678/2026-8 · VSZ Praha: potvrzení přijetí podnětu k dohledu → 2026-07-02 · sp. zn. 1 VZN 1678/2026 · Mgr. Dušan Dvořák → VSZ Praha: doplnění dohledu → 2026-07-23 · č. j. 1 VZN 1678/2026-70 · VSZ Praha: vyrozumění – podnět k dohledu označen za nedůvodný → 2026-08-15 · sp. zn. 1 VZN 1678/2026 · Mgr. Dušan Dvořák → VSZ Praha: doplnění dohledu → 2026-08-25 · bez přiděleného č. j. / sp. zn. · Mgr. Dušan Dvořák → VSZ Praha: žádost o přezkoumání vyřízení MSZ → 2026-08-27 · bez přiděleného č. j. / sp. zn. · Mgr. Dušan Dvořák → VSZ Praha: další žádost o přezkoumání vyřízení MSZ → 2026-08-28 · bez přiděleného č. j. / sp. zn. · Mgr. Dušan Dvořák → VSZ Praha: mimořádně naléhavé doplnění dohledu",
+      "process_steps": [
+        {
+          "date": "2026-06-16",
+          "reference": "bez přiděleného č. j. / sp. zn.",
+          "actor": "Mgr. Dušan Dvořák → VSZ Praha",
+          "action": "podnět k výkonu dohledu"
+        },
+        {
+          "date": "2026-06-22",
+          "reference": "č. j. 1 VZN 1678/2026-8",
+          "actor": "VSZ Praha",
+          "action": "potvrzení přijetí podnětu k dohledu"
+        },
+        {
+          "date": "2026-07-02",
+          "reference": "sp. zn. 1 VZN 1678/2026",
+          "actor": "Mgr. Dušan Dvořák → VSZ Praha",
+          "action": "doplnění dohledu"
+        },
+        {
+          "date": "2026-07-23",
+          "reference": "č. j. 1 VZN 1678/2026-70",
+          "actor": "VSZ Praha",
+          "action": "vyrozumění – podnět k dohledu označen za nedůvodný"
+        },
+        {
+          "date": "2026-08-15",
+          "reference": "sp. zn. 1 VZN 1678/2026",
+          "actor": "Mgr. Dušan Dvořák → VSZ Praha",
+          "action": "doplnění dohledu"
+        },
+        {
+          "date": "2026-08-25",
+          "reference": "bez přiděleného č. j. / sp. zn.",
+          "actor": "Mgr. Dušan Dvořák → VSZ Praha",
+          "action": "žádost o přezkoumání vyřízení MSZ"
+        },
+        {
+          "date": "2026-08-27",
+          "reference": "bez přiděleného č. j. / sp. zn.",
+          "actor": "Mgr. Dušan Dvořák → VSZ Praha",
+          "action": "další žádost o přezkoumání vyřízení MSZ"
+        },
+        {
+          "date": "2026-08-28",
+          "reference": "bez přiděleného č. j. / sp. zn.",
+          "actor": "Mgr. Dušan Dvořák → VSZ Praha",
+          "action": "mimořádně naléhavé doplnění dohledu"
+        }
+      ],
+      "process_chain_title": "VSZ Praha – dohledová a přezkumná větev",
+      "active_chain_status": "Aktivní je poslední neuzavřený dohled/přezkum; starší rozhodnuté kroky zůstávají v řetězci.",
+      "deadline_chain": [
+        "dohled – bez univerzální pevné číselné lhůty",
+        "přezkum vyřízení – podle konkrétního režimu podání"
+      ]
+    },
+    {
+      "id": "timer-review-vsz-olomouc-2026-07-10",
+      "category": "review_supervision",
+      "title": "VSZ Olomouc – dohledy a přezkumy v jedné procesní větvi",
+      "reference": "3 VZN 239/2026",
+      "start_date": "2026-07-10",
+      "start_date_basis": "Podání k přezkumu a dohledu KSZ Brno / VSZ Olomouc je datováno 10. července 2026.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez doložené univerzální číselné zákonné lhůty",
+      "legal_basis": "§ 12c a § 12d zákona č. 283/1993 Sb.",
+      "href": "zpravy/04082026-010.html#case-cz-vsz-olomouc-dohled-ksz-brno",
+      "process_history": "2026-07-10 · bez přiděleného č. j. / sp. zn. · Mgr. Dušan Dvořák → VSZ Olomouc: podnět k výkonu dohledu → 2026-07-16 · č. j. 3 VZN 239/2026-27 · VSZ Olomouc: sdělení, že dohled vykonávat nebude → 2026-08-15 · sp. zn. 3 VZN 239/2026 · Mgr. Dušan Dvořák → VSZ Olomouc: doplnění dohledu → 2026-08-24 · sp. zn. 3 VZN 239/2026 · Mgr. Dušan Dvořák → VSZ Olomouc: mimořádně naléhavé doplnění / na vědomí → 2026-09-02 · sp. zn. 3 VZN 239/2026 · Mgr. Dušan Dvořák → VSZ Olomouc: nová procesní skutečnost na vědomí v návaznosti na 1 ZN 7061/2026",
+      "process_steps": [
+        {
+          "date": "2026-07-10",
+          "reference": "bez přiděleného č. j. / sp. zn.",
+          "actor": "Mgr. Dušan Dvořák → VSZ Olomouc",
+          "action": "podnět k výkonu dohledu"
+        },
+        {
+          "date": "2026-07-16",
+          "reference": "č. j. 3 VZN 239/2026-27",
+          "actor": "VSZ Olomouc",
+          "action": "sdělení, že dohled vykonávat nebude"
+        },
+        {
+          "date": "2026-08-15",
+          "reference": "sp. zn. 3 VZN 239/2026",
+          "actor": "Mgr. Dušan Dvořák → VSZ Olomouc",
+          "action": "doplnění dohledu"
+        },
+        {
+          "date": "2026-08-24",
+          "reference": "sp. zn. 3 VZN 239/2026",
+          "actor": "Mgr. Dušan Dvořák → VSZ Olomouc",
+          "action": "mimořádně naléhavé doplnění / na vědomí"
+        },
+        {
+          "date": "2026-09-02",
+          "reference": "sp. zn. 3 VZN 239/2026",
+          "actor": "Mgr. Dušan Dvořák → VSZ Olomouc",
+          "action": "nová procesní skutečnost na vědomí v návaznosti na 1 ZN 7061/2026"
+        }
+      ],
+      "process_chain_title": "VSZ Olomouc – dohledová větev",
+      "active_chain_status": "Aktivní je poslední neuzavřený dohledový krok.",
+      "deadline_chain": [
+        "dohled – bez univerzální pevné číselné lhůty"
+      ]
+    },
+    {
+      "id": "timer-review-ksz-brno-2026-07-10",
+      "category": "review_supervision",
+      "title": "KSZ v Brně sp. zn. 1 KZT 475/2026 – přezkum postupu OSZ v Prostějově",
+      "reference": "KSZ Brno sp. zn. 1 KZT 475/2026; č. j. 1 KZT 475/2026-32 · OSZ Prostějov č. j. 1 ZT 11/2010-752",
+      "start_date": "2026-07-10",
+      "start_date_basis": "Dne 10. července 2026 byla KSZ v Brně podána žádost o přezkoumání sdělení OSZ v Prostějově ze dne 7. července 2026, č. j. 1 ZT 11/2010-752. KSZ vede přezkum pod sp. zn. 1 KZT 475/2026.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez doložené univerzální číselné zákonné lhůty k výsledku přezkumu",
+      "legal_basis": "přezkum vyřízení podání podle § 16a odst. 7 zákona č. 283/1993 Sb.; bez doložené univerzální číselné lhůty k rozhodnutí",
+      "href": "zpravy/04082026-010.html#case-cz-ksz-brno-prezkumy",
+      "process_history": "2026-07-07 · č. j. 1 ZT 11/2010-752 · OSZ Prostějov: vyřízení / sdělení OSZ Prostějov → 2026-07-10 · sp. zn. 1 KZT 475/2026 · Mgr. Dušan Dvořák → KSZ Brno: žádost o přezkoumání vyřízení OSZ Prostějov → 2026-07-21 · č. j. 1 KZT 475/2026-32 · KSZ Brno: potvrzení přijetí žádosti o přezkum → 2026-08-15 · sp. zn. 1 KZT 475/2026 · Mgr. Dušan Dvořák: další důkazní / dohledové doplnění → 2026-08-24 · sp. zn. 1 KZT 475/2026; 1 KZN 1079/2026 · Mgr. Dušan Dvořák / EKK: další společné důkazní doplnění",
+      "process_steps": [
+        {
+          "date": "2026-07-07",
+          "reference": "č. j. 1 ZT 11/2010-752",
+          "actor": "OSZ Prostějov",
+          "action": "vyřízení / sdělení OSZ Prostějov"
+        },
+        {
+          "date": "2026-07-10",
+          "reference": "sp. zn. 1 KZT 475/2026",
+          "actor": "Mgr. Dušan Dvořák → KSZ Brno",
+          "action": "žádost o přezkoumání vyřízení OSZ Prostějov"
+        },
+        {
+          "date": "2026-07-21",
+          "reference": "č. j. 1 KZT 475/2026-32",
+          "actor": "KSZ Brno",
+          "action": "potvrzení přijetí žádosti o přezkum"
+        },
+        {
+          "date": "2026-08-15",
+          "reference": "sp. zn. 1 KZT 475/2026",
+          "actor": "Mgr. Dušan Dvořák",
+          "action": "další důkazní / dohledové doplnění"
+        },
+        {
+          "date": "2026-08-24",
+          "reference": "sp. zn. 1 KZT 475/2026; 1 KZN 1079/2026",
+          "actor": "Mgr. Dušan Dvořák / EKK",
+          "action": "další společné důkazní doplnění"
+        }
+      ],
+      "process_chain_title": "OSZ Prostějov → KSZ Brno – přezkum 1 ZT 11/2010",
+      "active_chain_status": "Přezkumná větev KSZ Brno sp. zn. 1 KZT 475/2026.",
+      "deadline_chain": [
+        "přezkum vyřízení – podle zákona o státním zastupitelství"
+      ]
+    },
+    {
+      "id": "timer-review-ksz-brno-1kzn1079-2026",
+      "category": "review_supervision",
+      "title": "KSZ v Brně sp. zn. 1 KZN 1079/2026 – přezkum postupu MSZ v Brně sp. zn. 3 ZN 140/2026",
+      "reference": "KSZ Brno č. j. 1 KZN 1079/2026-14 · MSZ Brno č. j. 3 ZN 140/2026-3",
+      "start_date": "2026-07-27",
+      "start_date_basis": "Dne 27. července 2026 byla KSZ v Brně podána žádost o přezkoumání postupu MSZ v Brně ve věci sp. zn. 3 ZN 140/2026, zejména vyrozumění MSZ v Brně ze dne 21. července 2026, č. j. 3 ZN 140/2026-3.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez doložené univerzální číselné zákonné lhůty k výsledku přezkumu",
+      "legal_basis": "přezkum podle § 16a odst. 7 a instanční dohled; bez doložené univerzální číselné lhůty k rozhodnutí",
+      "href": "zpravy/04082026-010.html#case-cz-ksz-brno-prezkumy",
+      "process_history": "MSZ Brno – 21. 7. 2026 – č. j. 3 ZN 140/2026-3 – oznámilo věcnou nepříslušnost a vrátilo větev MSZ v Praze; žádost KSZ Brno – 27. 7. 2026 – přezkum postupu MSZ Brno ve sp. zn. 3 ZN 140/2026; KSZ Brno – 31. 7. 2026 – č. j. 1 KZN 1079/2026-14 – potvrdilo příjem a oznámilo, že po doručení spisových materiálů bude věc přezkoumána."
+    },
+    {
+      "id": "timer-criminal-continuity-2010",
+      "category": "criminal_historical",
+      "title": "Trestní podněty – tvrzená a archivně dokládaná kontinuita",
+      "reference": "od 6. 10. 2010",
+      "start_date": "2010-10-06",
+      "start_date_basis": "Datum uváděné v dlouhodobém důkazním souboru autora; jednotlivé podněty musí být nadále navázány na konkrétní listiny.",
+      "status": "historical_open_issue",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez jediné obecné číselné lhůty pro výsledek",
+      "legal_basis": "historická důkazní větev; časovač neprokazuje spáchání trestného činu ani nečinnost v každém jednotlivém podání",
+      "href": "zpravy/04082026-010.html#chronologie"
+    },
+    {
+      "id": "timer-criminal-par149-2011",
+      "category": "criminal_historical",
+      "title": "Podání označující § 149 odst. 3–5 trestního zákoníku",
+      "reference": "od 11. 5. 2011",
+      "start_date": "2011-05-11",
+      "start_date_basis": "Datum uváděné autorem pro důkazní větev podání odkazujících na § 149 odst. 3–5; právní kvalifikace není časovačem potvrzována.",
+      "status": "historical_open_issue",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez jediné obecné číselné lhůty pro výsledek",
+      "legal_basis": "historická důkazní větev; použití § 149 odst. 3–5 je tvrzením podání, nikoli závěrem webu",
+      "href": "zpravy/04082026-010.html#chronologie"
+    },
+    {
+      "id": "timer-court-ks-ostrava-15t11-2025",
+      "category": "court",
+      "title": "KS Ostrava / OS Ostrava – stížnost ve věci 15 T 11/2025",
+      "reference": "15 T 11/2025 · St 82/2026",
+      "start_date": "2026-07-22",
+      "start_date_basis": "Stížnost proti postupu ve věci 15 T 11/2025 byla podána v červenci 2026. Krajský soud v Ostravě nyní potvrdil, že stížnost obdržel dne 24. 8. 2026 a dne 26. 8. 2026 ji postoupil k vyřízení předsedkyni Okresního soudu v Ostravě.",
+      "status": "active_forwarded_complaint",
+      "limit_kind": "court_administration_complaint",
+      "limit_label": "stížnost postoupena 26. 8. 2026 k vyřízení předsedkyni OS Ostrava",
+      "legal_basis": "časovač sleduje skutečný procesní pohyb stížnosti; bez samostatně ověřené zákonné číselné lhůty se zde neuvádí pevný počet dnů",
+      "href": "zpravy/04082026-010.html#doc-cz-ks-ost-2026-08-26-st-82-2026-15-t-11-2025",
+      "process_history": "2026-08-24 · sp. zn. 5 To 248/2026; původní sp. zn. 15 T 11/2025; St 82/2026 · Krajský soud v Ostravě / Okresní soud v Ostravě: navazující stížnostní řízení u Krajského soudu v Ostravě; důkazní doplnění z 24. 8. 2026 patří do téže procesní genealogie",
+      "next_event": "Vyřízení stížnosti předsedkyní Okresního soudu v Ostravě.",
+      "process_steps": [
+        {
+          "date": "2026-08-24",
+          "reference": "sp. zn. 5 To 248/2026; původní sp. zn. 15 T 11/2025; St 82/2026",
+          "actor": "Krajský soud v Ostravě / Okresní soud v Ostravě",
+          "action": "navazující stížnostní řízení u Krajského soudu v Ostravě; důkazní doplnění z 24. 8. 2026 patří do téže procesní genealogie"
+        }
+      ],
+      "active_chain_status": "Ostravská větev pokračuje u Krajského soudu v Ostravě pod sp. zn. 5 To 248/2026; původní věc je vedena u Okresního soudu v Ostravě pod sp. zn. 15 T 11/2025.",
+      "deadline_chain": [
+        "stížnostní řízení 5 To 248/2026 – bez doložené univerzální pevné číselné lhůty k rozhodnutí"
+      ]
+    },
+    {
+      "id": "timer-review-pcr-ku-2026-05-27",
+      "category": "review_supervision",
+      "title": "Policie ČR – Kriminalistický ústav: interní odborné a kontrolní prověření",
+      "reference": "KU-4139/ČJ-2026-2305KM · PPR-450-8/ČJ-2026-990313",
+      "start_date": "2026-05-27",
+      "start_date_basis": "Dne 27. května 2026 byla Policii ČR podána žádost o informace současně s výslovným podnětem k internímu policejnímu přezkumu znaleckých postupů použitých v trestních řízeních v letech 2009–2019; věcně jej převzal Kriminalistický ústav.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez doložené univerzální číselné zákonné lhůty k výsledku interního prověření",
+      "legal_basis": "interní metodická, odborná a kontrolní působnost Kriminalistického ústavu vůči OKTE; krátká sedmidenní lhůta požadovaná 29. 7. 2026 se týkala jen potvrzení evidence a rozsahu prověření, nikoli dokončení odborného přezkumu",
+      "process_history": "25. 6. 2026 KÚ č. j. KU-4139-5/ČJ-2026-2305KM podnět postoupil OSZ Prostějov; 28. 7. 2026 OSZ Prostějov č. j. ZN 4/2026-6 otázku č. 3 vrátilo KÚ k dalšímu řízení; 29. 7. 2026 byla KÚ zaslána výzva k pokračování v řízení.",
+      "href": "zpravy/04082026-010.html#case-cz-pcr-ku-interni-prezkum"
+    },
+    {
+      "id": "timer-review-msz-praha-osz-pha4-2026-07-02",
+      "category": "review_supervision",
+      "title": "MSZ v Praze – přezkum vyřízení OSZ pro Prahu 4",
+      "reference": "napadené OSZ Praha 4 č. j. 1 ZN 320/2026-11 · související MSZ Praha sp. zn. 3 KZN 197/2026",
+      "start_date": "2026-07-02",
+      "start_date_basis": "Dne 2. července 2026 byla MSZ v Praze podána žádost podle § 16a odst. 7 o přezkoumání vyřízení OSZ pro Prahu 4 ze dne 26. června 2026, č. j. 1 ZN 320/2026-11.",
+      "status": "active_or_result_not_identified",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez doložené univerzální číselné zákonné lhůty k výsledku přezkumu",
+      "legal_basis": "§ 16a odst. 7 zákona č. 283/1993 Sb.",
+      "process_history": "OSZ Praha 4 – 26. 6. 2026 – č. j. 1 ZN 320/2026-11 – napadené vyřízení; MSZ Praha – žádost o přezkum podána 2. 7. 2026; žádost současně navazovala na dohled VSZ Praha sp. zn. 1 VZN 1678/2026.",
+      "href": "zpravy/04082026-010.html#case-cz-msz-praha-prezkumy"
+    },
+    {
+      "id": "timer-review-msz-praha-osz-pha7-2026-07-29",
+      "category": "review_supervision",
+      "title": "MSZ v Praze – přezkum vyřízení OSZ pro Prahu 7",
+      "reference": "napadené OSZ Praha 7 č. j. ZN 87/2026-47 · související MSZ Praha sp. zn. 3 KZN 197/2026",
+      "start_date": "2026-07-29",
+      "start_date_basis": "Dne 29. července 2026 byla MSZ v Praze podána žádost podle § 16a odst. 7 o přezkoumání vyřízení OSZ pro Prahu 7 ze dne 28. července 2026, č. j. ZN 87/2026-47.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez doložené univerzální číselné zákonné lhůty k výsledku přezkumu",
+      "legal_basis": "§ 16a odst. 7 zákona č. 283/1993 Sb.",
+      "process_history": "OSZ Praha 7 – 28. 7. 2026 – č. j. ZN 87/2026-47 – napadené vyřízení; MSZ Praha – 29. 7. 2026 – žádost o přezkum; žádost výslovně požaduje ověřit úplnost souboru předaného z MSZ Praha ve vztahu ke sp. zn. 3 KZN 197/2026 a 2 KZN 55/2026.",
+      "href": "zpravy/04082026-010.html#case-cz-msz-praha-prezkumy"
+    },
+    {
+      "id": "timer-review-msz-praha-osz-pha2-2026-08-01",
+      "category": "review_supervision",
+      "title": "MSZ v Praze – přezkum vyřízení OSZ pro Prahu 2",
+      "reference": "napadené OSZ Praha 2 č. j. 1 ZN 157/2026-33 · související MSZ Praha sp. zn. 3 KZN 197/2026",
+      "start_date": "2026-08-01",
+      "start_date_basis": "Dne 1. srpna 2026 byl MSZ v Praze adresován společný podnět, jehož část A výslovně žádá přezkum vyřízení OSZ pro Prahu 2 ze dne 30. července 2026, č. j. 1 ZN 157/2026-33, podle § 16a odst. 7.",
+      "status": "active",
+      "limit_kind": "no_fixed_numeric_statutory_deadline",
+      "limit_label": "bez doložené univerzální číselné zákonné lhůty k výsledku přezkumu",
+      "legal_basis": "§ 16a odst. 7 zákona č. 283/1993 Sb.",
+      "process_history": "OSZ Praha 2 – 30. 7. 2026 – č. j. 1 ZN 157/2026-33 – napadené vyřízení; MSZ Praha – 1. 8. 2026 – výslovná žádost o přezkum v části A společného podnětu; související větev MSZ Praha sp. zn. 3 KZN 197/2026 a dohled VSZ Praha sp. zn. 1 VZN 1678/2026.",
+      "href": "zpravy/04082026-010.html#case-cz-msz-praha-prezkumy"
+    },
+    {
+      "id": "timer-admin-mv-rozklad-127234-2026",
+      "category": "administrative",
+      "title": "Ministerstvo vnitra / ministr vnitra – rozklad Ganja For All Animals",
+      "recipient": "Ministerstvo vnitra",
+      "for_authority": "ministr vnitra",
+      "reference": "MV-127234-2/OBP-2026",
+      "start_date": "2026-08-12",
+      "count_from_date": "2026-08-13",
+      "start_date_basis": "Rozklad byl podán a doručen Ministerstvu vnitra dne 12. 8. 2026; den doručení se do běhu lhůty nezapočítává, den 1 je 13. 8. 2026.",
+      "status": "active",
+      "limit_kind": "statutory_working_days",
+      "limit_days": 15,
+      "limit_label": "15 pracovních dnů pro rozhodnutí o rozkladu",
+      "legal_basis": "§ 16 odst. 3 InfZ; počátek běhu se počítá od dne následujícího po doručení rozkladu",
+      "href": "zpravy/04082026-010.html#doc-cz-mv-2026-08-11-mv-127234-2-obp-2026",
+      "source_document_id": "doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026"
+    },
+    {
+      "id": "timer-admin-nsz-odvolani-sin55-2026",
+      "category": "administrative",
+      "title": "NSZ / ÚOOÚ – odvolání proti SIN 55/2026-19",
+      "recipient": "Nejvyšší státní zastupitelství",
+      "for_authority": "Úřad pro ochranu osobních údajů",
+      "reference": "SIN 55/2026-19 · UOOU-05841/26",
+      "start_date": "2026-08-17",
+      "count_from_date": "2026-08-18",
+      "start_date_basis": "ÚOOÚ sdělením č. j. UOOU-05841/26-3 ze dne 26. 8. 2026 potvrdil, že NSZ odeslalo odvolání se spisem dne 12. 8. 2026, avšak ÚOOÚ je obdržel až 17. 8. 2026. Teprve od tohoto doručení běží lhůta pro rozhodnutí o odvolání.",
+      "status": "active",
+      "limit_kind": "infz_appeal_decision",
+      "limit_label": "15 dnů podle § 16 odst. 3 InfZ · konec 1. 9. 2026",
+      "legal_basis": "§ 16 odst. 3 InfZ; podle sdělení ÚOOÚ UOOU-05841/26-3 připadá poslední den lhůty na 1. 9. 2026",
+      "due_date": "2026-09-01",
+      "href": "zpravy/04082026-010.html#doc-cz-uoou-2026-08-26-uoou-05841-26-3",
+      "source_document_id": "doc-cz-dd-2026-08-01-odvolani-nsz-sin-55-2026-19"
+    },
+    {
+      "id": "timer-admin-kpr-repeat-16a-2026-08-10",
+      "category": "administrative",
+      "title": "KPR – opakovaná stížnost podle § 16a proti KPR 5772/2026-2",
+      "reference": "KPR 5772/2026-2",
+      "start_date": "2026-08-10",
+      "count_from_date": "2026-08-11",
+      "start_date_basis": "Opakovaná stížnost je datována a podána 10. 8. 2026; den 1 navazující lhůty je 11. 8. 2026.",
+      "status": "active",
+      "limit_kind": "statutory_days",
+      "limit_days": 7,
+      "limit_label": "7 dnů k úplnému vyhovění nebo předložení stížnosti",
+      "legal_basis": "§ 16a odst. 5 InfZ; pokud KPR sama zcela nevyhoví, předloží stížnost nadřízenému orgánu",
+      "href": "zpravy/04082026-010.html#doc-cz-kpr-2026-08-07-kpr-5772-2026-2",
+      "source_document_id": "doc-cz-citc-2026-08-10-stiznost-kpr-5772-2026-2"
+    },
+    {
+      "id": "timer-admin-infz-remedy-rule",
+      "category": "administrative",
+      "title": "InfZ – jednotné pravidlo počátku procesních lhůt",
+      "reference": "§ 16 a § 16a InfZ · obecná pravidla počítání času",
+      "start_date": "2026-08-12",
+      "start_date_basis": "U doloženého podání datovou schránkou se eviduje skutečný den doručení. Den doručení se do lhůty nezapočítává a den 1 je následující den; typ a délka lhůty se vždy odvozují od konkrétního procesního prostředku.",
+      "status": "binding_rule",
+      "limit_kind": "procedural_rule",
+      "limit_label": "doručení = den 0 · následující den = den 1",
+      "legal_basis": "časovače nesmějí směšovat datum listiny orgánu, datum doručení rozhodnutí, datum našeho podání a první den běhu navazující lhůty",
+      "href": "zpravy/04082026-010.html#procesni-casovace"
+    },
+    {
+      "id": "timer-remedy-doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54",
+      "category": "current_remedies",
+      "title": "Okresní soud v Prostějově – Doplnění včas podané stížnosti namítlo zejména nerozhodnutí o celém rozsahu společného návrhu na obnovu a požádalo o zrušení usnesení a nové projednání",
+      "recipient": "Okresní soud v Prostějově",
+      "for_authority": "Krajský soud v Brně",
+      "actor": "Mgr. Dušan Dvořák",
+      "reference": "proti 15 Nt 3105/2026-54",
+      "start_date": "2026-08-10",
+      "count_from_date": "2026-08-11",
+      "start_date_basis": "Doplnění včas podané stížnosti namítlo zejména nerozhodnutí o celém rozsahu společného návrhu na obnovu a požádalo o zrušení usnesení a nové projednání. Podáno a doručeno dne 2026-08-10; tento den je den 0 a následující den je den 1.",
+      "status": "active_derived_remedy",
+      "limit_kind": "remedy_regime_requires_verified_override",
+      "limit_label": "opravný prostředek – přesná lhůta dle konkrétního procesního režimu",
+      "legal_basis": "Přesná lhůta k vyřízení se odvíjí od konkrétního procesního režimu. Bez doložené číselné lhůty se uvádí pouze běh od evidovaného data.",
+      "source_document_id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54",
+      "href": "zpravy/04082026-010.html#doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54",
+      "derived_from_canonical_document": true
+    },
+    {
+      "id": "timer-remedy-doc-cz-dd-2026-08-10-stiznost-necinnost-msp",
+      "category": "current_remedies",
+      "title": "Ministerstvo spravedlnosti – Společná stížnost ve dvou kauzách namítla nevyřízení žádosti z 12. 7. a pokračující nečinnost po stížnosti z 15. 7.; současně byla doložena Městskému soudu v Praze jako samostatná důkazní příloha k naléhavosti",
+      "recipient": "Ministerstvo spravedlnosti",
+      "for_authority": "ministr spravedlnosti",
+      "actor": "Mgr. Dušan Dvořák",
+      "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ; 18 A 23/2026",
+      "start_date": "2026-08-10",
+      "count_from_date": "2026-08-11",
+      "start_date_basis": "Společná stížnost ve dvou kauzách namítla nevyřízení žádosti z 12. 7. a pokračující nečinnost po stížnosti z 15. 7.; současně byla doložena Městskému soudu v Praze jako samostatná důkazní příloha k naléhavosti. Podáno a doručeno dne 2026-08-10; tento den je den 0 a následující den je den 1.",
+      "status": "active_derived_remedy",
+      "limit_kind": "remedy_regime_requires_verified_override",
+      "limit_label": "opravný prostředek – přesná lhůta dle konkrétního procesního režimu",
+      "legal_basis": "Přesná lhůta k vyřízení se odvíjí od konkrétního procesního režimu. Bez doložené číselné lhůty se uvádí pouze běh od evidovaného data.",
+      "source_document_id": "doc-cz-dd-2026-08-10-stiznost-necinnost-msp",
+      "href": "listiny/doc-cz-dd-2026-08-10-stiznost-necinnost-msp.html",
+      "derived_from_canonical_document": true
+    },
+    {
+      "id": "timer-remedy-doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+      "category": "current_remedies",
+      "title": "Okresní soud v Prostějově – Stížnost proti usnesení Okresního soudu v Prostějově ze dne 7. 8. 2026, č. j. 15 Nt 3103/2026-53",
+      "recipient": "Okresní soud v Prostějově",
+      "for_authority": "Krajský soud v Brně",
+      "actor": "Mgr. Dušan Dvořák",
+      "reference": "proti 15 Nt 3103/2026-53",
+      "start_date": "2026-08-11",
+      "count_from_date": "2026-08-12",
+      "start_date_basis": "Stížnost proti usnesení Okresního soudu v Prostějově ze dne 7. 8. 2026, č. j. 15 Nt 3103/2026-53. Podáno a doručeno dne 2026-08-11; tento den je den 0 a následující den je den 1.",
+      "status": "active_derived_remedy",
+      "limit_kind": "remedy_regime_requires_verified_override",
+      "limit_label": "opravný prostředek – přesná lhůta dle konkrétního procesního režimu",
+      "legal_basis": "Přesná lhůta k vyřízení se odvíjí od konkrétního procesního režimu. Bez doložené číselné lhůty se uvádí pouze běh od evidovaného data.",
+      "source_document_id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+      "href": "zpravy/04082026-010.html#doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
+      "derived_from_canonical_document": true
+    },
+    {
+      "id": "timer-remedy-doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960",
+      "category": "current_remedies",
+      "title": "Policejní prezidium České republiky – Stížnost na postup Policie ČR při vyřizování bodu 3 podání ze dne 27. května 2026 a žádost o přešetření interního odborného a kontrolního přezkumu měření THC",
+      "recipient": "Policejní prezidium České republiky",
+      "for_authority": "Odbor vnitřní kontroly Policejního prezidia České republiky",
+      "actor": "Mgr. Dušan Dvořák",
+      "reference": "PPR-24960/ČJ-2026-990810; KU-4139/ČJ-2026-2305KM",
+      "start_date": "2026-08-14",
+      "count_from_date": "2026-08-15",
+      "start_date_basis": "Stížnost na postup Policie ČR při vyřizování bodu 3 podání ze dne 27. května 2026 a žádost o přešetření interního odborného a kontrolního přezkumu měření THC. Podáno a doručeno dne 2026-08-14; tento den je den 0 a následující den je den 1.",
+      "status": "active_derived_remedy",
+      "limit_kind": "remedy_regime_requires_verified_override",
+      "limit_label": "opravný prostředek – přesná lhůta dle konkrétního procesního režimu",
+      "legal_basis": "Přesná lhůta k vyřízení se odvíjí od konkrétního procesního režimu. Bez doložené číselné lhůty se uvádí pouze běh od evidovaného data.",
+      "source_document_id": "doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960",
+      "href": "listiny/doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960.html",
+      "derived_from_canonical_document": true
+    },
+    {
+      "id": "timer-remedy-doc-cz-dd-2026-08-15-doplneni-stiznosti-ministr-vnitra",
+      "category": "current_remedies",
+      "title": "Policejní prezidium České republiky – Doplnění stížnosti ministru vnitra o vyjádření Policejního prezidia ze dne 14. srpna 2026 a žádost o řídicí a kontrolní opatření",
+      "recipient": "Policejní prezidium České republiky",
+      "actor": "Mgr. Dušan Dvořák",
+      "reference": "bez samostatného č. j./sp. zn. v podání",
+      "start_date": "2026-08-15",
+      "count_from_date": "2026-08-16",
+      "start_date_basis": "Doplnění stížnosti ministru vnitra o vyjádření Policejního prezidia ze dne 14. srpna 2026 a žádost o řídicí a kontrolní opatření. Podáno a doručeno dne 2026-08-15; tento den je den 0 a následující den je den 1.",
+      "status": "active_derived_remedy",
+      "limit_kind": "remedy_regime_requires_verified_override",
+      "limit_label": "opravný prostředek – přesná lhůta dle konkrétního procesního režimu",
+      "legal_basis": "Přesná lhůta k vyřízení se odvíjí od konkrétního procesního režimu. Bez doložené číselné lhůty se uvádí pouze běh od evidovaného data.",
+      "source_document_id": "doc-cz-dd-2026-08-15-doplneni-stiznosti-ministr-vnitra",
+      "href": "zpravy/04082026-010.html#doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd",
+      "derived_from_canonical_document": true,
+      "process_history": "2026-08-15 · bez přiděleného č. j. / sp. zn. · Mgr. Dušan Dvořák → ministr vnitra: stížnost / doplnění stížnosti → 2026-08-24 · bez přiděleného č. j. / sp. zn. · Mgr. Dušan Dvořák → ministr vnitra: druhé mimořádně naléhavé doplnění",
+      "process_steps": [
+        {
+          "date": "2026-08-15",
+          "reference": "bez přiděleného č. j. / sp. zn.",
+          "actor": "Mgr. Dušan Dvořák → ministr vnitra",
+          "action": "stížnost / doplnění stížnosti"
+        },
+        {
+          "date": "2026-08-24",
+          "reference": "bez přiděleného č. j. / sp. zn.",
+          "actor": "Mgr. Dušan Dvořák → ministr vnitra",
+          "action": "druhé mimořádně naléhavé doplnění"
+        }
+      ],
+      "process_chain_title": "Ministr vnitra – stížnost a doplnění",
+      "active_chain_status": "Jedna stížnostní větev.",
+      "deadline_chain": [
+        "stížnost – lhůta dle konkrétního režimu"
+      ]
+    },
+    {
+      "id": "timer-remedy-doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026",
+      "category": "current_remedies",
+      "title": "Kancelář prezidenta republiky – Stížnost podle § 175 správního řádu proti postupu Kanceláře prezidenta republiky ve sdělení č. j. KPR 5080/2026 ze dne 3. srpna 2026",
+      "recipient": "Kancelář prezidenta republiky",
+      "actor": "Cannabis is The Cure, z. s.",
+      "reference": "KPR 5080/2026",
+      "start_date": "2026-08-03",
+      "count_from_date": "2026-08-04",
+      "start_date_basis": "Stížnost podle § 175 správního řádu proti postupu Kanceláře prezidenta republiky ve sdělení č. j. KPR 5080/2026 ze dne 3. srpna 2026. Podáno a doručeno dne 2026-08-03; tento den je den 0 a následující den je den 1.",
+      "status": "active_derived_remedy",
+      "limit_kind": "remedy_regime_requires_verified_override",
+      "limit_label": "opravný prostředek – přesná lhůta dle konkrétního procesního režimu",
+      "legal_basis": "Přesná lhůta k vyřízení se odvíjí od konkrétního procesního režimu. Bez doložené číselné lhůty se uvádí pouze běh od evidovaného data.",
+      "source_document_id": "doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026",
+      "href": "zpravy/04082026-010.html#doc-cz-kpr-2026-08-03-kpr-5080-2026",
+      "derived_from_canonical_document": true
+    },
+    {
+      "id": "timer-remedy-doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
+      "category": "current_remedies",
+      "title": "Česká televize – Důrazná stížnost generálnímu řediteli České televize a předsedovi Rady České televize na trvající nečinnost a výzva k věcnému projednání a smírnému řešení",
+      "recipient": "Česká televize",
+      "actor": "Mgr. Dušan Dvořák",
+      "reference": "CT 338889/2025; 10 C 69/2026",
+      "start_date": "2026-08-15",
+      "count_from_date": "2026-08-16",
+      "start_date_basis": "Důrazná stížnost generálnímu řediteli České televize a předsedovi Rady České televize na trvající nečinnost a výzva k věcnému projednání a smírnému řešení. Podáno a doručeno dne 2026-08-15; tento den je den 0 a následující den je den 1.",
+      "status": "active_derived_remedy",
+      "limit_kind": "remedy_regime_requires_verified_override",
+      "limit_label": "opravný prostředek – přesná lhůta dle konkrétního procesního režimu",
+      "legal_basis": "Přesná lhůta k vyřízení se odvíjí od konkrétního procesního režimu. Bez doložené číselné lhůty se uvádí pouze běh od evidovaného data.",
+      "source_document_id": "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
+      "href": "zpravy/04082026-010.html#doc-cz-ct-2026-06-01-ct-338889-2025-38",
+      "derived_from_canonical_document": true,
+      "process_steps": [
+        {
+          "date": "2026-08-15",
+          "reference": "evidence CT 338889/2025; sp. zn. 10 C 69/2026",
+          "actor": "Mgr. Dušan Dvořák → Česká televize / Rada ČT",
+          "action": "důrazná stížnost na trvající nečinnost; požadavek procesního sdělení do 21. 8. a věcné odpovědi do 31. 8."
+        },
+        {
+          "date": "2026-08-28",
+          "reference": "evidence CT 338889/2025; sp. zn. 10 C 69/2026; RRTV sp. zn. RRTV/2026/20/fej, č. j. RRTV/7757/2026-fej",
+          "actor": "Mgr. Dušan Dvořák → Česká televize / Rada ČT; RRTV na vědomí",
+          "action": "doplnění stížnosti; výslovně nejde o novou stížnost ani nový počátek lhůt"
+        }
+      ],
+      "process_chain_title": "Česká televize / Rada ČT – stížnost na nečinnost a její doplnění",
+      "active_chain_status": "Doplnění z 28. 8. 2026 nemění předmět stížnosti ani návrh na smír a nezahajuje novou lhůtu.",
+      "process_history": "2026-08-15 · evidence CT 338889/2025; sp. zn. 10 C 69/2026 · Mgr. Dušan Dvořák → Česká televize / Rada ČT: důrazná stížnost na trvající nečinnost; požadavek procesního sdělení do 21. 8. a věcné odpovědi do 31. 8. → 2026-08-28 · evidence CT 338889/2025; sp. zn. 10 C 69/2026; RRTV sp. zn. RRTV/2026/20/fej, č. j. RRTV/7757/2026-fej · Mgr. Dušan Dvořák → Česká televize / Rada ČT; RRTV na vědomí: doplnění stížnosti; výslovně nejde o novou stížnost ani nový počátek lhůt",
+      "deadline_chain": [
+        "do 21. 8. 2026 procesní sdělení",
+        "do 31. 8. 2026 věcná písemná odpověď"
+      ]
+    }
+  ],
+  "historical_notice_points": [
+    {
+      "date": "2012-05-18",
+      "title": "Žádost olomouckých občanů a nevládních organizací ministrovi spravedlnosti",
+      "evidence": "Předložený obraz listiny uvádí datum 18. května 2012 a žádá ministra o obnovu trestního procesu a podání stížnosti pro porušení zákona vůči Dušanu Dvořákovi; obsahuje seznam signatářů a organizací.",
+      "boundary": "Listina sama o sobě neprokazuje vědomost všech státních orgánů ani rozsah medializace."
+    },
+    {
+      "date": "2012-05-29",
+      "title": "SANANIM se připojuje k žádosti z 18. května 2012",
+      "evidence": "Předložená listina SANANIM ze dne 29. května 2012 výslovně uvádí, že se připojuje k žádosti občanů města Olomouce a olomouckých nevládních organizací ze dne 18. května 2012.",
+      "boundary": "Dokládá institucionální podporu žádosti; sama neprokazuje plošnou znalost věci všemi státními orgány."
+    }
+  ],
+  "overrides": {
+    "sources": [
+      "project-memory/process-timer-overrides.json",
+      "project-memory/process-timer-overrides-2026-08-12.json"
+    ],
+    "applied": 21,
+    "updated_on": "2026-08-26"
+  },
+  "remedy_derivation": {
+    "source_manifest": "project-memory/document-sources.json",
+    "since": "2026-07-01",
+    "canonical_remedy_documents": 12,
+    "automatically_derived": 7
+  },
+  "lifecycle": {
+    "updated_on": "2026-09-02",
+    "rule": "one active timer per procedural branch; decided steps remain only in process history",
+    "suppressed_resolved_timers": [
+      "timer-admin-msz-odvolani-sin48-2026",
+      "timer-admin-msz-stiznost-necinnost-2026-07-31"
+    ],
+    "nsz_addendum_dates": [
+      "2026-07-14",
+      "2026-07-25",
+      "2026-07-27",
+      "2026-07-29",
+      "2026-08-01",
+      "2026-08-15",
+      "2026-08-22",
+      "2026-08-28"
+    ],
+    "minister_complaint_dates": [
+      "2026-08-15",
+      "2026-08-24"
+    ],
+    "police_president_dates": [
+      "2026-08-15",
+      "2026-08-24"
+    ],
+    "gibs_dates": [
+      "2026-08-15",
+      "2026-08-24"
+    ],
+    "vsz_praha_dates": [
+      "2026-06-22",
+      "2026-08-15",
+      "2026-08-19",
+      "2026-08-25",
+      "2026-08-27",
+      "2026-08-28"
+    ],
+    "vsz_olomouc_dates": [
+      "2026-07-10",
+      "2026-08-15",
+      "2026-09-02"
+    ],
+    "kpr_175_dates": [
+      "2026-08-03"
+    ]
+  },
+  "process_chain_rule": "one matter = one full process row from first filing; every step has date + č. j. / sp. zn.; only the last unresolved interval is active",
+  "deadline_chain_rule": "full applicable deadline / each subsequent deadline after a remedy, separated by slashes; never invent a numeric deadline"
+}

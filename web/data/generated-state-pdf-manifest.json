@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "notice": "Generated public PDF copies from verified text transcriptions; not byte-identical originals.",
+  "count": 8,
+  "records": [
+    {
+      "path": "documents/report-04082026-010/64-msz-praha-2-kzn-55-2025-136-2026-08-20.pdf",
+      "sha256": "013318d2c0eae5740130c99e4d463b65bc10cef9d3f9399c044e7a7250b8ae9a",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-text-sources-2026-08-25/64-00.txt",
+        "project-memory/state-text-sources-2026-08-25/64-01.txt"
+      ]
+    },
+    {
+      "path": "documents/report-04082026-010/65-ku-4139-12-cj-2026-2305km-2026-08-20.pdf",
+      "sha256": "cb37fa6695ef7412ef9a615a0816c4941571535f562c4f031ebc008c9da6909c",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-text-sources-2026-08-25/65-00.txt"
+      ]
+    },
+    {
+      "path": "documents/report-04082026-010/66-krpt-203594-7-cj-2026-0700kr-2026-08-20.pdf",
+      "sha256": "af72bf49d369f9d1f8b44d95f2d030586a62a6f023b2e912d49637dbfdd9754e",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-text-sources-2026-08-25/66-00.txt"
+      ]
+    },
+    {
+      "path": "documents/report-04082026-010/67-krpt-priloha-rr-ku-54-2021.pdf",
+      "sha256": "0833ba549444dcffd7cf0c4013be76e3516a90b37a2885a2b6c1f59ed446dd0d",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-text-sources-2026-08-25/67-00.txt"
+      ]
+    },
+    {
+      "path": "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf",
+      "sha256": "2b12dc0ca6835f8e7b979f945d43b5acdcf58be6b66a7d6baef8a7165aa1e014",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-text-sources-2026-08-25/68-00.txt"
+      ]
+    },
+    {
+      "path": "documents/report-04082026-010/69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf",
+      "sha256": "12680384f749b066ccf12e2f813093aadf1372fa7c225f2bb8e73c534bc218e7",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-extracted-2026-08-25/69.txt"
+      ]
+    },
+    {
+      "path": "documents/report-04082026-010/70-krpt-203594-8-cj-2026-0700kr-2026-08-20.pdf",
+      "sha256": "653a5b21d953dc97717d0d0e86f891029f4c78ac7c4896d22ccb59b37ec5912a",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-extracted-2026-08-25/70.txt"
+      ]
+    },
+    {
+      "path": "documents/report-04082026-010/71-ppr-44020-2-cj-2026-990210-pd-2026-08-24.pdf",
+      "sha256": "a3878fc3308755ca047d0fef8a43d85906a069bbddfd22ed629c5b86cbe3754e",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-extracted-2026-08-25/71.txt"
+      ]
+    }
+  ]
+}
