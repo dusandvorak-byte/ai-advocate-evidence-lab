@@ -150,3 +150,4 @@ def main():
 if __name__ == "__main__":
     main()
     subprocess.run([sys.executable, str(ROOT / "scripts/materialize-msp-2026-09-08.py")], check=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts/materialize-gibs-2026-09-08.py")], check=True)
