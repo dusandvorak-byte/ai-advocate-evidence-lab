@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-08",
+  "purpose": "Vyřízení ministra spravedlnosti ze dne 8. 9. 2026, č. j. MSP-19/2026-ODKA-ROZ/27, k podnětu na opatření proti nečinnosti; zařazení do Státu lásky čas a uzavření dosavadního aktivního segmentu této větve bez předjímání dalšího opravného prostředku.",
+  "documents": [
+    {
+      "id": "doc-cz-msp-2026-09-08-msp-19-2026-odka-roz-27",
+      "user_title": "Ministr spravedlnosti neshledal důvod k opatření proti nečinnosti a vyřídil podnět ve věci MSP-19/2026-ODKA-ROZ",
+      "issue_date": "2026-09-08",
+      "received_date": null,
+      "institution_id": "CZ-MSP",
+      "reference": "MSP-19/2026-ODKA-ROZ/27",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["Ministerstvo spravedlnosti", "ministr spravedlnosti", "MSP-19/2026-ODKA-ROZ", "opatření proti nečinnosti", "§ 80 správního řádu", "§ 37 odst. 1 správního řádu", "znalecké posudky", "Prostějov", "18 A 23/2026", "návrh na smír"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/msp-19-2026-odka-roz-27-2026-09-08.pdf",
+        "sha256": "06aa9bcdd52cb7242bea04c71cd63cfd50e5caf0b0b35b6fd6164df565be7a33",
+        "verification_status": "uploaded_original_verified_in_intake; awaiting_byte_identical_public_materialization",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-08-msp.json"
+      },
+      "relations": [
+        {"type": "reakce_na", "target_id": "doc-cz-dd-2026-08-10-stiznost-necinnost-msp"},
+        {"type": "navazuje_na", "target_id": "doc-cz-msp-2026-06-03-msp-19-2026-odka-roz-7"}
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Ministr spravedlnosti dne 8. 9. 2026 pod č. j. MSP-19/2026-ODKA-ROZ/27 uvedl, že podání doručená 12. 7., 15. 7., 10. 8. a 25. 8. 2026 posoudil podle obsahu jako podnět k učinění opatření proti nečinnosti podle § 80 odst. 2 správního řádu. Podnět neshledal důvodným a k opatření proti nečinnosti nepřistoupil; výslovně uvedl, že podání ze dne 12. 7. 2026 tímto přípisem vyřizuje. Dále odmítl možnost smíru v řízení o správní žalobě a uvedl, že další podněty bez nových podstatných skutečností mohou být založeny bez dalšího opatření. Listina neobsahuje poučení o konkrétním opravném prostředku; žádný další procesní krok se proto nepředjímá."
+    }
+  ]
+}
