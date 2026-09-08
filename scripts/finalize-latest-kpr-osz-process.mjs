@@ -25,6 +25,16 @@ const updates = {
     activeEn:'The Ostrava branch continues before the Ostrava Regional Court under case 5 To 248/2026; the original matter is Ostrava District Court case 15 T 11/2025.',
     deadlineCs:'stížnostní řízení 5 To 248/2026 – bez doložené univerzální pevné číselné lhůty k rozhodnutí',
     deadlineEn:'complaint proceedings 5 To 248/2026 – no documented universal fixed numerical period for a decision'
+  },
+  'timer-remedy-doc-cz-dd-2026-08-10-stiznost-necinnost-msp': {
+    step: {date:'2026-09-08', reference:'č. j. MSP-19/2026-ODKA-ROZ/27', actor:'ministr spravedlnosti / Ministerstvo spravedlnosti', action:'podnět k opatření proti nečinnosti shledán nedůvodným; opatření podle § 80 správního řádu neučiněno; podání ze dne 12. 7. 2026 tímto přípisem vyřízeno'},
+    activeCs:'Ministr spravedlnosti dne 8. 9. 2026 pod č. j. MSP-19/2026-ODKA-ROZ/27 vyřídil podnět k opatření proti nečinnosti jako nedůvodný. Dosavadní aktivní segment této větve je uzavřen; žádný další opravný prostředek se bez doloženého podání nepředjímá.',
+    activeEn:'On 8 September 2026, under ref. MSP-19/2026-ODKA-ROZ/27, the Minister of Justice disposed of the request for measures against inactivity as unfounded. The previously active segment is closed; no further remedy is presumed unless a filing is documented.',
+    deadlineCs:'podnět podle § 80 správního řádu – vyřízen 8. 9. 2026; žádný další aktivní procesní krok není doložen',
+    deadlineEn:'request under Section 80 of the Administrative Procedure Code – disposed of on 8 September 2026; no further active procedural step is documented',
+    closed:true,
+    closedCs:'uzavřeno 8. 9. 2026',
+    closedEn:'closed 8 September 2026'
   }
 };
 
@@ -41,6 +51,12 @@ for (const [id,update] of Object.entries(updates)) {
   timer.active_chain_status = update.activeCs;
   timer.deadline_chain = update.deadlineCs.split(' / ');
   timer.process_history = timer.process_steps.map(step => `${step.date} · ${step.reference} · ${step.actor}: ${step.action}`).join(' → ');
+  if (update.closed) {
+    timer.status='closed_terminal';
+    timer.limit_kind='closed_terminal';
+    timer.limit_label=update.closedCs;
+    timer.due_date=null;
+  }
 }
 await writeFile(timerPath, JSON.stringify(data,null,2)+'\n','utf8');
 
@@ -74,6 +90,10 @@ for (const path of htmlPaths) {
     const deadline = en ? update.deadlineEn : update.deadlineCs;
     article = article.replace(/(<div class="process-chain-caption"><b>[^<]+<\/b>)[\s\S]*?(<\/div><div class="process-chain-strip")/, `$1 ${esc(active)}$2`);
     article = article.replace(/(<div class="process-deadline-chain"[^>]*><span>[^<]+<\/span> )[\s\S]*?(<\/div>)/, `$1${esc(deadline)}$2`);
+    if (update.closed) {
+      article = article.replace(/data-limit-kind="[^"]+"/, 'data-limit-kind="closed_terminal"');
+      article = article.replace(/<div class="timer-value">[\s\S]*?<\/div>/, `<div class="timer-value"><span>${esc(en ? update.closedEn : update.closedCs)}</span></div>`);
+    }
     if (!article.includes(update.step.reference.split(';')[0])) {
       const wrapEnd = article.lastIndexOf('</div></div></article>');
       if (wrapEnd > -1) article = article.slice(0,wrapEnd) + stepHtml(update.step,en) + article.slice(wrapEnd);
@@ -109,5 +129,5 @@ for (const path of htmlPaths) {
   if (unique.size !== registryIds.size || [...registryIds].some(id => !unique.has(id))) throw new Error(`LATEST-PROCESS-GATE: ${path} nemá úplnou paritu časovačů ${unique.size}/${registryIds.size}`);
 }
 const cz = await readFile('web/zpravy/04082026-010.html','utf8');
-for (const needle of ['2026-09-03','1 ZN 7061/2026-79','2026-09-02','KPR 5080/2026','5 To 248/2026','15 T 11/2025']) if (!cz.includes(needle)) throw new Error(`LATEST-PROCESS-GATE: chybí ${needle}`);
-console.log(`KPR, OSZ Frýdek-Místek a ostravská 5 To 248/2026 genealogie promítnuty; CZ/EN home i Godot mají ${registryIds.size} unikátních timer ID.`);
+for (const needle of ['2026-09-03','1 ZN 7061/2026-79','2026-09-02','KPR 5080/2026','5 To 248/2026','15 T 11/2025','2026-09-08','MSP-19/2026-ODKA-ROZ/27']) if (!cz.includes(needle)) throw new Error(`LATEST-PROCESS-GATE: chybí ${needle}`);
+console.log(`KPR, OSZ Frýdek-Místek, ostravská 5 To 248/2026 a uzavřená větev MSP-19/2026-ODKA-ROZ promítnuty; CZ/EN home i Godot mají ${registryIds.size} unikátních timer ID.`);
