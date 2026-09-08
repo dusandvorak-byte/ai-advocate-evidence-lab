@@ -35,6 +35,13 @@ const updates = {
     closed:true,
     closedCs:'uzavřeno 8. 9. 2026',
     closedEn:'closed 8 September 2026'
+  },
+  'timer-review-pcr-ku-2026-05-27': {
+    step: {date:'2026-09-08', reference:'č. j. GI-3794-4/ČJ-2026-840502-P', actor:'GIBS → Policejní prezidium České republiky', action:'GIBS postoupila podání z 15. a 24. 8. 2026 Policejnímu prezidiu k dalším vlastním opatřením a svou část věci označila za vyřízenou'},
+    activeCs:'GIBS dne 8. 9. 2026 postoupila podání z 15. a 24. 8. 2026 Policejnímu prezidiu České republiky. Úsek GIBS je uzavřen, ale tatáž procesní genealogie interního policejního přezkumu pokračuje u Policejního prezidia; bez doloženého navazujícího úkonu se nevytváří nový samostatný časovač.',
+    activeEn:'On 8 September 2026, GIBS forwarded the filings of 15 and 24 August 2026 to the Police Presidium of the Czech Republic. The GIBS segment is closed, while the same internal police-review genealogy continues at the Police Presidium; no separate new timer is created without a documented subsequent act.',
+    deadlineCs:'interní policejní přezkum – bez doložené univerzální pevné číselné lhůty / 8. 9. 2026 GIBS postoupila věc Policejnímu prezidiu k dalším vlastním opatřením',
+    deadlineEn:'internal police review – no documented universal fixed numerical deadline / on 8 September 2026 GIBS forwarded the matter to the Police Presidium for further measures'
   }
 };
 
@@ -129,5 +136,7 @@ for (const path of htmlPaths) {
   if (unique.size !== registryIds.size || [...registryIds].some(id => !unique.has(id))) throw new Error(`LATEST-PROCESS-GATE: ${path} nemá úplnou paritu časovačů ${unique.size}/${registryIds.size}`);
 }
 const cz = await readFile('web/zpravy/04082026-010.html','utf8');
-for (const needle of ['2026-09-03','1 ZN 7061/2026-79','2026-09-02','KPR 5080/2026','5 To 248/2026','15 T 11/2025','2026-09-08','MSP-19/2026-ODKA-ROZ/27']) if (!cz.includes(needle)) throw new Error(`LATEST-PROCESS-GATE: chybí ${needle}`);
-console.log(`KPR, OSZ Frýdek-Místek, ostravská 5 To 248/2026 a uzavřená větev MSP-19/2026-ODKA-ROZ promítnuty; CZ/EN home i Godot mají ${registryIds.size} unikátních timer ID.`);
+const en = await readFile('web/news/04082026-010.html','utf8');
+for (const needle of ['2026-09-03','1 ZN 7061/2026-79','2026-09-02','KPR 5080/2026','5 To 248/2026','15 T 11/2025','2026-09-08','MSP-19/2026-ODKA-ROZ/27','GI-3794-4/ČJ-2026-840502-P','gibs-gi-3794-4-cj-2026-840502-p-2026-09-08-verejna-kopie.pdf']) if (!cz.includes(needle)) throw new Error(`LATEST-PROCESS-GATE: CZ chybí ${needle}`);
+for (const needle of ['GI-3794-4/ČJ-2026-840502-P','Police Presidium of the Czech Republic']) if (!en.includes(needle)) throw new Error(`LATEST-PROCESS-GATE: EN chybí ${needle}`);
+console.log(`KPR, OSZ Frýdek-Místek, ostravská 5 To 248/2026, uzavřená větev MSP a GIBS → Policejní prezidium promítnuty; CZ/EN home i Godot mají ${registryIds.size} unikátních timer ID.`);

@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-08",
+  "purpose": "Vyrozumění GIBS ze dne 8. 9. 2026 o postoupení podání z 15. a 24. 8. 2026 Policejnímu prezidiu.",
+  "documents": [
+    {
+      "id": "doc-cz-gibs-2026-09-08-gi-3794-4-cj-2026-840502-p",
+      "user_title": "GIBS postoupila podání z 15. a 24. 8. 2026 Policejnímu prezidiu a svou část věci označila za vyřízenou",
+      "issue_date": "2026-09-08",
+      "received_date": null,
+      "institution_id": "CZ-GIBS",
+      "reference": "GI-3794-4/ČJ-2026-840502-P",
+      "case_ids": ["case-cz-pcr-ku-interni-prezkum"],
+      "document_type": "state_record",
+      "topics": ["GIBS", "Policejní prezidium", "postoupení podání", "THC", "interní přezkum"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/gibs-gi-3794-4-cj-2026-840502-p-2026-09-08-verejna-kopie.pdf",
+        "verification_status": "pending_materialization_from_verified_full_text",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-08-gibs.json"
+      },
+      "relations": [
+        {"type": "reakce_na", "target_id": "doc-cz-dd-2026-08-15-podnet-gibs"}
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "GIBS sdělila, že podání doručená 15. a 24. 8. 2026 postoupila Policejnímu prezidiu České republiky k dalším vlastním opatřením a věc ze své strany považuje za vyřízenou."
+    }
+  ]
+}
