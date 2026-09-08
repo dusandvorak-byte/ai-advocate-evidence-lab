@@ -36,15 +36,12 @@ const updates = {
     closedCs:'uzavřeno 8. 9. 2026',
     closedEn:'closed 8 September 2026'
   },
-  'timer-remedy-doc-cz-dd-2026-08-15-podnet-gibs': {
-    step: {date:'2026-09-08', reference:'č. j. GI-3794-4/ČJ-2026-840502-P', actor:'GIBS → Policejní prezidium České republiky', action:'podání z 15. a 24. 8. 2026 postoupena podle věcné a místní příslušnosti Policejnímu prezidiu k dalším vlastním opatřením; GIBS považuje věc ze své strany za vyřízenou'},
-    activeCs:'GIBS dne 8. 9. 2026 pod č. j. GI-3794-4/ČJ-2026-840502-P postoupila podání z 15. a 24. 8. 2026 Policejnímu prezidiu České republiky a svou část věci výslovně uzavřela. Procesní genealogie pokračuje u Policejního prezidia; nový samostatný časovač se nevytváří bez doloženého navazujícího úkonu.',
-    activeEn:'On 8 September 2026, under ref. GI-3794-4/ČJ-2026-840502-P, the General Inspection of Security Forces forwarded the filings of 15 and 24 August 2026 to the Police Presidium of the Czech Republic and expressly closed the matter on its side. The procedural genealogy continues at the Police Presidium; no separate new timer is created without a documented subsequent act.',
-    deadlineCs:'podnět GIBS – úsek GIBS uzavřen 8. 9. 2026 / postoupeno Policejnímu prezidiu k dalším vlastním opatřením; bez doložené pevné číselné lhůty',
-    deadlineEn:'GIBS filing – GIBS segment closed on 8 September 2026 / forwarded to the Police Presidium for further measures; no documented fixed numerical deadline',
-    closed:true,
-    closedCs:'úsek GIBS uzavřen 8. 9. 2026',
-    closedEn:'GIBS segment closed 8 September 2026'
+  'timer-remedy-doc-cz-dd-2026-08-15-zadost-prezkum-policejni-prezident': {
+    step: {date:'2026-09-08', reference:'č. j. GI-3794-4/ČJ-2026-840502-P', actor:'GIBS → Policejní prezidium České republiky', action:'GIBS postoupila podání z 15. a 24. 8. 2026 Policejnímu prezidiu k dalším vlastním opatřením a svou část věci označila za vyřízenou'},
+    activeCs:'GIBS dne 8. 9. 2026 postoupila podání z 15. a 24. 8. 2026 Policejnímu prezidiu České republiky. Úsek GIBS je uzavřen, ale tatáž procesní genealogie pokračuje u Policejního prezidia; bez doloženého navazujícího úkonu se nevytváří nový samostatný časovač.',
+    activeEn:'On 8 September 2026, GIBS forwarded the filings of 15 and 24 August 2026 to the Police Presidium of the Czech Republic. The GIBS segment is closed, while the same procedural genealogy continues at the Police Presidium; no separate new timer is created without a documented subsequent act.',
+    deadlineCs:'přezkum / stížnost – lhůta dle konkrétního režimu / 8. 9. 2026 GIBS postoupila věc Policejnímu prezidiu k dalším vlastním opatřením; bez doložené pevné číselné lhůty',
+    deadlineEn:'review / complaint – period depends on the applicable regime / on 8 September 2026 GIBS forwarded the matter to the Police Presidium for further measures; no documented fixed numerical deadline'
   }
 };
 
