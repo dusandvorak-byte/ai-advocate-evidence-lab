@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-08",
+  "purpose": "Vyrozumění GIBS ze dne 8. 9. 2026 k podáním z 15. a 24. 8. 2026; zařazení do Státu lásky čas a procesní větve interního přezkumu policejních postupů při stanovení THC.",
+  "documents": [
+    {
+      "id": "doc-cz-gibs-2026-09-08-gi-3794-4-cj-2026-840502-p",
+      "user_title": "Vyrozumění GIBS o postoupení podání z 15. a 24. 8. 2026 Policejnímu prezidiu České republiky",
+      "issue_date": "2026-09-08",
+      "received_date": null,
+      "institution_id": "CZ-GIBS",
+      "reference": "GI-3794-4/ČJ-2026-840502-P",
+      "case_ids": ["case-cz-pcr-ku-interni-prezkum"],
+      "document_type": "public_authority_response",
+      "topics": ["GIBS", "Policejní prezidium", "postoupení podání", "THC", "interní přezkum", "2009-2019"],
+      "submission_side": "state_and_public_institutions",
+      "submission_side_basis": "primary_source_sender",
+      "reacts_to": ["doc-cz-dd-2026-08-15-podnet-gibs"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/gibs-gi-3794-4-cj-2026-840502-p-2026-09-08-verejna-kopie.pdf",
+        "verification_status": "pending_materialization_from_verified_full_text"
+      },
+      "evidence_note": "GIBS dne 8. 9. 2026 pod č. j. GI-3794-4/ČJ-2026-840502-P vyrozuměla Mgr. Dušana Dvořáka, že jeho podání doručená GIBS dne 15. a 24. 8. 2026, týkající se revize řízení z let 2009-2019 a interního přezkumu policejních postupů při stanovení THC v konopí, postoupila podle věcné a místní příslušnosti k dalším vlastním opatřením Policejnímu prezidiu České republiky. GIBS současně uvedla, že jí právní úprava nesvěřuje pravomoc hodnotit namítaný postup Policie ČR ani skutkové či právní otázky dokazování, a výslovně označila věc podání ze své strany za vyřízenou. Listina sama dokládá oba vstupní dny 15. a 24. 8. 2026; stabilní ID je v registru doloženo pro podnět z 15. 8., zatímco krok z 24. 8. je zachován v procesní genealogii bez domýšlení neověřeného document_id."
+    }
+  ]
+}
