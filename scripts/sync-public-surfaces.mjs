@@ -43,8 +43,9 @@ const enDisplayDate = new Intl.DateTimeFormat('en-GB', {
   day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Prague'
 }).format(now).toLocaleUpperCase('en-GB');
 const latest = new Date(`${latestIssueDate}T00:00:00Z`);
-const latestCz = `${latest.getUTCDate()}. srpna ${latest.getUTCFullYear()}`;
-const latestEn = `${latest.getUTCDate()} August ${latest.getUTCFullYear()}`;
+const czMonths = ['ledna','února','března','dubna','května','června','července','srpna','září','října','listopadu','prosince'];
+const latestCz = `${latest.getUTCDate()}. ${czMonths[latest.getUTCMonth()]} ${latest.getUTCFullYear()}`;
+const latestEn = formatEnDate(latestIssueDate);
 
 const latestPriority = new Map([
   ['doc-cz-mk-2026-08-12-mk-49467-2026-socns', 0],

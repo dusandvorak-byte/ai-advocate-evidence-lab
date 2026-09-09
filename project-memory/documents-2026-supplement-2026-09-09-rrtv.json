@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-09",
+  "purpose": "Usnesení RRTV ze dne 1. 9. 2026 o odložení podnětu k informování České televize o konopí pro chronologii Státu lásky čas.",
+  "documents": [
+    {
+      "id": "doc-cz-rrtv-2026-09-01-rrtv-8853-2026-bur",
+      "user_title": "Usnesení o odložení podnětu k informování České televize o konopí",
+      "issue_date": "2026-09-01",
+      "received_date": null,
+      "institution_id": "CZ-RRTV",
+      "reference": "RRTV/8853/2026-bur; sp. zn. RRTV/2026/560/kar",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["RRTV", "Česká televize", "konopí", "usnesení o odložení", "přestupkové řízení", "informování ve vysílání", "§ 76 zákona č. 250/2016 Sb.", "§ 66 zákona č. 231/2001 Sb."],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/88-rrtv-8853-2026-bur-2026-09-01.pdf",
+        "intended_pdf": "documents/report-04082026-010/88-rrtv-8853-2026-bur-2026-09-01.pdf",
+        "sha256": "c13bbf676df5bba0125c163c3eb917eac3a11aac9f1ea76690b6ba62b9431c71",
+        "verification_status": "uploaded_original_verified_in_intake; byte_identical_public_binary",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-09-rrtv.json"
+      },
+      "relations": [
+        {"type": "navazuje_na", "target_id": "doc-cz-rrtv-2026-07-16-rrtv-7757-2026-fej"}
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "RRTV dne 1. 9. 2026 pod č. j. RRTV/8853/2026-bur a sp. zn. RRTV/2026/560/kar rozhodla podle § 76 odst. 1 písm. a) zákona č. 250/2016 Sb. o odložení věci bez zahájení řízení o přestupku. Podnět se týkal informování České televize o konopí, avšak neurčoval konkrétní část jejího programového obsahu; RRTV proto neshledala skutečnosti uchopitelné z hlediska své dozorové kompetence a uvedla, že není nadřízeným orgánem České televize. Poučení uvádí, že proti usnesení není podle § 66 zákona č. 231/2001 Sb. možno podat žalobu. Datum doručení usnesení není v předloženém PDF doloženo, proto se neeviduje."
+    }
+  ]
+}
