@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-09",
+  "purpose": "Výzva Městského soudu v Praze ze dne 9. 9. 2026 ve věci 8 Ad 9/2026 ke sdělení čísla účtu pro vrácení soudního poplatku.",
+  "documents": [
+    {
+      "id": "doc-cz-ms-pha-2026-09-09-8-ad-9-2026-89",
+      "user_title": "Výzva ke sdělení čísla účtu pro vrácení soudního poplatku",
+      "issue_date": "2026-09-09",
+      "received_date": null,
+      "institution_id": "CZ-MS-PHA",
+      "reference": "8 Ad 9/2026-89",
+      "case_ids": ["8 Ad 9/2026"],
+      "document_type": "state_record",
+      "topics": ["správní soudnictví", "zásahová žaloba", "Ministerstvo zdravotnictví", "vrácení soudního poplatku", "bankovní spojení", "procesní návaznost"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
+        "sha256": null,
+        "verification_status": "source_pdf_received; verified_complete_text; awaiting_generated_public_copy",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-09-ms-8-ad-9.json"
+      },
+      "relations": [
+        {"type": "navazuje_na", "target_id": "doc-cz-ms-pha-2026-08-28-8-ad-9-2026-85"}
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Městský soud v Praze dne 9. 9. 2026 pod č. j. 8 Ad 9/2026-89 vyzval žalobce ke sdělení čísla účtu, na který má být vrácen soudní poplatek podle III. výroku usnesení ze dne 28. 8. 2026, č. j. 8 Ad 9/2026-85. Listina sama znovu nerozhoduje o meritu zásahové žaloby; v procesní genealogii je evidována jako navazující administrativní krok k realizaci již vysloveného vrácení soudního poplatku a sama nezakládá nový opravný prostředek ani nový aktivní časovač."
+    }
+  ]
+}
