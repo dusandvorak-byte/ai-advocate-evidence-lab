@@ -1,0 +1,247 @@
+Article 15 of Regulation (EU) 2023/1322 provides for the establishment by EUDA of a network of forensic and toxicological laboratories active in forensic and toxicological investigations of drugs and drug-related harms.
+
+Under Article 15(2), this network is intended, inter alia, to serve as a forum for:
+- data acquisition and information exchange;
+- professional training;
+- support for quality assurance systems;
+- and, in particular, supporting further harmonisation of data collection and analytical methods.
+
+This is directly connected with the problem presented to EUDA.
+
+The Czech Criminalistics Institute has now confirmed in writing the existence of individual OKTE SOPs and different systems for reporting measurement uncertainty.
+
+The question therefore arises:
+Has this issue been systematically identified, compared and addressed within the network established under Article 15?
+
+If so, I request the outcome.
+If not, I request an explanation as to why it has not been addressed.
+
+VIII. SPECIFIC FACTORS THAT MAY CHANGE THE RESULT OF THC DETERMINATION
+
+When determining THC in cannabis, the question of scientific comparability cannot be reduced merely to the instrument used by a laboratory.
+
+The result may be affected, in particular, by:
+- GC/GC-FID or LC/HPLC methodology;
+- whether THC and THCA are determined separately;
+- decarboxylation of THCA to THC;
+- representativeness of the sample taken;
+- number of plants analysed;
+- homogenisation;
+- sample size;
+- drying;
+- storage;
+- time between seizure and analysis;
+- laboratory validation;
+- measurement uncertainty;
+- and interpretation of the result.
+
+I expressly drew EUDA's attention to these questions in my first submission of 15 May 2026.
+This is therefore not a new issue created by this call.
+EUDA received it already on 15 May 2026.
+
+IX. RELATIONSHIP BETWEEN THC AND THCA AND SCIENTIFIC COMPARABILITY
+
+Of particular importance is the question whether different analytical methods actually measure a comparable quantity.
+
+If an analytical method causes THCA to be converted into THC during sample processing, the resulting THC value may differ from a result obtained by a method that distinguishes THC and THCA.
+
+It is therefore necessary to know at least:
+- what exactly is designated as THC;
+- whether THCA is determined separately;
+- whether and how it is included in the result;
+- which analytical procedure is used;
+- whether decarboxylation occurs during the procedure;
+- and how results are compared between laboratories.
+
+These questions were already put to EUDA in the first submission.
+
+X. EUROPEAN COMMISSION AND THE DISTINCTION BETWEEN AGRICULTURAL AND FORENSIC ANALYSIS
+
+Another important consideration is that European regulation may prescribe certain analytical methods for particular agricultural or administrative purposes.
+
+That does not, in itself, resolve the question whether a sufficiently harmonised standard exists for forensic determination of THC in criminal proceedings.
+
+This is precisely the gap I presented to EUDA.
+
+I am not asking EUDA to create a criminal-law rule.
+I am asking it to determine, from a scientific perspective, whether the results of different methods are sufficiently comparable and whether further harmonisation of analytical methods is necessary.
+
+XI. IMPACT ON FUNDAMENTAL RIGHTS AND LEGAL CERTAINTY
+
+This problem is not merely a matter of statistics.
+
+Where a laboratory result is used in criminal proceedings, the manner in which that result is obtained may have a fundamental impact on:
+- criminal liability;
+- personal liberty;
+- property;
+- reputation;
+- the ability to cultivate cannabis;
+- scientific research;
+- provision of medicinal products;
+- and other fundamental rights.
+
+It is therefore essential to be able to establish objectively:
+what was measured, how it was measured, from which sample, using which procedure, with what uncertainty and according to which standard.
+
+In the Czech Republic, I have brought and am bringing several proceedings concerning the conduct of public authorities, including proceedings involving the Ministry of Justice, the Ministry of the Interior and the Police of the Czech Republic.
+
+I am not asking EUDA to review those proceedings.
+I present them solely as evidence that the methodological issue is not abstract.
+
+The result of THC measurement may in particular cases be used as evidence with potentially fundamental consequences for an individual.
+
+XII. MY PREVIOUS NATIONAL EFFORTS
+
+The issue presented has not been pursued solely at European level.
+
+At the level of the Czech Republic, I have repeatedly drawn the attention of the competent authorities to questions concerning:
+- the methodology for determining THC;
+- the distinction between THC and THCA;
+- representativeness of the sample;
+- homogenisation;
+- measurement uncertainty;
+- method validation;
+- and the legal consequences of these issues.
+
+In 2026, these matters were further submitted to the competent Czech authorities and became the subject of additional proceedings.
+
+On 25 June 2026, the Criminalistics Institute provided a written response confirming that individual OKTE laboratories create their own SOPs and that measurement uncertainty is reported according to the quality system of each laboratory.
+
+This makes European assessment of the matter even more urgent.
+
+XIII. EUDA HAS BEEN SPECIFICALLY INFORMED OF THE PROBLEM
+
+I consider it important to distinguish between an ordinary submission and the present situation.
+
+EUDA:
+1. received specific substantive questions on 15 May 2026;
+2. knew that the issue concerned the comparability of methods for determining THC in the Member States;
+3. knew that the issue also concerned GC/GC-FID, HPLC/LC, THC/THCA, sampling, storage and measurement uncertainty;
+4. knew that the issue could affect the comparability of European data;
+5. on 22 May 2026, through its staff member Danilo Ballotta, offered a personal meeting and the possibility of leaving the materials at the reception desk for his attention;
+6. on 25 May 2026, the materials were actually delivered at the EUDA reception desk for his attention;
+7. on 3 June 2026, EUDA was expressly asked to confirm receipt and to indicate when a substantive response could be expected.
+
+This call therefore does not constitute a new and undefined allegation.
+It constitutes a formal procedural call to state a position concerning an issue that EUDA has already received and had an opportunity to consider.
+
+XIV. SPECIFIC QUESTIONS TO WHICH I REQUEST AN ANSWER
+
+1. Does EUDA consider differences between analytical methods for determining THC used by Member States to be a matter falling within its mandate under Article 6(1)(f) of Regulation (EU) 2023/1322?
+2. If so, what specific steps has EUDA already taken to improve the comparability, objectivity and reliability of such data?
+3. Does EUDA maintain an overview of the methods used by Member States for forensic determination of THC in cannabis?
+4. Does this overview include differences between GC/GC-FID and LC/HPLC?
+5. Does it include differences in the analytical treatment of THC and THCA?
+6. Does it include differences in sampling, homogenisation, drying and storage?
+7. Does it include differences in determining and reporting measurement uncertainty?
+8. Does a comparative analysis of these methods between Member States exist within EUDA?
+9. Has the issue of THC determination methods been discussed within the network of forensic and toxicological laboratories under Article 15 of Regulation (EU) 2023/1322?
+10. Has the harmonisation of analytical methods for determining THC and THC/THCA been discussed within that network?
+11. Do common or recommended standards for these methods exist within EUDA?
+12. If no such standards exist, does EUDA consider their development or recommendation to constitute a task falling under Article 6(1)(f) or Article 15(2)(d)?
+13. Does EUDA consider it compatible with the requirement of comparability, objectivity and reliability for individual forensic laboratories within a Member State to use their own SOPs?
+14. Does EUDA consider it compatible with those requirements for the manner in which measurement uncertainty is reported to depend upon the quality system of an individual laboratory?
+15. How does EUDA verify that differing national analytical procedures do not result in methodologically incomparable data at Union level?
+16. If EUDA has not yet examined this issue, does it intend to conduct or commission such a comparative assessment?
+17. If EUDA concludes that this issue falls outside its mandate, I request that it identify the specific provision of Regulation (EU) 2023/1322 on which that conclusion is based.
+18. If EUDA concludes that it is under no obligation to act in this matter, I request specific legal reasoning, including an explanation of the relationship between that conclusion and Article 6(1)(f) and Article 15(2)(d) of Regulation (EU) 2023/1322.
+
+XV. SPECIFIC ACTION REQUESTED FROM EUDA
+
+By this call, I request EUDA, within the scope of its powers, to:
+1. assess the comparability of methods for forensic determination of THC used in the Member States;
+2. assess in particular the differences between GC/GC-FID and LC/HPLC;
+3. assess differences in the analytical treatment of THC and THCA;
+4. assess the issues of representative sampling, homogenisation, drying and storage;
+5. assess differences in determining and reporting measurement uncertainty;
+6. determine whether those differences may affect the comparability, objectivity and reliability of information at Union level;
+7. discuss this issue within the network of forensic and toxicological laboratories under Article 15;
+8. consider whether common or recommended non-binding standards are necessary under Article 6(1)(f);
+9. and inform me of the outcome of this assessment.
+
+If EUDA has already conducted such an assessment, I request the title, date, scope and available output thereof.
+If it has not conducted such an assessment, I request a clear statement as to whether it intends to do so.
+If it does not intend to do so, I request specific legal and scientific reasons.
+
+XVI. ARTICLE 265 TFEU – FORMAL CALL TO ACT
+
+I make this submission expressly as a call to act pursuant to Article 265 TFEU.
+
+Article 265 TFEU expressly provides for proceedings in respect of an omission to act by Union institutions, bodies, offices or agencies.
+
+Under Article 265 TFEU, the institution, body, office or agency concerned must first be called upon to act. If, within two months of that call, it has not defined its position, an action for failure to act may, subject to the further conditions laid down by Union law, be brought within a further period of two months.
+
+I am aware of this procedural requirement.
+This submission is therefore not formulated as a general political petition.
+It is formulated as a specific call to define a position concerning the performance of EUDA's statutory tasks.
+
+XVII. REQUEST FOR EUDA TO DEFINE ITS POSITION
+
+I request EUDA to define its position within the period prescribed by Article 265 TFEU.
+
+I do not regard the following as sufficient definition of its position:
+- a mere acknowledgement of receipt;
+- an automated response;
+- a reference to a website;
+- a general statement that criminal law falls within the competence of the Member States;
+- or a general statement that EUDA lacks competence without identifying the specific legal basis for that conclusion.
+
+Such a response would not address the issue submitted.
+
+The subject matter of this call is not harmonisation of criminal penalties or the definition of a criminal offence.
+
+The subject matter is the scientific comparability, objectivity and reliability of information and the further harmonisation of analytical methods, i.e. an area expressly included among EUDA's tasks under Regulation (EU) 2023/1322.
+
+XVIII. POSSIBLE FURTHER PROCEEDINGS BEFORE THE COURT OF JUSTICE OF THE EUROPEAN UNION
+
+If, following this call, EUDA fails to define its position within the prescribed period, I reserve the right to consider and, where appropriate, make use of further remedies under Union law, including an action pursuant to Article 265 TFEU.
+
+I am aware that, before any such action is brought, it will be necessary to assess separately, in particular:
+- the substantive scope of EUDA's powers;
+- whether the requested action constitutes a legally relevant obligation of EUDA;
+- whether the requested act is an act addressed to a specific person;
+- my standing;
+- the jurisdiction of the General Court;
+- compliance with the applicable time limits;
+- and all other admissibility requirements.
+
+I therefore do not submit that an action under Article 265 TFEU would automatically be admissible.
+
+I formulate this call so that, if EUDA fails to define its position, the clearest possible procedural basis will exist for subsequently assessing an action for failure to act.
+
+The case-law of the Court of Justice confirms that a prior call to act is a necessary procedural condition for an action under Article 265 TFEU and that the call must be capable of requiring the institution concerned to define its position concerning the alleged failure to act.
+
+XIX. URGENCY OF THE MATTER
+
+The urgency of this issue is not merely theoretical.
+
+In the Czech Republic, I have brought and am bringing several proceedings connected with the conduct of public authorities in this field.
+
+I have also repeatedly drawn the attention of Czech authorities to questions concerning:
+- the methodology for determining THC;
+- the distinction between THC and THCA;
+- representativeness of samples;
+- homogenisation;
+- measurement uncertainty;
+- method validation;
+- and possible consequences for criminal liability.
+
+On 25 June 2026, the Criminalistics Institute of the Police of the Czech Republic additionally confirmed in writing the existence of individual OKTE SOPs and the fact that measurement uncertainty is reported according to the quality system of the respective laboratory.
+
+This creates a concrete and current reason for requesting a European assessment.
+This is not a historical academic question.
+It concerns the present functioning of forensic methods and their European comparability.
+
+XX. FINAL SUMMARY
+
+The European Union established EUDA, inter alia, to provide the Union and the Member States with factual, objective, reliable and comparable information concerning drugs and drug-related harms.
+
+The Union legislature expressly assigned EUDA, in Article 6(1)(f), the task of improving the comparability, objectivity and reliability of information and data at Union level and promoting greater uniformity of measurement methods.
+
+Furthermore, Article 15(2)(d) expressly provides that the network of forensic and toxicological laboratories is to support further harmonisation of data collection and analytical methods.
+
+EUDA was informed of the specific problem already on 15 May 2026.
+On 18 May 2026, I travelled to Lisbon in connection with this matter.
+On 20 and 21 May, I attempted personally to submit the materials and to discuss the matter with EUDA.
+On 22 May, EUDA staff member Danilo Ballotta offered me a personal meeting and the possibility of leaving the materials at the reception desk for his attention.
+On 25 May 2026, the materials were actually delivered at the EUDA reception desk for his attention.

@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "notice": "Generated public PDF copy from verified full text; not byte-identical original.",
+  "count": 1,
+  "records": [
+    {
+      "path": "documents/report-04082026-010/gibs-gi-3794-4-cj-2026-840502-p-2026-09-08-verejna-kopie.pdf",
+      "sha256": "673564dd0a68ebd0f35a7ad9e5f86a9560ed55e45d816ec67a1ee2fb8406d391",
+      "kind": "generated_public_copy_from_verified_full_text",
+      "byte_identical_original": false,
+      "source": "project-memory/state-text-sources-2026-09-08/gibs-gi-3794-4-cj-2026-840502-p-2026-09-08.txt"
+    }
+  ]
+}
