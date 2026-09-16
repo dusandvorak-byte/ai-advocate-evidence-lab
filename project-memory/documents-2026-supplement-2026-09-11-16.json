@@ -1,0 +1,291 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-16",
+  "purpose": "Nové procesní listiny a podání ze dne 7.–16. září 2026 navazující na znalecké postupy THC, obnovy řízení, správní a dohledové větve. Chronologie se řídí issue_date jednotlivých listin.",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-09-07-os-osz-pro-procesni-pouceni",
+      "user_title": "Mimořádně naléhavá žádost o procesní poučení k veřejným zasedáním 15 Nt 3104/2026 a 15 Nt 3106/2026",
+      "issue_date": "2026-09-07",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 2 T 104/2010; 1 ZT 11/2010",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "obnova řízení",
+        "procesní poučení",
+        "15 Nt 3104/2026",
+        "15 Nt 3106/2026",
+        "2 T 104/2010",
+        "2 T 65/2011"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_pdf_verified_in_file_library; public_evidence_page_only"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Podání ze dne 7. 9. 2026 požádalo Okresní soud v Prostějově a Okresní státní zastupitelství v Prostějově o přesné procesní vymezení, která původní trestní věc bude projednávána ve veřejných zasedáních vedených pod sp. zn. 15 Nt 3104/2026 a 15 Nt 3106/2026."
+    },
+    {
+      "id": "doc-cz-ekk-2026-09-11-msp-cia-thc-dohled-akreditace",
+      "user_title": "Podnět k dohledu nad znaleckou činností policie a k přezkoumání akreditace při zkoumání konopí a stanovení THC",
+      "issue_date": "2026-09-11",
+      "received_date": null,
+      "institution_id": "CZ-MSP",
+      "reference": "MSP-162/2026-ODKA-SPZ; podnět MSp / ČIA 11. 9. 2026",
+      "case_ids": [],
+      "document_type": "alliance_submission",
+      "topics": [
+        "znalecká činnost",
+        "akreditace",
+        "konopí",
+        "THC",
+        "THCA",
+        "OKTE",
+        "Kriminalistický ústav",
+        "ČIA"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_pdf_verified_in_file_library; public_evidence_page_only"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Edukativní konopná klinika, z. s., podala Ministerstvu spravedlnosti a současně Českému institutu pro akreditaci podnět k prověření znalecké a laboratorní činnosti při zkoumání konopí a kvantitativním stanovení THC. Podnět žádá ověřit metodický řetězec včetně vzorkování, homogenizace, THC/THCA, dekarboxylace, validace, nejistoty měření a rozsahu akreditace."
+    },
+    {
+      "id": "doc-cz-dd-2026-09-13-os-osz-pro-doplneni-obnova",
+      "user_title": "Doplnění návrhů na obnovu a souvisejících podání k OS a OSZ Prostějov",
+      "issue_date": "2026-09-13",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 2 T 104/2010; 1 ZT 11/2010; ZN 4/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "obnova řízení",
+        "Prostějov",
+        "THC",
+        "znalecké dokazování"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_pdf_verified_in_file_library; public_evidence_page_only"
+      },
+      "relations": [
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-ekk-2026-09-11-msp-cia-thc-dohled-akreditace"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Podání ze dne 13. 9. 2026 doplnilo větve obnovy 15 Nt 3104/2026 a 15 Nt 3106/2026 a související věci OSZ Prostějov; mezi nové listiny označilo podnět MSp/ČIA ze dne 11. 9. 2026 a závěrečné sdělení NSZ/ČT ze dne 13. 9. 2026."
+    },
+    {
+      "id": "doc-cz-dd-2026-09-13-ks-ksz-vsz-doplneni-stiznosti",
+      "user_title": "Doplnění stížností a dohledových podání pro KS Brno, KSZ Brno a VSZ Olomouc",
+      "issue_date": "2026-09-13",
+      "received_date": null,
+      "institution_id": "CZ-KS-BRN",
+      "reference": "9 To 315/2026; 9 To 316/2026; 3 VZN 239/2026; 1 KZT 475/2026; 1 KZN 1079/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "stížnostní řízení",
+        "obnova řízení",
+        "dohled",
+        "KS Brno",
+        "VSZ Olomouc",
+        "KSZ Brno"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_pdf_verified_in_file_library; public_evidence_page_only"
+      },
+      "relations": [
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-ekk-2026-09-11-msp-cia-thc-dohled-akreditace"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Podání ze dne 13. 9. 2026 doplnilo stížnostní větve KS Brno 9 To 315/2026 a 9 To 316/2026 a dohledové/přezkumné větve 3 VZN 239/2026, 1 KZT 475/2026 a 1 KZN 1079/2026."
+    },
+    {
+      "id": "doc-cz-dd-2026-09-13-nsz-ct-zaverecne-sdeleni",
+      "user_title": "Závěrečné sdělení k předžalobní výzvě NSZ a trvající stížnosti České televizi a Radě ČT",
+      "issue_date": "2026-09-13",
+      "received_date": null,
+      "institution_id": "CZ-NSZ",
+      "reference": "6 NZN 1737/2026; CT 338889/2025",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "NSZ",
+        "Česká televize",
+        "předžalobní výzva",
+        "stížnost",
+        "THC",
+        "znalecká činnost"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_pdf_verified_in_file_library; public_evidence_page_only"
+      },
+      "relations": [
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-ekk-2026-09-11-msp-cia-thc-dohled-akreditace"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Závěrečné sdělení ze dne 13. 9. 2026 navazuje na předžalobní výzvu NSZ ze dne 14. 7. 2026 s deseti dodatky a na stížnost České televizi a Radě ČT. Jako nové listiny označuje článek z 11. 9. 2026 a podnět MSp/ČIA z 11. 9. 2026."
+    },
+    {
+      "id": "doc-cz-mv-2026-09-14-mv-139593-3-tp-2026",
+      "user_title": "Rozhodnutí o odvolání: odvolání proti částečnému odmítnutí žádosti o informace se zamítá a rozhodnutí KŘP MSK se potvrzuje",
+      "issue_date": "2026-09-14",
+      "received_date": null,
+      "institution_id": "CZ-MV",
+      "reference": "MV-139593-3/TP-2026",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "InfZ",
+        "odvolání",
+        "OKTE Frýdek-Místek",
+        "SOP",
+        "THC",
+        "metodika",
+        "KRPT-203594-8/ČJ-2026-0700KR"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_pdf_verified_in_file_library; temporary_evidence_page_only",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-11-16.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Ministerstvo vnitra rozhodnutím ze dne 14. 9. 2026 zamítlo odvolání Mgr. Dušana Dvořáka ze dne 24. 8. 2026 a potvrdilo rozhodnutí KŘP Moravskoslezského kraje ze dne 20. 8. 2026 č. j. KRPT-203594-8/ČJ-2026-0700KR. Správní odvolací fáze tímto rozhodnutím končí; listina uvádí, že proti rozhodnutí se nelze odvolat."
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-09-14-9-ad-12-2026-7",
+      "user_title": "Usnesení: druhá totožná zásahová žaloba proti SÚKL se odmítá pro překážku litispendence; řízení 15 Ad 14/2026 pokračuje",
+      "issue_date": "2026-09-14",
+      "received_date": null,
+      "institution_id": "CZ-MS-PHA",
+      "reference": "9 Ad 12/2026-7",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "správní soudnictví",
+        "SÚKL",
+        "zásahová žaloba",
+        "litispendence",
+        "15 Ad 14/2026",
+        "9 Ad 12/2026"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_pdf_verified_in_file_library; court_pdf_not_required"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Městský soud v Praze dne 14. 9. 2026 odmítl žalobu vedenou pod sp. zn. 9 Ad 12/2026 pro překážku litispendence, protože o obsahově totožné žalobě doručené soudu již 31. 8. 2026 probíhá řízení pod sp. zn. 15 Ad 14/2026. Odmítnutí 9 Ad 12/2026 proto neznamená skončení dříve zahájené věci 15 Ad 14/2026. Poučení uvádí dvoutýdenní lhůtu ke kasační stížnosti od doručení; datum doručení není v kanonickém záznamu doloženo, proto se nový číselný časovač nezakládá."
+    },
+    {
+      "id": "doc-cz-vsz-olo-2026-09-15-3-vzn-239-2026-64",
+      "user_title": "Vyrozumění k podáním z 15. a 24. srpna a 2., 3. a 13. září 2026",
+      "issue_date": "2026-09-15",
+      "received_date": null,
+      "institution_id": "CZ-VSZ-OLO",
+      "reference": "3 VZN 239/2026-64",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "dohled",
+        "státní zastupitelství",
+        "KSZ Brno",
+        "KSZ Ostrava",
+        "OSZ Frýdek-Místek",
+        "podání 13. 9. 2026"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_pdf_verified_in_file_library; temporary_evidence_page_only",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-11-16.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-09-13-ks-ksz-vsz-doplneni-stiznosti"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "VSZ v Olomouci dne 15. 9. 2026 vyrozumělo o vyřízení podání z 15. a 24. 8., 2., 3. a 13. 9. 2026. Podání z 24. 8. bylo dříve postoupeno KSZ Ostrava a KSZ Brno; některá další podání byla vzata na vědomí. K podání z 13. 9. VSZ uvedlo, že dohled nad okresními státními zastupitelstvími vykonávají bezprostředně nadřízená krajská státní zastupitelství, a podání proto pouze vzalo na vědomí."
+    },
+    {
+      "id": "doc-cz-dd-2026-09-16-os-ks-brno-predzasedaci-doplneni",
+      "user_title": "Souhrnné mimořádně naléhavé důkazní a procesní doplnění před veřejnými zasedáními a ve stížnostních větvích",
+      "issue_date": "2026-09-16",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 9 To 315/2026; 9 To 316/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "obnova řízení",
+        "veřejné zasedání",
+        "KS Brno",
+        "OS Prostějov",
+        "THC",
+        "THCA"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_docx_verified_in_file_library; public_evidence_page_only"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-os-pro-2026-09-14-15-nt-3104-2026"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-os-pro-2026-09-14-15-nt-3106-2026"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Podání ze dne 16. 9. 2026 je společně adresováno OS Prostějov ke sp. zn. 15 Nt 3104/2026 a 15 Nt 3106/2026 a KS Brno ke sp. zn. 9 To 315/2026 a 9 To 316/2026. Navazuje na procesní upřesnění OS Prostějov ze dne 14. 9. 2026 a shrnuje důkazní a procesní argumentaci před říjnovými veřejnými zasedáními a v navazujících stížnostních větvích."
+    }
+  ]
+}
