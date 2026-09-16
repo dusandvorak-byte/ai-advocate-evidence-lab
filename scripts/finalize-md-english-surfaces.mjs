@@ -15,21 +15,15 @@ for (const path of ['web/en.html', 'web/kc/en.html']) {
   html = html.replaceAll(czechTitle, englishTitle);
   html = html.replaceAll('>Ministerstvo dopravy<', '>Ministry of Transport<');
   if (path === 'web/en.html') {
-    html = ensureAuditMarkers(html, [
-      'NCOZ-4324-2/ČJ-2026-4100PI',
-      'Ministry of Transport',
-      'The Ministry of Transport deferred the information request'
-    ]);
+    html = ensureAuditMarkers(html, ['NCOZ-4324-2/ČJ-2026-4100PI','Ministry of Transport','The Ministry of Transport deferred the information request']);
   }
   await writeFile(path, html, 'utf8');
 }
 
 const godotPath = 'web/news/04082026-010.html';
 let godot = await readFile(godotPath, 'utf8');
-godot = ensureAuditMarkers(godot, [
-  'Ministry of Transport',
-  'The Ministry of Transport deferred the freedom-of-information request'
-]);
+godot = ensureAuditMarkers(godot, ['Ministry of Transport','The Ministry of Transport deferred the freedom-of-information request']);
 await writeFile(godotPath, godot, 'utf8');
 
-console.log('Ministry of Transport latest-record cards localized on English public surfaces; stable production audit markers ensured.');
+await import('./apply-release-2026-09-16.mjs');
+console.log('Ministry of Transport latest-record cards localized; release 2026-09-16 applied after final public synchronization.');

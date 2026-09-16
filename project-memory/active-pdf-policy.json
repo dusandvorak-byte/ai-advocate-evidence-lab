@@ -1,58 +1,22 @@
 {
   "version": 2,
-  "updated_on": "2026-08-19",
+  "updated_on": "2026-09-16",
   "status": "binding",
   "principle": "Je-li originální PDF doloženo, veřejně publikovatelné, fyzicky přítomné v repozitáři a jednoznačně přiřaditelné, musí být ve veřejné chronologii aktivní přímý odkaz na originál PDF. Naše navazující opravné prostředky a reakce se zobrazují inline u napadené nebo související státní listiny a mají rovněž aktivní odkaz na originál PDF, je-li dostupný.",
-  "required_institution_types": [
-    "ministry",
-    "executive_office",
-    "prosecution",
-    "police",
-    "police_lab",
-    "public_institution",
-    "independent_authority",
-    "eu_agency",
-    "executive"
-  ],
-  "institution_types": [
-    "ministry",
-    "executive_office",
-    "prosecution",
-    "police",
-    "police_lab",
-    "public_institution",
-    "independent_authority",
-    "eu_agency",
-    "executive"
-  ],
-  "exempt_institution_types": [
-    "court",
-    "court_enforcement"
-  ],
-  "exempt_institution_ids": [
-    "CZ-CT",
-    "CZ-CSSZ"
-  ],
+  "required_institution_types": ["ministry","executive_office","prosecution","police","police_lab","public_institution","independent_authority","eu_agency","executive"],
+  "institution_types": ["ministry","executive_office","prosecution","police","police_lab","public_institution","independent_authority","eu_agency","executive"],
+  "exempt_institution_types": ["court","court_enforcement"],
+  "exempt_institution_ids": ["CZ-CT","CZ-CSSZ"],
   "document_exceptions": [
-    {
-      "id": "doc-cz-kpr-2026-05-19-kpr-4093-2026",
-      "reason": "Záznam ze dne 19. 5. 2026 je z rozhodnutí autora webu veden pouze jako stabilní evidenční listina bez samostatného PDF."
-    },
-    {
-      "id": "doc-cz-osz-olo-2026-05-12-sin-22-2025-95",
-      "reason": "Listina OSZ Olomouc je z rozhodnutí autora webu vedena pouze jako stabilní evidenční listina bez samostatného PDF."
-    },
-    {
-      "id": "doc-eu-euda-2026-08-07-ack-article-265-tfeu",
-      "reason": "Potvrzení bylo doručeno jako e-mail bez samostatného úředního PDF; veřejný záznam proto odkazuje na evidenční stránku a související doložené dokumenty."
-    },
-    {
-      "id": "doc-cz-md-2026-08-18-md-46042-2026-010-4",
-      "reason": "Originální PDF Ministerstva dopravy bylo při příjmu ověřeno SHA-256, ale v této revizi není binární soubor fyzicky materializován v repozitáři; veřejná evidenční stránka zachovává identitu, obsahové jádro a kontrolní hash zdroje. Výjimka se zruší po materializaci PDF."
-    }
+    {"id":"doc-cz-kpr-2026-05-19-kpr-4093-2026","reason":"Záznam ze dne 19. 5. 2026 je z rozhodnutí autora webu veden pouze jako stabilní evidenční listina bez samostatného PDF."},
+    {"id":"doc-cz-osz-olo-2026-05-12-sin-22-2025-95","reason":"Listina OSZ Olomouc je z rozhodnutí autora webu vedena pouze jako stabilní evidenční listina bez samostatného PDF."},
+    {"id":"doc-eu-euda-2026-08-07-ack-article-265-tfeu","reason":"Potvrzení bylo doručeno jako e-mail bez samostatného úředního PDF; veřejný záznam proto odkazuje na evidenční stránku a související doložené dokumenty."},
+    {"id":"doc-cz-md-2026-08-18-md-46042-2026-010-4","reason":"Originální PDF Ministerstva dopravy bylo při příjmu ověřeno SHA-256, ale v této revizi není binární soubor fyzicky materializován v repozitáři; veřejná evidenční stránka zachovává identitu, obsahové jádro a kontrolní hash zdroje. Výjimka se zruší po materializaci PDF."},
+    {"id":"doc-cz-mv-2026-09-14-mv-139593-3-tp-2026","reason":"Originální pětistránkové PDF Ministerstva vnitra bylo obsahově ověřeno ve zdrojové knihovně, ale binární soubor není v tomto publikačním běhu fyzicky dostupný pro bezpečné vložení do repozitáře. Veřejná evidenční stránka se zveřejní bez předstírání aktivního PDF; výjimka zaniká po materializaci originálu."},
+    {"id":"doc-cz-vsz-olo-2026-09-15-3-vzn-239-2026-64","reason":"Originální dvoustránkové PDF VSZ Olomouc bylo obsahově ověřeno ve zdrojové knihovně, ale binární soubor není v tomto publikačním běhu fyzicky dostupný pro bezpečné vložení do repozitáře. Veřejná evidenční stránka se zveřejní bez předstírání aktivního PDF; výjimka zaniká po materializaci originálu."}
   ],
   "exception_rule": "Výjimka znamená pouze to, že nepřítomnost PDF není vadou úplnosti. Existující a ověřené PDF se ani u výjimky nesmí odstranit.",
   "publication_scope_rule": "Platné a jednoznačně přiřazené PDF lze zveřejnit u každé evidované veřejné listiny i u našich podání; povinný rozsah a publikační rozsah nejsou totéž.",
   "chronology_rule": "Pořadí se řídí issue_date listiny, nikoli datem nahrání, doručení do Evidence Lab ani pořadím zápisu ve zdrojovém souboru.",
-  "current_scope_note": "Povinné aktivní PDF se kontroluje zejména u policie, ministerstev, KPR a státních zastupitelství. Soudy, soudní exekutoři, Česká televize a ČSSZ smějí být evidovány bez PDF; e-mailový záznam EUDA ze dne 7. srpna 2026 je dokumentovou výjimkou. U listiny Ministerstva dopravy ze dne 18. srpna 2026 je dočasná dokumentová výjimka pouze do fyzické materializace ověřeného PDF v repozitáři."
+  "current_scope_note": "Povinné aktivní PDF se kontroluje zejména u policie, ministerstev, KPR a státních zastupitelství. Soudy, soudní exekutoři, Česká televize a ČSSZ smějí být evidovány bez PDF. Dočasné výjimky pro MV 14. 9. 2026 a VSZ Olomouc 15. 9. 2026 platí pouze do fyzické materializace již ověřených originálů."
 }
