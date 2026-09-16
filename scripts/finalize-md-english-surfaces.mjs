@@ -14,6 +14,7 @@ const ensureAuditMarkers = (html, markers) => {
 // localization and production-audit markers are added to the final generated HTML
 // and cannot be overwritten later in this step.
 await import('./apply-release-2026-09-16.mjs');
+await import('./fix-report-11092026-assets.mjs');
 
 for (const path of ['web/en.html', 'web/kc/en.html']) {
   let html = await readFile(path, 'utf8');
@@ -30,4 +31,4 @@ let godot = await readFile(godotPath, 'utf8');
 godot = ensureAuditMarkers(godot, ['Ministry of Transport','The Ministry of Transport deferred the freedom-of-information request']);
 await writeFile(godotPath, godot, 'utf8');
 
-console.log('Release 2026-09-16 applied before final English localization and production-audit markers.');
+console.log('Release 2026-09-16 applied with exact Votruba original before final English localization and production-audit markers.');
