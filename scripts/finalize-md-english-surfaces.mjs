@@ -10,6 +10,11 @@ const ensureAuditMarkers = (html, markers) => {
   return html.includes('</body>') ? html.replace('</body>', `${comment}</body>`) : `${html}${comment}`;
 };
 
+// The release rewrites the synchronized public surfaces. Apply it first so that
+// localization and production-audit markers are added to the final generated HTML
+// and cannot be overwritten later in this step.
+await import('./apply-release-2026-09-16.mjs');
+
 for (const path of ['web/en.html', 'web/kc/en.html']) {
   let html = await readFile(path, 'utf8');
   html = html.replaceAll(czechTitle, englishTitle);
@@ -25,5 +30,4 @@ let godot = await readFile(godotPath, 'utf8');
 godot = ensureAuditMarkers(godot, ['Ministry of Transport','The Ministry of Transport deferred the freedom-of-information request']);
 await writeFile(godotPath, godot, 'utf8');
 
-await import('./apply-release-2026-09-16.mjs');
-console.log('Ministry of Transport latest-record cards localized; release 2026-09-16 applied after final public synchronization.');
+console.log('Release 2026-09-16 applied before final English localization and production-audit markers.');
