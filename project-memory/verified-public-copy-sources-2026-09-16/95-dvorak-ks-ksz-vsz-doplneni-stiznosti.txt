@@ -1,0 +1,172 @@
+Doplnění stížností a dohledových podání - 13. 9. 2026
+OVĚŘENÁ VEŘEJNÁ KOPIE
+Zdroj: uživatelem dodané PDF „KS a KSZ Brno a VSZ Olomouc - doplnění stížností dne 13.9.2026.pdf“. Tato veřejná
+kopie byla vytvořena z úplného textového výstupu zdrojového PDF; nejde o binárně identický originál.
+
+KS BRNO 9 To 315/2026 • 9 To 316/2026 | VSZ OLOMOUC 3 VZN 239/2026 | KSZ BRNO 1 KZT 475/2026 •
+1 KZN 1079/2026 | 13. 9. 2026
+KRAJSKÉMU SOUDU V BRNĚ
+Rooseveltova 16, 601 95 Brno
+k trestním věcem sp. zn. 9 To 315/2026 a 9 To 316/2026
+navazujícím na věci OS Prostějov 15 Nt 3103/2026 a 15 Nt 3105/2026
+VRCHNÍMU STÁTNÍMU ZASTUPITELSTVÍ V OLOMOUCI
+Studentská 1187/7, 779 00 Olomouc
+Ke sp. zn. 3 VZN 239/2026
+KRAJSKÉMU STÁTNÍMU ZASTUPITELSTVÍ V BRNĚ
+Mozartova 3, 601 52 Brno
+ke sp. zn. 1 KZT 475/2026 a 1 KZN 1079/2026
+V Ospělově dne 13. září 2026
+PODATEL Mgr. Dušan Dvořák, Ospělov 6, 798 55 Ludmírov, ID DS r8u3nhx
+SOUDNÍ VĚCI Krajský soud v Brně: 9 To 315/2026 a 9 To 316/2026
+DOHLEDOVÁ VĚC Vrchní státní zastupitelství v Olomouci: 3 VZN 239/2026
+PŘEZKUMNÉ VĚCI Krajské státní zastupitelství v Brně: 1 KZT 475/2026 a 1 KZN 1079/2026
+NAVAZUJE NA Stížnosti z 10. a 11. 8. 2026; společné doplnění z 13. 8. 2026; doplnění KS Brno z 22. 8. a 3.
+9. 2026; podnět VSZ Olomouc z 24. 8. 2026 a jeho další doplnění
+NOVÉ LISTINY 1) Podnět MSp / ČIA ze dne 11. 9. 2026; 2) Závěrečné sdělení NSZ a ČT ze dne 13. 9. 2026.
+SPOLEČNÉ MIMOŘÁDNĚ NALÉHAVÉ DŮKAZNÍ DOPLNĚNÍ
+nové listiny ze dne 11. a 13. září 2026 k přezkoumatelnosti policejního znaleckého měření THC
+JÁDRO PODÁNÍ
+Nové listiny jsou zásadní tím, že přesně formulují dosud nezodpovězené otázky úplného metodického
+řetězce - od reprezentativního vzorkování a homogenizace přes analytickou metodu, vztah Δ9-THC/THCA
+a dekarboxylaci až po validaci či verifikaci, nejistotu měření, rozsah akreditace a prvotní laboratorní data a nově otevírají formální dohled Ministerstva spravedlnosti a akreditační přezkum ČIA. Tyto otázky přímo
+dopadají na důkazní základ věcí nyní vedených u KS Brno, VSZ Olomouc a KSZ Brno.
+I. Účel a přesné procesní vymezení
+Tímto společně doplňuji spisy adresátů o dvě listiny, které vznikly až po mém posledním společném
+důkazním doplnění ze dne 3. září 2026. V plném rozsahu trvám na dřívějších podáních; toto podání je
+neopakuje, nýbrž vymezuje pouze to, co je nové a proč to musí být posouzeno před konečným
+rozhodnutím v dotčených řízeních.
+První novou listinou je podnět Edukativní konopné kliniky, z. s., ze dne 11. 9. 2026 Ministerstvu
+spravedlnosti ve věci MSP-162/2026-ODKA-SPZ a Českému institutu pro akreditaci k výkonu dohledu nad
+znaleckou činností policie a k přezkoumání akreditace v oblasti zkoumání konopí a kvantitativního
+stanovení THC. Druhou je závěrečné sdělení ze dne 13. 9. 2026 Nejvyššímu státnímu zastupitelství ke sp.
+zn. 6 NZN 1737/2026 a České televizi k čj. CT 338889/2025.
+II. Proč je podnět MSp / ČIA ze dne 11. 9. 2026 zásadní novou listinou
+Podnět ze dne 11. 9. 2026 nepředkládá pouze další polemiku s výsledkem měření. Směřuje na orgány,
+jihž zákonná působnost je odlišná od působnosti trestního soudu a státního zastupitelství: Ministerstvo
+spravedlnosti je žádáno o výkon dohledu nad znaleckou činností a ČIA o prověření plnění akreditačních
+požadavků u dotčených policejních zkušebních laboratoří.
+Jeho význam pro nynější spisy spočívá zejména v tom, že systematicky vymezuje konkrétní ověřitelné
+položky, bez nichž nelze zpětně posoudit reprodukovatelnost a přezkoumatelnost laboratorního údaje:
+• konkrétní standardní operační postup (SOP), jeho číslo, verzi a datum účinnosti v rozhodné době;
+• pravidlo výběru reprezentativního vzorku, jeho velikost a způsob doložení reprezentativnosti;
+• popis přípravy a homogenizace vzorku;
+• konkrétní analytickou metodu a přístrojové podmínky;
+• zda a jak byla rozlišována veličina Δ9-THC, THCA a případně „total THC“;
+• zda analytický postup vedl k dekarboxylaci THCA na THC a jak byl tento účinek ve výsledku popsán a
+právně interpretován;
+• validaci či verifikaci použité metody pro konkrétní účel;
+• nejistotu měření a způsob jejího zohlednění vůči právně rozhodné hranici;
+• rozsah akreditace v rozhodné době a označení případné neakreditované činnosti;
+• dochované prvotní laboratorní záznamy, chromatogramy, pracovní listy, kalibrace a záznamy o přípravě
+vzorku.
+Právě tento přístup je použitelný i v mých věcech: nejde o to, aby soud nebo státní zastupitelství samo
+nahrazovalo znalce či akreditační orgán, ale aby před přijetím právního závěru ověřilo, zda rozhodující
+laboratorní údaj stojí na doložitelném metodickém řetězci a zda lze tento řetězec dnes věcně
+rekonstruovat.
+III. Návaznost na již doložený rozpor policejních listin z roku 2026
+Tato nová listina zesiluje, nikoli nahrazuje, důkazní význam policejních listin předložených již v srpnu a září
+2026. Kriminalistický ústav dne 25. 6. 2026, č. j. KU-4139-5/ČJ-2026-2305KM, uvedl, že jednotlivá OKTE si
+standardní operační postupy vytvářejí sama a že nejistota metody je vyčíslena v SOP.
+Naproti tomu listiny KŘP Moravskoslezského kraje ze dne 20. 8. 2026, založené na vyjádření OKTE
+Frýdek-Místek, podle mých dřívějších podání uvádějí pro období 2009-2019 absenci SOP pro stanovení
+THC v konopí v rozsahu akreditace, absenci písemných metodických pokynů k homogenizaci a THC/THCA
+a absenci validačních protokolů.
+ROZHODUJÍCÍ DŮKAZNÍ OTÁZKA
+Buď v rozhodné době existoval konkrétní předem určený, písemný, dohledatelný a odborně ověřený
+postup pro získání právně významného údaje o THC, anebo takový postup doložen nebyl.
+Pokud existoval, musí být možné jej přesně označit a vztáhnout ke konkrétní expertize. Pokud doložen
+není, musí být vysvětlen důsledek této skutečnosti pro váhu a přezkoumatelnost důkazu, nikoli nahrazen
+obecnou důvěrou v odbornost pracoviště.
+IV. Význam argumentace ve věci 5 To 248/2026 vedené u KS v Ostravě
+V předmětném řízení je u krajského soudu napadáno, že neexistuje důkaz, že by znalecké pracoviště
+policie OKTE Frýdek Místek, které podávalo policii znalecká vyjádření také v mých trestních kauzách, při
+měření obsahu THC v konopí zabraného dotčeným až v roce 2025 postupovalo alespoň podle prvního
+policií doložitelného metodického předpisu z roku 2021, a totiž rozkazu ředitele Kriminalistického ústavu č.
+54/2021. Současně bylo krajskému soudu doloženo vyjádření přezkum konajícího KSZ v Ostravě ze dne
+17. 4. 2026, č. j. 2 KZZ 2/2026-13, které uzavřelo, že k podnětu ve věci porušení zákona znaleckým
+šetřením OKTE nepřijalo žádné opatření.
+V. Závěrečné sdělení NSZ a ČT ze dne 13. 9. 2026 a nový legislativní kontext
+Závěrečné sdělení ze dne 13. 9. 2026 předkládá Nejvyššímu státnímu zastupitelství a České televizi tytéž
+otázky v širším systémovém kontextu a výslovně je spojuje s podnětem MSp / ČIA ze dne 11. 9. 2026. Pro
+nynější řízení je podstatná zejména jeho zásada: úplný metodický řetězec musí být doložitelný od odběru
+a homogenizace vzorku přes analytickou metodu, vztah THC/THCA a případnou dekarboxylaci až po
+validaci či verifikaci, nejistotu měření a rozsah akreditace.
+Podání rovněž upozorňuje na připravovanou novelu zákona o návykových látkách. Podle přiloženého
+materiálu má být upravena přeměna CBD a THCA na jiné chemické látky a má být současně řešena
+výjimka pro Policii České republiky při plnění jejích úkolů. Úřad vlády ČR dne 11. 9. 2026 zveřejnil, že
+vláda dne 14. 9. 2026 projedná novelu zákona o návykových látkách. Přesné znění a právní dopad
+navrhované výjimky je však třeba hodnotit podle vlastního legislativního materiálu.
+Tuto okolnost předkládám jako důkaz, že zákonodárce nyní výslovně upravuje oblast chemické přeměny
+CBD/THCA a zvláštní postavení Policie ČR, proto je o to důležitější před rozhodnutím soudu zjistit, jaký
+konkrétní právní a metodický základ platil v době jednotlivých historických expertiz. Pozdější právní
+úprava nemůže nahradit zjištění tehdejšího skutkového a právního stavu.
+VI. Přímý význam pro Krajský soud v Brně - 9 To 315/2026 a 9 To 316/2026
+Obě stížnostní věci navazují na návrhy na obnovu řízení a na důkazní otázky, které již byly Krajskému
+soudu opakovaně předloženy. Nové listiny jsou významné pro posouzení, zda policejní informace z roku
+2026 představují nové skutečnosti či důkazy ve smyslu obnovovacího řízení a zda jsou ve spojení s
+původním důkazním stavem způsobilé ovlivnit závěr o spolehlivosti historického stanovení THC.
+Zejména žádám, aby soud nové listiny neposuzoval izolovaně, ale ve spojení s již doloženým rozporem
+mezi větou Nejvyššího soudu ze dne 20. 5. 2015, sp. zn. 11 Tdo 181/2015, o závazně přejímané znalecké
+metodice a policejními informacemi roku 2026 o konkrétní dokumentaci a praxi OKTE. Rozhodující není, že
+námitka metodiky byla historicky vznášena; rozhodující je, že nové úřední podklady, jimiž je nyní
+objektivizována, vznikly nebo byly zpřístupněny až v roce 2026.
+VII. Přímý význam pro VSZ v Olomouci - 3 VZN 239/2026
+Pro dohledovou věc 3 VZN 239/2026 jde o další vývoj po podnětu ze dne 24. 8. 2026. Tehdy bylo
+požadováno, aby nové policejní důkazy nebyly rozmělňovány ani uzavírány obecným ujištěním o
+odbornosti Policie ČR. Podnět MSp / ČIA ze dne 11. 9. 2026 nyní přesně vymezuje, jaké odborné a
+akreditační otázky mají být nezávisle prověřeny, a tím poskytuje VSZ konkrétní kontrolní osnovu pro
+dohled nad postupem KSZ v Brně.
+Žádám proto, aby VSZ při výkonu dohledu ověřilo zejména, zda KSZ v Brně ve věcech 1 KZT 475/2026 a 1
+KZN 1079/2026 skutečně opatřilo nebo se pokusilo opatřit konkrétní metodické a laboratorní podklady, a
+zda v konečném vyrozumění výslovně vypořádá jednotlivé body uvedené v kapitole II tohoto podání.
+VIII. Přímý význam pro KSZ v Brně - 1 KZT 475/2026 a 1 KZN 1079/2026
+Ve spise 1 KZT 475/2026 je přezkoumáván postup OSZ v Prostějově ve věci 1 ZT 11/2010; věc se již od
+července 2026 dotýká i postoupeného podnětu Kriminalistického ústavu a metodiky stanovení THC. Ve
+spise 1 KZN 1079/2026 je přezkoumávána další související větev. Nové listiny proto nejsou vnějším
+materiálem, ale přímo doplňují předmět již probíhajících přezkumů.
+Žádám, aby KSZ v Brně nevycházelo pouze z toho, že o historických znaleckých výstupech rozhodovaly
+soudy. Předmětem současného přezkumu je též nově doložený stav dokumentace a kontrolovatelnosti
+policejní znalecké praxe, který v době původních řízení nebyl znám v dnešní podobě. Je třeba odlišit revizi
+pravomocného rozsudku od prověření nové úřední informace o tom, jaký metodický podklad tehdy
+existoval a jak jej lze dnes doložit.
+IX. Společné procesní návrhy
+S ohledem na výše uvedené navrhuji a žádám, aby každý z adresátů v rozsahu své zákonné působnosti:
+1. založil toto podání a obě nové listiny ze dne 11. 9. a 13. 9. 2026 do všech v záhlaví označených spisů;
+2. posoudil je ve vzájemné souvislosti s mými dřívějšími podáními, zejména doplněními z 22. 8. a 3. 9.
+2026, nikoli jako izolované dokumenty;
+3. výslovně vypořádal, zda je u rozhodných historických expertiz dohledatelný konkrétní SOP, jeho verze a
+účinnost, pravidlo reprezentativního vzorkování a homogenizace, použitá analytická metoda, zacházení s
+THC/THCA a dekarboxylací, validace/verifikace, nejistota měření, rozsah akreditace a prvotní laboratorní
+data;
+4. pokud některý z uvedených podkladů již neexistuje nebo byl skartován, přesně označil, o který podklad
+jde, kdy a na základě jakého skartačního či jiného režimu přestal být dostupný a jaký důsledek má jeho
+absence pro přezkoumatelnost výsledku;
+5. nepovažoval samotnou existenci akreditace nebo obecné metodické kontroly za náhradu zjištění, jaký
+konkrétní postup byl použit v konkrétní trestní věci;
+6. zohlednil, že formální dohled MSp a akreditační přezkum ČIA jsou nyní nově otevřenými, na trestním
+řízení nezávislými kontrolními rovinami, a předešel rozhodnutí založenému na předpokladu, který může
+být těmito orgány právě prověřován;
+7. u Krajského soudu v Brně rozhodl o stížnostech až po věcném vypořádání významu nových listin pro
+test novosti a významnosti důkazů;
+8. u VSZ Olomouc zajistil v rámci dohledu konkrétní a přezkoumatelné provedení výše uvedených kroků
+KSZ v Brně;
+9. u KSZ v Brně promítl nové listiny do přezkumů 1 KZT 475/2026 a 1 KZN 1079/2026 a v konečném
+vyrozumění uvedl, které konkrétní úkony byly provedeny a s jakým výsledkem.
+X. Závěr
+Důkazní spor již nelze redukovat na tvrzení podatele proti znalci. V roce 2026 vznikly úřední policejní
+listiny, které vyvolaly konkrétní otázky existence a obsahu SOP, vzorkování, homogenizace, THC/THCA,
+dekarboxylace, validace a nejistoty měření.
+Dne 11. 9. 2026 byly tytéž otázky formálně předloženy orgánům dohledu nad znaleckou činností a
+akreditací.
+Dne 13. 9. 2026 byly předloženy NSZ v širším systémovém a legislativním kontextu.
+Proto žádám, aby označené orgány nerozhodly na základě dřívějšího předpokladu o správnosti metodiky
+bez toho, aby nyní konkrétně zjistily a vypořádaly, jaký postup byl v rozhodné době skutečně použit a zda
+jej lze zpětně doložit.
+S úctou
+Mgr. Dušan Dvořák
+ID DS: r8u3nhx
+Přílohy:
+1. Podnět k výkonu dohledu nad znaleckou činností policie a k přezkoumání akreditace - Ministerstvo
+spravedlnosti / Český institut pro akreditaci, ze dne 11. 9. 2026, k věci MSP-162/2026-ODKA-SPZ.
+2. Závěrečné sdělení Nejvyššímu státnímu zastupitelství ke sp. zn. 6 NZN 1737/2026 a České televizi k
+evidenci CT 338889/2025 ze dne 13. 9. 2026.
