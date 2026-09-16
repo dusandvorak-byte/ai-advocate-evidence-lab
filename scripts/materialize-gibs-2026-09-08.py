@@ -4,6 +4,8 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 from reportlab.lib.enums import TA_CENTER
@@ -85,3 +87,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    subprocess.run([sys.executable, str(ROOT / "scripts/materialize-verified-public-copies-2026-09-16.py")], check=True)

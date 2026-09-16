@@ -15,3 +15,16 @@
 .church-site .latest-records{background:#ece7d8}
 @media(max-width:900px){.latest-record-grid{grid-template-columns:1fr}.latest-record-card{min-height:0}.latest-records>header{grid-template-columns:1fr}.latest-records>header .section-label{grid-column:auto}}
 @media(max-width:560px){.latest-records{padding:22px 14px}.latest-record-card{box-shadow:2px 2px 0 #181818}}
+
+/* Exact user-supplied Jiří Votruba artwork: never crop, stretch or blend it. */
+img[src$="assets/votruba/zpivej-kopie.jpg"],
+img[src$="/assets/votruba/zpivej-kopie.jpg"]{
+  object-fit:contain!important;
+  object-position:center!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  background:#fff!important;
+  mix-blend-mode:normal!important;
+}
