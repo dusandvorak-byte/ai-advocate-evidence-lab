@@ -6,6 +6,14 @@ const supplementPaths = (await readdir('project-memory'))
   .filter(name => translationSupplementPattern.test(name))
   .map(name => `project-memory/${name}`)
   .sort();
+
+const timerTranslationsPath = 'project-memory/english-process-timer-translations.json';
+const timerTranslationSupplementPattern = /^english-process-timer-translations-\d{4}-\d{2}-\d{2}(?:-[^.]+)?\.json$/;
+const timerSupplementPaths = (await readdir('project-memory'))
+  .filter(name => timerTranslationSupplementPattern.test(name))
+  .map(name => `project-memory/${name}`)
+  .sort();
+
 const builderPath = 'scripts/build-english-godot.mjs';
 const validatorPath = 'scripts/validate-live-dockets-contract.mjs';
 
@@ -16,6 +24,14 @@ for (const supplementPath of supplementPaths) {
   translations.documents = { ...(translations.documents || {}), ...(supplement.documents || {}) };
 }
 await writeFile(translationsPath, `${JSON.stringify(translations, null, 2)}\n`, 'utf8');
+
+const timerTranslations = JSON.parse(await readFile(timerTranslationsPath, 'utf8'));
+timerTranslations.timers ||= {};
+for (const supplementPath of timerSupplementPaths) {
+  const supplement = JSON.parse(await readFile(supplementPath, 'utf8'));
+  timerTranslations.timers = { ...timerTranslations.timers, ...(supplement.timers || {}) };
+}
+await writeFile(timerTranslationsPath, `${JSON.stringify(timerTranslations, null, 2)}\n`, 'utf8');
 
 let builder = await readFile(builderPath, 'utf8');
 builder = builder
@@ -60,4 +76,4 @@ if (validator.includes('englishGodotRecords !== 73') || validator.includes('úpl
 }
 await writeFile(validatorPath, validator, 'utf8');
 
-console.log(`English Godot and validator prepared from ${supplementPaths.length} automatically discovered translation supplements with dynamically derived state, outgoing and timer counts.`);
+console.log(`English Godot and validator prepared from ${supplementPaths.length} document translation supplements and ${timerSupplementPaths.length} timer translation supplements with dynamically derived state, outgoing and timer counts.`);
