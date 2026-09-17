@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-16",
+  "purpose": "Předvolání Obvodního soudu pro Prahu 4 ze dne 16. 9. 2026 ve věci 10 C 69/2026, kterým bylo nařízeno první jednání na 24. 11. 2026 ve 13:00.",
+  "documents": [
+    {
+      "id": "doc-cz-os-pha4-2026-09-16-10-c-69-2026-predvolani",
+      "user_title": "Předvolání k prvnímu jednání: jednání nařízeno na 24. 11. 2026 ve 13:00",
+      "issue_date": "2026-09-16",
+      "received_date": null,
+      "institution_id": "CZ-OS-PHA4",
+      "reference": "10 C 69/2026",
+      "case_ids": ["case-cz-os-praha4-10c69-2026"],
+      "document_type": "state_record",
+      "topics": ["civilní řízení", "ochrana osobnosti", "Česká televize", "první jednání", "předvolání", "10 C 69/2026"],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/96-os-praha4-10-c-69-2026-predvolani-2026-09-16.pdf",
+        "sha256": "2194279c2aa00a90db89d0af704bcca2b44ed4c940e8c6a1089232bbee07fa26",
+        "source_sha256": "26c97198e8d11242039a1b6c775a7f607d08b7446ebcac6e9600980f672023f0",
+        "verification_status": "source_pdf_received; normalized_public_copy_from_user_supplied_original; visual_content_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-16-os-praha4.json"
+      },
+      "relations": [
+        {"type": "navazuje_na", "target_id": "doc-cz-os-pha4-2026-07-14-10-c-69-2026-49"}
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Obvodní soud pro Prahu 4 dne 16. 9. 2026 ve věci Mgr. Dušan Dvořák proti České televizi o ochranu osobnosti nařídil první jednání na 24. 11. 2026 ve 13:00 v místnosti 3.308. Listina stanoví konkrétní termín jednání; nerozhoduje o meritu věci. V návaznosti na pevně stanovený termín se dosavadní průběžný časovač čekání na procesní krok u věci 10 C 69/2026 stahuje, přičemž samotná soudní věc zůstává vedena jako aktivní."
+    }
+  ]
+}
