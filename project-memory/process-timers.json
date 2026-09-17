@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_on": "2026-08-18",
+  "updated_on": "2026-09-17",
   "description": "Kanonický registr živých procesních časovačů. Levá hodnota je počet kalendářních dnů od doloženého počátku do dne zobrazení; pravá hodnota je pouze doložená zákonná, smluvená nebo výslovně stanovená procesní lhůta. Není-li univerzální číselná zákonná lhůta, registr ji nevymýšlí.",
   "display_rule": "elapsed_days / legal_or_procedural_limit",
   "categories": ["court", "pre_action", "administrative", "review_supervision", "criminal_historical"],
@@ -30,19 +30,6 @@
       "limit_label": "bez pevné číselné zákonné lhůty k rozhodnutí",
       "legal_basis": "soudní řízení – bez evidované univerzální číselné lhůty k meritornímu rozhodnutí",
       "href": "zpravy/04082026-010.html#case-cz-ms-praha-8ad9-2026"
-    },
-    {
-      "id": "timer-court-10c69-2026",
-      "category": "court",
-      "title": "OS Praha 4 sp. zn. 10 C 69/2026 – Česká televize",
-      "reference": "10 C 69/2026",
-      "start_date": "2026-06-04",
-      "start_date_basis": "Navazující podání projektu označují sjednocené znění žaloby proti České televizi ze dne 4. června 2026.",
-      "status": "active",
-      "limit_kind": "no_fixed_numeric_statutory_deadline",
-      "limit_label": "bez pevné číselné zákonné lhůty k rozhodnutí",
-      "legal_basis": "civilní soudní řízení – bez evidované univerzální číselné lhůty k meritornímu rozhodnutí",
-      "href": "zpravy/04082026-010.html#case-cz-os-praha4-10c69-2026"
     },
     {
       "id": "timer-court-18a23-2026",
