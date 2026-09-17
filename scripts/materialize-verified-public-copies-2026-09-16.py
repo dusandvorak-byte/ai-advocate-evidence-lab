@@ -15,6 +15,8 @@ SOURCE = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-16"
 OUT = ROOT / "web" / "documents" / "report-04082026-010"
 
 JOBS = {
+    "89-ms-praha-8-ad-9-2026-89.txt": "89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
+    "91-os-prostejov-15-nt-3106-2026.txt": "91-os-prostejov-15-nt-3106-2026-2026-09-14.pdf",
     "92-ms-praha-9-ad-12-2026-7.txt": "92-ms-praha-9-ad-12-2026-7-2026-09-14.pdf",
     "93-mv-139593-3-tp-2026.txt": "93-mv-139593-3-tp-2026-2026-09-14.pdf",
     "94-vsz-olomouc-3-vzn-239-2026-64.txt": "94-vsz-olomouc-3-vzn-239-2026-64-2026-09-15.pdf",
