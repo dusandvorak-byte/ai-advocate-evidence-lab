@@ -14,6 +14,9 @@ const ensureAuditMarkers = (html, markers) => {
 // localization and production-audit markers are added to the final generated HTML
 // and cannot be overwritten later in this step.
 await import('./apply-release-2026-09-16.mjs');
+// Regression gate for the Jiří Votruba hero asset: the public copy must be a complete
+// JPEG and byte-identical to the canonical full artwork, never a truncated copy.
+await import('./check-votruba-hero.mjs');
 
 for (const path of ['web/en.html', 'web/kc/en.html']) {
   let html = await readFile(path, 'utf8');
