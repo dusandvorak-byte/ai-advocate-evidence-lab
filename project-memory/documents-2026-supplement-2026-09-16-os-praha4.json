@@ -10,19 +10,32 @@
       "received_date": null,
       "institution_id": "CZ-OS-PHA4",
       "reference": "10 C 69/2026",
-      "case_ids": ["case-cz-os-praha4-10c69-2026"],
+      "case_ids": [
+        "case-cz-os-praha4-10c69-2026"
+      ],
       "document_type": "state_record",
-      "topics": ["civilní řízení", "ochrana osobnosti", "Česká televize", "první jednání", "předvolání", "10 C 69/2026"],
+      "topics": [
+        "civilní řízení",
+        "ochrana osobnosti",
+        "Česká televize",
+        "první jednání",
+        "předvolání",
+        "10 C 69/2026"
+      ],
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/96-os-praha4-10-c-69-2026-predvolani-2026-09-16.pdf",
-        "sha256": "2194279c2aa00a90db89d0af704bcca2b44ed4c940e8c6a1089232bbee07fa26",
+        "sha256": "0cd831f494e7b1001ccb358449f6ca757a870ae72931e603464c83f4d53caea7",
         "source_sha256": "26c97198e8d11242039a1b6c775a7f607d08b7446ebcac6e9600980f672023f0",
-        "verification_status": "source_pdf_received; normalized_public_copy_from_user_supplied_original; visual_content_preserved",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-09-16-os-praha4.json"
+        "verification_status": "source_pdf_received; verified_public_copy_from_complete_extracted_text; public_copy_not_binary_original; four_page_text_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-16-os-praha4.json",
+        "source_text": "project-memory/source-texts/os-praha4-2026-09-16-10-c-69-2026-predvolani.txt"
       },
       "relations": [
-        {"type": "navazuje_na", "target_id": "doc-cz-os-pha4-2026-07-14-10-c-69-2026-49"}
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-os-pha4-2026-07-14-10-c-69-2026-49"
+        }
       ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",
