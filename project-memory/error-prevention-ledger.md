@@ -192,6 +192,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Projev: položka 4 uváděla pouze „Vyrozumění o zastavení řízení“ a nezachovala důvod zastavení ani částku.
 - Pojistka: validační smlouva vyžaduje u listiny SIN 22/2025-95 úplné znění o zastavení pro nezaplacení částky 6 800 Kč za vydání informací; stejný význam musí obsahovat anglická chronologie.
 
+### Poškozené PDF se tiše změnilo na evidenční stránku
+
+- Projev: u předvolání Obvodního soudu pro Prahu 4 ze dne 16. 9. 2026 ve věci 10 C 69/2026 se místo přímého odkazu „Dokument v PDF“ zobrazila „Evidenční stránka“.
+- Příčina: do repozitáře se dostal useknutý 7,5kB PDF fragment bez koncového markeru `%%EOF`. Reconciliation jej správně rozpoznala jako neplatný, ale chybně jej pouze odpojila a build pokračoval, takže závada se skryla jako běžný fallback na evidenční stránku.
+- Náprava: poškozený binární fragment se z kanonického zdroje odstraní; z úplného čtyřstránkového extrahovaného textu zdrojového PDF se deterministicky materializuje výslovně označená ověřená veřejná kopie. Kanonický záznam nese její SHA-256 a nesmí ji vydávat za binární originál.
+- Pojistka: jestliže kanonický záznam obsahuje `public.pdf` a jeho stav deklaruje `source_pdf_received`, fyzicky přítomný, ale nepoužitelný PDF soubor je fatální validační chyba. Reconciliation jej nesmí tiše převést na `null` a degradovat na „Evidenční stránku“. Generovaná veřejná kopie současně kontroluje počet stranového textu, hlavičku `%PDF-`, koncový marker `%%EOF` a očekávaný SHA-256.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.

@@ -163,6 +163,10 @@ for (const doc of registry.documents) {
     continue;
   }
   if (!validPhysicalSet.has(repoPath)) {
+    const declaredStatus = String(doc.public.verification_status || '');
+    if (/source_pdf_received/i.test(declaredStatus)) {
+      throw new Error(`Kanonický záznam ${doc.id} deklaruje přijaté zdrojové PDF ${doc.public.pdf}, ale fyzický veřejný PDF soubor je nepoužitelný. Build se nesmí tiše degradovat na evidenční stránku.`);
+    }
     invalidated.push({ id: doc.id, invalid_pdf: doc.public.pdf, reason: 'invalid-public-pdf' });
     doc.public.pdf = null;
     doc.public.sha256 = null;

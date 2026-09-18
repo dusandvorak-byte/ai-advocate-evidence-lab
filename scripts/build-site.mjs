@@ -33,6 +33,7 @@ const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\
 await run('scripts/validate-architecture.mjs');
 await runPython('scripts/materialize-state-pdfs-2026-09-03.py');
 await run('scripts/normalize-canonical-data.mjs');
+await run('scripts/materialize-os-praha4-public-copy.mjs');
 await run('scripts/reconcile-public-pdfs.mjs');
 await run('scripts/audit-registries.mjs');
 
