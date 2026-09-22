@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-22",
+  "purpose": "Sdělení Městského soudu v Praze ze dne 22. 9. 2026 ve věci 15 Ad 14/2026 o samostatnosti poplatkové povinnosti a nemožnosti převést soudní poplatek z věci 8 Ad 9/2026.",
+  "documents": [
+    {
+      "id": "doc-cz-ms-pha-2026-09-22-15-ad-14-2026-12",
+      "user_title": "Sdělení k soudnímu poplatku: poplatek z řízení 8 Ad 9/2026 nelze převést na řízení 15 Ad 14/2026; ve věci 8 Ad 9/2026 byl již dán pokyn k vrácení poplatku",
+      "issue_date": "2026-09-22",
+      "received_date": null,
+      "institution_id": "CZ-MS-PHA",
+      "reference": "15 Ad 14/2026-12",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": ["správní soudnictví","zásahová žaloba","SÚKL","soudní poplatek","15 Ad 14/2026","8 Ad 9/2026"],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_pdf_verified_in_file_library; temporary_evidence_page_only",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-22-ms-15-ad-14.json",
+        "source_text": "project-memory/verified-public-copy-sources-2026-09-22/97-ms-praha-15-ad-14-2026-12.txt"
+      },
+      "relations": [
+        {"type":"souvisí","target_id":"doc-cz-ms-pha-2026-09-09-8-ad-9-2026-89"},
+        {"type":"navazuje_na","target_id":"doc-cz-ms-pha-2026-09-14-9-ad-12-2026-7"}
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Městský soud v Praze dne 22. 9. 2026 sdělil, že soudní poplatek zaplacený v řízení 8 Ad 9/2026 nelze převést na samostatnou poplatkovou povinnost v řízení 15 Ad 14/2026. Současně uvedl, že ve věci 8 Ad 9/2026 byl již dán pokyn k vrácení zaplaceného soudního poplatku. Listina neukončuje řízení 15 Ad 14/2026 a nestanoví novou lhůtu."
+    }
+  ]
+}
