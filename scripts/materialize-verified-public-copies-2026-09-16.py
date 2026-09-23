@@ -13,7 +13,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-16"
 OUT = ROOT / "web" / "documents" / "report-04082026-010"
-SOURCE_2026_09_22 = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-22"
+SOURCE_2026_09_22 = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-22"\nSOURCE_2026_09_23 = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-23"
 
 JOBS = {
     "89-ms-praha-8-ad-9-2026-89.txt": "89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
