@@ -12,18 +12,32 @@
       "reference": "15 Ad 14/2026-12",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["správní soudnictví","zásahová žaloba","SÚKL","soudní poplatek","15 Ad 14/2026","8 Ad 9/2026"],
+      "topics": [
+        "správní soudnictví",
+        "zásahová žaloba",
+        "SÚKL",
+        "soudní poplatek",
+        "15 Ad 14/2026",
+        "8 Ad 9/2026"
+      ],
       "public": {
         "html": null,
-        "pdf": null,
-        "sha256": null,
-        "verification_status": "source_pdf_verified_in_file_library; temporary_evidence_page_only",
+        "pdf": "documents/report-04082026-010/97-ms-praha-15-ad-14-2026-12-2026-09-22.pdf",
+        "sha256": "d93028ce182b9fc525a5cc6596e42ea246a59f3d9cbae4eaeec5043b872e9e6c",
+        "verification_status": "source_pdf_verified; verified_public_copy_from_complete_extracted_text; public_copy_not_binary_original; one_page_text_verified; visual_render_checked",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-22-ms-15-ad-14.json",
-        "source_text": "project-memory/verified-public-copy-sources-2026-09-22/97-ms-praha-15-ad-14-2026-12.txt"
+        "source_text": "project-memory/verified-public-copy-sources-2026-09-22/97-ms-praha-15-ad-14-2026-12.txt",
+        "source_sha256": "7bc93e4b9da0250b89b6cba8bfe93a4f2619dd1aba0fa3c48c5828bc4b755e63"
       },
       "relations": [
-        {"type":"souvisí","target_id":"doc-cz-ms-pha-2026-09-09-8-ad-9-2026-89"},
-        {"type":"navazuje_na","target_id":"doc-cz-ms-pha-2026-09-14-9-ad-12-2026-7"}
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-ms-pha-2026-09-09-8-ad-9-2026-89"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-ms-pha-2026-09-14-9-ad-12-2026-7"
+        }
       ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",
