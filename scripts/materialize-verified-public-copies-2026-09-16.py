@@ -13,7 +13,8 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-16"
 OUT = ROOT / "web" / "documents" / "report-04082026-010"
-SOURCE_2026_09_22 = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-22"\nSOURCE_2026_09_23 = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-23"
+SOURCE_2026_09_22 = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-22"
+SOURCE_2026_09_23 = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-23"
 
 JOBS = {
     "89-ms-praha-8-ad-9-2026-89.txt": "89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
@@ -26,6 +27,7 @@ JOBS = {
 
 EXTRA_JOBS = {
     SOURCE_2026_09_22 / "97-ms-praha-15-ad-14-2026-12.txt": "97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
+    SOURCE_2026_09_23 / "98-ms-praha-18-a-23-2026-182.txt": "98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
 }
 
 font_path = Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
