@@ -22,8 +22,8 @@
       ],
       "public": {
         "html": null,
-        "pdf": "documents/report-04082026-010/97-ms-praha-15-ad-14-2026-12-2026-09-22.pdf",
-        "sha256": "d93028ce182b9fc525a5cc6596e42ea246a59f3d9cbae4eaeec5043b872e9e6c",
+        "pdf": "documents/report-04082026-010/97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
+        "sha256": "efca0a907c2accf352f730ac925051051c3e6ef9626851ffa2f4b88bb0bda622",
         "verification_status": "source_pdf_verified; verified_public_copy_from_complete_extracted_text; public_copy_not_binary_original; one_page_text_verified; visual_render_checked",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-22-ms-15-ad-14.json",
         "source_text": "project-memory/verified-public-copy-sources-2026-09-22/97-ms-praha-15-ad-14-2026-12.txt",
