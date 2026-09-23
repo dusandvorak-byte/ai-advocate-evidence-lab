@@ -23,8 +23,8 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/97-ms-praha-15-ad-14-2026-12-2026-09-22.pdf",
-        "sha256": "ad625f7226c69cd05a12858705c0035c1ff5a32fa0ff3d21e4d3eba73bb5068e",
-        "verification_status": "source_pdf_verified; verified_public_copy_from_complete_extracted_text; public_copy_not_binary_original; one_page_text_verified",
+        "sha256": "d93028ce182b9fc525a5cc6596e42ea246a59f3d9cbae4eaeec5043b872e9e6c",
+        "verification_status": "source_pdf_verified; verified_public_copy_from_complete_extracted_text; public_copy_not_binary_original; one_page_text_verified; visual_render_checked",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-22-ms-15-ad-14.json",
         "source_text": "project-memory/verified-public-copy-sources-2026-09-22/97-ms-praha-15-ad-14-2026-12.txt",
         "source_sha256": "7bc93e4b9da0250b89b6cba8bfe93a4f2619dd1aba0fa3c48c5828bc4b755e63"
