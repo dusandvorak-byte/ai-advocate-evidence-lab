@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-23",
+  "purpose": "Doplnění chronologie o vyjádření Ministerstva spravedlnosti ze dne 27. 8. 2026 ve věci 18 A 23/2026 a sdělení Městského soudu v Praze ze dne 23. 9. 2026 ve věci 18 A 17/2026 k návrhu na určení lhůty.",
+  "documents": [
+    {
+      "id": "doc-cz-msp-2026-08-27-msp-19-2026-odka-roz-26",
+      "user_title": "Vyjádření Ministerstva spravedlnosti k zásahové žalobě ve věci 18 A 23/2026: žalovaný namítá nepřípustnost a nedůvodnost žaloby a navrhuje její odmítnutí, případně zamítnutí",
+      "issue_date": "2026-08-27",
+      "received_date": null,
+      "institution_id": "CZ-MSP",
+      "reference": "MSP-19/2026-ODKA-ROZ/26",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "Ministerstvo spravedlnosti",
+        "18 A 23/2026",
+        "zásahová žaloba",
+        "vyjádření žalovaného",
+        "THC",
+        "THCA",
+        "znalecké postupy",
+        "aktivní legitimace"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/100-msp-19-2026-odka-roz-26-2026-08-27-verejna-kopie.pdf",
+        "sha256": null,
+        "verification_status": "source_pdf_received; verified_public_copy_from_complete_extracted_text; public_copy_not_binary_original; eight_page_text_verified; build_materialized",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-23-ms-18a17-msp-18a23.json",
+        "source_text": "project-memory/verified-public-copy-sources-2026-08-27/100-msp-19-2026-odka-roz-26.txt",
+        "source_sha256": "9b96223d5b4f7566c6bdf8aae50362cef517fe0c5f89ce18af37803c9f8a21b2"
+      },
+      "relations": [
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-ms-pha-2026-09-23-18-a-23-2026-182"
+        },
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-131"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Ministerstvo spravedlnosti ve vyjádření ze dne 27. 8. 2026 rekapituluje žalobní tvrzení, namítá nedostatek aktivní legitimace a absenci zásahu ve smyslu § 82 s. ř. s., tvrdí, že předchozí podněty žalobce byly řádně vyřízeny, a navrhuje žalobu jako nepřípustnou odmítnout; subsidiárně ji navrhuje jako nedůvodnou zamítnout. Jde o procesní stanovisko žalovaného, nikoli o rozhodnutí soudu o důvodnosti žaloby."
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-09-23-18-a-17-2026-182",
+      "user_title": "Soud po návrhu na určení lhůty sdělil, že ve věci 18 A 17/2026 plánuje rozhodnout v příštích týdnech v rámci třicetidenního rámce § 174a odst. 3; spis nyní nepředkládá NSS",
+      "issue_date": "2026-09-23",
+      "received_date": null,
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 17/2026-182",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "správní soudnictví",
+        "zásahová žaloba",
+        "NCOZ",
+        "18 A 17/2026",
+        "návrh na určení lhůty",
+        "§ 174a",
+        "plánované rozhodnutí"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf",
+        "sha256": null,
+        "verification_status": "source_pdf_received; verified_public_copy_from_complete_extracted_text; public_copy_not_binary_original; one_page_text_verified; build_materialized",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-23-ms-18a17-msp-18a23.json",
+        "source_text": "project-memory/verified-public-copy-sources-2026-09-23/99-ms-praha-18-a-17-2026-182.txt",
+        "source_sha256": "cf652f2a11d3034ad9e1b70f56473562c12eb5bcd1767d9a022f351095ab994f"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-ms-pha-2026-05-07-18-a-17-2026-15"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Městský soud v Praze dne 23. 9. 2026 uvedl, že obdržel návrh žalobce na určení lhůty k provedení procesního úkonu a že nezávisle na návrhu z 21. 9. 2026 plánoval a stále plánuje ve věci 18 A 17/2026 rozhodnout v příštích týdnech, v rámci třicetidenní lhůty podle § 174a odst. 3 zákona o soudech a soudcích. Z tohoto důvodu spis nyní nepředkládá Nejvyššímu správnímu soudu. Konkrétní kalendářní den rozhodnutí se z listiny neodvozuje."
+    }
+  ]
+}

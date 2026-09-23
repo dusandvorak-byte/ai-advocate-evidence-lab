@@ -39,11 +39,15 @@
         {
           "type": "souvisí",
           "target_id": "doc-cz-dd-2026-08-10-reakce-18-a-23-2026"
+        },
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-msp-2026-08-27-msp-19-2026-odka-roz-26"
         }
       ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",
-      "evidence_note": "Městský soud v Praze dne 23. 9. 2026 zaslal žalobci na vědomí vyjádření žalovaného k žalobě ze dne 27. 8. 2026 a stanovil lhůtu 1 týdne od doručení přípisu k případné replice. Soud současně uvedl, že věc vnímá jako přednostní, nikoli však mimořádně naléhavou. Nahraná listina je pouze soudní průvodní přípis; samotné vyjádření žalovaného v tomto PDF obsaženo není. Protože datum doručení není v listině doloženo, není z něj odvozován konkrétní kalendářní konec lhůty."
+      "evidence_note": "Městský soud v Praze dne 23. 9. 2026 zaslal žalobci na vědomí vyjádření žalovaného k žalobě ze dne 27. 8. 2026 a stanovil lhůtu 1 týdne od doručení přípisu k případné replice. Soud současně uvedl, že věc vnímá jako přednostní, nikoli však mimořádně naléhavou. Samotné vyjádření žalovaného je nyní samostatně evidováno pod ID doc-cz-msp-2026-08-27-msp-19-2026-odka-roz-26. Protože datum doručení soudního přípisu není v listině doloženo, není z něj odvozován konkrétní kalendářní konec lhůty."
     }
   ]
 }
