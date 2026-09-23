@@ -199,10 +199,19 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Náprava: poškozený binární fragment se z kanonického zdroje odstraní; z úplného čtyřstránkového extrahovaného textu zdrojového PDF se deterministicky materializuje výslovně označená ověřená veřejná kopie. Kanonický záznam nese její SHA-256 a nesmí ji vydávat za binární originál.
 - Pojistka: jestliže kanonický záznam obsahuje `public.pdf` a jeho stav deklaruje `source_pdf_received`, fyzicky přítomný, ale nepoužitelný PDF soubor je fatální validační chyba. Reconciliation jej nesmí tiše převést na `null` a degradovat na „Evidenční stránku“. Generovaná veřejná kopie současně kontroluje počet stranového textu, hlavičku `%PDF-`, koncový marker `%%EOF` a očekávaný SHA-256.
 
+### GitHub konektor usekl binární PDF před `%%EOF`
+
+- Projev: PDF bylo vytvořeno jako Git blob a v repozitáři mělo platnou hlavičku `%PDF-`, ale konec binárního payloadu chyběl; `reconcile-public-pdfs.mjs` jej proto správně vyhodnotil jako `invalid_public_file` a veřejné CZ plochy spadly na „Evidenční stránka“.
+- Příčina: přímý přenos binárního PDF přes konektor GitHubu může u některých payloadů skončit neúplným blobem. Opakované posílání stejného binárního souboru přes `create_blob` proto není bezpečná opravná cesta.
+- Závazné řešení: jakmile se prokáže useknutí nebo chybějící `%%EOF`, přímý binární upload se ukončí. Zdrojový PDF soubor se ověří samostatně a jeho SHA-256 se zapíše jako `source_sha256`. Z úplného ověřeného textového zdroje se veřejná PDF kopie deterministicky materializuje přímo v GitHub Actions / kanonickém buildu stejným generátorem jako ostatní ověřené veřejné kopie. Výstup musí mít v názvu `verejna-kopie` nebo `public-copy` a nesmí být označen jako binárně totožný originál.
+- Povinné kontroly generované kopie: soubor existuje až po materializačním kroku buildu, má velikost > 1 kB, začíná `%PDF-`, obsahuje `%%EOF` v posledních 2048 bajtech, reconciliation jej ponechá jako `public.pdf`, výsledný registr uvádí `verification_status: published` a veřejné CZ i EN plochy zobrazí aktivní odkaz `Dokument v PDF` / `PDF document`.
+- Zakázané náhradní postupy: nevytvářet ručně odkaz v generovaném HTML; neobcházet reconciliation; neoznačovat rekonstruovanou veřejnou kopii jako originální PDF; neopakovat přímý connector blob po zjištěném useknutí.
+- Referenční řešení: listina Městského soudu v Praze ze dne 22. 9. 2026, č. j. 15 Ad 14/2026-12, byla po selhání přímého binárního blobu zapojena do `scripts/materialize-verified-public-copies-2026-09-16.py`; build ji deterministicky vytvořil jako `97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf` a teprve poté prošla reconciliation a publikací.
+
 ## Povinný postup před publikací
 
 1. Pracovat z aktuálního čistého `origin/main`.
 2. Spustit celý kanonický build.
 3. Spustit `node scripts/validate-live-dockets-contract.mjs`.
 4. Ověřit, že diff neobsahuje nesouvisející generované změny.
-5. Publikovat až po úspěchu workflow a zkontrolovat živou stránku s verzovanými aktivy.
+5. U každého nového PDF před publikací ověřit, že fyzický soubor začíná `%PDF-`, končí platným `%%EOF` a po reconciliation zůstává aktivním `public.pdf`; pokud byl binární přenos konektorem jednou useknut, přejít povinně na deterministickou materializaci v buildu.\n6. Publikovat až po úspěchu workflow a zkontrolovat živou stránku s verzovanými aktivy.
