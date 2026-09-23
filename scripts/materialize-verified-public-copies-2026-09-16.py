@@ -13,6 +13,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-16"
 OUT = ROOT / "web" / "documents" / "report-04082026-010"
+SOURCE_2026_09_22 = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-22"
 
 JOBS = {
     "89-ms-praha-8-ad-9-2026-89.txt": "89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
@@ -21,6 +22,10 @@ JOBS = {
     "93-mv-139593-3-tp-2026.txt": "93-mv-139593-3-tp-2026-2026-09-14.pdf",
     "94-vsz-olomouc-3-vzn-239-2026-64.txt": "94-vsz-olomouc-3-vzn-239-2026-64-2026-09-15.pdf",
     "95-dvorak-ks-ksz-vsz-doplneni-stiznosti.txt": "95-dvorak-9-to-315-2026-9-to-316-2026-3-vzn-239-2026-1-kzt-475-2026-1-kzn-1079-2026-2026-09-13.pdf",
+}
+
+EXTRA_JOBS = {
+    SOURCE_2026_09_22 / "97-ms-praha-15-ad-14-2026-12.txt": "97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
 }
 
 font_path = Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
@@ -47,8 +52,10 @@ notice = ParagraphStyle(
 
 OUT.mkdir(parents=True, exist_ok=True)
 
-for source_name, out_name in JOBS.items():
-    source_path = SOURCE / source_name
+all_jobs = [(SOURCE / source_name, out_name) for source_name, out_name in JOBS.items()]
+all_jobs.extend(EXTRA_JOBS.items())
+
+for source_path, out_name in all_jobs:
     if not source_path.exists():
         raise SystemExit(f"Missing verified text source: {source_path}")
     text = source_path.read_text(encoding="utf-8").replace("\f", "\n")
