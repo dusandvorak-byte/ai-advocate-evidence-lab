@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-23",
+  "purpose": "Přípis Městského soudu v Praze ze dne 23. 9. 2026 ve věci 18 A 23/2026: zaslání vyjádření žalovaného na vědomí, týdenní lhůta k případné replice a sdělení o přednostním projednávání věci.",
+  "documents": [
+    {
+      "id": "doc-cz-ms-pha-2026-09-23-18-a-23-2026-182",
+      "user_title": "Soud zaslal na vědomí vyjádření Ministerstva spravedlnosti k žalobě; k případné replice stanovil lhůtu 1 týdne od doručení a uvedl, že věc projednává jako přednostní, nikoli mimořádně naléhavou",
+      "issue_date": "2026-09-23",
+      "received_date": null,
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 23/2026-182",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "správní soudnictví",
+        "zásahová žaloba",
+        "Ministerstvo spravedlnosti",
+        "18 A 23/2026",
+        "vyjádření žalovaného",
+        "replika",
+        "lhůta 1 týdne",
+        "přednostní věc"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
+        "sha256": null,
+        "verification_status": "source_pdf_received; verified_public_copy_from_complete_extracted_text; public_copy_not_binary_original; one_page_text_verified; build_materialized",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-23-ms-18-a-23.json",
+        "source_text": "project-memory/verified-public-copy-sources-2026-09-23/98-ms-praha-18-a-23-2026-182.txt",
+        "source_sha256": "1b699d2de2ed5048af8b28e20e98299f05c501626e20ebc25c4cb9960c8a4fa6"
+      },
+      "relations": [
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-131"
+        },
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-dd-2026-08-10-reakce-18-a-23-2026"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Městský soud v Praze dne 23. 9. 2026 zaslal žalobci na vědomí vyjádření žalovaného k žalobě ze dne 27. 8. 2026 a stanovil lhůtu 1 týdne od doručení přípisu k případné replice. Soud současně uvedl, že věc vnímá jako přednostní, nikoli však mimořádně naléhavou. Nahraná listina je pouze soudní průvodní přípis; samotné vyjádření žalovaného v tomto PDF obsaženo není. Protože datum doručení není v listině doloženo, není z něj odvozován konkrétní kalendářní konec lhůty."
+    }
+  ]
+}
