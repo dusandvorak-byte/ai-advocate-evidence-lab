@@ -3,7 +3,13 @@
   "updated_on": "2026-09-17",
   "description": "Kanonický registr živých procesních časovačů. Levá hodnota je počet kalendářních dnů od doloženého počátku do dne zobrazení; pravá hodnota je pouze doložená zákonná, smluvená nebo výslovně stanovená procesní lhůta. Není-li univerzální číselná zákonná lhůta, registr ji nevymýšlí.",
   "display_rule": "elapsed_days / legal_or_procedural_limit",
-  "categories": ["court", "pre_action", "administrative", "review_supervision", "criminal_historical"],
+  "categories": [
+    "court",
+    "pre_action",
+    "administrative",
+    "review_supervision",
+    "criminal_historical"
+  ],
   "timers": [
     {
       "id": "timer-court-18a17-2026",
@@ -158,16 +164,17 @@
     {
       "id": "timer-admin-mk-2026-07-22",
       "category": "administrative",
-      "title": "Ministerstvo kultury – řízení ve věci Konopné církve",
-      "reference": "MK 45728/2026 SOCNS",
-      "start_date": "2026-07-22",
-      "start_date_basis": "Listina Ministerstva kultury ze dne 22. července 2026 je evidována jako zahájení nového řízení.",
-      "status": "active",
-      "limit_kind": "specific_due_date_from_record",
-      "limit_label": "do 31. srpna 2026 – termín sdělený ministerstvem",
-      "legal_basis": "konkrétní termín uvedený ve zveřejněné komunikaci; jeho právní povaha se posuzuje odděleně",
-      "due_date": "2026-08-31",
-      "href": "zpravy/24072026-006.html"
+      "title": "Ministerstvo kultury – rozklad proti usnesení MK 53547/2026 SOCNS",
+      "reference": "MK-S 6893/2026 SOCNS · MK 53547/2026 SOCNS · MK 53559/2026 SOCNS",
+      "start_date": "2026-09-01",
+      "start_date_basis": "Ministerstvo kultury dne 31. 8. 2026 usnesením č. j. MK 53547/2026 SOCNS zastavilo řízení podle § 101 písm. b) správního řádu a samostatným sdělením č. j. MK 53559/2026 SOCNS odpovědělo na navazující otázky. Dne 1. 9. 2026 byl podán a doručen rozklad proti usnesení.",
+      "status": "active_remonstrance_stage",
+      "limit_kind": "remonstrance_pending",
+      "limit_label": "rozklad podle § 152 správního řádu – aktivní rozkladová fáze",
+      "legal_basis": "§ 152 správního řádu; původní lhůta řízení skončila vydáním usnesení dne 31. 8. 2026, aktivní je rozklad podaný a doručený 1. 9. 2026.",
+      "due_date": null,
+      "href": "zpravy/04082026-010.html#procesni-casovace",
+      "process_history": "26. 6. 2026 zahájení nového řízení → 7. 7. 2026 doplnění → 22. 7. 2026 sdělení MK → 24. 7. 2026 procesní upřesnění → 12. 8. 2026 potvrzení zahájení a sp. zn. MK-S 6893/2026 SOCNS → 19. 8. 2026 další podání → 31. 8. 2026 usnesení MK 53547/2026 SOCNS o zastavení řízení a sdělení MK 53559/2026 SOCNS → 1. 9. 2026 rozklad."
     },
     {
       "id": "timer-review-nsz-6nzn-2026",
