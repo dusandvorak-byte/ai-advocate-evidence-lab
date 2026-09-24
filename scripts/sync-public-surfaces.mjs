@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 const registry = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
 const institutions = JSON.parse(await readFile('project-memory/institutions.json', 'utf8'));
-const processTimers = JSON.parse(await readFile('web/data/process-timers.json', 'utf8'));
+const processTimers = JSON.parse(await readFile('project-memory/process-timers.json', 'utf8'));
 if (!Array.isArray(registry.documents)) throw new Error('documents-2026.json neobsahuje kanonické dokumenty');
 if (!Array.isArray(institutions.institutions)) throw new Error('institutions.json neobsahuje kanonické instituce');
 
