@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-24",
+  "purpose": "Usnesení Nejvyššího správního soudu ze dne 22. 9. 2026, č. j. 6 As 207/2026-26, v kasační větvi navazující na Městský soud v Praze 15 A 44/2026-43.",
+  "documents": [
+    {
+      "id": "doc-cz-nss-2026-09-22-6-as-207-2026-26",
+      "user_title": "Usnesení: úplné osvobození od soudního poplatku a ustanovení Mgr. Zuzany Candiglioty zástupkyní v kasačním řízení 6 As 207/2026",
+      "issue_date": "2026-09-22",
+      "received_date": null,
+      "institution_id": "CZ-NSS",
+      "reference": "6 As 207/2026-26",
+      "case_ids": [
+        "case-cz-ms-praha-15a44-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "Nejvyšší správní soud",
+        "kasační stížnost",
+        "6 As 207/2026",
+        "15 A 44/2026",
+        "Ministerstvo vnitra",
+        "osvobození od soudního poplatku",
+        "ustanovení zástupce",
+        "dvoutýdenní soudcovská lhůta"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/101-nss-6-as-207-2026-26-2026-09-22.pdf",
+        "sha256": "bbdc811c9458beb808abfabf3538c529b86ca1dfe3b352514aee93b1062ff91a",
+        "verification_status": "source_pdf_binary_original_received; sha256_verified_locally; pdf17; three_pages; text_extraction_verified; awaiting_binary_materialization_in_repository",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-24-nss-6-as-207-26.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-nss-2026-09-04-6-as-207-2026-13"
+        },
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Nejvyšší správní soud usnesením ze dne 22. 9. 2026, č. j. 6 As 207/2026-26, přiznal stěžovateli úplné osvobození od soudního poplatku a ustanovil mu pro řízení o kasační stížnosti zástupkyní Mgr. Zuzanu Candigliotu. Soud uvedl, že kasační stížnost nelze považovat za zjevně bezúspěšnou, neboť správnost úvah městského soudu nelze bez bližšího zkoumání aprobovat. Pro případné další doplnění stanovil ustanovené zástupkyni soudcovskou lhůtu dvou týdnů. Usnesení nerozhoduje o meritu kasační stížnosti."
+    }
+  ]
+}
