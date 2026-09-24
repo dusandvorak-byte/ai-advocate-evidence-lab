@@ -61,13 +61,15 @@ if (privacyRegistry.status !== 'binding' || privacyRegistry.alliance_organizatio
 if (registryAudit.hard_error_count !== 0) throw new Error('Audit kanonických registrů obsahuje tvrdé chyby');
 
 await run('scripts/build-dynamic-chronology.mjs');
-await run('scripts/sync-public-surfaces.mjs');
 await run('scripts/build-english-news.mjs');
 await run('scripts/build-deadlines.mjs');
 await run('scripts/build-process-timers.mjs');
 await run('scripts/build-english-godot.mjs');
 await run('scripts/apply-process-timer-genealogy.mjs');
 await run('scripts/apply-current-process-followups.mjs');
+// Veřejné plochy se synchronizují až po aplikaci aktuálních procesních follow-upů,
+// aby ŽIVÁ PAMĚŤ CÍRKVE četla finální aktivní procesní stav, nikoli mezistav.
+await run('scripts/sync-public-surfaces.mjs');
 await run('scripts/apply-process-chain-layout.mjs');
 await run('scripts/apply-process-chain-deadlines.mjs');
 await run('scripts/build-language-access.mjs');
