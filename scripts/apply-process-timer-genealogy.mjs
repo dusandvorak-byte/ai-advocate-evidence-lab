@@ -95,16 +95,16 @@ patch('timer-court-8ad9-2026', {
   href: 'zpravy/04082026-010.html#procesni-casovace'
 });
 patch('timer-court-mv-2026-07-23', {
-  title: 'NSS – kasační stížnost ve věci 15 A 44/2026 proti Ministerstvu vnitra',
-  reference: '15 A 44/2026-43 · kasační stížnost 1. 9. 2026',
-  start_date: '2026-09-01',
-  start_date_basis: 'Městský soud v Praze usnesením ze dne 25. 8. 2026, č. j. 15 A 44/2026-43, žalobu odmítl. Dne 1. 9. 2026 byla proti tomuto usnesení podána kasační stížnost k Nejvyššímu správnímu soudu.',
-  process_history: '23. 7. 2026 zásahová žaloba proti Ministerstvu vnitra → 25. 8. 2026 usnesení 15 A 44/2026-43, žaloba odmítnuta → 1. 9. 2026 kasační stížnost k NSS.',
-  status: 'active_cassation_stage',
-  limit_kind: 'cassation_pending',
-  limit_label: 'kasační řízení před NSS – aktivní procesní krok',
-  legal_basis: '§ 102 a násl. s. ř. s.; původní žaloba již není aktivním krokem, aktivní je podaná kasační stížnost',
-  href: 'zpravy/04082026-010.html#procesni-casovace'
+  title: 'NSS – kasační řízení 6 As 207/2026; ustanovena zástupkyně a běží soudcovská lhůta pro případné doplnění',
+  reference: '15 A 44/2026-43 · 6 As 207/2026-13 · 6 As 207/2026-26',
+  start_date: '2026-09-22',
+  start_date_basis: 'Nejvyšší správní soud usnesením ze dne 22. 9. 2026, č. j. 6 As 207/2026-26, přiznal stěžovateli úplné osvobození od soudního poplatku a ustanovil mu zástupkyní Mgr. Zuzanu Candigliotu. Pro případné další doplnění kasační stížnosti stanovil ustanovené zástupkyni soudcovskou lhůtu dvou týdnů.',
+  process_history: '23. 7. 2026 zásahová žaloba proti Ministerstvu vnitra → 25. 8. 2026 usnesení 15 A 44/2026-43, žaloba odmítnuta → 2. 9. 2026 NSS eviduje kasační stížnost → 4. 9. 2026 výzva 6 As 207/2026-13 k doložení poměrů → 22. 9. 2026 usnesení 6 As 207/2026-26: úplné osvobození od soudního poplatku, ustanovení zástupkyně a dvoutýdenní soudcovská lhůta pro případné doplnění.',
+  status: 'active_cassation_counsel_deadline',
+  limit_kind: 'court_set_two_week_deadline_service_date_not_recorded',
+  limit_label: '2 týdny pro případné další doplnění ustanovenou zástupkyní; datum doručení není v evidovaném prameni doloženo',
+  legal_basis: 'NSS č. j. 6 As 207/2026-26, odst. [9]; kasační řízení pokračuje. Konkrétní konec soudcovské lhůty se bez doloženého data doručení nevypočítává.',
+  href: 'zpravy/04082026-010.html#doc-cz-nss-2026-09-22-6-as-207-2026-26'
 });
 
 for (const id of suppress) byId.delete(id);
@@ -131,7 +131,7 @@ const enOverrides = {
   'timer-review-vsz-praha-1vzn1678-2026': { title:'Prague High Public Prosecutor’s Office – supervision/review branch', event:`Filing and supplement dates: ${datesEn(vszPrahaDates)}.`, regime:'One active supervision/review branch.' },
   'timer-review-vsz-olomouc-2026-07-10': { title:'Olomouc High Public Prosecutor’s Office – supervision/review branch', event:`Filing and supplement dates: ${datesEn(vszOlomoucDates)}.`, regime:'One active supervision/review branch.' },
   'timer-court-8ad9-2026': { title:'Prague Municipal Court – new intervention action against SÚKL, following case 8 Ad 9/2026', event:'The earlier case ended on 28 August 2026. A new intervention action against SÚKL was filed on 31 August 2026 and expressly follows that procedural branch.', regime:'Active step: the new action filed on 31 August 2026.' },
-  'timer-court-mv-2026-07-23': { title:'Supreme Administrative Court – cassation complaint in case 15 A 44/2026', event:'The Prague Municipal Court rejected the action by order 15 A 44/2026-43 on 25 August 2026. A cassation complaint was filed on 1 September 2026.', regime:'Active step: cassation proceedings before the Supreme Administrative Court.' },
+  'timer-court-mv-2026-07-23': { title:'Supreme Administrative Court – cassation proceedings 6 As 207/2026; appointed counsel and a two-week judicial period for any supplement', event:'By order 6 As 207/2026-26 of 22 September 2026, the Supreme Administrative Court granted full court-fee exemption and appointed Mgr. Zuzana Candigliota as counsel. It set appointed counsel a two-week judicial period for any further supplement to the cassation complaint.', regime:'Cassation proceedings remain active. The source does not separately establish the date of service, so no calendar end date is calculated.' },
   'timer-remedy-doc-cz-dd-2026-08-15-doplneni-stiznosti-ministr-vnitra': { title:'Minister of the Interior – complaint branch and supplements', event:`Dates: ${datesEn(ministerDates)}.`, regime:'One active complaint branch.' },
   'timer-remedy-doc-cz-dd-2026-08-15-zadost-prezkum-policejni-prezident': { title:'Police President – review/complaint branch and supplements', event:`Dates: ${datesEn(policePresidentDates)}.`, regime:'One active review branch.' },
   'timer-remedy-doc-cz-dd-2026-08-15-podnet-gibs': { title:'General Inspection of Security Forces – filing and supplements', event:`Dates: ${datesEn(gibsDates)}.`, regime:'One active filing branch.' }
