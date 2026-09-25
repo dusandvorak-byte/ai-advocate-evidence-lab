@@ -28,9 +28,11 @@
       "public": {
         "html": null,
         "pdf": null,
-        "sha256": "262744a62b8c396c9e610160780f6fa540c0c37105eb5d6f41b7edfb1b2116d9",
-        "verification_status": "source_pdf_binary_original_received; six_pages; text_extraction_verified; source_sha256_verified_locally; binary_not_materialized_in_repository_in_this_commit",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-09-25-euda-response.json"
+        "sha256": null,
+        "verification_status": "source_pdf_binary_original_received; six_pages; text_extraction_verified; source_sha256_verified_locally; generated_public_copy_materialized_during_build",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-25-euda-response.json",
+        "intended_pdf": "documents/report-04082026-010/101-euda-exo-fhp-pd-26-d-106-2026-09-25-verejna-kopie.pdf",
+        "source_sha256": "262744a62b8c396c9e610160780f6fa540c0c37105eb5d6f41b7edfb1b2116d9"
       },
       "relations": [
         {
