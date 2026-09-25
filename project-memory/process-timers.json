@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_on": "2026-09-17",
+  "updated_on": "2026-09-25",
   "description": "Kanonický registr živých procesních časovačů. Levá hodnota je počet kalendářních dnů od doloženého počátku do dne zobrazení; pravá hodnota je pouze doložená zákonná, smluvená nebo výslovně stanovená procesní lhůta. Není-li univerzální číselná zákonná lhůta, registr ji nevymýšlí.",
   "display_rule": "elapsed_days / legal_or_procedural_limit",
   "categories": [
@@ -117,20 +117,6 @@
       "limit_label": "14 dnů – lhůta výzvy, nikoli obecná zákonná lhůta",
       "legal_basis": "lhůta stanovená samotnou předžalobní výzvou",
       "href": "zpravy/04082026-010.html#case-cz-nsz-predzalobni-vyzva"
-    },
-    {
-      "id": "timer-preaction-euda-2026-08-07",
-      "category": "pre_action",
-      "title": "EUDA – výzva k jednání podle čl. 265 SFEU",
-      "reference": "čl. 265 SFEU / nařízení (EU) 2023/1322",
-      "start_date": "2026-08-07",
-      "start_date_basis": "Formální výzva k jednání je datována 7. srpna 2026.",
-      "status": "active",
-      "limit_kind": "statutory_months",
-      "limit_months": 2,
-      "limit_label": "2 měsíce – čl. 265 SFEU",
-      "legal_basis": "čl. 265 Smlouvy o fungování Evropské unie",
-      "href": "zpravy/07082026-011.html"
     },
     {
       "id": "timer-admin-kpr-175-2026-08-03",
