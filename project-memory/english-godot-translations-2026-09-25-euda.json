@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "institutions": {
+    "EU-EUDA": "European Union Drugs Agency"
+  },
+  "documents": {
+    "doc-eu-euda-2026-09-25-exo-fhp-pd-26-d-106": "EUDA responded substantively to the formal call to act under Article 265 TFEU. The Agency stated that, in its view, Articles 6(1)(f) and 15 of Regulation (EU) 2023/1322 do not impose a specific, unconditional and legally binding obligation to carry out the requested comparative assessment or harmonisation work. At the same time, EUDA acknowledged that differences in analytical methods, the treatment of THC and THCA, sample preparation and storage, and approaches to measurement uncertainty may affect analytical outcomes and comparability. It also stated that it does not maintain a systematic inventory of national THC determination methodologies, has not carried out a systematic comparative assessment of those methodologies, and has not decided to conduct or commission such work."
+  }
+}

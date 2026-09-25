@@ -1,0 +1,154 @@
+Praça Europa 1, Cais do Sodré, 1249-289 Lisbon, Portugal
+Tel. +351 211 210 200
+info@euda.europa.eu
+euda.europa.eu
+
+Mgr. Dušan Dvořák
+Head of the “Cannabis is Medicine” Research Programme
+Cannabis is The Cure, z. s.
+Educational Cannabis Clinic
+798 55 Ospělov 6
+Czech Republic
+(By email only - DusanDvorak@seznam.cz)
+
+Ref: EXO/FHP/pd (26) D 106
+Date: 25/09/2026
+
+Subject: Response to your formal call to act pursuant to Article 265 TFEU concerning Regulation (EU) 2023/1322 – Failure to ensure sufficient European harmonisation and comparability of analytical methods for determining THC in cannabis, including THC/THCA, sampling, homogenisation and measurement uncertainty – Request for EUDA to perform its statutory tasks
+
+Dear Mr Dvořák,
+
+Thank you for your correspondence of 7 August 2026. The Agency has carefully reviewed the issues raised regarding the comparability of analytical methods used for the determination of tetrahydrocannabinol (THC) and tetrahydrocannabinolic acid (THCA), including questions relating to sampling, homogenisation, storage, measurement uncertainty and the potential impact of methodological differences on the comparability of information and data collected in the European Union.
+
+The EUDA notes your clarification that the request does not seek intervention in any national judicial proceedings, does not seek harmonisation of national criminal law, and does not request the Agency to determine the legality of specific conduct under Czech law.
+
+I. LEGAL CONSIDERATIONS
+
+A. Regarding the EUDA's mandate under Regulation (EU) 2023/1322
+
+The Agency notes that certain aspects of the issues raised in your submission relate to matters falling within fields addressed by Regulation (EU) 2023/1322.
+
+Regulation (EU) 2023/1322 entrusts the Agency with tasks relating to the provision of factual, objective, reliable and comparable information at Union level concerning drugs and drug-related issues. The Regulation also provides for activities aimed at improving the comparability, objectivity and reliability of information and data and establishes a network of forensic and toxicological laboratories to support cooperation, information exchange and the further harmonisation of analytical methods. However, those provisions must be interpreted in light of the nature and limits of the Agency's mandate.
+
+The Agency notes that your correspondence, including the supplementary submissions provided after 19 August 2026 and the additional documents referenced therein, concerns alleged practices, procedures and methodological approaches used by authorities and laboratories in the Czech Republic and other Member States. The Agency has neither examined nor independently verified those factual assertions or supporting materials and expresses no view as to their accuracy, completeness, scientific validity or legal significance. Any references to those materials in this reply should not be understood as constituting endorsement, validation or assessment by the Agency.
+
+The EUDA is not entrusted with a regulatory, supervisory or inspection function in relation to national forensic laboratories or national criminal justice systems.
+
+The laboratory network established under Article 15 constitutes a framework for cooperation, information exchange and the sharing of expertise. It does not confer upon the Agency any power to direct, supervise, inspect, validate or approve the methodologies applied by national laboratories.
+
+Your submission places particular reliance on Articles 6(1)(f) and 15 of Regulation (EU) 2023/1322. Those provisions define objectives, functions and cooperation mechanisms falling within the Agency's mandate. They do not create a specific legally binding obligation requiring the Agency to undertake a particular scientific assessment, methodological review, harmonisation exercise or standard-setting activity whenever an issue is brought to its attention by an individual.
+
+The identification of scientific priorities, the selection of topics for assessment and the activities undertaken within the laboratory network fall within the Agency's scientific and operational discretion. Such priorities are established within the framework of the Agency's cooperation with Member States and relevant expert networks, taking into account identified needs and developments within the fields covered by the EUDA’s mandate. Their consideration and implementation are further subject to the governance arrangements provided for in Regulation (EU) 2023/1322, including the respective roles of the Scientific Committee and the Management Board. The determination of priorities and activities must therefore be assessed in light of the Agency's mandate, work programme, available resources, identified needs and institutional priorities.
+
+The Agency further notes that the existence of competence in a particular field does not, in itself, create a legally binding obligation to exercise that competence in response to an individual request. Accordingly, Articles 6(1)(f) and 15 do not impose a legally binding obligation to undertake the specific assessment, standard-setting exercise or methodological review requested in your submission.
+
+B. Regarding the provisions of Article 265 TFEU
+
+Your submission characterises the matter as a call to act pursuant to Article 265 TFEU. The Agency notes that proceedings under Article 265 TFEU concern situations in which a Union institution, body, office or agency has failed to adopt a measure that it was legally required to adopt. For such a claim to arise, it is necessary to identify a sufficiently specific, unconditional and legally binding obligation requiring the institution or agency concerned to act.
+
+For the reasons set out above, the Agency does not consider that Articles 6(1)(f), 15(1) or 15(2) of Regulation (EU) 2023/1322 impose such an obligation. Those provisions establish objectives, functions and cooperation mechanisms within the Agency's mandate, but they do not prescribe, in sufficiently specific, unconditional and legally binding terms, the undertaking of the actions requested in your submission.
+
+Nothing in this reply should be understood as recognising the existence of such an obligation or as committing the Agency to undertake any specific scientific, technical, operational or regulatory activity in relation to the matters identified.
+
+II. SCIENTIFIC AND TECHNICAL CONSIDERATIONS
+
+The Agency has carefully considered the scientific and technical questions raised in your submission. The observations below address these questions in light of two important considerations:
+
+• The Network of forensic and toxicological laboratories established under Article 15 was formally launched in late 2025 and remains in an early stage of development. Since its establishment, the Network's activities have focused on a limited number of priority areas, including work related to highly potent synthetic opioids and other emerging public health and security concerns.
+
+• Topics for consideration within the Network are identified by the Agency and the participating laboratories in accordance with the Network’s priorities, work programme, available resources and evolving public health and security needs. To date, the specific issues raised in your submission have not been prioritised for dedicated work within the Network.
+
+A. General considerations on the issues raised
+
+Your submission raises several related scientific and technical questions concerning methodological comparability, including analytical approaches to THC and THCA determination, sampling and storage procedures, measurement uncertainty and the potential impact of methodological variability on the comparability, objectivity and reliability of drug-related information at Union level.
+
+The EUDA recognises that different analytical methodologies, sampling approaches, preparation procedures and methods for evaluating measurement uncertainty may influence analytical outcomes. Differences between GC- and LC-based methodologies, the treatment of THC and THCA, sample preparation and storage conditions, and approaches to uncertainty estimation are recognised topics within analytical science and may contribute to variability between measurements.
+
+The Agency nevertheless does not prescribe or validate the methodologies employed by national forensic laboratories. The selection, validation and accreditation of analytical methods remain matters for the competent national authorities and laboratories operating within their applicable legal and quality-assurance frameworks.
+
+B. Specific considerations on the questions presented
+
+1. Does the EUDA consider differences between analytical methods for determining THC used by Member States to be a matter falling within its mandate under Article 6(1)(f) of Regulation (EU) 2023/1322?
+
+Article 6(1)(f) of Regulation (EU) 2023/1322 does not require the EUDA to assess, approve or harmonise the specific analytical methods used by national forensic laboratories for THC determination. The choice, validation and implementation of such methods remain the responsibility of the competent national authorities and laboratories, within their applicable legal, quality and accreditation frameworks. Article 15 provides a framework for cooperation and exchange between forensic and toxicological laboratories, which may support future discussion of methodological issues where relevant, but it does not impose an obligation on the EUDA to conduct a comparative assessment of all national THC analytical procedures.
+
+2. If so, what specific steps has the EUDA already taken to improve the comparability, objectivity and reliability of such data?
+
+The EUDA receives drug-related data primarily through the National Focal Points (NFPs), which in turn obtain information from national forensic and customs laboratories and other national partners. The EUDA has not systematically collected or maintained information on the specific analytical methods used by individual forensic laboratories in Member States for the determination of THC.
+
+One of the objectives of the recently established Network of Forensic and Toxicological Laboratories under Article 15 of Regulation (EU) 2023/1322 is to strengthen analytical capacity and support greater comparability of analytical approaches among laboratories across Europe through scientific exchange, training activities, technical discussions and the sharing of expertise and reference materials.
+
+Questions in the submission: How the EUDA fulfils its responsibilities regarding comparability, objectivity and reliability of information - Whether the issues you raise have been considered within the framework of the forensic and toxicological laboratory network established under Article 15 of Regulation (EU) 2023/1322 - Whether differences between analytical methods used by laboratories may affect the comparability of results – Questions about the potential differences between gas chromatographic (GC) methods and liquid chromatographic (LC) methods and the treatment of THC and tetrahydrocannabinolic acid (THCA) - You note that representative sampling, homogenisation, drying procedures and storage conditions may influence analytical outcomes - Whether differences in approaches to measurement uncertainty may affect comparability.
+
+The vast majority of laboratories participating in the Network are accredited to ISO/IEC 17025, the international benchmark standard for testing and calibration laboratories and the principal basis for accrediting technical competence in forensic science. In addition, many participating laboratories take part in regular proficiency-testing schemes. This information indicates that many participating laboratories operate within recognised quality-management and accreditation frameworks. However, the information collected to date was not intended to assess the comparability of methodologies used for THC or THC/THCA determination and therefore does not permit conclusions on that specific question.
+
+3. Questions 3 to 8: Does the EUDA maintain an overview of the methods used by Member States for forensic determination of THC in cannabis? - Does this overview include differences between GC/GC-FID and LC/HPLC? - Does it include differences in the analytical treatment of THC and THCA? - Does it include differences in sampling, homogenisation, drying and storage? - Does it include differences in determining and reporting measurement uncertainty? - Does a comparative analysis of these methods between Member States exist within the EUDA?
+
+The EUDA does not maintain a systematic inventory of the analytical methodologies used by individual forensic laboratories in Member States for the determination of THC in cannabis. Consequently, the Agency does not hold comprehensive information enabling it to compare the use of GC-, GC-FID-, LC- or HPLC-based methodologies, approaches to THC and THCA determination, sampling and storage procedures, or approaches to the determination and reporting of measurement uncertainty. The EUDA has also not undertaken a systematic comparative assessment of THC determination methodologies used across Member States.
+
+4. Questions 9 to 12: Has the issue of THC determination methods been discussed within the Network of Forensic and Toxicological Laboratories under Article 15 of Regulation (EU) 2023/1322? - Has the harmonisation of analytical methods for determining THC and THC/THCA been discussed within that network? - Do common or recommended standards for these methods exist within the EUDA? - If no such standards exist, does the EUDA consider their development or recommendation to constitute a task falling under Article 6(1)(f) or Article 15(2)(d)?
+
+Since its formal launch in late 2025, the Network of Forensic and Toxicological Laboratories has not undertaken dedicated work concerning methodologies for determining THC concentrations in cannabis, THC/THCA determination or the harmonisation of related analytical approaches. Nor has the EUDA developed, adopted or prescribed common analytical standards or methodologies specifically addressing those issues.
+
+The Network remains in an early stage of development and is currently focused on a limited number of identified priorities. Future discussions regarding methodological issues, analytical harmonisation or technical recommendations may address a wide range of substances and analytical challenges, including matters relating to cannabis and cannabinoid analysis, where these are identified as relevant priorities by the Agency and participating laboratories.
+
+While the EUDA does not prescribe analytical techniques or standard operating procedures for national laboratories, the Network aims to promote scientific exchange, strengthen analytical capacity and support greater comparability of analytical practices across Europe. In that context, the Network may facilitate technical discussions, identify good practices and, where appropriate, develop non-binding technical recommendations intended to support methodological convergence while respecting the different legal frameworks, mandates and operational requirements of participating laboratories.
+
+The Agency further notes that various technical recommendations, guidance documents and scientific publications concerning cannabinoid analysis, quantitative determination, sampling strategies, quality assurance and laboratory accreditation are already available through the scientific and forensic community. In addition, other expert networks and organisations, including ENFSI, CLEN and UNODC, contribute to the exchange of knowledge and the promotion of good analytical practices in this field.
+
+For reference, the following external resources illustrate guidance and methodological considerations available from other organisations. Their inclusion does not constitute endorsement by the EUDA of any particular methodology or conclusion:
+
+• ENFSI Best Practice Manual (BPM) for controlled drug analysis
+• ENFSI guidelines on quantitative sampling
+• UNODC Recommended methods for the identification and analysis of cannabis and cannabis products
+• US National Institute of Justice (NIJ) New forensic methods to accurately determine THC in seized cannabis
+• OJP report on forensic drug analysis
+• NIST tools for cannabis laboratory quality assurance
+
+5. Questions 13 to 16: Does the EUDA consider it compatible with the requirement of comparability, objectivity and reliability for individual forensic laboratories within a Member State to use their own SOPs? - Does the EUDA consider it compatible with those requirements for the manner in which measurement uncertainty is reported to depend upon the quality system of an individual laboratory? - How does the EUDA verify that differing national analytical procedures do not result in methodologically incomparable data at Union level? - If the EUDA has not yet examined this issue, does it intend to conduct or commission such a comparative assessment?
+
+The EUDA does not inspect, approve, validate or prescribe the analytical procedures, sampling methods, standard operating procedures or approaches to measurement uncertainty used by individual forensic laboratories in Member States. These matters fall within national legal, forensic, quality assurance, accreditation and proficiency frameworks.
+
+The Agency has not assessed the procedures referred to in your submission and therefore expresses no view regarding their scientific adequacy or the comparability of the results they may produce.
+
+At Union level, the EUDA supports comparability principally through common reporting frameworks, scientific cooperation, methodological exchange, monitoring systems and quality-support activities rather than through direct oversight of laboratory methodologies.
+
+The Agency has not undertaken a comparative assessment of the matters raised in your submission and has not decided to conduct or commission such work. No such activity is currently included in the Agency's planning.
+
+6. Questions 17 and 18: If the EUDA concludes that this issue falls outside its mandate, I request that it identify the specific provision of Regulation (EU) 2023/1322 on which that conclusion is based - If the EUDA concludes that it is under no obligation to act in this matter, I request specific legal reasoning, including an explanation of the relationship between that conclusion and Article 6(1)(f) and Article 15(2)(d) of Regulation (EU) 2023/1322
+
+In line with the considerations expressed in Section I above, the Agency reiterates that even if the issues raised in your submission may relate to areas covered by the Articles 6(1)(f) and 15 of Regulation (EU) 2023/1322, those provisions do not impose upon the Agency a legal obligation to undertake the specific actions requested.
+
+C. Considerations about the specific actions requested
+
+The EUDA acknowledges your request for comparative assessment on the matter at stake and notes your request to undertake the following detailed actions:
+
+• assess the comparability of methods for forensic determination of THC used in the Member States;
+• assess in particular the differences between GC/GC-FID and LC/HPLC;
+• assess differences in the analytical treatment of THC and THCA;
+• assess the issues of representative sampling, homogenisation, drying and storage;
+• assess differences in determining and reporting measurement uncertainty;
+• determine whether those differences may affect the comparability, objectivity and reliability of information at Union level;
+• discuss this issue within the network of forensic and toxicological laboratories under Article 15;
+• consider whether common or recommended non-binding standards are necessary under Article 6(1)(f);
+• and inform me of the outcome of this assessment.
+
+For the reasons set out above, possible work on this matter will be considered and determined in accordance with the Agency’s mandate, identified priorities, available resources and evolving public health and security needs.
+
+In particular, the EUDA notes that scientific methods and analytical practices continue to evolve and the EUDA routinely reviews emerging scientific issues relevant to its mandate and may consider topics for further discussion within the referred laboratory network where these are relevant to improving the quality, comparability and interpretation of drug-related information at Union level.
+
+In this context, the EUDA will continue to monitor scientific developments relevant to its mandate and may consider such topics within its expert and laboratory network according to the priorities identified by the Agency and the participating laboratories, and by considering the Network's work programme, available resources and emerging public health and security needs.
+
+III. CONCLUDING REMARKS
+
+While the EUDA does not currently maintain detailed information on the analytical methodologies used by individual laboratories for THC determination, the recently established Network of Forensic and Toxicological Laboratories seeks to strengthen cooperation, analytical capacity and methodological comparability across Europe.
+
+The EUDA recognises the scientific importance of analytical comparability, quality assurance and transparent measurement practices. The Agency also recognises that methodological differences may exist between laboratories and analytical approaches. At the same time, the EUDA's role is principally to support the collection, analysis and interpretation of objective, reliable and comparable drug-related information at European level. The operational conduct of forensic analyses, laboratory accreditation, method validation and evidential use of analytical results remain the responsibility of competent national authorities and laboratories.
+
+We trust that the above clarifies the Agency's current activities and position regarding the scientific issues raised in your submission.
+
+Yours sincerely,
+
+Fabian Pereyra
+Head of unit
+Executive office unit

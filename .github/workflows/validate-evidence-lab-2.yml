@@ -57,6 +57,9 @@ jobs:
       - name: Materializovat ověřené veřejné PDF nových listin 26.–28. 8. 2026
         run: python3 scripts/materialize-uoou-2026-08-26.py
 
+      - name: Materializovat ověřenou veřejnou kopii odpovědi EUDA z 25. 9. 2026
+        run: python3 scripts/materialize-euda-2026-09-25.py
+
       - name: Materializovat KPR a OSZ Frýdek-Místek z 2.–3. 9. 2026
         run: python3 scripts/materialize-state-pdfs-2026-09-03.py
 

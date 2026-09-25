@@ -186,6 +186,11 @@
       "path": "project-memory/documents-2026-supplement-2026-09-24-nss-6-as-207-26.json",
       "role": "batch",
       "batch_date": "2026-09-24"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-09-25-euda-response.json",
+      "role": "batch",
+      "batch_date": "2026-09-25"
     }
   ]
 }

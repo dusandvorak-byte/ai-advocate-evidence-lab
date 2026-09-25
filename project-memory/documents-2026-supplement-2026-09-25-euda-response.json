@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-25",
+  "purpose": "EUDA response of 25 September 2026 to the formal call to act under Article 265 TFEU concerning comparability of THC/THCA analytical methods.",
+  "documents": [
+    {
+      "id": "doc-eu-euda-2026-09-25-exo-fhp-pd-26-d-106",
+      "user_title": "Odpověď EUDA na formální výzvu k jednání podle čl. 265 SFEU",
+      "issue_date": "2026-09-25",
+      "received_date": "2026-09-25",
+      "institution_id": "EU-EUDA",
+      "reference": "EXO/FHP/pd (26) D 106",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "EUDA",
+        "čl. 265 SFEU",
+        "nařízení (EU) 2023/1322",
+        "THC",
+        "THCA",
+        "GC",
+        "LC",
+        "vzorkování",
+        "homogenizace",
+        "nejistota měření",
+        "srovnatelnost analytických metod"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "sha256": null,
+        "verification_status": "source_pdf_binary_original_received; six_pages; text_extraction_verified; source_sha256_verified_locally; generated_public_copy_materialized_during_build",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-25-euda-response.json",
+        "intended_pdf": "documents/report-04082026-010/101-euda-exo-fhp-pd-26-d-106-2026-09-25-verejna-kopie.pdf",
+        "source_sha256": "262744a62b8c396c9e610160780f6fa540c0c37105eb5d6f41b7edfb1b2116d9"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-en"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-eu-euda-2026-08-07-ack-article-265-tfeu"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "EUDA dne 25. 9. 2026 pod ref. EXO/FHP/pd (26) D 106 věcně odpověděla na formální výzvu podle čl. 265 SFEU. Uvedla, že čl. 6 odst. 1 písm. f) a čl. 15 nařízení (EU) 2023/1322 podle jejího názoru nezakládají konkrétní, bezpodmínečnou a právně závaznou povinnost provést požadované srovnávací hodnocení či harmonizační práci. Současně uznala, že rozdílné analytické metodiky, nakládání s THC/THCA, příprava a skladování vzorků a postupy hodnocení nejistoty měření mohou ovlivňovat výsledky a jejich srovnatelnost. EUDA uvedla, že systematický přehled metod používaných laboratořemi členských států pro stanovení THC nevede, systematické srovnávací hodnocení neprovedla a taková činnost nyní není zahrnuta v jejím plánování."
+    }
+  ]
+}
