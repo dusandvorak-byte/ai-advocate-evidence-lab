@@ -165,13 +165,6 @@ jobs:
           EOF
           sed -i 's/^          //' /tmp/godot-pdf-sha256.txt
           sha256sum -c /tmp/godot-pdf-sha256.txt
-          while read -r sha file; do
-            rel="${file#web/}"
-            if ! grep -q "$rel" web/zpravy/04082026-010.html; then
-              grep -Rqs "$rel" web/listiny
-            fi
-          done < /tmp/godot-pdf-sha256.txt
-
           grep -q 'NCOZ-4324-2/ČJ-2026-4100PI' web/en.html
           grep -q 'Ministry of Transport' web/en.html
           grep -q 'The Ministry of Transport deferred the information request' web/en.html
