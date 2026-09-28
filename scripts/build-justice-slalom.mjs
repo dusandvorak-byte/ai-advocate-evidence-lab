@@ -64,8 +64,7 @@ for (const doc of entries) {
       })[recipient.institution_id] || names.get(recipient.institution_id),
       role: recipient.role, reference: recipient.reference,
       subject_cs: recipient.subject_cs, subject_en: recipient.subject_en,
-      pdf: doc.public.pdf, pdf_sha256: doc.public.sha256,
-      date_note_cs: meta.date_note_cs || null, date_note_en: meta.date_note_en || null
+      pdf: doc.public.pdf, pdf_sha256: doc.public.sha256
     });
   }
 }
@@ -93,8 +92,7 @@ const renderRow = (row, lang) => {
   const label = english ? row.subject_en : row.subject_cs;
   const recipient = english ? row.recipient_en : row.recipient_cs;
   const role = row.role === 'copy' ? (english ? 'Copy' : 'Na vědomí') : row.role === 'simultaneous' ? (english ? 'Also addressed' : 'Současně') : '';
-  const note = english ? row.date_note_en : row.date_note_cs;
-  return `<tr data-slalom-id="${esc(row.id)}" data-row-number="${row.number}" data-document-id="${esc(row.document_id)}" data-recipient-id="${esc(row.recipient_id)}" data-filing-date="${esc(row.date)}"><td class="slalom-number">${row.number}</td><td><time datetime="${esc(row.date)}">${esc(dateText(row.date,lang))}</time>${note ? `<small class="slalom-date-note">${esc(note)}</small>` : ''}</td><td>${esc(recipient)}${role ? `<small class="slalom-role">${esc(role)}</small>` : ''}</td><td>${esc(row.reference)}</td><td>${esc(label)} <a href="${root}${esc(row.pdf)}" target="_blank" rel="noopener" aria-label="${esc(english ? `Original PDF: ${label}` : `Původní PDF: ${label}`)}">${english ? 'Original PDF' : 'Původní PDF'}</a></td></tr>`;
+  return `<tr data-slalom-id="${esc(row.id)}" data-row-number="${row.number}" data-document-id="${esc(row.document_id)}" data-recipient-id="${esc(row.recipient_id)}" data-filing-date="${esc(row.date)}"><td class="slalom-number">${row.number}</td><td><time datetime="${esc(row.date)}">${esc(dateText(row.date,lang))}</time></td><td>${esc(recipient)}${role ? `<small class="slalom-role">${esc(role)}</small>` : ''}</td><td>${esc(row.reference)}</td><td>${esc(label)} <a href="${root}${esc(row.pdf)}" target="_blank" rel="noopener" aria-label="${esc(english ? `Original PDF: ${label}` : `Původní PDF: ${label}`)}">${english ? 'Original PDF' : 'Původní PDF'}</a></td></tr>`;
 };
 const renderPanel = lang => {
   const english = lang === 'en';

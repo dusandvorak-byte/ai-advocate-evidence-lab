@@ -12,8 +12,14 @@ if (items.length < 47 || expectedRows < 65 || published.filings !== items.length
 if (manifest.counts.justice_slalom_filings !== items.length || manifest.counts.justice_slalom_recipient_rows !== expectedRows || manifest.capabilities_preserved.live_process_timers !== false) fail('publikační manifest neodpovídá archivu a zrušeným časovačům');
 if (new Set(items.map(item => item.id)).size !== items.length) fail('duplicitní ID originálu');
 if (new Set(published.rows.map(row => row.id)).size !== expectedRows) fail('duplicitní kombinace podání a adresáta');
+if (items.some(item => 'date_note_cs' in item.justice_slalom || 'date_note_en' in item.justice_slalom) ||
+    published.rows.some(row => 'date_note_cs' in row || 'date_note_en' in row)) fail('archiv nesmí obsahovat veřejné poznámky k datům');
 for (const [index,row] of published.rows.entries()) if (row.number !== index + 1) fail(`číslování 1–${expectedRows}: řádek ${index + 1} má číslo ${row.number}`);
-for (let i=1; i<published.rows.length; i++) if (published.rows[i-1].date > published.rows[i].date) fail('pořadí není chronologické');
+const expectedOrder = items.flatMap(item => item.justice_slalom.recipients.map((recipient, recipientOrder) => ({
+  id: `${item.id}--${recipient.institution_id}`, date: item.issue_date,
+  archiveNumber: item.justice_slalom.archive_number, recipientOrder
+}))).sort((a,b) => a.date.localeCompare(b.date) || a.archiveNumber - b.archiveNumber || a.recipientOrder - b.recipientOrder);
+if (JSON.stringify(published.rows.map(row => [row.id,row.date])) !== JSON.stringify(expectedOrder.map(row => [row.id,row.date]))) fail('řádky nejsou vzestupně podle doloženého data podání');
 
 const pages = [
   ['web/index.html','cs'], ['web/en.html','en'],
@@ -26,6 +32,7 @@ for (const [file,lang] of pages) {
   if ((html.match(/id="justicni-slalom"/g) || []).length !== 1) fail(`${file}: chybí jedna rozbalovací lišta`);
   const ids = [...html.matchAll(/<tr data-slalom-id="([^"]+)"/g)].map(match => match[1]);
   if (JSON.stringify(ids) !== JSON.stringify(expectedIds)) fail(`${file}: chybí řádky nebo se liší chronologie`);
+  if (/slalom-date-note|V poskytnutém PDF je v záhlaví omylem|Datum v těle podání je|Podáno 23\. července;|V těle podání je uvedeno 25\. července;|The supplied PDF header mistakenly says/.test(html)) fail(`${file}: v archivu zůstala vysvětlující poznámka k datu`);
   const headers = lang === 'cs' ? ['Č.','Datum','Adresát','č. j./sp. zn.','Předmět podání'] : ['No.','Date','Addressee','Ref./case no.','Subject of filing'];
   for (const header of headers) if (!html.includes(`>${header}</th>`)) fail(`${file}: chybí sloupec ${header}`);
   if (!html.includes('číst jako investigativu s láskou') && lang === 'cs') fail(`${file}: chybí česká výzva`);
@@ -39,7 +46,7 @@ for (const [file,lang] of pages) {
   }
 }
 const kpr = items.find(item => item.justice_slalom.archive_number === 2);
-if (kpr?.issue_date !== '2026-07-06' || !kpr.justice_slalom.date_note_cs?.includes('omylem 6. června')) fail('KPR: chybí požadovaná oprava data a vysvětlení');
+if (kpr?.issue_date !== '2026-07-06' || !published.rows.some(row => row.document_id === kpr.id && row.date === '2026-07-06')) fail('KPR: v chronologii chybí datum 6. července 2026');
 for (const item of items) {
   const file = `web/${item.public.pdf}`;
   const bytes = await readFile(file).catch(() => fail(`chybí ${file}`));
