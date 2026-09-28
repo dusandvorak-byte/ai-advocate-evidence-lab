@@ -17,7 +17,7 @@ const churchEnPage = await readFile('web/kc/en.html', 'utf8');
 const requiredBars = [
   'Godot online → každá zpráva má zdroj',
   'Aktivní soudní řízení od 1. května 2026',
-  'Živé procesní časovače'
+  'justicni-slalom'
 ];
 for (const label of requiredBars) {
   if (!script.includes(label)) throw new Error(`Chybí hlavní lišta: ${label}`);
@@ -45,15 +45,10 @@ for (let index = 1; index < caseRows.length; index += 1) {
 }
 if (!script.includes('link.dataset.startDate = startDate')) throw new Error('Soudní odkazy nemají veřejně kontrolovatelné datum počátku');
 
-for (const declaration of ['background: #285b6f;', 'color: #fff;', 'color: #fff !important;']) {
+for (const declaration of ['background: #285b6f;', 'color: #fff;']) {
   if (!styles.includes(declaration)) throw new Error(`Chybí barevná smlouva lišt: ${declaration}`);
 }
-if (!styles.includes('#live-dockets.home-rollup-stack-primary > #procesni-casovace[open]')) {
-  throw new Error('Chybí samostatná barevná smlouva rozbalených časovačů');
-}
-if (!styles.includes('#procesni-casovace[open] .historical-notice *') || !styles.includes('color: #111 !important;')) {
-  throw new Error('Bílé historické referenční karty nemají vynucené černé písmo');
-}
+if (!await readFile('web/justice-slalom.css', 'utf8').then(css => css.includes('background:#285b6f'))) throw new Error('Rozbalovací lišta nemá tmavě modrý kontrast');
 
 // Mobilní smlouva: lišty nesmějí přesáhnout obrazovku a rozbalené soudní
 // karty se na telefonu skládají do jediného sloupce.
@@ -82,13 +77,8 @@ if (!home.includes(`<a href="${nowHref}">Právě teď</a>`)) throw new Error('Od
 const czechGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!czechGodot.includes(`id="${latestStateRecord.id}"`)) throw new Error('Cíl odkazu Právě teď v českém Godotovi neexistuje');
 if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
-const englishTimerCount = (englishHome.match(/data-timer-id="/g) || []).length;
-if (englishTimerCount !== 39) throw new Error(`Anglická titulní stránka nemá všech 39 časovačů: ${englishTimerCount}`);
-for (const field of ['When:', 'To:', 'Reference:', 'From:', 'What happened:', 'Time limit / procedural regime:']) {
-  if (!englishHome.includes(`<b>${field}</b>`)) throw new Error(`Anglickým časovačům chybí pole ${field}`);
-}
-for (const czechField of ['<b>Kdy:</b>', '<b>Komu:</b>', '<b>Kdo:</b>', '<b>Co se stalo:</b>', 'Živé procesní časovače']) {
-  if (englishHome.includes(czechField)) throw new Error(`V anglických časovačích zůstal český text: ${czechField}`);
+for (const [label, page] of [['CZ home',home],['EN home',englishHome]]) {
+  if (!page.includes('id="justicni-slalom"') || page.includes('data-timer-id="')) throw new Error(`${label}: chybí slalom nebo zůstal veřejný časovač`);
 }
 for (const page of [home, englishHome]) if (!page.includes('auto-translate.js')) throw new Error('Titulní stránka nemá nabídku automatických překladů');
 for (const required of ["['pt', 'Português']", 'Přeložit / Translate', '100+ dalších jazyků / other languages', 'Czech official records and PDFs remain controlling', 'role="dialog"']) {
@@ -109,7 +99,7 @@ if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Fur
 if (/href="zpravy\/\d{8}-\d{3}\.html/.test(englishHome)) throw new Error('Anglická titulní stránka stále odkazuje na český článek');
 if (englishHome.includes('class="quick-memory"') || englishHome.includes('href="#memory"')) throw new Error('Anglická titulní stránka stále obsahuje zrušený vedlejší blok Case memory');
 if (!styles.includes('#traffic.utility-grid') || !styles.includes('#traffic.utility-grid > .desk')) throw new Error('Anglická důkazní přepážka nemá plnou šířku');
-for (const label of ['Godot online → every report has a source', 'Active court proceedings since 1 May 2026', 'Live procedural timers']) {
+for (const label of ['Godot online → every report has a source', 'Active court proceedings since 1 May 2026', 'justicni-slalom']) {
   if (!script.includes(label)) throw new Error(`Chybí anglická hlavní lišta: ${label}`);
 }
 for (const id of ['07082026-011','04082026-010','28072026-009','25072026-007','24072026-006','24072026-005','23072026-004','22072026-002','20072026-001']) {
@@ -135,19 +125,6 @@ if (!publishWorkflow.includes('grep -q "live-dockets.js?v=${version}" /tmp/verif
 for (const forbidden of ['<b>Povinný formát:</b>', '<b>Počítání:</b>', '<b>Úplnost:</b>']) {
   if (timerBuilder.includes(forbidden)) throw new Error(`Generátor časovačů stále obsahuje pracovní text: ${forbidden}`);
 }
-const timerFieldOrder = ['<b>Kdy:</b>', '<b>Komu:</b>', '<b>Pro:</b>', '<b>Č. j. / sp. zn.:</b>', '<b>Kdo:</b>', '<b>Co se stalo:</b>'];
-const routedTimerStart = home.indexOf('data-timer-id="timer-admin-nsz-odvolani-sin55-2026"');
-const routedTimerEnd = home.indexOf('</article>', routedTimerStart);
-const routedTimer = routedTimerStart >= 0 && routedTimerEnd > routedTimerStart
-  ? home.slice(routedTimerStart, routedTimerEnd)
-  : '';
-let previousTimerField = -1;
-for (const field of timerFieldOrder) {
-  const position = routedTimer.indexOf(field);
-  if (position < 0 || position <= previousTimerField) throw new Error(`Nesprávné pořadí údajů časovače u pole ${field}`);
-  previousTimerField = position;
-}
-
 const publicWorkingPhrases = [
   'Povinný formát:', 'Počítání:', 'Úplnost:',
   'chybějící karta zastaví build', 'build kontroluje úplnost',
@@ -167,16 +144,18 @@ for (const path of publicFiles) {
   }
 }
 
-const englishGodotRecords = (englishGodot.match(/data-document-id="doc-/g) || []).length;
+const englishGodotRecords = (englishGodot.match(/<li id="en-doc-[^"]+" data-document-id="doc-/g) || []).length;
 const englishGodotOutgoing = (englishGodot.match(/data-outgoing-id="/g) || []).length;
 const expectedEnglishDate = new Intl.DateTimeFormat('en-GB', {
   day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Prague'
 }).format(new Date()).toLocaleUpperCase('en-GB');
 if (!englishGodot.includes(`<header class="topline"><span>${expectedEnglishDate}</span>`)) throw new Error('Anglická kanonická chronologie nemá dnešní pražské datum');
-if (!englishGodot.includes('data-english-chronology-count="73"') || englishGodotRecords !== 73) {
-  throw new Error(`Anglický Godot nemá úplných 73 záznamů: ${englishGodotRecords}`);
+const englishGodotDeclaredCount = Number(englishGodot.match(/data-english-chronology-count=\"(\d+)\"/)?.[1] || 0);
+if (englishGodotRecords < 1 || englishGodotDeclaredCount !== englishGodotRecords) {
+  throw new Error(`Anglický Godot nemá konzistentní počet záznamů: vykresleno ${englishGodotRecords}, deklarováno ${englishGodotDeclaredCount}`);
 }
-if (englishGodotOutgoing !== 24) throw new Error(`Anglický Godot nemá všech 24 navazujících podání: ${englishGodotOutgoing}`);
+const expectedEnglishOutgoing = canonicalDocuments.documents.filter(item => item.issue_date >= '2026-05-01' && item.submission_side === 'outgoing_from_user_or_alliance').length;
+if (englishGodotOutgoing !== expectedEnglishOutgoing) throw new Error(`Anglický Godot nemá všechna kanonická navazující podání: ${englishGodotOutgoing}/${expectedEnglishOutgoing}`);
 const chronologyBlock = id => {
   const start = czechGodot.indexOf(`<li id="${id}"`);
   const end = start < 0 ? -1 : czechGodot.indexOf('</li>', start);
@@ -241,4 +220,4 @@ for (const czechField of ['Datum:', 'Kdo:', 'Č. j. / sp. zn.:', 'Co se stalo:']
   if (englishGodot.includes(`<b>${czechField}</b>`)) throw new Error(`V anglickém Godotu zůstalo české pole ${czechField}`);
 }
 
-console.log(`Smlouva titulní stránky: 3 lišty; ${caseRows.length} soudních řízení chronologicky; olejově modrá #285b6f; bílé písmo včetně časovačů; mobilní skládání; důkazní přepážka přes celou stránku.`);
+console.log(`Smlouva titulní stránky: 3 lišty; ${caseRows.length} soudních řízení chronologicky; olejově modrá #285b6f; bílé záhlaví Justičního slalomu; mobilní skládání; důkazní přepážka přes celou stránku.`);

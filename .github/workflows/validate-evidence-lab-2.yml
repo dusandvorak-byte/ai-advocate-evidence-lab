@@ -78,10 +78,19 @@ jobs:
       - name: Finalizovat anglické plochy Ministerstva dopravy
         run: node scripts/finalize-md-english-surfaces.mjs
 
+      - name: Obnovit společnou jazykovou nabídku po finálních generátorech
+        run: node scripts/build-language-access.mjs
+
+      - name: Nahradit veřejné časovače archivem Justiční slalom
+        run: node scripts/build-justice-slalom.mjs
+
       - name: Ověřit PDF odkazy Godota
         run: node scripts/audit-godot-pdf-links.mjs
 
-      - name: Ověřit dynamické procesní řetězce, lhůty a aktivní soudní větve
+      - name: Ověřit archiv podání, příjemce, PDF a nepřítomnost časovačů
+        run: node scripts/validate-justice-slalom.mjs
+
+      - name: Ověřit interní procesní registr a aktivní soudní větve
         run: node scripts/validate-process-chain-contract.mjs
 
       - name: Ověřit manifest Evidence Lab 2.0 bez ručních počtů

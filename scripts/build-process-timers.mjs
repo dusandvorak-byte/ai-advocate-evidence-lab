@@ -96,7 +96,9 @@ for (const patch of [...overrides.patches, ...currentOverrides.patches]) {
 // Každé naše aktuální podání, které je podle kanonických dat stížností, odvoláním nebo rozkladem,
 // MUSÍ mít časovač. Ruční override smí jen zpřesnit právní režim, nikdy rozhodovat o samotné existenci karty.
 const remedyPattern = /\b(stížnost|stížnosti|odvolání|rozklad)\b/i;
-const outgoing = documents.filter(doc => doc.submission_side === 'outgoing_from_user_or_alliance' && doc.issue_date >= remedySince);
+// The historical July archive is a filing index, not evidence of a currently
+// running remedy. It must never create a new "live" clock from a subject line.
+const outgoing = documents.filter(doc => doc.submission_side === 'outgoing_from_user_or_alliance' && doc.issue_date >= remedySince && !doc.justice_slalom);
 const remedyDocuments = outgoing.filter(doc => {
   const text = [doc.user_title, doc.reference, doc.document_type, ...(doc.topics || [])].filter(Boolean).join(' ');
   return doc.document_type === 'appeal' || remedyPattern.test(text);

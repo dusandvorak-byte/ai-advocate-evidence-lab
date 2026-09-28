@@ -52,7 +52,7 @@ for (const file of criticalHtml) {
 const czGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 const enGodot = await readFile('web/news/04082026-010.html', 'utf8');
 const renderedCz = (czGodot.match(/<li id="doc-[^"]+"/g) || []).length;
-const renderedEn = (enGodot.match(/data-document-id="doc-[^"]+"/g) || []).length;
+const renderedEn = (enGodot.match(/<li id="en-doc-[^"]+" data-document-id="doc-[^"]+"/g) || []).length;
 if (renderedCz !== stateCount) throw new Error(`CZ Godot ${renderedCz}/${stateCount}`);
 if (renderedEn !== stateCount) throw new Error(`EN Godot ${renderedEn}/${stateCount}`);
 if (!czGodot.includes(`Stát: ${stateCount} evidovaných listin`)) throw new Error('CZ Godot nemá kanonický počet');
