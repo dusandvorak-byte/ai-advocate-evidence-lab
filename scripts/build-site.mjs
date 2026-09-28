@@ -94,11 +94,11 @@ article = article
 await writeFile(output.article, article, 'utf8');
 const home = await readFile(output.home, 'utf8');
 const liveDockets = await readFile('web/live-dockets.js', 'utf8');
-for (const bar of ['Godot online → každá zpráva má zdroj','Aktivní soudní řízení od 1. května 2026','Živé procesní časovače']) if (!liveDockets.includes(bar)) throw new Error(`Generátor titulní stránky neobsahuje lištu: ${bar}`);
+for (const bar of ['Godot online → každá zpráva má zdroj','Aktivní soudní řízení od 1. května 2026','justicni-slalom']) if (!liveDockets.includes(bar)) throw new Error(`Generátor titulní stránky neobsahuje lištu: ${bar}`);
 for (const obsolete of ['Předžalobní řízení on-line od 1. května 2026','Státní láska online od 1. května 2026']) if (liveDockets.includes(obsolete)) throw new Error(`Generátor obsahuje zrušenou lištu: ${obsolete}`);
 if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Titulní stránka nenačítá kanonický generátor tří lišt');
-if (!home.includes('id="procesni-casovace"')) throw new Error('Titulní stránka neobsahuje procesní časovače');
-if (!article.includes('id="procesni-casovace"')) throw new Error('Godot neobsahuje procesní časovače');
+if (!home.includes('id="procesni-casovace"')) throw new Error('Mezikrok buildu neobsahuje procesní historii před finálním nahrazením');
+if (!article.includes('id="procesni-casovace"')) throw new Error('Mezikrok Godota neobsahuje procesní historii před finálním nahrazením');
 if (!article.includes(correctTitle)) throw new Error('Článek neobsahuje správný Godotův název');
 if (article.includes(wrongTitle)) throw new Error('Článek obsahuje chybný název s křižákem z Branibor');
 if (!article.includes('id="chronologie-seznam"')) throw new Error('Článek neobsahuje statickou chronologii');

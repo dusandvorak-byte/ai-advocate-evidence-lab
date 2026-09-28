@@ -43,7 +43,7 @@ const liveDockets = await readFile('web/live-dockets.js', 'utf8');
 const requiredBars = [
   'Godot online → každá zpráva má zdroj',
   'Aktivní soudní řízení od 1. května 2026',
-  'Živé procesní časovače'
+  'justicni-slalom'
 ];
 
 for (const label of requiredBars) {

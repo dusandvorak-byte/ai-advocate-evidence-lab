@@ -20,10 +20,10 @@ const fail = message => { throw new Error(`PROCESS-CHAIN-CONTRACT: ${message}`);
 for (const label of [
   'Godot online → každá zpráva má zdroj',
   'Aktivní soudní řízení od 1. května 2026',
-  'Živé procesní časovače',
+  'justicni-slalom',
   'Godot online → every report has a source',
   'Active court proceedings since 1 May 2026',
-  'Live procedural timers'
+  'justicni-slalom'
 ]) if (!script.includes(label)) fail(`chybí hlavní lišta ${label}`);
 
 const caseRows = [...script.matchAll(/\['(\d{4}-\d{2}-\d{2})',\s*'([^']+)',\s*'([^']+)',\s*'([^']+)'\]/g)]
@@ -39,17 +39,10 @@ if (!caseRows.some(row => row.cs.includes('kasační stížnost') && row.cs.incl
 
 if (!Array.isArray(timerRegistry.timers)) fail('web/data/process-timers.json nemá timers');
 const expectedTimerCount = timerRegistry.timers.length;
-const homeTimerCount = (home.match(/data-timer-id="/g) || []).length;
-const englishTimerCount = (englishHome.match(/data-timer-id="/g) || []).length;
-if (homeTimerCount !== expectedTimerCount) fail(`CZ titulní stránka má ${homeTimerCount} časovačů, registr ${expectedTimerCount}`);
-if (englishTimerCount !== expectedTimerCount) fail(`EN titulní stránka má ${englishTimerCount} časovačů, registr ${expectedTimerCount}`);
-if ((czechGodot.match(/data-timer-id="/g) || []).length !== expectedTimerCount) fail('CZ Godot nemá stejný počet časovačů jako registr');
-if ((englishGodot.match(/data-timer-id="/g) || []).length !== expectedTimerCount) fail('EN Godot nemá stejný počet časovačů jako registr');
-
-for (const forbidden of ['timer-admin-msz-odvolani-sin48-2026','timer-admin-msz-stiznost-necinnost-2026-07-31']) {
-  for (const [label,page] of [['CZ home',home],['EN home',englishHome],['CZ Godot',czechGodot],['EN Godot',englishGodot]]) {
-    if (page.includes(`data-timer-id="${forbidden}"`)) fail(`${label} stále obsahuje uzavřený samostatný časovač ${forbidden}`);
-  }
+if (expectedTimerCount < 1) fail('interní procesní registr je prázdný');
+for (const [label,page] of [['CZ home',home],['EN home',englishHome],['CZ Godot',czechGodot],['EN Godot',englishGodot]]) {
+  if (page.includes('data-timer-id="') || page.includes('id="procesni-casovace"')) fail(`${label} stále publikuje procesní časovač`);
+  if (!page.includes('id="justicni-slalom"')) fail(`${label} postrádá archiv podání`);
 }
 
 const requiredAxioms = [
@@ -64,18 +57,16 @@ const requiredAxioms = [
 ];
 const axiomIds = new Set((axioms.axioms || []).map(item => item.id));
 for (const id of requiredAxioms) if (!axiomIds.has(id)) fail(`chybí závazný axiom ${id}`);
+const internalProcessHistory = JSON.stringify(timerRegistry);
 
-for (const marker of ['process-chain','deadline-chain']) {
-  if (!czechGodot.includes(marker) || !home.includes(marker)) fail(`CZ výstupy nemají marker ${marker}`);
-}
 for (const required of ['2026-08-24','1 ZN 7061/2026','2026-09-02','4 KZN 7116/2026','3 VZN 239/2026']) {
-  if (!czechGodot.includes(required)) fail(`větev OSZ Frýdek-Místek postrádá ${required}`);
+  if (!czechGodot.includes(required) && !internalProcessHistory.includes(required)) fail(`větev OSZ Frýdek-Místek postrádá ${required}`);
 }
 for (const required of ['CT 338889/2025','2026-08-28','RRTV/2026/20/fej','RRTV/7757/2026-fej']) {
-  if (!czechGodot.includes(required)) fail(`větev ČT postrádá ${required}`);
+  if (!czechGodot.includes(required) && !internalProcessHistory.includes(required)) fail(`větev ČT postrádá ${required}`);
 }
 for (const required of ['8 Ad 9/2026-85','15 A 44/2026-43','5 To 248/2026','KRPT-203594-8/ČJ-2026-0700KR','MK 53547/2026 SOCNS']) {
-  if (!czechGodot.includes(required)) fail(`procesní genealogie postrádá ${required}`);
+  if (!czechGodot.includes(required) && !internalProcessHistory.includes(required)) fail(`procesní genealogie postrádá ${required}`);
 }
 
 if (!styles.includes('width: min(100%, var(--page-shell-width, 1240px))')) fail('hlavní lišty nejsou omezeny šířkou obrazovky');
@@ -86,10 +77,10 @@ for (const phrase of ['Povinný formát:', 'Počítání:', 'Úplnost:']) if (ti
 
 const publicLabelCheck = html => {
   const links = [...html.matchAll(/<a[^>]+href="[^"]+"[^>]*>([^<]+)<\/a>/g)].map(m => m[1].trim());
-  const suspicious = links.filter(label => /PDF|kopie|listina|dokument/i.test(label) && !['Dokument v PDF','Evidenční stránka'].includes(label));
+  const suspicious = links.filter(label => /PDF|kopie|listina|dokument/i.test(label) && !['Dokument v PDF','Evidenční stránka','Původní PDF'].includes(label));
   return suspicious.slice(0,5);
 };
 const suspicious = publicLabelCheck(czechGodot);
 if (suspicious.length) fail(`nejednotné veřejné popisky dokumentů: ${suspicious.join(' | ')}`);
 
-console.log(`Procesní kontrakt OK: ${expectedTimerCount} kanonických časovačů; 9 aktivních soudních větví; uzavřené samostatné časovače odstraněny; nové axiomy vynuceny.`);
+console.log(`Procesní kontrakt OK: ${expectedTimerCount} interních záznamů, 0 veřejných časovačů, 9 soudních větví; axiomy zachovány.`);

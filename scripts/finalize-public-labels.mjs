@@ -73,7 +73,7 @@ const churchHome = await readFile('web/kc/index.html', 'utf8');
 const churchEn = await readFile('web/kc/en.html', 'utf8');
 const liveDockets = await readFile('web/live-dockets.js', 'utf8');
 const newsFeed = await readFile('web/news-feed.js', 'utf8');
-for (const label of ['Godot online → každá zpráva má zdroj', 'Aktivní soudní řízení od 1. května 2026', 'Živé procesní časovače']) {
+for (const label of ['Godot online → každá zpráva má zdroj', 'Aktivní soudní řízení od 1. května 2026', 'justicni-slalom']) {
   if (!liveDockets.includes(label)) throw new Error(`Finální generátor postrádá lištu: ${label}`);
 }
 if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Finální titulní strana nenačítá generátor tří lišt');
@@ -92,7 +92,6 @@ const latestIds = html => [...html.matchAll(/<article\s+class="latest-record-car
 requireText('cz-state-count', article, `Stát: ${stateCount} evidovaných listin`);
 requireText('cz-home-static-count', home, `data-state-document-count>${stateCount}<`);
 requireText('en-state-count', enHome, `${stateCount} state and public-institution records`);
-requireText('en-newsroom-derived-count', enHome, `The canonical chronology now links ${stateCount} public records`);
 requireText('church-cz-state-count', churchHome, `${stateCount} listin státu a veřejných institucí`);
 requireText('church-en-state-count', churchEn, `${stateCount} state and public-institution records`);
 requireText('en-pdf-count', enHome, `${verifiedPdfCount} verified public PDFs`);

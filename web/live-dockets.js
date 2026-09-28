@@ -24,9 +24,9 @@
     ['2026-06-15', 'Městský soud v Praze, sp. zn. 18 A 23/2026 – Ministerstvo spravedlnosti', 'Prague Municipal Court, case 18 A 23/2026 – Ministry of Justice', 'case-cz-ms-praha-18a23-2026'],
     ['2026-07-12', 'Okresní soud v Prostějově, sp. zn. 2 T 104/2010 – obnova', 'Prostějov District Court, case 2 T 104/2010 – reopening', 'case-cz-os-pro-2t104-2010-obnova'],
     ['2026-07-12', 'Okresní soud v Prostějově – prevence 2026', 'Prostějov District Court – preventive filing 2026', 'case-cz-os-pro-prevence-2026'],
-    ['2026-08-24', 'Krajský soud v Ostravě – stížnostní řízení sp. zn. 5 To 248/2026; původní věc: Okresní soud v Ostravě, sp. zn. 15 T 11/2025', 'Ostrava Regional Court – complaint proceedings case 5 To 248/2026; original matter: Ostrava District Court case 15 T 11/2025', 'procesni-casovace'],
-    ['2026-08-31', 'Městský soud v Praze – nová zásahová žaloba proti SÚKL', 'Prague Municipal Court – new intervention action against SÚKL', 'procesni-casovace'],
-    ['2026-09-01', 'Nejvyšší správní soud – kasační stížnost ve věci 15 A 44/2026', 'Supreme Administrative Court – cassation complaint in case 15 A 44/2026', 'procesni-casovace']
+    ['2026-08-24', 'Krajský soud v Ostravě – stížnostní řízení sp. zn. 5 To 248/2026; původní věc: Okresní soud v Ostravě, sp. zn. 15 T 11/2025', 'Ostrava Regional Court – complaint proceedings case 5 To 248/2026; original matter: Ostrava District Court case 15 T 11/2025', 'chronologie'],
+    ['2026-08-31', 'Městský soud v Praze – nová zásahová žaloba proti SÚKL', 'Prague Municipal Court – new intervention action against SÚKL', 'chronologie'],
+    ['2026-09-01', 'Nejvyšší správní soud – kasační stížnost ve věci 15 A 44/2026', 'Supreme Administrative Court – cassation complaint in case 15 A 44/2026', 'chronologie']
   ].sort(([dateA], [dateB]) => dateA.localeCompare(dateB));
 
   const summaryMarkup = title =>
@@ -81,20 +81,9 @@
   });
   wrapper.append(makeDetails(isEnglish ? 'Active court proceedings since 1 May 2026' : 'Aktivní soudní řízení od 1. května 2026', 'court', courtGrid));
 
-  const timers = document.getElementById('procesni-casovace');
-  if (timers) {
-    timers.classList.add('home-rollup', 'timers-rollup');
-    const summary = timers.querySelector(':scope > summary');
-    if (summary) summary.innerHTML = summaryMarkup(isEnglish ? 'Live procedural timers' : 'Živé procesní časovače');
-    wrapper.append(timers);
-  } else if (isEnglish) {
-    const timerBody = document.createElement('div');
-    timerBody.className = 'rollup-body process-timers-dropdown-body';
-    timerBody.innerHTML = `<a href="${godotHref}#procesni-casovace" hreflang="cs">Open the source-linked list of proceedings with running time periods →</a>`;
-    const timerDetails = makeDetails('Live procedural timers', 'timers-rollup', timerBody);
-    timerDetails.id = 'procesni-casovace';
-    wrapper.append(timerDetails);
-  }
+  const slalomShell = document.querySelector('.justice-slalom-shell');
+  const slalom = slalomShell?.querySelector('#justicni-slalom');
+  if (slalom) wrapper.append(slalomShell);
 
   if (editionBar) editionBar.replaceWith(wrapper);
   else placementAnchor.insertAdjacentElement('afterend', wrapper);

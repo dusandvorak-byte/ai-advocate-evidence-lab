@@ -10,7 +10,8 @@ const reportPath = 'web/data/godot-pdf-audit.json';
 // se v této dávce nematerializují ani se jejich PDF nevynucuje.
 const OUTGOING_PDF_HARD_CUTOFF = '9999-12-31';
 
-const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
+const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '')
+  .replace(/^ai-advocate-evidence-lab\//, '').replace(/^web\//, '');
 const exists = file => access(file).then(() => true).catch(() => false);
 
 async function usablePdf(file) {
