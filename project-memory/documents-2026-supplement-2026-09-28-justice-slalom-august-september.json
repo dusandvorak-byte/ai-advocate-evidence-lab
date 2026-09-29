@@ -100,7 +100,12 @@
         "verification_status": "source_pdf_received_binary_original",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
       },
-      "relations": [],
+      "relations": [
+        {
+          "type": "podani_na_ktere_organ_reaguje",
+          "target_id": "doc-cz-kpr-2026-09-29-kpr-5080-2026"
+        }
+      ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship",
       "justice_slalom": {

@@ -2,7 +2,8 @@ import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 const json = async p => JSON.parse(await readFile(p,'utf8'));
 const fail = msg => { throw new Error(`STATE-RELEASE-2026-09-29: ${msg}`); };
-const source = await json('project-memory/source-verification-2026-09-29-ksz-vs.json');
+const sourceManifests = await Promise.all(['project-memory/source-verification-2026-09-29-ksz-vs.json','project-memory/source-verification-2026-09-29-kpr.json'].map(json));
+const source = { files: sourceManifests.flatMap(item => item.files) };
 const registry = await json('web/data/documents-2026.json');
 const translations = await json('project-memory/english-godot-translations.json');
 const timers = await json('web/data/process-timers.json');
@@ -20,6 +21,14 @@ const checkClientRenderers = async dir => {
   }
 };
 await checkClientRenderers('web');
+const institutions = await json('project-memory/institutions.json');
+const publicAuthorities = new Set(institutions.institutions
+  .filter(item => !['person','ngo','association'].includes(item.type))
+  .map(item => translations.institutions[item.id]).filter(Boolean));
+for (const card of pages[1].matchAll(/<aside\b[^>]*data-outgoing-id="([^"]+)"[^>]*>[\s\S]*?<\/aside>/g)) {
+  const from = card[0].match(/<b>From:<\/b>\s*([^<]+)/)?.[1]?.trim();
+  if (publicAuthorities.has(from)) fail(`receiving authority misidentified as filing author: ${card[1]}`);
+}
 for (const file of source.files) {
   const doc = registry.documents.find(d=>d.id===file.document_id);
   if (!doc || doc.issue_date!==file.issue_date || doc.reference!==file.reference || doc.received_date!==null || doc.public.pdf!==file.public_pdf) fail(`canonical record ${file.document_id}`);
@@ -48,6 +57,11 @@ for (const file of source.files) {
   for (const id of doc.closes_timer_ids || []) {
     if (timers.timers.some(timer=>timer.id===id)) fail(`closed phase still active: ${id}`);
     if (!timers.resolved_process_steps?.some(step=>step.id===id && step.decision_document_id===doc.id)) fail(`missing decision history: ${id}`);
+  }
+  for (const update of doc.process_updates || []) {
+    const timer = timers.timers.find(item => item.id === update.timer_id);
+    if (!timer || timer.current_source_document_id !== doc.id || !timer.process_steps.some(step => step.document_id === doc.id && step.date === doc.issue_date)) fail(`missing current process projection ${doc.id}`);
+    for (const field of ['status','limit_kind','limit_days','due_date']) if (timer[field] !== update[field]) fail(`stale process field ${doc.id}: ${field}`);
   }
 }
 console.log('State release 2026-09-29 OK: source-identical PDFs, canonical dates, CZ/EN entries, labels, case/filing relations, resolved KSZ phase and no client overwrite.');
