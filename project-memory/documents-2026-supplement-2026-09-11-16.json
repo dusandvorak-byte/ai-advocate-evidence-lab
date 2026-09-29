@@ -22,14 +22,37 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "sha256": null,
-        "verification_status": "source_pdf_verified_in_file_library; public_evidence_page_only"
+        "pdf": "documents/justice-slalom/2026-09/055-podani-2026-09-07.pdf",
+        "sha256": "72d30cf3d6f32729dc4095ff60f179fb30294665bfb56813688281388ce82837",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
       },
       "relations": [],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "deterministic_document_type",
-      "evidence_note": "Podání ze dne 7. 9. 2026 požádalo Okresní soud v Prostějově a Okresní státní zastupitelství v Prostějově o přesné procesní vymezení, která původní trestní věc bude projednávána ve veřejných zasedáních vedených pod sp. zn. 15 Nt 3104/2026 a 15 Nt 3106/2026."
+      "evidence_note": "Podání ze dne 7. 9. 2026 požádalo Okresní soud v Prostějově a Okresní státní zastupitelství v Prostějově o přesné procesní vymezení, která původní trestní věc bude projednávána ve veřejných zasedáních vedených pod sp. zn. 15 Nt 3104/2026 a 15 Nt 3106/2026.",
+      "justice_slalom": {
+        "archive_number": 102,
+        "archive_name": "OS a OSZ v Prostějově 7.září 2026- Mimořádně naléhavá žádost o procesní vysvětlení a další důkazní doplnění – 2 T 104_2010.pdf",
+        "source_sha256": "72d30cf3d6f32729dc4095ff60f179fb30294665bfb56813688281388ce82837",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "2 T 104/2010; 15 Nt 3104/2026; 15 Nt 3106/2026",
+            "role": "primary",
+            "subject_cs": "Žádost o vymezení veřejných zasedání a doplnění důkazů k obnově",
+            "subject_en": "Request to clarify public hearings and supplement evidence for reopening"
+          },
+          {
+            "institution_id": "CZ-OSZ-PV",
+            "reference": "1 ZT 11/2010",
+            "role": "simultaneous",
+            "subject_cs": "Žádost o vymezení veřejných zasedání a doplnění důkazů k obnově",
+            "subject_en": "Request to clarify public hearings and supplement evidence for reopening"
+          }
+        ]
+      }
     },
     {
       "id": "doc-cz-ekk-2026-09-11-msp-cia-thc-dohled-akreditace",
@@ -52,14 +75,39 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "sha256": null,
-        "verification_status": "source_pdf_verified_in_file_library; public_evidence_page_only"
+        "pdf": "documents/justice-slalom/2026-09/021-podani-2026-09-11-verejna-kopie.pdf",
+        "sha256": "1e44bcfe9608dab2588225afc83b4019eb3297f04c7e2d79cd7c161335c8fd8f",
+        "verification_status": "redacted_public_pdf_copy_assistant_review_completed",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
       },
       "relations": [],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "deterministic_document_type",
-      "evidence_note": "Edukativní konopná klinika, z. s., podala Ministerstvu spravedlnosti a současně Českému institutu pro akreditaci podnět k prověření znalecké a laboratorní činnosti při zkoumání konopí a kvantitativním stanovení THC. Podnět žádá ověřit metodický řetězec včetně vzorkování, homogenizace, THC/THCA, dekarboxylace, validace, nejistoty měření a rozsahu akreditace."
+      "evidence_note": "Edukativní konopná klinika, z. s., podala Ministerstvu spravedlnosti a současně Českému institutu pro akreditaci podnět k prověření znalecké a laboratorní činnosti při zkoumání konopí a kvantitativním stanovení THC. Podnět žádá ověřit metodický řetězec včetně vzorkování, homogenizace, THC/THCA, dekarboxylace, validace, nejistoty měření a rozsahu akreditace.",
+      "justice_slalom": {
+        "archive_number": 69,
+        "archive_name": "Ministerstvu dne 11.září 2026- Podnět k výkonu dohledu nad znaleckou činností a k přezkoumání akreditace – zkoumání omamných a psychotropních látek.pdf",
+        "source_sha256": "5bdd08570b960fcf66544eaaeeb6a1602c3c5e49f9daa6b27e75f3585b492870",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "recipients": [
+          {
+            "institution_id": "CZ-MSP",
+            "reference": "MSP-162/2026-ODKA-SPZ",
+            "role": "primary",
+            "subject_cs": "Podnět k dohledu nad znaleckou činností policie a přezkumu laboratorní akreditace",
+            "subject_en": "Request to supervise police expert work and review laboratory accreditation"
+          },
+          {
+            "institution_id": "CZ-CIA",
+            "reference": "přezkum akreditace policejních laboratoří",
+            "role": "simultaneous",
+            "subject_cs": "Podnět k dohledu nad znaleckou činností policie a přezkumu laboratorní akreditace",
+            "subject_en": "Request to supervise police expert work and review laboratory accreditation"
+          }
+        ],
+        "public_sha256": "1e44bcfe9608dab2588225afc83b4019eb3297f04c7e2d79cd7c161335c8fd8f",
+        "redaction_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      }
     },
     {
       "id": "doc-cz-dd-2026-09-13-os-osz-pro-doplneni-obnova",
@@ -78,9 +126,10 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "sha256": null,
-        "verification_status": "source_pdf_verified_in_file_library; public_evidence_page_only"
+        "pdf": "documents/justice-slalom/2026-09/054-podani-2026-09-13.pdf",
+        "sha256": "a4dea43abe46797b3511e2bc48dac502f52d01ce3bf2b0d6467998e93f743da5",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
       },
       "relations": [
         {
@@ -90,7 +139,29 @@
       ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "deterministic_document_type",
-      "evidence_note": "Podání ze dne 13. 9. 2026 doplnilo větve obnovy 15 Nt 3104/2026 a 15 Nt 3106/2026 a související věci OSZ Prostějov; mezi nové listiny označilo podnět MSp/ČIA ze dne 11. 9. 2026 a závěrečné sdělení NSZ/ČT ze dne 13. 9. 2026."
+      "evidence_note": "Podání ze dne 13. 9. 2026 doplnilo větve obnovy 15 Nt 3104/2026 a 15 Nt 3106/2026 a související věci OSZ Prostějov; mezi nové listiny označilo podnět MSp/ČIA ze dne 11. 9. 2026 a závěrečné sdělení NSZ/ČT ze dne 13. 9. 2026.",
+      "justice_slalom": {
+        "archive_number": 101,
+        "archive_name": "OS a OSZ Prostejov - doplneni 13.září 2026.pdf",
+        "source_sha256": "a4dea43abe46797b3511e2bc48dac502f52d01ce3bf2b0d6467998e93f743da5",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+            "role": "primary",
+            "subject_cs": "Důkazní doplnění k obnově řízení a souvisejícímu podnětu státnímu zastupitelství",
+            "subject_en": "Evidence supplement on reopening and a related prosecution request"
+          },
+          {
+            "institution_id": "CZ-OSZ-PV",
+            "reference": "1 ZT 11/2010; ZN 4/2026",
+            "role": "simultaneous",
+            "subject_cs": "Důkazní doplnění k obnově řízení a souvisejícímu podnětu státnímu zastupitelství",
+            "subject_en": "Evidence supplement on reopening and a related prosecution request"
+          }
+        ]
+      }
     },
     {
       "id": "doc-cz-dd-2026-09-13-ks-ksz-vsz-doplneni-stiznosti",
@@ -111,19 +182,53 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "sha256": null,
-        "verification_status": "source_pdf_verified_in_file_library; public_evidence_page_only"
+        "pdf": "documents/justice-slalom/2026-09/019-podani-2026-09-13.pdf",
+        "sha256": "fcf854dcccbdd91d9edc3a4782cda0a2e8b8f770feb7a210a23087dbdb136bd7",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
       },
       "relations": [
         {
           "type": "souvisí",
           "target_id": "doc-cz-ekk-2026-09-11-msp-cia-thc-dohled-akreditace"
+        },
+        {
+          "type": "podani_na_ktere_organ_reaguje",
+          "target_id": "doc-cz-ksz-brn-2026-09-16-1-kzt-475-2026-71"
         }
       ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "deterministic_document_type",
-      "evidence_note": "Podání ze dne 13. 9. 2026 doplnilo stížnostní větve KS Brno 9 To 315/2026 a 9 To 316/2026 a dohledové/přezkumné větve 3 VZN 239/2026, 1 KZT 475/2026 a 1 KZN 1079/2026."
+      "evidence_note": "Podání ze dne 13. 9. 2026 doplnilo stížnostní větve KS Brno 9 To 315/2026 a 9 To 316/2026 a dohledové/přezkumné větve 3 VZN 239/2026, 1 KZT 475/2026 a 1 KZN 1079/2026.",
+      "justice_slalom": {
+        "archive_number": 67,
+        "archive_name": "KS Brno, VSZ Olomouc, KSZ Brno - 14. 9. 2026.pdf",
+        "source_sha256": "fcf854dcccbdd91d9edc3a4782cda0a2e8b8f770feb7a210a23087dbdb136bd7",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-KS-BRN",
+            "reference": "9 To 315/2026; 9 To 316/2026",
+            "role": "primary",
+            "subject_cs": "Společné důkazní doplnění stížností a dohledových věcí",
+            "subject_en": "Joint evidence supplement to complaints and supervisory proceedings"
+          },
+          {
+            "institution_id": "CZ-VSZ-OLO",
+            "reference": "3 VZN 239/2026",
+            "role": "simultaneous",
+            "subject_cs": "Společné důkazní doplnění stížností a dohledových věcí",
+            "subject_en": "Joint evidence supplement to complaints and supervisory proceedings"
+          },
+          {
+            "institution_id": "CZ-KSZ-BRN",
+            "reference": "1 KZT 475/2026; 1 KZN 1079/2026",
+            "role": "simultaneous",
+            "subject_cs": "Společné důkazní doplnění stížností a dohledových věcí",
+            "subject_en": "Joint evidence supplement to complaints and supervisory proceedings"
+          }
+        ]
+      }
     },
     {
       "id": "doc-cz-dd-2026-09-13-nsz-ct-zaverecne-sdeleni",
@@ -144,9 +249,10 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "sha256": null,
-        "verification_status": "source_pdf_verified_in_file_library; public_evidence_page_only"
+        "pdf": "documents/justice-slalom/2026-09/048-podani-2026-09-13.pdf",
+        "sha256": "a2453bb6e87cfaaea642594e752a4c3694b6e1ba0a9ca7f7c39d972185b4b118",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
       },
       "relations": [
         {
@@ -156,7 +262,36 @@
       ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "deterministic_document_type",
-      "evidence_note": "Závěrečné sdělení ze dne 13. 9. 2026 navazuje na předžalobní výzvu NSZ ze dne 14. 7. 2026 s deseti dodatky a na stížnost České televizi a Radě ČT. Jako nové listiny označuje článek z 11. 9. 2026 a podnět MSp/ČIA z 11. 9. 2026."
+      "evidence_note": "Závěrečné sdělení ze dne 13. 9. 2026 navazuje na předžalobní výzvu NSZ ze dne 14. 7. 2026 s deseti dodatky a na stížnost České televizi a Radě ČT. Jako nové listiny označuje článek z 11. 9. 2026 a podnět MSp/ČIA z 11. 9. 2026.",
+      "justice_slalom": {
+        "archive_number": 95,
+        "archive_name": "NSZ a ČT dne 13.9.2026 -Závěrečné sdělení k předžalobní výzvě NSZ a stížnosti České televizi.pdf",
+        "source_sha256": "a2453bb6e87cfaaea642594e752a4c3694b6e1ba0a9ca7f7c39d972185b4b118",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "primary",
+            "subject_cs": "Závěrečné sdělení k předžalobní výzvě NSZ a stížnosti České televizi",
+            "subject_en": "Final statement on the pre-action demand to NSZ and the Czech Television complaint"
+          },
+          {
+            "institution_id": "CZ-CT",
+            "reference": "CT 338889/2025",
+            "role": "simultaneous",
+            "subject_cs": "Závěrečné sdělení k předžalobní výzvě NSZ a stížnosti České televizi",
+            "subject_en": "Final statement on the pre-action demand to NSZ and the Czech Television complaint"
+          },
+          {
+            "institution_id": "CZ-RADA-CT",
+            "reference": "CT 338889/2025",
+            "role": "simultaneous",
+            "subject_cs": "Závěrečné sdělení k předžalobní výzvě NSZ a stížnosti České televizi",
+            "subject_en": "Final statement on the pre-action demand to NSZ and the Czech Television complaint"
+          }
+        ]
+      }
     },
     {
       "id": "doc-cz-mv-2026-09-14-mv-139593-3-tp-2026",
@@ -269,9 +404,10 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "sha256": null,
-        "verification_status": "source_docx_verified_in_file_library; public_evidence_page_only"
+        "pdf": "documents/justice-slalom/2026-09/018-podani-2026-09-16-verejna-kopie.pdf",
+        "sha256": "a93fcf0ae21d4affdacebb8a75be7eab645b874cf20dfdcf6018a51a87ae33ce",
+        "verification_status": "redacted_public_pdf_copy_assistant_review_completed",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
       },
       "relations": [
         {
@@ -285,7 +421,31 @@
       ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "deterministic_document_type",
-      "evidence_note": "Podání ze dne 16. 9. 2026 je společně adresováno OS Prostějov ke sp. zn. 15 Nt 3104/2026 a 15 Nt 3106/2026 a KS Brno ke sp. zn. 9 To 315/2026 a 9 To 316/2026. Navazuje na procesní upřesnění OS Prostějov ze dne 14. 9. 2026 a shrnuje důkazní a procesní argumentaci před říjnovými veřejnými zasedáními a v navazujících stížnostních větvích."
+      "evidence_note": "Podání ze dne 16. 9. 2026 je společně adresováno OS Prostějov ke sp. zn. 15 Nt 3104/2026 a 15 Nt 3106/2026 a KS Brno ke sp. zn. 9 To 315/2026 a 9 To 316/2026. Navazuje na procesní upřesnění OS Prostějov ze dne 14. 9. 2026 a shrnuje důkazní a procesní argumentaci před říjnovými veřejnými zasedáními a v navazujících stížnostních větvích.",
+      "justice_slalom": {
+        "archive_number": 66,
+        "archive_name": "KS Brno a OS prostějov dne 16.9.2026- Souhrnné mimořádně naléhavé důkazní a procesní doplnění.pdf",
+        "source_sha256": "e5883c4b98415fd61ea78196907af2d5795d8308f40aa3ea17bcbaabf58ff774",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+            "role": "primary",
+            "subject_cs": "Souhrnné procesní a důkazní doplnění k obnově dvou trestních věcí",
+            "subject_en": "Consolidated procedural and evidentiary supplement for reopening two criminal cases"
+          },
+          {
+            "institution_id": "CZ-KS-BRN",
+            "reference": "9 To 315/2026; 9 To 316/2026",
+            "role": "simultaneous",
+            "subject_cs": "Souhrnné procesní a důkazní doplnění k obnově dvou trestních věcí",
+            "subject_en": "Consolidated procedural and evidentiary supplement for reopening two criminal cases"
+          }
+        ],
+        "public_sha256": "a93fcf0ae21d4affdacebb8a75be7eab645b874cf20dfdcf6018a51a87ae33ce",
+        "redaction_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      }
     }
   ]
 }

@@ -1,0 +1,833 @@
+{
+  "schema_version": "1.0",
+  "archive_sha256": "5bfb61b22b6c7e8bb0b1216441d1d2009227e19870ef62d3e44c8daae4a1d624",
+  "chunks": [
+    {
+      "name": "chunk-000.b64",
+      "size": 200000,
+      "sha256": "bde64d285d843c7884dc109663b89e1c45bbdedd4045001fccd72ccd66d096f0"
+    },
+    {
+      "name": "chunk-001.b64",
+      "size": 200000,
+      "sha256": "685ebb658960af9eaa6a1749f1f3c488edd84a77bbac52acab14d2f0b40a119b"
+    },
+    {
+      "name": "chunk-002.b64",
+      "size": 200000,
+      "sha256": "39906a2a88bf7e56e87180222ce19c1ef4420bd158eff121ac10604e16c59afb"
+    },
+    {
+      "name": "chunk-003.b64",
+      "size": 200000,
+      "sha256": "168d53896c75024548772953298df6e978e9b168a3a32586af345683c364e300"
+    },
+    {
+      "name": "chunk-004.b64",
+      "size": 200000,
+      "sha256": "94c3981b525297de597b8d560eac0f7ee2720d8c0d3fc8671de00cb7a86f7b47"
+    },
+    {
+      "name": "chunk-005.b64",
+      "size": 200000,
+      "sha256": "f103a32178fe0c0bb171a704d21176910b5d4d104129de31abf5e79f547073ed"
+    },
+    {
+      "name": "chunk-006.b64",
+      "size": 200000,
+      "sha256": "635cbbcc7b1edd653c61a652e1207464cda94f26d0bb3de2a24bb6ac0954dd38"
+    },
+    {
+      "name": "chunk-007.b64",
+      "size": 200000,
+      "sha256": "09335c7c88e8777eadf22f9f9de290ff21d35f2eb6ccc9b9091041408736b404"
+    },
+    {
+      "name": "chunk-008.b64",
+      "size": 200000,
+      "sha256": "8971ea38de2a498accaf60679500ab879e8a0ae618864f51eb83a6e65d65a14e"
+    },
+    {
+      "name": "chunk-009.b64",
+      "size": 200000,
+      "sha256": "b3224b9968f7f12f776b276dd755f6c378781a89de1d1d5d24551f31dcd62595"
+    },
+    {
+      "name": "chunk-010.b64",
+      "size": 200000,
+      "sha256": "7f3fc60bc076a900954f6691cdb0d29fa71a01996e544b19bcc3216b2dfac1da"
+    },
+    {
+      "name": "chunk-011.b64",
+      "size": 200000,
+      "sha256": "7978d7153e87f145194bc595892f727888a3fb3c1f141d7c9e7327a7f729d84e"
+    },
+    {
+      "name": "chunk-012.b64",
+      "size": 200000,
+      "sha256": "55d4f8fc8b5e43a37a6fb3e8f8edf4c9a24b54af0fa370fb42c78730bb0da44a"
+    },
+    {
+      "name": "chunk-013.b64",
+      "size": 200000,
+      "sha256": "defc2d760a1a1c360a76328e3d10b6abb8be5c18ea06f4bf245740ed900e2211"
+    },
+    {
+      "name": "chunk-014.b64",
+      "size": 200000,
+      "sha256": "59ebc64c9170d0718830c0efe6c25fe4a622b94853efe081347d5f72d2c614f3"
+    },
+    {
+      "name": "chunk-015.b64",
+      "size": 200000,
+      "sha256": "d7aaafc21c5b4fe71e80036164ad56a82bc08f80ec75670a36efd7744bad0b30"
+    },
+    {
+      "name": "chunk-016.b64",
+      "size": 200000,
+      "sha256": "7d6f3688e4cd44e5aeafd12b26bee90a947f470e8db54d7c6c8e13e9923c1787"
+    },
+    {
+      "name": "chunk-017.b64",
+      "size": 200000,
+      "sha256": "0851fe43c005067943a1d0345c71f6759e5949ea162458e7da21aa85f9c38465"
+    },
+    {
+      "name": "chunk-018.b64",
+      "size": 200000,
+      "sha256": "75bd33da663443c88fe97b6a811f1092ad57742f49f321834316f3cb9d29ace6"
+    },
+    {
+      "name": "chunk-019.b64",
+      "size": 200000,
+      "sha256": "112bcf5f2d5c588bb75443fc81b0b9b4ecf4fed67469ec4419f5fce88edfa9e9"
+    },
+    {
+      "name": "chunk-020.b64",
+      "size": 200000,
+      "sha256": "3b0ce2030428f90b3d003ffc860f5d13d3f177914893bf725787259d6245b9bf"
+    },
+    {
+      "name": "chunk-021.b64",
+      "size": 200000,
+      "sha256": "49eb0d41762e7d6219a9f0ff0aea58dae90f884594acad48b33b7824606c0460"
+    },
+    {
+      "name": "chunk-022.b64",
+      "size": 200000,
+      "sha256": "69ca0eb891f412b30bccd58631ffa03c71f84065626654c4dffc11f82e46a44e"
+    },
+    {
+      "name": "chunk-023.b64",
+      "size": 200000,
+      "sha256": "1ee2e3013aed25a6661378f037df3e60f92c0d4914323cb0bcff06573c953fcc"
+    },
+    {
+      "name": "chunk-024.b64",
+      "size": 200000,
+      "sha256": "dc5e941541c9fd35853614693dec298c12d3055f39ac70dd54891b43cbbd732a"
+    },
+    {
+      "name": "chunk-025.b64",
+      "size": 200000,
+      "sha256": "16f55c0b5015367c9041468a1edfd27be2db5868b3c2bb164b96c59d6e7a3afb"
+    },
+    {
+      "name": "chunk-026.b64",
+      "size": 200000,
+      "sha256": "a6d92742280faed8ad06950bf95e074a2312083d86016c6f2b3c0faf863f66d2"
+    },
+    {
+      "name": "chunk-027.b64",
+      "size": 200000,
+      "sha256": "d2d5a21a05ce8ba6c80b61819d221cf66c3563c728612ce55fc9df468f9cabd5"
+    },
+    {
+      "name": "chunk-028.b64",
+      "size": 200000,
+      "sha256": "ba30430e635fdaec2f0fa07865591656f2b5c6061431802d652bd59cf1737e4e"
+    },
+    {
+      "name": "chunk-029.b64",
+      "size": 200000,
+      "sha256": "8ef8130915497630a920a311113db3319337699bb6be6ee425d45f5629e0dead"
+    },
+    {
+      "name": "chunk-030.b64",
+      "size": 200000,
+      "sha256": "fc625caeb94d88b3a98d2f164aa4585e51d6ad5ae498682548871ff64fc6322e"
+    },
+    {
+      "name": "chunk-031.b64",
+      "size": 200000,
+      "sha256": "a0035a80eaa8939aa7b677e9eb6dd9c08b0f19e334ee1c09d7342c8bd5625a3e"
+    },
+    {
+      "name": "chunk-032.b64",
+      "size": 200000,
+      "sha256": "377e43155cd947b0db169e91690fbfbe090cbf258908410a5f6e9e4f8aec2e21"
+    },
+    {
+      "name": "chunk-033.b64",
+      "size": 200000,
+      "sha256": "55fb928559fffdc2c4457771cad9bb129cef2b94d6a7d99e511d5b703df3eada"
+    },
+    {
+      "name": "chunk-034.b64",
+      "size": 200000,
+      "sha256": "b96b83ec137c217b847b8dd44a89a25bbbc34bf4e003a52381820c68b99da3ec"
+    },
+    {
+      "name": "chunk-035.b64",
+      "size": 200000,
+      "sha256": "7182a03e550bc969438aac8753e89562722c112dab4e0b842fb0241becbb1487"
+    },
+    {
+      "name": "chunk-036.b64",
+      "size": 200000,
+      "sha256": "a20afbdea94e0895dba161d5117dd485e17dd7177060faf3978e373394cafe24"
+    },
+    {
+      "name": "chunk-037.b64",
+      "size": 200000,
+      "sha256": "792df381e8c49d0bff1560e5cc2790d9129af9d61db375ae61daa345711fea53"
+    },
+    {
+      "name": "chunk-038.b64",
+      "size": 200000,
+      "sha256": "ef82cd10921423bae5f11ff1c04bec87d462483f88f643326800b3e9e1e24179"
+    },
+    {
+      "name": "chunk-039.b64",
+      "size": 200000,
+      "sha256": "bb980ab33a18dc3bccf2b42c83e0dfd4bf9a5944fbc28d16e206a96e8ae9d774"
+    },
+    {
+      "name": "chunk-040.b64",
+      "size": 200000,
+      "sha256": "659de610e6847e915a39bfa407e3db112eadee095bf3f8bf28f628a2614b4601"
+    },
+    {
+      "name": "chunk-041.b64",
+      "size": 200000,
+      "sha256": "3fe782fa3c808ce031a318187d05968fef76eee0cf6aaa44faaec44d8fbfe8d4"
+    },
+    {
+      "name": "chunk-042.b64",
+      "size": 200000,
+      "sha256": "e64633e205cf2d2dc1c64fb8ca196ca4437f20b5f10946aa7a8dad0b4aee50a4"
+    },
+    {
+      "name": "chunk-043.b64",
+      "size": 200000,
+      "sha256": "07c27e8f3e0d9a8b67bc2e4814e1d6e07745b6c15cc7352393fea8621b4ad2ed"
+    },
+    {
+      "name": "chunk-044.b64",
+      "size": 200000,
+      "sha256": "9a4094947a7749e71b5a37f73e6e86f86d9d62b8bec6c01f2391d7da2b01680b"
+    },
+    {
+      "name": "chunk-045.b64",
+      "size": 200000,
+      "sha256": "7cf0a0d1a9842975f93449f1e4cf6e336fd4a9760313688be4fc01d4f7b76332"
+    },
+    {
+      "name": "chunk-046.b64",
+      "size": 200000,
+      "sha256": "762ae7214b31e9150860d2952600d87c7040bc08c36f12c05a90fe19e14fe48a"
+    },
+    {
+      "name": "chunk-047.b64",
+      "size": 200000,
+      "sha256": "79db2e147b1f8f22998c91a9ba2db01c3490e36a0e1bd6c7effa0a271960a8e0"
+    },
+    {
+      "name": "chunk-048.b64",
+      "size": 200000,
+      "sha256": "a2533744d479ce478840e8605b78199c607e60e9491a3c1c5f9a34f756913500"
+    },
+    {
+      "name": "chunk-049.b64",
+      "size": 200000,
+      "sha256": "14be3ae0a790a270e34af4c51ed4c2cb850af95a6338606af571baccf9a8e293"
+    },
+    {
+      "name": "chunk-050.b64",
+      "size": 200000,
+      "sha256": "15ba7e28671669fbceaebb808ec8cf67620014014220a6eae7808450d72a3fdf"
+    },
+    {
+      "name": "chunk-051.b64",
+      "size": 200000,
+      "sha256": "ca792a9653997f0203be81b283b270be5db5532dc6d5995c206727806498c186"
+    },
+    {
+      "name": "chunk-052.b64",
+      "size": 200000,
+      "sha256": "4ae04f79adb6a868201af1221a625ee694cde331ce8a966d7f6b19a5d8cdabf8"
+    },
+    {
+      "name": "chunk-053.b64",
+      "size": 200000,
+      "sha256": "448e6df5c115345354b44a7dfac862d3c1d41b36ee52d098555117e0f5dd2a3e"
+    },
+    {
+      "name": "chunk-054.b64",
+      "size": 200000,
+      "sha256": "cddaba7a381438a71f829c6daa98198ac1f1fa1b4893dc6eb03028d4d641aa49"
+    },
+    {
+      "name": "chunk-055.b64",
+      "size": 200000,
+      "sha256": "79e18919488c931c5c18f6addd6c5f707340be13694cface5ed4e26c4aba273d"
+    },
+    {
+      "name": "chunk-056.b64",
+      "size": 200000,
+      "sha256": "2c984d7a62b88f861993f7ef89b4ff06b183bfc7ccbfd135bd79012281ea7f96"
+    },
+    {
+      "name": "chunk-057.b64",
+      "size": 200000,
+      "sha256": "233fc7f648faa23d6b2ad2f5c1acce9daafa6db818442f30bc55ef59d132aecc"
+    },
+    {
+      "name": "chunk-058.b64",
+      "size": 200000,
+      "sha256": "292c76d00d5477311dad34bcb77c3421d4ab30fc8443dde49df89a6ccd18384c"
+    },
+    {
+      "name": "chunk-059.b64",
+      "size": 200000,
+      "sha256": "557771df80f0f8293ce5ba977b6d4d4188df418a38ae62d75b449883fb4f2406"
+    },
+    {
+      "name": "chunk-060.b64",
+      "size": 200000,
+      "sha256": "c5f4b57b586aa3a2bd885fe07798f87af0ca3006efa42e65ef2720708d9a4243"
+    },
+    {
+      "name": "chunk-061.b64",
+      "size": 200000,
+      "sha256": "e87a6de37700fb721a346ed8ea501eabbcabbedd3b9ca8102283de04a391dbdd"
+    },
+    {
+      "name": "chunk-062.b64",
+      "size": 200000,
+      "sha256": "db6bbe2a45692a54195c6073cbdfaee8efa13a4b73acacf1f87f645fe287467d"
+    },
+    {
+      "name": "chunk-063.b64",
+      "size": 200000,
+      "sha256": "877c9fff1cf77d72fe2ab2c7dbc563671e98be49c4cec05e7f7150340cc1b0c3"
+    },
+    {
+      "name": "chunk-064.b64",
+      "size": 200000,
+      "sha256": "ce538a76ce3eeca97e0d5845b2a507fe6e83afefdf7a988f17e0456d51d1ec2e"
+    },
+    {
+      "name": "chunk-065.b64",
+      "size": 200000,
+      "sha256": "887aea236ca2da3bc2f6470a1ee0bc4d79f43180885d15a4bed7c7e9bf135299"
+    },
+    {
+      "name": "chunk-066.b64",
+      "size": 200000,
+      "sha256": "49ea94602f13483b79f7b6ed1de76b8c4dd0757ccd8514eb45a8746b6b75e5f9"
+    },
+    {
+      "name": "chunk-067.b64",
+      "size": 200000,
+      "sha256": "65ec10b29ec2f0480f66d6a68b4eaf0d2dbe7de3d719b7625d2241464f12cefe"
+    },
+    {
+      "name": "chunk-068.b64",
+      "size": 200000,
+      "sha256": "0ca13f5bd41c4da0219e25feae26881f256595d4c9aa77eab432cded1567d022"
+    },
+    {
+      "name": "chunk-069.b64",
+      "size": 200000,
+      "sha256": "67b14dec05600c12381358cc116f0e880da320ef9b886e8a516e0af55b4e74b7"
+    },
+    {
+      "name": "chunk-070.b64",
+      "size": 200000,
+      "sha256": "d8c9de64306a4863f3d6fa93641f528f9b1acb8b734d5bb511beadb090de5b35"
+    },
+    {
+      "name": "chunk-071.b64",
+      "size": 200000,
+      "sha256": "6c66d14a913f9a8c88dd92004adb625049adc5f21ac432af1fbd34443e3c3bee"
+    },
+    {
+      "name": "chunk-072.b64",
+      "size": 200000,
+      "sha256": "48cd345d4435b5630933108e1d903dbd27e9ab8331eba4968d9d5c38d520b607"
+    },
+    {
+      "name": "chunk-073.b64",
+      "size": 200000,
+      "sha256": "2bd5c03b5a012ce036489f255f20550719d3bd59f4cf228aaa2765933ae4f1f9"
+    },
+    {
+      "name": "chunk-074.b64",
+      "size": 200000,
+      "sha256": "2f278430b06bba8926b172782a40386d79138ba0fdb0f29a20305d8d4198482e"
+    },
+    {
+      "name": "chunk-075.b64",
+      "size": 200000,
+      "sha256": "a7a2af81ff2e1978bbba95f741596ec052e6d33cb5c99242d50353587344c7a2"
+    },
+    {
+      "name": "chunk-076.b64",
+      "size": 200000,
+      "sha256": "987da280cdff1eee270236c01fb18e33f396b096bbcce26e13f0623f6dbf5e4c"
+    },
+    {
+      "name": "chunk-077.b64",
+      "size": 200000,
+      "sha256": "44fb1403045f432a9820e4b11e8a49b74b9a3f8ca5a762645676e4b8c2f2af40"
+    },
+    {
+      "name": "chunk-078.b64",
+      "size": 200000,
+      "sha256": "f802881adb4bc020098e538789bc824f0e1d956c014a45ebba9ee3928ce751c3"
+    },
+    {
+      "name": "chunk-079.b64",
+      "size": 200000,
+      "sha256": "a25ba3980aff6c16acff43fcbd8e4d65ac4298b49f20fc170a5e58902dce12c5"
+    },
+    {
+      "name": "chunk-080.b64",
+      "size": 200000,
+      "sha256": "d7294c205f71ed8d25e49fd11b99b6bc04f50c29d186a7d986da02923367e273"
+    },
+    {
+      "name": "chunk-081.b64",
+      "size": 200000,
+      "sha256": "27b73e4e624571c81686ce82f23bb591f5e95046e90bf35cc03c4e59d4f286e4"
+    },
+    {
+      "name": "chunk-082.b64",
+      "size": 15592,
+      "sha256": "e5eec077f0eaa6b645fada1b1bdfbb1f2e6b68d08f0d21604b904d699b2ea52e"
+    }
+  ],
+  "files": [
+    {
+      "path": "web/documents/justice-slalom/2026-07/010-podani-2026-07-12.pdf",
+      "size": 285932,
+      "sha256": "d3d0bca558824bb935a61d9c5602f7a132aaba588baea39d0706346c91f12a86"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-07/046-podani-2026-07-22-verejna-kopie.pdf",
+      "size": 259183,
+      "sha256": "16fc9d39f5a22638f148d9e22d3f5e5e96fc37821e5312d13f310b92b2972508"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/002-podani-2026-08-24.pdf",
+      "size": 157837,
+      "sha256": "354c1b9604b0a5df643de9e61e819fe98968d024a9a6ac2cc23edcc9c517646e"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/003-podani-2026-08-15.pdf",
+      "size": 52972,
+      "sha256": "e671d8ce7bb606921bec680e3362041779f679f7ab896d65e62581ad38944d77"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/006-podani-2026-08-29.pdf",
+      "size": 132295,
+      "sha256": "e02e1f044f1723b2c4986fb7c3c1ac1f6f97e7c13038728f186433051e18193c"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/008-podani-2026-08-01-verejna-kopie.pdf",
+      "size": 209741,
+      "sha256": "9d95664fba57d3a94c675803e9dcc012d24da941e2197eb80dded6f176139c8f"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/011-podani-2026-08-03.pdf",
+      "size": 141912,
+      "sha256": "d4abfad74d831c2b9249bbbf0d37671f655222e398e4b1fc68618d12e406da36"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/012-podani-2026-08-15.pdf",
+      "size": 74827,
+      "sha256": "61979cd92be38c9672777405a3ab324d467f9f2019493fcb3587a3a755bb9a8e"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/013-podani-2026-08-22.pdf",
+      "size": 204870,
+      "sha256": "e53b94ad9a6eea956695b41e3ed7bfacbd7477cf004d12b6eeb23a6ba1c5c705"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/015-podani-2026-08-24-verejna-kopie.pdf",
+      "size": 261728,
+      "sha256": "614af13d29c94d582746765991a69049fa01791c9718458479556d0d5eec6910"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/023-podani-2026-08-24.pdf",
+      "size": 157011,
+      "sha256": "854eac91a82a63cb39e3f680350c206c9e390f1a0d5240fa5a08db0954562638"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/024-podani-2026-08-10.pdf",
+      "size": 138008,
+      "sha256": "57dadf04c3656e925bd6658db1bb2b9d7dc4db9012aaee5f35d187a7ca7d986c"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/025-podani-2026-08-25.pdf",
+      "size": 156211,
+      "sha256": "1776d1ff483e096389dc1e8fb593cc121e857f4378a0e9546bd77125132847c7"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/026-podani-2026-08-15.pdf",
+      "size": 136191,
+      "sha256": "b2730001ad9bde76936feb98ff6bfd2eccd7573cc49cea59f579728220fc7528"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/027-podani-2026-08-24.pdf",
+      "size": 145623,
+      "sha256": "83ce24e374c7128dcdd5fdd07c0b7e8f9305bed95ce09a06450c20b42cf49ad5"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/028-podani-2026-08-15.pdf",
+      "size": 46879,
+      "sha256": "3fb445e6f53288919f11a532933422776fc343bb9b7a6d45f7a9798969925dd6"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/029-podani-2026-08-19.pdf",
+      "size": 230172,
+      "sha256": "8a0d702c232379ea1b99a505024af6ca0200945423884a32f3fb006b30653783"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/031-podani-2026-08-20.pdf",
+      "size": 148918,
+      "sha256": "ffc221d705894e6b377846259270459242a702d118637c1a6e251fdf3f275e9a"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/033-podani-2026-08-15.pdf",
+      "size": 42966,
+      "sha256": "0398c3d19e33fb513b80a607970828163a9ea2650fe37bfae72665837aa6d46f"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/035-podani-2026-08-25.pdf",
+      "size": 157335,
+      "sha256": "0c69944dff2f0a7a38bec55520e4a2e17f92f5885d7c093a28d970b8a5dcfd75"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/036-podani-2026-08-02.pdf",
+      "size": 247383,
+      "sha256": "e61a8e628d584e15a209f3a2926ea804af3ac773493d1bea9ca812dfd33945c5"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/039-podani-2026-08-24.pdf",
+      "size": 153458,
+      "sha256": "e5aff93e13d15bbb2b50bd060870d66f8bdabe99f537e75f9483720c9aaec18b"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/041-podani-2026-08-10.pdf",
+      "size": 127844,
+      "sha256": "3ea21a3947168611ba2a46a94c6ca859fe10dbb19b2ec356e31374e55cfcbca2"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/043-podani-2026-08-31.pdf",
+      "size": 144725,
+      "sha256": "aa648d0ea5052c27ff0310713590a67c55461cc665fa7b162d85a04e8c57ccf5"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/051-podani-2026-08-28.pdf",
+      "size": 63125,
+      "sha256": "d93601f0b8d019fe744778ee9f7f15b7297a2445cfabfd92733ea1d91532566f"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/052-podani-2026-08-22.pdf",
+      "size": 193480,
+      "sha256": "e0a9eb8f035799235333df5e6ba7c1633e035473ca5904c84b11114a3dad8550"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/053-podani-2026-08-15.pdf",
+      "size": 47501,
+      "sha256": "5c43c9d714240ed38f29cb3445223219aec305791b0441ddeceac345460f72c1"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/056-podani-2026-08-13.pdf",
+      "size": 197229,
+      "sha256": "bb8af200cd11beb7787bc3fbd96adac0b25d20d22c7465c62eb49521f3388086"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/057-podani-2026-08-13.pdf",
+      "size": 58007,
+      "sha256": "1488484c53c9b8fa44e89e09c4a44a21aaf592a2c32684f7be1cb08597a36210"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/058-podani-2026-08-10.pdf",
+      "size": 229087,
+      "sha256": "017d93aa3e3fee35183ad96c3e5ee42226e224e8cff87240d7b22e377994223b"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/059-podani-2026-08-11.pdf",
+      "size": 234567,
+      "sha256": "2c45d0fa41cb535088ee6b7017a383838e4db5b029dc0936f23f8781a2b15efd"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/060-podani-2026-08-22.pdf",
+      "size": 191723,
+      "sha256": "d6d2640e58f82db7f6f2070973e03858fc3a1215238d5754ac9e8217576af676"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/062-podani-2026-08-15.pdf",
+      "size": 93525,
+      "sha256": "c1556399393226924fbada4102bcc31966b76a196627d9560525c374447c73aa"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/064-podani-2026-08-14.pdf",
+      "size": 133237,
+      "sha256": "b22f62208cd3c8de87f75dbafff48281b3e8eeac1544258e9967c7138e4c3bfa"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/065-podani-2026-08-14.pdf",
+      "size": 37695,
+      "sha256": "d0153366b44f68ecfae585a99965352b0c1cff2b87bb254c45a084c636e245b9"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/066-podani-2026-08-12.pdf",
+      "size": 142942,
+      "sha256": "90aa0007db3a6c31c12f8f5c21c1246541b2ac86daa9171b12d3b00dc276153a"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/067-podani-2026-08-01.pdf",
+      "size": 127897,
+      "sha256": "20a7597dff376f17ff4c8fd2ff2024f63fc0ae78c4b7d32d860e95aabf999a44"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/068-podani-2026-08-12.pdf",
+      "size": 153800,
+      "sha256": "be86aac4db69401c769887eda7823e1d047e4ad257ee07f11cb1576d1a3fb190"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/069-podani-2026-08-28.pdf",
+      "size": 86949,
+      "sha256": "109e457a43f4fbb2a765d08198ed5057817022ae5eb9529bdfb186a6b11c722a"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/072-podani-2026-08-24-verejna-kopie.pdf",
+      "size": 307800,
+      "sha256": "ced4bbb041c44692f848d13654da662370e3d0781e4c4fabd1a6a5cce8be9411"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/073-podani-2026-08-15.pdf",
+      "size": 46628,
+      "sha256": "faf334b0482413b327b04db8d965e9eaa6f5a67f196e7b35270b325a88abef83"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/074-podani-2026-08-25.pdf",
+      "size": 166564,
+      "sha256": "05f7b3bb3c02e190452cf4088760a8ac99d2d0d4a2a66e361f57335cff90bc8e"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/076-podani-2026-08-28.pdf",
+      "size": 178806,
+      "sha256": "b25c3a45fc41d58a05d6c575ca41e85dd717ffa5500c353abd4900b542df9cad"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/078-podani-2026-08-15.pdf",
+      "size": 71561,
+      "sha256": "7c664485be6253d2fa2421f442ecf51945a97f9a060fb197a48f00319d12cd9c"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-08/080-podani-2026-08-12.pdf",
+      "size": 87664,
+      "sha256": "10ab2b95c2b4ba1eaf014ad892ebd57072a6ae1ee7e095c84f9fc027a1d3a9cb"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/004-podani-2026-09-08.pdf",
+      "size": 67431,
+      "sha256": "56e32508f32eed19e31bac004680ee15d6518656ed4c0a8fd2ae5ed1d24fe363"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/005-podani-2026-09-21.pdf",
+      "size": 2858605,
+      "sha256": "24453dc4c031dbd4b1d3c12cb4a57d50fe864adb779fa7fc7cf058799640b91f"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/007-podani-2026-09-07.pdf",
+      "size": 354940,
+      "sha256": "3ba050422200788ca6b6c00b9ae12eb4c1838f47e457cb1a32131bb8251935f8"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/014-podani-2026-09-28.pdf",
+      "size": 119010,
+      "sha256": "df4375effc44f132e71e096b46e089b724567a8342e4b42b0e6f3d44e159244a"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/016-podani-2026-09-03.pdf",
+      "size": 226241,
+      "sha256": "69c1c9b4df400151da17eee57bbfa90a2c26efea9acd51c73bed9cc7b9d02b6b"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/017-podani-2026-09-17-verejna-kopie.pdf",
+      "size": 369162,
+      "sha256": "28f48ad956ac58091ccdaa889ebac6bccc78f13460a28c3f576dd9a0a9db313d"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/018-podani-2026-09-16-verejna-kopie.pdf",
+      "size": 360799,
+      "sha256": "a93fcf0ae21d4affdacebb8a75be7eab645b874cf20dfdcf6018a51a87ae33ce"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/019-podani-2026-09-13.pdf",
+      "size": 205687,
+      "sha256": "fcf854dcccbdd91d9edc3a4782cda0a2e8b8f770feb7a210a23087dbdb136bd7"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/020-podani-2026-09-08.pdf",
+      "size": 109290,
+      "sha256": "49cd652929b40333da66363ee2bfa917a8c6235d8adc13523afd11fd123b7795"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/021-podani-2026-09-11-verejna-kopie.pdf",
+      "size": 349280,
+      "sha256": "1e44bcfe9608dab2588225afc83b4019eb3297f04c7e2d79cd7c161335c8fd8f"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/022-podani-2026-09-01.pdf",
+      "size": 264407,
+      "sha256": "469c3738b7922caa53aef46a1105fa213c0957be0984bef4871bb65abe85a610"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/030-podani-2026-09-26.pdf",
+      "size": 247065,
+      "sha256": "7b1757618cf60b1f9b2557edc25dd4c797e1ecec32d55939515e26c4dbf3de6c"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/032-podani-2026-09-21.pdf",
+      "size": 99890,
+      "sha256": "28c68d5e3415ac3a9fd542b295d45e16f4e04779aa5a561e58c62851adbf4bc3"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/037-podani-2026-09-02.pdf",
+      "size": 130124,
+      "sha256": "2d03a11cdc70080904ae4ea2900b09388971828d31c5d6b23389d4aabff93dcc"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/038-podani-2026-09-24.pdf",
+      "size": 61515,
+      "sha256": "916fafa432d74a7276b6d6228e5f9e320a096bf824b60e9fa7e4a70b29d4c532"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/040-podani-2026-09-16.pdf",
+      "size": 78117,
+      "sha256": "41bd771f8d36d83e5c3de9a77190068bd2fb1f73582102e1a5f9098c7de459e0"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/042-podani-2026-09-08.pdf",
+      "size": 80933,
+      "sha256": "336fbf19530d3cf881d7475d85bdac580388811584f2108d632a999e94eb8abc"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/044-podani-2026-09-08.pdf",
+      "size": 68765,
+      "sha256": "992bf8abe207c847a3ddf9c03fa2341790a207981420ce5ed7fc834c07d7e9c1"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/045-podani-2026-09-18.pdf",
+      "size": 72446,
+      "sha256": "040c7f874835a67dc925da88e6004c677ffff2e9306951ec78efbdbaaee3556a"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/047-podani-2026-09-01.pdf",
+      "size": 233810,
+      "sha256": "ad8bccf603319893fa0432c1e028e83f5fdbd08370a07359b071954403479ae7"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/048-podani-2026-09-13.pdf",
+      "size": 110058,
+      "sha256": "a2453bb6e87cfaaea642594e752a4c3694b6e1ba0a9ca7f7c39d972185b4b118"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/049-podani-2026-09-08.pdf",
+      "size": 55863,
+      "sha256": "d7fdbfa9716dc19d39e3ebfaf64597b14d8248a9d60ae5ae43983570cc96083f"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/050-podani-2026-09-02-verejna-kopie.pdf",
+      "size": 142753,
+      "sha256": "cf785f40ec33b16fa9f0b8a805a30c5fc4b62cfeab82bfdfd0f9ad2f22885a74"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/054-podani-2026-09-13.pdf",
+      "size": 243146,
+      "sha256": "a4dea43abe46797b3511e2bc48dac502f52d01ce3bf2b0d6467998e93f743da5"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/055-podani-2026-09-07.pdf",
+      "size": 112462,
+      "sha256": "72d30cf3d6f32729dc4095ff60f179fb30294665bfb56813688281388ce82837"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/061-podani-2026-09-02.pdf",
+      "size": 131550,
+      "sha256": "78142b16c292d53d74a495dab490acefaaeaf9718f6e22ebcf3b8fedbddfb1f9"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/063-podani-2026-09-08.pdf",
+      "size": 131637,
+      "sha256": "dd8bd4c396472fa9e1a3baca9430c34cd7e2e31db4cfa0d7ab5182f3dcac1d6c"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/070-podani-2026-09-03.pdf",
+      "size": 237053,
+      "sha256": "8905b084b3fa457aa9049fedf647d243b1e5a5cb0129bd8a484f41b48185dfb0"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/071-podani-2026-09-01.pdf",
+      "size": 68748,
+      "sha256": "2ad23155f426889ea6ffaceea5c5233849cacf0dd7028fd7e35235136d36566c"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/075-podani-2026-09-02-verejna-kopie.pdf",
+      "size": 148885,
+      "sha256": "4fc7c46de24371154f4c2bc4fa8b604aa1a6b9d26a188049bd1fdf2e071b42b1"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/077-podani-2026-09-25.pdf",
+      "size": 127334,
+      "sha256": "053c65e9bef0c1e1efc40cca667da73afc24f844976610fbf0dc8c5d24f7256a"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/079-podani-2026-09-18.pdf",
+      "size": 166764,
+      "sha256": "eb57e6baf8a2c99bdf68e1899e2fb7982e1ac41aeeae94e3d57670f1d8f2a471"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/081-podani-2026-09-27.pdf",
+      "size": 109639,
+      "sha256": "66001cfa1d712f27f2d30c3fd3abd2839a21349121021d2616ce92e6db36219e"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/082-podani-2026-09-26.pdf",
+      "size": 136336,
+      "sha256": "b115bfe6df57df88cfbdb5519f1a3dcfb29572d57f1a66d9291114365e74e6aa"
+    },
+    {
+      "path": "web/documents/justice-slalom/2026-09/083-podani-2026-09-27.pdf",
+      "size": 157662,
+      "sha256": "c369988e0afc8f1d092d7dfce662e9a9cd195ff7e05580b9b5f91fd86204cf50"
+    },
+    {
+      "path": "web/documents/report-04082026-010/102-ksz-brno-1-kzt-475-2026-71-2026-09-16.pdf",
+      "size": 330593,
+      "sha256": "715ecdb376545de04570a55ca82831be0301289d850c0f723f74e7ac0ec1c631"
+    },
+    {
+      "path": "web/documents/report-04082026-010/103-vs-praha-3-cmo-24-2026-26-2026-09-14.pdf",
+      "size": 282669,
+      "sha256": "82137b81ca5a208e0369964e985aaed809af1e32e26d49f8ef88983bbbb52a7f"
+    }
+  ]
+}

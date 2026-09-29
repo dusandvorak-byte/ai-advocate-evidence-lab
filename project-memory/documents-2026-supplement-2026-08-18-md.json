@@ -12,13 +12,20 @@
       "reference": "MD-46042/2026-010/4; sp. zn. MD/46042/2026/010",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["InfZ", "odběr krve", "přeprava vzorku", "úschova vzorku", "chain of custody", "Ministerstvo dopravy"],
+      "topics": [
+        "InfZ",
+        "odběr krve",
+        "přeprava vzorku",
+        "úschova vzorku",
+        "chain of custody",
+        "Ministerstvo dopravy"
+      ],
       "public": {
         "html": "listiny/doc-cz-md-2026-08-18-md-46042-2026-010-4.html",
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/72-md-46042-2026-010-4-2026-08-18.pdf",
         "intended_pdf": "documents/report-04082026-010/72-md-46042-2026-010-4-2026-08-18.pdf",
-        "sha256": "d86611e33fceee3bcaaf86c04196f7e5fef4f81edf477459b820b18d40191f89",
-        "verification_status": "source_pdf_verified_in_intake; awaiting_generated_public_copy",
+        "sha256": "d5b8632f520e7114aba1afb4c25e4ce08913e630c7d5eac77a43403da4e53b12",
+        "verification_status": "generated_public_copy_from_verified_text; source_original_sha256_recorded; not_byte_identical_original",
         "source_manifest": "project-memory/documents-2026-supplement-2026-08-18-md.json"
       },
       "relations": [],

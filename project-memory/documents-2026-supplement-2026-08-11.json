@@ -12,7 +12,12 @@
       "reference": "15 Nt 3103/2026-53",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["obnova řízení", "OS Prostějov", "zabrání věci", "§ 283 písm. b) trestního řádu"],
+      "topics": [
+        "obnova řízení",
+        "OS Prostějov",
+        "zabrání věci",
+        "§ 283 písm. b) trestního řádu"
+      ],
       "public": {
         "html": null,
         "pdf": null,
@@ -35,20 +40,55 @@
       "reference": "proti 15 Nt 3103/2026-53",
       "case_ids": [],
       "document_type": "appeal",
-      "topics": ["obnova řízení", "OS Prostějov", "zabrání věci", "§ 283 písm. b) trestního řádu", "§ 282 trestního řádu"],
+      "topics": [
+        "obnova řízení",
+        "OS Prostějov",
+        "zabrání věci",
+        "§ 283 písm. b) trestního řádu",
+        "§ 282 trestního řádu"
+      ],
       "public": {
         "html": null,
-        "pdf": "documents/report-04082026-010/23-dvorak-stiznost-15-nt-3103-2026-53-2026-08-11.pdf",
-        "sha256": "41c6dc1b554fdc5206391866f787ae1906d7ae5aed1953a3665aa0cda1ecf8d0",
-        "verification_status": "verified_original"
+        "pdf": "documents/justice-slalom/2026-08/059-podani-2026-08-11.pdf",
+        "sha256": "2c45d0fa41cb535088ee6b7017a383838e4db5b029dc0936f23f8781a2b15efd",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
       },
       "relations": [
-        {"type": "reakce_na", "target_id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53"},
-        {"type": "souvisí", "target_id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54"}
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53"
+        },
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54"
+        }
       ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_batch_classification",
-      "evidence_note": "Desetistránková stížnost žádá zrušení usnesení, nové projednání a společný nebo bezprostředně koordinovaný přezkum se stížností proti č. j. 15 Nt 3105/2026-54."
+      "evidence_note": "Desetistránková stížnost žádá zrušení usnesení, nové projednání a společný nebo bezprostředně koordinovaný přezkum se stížností proti č. j. 15 Nt 3105/2026-54.",
+      "justice_slalom": {
+        "archive_number": 106,
+        "archive_name": "OS Prostějov- stiznost ze dne 11.srpna 2026 na usnesení ze dne 7.8.2026",
+        "source_sha256": "2c45d0fa41cb535088ee6b7017a383838e4db5b029dc0936f23f8781a2b15efd",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-KS-BRN",
+            "reference": "15 Nt 3103/2026-53",
+            "role": "primary",
+            "subject_cs": "Stížnost proti zamítnutí návrhu na obnovu souvisejících věcí",
+            "subject_en": "Complaint against rejection of the motion to reopen related cases"
+          },
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "15 Nt 3103/2026-53",
+            "role": "through",
+            "subject_cs": "Stížnost proti zamítnutí návrhu na obnovu souvisejících věcí",
+            "subject_en": "Complaint against rejection of the motion to reopen related cases"
+          }
+        ]
+      }
     }
   ]
 }

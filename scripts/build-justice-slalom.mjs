@@ -14,10 +14,16 @@ const actualArchiveNumbers = julyEntries.map(item => item.justice_slalom.archive
 if (JSON.stringify(actualArchiveNumbers) !== JSON.stringify(expectedArchiveNumbers)) {
   throw new Error(`JUSTICE-SLALOM: archiv 02–48 není přesně pokryt: ${actualArchiveNumbers.join(', ')}`);
 }
+const allArchiveNumbers = entries.map(item => item.justice_slalom.archive_number).sort((a, b) => a - b);
+const contiguousNumbers = Array.from({ length: Math.max(...allArchiveNumbers) - 1 }, (_, index) => index + 2);
+if (JSON.stringify(allArchiveNumbers) !== JSON.stringify(contiguousNumbers) || allArchiveNumbers.at(-1) < 130) {
+  throw new Error(`JUSTICE-SLALOM: chybí podání z července až září nebo se opakuje archivní číslo: ${allArchiveNumbers.join(', ')}`);
+}
 
 const esc = value => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;')
   .replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
+const originalPdf = item => item.justice_slalom.source_kind !== 'redacted_public_copy_from_user_original';
 const root = '/ai-advocate-evidence-lab/';
 const rows = [];
 for (const doc of entries) {
@@ -30,7 +36,9 @@ for (const doc of entries) {
   if (bytes.subarray(0, 5).toString() !== '%PDF-' || !bytes.subarray(-2048).toString('latin1').includes('%%EOF') || bytes.length < 1024) {
     throw new Error(`JUSTICE-SLALOM: neplatné PDF ${doc.public.pdf}`);
   }
-  if (sha(bytes) !== doc.public.sha256 || sha(bytes) !== meta.source_sha256) throw new Error(`JUSTICE-SLALOM: veřejné PDF není bajtově totožné s originálem z archivu ${doc.id}`);
+  if (sha(bytes) !== doc.public.sha256 || (originalPdf(doc) ? sha(bytes) !== meta.source_sha256 : sha(bytes) !== meta.public_sha256 || !meta.redaction_manifest)) {
+    throw new Error(`JUSTICE-SLALOM: veřejné PDF neodpovídá deklarovanému zdroji a typu kopie ${doc.id}`);
+  }
   for (const [index, recipient] of meta.recipients.entries()) {
     if (!names.has(recipient.institution_id) || !recipient.subject_cs || !recipient.subject_en || !recipient.reference) {
       throw new Error(`JUSTICE-SLALOM: chybí úplná metadata adresáta ${doc.id}/${index}`);
@@ -64,7 +72,8 @@ for (const doc of entries) {
       })[recipient.institution_id] || names.get(recipient.institution_id),
       role: recipient.role, reference: recipient.reference,
       subject_cs: recipient.subject_cs, subject_en: recipient.subject_en,
-      pdf: doc.public.pdf, pdf_sha256: doc.public.sha256
+      pdf: doc.public.pdf, pdf_sha256: doc.public.sha256,
+      pdf_kind: originalPdf(doc) ? 'original' : 'redacted_public_copy'
     });
   }
 }
@@ -91,12 +100,13 @@ const renderRow = (row, lang) => {
   const english = lang === 'en';
   const label = english ? row.subject_en : row.subject_cs;
   const recipient = english ? row.recipient_en : row.recipient_cs;
-  const role = row.role === 'copy' ? (english ? 'Copy' : 'Na vědomí') : row.role === 'simultaneous' ? (english ? 'Also addressed' : 'Současně') : '';
-  return `<tr data-slalom-id="${esc(row.id)}" data-row-number="${row.number}" data-document-id="${esc(row.document_id)}" data-recipient-id="${esc(row.recipient_id)}" data-filing-date="${esc(row.date)}"><td class="slalom-number">${row.number}</td><td><time datetime="${esc(row.date)}">${esc(dateText(row.date,lang))}</time></td><td>${esc(recipient)}${role ? `<small class="slalom-role">${esc(role)}</small>` : ''}</td><td>${esc(row.reference)}</td><td>${esc(label)} <a href="${root}${esc(row.pdf)}" target="_blank" rel="noopener" aria-label="${esc(english ? `Original PDF: ${label}` : `Původní PDF: ${label}`)}">${english ? 'Original PDF' : 'Původní PDF'}</a></td></tr>`;
+  const role = row.role === 'copy' ? (english ? 'Copy' : 'Na vědomí') : row.role === 'simultaneous' ? (english ? 'Also addressed' : 'Současně') : row.role === 'through' ? (english ? 'Via' : 'Prostřednictvím') : '';
+  const pdfLabel = row.pdf_kind === 'original' ? (english ? 'Original PDF' : 'Původní PDF') : (english ? 'Public PDF copy' : 'Veřejná kopie PDF');
+  return `<tr data-slalom-id="${esc(row.id)}" data-row-number="${row.number}" data-document-id="${esc(row.document_id)}" data-recipient-id="${esc(row.recipient_id)}" data-filing-date="${esc(row.date)}"><td class="slalom-number">${row.number}</td><td><time datetime="${esc(row.date)}">${esc(dateText(row.date,lang))}</time></td><td>${esc(recipient)}${role ? `<small class="slalom-role">${esc(role)}</small>` : ''}</td><td>${esc(row.reference)}</td><td>${esc(label)} <a href="${root}${esc(row.pdf)}" target="_blank" rel="noopener" aria-label="${esc(`${pdfLabel}: ${label}`)}">${pdfLabel}</a></td></tr>`;
 };
 const renderPanel = lang => {
   const english = lang === 'en';
-  return `<section class="justice-slalom-shell home-rollup-stack home-rollup-stack-primary" aria-label="${english ? 'Justice Slalom filings' : 'Podání Justičního slalomu'}"><details id="justicni-slalom" class="home-rollup justice-slalom" data-justice-slalom><summary><span class="rollup-title">${english ? 'Justice Slalom since 1 July 2026' : 'Justiční slalom od 1. července 2026'}</span><span class="rollup-prompt">${english ? 'read as an investigation with love' : 'číst jako investigativu s láskou'}</span><span class="rollup-heart" aria-hidden="true">❤️</span><b class="rollup-action">${english ? 'Expand' : 'Rozbalit'} ↓</b></summary><div class="justice-slalom-body"><p class="justice-slalom-intro">${english ? `${entries.length} original filings · ${rows.length} numbered addressee entries · since 1 July 2026. Each row has an original PDF link; copies and simultaneous addressees are labeled.` : `${entries.length} původních podání · ${rows.length} číslovaných řádků podle adresáta · od 1. července 2026. V každém řádku je odkaz na PDF, i když se stejný soubor opakuje u více adresátů.`}</p><div class="justice-slalom-scroll"><table><thead><tr><th scope="col">${english ? 'No.' : 'Č.'}</th><th scope="col">${english ? 'Date' : 'Datum'}</th><th scope="col">${english ? 'Addressee' : 'Adresát'}</th><th scope="col">${english ? 'Ref./case no.' : 'č. j./sp. zn.'}</th><th scope="col">${english ? 'Subject of filing' : 'Předmět podání'}</th></tr></thead><tbody>${rows.map(row => renderRow(row,lang)).join('')}</tbody></table></div></div></details></section>`;
+  return `<section class="justice-slalom-shell home-rollup-stack home-rollup-stack-primary" aria-label="${english ? 'Justice Slalom filings' : 'Podání Justičního slalomu'}"><details id="justicni-slalom" class="home-rollup justice-slalom" data-justice-slalom><summary><span class="rollup-title">${english ? 'Justice Slalom since 1 July 2026' : 'Justiční slalom od 1. července 2026'}</span><span class="rollup-prompt">${english ? 'read as an investigation with love' : 'číst jako investigativu s láskou'}</span><span class="rollup-heart" aria-hidden="true">❤️</span><b class="rollup-action">${english ? 'Expand' : 'Rozbalit'} ↓</b></summary><div class="justice-slalom-body"><p class="justice-slalom-intro">${english ? `${entries.length} filings · ${rows.length} numbered addressee entries · since 1 July 2026. Each row has one PDF link; public copies are labeled.` : `${entries.length} podání · ${rows.length} číslovaných řádků podle adresáta · od 1. července 2026. V každém řádku je jeden odkaz na PDF; veřejné kopie jsou označeny.`}</p><div class="justice-slalom-scroll"><table><thead><tr><th scope="col">${english ? 'No.' : 'Č.'}</th><th scope="col">${english ? 'Date' : 'Datum'}</th><th scope="col">${english ? 'Addressee' : 'Adresát'}</th><th scope="col">${english ? 'Ref./case no.' : 'č. j./sp. zn.'}</th><th scope="col">${english ? 'Subject of filing' : 'Předmět podání'}</th></tr></thead><tbody>${rows.map(row => renderRow(row,lang)).join('')}</tbody></table></div></div></details></section>`;
 };
 
 async function walk(dir) {
@@ -130,4 +140,4 @@ for (const file of await walk('web')) {
   }
   await writeFile(file,html,'utf8');
 }
-console.log(`Justiční slalom: ${entries.length} originálních PDF, ${rows.length} adresátů; 6 veřejných ploch, bez karet živých časovačů.`);
+console.log(`Justiční slalom: ${entries.length} podání, ${rows.length} adresátů; 6 veřejných ploch, bez karet živých časovačů.`);

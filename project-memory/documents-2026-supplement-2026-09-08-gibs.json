@@ -10,18 +10,30 @@
       "received_date": null,
       "institution_id": "CZ-GIBS",
       "reference": "GI-3794-4/ČJ-2026-840502-P",
-      "case_ids": ["case-cz-pcr-ku-interni-prezkum"],
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
       "document_type": "state_record",
-      "topics": ["GIBS", "Policejní prezidium", "postoupení podání", "THC", "interní přezkum"],
+      "topics": [
+        "GIBS",
+        "Policejní prezidium",
+        "postoupení podání",
+        "THC",
+        "interní přezkum"
+      ],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/gibs-gi-3794-4-cj-2026-840502-p-2026-09-08-verejna-kopie.pdf",
         "intended_pdf": "documents/report-04082026-010/gibs-gi-3794-4-cj-2026-840502-p-2026-09-08-verejna-kopie.pdf",
-        "verification_status": "pending_materialization_from_verified_full_text",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-09-08-gibs.json"
+        "verification_status": "generated_public_copy_from_verified_full_text; not_byte_identical_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-08-gibs.json",
+        "sha256": "146147e89b2104994e7c08224a043e2b1759cec82426c5ee4ebb4b677716a39a"
       },
       "relations": [
-        {"type": "reakce_na", "target_id": "doc-cz-dd-2026-08-15-podnet-gibs"}
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-08-15-podnet-gibs"
+        }
       ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",

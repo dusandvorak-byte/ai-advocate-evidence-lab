@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "files": [
+    {
+      "document_id": "doc-cz-ksz-brn-2026-09-16-1-kzt-475-2026-71",
+      "source_filename": "KSZ v Brně dne 16.9.2026- vyrozumění o přezkumu OSZ v Prostějově.pdf",
+      "source_sha256": "715ecdb376545de04570a55ca82831be0301289d850c0f723f74e7ac0ec1c631",
+      "public_pdf": "documents/report-04082026-010/102-ksz-brno-1-kzt-475-2026-71-2026-09-16.pdf",
+      "public_sha256": "715ecdb376545de04570a55ca82831be0301289d850c0f723f74e7ac0ec1c631",
+      "pages": 6,
+      "issue_date": "2026-09-16",
+      "reference": "1 KZT 475/2026-71",
+      "receipt_date_not_inferred": true
+    },
+    {
+      "document_id": "doc-cz-vs-pha-2026-09-14-3-cmo-24-2026-26",
+      "source_filename": "Vrchní soud zrušil MS v Praze - FTV Prima,.pdf",
+      "source_sha256": "82137b81ca5a208e0369964e985aaed809af1e32e26d49f8ef88983bbbb52a7f",
+      "public_pdf": "documents/report-04082026-010/103-vs-praha-3-cmo-24-2026-26-2026-09-14.pdf",
+      "public_sha256": "82137b81ca5a208e0369964e985aaed809af1e32e26d49f8ef88983bbbb52a7f",
+      "pages": 4,
+      "issue_date": "2026-09-14",
+      "reference": "3 Cmo 24/2026-26",
+      "receipt_date_not_inferred": true
+    }
+  ]
+}

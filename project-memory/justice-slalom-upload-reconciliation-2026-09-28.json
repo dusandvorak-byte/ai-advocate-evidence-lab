@@ -1,0 +1,1041 @@
+{
+  "schema_version": "1.0",
+  "source_archive": "od 1.8.2026.zip + three standalone PDFs",
+  "files": [
+    {
+      "number": 1,
+      "filename": "EUDA - výzva dne 7.srpna 2026 - česky.pdf",
+      "sha256": "20cb3d21353f6722376ba7446e8a97965693eacd817b13f9ae7dbc947cbcb67f",
+      "pages": 16,
+      "status": "reused_exact_existing_pdf",
+      "document_id": "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-cs",
+      "public_pdf": "documents/report-04082026-010/48-citc-formalni-vyzva-euda-cl-265-sfeu-2026-08-07-cs.pdf",
+      "archive_number": 49
+    },
+    {
+      "number": 2,
+      "filename": "GIBS – mimořádně naléhavé doplnění trestního oznámení 24. 8. 2026.pdf",
+      "sha256": "354c1b9604b0a5df643de9e61e819fe98968d024a9a6ac2cc23edcc9c517646e",
+      "pages": 4,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-002",
+      "public_pdf": "documents/justice-slalom/2026-08/002-podani-2026-08-24.pdf",
+      "archive_number": 50
+    },
+    {
+      "number": 3,
+      "filename": "GIBSu - podnět 15.8.2026",
+      "sha256": "e671d8ce7bb606921bec680e3362041779f679f7ab896d65e62581ad38944d77",
+      "pages": 4,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-15-podnet-gibs",
+      "public_pdf": "documents/justice-slalom/2026-08/003-podani-2026-08-15.pdf",
+      "archive_number": 51,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-15.json"
+      ]
+    },
+    {
+      "number": 4,
+      "filename": "KANCELÁŘ PREZIDENTA REPUBLIKY – KPR 5080_2026 – 8. 9. 2026.pdf",
+      "sha256": "56e32508f32eed19e31bac004680ee15d6518656ed4c0a8fd2ae5ed1d24fe363",
+      "pages": 2,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-004",
+      "public_pdf": "documents/justice-slalom/2026-09/004-podani-2026-09-08.pdf",
+      "archive_number": 52
+    },
+    {
+      "number": 5,
+      "filename": "KPR 21.9.2026- Třetí mimořádně naléhavé doplnění – pozvánka k soudu, test novosti KPR a důkazní návrhy.pdf",
+      "sha256": "24453dc4c031dbd4b1d3c12cb4a57d50fe864adb779fa7fc7cf058799640b91f",
+      "pages": 18,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-005",
+      "public_pdf": "documents/justice-slalom/2026-09/005-podani-2026-09-21.pdf",
+      "archive_number": 53
+    },
+    {
+      "number": 6,
+      "filename": "KPR 5080_2026 -29.8.2026 – naléhavé pozvání prezidenta republiky do Ospělova.pdf",
+      "sha256": "e02e1f044f1723b2c4986fb7c3c1ac1f6f97e7c13038728f186433051e18193c",
+      "pages": 4,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-29-kpr-5080-2026-nalehave-pozvani",
+      "public_pdf": "documents/justice-slalom/2026-08/006-podani-2026-08-29.pdf",
+      "archive_number": 54,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-09-03-kpr-osz-fm.json"
+      ]
+    },
+    {
+      "number": 7,
+      "filename": "KPR 5080_2026 dne 7.9.2026– kontinuita 2010–2026 a nové podstatné skutečnosti.pdf",
+      "sha256": "3ba050422200788ca6b6c00b9ae12eb4c1838f47e457cb1a32131bb8251935f8",
+      "pages": 18,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-07-slalom-augsep-007",
+      "public_pdf": "documents/justice-slalom/2026-09/007-podani-2026-09-07.pdf",
+      "archive_number": 55
+    },
+    {
+      "number": 8,
+      "filename": "KPR dne 1.srpna 2026- Stížnost proti sdělení KPR 5772_2026-1 – KPR 4093_2026.pdf",
+      "sha256": "bdc7c033922ab778e3cbfb00eab311fee076dd5b68411976dedf21088cbc5d8d",
+      "pages": 10,
+      "status": "redacted_public_copy_reviewed",
+      "document_id": "doc-cs-dd-2026-08-01-slalom-augsep-008",
+      "public_pdf": "documents/justice-slalom/2026-08/008-podani-2026-08-01-verejna-kopie.pdf",
+      "archive_number": 56,
+      "public_sha256": "9d95664fba57d3a94c675803e9dcc012d24da941e2197eb80dded6f176139c8f",
+      "redaction_marks": 4,
+      "human_review_status": "author_declined_own_review",
+      "editorial_review": {
+        "status": "assistant_review_completed",
+        "reviewed_on": "2026-09-29",
+        "method": "all_pages_text_screening_and_render_pixel_comparison",
+        "reviewed_source_pages": 10,
+        "unexpected_pixels_outside_redactions": 0,
+        "embedded_attachments": 0,
+        "source_raster_images": 0
+      }
+    },
+    {
+      "number": 9,
+      "filename": "KPR dne 10.srpna 2026 - opakovaná stiznost ve věci čj. KPR_5772_2026-2.pdf",
+      "sha256": "e85ced3a6e7c55e765677442603160ff2a3bd2f3a7736b729ae39c3160ba10ad",
+      "pages": 7,
+      "status": "reused_exact_existing_pdf",
+      "document_id": "doc-cz-citc-2026-08-10-stiznost-kpr-5772-2026-2",
+      "public_pdf": "documents/report-04082026-010/17-citc-opakovana-stiznost-kpr-5772-2026-2-2026-08-10.pdf",
+      "archive_number": 57
+    },
+    {
+      "number": 10,
+      "filename": "KPR dne 12.7.2026- doplnění žádosti o milost - KPR 4093_2026.pdf",
+      "sha256": "d3d0bca558824bb935a61d9c5602f7a132aaba588baea39d0706346c91f12a86",
+      "pages": 3,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-07-12-slalom-augsep-010",
+      "public_pdf": "documents/justice-slalom/2026-07/010-podani-2026-07-12.pdf",
+      "archive_number": 58
+    },
+    {
+      "number": 11,
+      "filename": "KPR dne 3.8.2026- Stížnost Cannabis is The Cure podle § 175 správního řádu proti sdělení KPR 5080_2026.pdf",
+      "sha256": "d4abfad74d831c2b9249bbbf0d37671f655222e398e4b1fc68618d12e406da36",
+      "pages": 6,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026",
+      "public_pdf": "documents/justice-slalom/2026-08/011-podani-2026-08-03.pdf",
+      "archive_number": 59,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-15.json"
+      ]
+    },
+    {
+      "number": 12,
+      "filename": "KPR- souhrnné podání k milostem a amnestii dne 15. srpna 2026.pdf",
+      "sha256": "61979cd92be38c9672777405a3ab324d467f9f2019493fcb3587a3a755bb9a8e",
+      "pages": 3,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-15-souhrnna-zprava-kpr-milost-amnestie",
+      "public_pdf": "documents/justice-slalom/2026-08/012-podani-2026-08-15.pdf",
+      "archive_number": 60,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-15.json"
+      ]
+    },
+    {
+      "number": 13,
+      "filename": "Krajskému soudu v Brně 9To315_316_2026- naléhavé doplnění 22.8.2026",
+      "sha256": "e53b94ad9a6eea956695b41e3ed7bfacbd7477cf004d12b6eeb23a6ba1c5c705",
+      "pages": 5,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-22-slalom-augsep-013",
+      "public_pdf": "documents/justice-slalom/2026-08/013-podani-2026-08-22.pdf",
+      "archive_number": 61
+    },
+    {
+      "number": 14,
+      "filename": "Krajskému státnímu zastupitelství v Brně dne 28.9.2026- stížnost na nečinnost.pdf",
+      "sha256": "df4375effc44f132e71e096b46e089b724567a8342e4b42b0e6f3d44e159244a",
+      "pages": 1,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-28-slalom-augsep-014",
+      "public_pdf": "documents/justice-slalom/2026-09/014-podani-2026-09-28.pdf",
+      "archive_number": 62
+    },
+    {
+      "number": 15,
+      "filename": "KS -OSZ - KSZ dne 24. srpna 2026- doplnění stížností skrze EKK.pdf",
+      "sha256": "99ad5adaa674d91489cae44380fbbef1fcc2f55db39ac6797ce99cbb65ac2a43",
+      "pages": 8,
+      "status": "redacted_public_copy_reviewed",
+      "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-015",
+      "public_pdf": "documents/justice-slalom/2026-08/015-podani-2026-08-24-verejna-kopie.pdf",
+      "archive_number": 63,
+      "public_sha256": "614af13d29c94d582746765991a69049fa01791c9718458479556d0d5eec6910",
+      "redaction_marks": 53,
+      "human_review_status": "author_declined_own_review",
+      "editorial_review": {
+        "status": "assistant_review_completed",
+        "reviewed_on": "2026-09-29",
+        "method": "all_pages_text_screening_and_render_pixel_comparison",
+        "reviewed_source_pages": 8,
+        "unexpected_pixels_outside_redactions": 0,
+        "embedded_attachments": 0,
+        "source_raster_images": 0
+      }
+    },
+    {
+      "number": 16,
+      "filename": "KS a KSZ v Brně 3.9.2026 - Další společné důkazní doplnění stížností – 9 To 315_2026 a 9 To 316_2026.pdf",
+      "sha256": "69c1c9b4df400151da17eee57bbfa90a2c26efea9acd51c73bed9cc7b9d02b6b",
+      "pages": 7,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-03-slalom-augsep-016",
+      "public_pdf": "documents/justice-slalom/2026-09/016-podani-2026-09-03.pdf",
+      "archive_number": 64
+    },
+    {
+      "number": 17,
+      "filename": "KS Brno a OS prostějov - Souhrnné mimořádně naléhavé důkazní a procesní doplnění- oprava 17.9.2026",
+      "sha256": "3a579d83c81c2f63a341b8f5127dc7c66acaf54ed12cc21d312a9803393bfb30",
+      "pages": 12,
+      "status": "redacted_public_copy_reviewed",
+      "document_id": "doc-cs-dd-2026-09-17-slalom-augsep-017",
+      "public_pdf": "documents/justice-slalom/2026-09/017-podani-2026-09-17-verejna-kopie.pdf",
+      "archive_number": 65,
+      "public_sha256": "28f48ad956ac58091ccdaa889ebac6bccc78f13460a28c3f576dd9a0a9db313d",
+      "redaction_marks": 32,
+      "human_review_status": "author_declined_own_review",
+      "editorial_review": {
+        "status": "assistant_review_completed",
+        "reviewed_on": "2026-09-29",
+        "method": "all_pages_text_screening_and_render_pixel_comparison",
+        "reviewed_source_pages": 12,
+        "unexpected_pixels_outside_redactions": 0,
+        "embedded_attachments": 0,
+        "source_raster_images": 0
+      }
+    },
+    {
+      "number": 18,
+      "filename": "KS Brno a OS prostějov dne 16.9.2026- Souhrnné mimořádně naléhavé důkazní a procesní doplnění.pdf",
+      "sha256": "e5883c4b98415fd61ea78196907af2d5795d8308f40aa3ea17bcbaabf58ff774",
+      "pages": 11,
+      "status": "redacted_public_copy_reviewed",
+      "document_id": "doc-cz-dd-2026-09-16-os-ks-brno-predzasedaci-doplneni",
+      "public_pdf": "documents/justice-slalom/2026-09/018-podani-2026-09-16-verejna-kopie.pdf",
+      "archive_number": 66,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-09-11-16.json"
+      ],
+      "public_sha256": "a93fcf0ae21d4affdacebb8a75be7eab645b874cf20dfdcf6018a51a87ae33ce",
+      "redaction_marks": 24,
+      "human_review_status": "author_declined_own_review",
+      "editorial_review": {
+        "status": "assistant_review_completed",
+        "reviewed_on": "2026-09-29",
+        "method": "all_pages_text_screening_and_render_pixel_comparison",
+        "reviewed_source_pages": 11,
+        "unexpected_pixels_outside_redactions": 0,
+        "embedded_attachments": 0,
+        "source_raster_images": 0
+      }
+    },
+    {
+      "number": 19,
+      "filename": "KS Brno, VSZ Olomouc, KSZ Brno - 14. 9. 2026.pdf",
+      "sha256": "fcf854dcccbdd91d9edc3a4782cda0a2e8b8f770feb7a210a23087dbdb136bd7",
+      "pages": 5,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-09-13-ks-ksz-vsz-doplneni-stiznosti",
+      "public_pdf": "documents/justice-slalom/2026-09/019-podani-2026-09-13.pdf",
+      "archive_number": 67,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-09-11-16.json"
+      ]
+    },
+    {
+      "number": 20,
+      "filename": "Ministerstvo vnitra – třetí mimořádně naléhavé doplnění stížností – 8. 9. 2026.pdf",
+      "sha256": "49cd652929b40333da66363ee2bfa917a8c6235d8adc13523afd11fd123b7795",
+      "pages": 10,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-020",
+      "public_pdf": "documents/justice-slalom/2026-09/020-podani-2026-09-08.pdf",
+      "archive_number": 68
+    },
+    {
+      "number": 21,
+      "filename": "Ministerstvu dne 11.září 2026- Podnět k výkonu dohledu nad znaleckou činností a k přezkoumání akreditace – zkoumání omamných a psychotropních látek.pdf",
+      "sha256": "5bdd08570b960fcf66544eaaeeb6a1602c3c5e49f9daa6b27e75f3585b492870",
+      "pages": 11,
+      "status": "redacted_public_copy_reviewed",
+      "document_id": "doc-cz-ekk-2026-09-11-msp-cia-thc-dohled-akreditace",
+      "public_pdf": "documents/justice-slalom/2026-09/021-podani-2026-09-11-verejna-kopie.pdf",
+      "archive_number": 69,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-09-11-16.json"
+      ],
+      "public_sha256": "1e44bcfe9608dab2588225afc83b4019eb3297f04c7e2d79cd7c161335c8fd8f",
+      "redaction_marks": 23,
+      "human_review_status": "author_declined_own_review",
+      "editorial_review": {
+        "status": "assistant_review_completed",
+        "reviewed_on": "2026-09-29",
+        "method": "all_pages_text_screening_and_render_pixel_comparison",
+        "reviewed_source_pages": 11,
+        "unexpected_pixels_outside_redactions": 0,
+        "embedded_attachments": 0,
+        "source_raster_images": 0
+      }
+    },
+    {
+      "number": 22,
+      "filename": "Ministerstvu kultury 1.září 2026- rozklad proti usnesení Ministerstva kultury ze dne 31. 8. 2026, č. j. MK 53547_2026 SOCNS.pdf",
+      "sha256": "469c3738b7922caa53aef46a1105fa213c0957be0984bef4871bb65abe85a610",
+      "pages": 15,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-01-slalom-augsep-022",
+      "public_pdf": "documents/justice-slalom/2026-09/022-podani-2026-09-01.pdf",
+      "archive_number": 70
+    },
+    {
+      "number": 23,
+      "filename": "Ministerstvu vnitra - 24.8.2026 - Odvolání – KRPT-203594-8_ČJ-2026-0700KR.pdf",
+      "sha256": "854eac91a82a63cb39e3f680350c206c9e390f1a0d5240fa5a08db0954562638",
+      "pages": 4,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-023",
+      "public_pdf": "documents/justice-slalom/2026-08/023-podani-2026-08-24.pdf",
+      "archive_number": 71
+    },
+    {
+      "number": 24,
+      "filename": "Ministr spravedlnosti - stiznost dne 10.srpna 2026 na nečinnost MSP - kauza I a II.pdf",
+      "sha256": "57dadf04c3656e925bd6658db1bb2b9d7dc4db9012aaee5f35d187a7ca7d986c",
+      "pages": 14,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-10-stiznost-necinnost-msp",
+      "public_pdf": "documents/justice-slalom/2026-08/024-podani-2026-08-10.pdf",
+      "archive_number": 72,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-10.json"
+      ]
+    },
+    {
+      "number": 25,
+      "filename": "Ministrovi a městskému soudu 18A23 -2026 - dodatek 25.srpna 2026.pdf",
+      "sha256": "1776d1ff483e096389dc1e8fb593cc121e857f4378a0e9546bd77125132847c7",
+      "pages": 4,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-25-slalom-augsep-025",
+      "public_pdf": "documents/justice-slalom/2026-08/025-podani-2026-08-25.pdf",
+      "archive_number": 73
+    },
+    {
+      "number": 26,
+      "filename": "Ministru vnitra  -doplnění stížností ministrovi vnitra ze dne 15. srpna 2026.pdf",
+      "sha256": "b2730001ad9bde76936feb98ff6bfd2eccd7573cc49cea59f579728220fc7528",
+      "pages": 3,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-15-doplneni-stiznosti-ministr-vnitra",
+      "public_pdf": "documents/justice-slalom/2026-08/026-podani-2026-08-15.pdf",
+      "archive_number": 74,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-15.json"
+      ]
+    },
+    {
+      "number": 27,
+      "filename": "Ministru vnitra – druhé naléhavé doplnění stížností 24.srpna 2026.pdf",
+      "sha256": "83ce24e374c7128dcdd5fdd07c0b7e8f9305bed95ce09a06450c20b42cf49ad5",
+      "pages": 3,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-027",
+      "public_pdf": "documents/justice-slalom/2026-08/027-podani-2026-08-24.pdf",
+      "archive_number": 75
+    },
+    {
+      "number": 28,
+      "filename": "MS v Praze 15 A 44_2026 dne 15.8.2026- souhrnné důkazní doplnění žaloby na vnitro.pdf",
+      "sha256": "3fb445e6f53288919f11a532933422776fc343bb9b7a6d45f7a9798969925dd6",
+      "pages": 3,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-15-doplneni-zaloby-15-a-44-2026",
+      "public_pdf": "documents/justice-slalom/2026-08/028-podani-2026-08-15.pdf",
+      "archive_number": 76,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-15.json"
+      ]
+    },
+    {
+      "number": 29,
+      "filename": "MS V Praze 19.srpna 2026 -další listinné důkazy svévole NSZ a VSZ – 18 A 23_2026.pdf",
+      "sha256": "8a0d702c232379ea1b99a505024af6ca0200945423884a32f3fb006b30653783",
+      "pages": 18,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-19-doplneni-18-a-23-2026",
+      "public_pdf": "documents/justice-slalom/2026-08/029-podani-2026-08-19.pdf",
+      "archive_number": 77,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-19-20.json"
+      ]
+    },
+    {
+      "number": 30,
+      "filename": "MS v Praze 26.9.2026- Replika k vyjádření žalovaného – 18 A 23_2026.pdf",
+      "sha256": "7b1757618cf60b1f9b2557edc25dd4c797e1ecec32d55939515e26c4dbf3de6c",
+      "pages": 11,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-26-slalom-augsep-030",
+      "public_pdf": "documents/justice-slalom/2026-09/030-podani-2026-09-26.pdf",
+      "archive_number": 78
+    },
+    {
+      "number": 31,
+      "filename": "MS v Praze dne 20.8.2026 - Replika žalobce k vyjádření žalovaného – sp. zn. 8 Ad 9_2026.pdf",
+      "sha256": "ffc221d705894e6b377846259270459242a702d118637c1a6e251fdf3f275e9a",
+      "pages": 4,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-20-replika-8-ad-9-2026",
+      "public_pdf": "documents/justice-slalom/2026-08/031-podani-2026-08-20.pdf",
+      "archive_number": 79,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-19-20.json"
+      ]
+    },
+    {
+      "number": 32,
+      "filename": "MS v Praze dne 21.9.2026- Návrh na určení lhůty k provedení procesního úkonu – 18 A 17_2026.pdf",
+      "sha256": "28c68d5e3415ac3a9fd542b295d45e16f4e04779aa5a561e58c62851adbf4bc3",
+      "pages": 6,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-032",
+      "public_pdf": "documents/justice-slalom/2026-09/032-podani-2026-09-21.pdf",
+      "archive_number": 80
+    },
+    {
+      "number": 33,
+      "filename": "MSZ Praha- doplnění přezkumu OSZ pro Prahu 7 dne 15.8. 2026.pdf",
+      "sha256": "0398c3d19e33fb513b80a607970828163a9ea2650fe37bfae72665837aa6d46f",
+      "pages": 2,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-15-doplneni-prezkumu-msz-praha",
+      "public_pdf": "documents/justice-slalom/2026-08/033-podani-2026-08-15.pdf",
+      "archive_number": 81,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-15.json"
+      ]
+    },
+    {
+      "number": 34,
+      "filename": "MSZ–VSZ–NSZ – přezkum OSZ pro Prahu 2-1.8.2026",
+      "sha256": "5d2fbb149a65c77152541ab2c446b627285b5560275373151bd7b79a85fce112",
+      "status": "text_identical_duplicate_of_067",
+      "text_sha256": "bdb3e82e4f2c324a66184075bb3c0974204a33bedd8f93f097fbe24f9dddae27"
+    },
+    {
+      "number": 35,
+      "filename": "Městskému soudu -Naléhavé důkazní doplnění žaloby – 18 A 17_2026 – 25. 8. 2026.pdf",
+      "sha256": "0c69944dff2f0a7a38bec55520e4a2e17f92f5885d7c093a28d970b8a5dcfd75",
+      "pages": 5,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-25-slalom-augsep-035",
+      "public_pdf": "documents/justice-slalom/2026-08/035-podani-2026-08-25.pdf",
+      "archive_number": 82
+    },
+    {
+      "number": 36,
+      "filename": "Městskému soudu 2.8.2026  - Další důkazní doplnění žaloby – 18 A 17_2026.pdf",
+      "sha256": "e61a8e628d584e15a209f3a2926ea804af3ac773493d1bea9ca812dfd33945c5",
+      "pages": 14,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-02-slalom-augsep-036",
+      "public_pdf": "documents/justice-slalom/2026-08/036-podani-2026-08-02.pdf",
+      "archive_number": 83
+    },
+    {
+      "number": 37,
+      "filename": "Městskému soudu 2.září 2026-18 A 17_2026 – mimořádně naléhavé doplnění.pdf",
+      "sha256": "2d03a11cdc70080904ae4ea2900b09388971828d31c5d6b23389d4aabff93dcc",
+      "pages": 2,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-02-slalom-augsep-037",
+      "public_pdf": "documents/justice-slalom/2026-09/037-podani-2026-09-02.pdf",
+      "archive_number": 84
+    },
+    {
+      "number": 38,
+      "filename": "Městskému soudu 24.9.2026-procesní sdělení a žádost o vyjasnění procesního stavu - 18 A 17_2026.pdf",
+      "sha256": "916fafa432d74a7276b6d6228e5f9e320a096bf824b60e9fa7e4a70b29d4c532",
+      "pages": 2,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-24-slalom-augsep-038",
+      "public_pdf": "documents/justice-slalom/2026-09/038-podani-2026-09-24.pdf",
+      "archive_number": 85
+    },
+    {
+      "number": 39,
+      "filename": "Městskému soudu 24.srpna 2026 - další naléhavé doplnění žaloby.pdf",
+      "sha256": "e5aff93e13d15bbb2b50bd060870d66f8bdabe99f537e75f9483720c9aaec18b",
+      "pages": 3,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-039",
+      "public_pdf": "documents/justice-slalom/2026-08/039-podani-2026-08-24.pdf",
+      "archive_number": 86
+    },
+    {
+      "number": 40,
+      "filename": "Městskému soudu dne 16. září 2026 - dokaz k poplatku.pdf",
+      "sha256": "41bd771f8d36d83e5c3de9a77190068bd2fb1f73582102e1a5f9098c7de459e0",
+      "pages": 1,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-16-slalom-augsep-040",
+      "public_pdf": "documents/justice-slalom/2026-09/040-podani-2026-09-16.pdf",
+      "archive_number": 87
+    },
+    {
+      "number": 41,
+      "filename": "Městskému soudu v Praze - naléhavost - 10.srpna 2026 -zásahová žaloba na MSP.pdf",
+      "sha256": "3ea21a3947168611ba2a46a94c6ca859fe10dbb19b2ec356e31374e55cfcbca2",
+      "pages": 4,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-10-slalom-augsep-041",
+      "public_pdf": "documents/justice-slalom/2026-08/041-podani-2026-08-10.pdf",
+      "archive_number": 88
+    },
+    {
+      "number": 42,
+      "filename": "Městskému soudu v Praze - naléhavost - 8. září 2026 -zásahová žaloba na MSP.pdf",
+      "sha256": "336fbf19530d3cf881d7475d85bdac580388811584f2108d632a999e94eb8abc",
+      "pages": 2,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-042",
+      "public_pdf": "documents/justice-slalom/2026-09/042-podani-2026-09-08.pdf",
+      "archive_number": 89
+    },
+    {
+      "number": 43,
+      "filename": "Městskému soudu v Praze - Žaloba na SUKL dne 31.srpna 2026.pdf",
+      "sha256": "aa648d0ea5052c27ff0310713590a67c55461cc665fa7b162d85a04e8c57ccf5",
+      "pages": 7,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-31-slalom-augsep-043",
+      "public_pdf": "documents/justice-slalom/2026-08/043-podani-2026-08-31.pdf",
+      "archive_number": 90
+    },
+    {
+      "number": 44,
+      "filename": "MĚSTSKÝ SOUD V PRAZE – 18 A 17_2026 – 8. 9. 2026.pdf",
+      "sha256": "992bf8abe207c847a3ddf9c03fa2341790a207981420ce5ed7fc834c07d7e9c1",
+      "pages": 2,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-044",
+      "public_pdf": "documents/justice-slalom/2026-09/044-podani-2026-09-08.pdf",
+      "archive_number": 91
+    },
+    {
+      "number": 45,
+      "filename": "Městský soud v Praze, sp. zn. 18 A 23_2026- 18.září 2026.pdf",
+      "sha256": "040c7f874835a67dc925da88e6004c677ffff2e9306951ec78efbdbaaee3556a",
+      "pages": 3,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-18-slalom-augsep-045",
+      "public_pdf": "documents/justice-slalom/2026-09/045-podani-2026-09-18.pdf",
+      "archive_number": 92
+    },
+    {
+      "number": 46,
+      "filename": "Městský soud v Praze, sp. zn. 45 T 1_2024-22.července 2026- od CC.pdf",
+      "sha256": "586a1aee057bbf0413b31a2723b06013663af5c24e0b77e8278d717da8f09a9b",
+      "pages": 8,
+      "status": "redacted_public_copy_reviewed",
+      "document_id": "doc-cs-dd-2026-07-22-slalom-augsep-046",
+      "public_pdf": "documents/justice-slalom/2026-07/046-podani-2026-07-22-verejna-kopie.pdf",
+      "archive_number": 93,
+      "public_sha256": "16fc9d39f5a22638f148d9e22d3f5e5e96fc37821e5312d13f310b92b2972508",
+      "redaction_marks": 3,
+      "human_review_status": "author_declined_own_review",
+      "editorial_review": {
+        "status": "assistant_review_completed",
+        "reviewed_on": "2026-09-29",
+        "method": "all_pages_text_screening_and_render_pixel_comparison",
+        "reviewed_source_pages": 8,
+        "unexpected_pixels_outside_redactions": 0,
+        "embedded_attachments": 0,
+        "source_raster_images": 0
+      }
+    },
+    {
+      "number": 47,
+      "filename": "NSS - Kasační stížnost dne 1.září 2026 - ministerstvo vnitra.pdf",
+      "sha256": "ad8bccf603319893fa0432c1e028e83f5fdbd08370a07359b071954403479ae7",
+      "pages": 12,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-01-slalom-augsep-047",
+      "public_pdf": "documents/justice-slalom/2026-09/047-podani-2026-09-01.pdf",
+      "archive_number": 94
+    },
+    {
+      "number": 48,
+      "filename": "NSZ a ČT dne 13.9.2026 -Závěrečné sdělení k předžalobní výzvě NSZ a stížnosti České televizi.pdf",
+      "sha256": "a2453bb6e87cfaaea642594e752a4c3694b6e1ba0a9ca7f7c39d972185b4b118",
+      "pages": 7,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-09-13-nsz-ct-zaverecne-sdeleni",
+      "public_pdf": "documents/justice-slalom/2026-09/048-podani-2026-09-13.pdf",
+      "archive_number": 95,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-09-11-16.json"
+      ]
+    },
+    {
+      "number": 49,
+      "filename": "NSZ – 6 NZN 1737_2026 – desáté doplnění předžalobní výzvy – 8. 9. 2026.pdf",
+      "sha256": "d7fdbfa9716dc19d39e3ebfaf64597b14d8248a9d60ae5ae43983570cc96083f",
+      "pages": 3,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-049",
+      "public_pdf": "documents/justice-slalom/2026-09/049-podani-2026-09-08.pdf",
+      "archive_number": 96
+    },
+    {
+      "number": 50,
+      "filename": "NSZ • 6 NZN 1737_2026 • DEVÁTÉ DOPLNĚNÍ PŘEDŽALOBNÍ VÝZVY • 2. 9. 2026.pdf",
+      "sha256": "857aed3ce5b9ac6729f48c0c8b0ce7cd97839484102c54cc8264cfbe707e2c3a",
+      "pages": 7,
+      "status": "redacted_public_copy_reviewed",
+      "document_id": "doc-cs-dd-2026-09-02-slalom-augsep-050",
+      "public_pdf": "documents/justice-slalom/2026-09/050-podani-2026-09-02-verejna-kopie.pdf",
+      "archive_number": 97,
+      "public_sha256": "cf785f40ec33b16fa9f0b8a805a30c5fc4b62cfeab82bfdfd0f9ad2f22885a74",
+      "redaction_marks": 28,
+      "human_review_status": "author_declined_own_review",
+      "editorial_review": {
+        "status": "assistant_review_completed",
+        "reviewed_on": "2026-09-29",
+        "method": "all_pages_text_screening_and_render_pixel_comparison",
+        "reviewed_source_pages": 7,
+        "unexpected_pixels_outside_redactions": 0,
+        "embedded_attachments": 0,
+        "source_raster_images": 0
+      }
+    },
+    {
+      "number": 51,
+      "filename": "NSZ- osmý dodatek předžalobmí výzvy dne 28.srpna 2026.pdf",
+      "sha256": "d93601f0b8d019fe744778ee9f7f15b7297a2445cfabfd92733ea1d91532566f",
+      "pages": 4,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-28-slalom-augsep-051",
+      "public_pdf": "documents/justice-slalom/2026-08/051-podani-2026-08-28.pdf",
+      "archive_number": 98
+    },
+    {
+      "number": 52,
+      "filename": "NSZ- sedmý dodatek předžalobmí výzvy dne 22.srpna 2026 a kárný podnět.pdf",
+      "sha256": "e0a9eb8f035799235333df5e6ba7c1633e035473ca5904c84b11114a3dad8550",
+      "pages": 5,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-22-slalom-augsep-052",
+      "public_pdf": "documents/justice-slalom/2026-08/052-podani-2026-08-22.pdf",
+      "archive_number": 99
+    },
+    {
+      "number": 53,
+      "filename": "NSZ- šesté doplnění předžalobní výzvy dne 15.srpna 2026.pdf",
+      "sha256": "5c43c9d714240ed38f29cb3445223219aec305791b0441ddeceac345460f72c1",
+      "pages": 3,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-15-seste-doplneni-predzalobni-vyzvy-nsz",
+      "public_pdf": "documents/justice-slalom/2026-08/053-podani-2026-08-15.pdf",
+      "archive_number": 100,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-15.json"
+      ]
+    },
+    {
+      "number": 54,
+      "filename": "OS a OSZ Prostejov - doplneni 13.září 2026.pdf",
+      "sha256": "a4dea43abe46797b3511e2bc48dac502f52d01ce3bf2b0d6467998e93f743da5",
+      "pages": 7,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-09-13-os-osz-pro-doplneni-obnova",
+      "public_pdf": "documents/justice-slalom/2026-09/054-podani-2026-09-13.pdf",
+      "archive_number": 101,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-09-11-16.json"
+      ]
+    },
+    {
+      "number": 55,
+      "filename": "OS a OSZ v Prostějově 7.září 2026- Mimořádně naléhavá žádost o procesní vysvětlení a další důkazní doplnění – 2 T 104_2010.pdf",
+      "sha256": "72d30cf3d6f32729dc4095ff60f179fb30294665bfb56813688281388ce82837",
+      "pages": 7,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-09-07-os-osz-pro-procesni-pouceni",
+      "public_pdf": "documents/justice-slalom/2026-09/055-podani-2026-09-07.pdf",
+      "archive_number": 102,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-09-11-16.json"
+      ]
+    },
+    {
+      "number": 56,
+      "filename": "OS Prostějov- 13.srpna 2026 Naléhavé procesní a důkazní doplnění návrhu na povolení obnovy řízení – 2 T 104_2010.pdf",
+      "sha256": "bb8af200cd11beb7787bc3fbd96adac0b25d20d22c7465c62eb49521f3388086",
+      "pages": 5,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-13-slalom-augsep-056",
+      "public_pdf": "documents/justice-slalom/2026-08/056-podani-2026-08-13.pdf",
+      "archive_number": 103
+    },
+    {
+      "number": 57,
+      "filename": "OS Prostějov- 13.srpna2026 Společné naléhavé doplnění obou stížností KS v Brně ze dne 10. a 11. srpna 2026.pdf",
+      "sha256": "1488484c53c9b8fa44e89e09c4a44a21aaf592a2c32684f7be1cb08597a36210",
+      "pages": 4,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-13-slalom-augsep-057",
+      "public_pdf": "documents/justice-slalom/2026-08/057-podani-2026-08-13.pdf",
+      "archive_number": 104
+    },
+    {
+      "number": 58,
+      "filename": "OS Prostějov- stiznost ze dne 10.srpna 2026 na usnesení ze dne 7.8.2026, čj. 15 Nt 3105_2026-54.pdf",
+      "sha256": "017d93aa3e3fee35183ad96c3e5ee42226e224e8cff87240d7b22e377994223b",
+      "pages": 10,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54",
+      "public_pdf": "documents/justice-slalom/2026-08/058-podani-2026-08-10.pdf",
+      "archive_number": 105,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-10.json"
+      ]
+    },
+    {
+      "number": 59,
+      "filename": "OS Prostějov- stiznost ze dne 11.srpna 2026 na usnesení ze dne 7.8.2026",
+      "sha256": "2c45d0fa41cb535088ee6b7017a383838e4db5b029dc0936f23f8781a2b15efd",
+      "pages": 10,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+      "public_pdf": "documents/justice-slalom/2026-08/059-podani-2026-08-11.pdf",
+      "archive_number": 106,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-11.json"
+      ]
+    },
+    {
+      "number": 60,
+      "filename": "OS v Prostějově 22.8.2026 - Mimořádně naléhavý dodatek k návrhu na povolení obnovy řízení – 2 T 104_2010.pdf",
+      "sha256": "d6d2640e58f82db7f6f2070973e03858fc3a1215238d5754ac9e8217576af676",
+      "pages": 8,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-22-slalom-augsep-060",
+      "public_pdf": "documents/justice-slalom/2026-08/060-podani-2026-08-22.pdf",
+      "archive_number": 107
+    },
+    {
+      "number": 61,
+      "filename": "OSZ FM dne 2.9.2026 mimořádně naléhavé doplnění podnětu – OSZ Frýdek-Místek, 1 ZN 7061_2026.pdf",
+      "sha256": "78142b16c292d53d74a495dab490acefaaeaf9718f6e22ebcf3b8fedbddfb1f9",
+      "pages": 2,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-09-02-osz-fm-1-zn-7061-2026-doplneni",
+      "public_pdf": "documents/justice-slalom/2026-09/061-podani-2026-09-02.pdf",
+      "archive_number": 108,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-09-03-kpr-osz-fm.json"
+      ]
+    },
+    {
+      "number": 62,
+      "filename": "OSZ v Prostějově dne 15.sprna 2026 - nečinnost - přehazování odpovědnosti - evropská otázka a důkazy.pdf",
+      "sha256": "c1556399393226924fbada4102bcc31966b76a196627d9560525c374447c73aa",
+      "pages": 9,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-15-zadost-soucinnost-osz-prostejov",
+      "public_pdf": "documents/justice-slalom/2026-08/062-podani-2026-08-15.pdf",
+      "archive_number": 109,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-15.json"
+      ]
+    },
+    {
+      "number": 63,
+      "filename": "Policejnimu prezidentovi dne 8.září 2026 - druhé doplnění stížnosti.pdf",
+      "sha256": "dd8bd4c396472fa9e1a3baca9430c34cd7e2e31db4cfa0d7ab5182f3dcac1d6c",
+      "pages": 8,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-063",
+      "public_pdf": "documents/justice-slalom/2026-09/063-podani-2026-09-08.pdf",
+      "archive_number": 110
+    },
+    {
+      "number": 64,
+      "filename": "Policie - policejnímu prezidentovi - 14. 8. 2026.pdf",
+      "sha256": "b22f62208cd3c8de87f75dbafff48281b3e8eeac1544258e9967c7138e4c3bfa",
+      "pages": 3,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-14-slalom-augsep-064",
+      "public_pdf": "documents/justice-slalom/2026-08/064-podani-2026-08-14.pdf",
+      "archive_number": 111
+    },
+    {
+      "number": 65,
+      "filename": "Policie - Stížnost na postup Policie ČR - 14. 8. 2026.pdf",
+      "sha256": "d0153366b44f68ecfae585a99965352b0c1cff2b87bb254c45a084c636e245b9",
+      "pages": 3,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960",
+      "public_pdf": "documents/justice-slalom/2026-08/065-podani-2026-08-14.pdf",
+      "archive_number": 112,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-14.json"
+      ]
+    },
+    {
+      "number": 66,
+      "filename": "Premiérovi ze dne 12. srpna 2026- opakovaná žádost.pdf",
+      "sha256": "90aa0007db3a6c31c12f8f5c21c1246541b2ac86daa9171b12d3b00dc276153a",
+      "pages": 4,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-12-slalom-augsep-066",
+      "public_pdf": "documents/justice-slalom/2026-08/066-podani-2026-08-12.pdf",
+      "archive_number": 113
+    },
+    {
+      "number": 67,
+      "filename": "Společný podnět MSZ–VSZ–NSZ – přezkum OSZ pro Prahu 2.pdf",
+      "sha256": "20a7597dff376f17ff4c8fd2ff2024f63fc0ae78c4b7d32d860e95aabf999a44",
+      "pages": 8,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-01-slalom-augsep-067",
+      "public_pdf": "documents/justice-slalom/2026-08/067-podani-2026-08-01.pdf",
+      "archive_number": 114
+    },
+    {
+      "number": 68,
+      "filename": "UOOU a RRTV dne 12.srpna 2026- dodatek.pdf",
+      "sha256": "be86aac4db69401c769887eda7823e1d047e4ad257ee07f11cb1576d1a3fb190",
+      "pages": 4,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-12-slalom-augsep-068",
+      "public_pdf": "documents/justice-slalom/2026-08/068-podani-2026-08-12.pdf",
+      "archive_number": 115
+    },
+    {
+      "number": 69,
+      "filename": "VSZ - dne 28.8.2026 - dohled - naléhavé.pdf",
+      "sha256": "109e457a43f4fbb2a765d08198ed5057817022ae5eb9529bdfb186a6b11c722a",
+      "pages": 4,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-28-slalom-augsep-069",
+      "public_pdf": "documents/justice-slalom/2026-08/069-podani-2026-08-28.pdf",
+      "archive_number": 116
+    },
+    {
+      "number": 70,
+      "filename": "VSZ a KSZ dne 3.září 2026- Žádost o přezkoumání vyřízení OSZ Frýdek-Místek č. j. 1 ZN 7061_2026-79.pdf",
+      "sha256": "8905b084b3fa457aa9049fedf647d243b1e5a5cb0129bd8a484f41b48185dfb0",
+      "pages": 7,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-03-slalom-augsep-070",
+      "public_pdf": "documents/justice-slalom/2026-09/070-podani-2026-09-03.pdf",
+      "archive_number": 117
+    },
+    {
+      "number": 71,
+      "filename": "VSZ dne 1.9.2026- Mimořádně naléhavé doplnění dohledu – 3 KZN 974_2026.pdf",
+      "sha256": "2ad23155f426889ea6ffaceea5c5233849cacf0dd7028fd7e35235136d36566c",
+      "pages": 5,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-01-slalom-augsep-071",
+      "public_pdf": "documents/justice-slalom/2026-09/071-podani-2026-09-01.pdf",
+      "archive_number": 118
+    },
+    {
+      "number": 72,
+      "filename": "VSZ v Olomouci – 24. 8. 2026.pdf",
+      "sha256": "7aa29d282130b1c9f95e9b39148042315090eb668d1232cc37efd6bca49d6cf5",
+      "pages": 5,
+      "status": "redacted_public_copy_reviewed",
+      "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-072",
+      "public_pdf": "documents/justice-slalom/2026-08/072-podani-2026-08-24-verejna-kopie.pdf",
+      "archive_number": 119,
+      "public_sha256": "ced4bbb041c44692f848d13654da662370e3d0781e4c4fabd1a6a5cce8be9411",
+      "redaction_marks": 40,
+      "human_review_status": "author_declined_own_review",
+      "editorial_review": {
+        "status": "assistant_review_completed",
+        "reviewed_on": "2026-09-29",
+        "method": "all_pages_text_screening_and_render_pixel_comparison",
+        "reviewed_source_pages": 5,
+        "unexpected_pixels_outside_redactions": 0,
+        "embedded_attachments": 0,
+        "source_raster_images": 0
+      }
+    },
+    {
+      "number": 73,
+      "filename": "VSZ v Praze a VSZ v Olomouci - doplnění dohledu -15. srpna 2026.pdf",
+      "sha256": "faf334b0482413b327b04db8d965e9eaa6f5a67f196e7b35270b325a88abef83",
+      "pages": 3,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-15-doplneni-dohledu-vsz-praha-olomouc",
+      "public_pdf": "documents/justice-slalom/2026-08/073-podani-2026-08-15.pdf",
+      "archive_number": 120,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-15.json"
+      ]
+    },
+    {
+      "number": 74,
+      "filename": "VSZ v Praze dne 25.srpna 2024 - přezkum - MSZ opět bez odůvodnění a s rozpory jako Brno.pdf",
+      "sha256": "05f7b3bb3c02e190452cf4088760a8ac99d2d0d4a2a66e361f57335cff90bc8e",
+      "pages": 3,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-25-slalom-augsep-074",
+      "public_pdf": "documents/justice-slalom/2026-08/074-podani-2026-08-25.pdf",
+      "archive_number": 121
+    },
+    {
+      "number": 75,
+      "filename": "VSZ V PRAZE • 1 VZN 1678_2026 • PŘEZKUM 3 KZN 974_2026-108 • 2. 9. 2026.pdf",
+      "sha256": "407e22b04a48256c7ee17bae19161ca95e6dd258139b4dd2b52d8eb1017d8f32",
+      "pages": 8,
+      "status": "redacted_public_copy_reviewed",
+      "document_id": "doc-cs-dd-2026-09-02-slalom-augsep-075",
+      "public_pdf": "documents/justice-slalom/2026-09/075-podani-2026-09-02-verejna-kopie.pdf",
+      "archive_number": 122,
+      "public_sha256": "4fc7c46de24371154f4c2bc4fa8b604aa1a6b9d26a188049bd1fdf2e071b42b1",
+      "redaction_marks": 29,
+      "human_review_status": "author_declined_own_review",
+      "editorial_review": {
+        "status": "assistant_review_completed",
+        "reviewed_on": "2026-09-29",
+        "method": "all_pages_text_screening_and_render_pixel_comparison",
+        "reviewed_source_pages": 8,
+        "unexpected_pixels_outside_redactions": 0,
+        "embedded_attachments": 0,
+        "source_raster_images": 0
+      }
+    },
+    {
+      "number": 76,
+      "filename": "ČT 28.8.2026- doplnění stížnosti ze dne 15. srpna 2026.pdf",
+      "sha256": "b25c3a45fc41d58a05d6c575ca41e85dd717ffa5500c353abd4900b542df9cad",
+      "pages": 5,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-28-slalom-augsep-076",
+      "public_pdf": "documents/justice-slalom/2026-08/076-podani-2026-08-28.pdf",
+      "archive_number": 123
+    },
+    {
+      "number": 77,
+      "filename": "ČT dne 25.září 2026 -Pozvání České televize a Rady České televize na veřejná zasedání o obnově.pdf",
+      "sha256": "053c65e9bef0c1e1efc40cca667da73afc24f844976610fbf0dc8c5d24f7256a",
+      "pages": 1,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-25-slalom-augsep-077",
+      "public_pdf": "documents/justice-slalom/2026-09/077-podani-2026-09-25.pdf",
+      "archive_number": 124
+    },
+    {
+      "number": 78,
+      "filename": "ČT- Důrazná stížnost na nečinnost České televize a Rady České televize - 15. srpna 2026.pdf",
+      "sha256": "7c664485be6253d2fa2421f442ecf51945a97f9a060fb197a48f00319d12cd9c",
+      "pages": 7,
+      "status": "existing_record_linked_to_exact_original_pdf",
+      "document_id": "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
+      "public_pdf": "documents/justice-slalom/2026-08/078-podani-2026-08-15.pdf",
+      "archive_number": 125,
+      "prior_canonical_sources": [
+        "project-memory/documents-2026.json",
+        "project-memory/documents-2026-supplement-2026-08-15.json"
+      ]
+    },
+    {
+      "number": 79,
+      "filename": "Žaloba -Doplnění tvrzení a replika - 10 C 69_2026 - 18. 9. 2026.pdf",
+      "sha256": "eb57e6baf8a2c99bdf68e1899e2fb7982e1ac41aeeae94e3d57670f1d8f2a471",
+      "pages": 8,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-18-slalom-augsep-079",
+      "public_pdf": "documents/justice-slalom/2026-09/079-podani-2026-09-18.pdf",
+      "archive_number": 126
+    },
+    {
+      "number": 80,
+      "filename": "Žaloba 10C69_2026 důkazní doplnění dne 12. srpna 2026.pdf",
+      "sha256": "10ab2b95c2b4ba1eaf014ad892ebd57072a6ae1ee7e095c84f9fc027a1d3a9cb",
+      "pages": 3,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-08-12-slalom-augsep-080",
+      "public_pdf": "documents/justice-slalom/2026-08/080-podani-2026-08-12.pdf",
+      "archive_number": 127
+    },
+    {
+      "number": 81,
+      "filename": "Complaint European Ombudsman - EUDA 27. September 2026 EN.pdf",
+      "sha256": "66001cfa1d712f27f2d30c3fd3abd2839a21349121021d2616ce92e6db36219e",
+      "pages": 6,
+      "status": "added_exact_pdf",
+      "document_id": "doc-en-dd-2026-09-27-slalom-augsep-081",
+      "public_pdf": "documents/justice-slalom/2026-09/081-podani-2026-09-27.pdf",
+      "archive_number": 128
+    },
+    {
+      "number": 82,
+      "filename": "EUDA- EN- 26.October 2026.pdf",
+      "sha256": "b115bfe6df57df88cfbdb5519f1a3dcfb29572d57f1a66d9291114365e74e6aa",
+      "pages": 8,
+      "status": "added_exact_pdf",
+      "document_id": "doc-en-dd-2026-09-26-slalom-augsep-082",
+      "public_pdf": "documents/justice-slalom/2026-09/082-podani-2026-09-26.pdf",
+      "archive_number": 129
+    },
+    {
+      "number": 83,
+      "filename": "Stiznost evropskému ombudsmanovi ze dne 27.září 2026.pdf",
+      "sha256": "c369988e0afc8f1d092d7dfce662e9a9cd195ff7e05580b9b5f91fd86204cf50",
+      "pages": 5,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-09-27-slalom-augsep-083",
+      "public_pdf": "documents/justice-slalom/2026-09/083-podani-2026-09-27.pdf",
+      "archive_number": 130
+    }
+  ],
+  "review_instruction": {
+    "date": "2026-09-29",
+    "instruction": "Autor výslovně odmítl vlastní kontrolu a uložil její provedení asistentovi. Záznam proto netvrdí lidskou kontrolu ani schválení anonymizace autorem."
+  }
+}

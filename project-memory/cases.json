@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_on": "2026-09-05",
+  "updated_on": "2026-09-29",
   "cases": [
     {
       "id": "CASE-CZ-NSZ-6NZN1737-2026",
@@ -9,7 +9,12 @@
       "title": "Podněty a přezkumy u Nejvyššího státního zastupitelství v roce 2026",
       "status": "active",
       "opened_on": "2026-04-27",
-      "topics": ["nečinnost", "NCOZ", "příslušnost", "předávání podání"]
+      "topics": [
+        "nečinnost",
+        "NCOZ",
+        "příslušnost",
+        "předávání podání"
+      ]
     },
     {
       "id": "CASE-CZ-MSZ-PHA-3KZN197-2026",
@@ -18,7 +23,11 @@
       "title": "Rozdělení podání převzatého od NSZ mezi jednotlivé větve státního zastupitelství",
       "status": "active",
       "opened_on": "2026-06-11",
-      "topics": ["rozdělení podání", "příslušnost", "dohled"]
+      "topics": [
+        "rozdělení podání",
+        "příslušnost",
+        "dohled"
+      ]
     },
     {
       "id": "CASE-CZ-MSZ-BRN-3ZN140-2026",
@@ -27,7 +36,11 @@
       "title": "Větev podání vrácená MSZ v Praze",
       "status": "under_review",
       "opened_on": "2026-07-14",
-      "topics": ["věcná nepříslušnost", "vrácení věci", "přezkum"]
+      "topics": [
+        "věcná nepříslušnost",
+        "vrácení věci",
+        "přezkum"
+      ]
     },
     {
       "id": "CASE-CZ-KSZ-BRN-1KZN1079-2026",
@@ -36,8 +49,15 @@
       "title": "Přezkum postupu MSZ v Brně ve věci 3 ZN 140/2026",
       "status": "active",
       "opened_on": "2026-07-31",
-      "topics": ["dohled", "přezkum", "MSZ Brno", "MSZ Praha"],
-      "related_case_ids": ["CASE-CZ-MSZ-BRN-3ZN140-2026"]
+      "topics": [
+        "dohled",
+        "přezkum",
+        "MSZ Brno",
+        "MSZ Praha"
+      ],
+      "related_case_ids": [
+        "CASE-CZ-MSZ-BRN-3ZN140-2026"
+      ]
     },
     {
       "id": "CASE-CZ-VSZ-PHA-1VZN1678-2026",
@@ -46,7 +66,11 @@
       "title": "Dohled nad postupem MSZ v Praze při rozdělení podání",
       "status": "active",
       "opened_on": "2026-06-22",
-      "topics": ["dohled", "spisová úplnost", "rozdělení podání"]
+      "topics": [
+        "dohled",
+        "spisová úplnost",
+        "rozdělení podání"
+      ]
     },
     {
       "id": "CASE-CZ-KPR-4093-2026",
@@ -55,7 +79,11 @@
       "title": "Milost Dušana Dvořáka a návrh konopné amnestie",
       "status": "active",
       "opened_on": "2026-05-19",
-      "topics": ["milost", "konopná amnestie", "konopná standarta"]
+      "topics": [
+        "milost",
+        "konopná amnestie",
+        "konopná standarta"
+      ]
     },
     {
       "id": "CASE-CZ-PCR-KRPT-203594-2026",
@@ -64,7 +92,14 @@
       "title": "Žádost o SOP a metodiky OKTE Frýdek-Místek 2009–2019",
       "status": "active",
       "opened_on": "2026-07-27",
-      "topics": ["OKTE Frýdek-Místek", "SOP", "THC", "THCA", "analytické metody", "zákon 106/1999 Sb."]
+      "topics": [
+        "OKTE Frýdek-Místek",
+        "SOP",
+        "THC",
+        "THCA",
+        "analytické metody",
+        "zákon 106/1999 Sb."
+      ]
     },
     {
       "id": "case-cz-os-pro-2t104-2010-obnova",
@@ -73,7 +108,12 @@
       "title": "Návrh na povolení obnovy řízení ve věci 2 T 104/2010",
       "status": "active",
       "opened_on": "2026-07-12",
-      "topics": ["obnova řízení", "2 T 104/2010", "15 Nt 3104/2026", "veřejné zasedání"]
+      "topics": [
+        "obnova řízení",
+        "2 T 104/2010",
+        "15 Nt 3104/2026",
+        "veřejné zasedání"
+      ]
     },
     {
       "id": "case-cz-ms-praha-15a44-2026",
@@ -82,7 +122,45 @@
       "title": "Zásahová žaloba proti Ministerstvu vnitra a navazující kasační řízení",
       "status": "active_cassation",
       "opened_on": "2026-07-23",
-      "topics": ["zásahová žaloba", "Ministerstvo vnitra", "15 A 44/2026", "kasační stížnost", "6 As 207/2026", "Nejvyšší správní soud"]
+      "topics": [
+        "zásahová žaloba",
+        "Ministerstvo vnitra",
+        "15 A 44/2026",
+        "kasační stížnost",
+        "6 As 207/2026",
+        "Nejvyšší správní soud"
+      ]
+    },
+    {
+      "id": "CASE-CZ-KSZ-BRN-1KZT475-2026",
+      "institution_id": "CZ-KSZ-BRN",
+      "reference": "1 KZT 475/2026",
+      "title": "Dohled nad vyřízením podání OSZ v Prostějově 1 ZT 11/2010-752",
+      "status": "supervisory_request_dismissed",
+      "opened_on": "2026-07-10",
+      "decided_on": "2026-09-16",
+      "decision_document_id": "doc-cz-ksz-brn-2026-09-16-1-kzt-475-2026-71",
+      "topics": [
+        "dohled",
+        "OSZ Prostějov"
+      ]
+    },
+    {
+      "id": "CASE-CZ-VS-PHA-3CMO24-2026",
+      "institution_id": "CZ-VS-PHA",
+      "reference": "3 Cmo 24/2026; původní 3 Cm 2/2026",
+      "title": "Edukativní konopná klinika proti FTV Prima – uveřejnění odpovědi",
+      "status": "transfer_ordered_after_finality",
+      "decision_date": "2026-09-14",
+      "decision_document_id": "doc-cz-vs-pha-2026-09-14-3-cmo-24-2026-26",
+      "next_authority": "Obvodní soud pro Prahu 10",
+      "finality_date": null,
+      "successor_case_reference": null,
+      "topics": [
+        "právo na odpověď",
+        "věcná příslušnost",
+        "FTV Prima"
+      ]
     }
   ]
 }

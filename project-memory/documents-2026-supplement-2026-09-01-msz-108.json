@@ -12,13 +12,24 @@
       "reference": "3 KZN 974/2026-108",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["Nejvyšší státní zastupitelství", "MSZ Brno", "3 ZN 140/2026-3", "§ 16a zákona o státním zastupitelství", "trestní oznámení", "§ 158 trestního řádu", "§ 329", "§ 330", "metodika THC", "přezkum VSZ Praha"],
+      "topics": [
+        "Nejvyšší státní zastupitelství",
+        "MSZ Brno",
+        "3 ZN 140/2026-3",
+        "§ 16a zákona o státním zastupitelství",
+        "trestní oznámení",
+        "§ 158 trestního řádu",
+        "§ 329",
+        "§ 330",
+        "metodika THC",
+        "přezkum VSZ Praha"
+      ],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/87-msz-praha-3-kzn-974-2026-108-2026-09-01-verejna-kopie.pdf",
         "intended_pdf": "documents/report-04082026-010/87-msz-praha-3-kzn-974-2026-108-2026-09-01-verejna-kopie.pdf",
-        "sha256": null,
-        "verification_status": "verified_text_source_received; awaiting_generated_public_copy",
+        "sha256": "b0cbfbd544dc69392704381cd7c6dab14578daec3460f23baa5b5564f76b16f3",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-01-msz-108.json"
       },
       "relations": [],

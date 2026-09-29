@@ -10,10 +10,25 @@
       "received_date": "2026-08-24",
       "institution_id": "CZ-MSZ-PHA",
       "reference": "2 KZN 55/2025-136",
-      "case_ids": ["case-cz-vsz-praha-dohled-msz", "case-cz-msz-praha-prezkumy"],
+      "case_ids": [
+        "case-cz-vsz-praha-dohled-msz",
+        "case-cz-msz-praha-prezkumy"
+      ],
       "document_type": "state_record",
-      "topics": ["státní zastupitelství", "§ 157 odst. 2 tr. ř.", "NCOZ", "měření THC", "přezkum vyřízení"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/64-msz-praha-2-kzn-55-2025-136-2026-08-20.pdf", "sha256": null, "verification_status": "source_pdf_verified; awaiting_public_binary"},
+      "topics": [
+        "státní zastupitelství",
+        "§ 157 odst. 2 tr. ř.",
+        "NCOZ",
+        "měření THC",
+        "přezkum vyřízení"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/64-msz-praha-2-kzn-55-2025-136-2026-08-20.pdf",
+        "intended_pdf": "documents/report-04082026-010/64-msz-praha-2-kzn-55-2025-136-2026-08-20.pdf",
+        "sha256": "bfb6bdaade4b0acfd8492da2d36b4401a68a1d78e7dfa6fac4a1978a9c5fb7a8",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification",
@@ -26,10 +41,24 @@
       "received_date": "2026-08-21",
       "institution_id": "CZ-PCR-KU",
       "reference": "KU-4139-12/ČJ-2026-2305KM",
-      "case_ids": ["case-cz-pcr-ku-interni-prezkum"],
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
       "document_type": "state_record",
-      "topics": ["Kriminalistický ústav", "interní přezkum", "znalecká činnost", "měření THC", "metodicko-odborné výjezdy"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/65-ku-4139-12-cj-2026-2305km-2026-08-20.pdf", "sha256": null, "verification_status": "source_pdf_verified; awaiting_public_binary"},
+      "topics": [
+        "Kriminalistický ústav",
+        "interní přezkum",
+        "znalecká činnost",
+        "měření THC",
+        "metodicko-odborné výjezdy"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/65-ku-4139-12-cj-2026-2305km-2026-08-20.pdf",
+        "intended_pdf": "documents/report-04082026-010/65-ku-4139-12-cj-2026-2305km-2026-08-20.pdf",
+        "sha256": "5e1c3bd3bb861e5c54da1adbcad680fbf84304b531dd916547b202cbf8936bf8",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification"
@@ -41,10 +70,25 @@
       "received_date": "2026-08-20",
       "institution_id": "CZ-PCR-KRPT",
       "reference": "KRPT-203594-7/ČJ-2026-0700KR",
-      "case_ids": ["case-cz-pcr-ku-interni-prezkum"],
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
       "document_type": "state_record",
-      "topics": ["OKTE Frýdek-Místek", "InfZ", "THC", "SOP", "ENFSI-UNODC", "skartace"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/66-krpt-203594-7-cj-2026-0700kr-2026-08-20.pdf", "sha256": null, "verification_status": "source_pdf_verified; awaiting_public_binary"},
+      "topics": [
+        "OKTE Frýdek-Místek",
+        "InfZ",
+        "THC",
+        "SOP",
+        "ENFSI-UNODC",
+        "skartace"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/66-krpt-203594-7-cj-2026-0700kr-2026-08-20.pdf",
+        "intended_pdf": "documents/report-04082026-010/66-krpt-203594-7-cj-2026-0700kr-2026-08-20.pdf",
+        "sha256": "97c1a79b79703ed0b0034791d49735662b3a25c4a8853949cb6d10dbfcabf669",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification",
@@ -57,11 +101,30 @@
       "received_date": "2026-08-20",
       "institution_id": "CZ-PCR-KRPT",
       "reference": "příloha k KRPT-203594-7/ČJ-2026-0700KR; RŘ KÚ č. 54/2021; KU-8331-1/ČJ-2021-2305KM",
-      "case_ids": ["case-cz-pcr-ku-interni-prezkum"],
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
       "document_type": "state_record",
-      "topics": ["příloha", "RŘ KÚ 54/2021", "konopí", "kanabinoidy", "metodika"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/67-krpt-priloha-rr-ku-54-2021.pdf", "sha256": null, "verification_status": "source_pdf_verified; awaiting_public_binary"},
-      "relations": [{"type":"priloha_k","target_id":"doc-cz-pcr-krpt-2026-08-20-krpt-203594-7-cj-2026-0700kr"}],
+      "topics": [
+        "příloha",
+        "RŘ KÚ 54/2021",
+        "konopí",
+        "kanabinoidy",
+        "metodika"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/67-krpt-priloha-rr-ku-54-2021.pdf",
+        "intended_pdf": "documents/report-04082026-010/67-krpt-priloha-rr-ku-54-2021.pdf",
+        "sha256": "5a3ee1b2bcf42645f731ee381400e09b5151872363f7af9913d5253244d2185d",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpt-2026-08-20-krpt-203594-7-cj-2026-0700kr"
+        }
+      ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification"
     },
@@ -72,11 +135,30 @@
       "received_date": "2026-08-20",
       "institution_id": "CZ-PCR-KRPT",
       "reference": "příloha k KRPT-203594-7/ČJ-2026-0700KR; příloha č. 1 k RŘ KÚ č. 54/2021",
-      "case_ids": ["case-cz-pcr-ku-interni-prezkum"],
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
       "document_type": "state_record",
-      "topics": ["příloha", "reprezentativní vzorek", "konopí", "ENFSI-UNODC", "sušení"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf", "sha256": null, "verification_status": "source_pdf_verified; awaiting_public_binary"},
-      "relations": [{"type":"priloha_k","target_id":"doc-cz-pcr-krpt-2026-08-20-krpt-203594-7-cj-2026-0700kr"}],
+      "topics": [
+        "příloha",
+        "reprezentativní vzorek",
+        "konopí",
+        "ENFSI-UNODC",
+        "sušení"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf",
+        "intended_pdf": "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf",
+        "sha256": "336af9dff0ad906759d2bddae8868970026bfef063e516bb2c148ff74ea64e32",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpt-2026-08-20-krpt-203594-7-cj-2026-0700kr"
+        }
+      ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification"
     },
@@ -87,11 +169,30 @@
       "received_date": "2026-08-20",
       "institution_id": "CZ-PCR-KRPT",
       "reference": "příloha k KRPT-203594-7/ČJ-2026-0700KR",
-      "case_ids": ["case-cz-pcr-ku-interni-prezkum"],
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
       "document_type": "state_record",
-      "topics": ["příloha", "metodicko-odborné výjezdy", "mezilaboratorní zkoušky", "GC-MS", "skartace"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf", "sha256": null, "verification_status": "source_pdf_verified; awaiting_public_binary"},
-      "relations": [{"type":"priloha_k","target_id":"doc-cz-pcr-krpt-2026-08-20-krpt-203594-7-cj-2026-0700kr"}],
+      "topics": [
+        "příloha",
+        "metodicko-odborné výjezdy",
+        "mezilaboratorní zkoušky",
+        "GC-MS",
+        "skartace"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf",
+        "intended_pdf": "documents/report-04082026-010/69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf",
+        "sha256": "e73fcf803f59c4ed58cfb0ff01ee773cfedbd2782426132d3feeb715655d0ca2",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpt-2026-08-20-krpt-203594-7-cj-2026-0700kr"
+        }
+      ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification"
     },
@@ -102,10 +203,28 @@
       "received_date": "2026-08-20",
       "institution_id": "CZ-PCR-KRPT",
       "reference": "KRPT-203594-8/ČJ-2026-0700KR",
-      "case_ids": ["case-cz-pcr-ku-interni-prezkum"],
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
       "document_type": "state_record",
-      "topics": ["OKTE Frýdek-Místek", "InfZ", "THC", "THCA", "SOP", "homogenizace", "nejistota měření", "validace", "skartace"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/70-krpt-203594-8-cj-2026-0700kr-2026-08-20.pdf", "sha256": null, "verification_status": "source_pdf_verified; awaiting_public_binary"},
+      "topics": [
+        "OKTE Frýdek-Místek",
+        "InfZ",
+        "THC",
+        "THCA",
+        "SOP",
+        "homogenizace",
+        "nejistota měření",
+        "validace",
+        "skartace"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/70-krpt-203594-8-cj-2026-0700kr-2026-08-20.pdf",
+        "intended_pdf": "documents/report-04082026-010/70-krpt-203594-8-cj-2026-0700kr-2026-08-20.pdf",
+        "sha256": "69d8e2a0551a720ce44afef82c96a8dbe56972b4e0f0ae8ef884c8f9d321c136",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification"
@@ -117,10 +236,24 @@
       "received_date": "2026-08-24",
       "institution_id": "CZ-PCR-PP",
       "reference": "PPR-44020-2/ČJ-2026-990210-PD",
-      "case_ids": ["case-cz-pcr-ku-interni-prezkum"],
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
       "document_type": "state_record",
-      "topics": ["Policejní prezidium", "Úřad vnitřní kontroly", "§ 97 zákona o Policii ČR", "přezkum", "Kriminalistický ústav"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/71-ppr-44020-2-cj-2026-990210-pd-2026-08-24.pdf", "sha256": null, "verification_status": "source_pdf_verified; awaiting_public_binary"},
+      "topics": [
+        "Policejní prezidium",
+        "Úřad vnitřní kontroly",
+        "§ 97 zákona o Policii ČR",
+        "přezkum",
+        "Kriminalistický ústav"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/71-ppr-44020-2-cj-2026-990210-pd-2026-08-24.pdf",
+        "intended_pdf": "documents/report-04082026-010/71-ppr-44020-2-cj-2026-990210-pd-2026-08-24.pdf",
+        "sha256": "d22735cb76fe45eb7640964c91959394160b8365286ccfc49cd4242beae52001",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification"

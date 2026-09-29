@@ -10,15 +10,22 @@
       "received_date": "2026-08-26",
       "institution_id": "CZ-KS-OST",
       "reference": "St 82/2026; souvisí s 15 T 11/2025",
-      "case_ids": ["15 T 11/2025"],
+      "case_ids": [
+        "15 T 11/2025"
+      ],
       "document_type": "state_record",
-      "topics": ["stížnost na postup soudu", "postoupení stížnosti", "Okresní soud v Ostravě", "15 T 11/2025"],
+      "topics": [
+        "stížnost na postup soudu",
+        "postoupení stížnosti",
+        "Okresní soud v Ostravě",
+        "15 T 11/2025"
+      ],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/78-ks-ostrava-st-82-2026-15-t-11-2025-2026-08-26.pdf",
         "intended_pdf": "documents/report-04082026-010/78-ks-ostrava-st-82-2026-15-t-11-2025-2026-08-26.pdf",
-        "sha256": null,
-        "verification_status": "source_pdf_verified_in_intake; awaiting_generated_public_copy",
+        "sha256": "3575368ddbaa06a18c7fbf30967ae1b14806ce0f26605a967d5a85847ee6dcb1",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original",
         "source_manifest": "project-memory/documents-2026-supplement-2026-08-26-ks-ostrava.json"
       },
       "relations": [],

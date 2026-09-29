@@ -1,0 +1,26 @@
+import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+const json = async p => JSON.parse(await readFile(p,'utf8'));
+const fail = msg => { throw new Error(`STATE-RELEASE-2026-09-29: ${msg}`); };
+const source = await json('project-memory/source-verification-2026-09-29-ksz-vs.json');
+const registry = await json('web/data/documents-2026.json');
+const translations = await json('project-memory/english-godot-translations.json');
+const timers = await json('web/data/process-timers.json');
+const pages = await Promise.all(['web/zpravy/04082026-010.html','web/news/04082026-010.html'].map(p=>readFile(p,'utf8')));
+for (const file of source.files) {
+  const doc = registry.documents.find(d=>d.id===file.document_id);
+  if (!doc || doc.issue_date!==file.issue_date || doc.reference!==file.reference || doc.received_date!==null || doc.public.pdf!==file.public_pdf) fail(`canonical record ${file.document_id}`);
+  const data = await readFile(`web/${file.public_pdf}`);
+  const sha = createHash('sha256').update(data).digest('hex');
+  if (sha!==file.source_sha256 || sha!==file.public_sha256 || sha!==doc.public.sha256 || !data.subarray(0,5).equals(Buffer.from('%PDF-')) || !data.subarray(-2048).toString('latin1').includes('%%EOF')) fail(`PDF integrity ${file.document_id}`);
+  if (!translations.documents[file.document_id]) fail(`English description ${file.document_id}`);
+  for (const page of pages) {
+    const block = page.match(new RegExp(`<li\\b[^>]*(?:id|data-document-id)="${file.document_id}"[^>]*>[\\s\\S]*?(?=<li\\b|<\\/ol>)`))?.[0];
+    if (!block || !block.includes(file.reference) || !block.includes(file.public_pdf)) fail(`public record/PDF ${file.document_id}`);
+  }
+  for (const id of doc.closes_timer_ids || []) {
+    if (timers.timers.some(timer=>timer.id===id)) fail(`closed phase still active: ${id}`);
+    if (!timers.resolved_process_steps?.some(step=>step.id===id && step.decision_document_id===doc.id)) fail(`missing decision history: ${id}`);
+  }
+}
+console.log('State release 2026-09-29 OK: two source-identical PDFs, canonical dates, CZ/EN entries and resolved KSZ phase.');

@@ -48,9 +48,17 @@ const updates = {
 const esc = value => String(value ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
 const data = JSON.parse(await readFile(timerPath,'utf8'));
 const timerById = new Map((data.timers||[]).map(t=>[t.id,t]));
+const documents = JSON.parse(await readFile('project-memory/documents-2026.json','utf8')).documents;
 for (const [id,update] of Object.entries(updates)) {
   const timer=timerById.get(id);
-  if (!timer) throw new Error(`LATEST-PROCESS-GATE: chybí kanonický timer ${id}`);
+  if (!timer) {
+    const resolvedMsp = id === 'timer-remedy-doc-cz-dd-2026-08-10-stiznost-necinnost-msp'
+      && documents.some(doc => doc.id === 'doc-cz-msp-2026-09-08-msp-19-2026-odka-roz-27'
+        && doc.issue_date === '2026-09-08'
+        && doc.relations?.some(rel => rel.type === 'reakce_na' && rel.target_id === 'doc-cz-dd-2026-08-10-stiznost-necinnost-msp'));
+    if (update.closed && resolvedMsp) continue;
+    throw new Error(`LATEST-PROCESS-GATE: chybí kanonický timer ${id}`);
+  }
   timer.process_steps = Array.isArray(timer.process_steps) ? timer.process_steps : [];
   const keyReference=update.step.reference.split(';')[0].replace(/^č\. j\. /,'').replace(/^sp\. zn\. /,'');
   if (!timer.process_steps.some(step => step.date === update.step.date && String(step.reference).includes(keyReference))) timer.process_steps.push(update.step);

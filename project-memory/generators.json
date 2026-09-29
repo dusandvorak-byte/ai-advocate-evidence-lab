@@ -60,6 +60,11 @@
       "path": "scripts/normalize-godot-link-labels.mjs",
       "role": "canonical_godot_link_label_normalization",
       "allowed_caller": "scripts/build-site.mjs"
+    },
+    {
+      "path": "scripts/materialize-pdf-release-2026-09-29.py",
+      "role": "sha256_verified_binary_pdf_materialization",
+      "allowed_caller": "scripts/build-site.mjs"
     }
   ],
   "canonical_generated_outputs": [
