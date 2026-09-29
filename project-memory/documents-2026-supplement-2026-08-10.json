@@ -12,8 +12,18 @@
       "reference": "KPR 5772/2026-2",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["KPR", "InfZ", "milost", "autoremedura"],
-      "public": {"html": null, "pdf": "documents/report-04082026-010/15-kpr-5772-2026-2-2026-08-07.pdf", "sha256": null, "verification_status": "published"},
+      "topics": [
+        "KPR",
+        "InfZ",
+        "milost",
+        "autoremedura"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/15-kpr-5772-2026-2-2026-08-07.pdf",
+        "sha256": null,
+        "verification_status": "published"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification"
@@ -27,8 +37,16 @@
       "reference": "15 Nt 3105/2026-54",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["obnova řízení", "OS Prostějov"],
-      "public": {"html": null, "pdf": "documents/report-04082026-010/16-os-prostejov-15-nt-3105-2026-54-2026-08-07.pdf", "sha256": null, "verification_status": "published"},
+      "topics": [
+        "obnova řízení",
+        "OS Prostějov"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/16-os-prostejov-15-nt-3105-2026-54-2026-08-07.pdf",
+        "sha256": null,
+        "verification_status": "published"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification"
@@ -42,11 +60,40 @@
       "reference": "proti KPR 5772/2026-2",
       "case_ids": [],
       "document_type": "user_submission",
-      "topics": ["KPR", "InfZ", "opakovaná stížnost"],
-      "public": {"html": null, "pdf": "documents/report-04082026-010/17-citc-opakovana-stiznost-kpr-5772-2026-2-2026-08-10.pdf", "sha256": null, "verification_status": "published"},
-      "relations": [{"type":"reakce_na","target_id":"doc-cz-kpr-2026-08-07-kpr-5772-2026-2"}],
+      "topics": [
+        "KPR",
+        "InfZ",
+        "opakovaná stížnost"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/17-citc-opakovana-stiznost-kpr-5772-2026-2-2026-08-10.pdf",
+        "sha256": "e85ced3a6e7c55e765677442603160ff2a3bd2f3a7736b729ae39c3160ba10ad",
+        "verification_status": "source_pdf_received_binary_original"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-kpr-2026-08-07-kpr-5772-2026-2"
+        }
+      ],
       "submission_side": "outgoing_from_user_or_alliance",
-      "submission_side_basis": "explicit_batch_classification"
+      "submission_side_basis": "explicit_batch_classification",
+      "justice_slalom": {
+        "archive_number": 57,
+        "archive_name": "KPR dne 10.srpna 2026 - opakovaná stiznost ve věci čj. KPR_5772_2026-2.pdf",
+        "source_sha256": "e85ced3a6e7c55e765677442603160ff2a3bd2f3a7736b729ae39c3160ba10ad",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-KPR",
+            "reference": "KPR 5772/2026-2",
+            "role": "primary",
+            "subject_cs": "Opakovaná stížnost proti sdělení KPR a závěru o úplném vyhovění",
+            "subject_en": "Renewed complaint against the Presidential Office response and its claim of complete redress"
+          }
+        ]
+      }
     },
     {
       "id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54",
@@ -57,11 +104,47 @@
       "reference": "proti 15 Nt 3105/2026-54",
       "case_ids": [],
       "document_type": "user_submission",
-      "topics": ["obnova řízení", "stížnost"],
-      "public": {"html": null, "pdf": "documents/report-04082026-010/18-dvorak-stiznost-15-nt-3105-2026-54-2026-08-10.pdf", "sha256": null, "verification_status": "published"},
-      "relations": [{"type":"reakce_na","target_id":"doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54"}],
+      "topics": [
+        "obnova řízení",
+        "stížnost"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/058-podani-2026-08-10.pdf",
+        "sha256": "017d93aa3e3fee35183ad96c3e5ee42226e224e8cff87240d7b22e377994223b",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54"
+        }
+      ],
       "submission_side": "outgoing_from_user_or_alliance",
-      "submission_side_basis": "explicit_batch_classification"
+      "submission_side_basis": "explicit_batch_classification",
+      "justice_slalom": {
+        "archive_number": 105,
+        "archive_name": "OS Prostějov- stiznost ze dne 10.srpna 2026 na usnesení ze dne 7.8.2026, čj. 15 Nt 3105_2026-54.pdf",
+        "source_sha256": "017d93aa3e3fee35183ad96c3e5ee42226e224e8cff87240d7b22e377994223b",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-KS-BRN",
+            "reference": "15 Nt 3105/2026-54",
+            "role": "primary",
+            "subject_cs": "Doplnění stížnosti proti zamítnutí návrhu na obnovu řízení",
+            "subject_en": "Supplement to complaint against rejection of the reopening motion"
+          },
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "15 Nt 3105/2026-54",
+            "role": "through",
+            "subject_cs": "Doplnění stížnosti proti zamítnutí návrhu na obnovu řízení",
+            "subject_en": "Supplement to complaint against rejection of the reopening motion"
+          }
+        ]
+      }
     },
     {
       "id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-130",
@@ -72,8 +155,16 @@
       "reference": "18 A 23/2026-130",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["18 A 23/2026", "soudní poplatek"],
-      "public": {"html": null, "pdf": "documents/report-04082026-010/19-ms-praha-18-a-23-2026-130-2026-08-10.pdf", "sha256": null, "verification_status": "published"},
+      "topics": [
+        "18 A 23/2026",
+        "soudní poplatek"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/19-ms-praha-18-a-23-2026-130-2026-08-10.pdf",
+        "sha256": null,
+        "verification_status": "published"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification"
@@ -87,8 +178,16 @@
       "reference": "18 A 23/2026-131",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["18 A 23/2026", "rozhodnutí bez jednání"],
-      "public": {"html": null, "pdf": "documents/report-04082026-010/20-ms-praha-18-a-23-2026-131-2026-08-10.pdf", "sha256": null, "verification_status": "published"},
+      "topics": [
+        "18 A 23/2026",
+        "rozhodnutí bez jednání"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/20-ms-praha-18-a-23-2026-131-2026-08-10.pdf",
+        "sha256": null,
+        "verification_status": "published"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_batch_classification"
@@ -102,9 +201,26 @@
       "reference": "18 A 23/2026",
       "case_ids": [],
       "document_type": "user_submission",
-      "topics": ["18 A 23/2026", "reakce žalobce"],
-      "public": {"html": null, "pdf": "documents/report-04082026-010/21-dvorak-reakce-ms-praha-18-a-23-2026-2026-08-10.pdf", "sha256": null, "verification_status": "published"},
-      "relations": [{"type":"souvisí","target_id":"doc-cz-ms-pha-2026-08-10-18-a-23-2026-130"},{"type":"reakce_na","target_id":"doc-cz-ms-pha-2026-08-10-18-a-23-2026-131"}],
+      "topics": [
+        "18 A 23/2026",
+        "reakce žalobce"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/21-dvorak-reakce-ms-praha-18-a-23-2026-2026-08-10.pdf",
+        "sha256": null,
+        "verification_status": "published"
+      },
+      "relations": [
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-130"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-131"
+        }
+      ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_batch_classification"
     },
@@ -117,11 +233,42 @@
       "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ; 18 A 23/2026",
       "case_ids": [],
       "document_type": "user_submission_attachment",
-      "topics": ["Ministerstvo spravedlnosti", "nečinnost", "18 A 23/2026", "důkazní příloha"],
-      "public": {"html": null, "pdf": "documents/report-04082026-010/22-dvorak-stiznost-necinnost-msp-2026-08-10.pdf", "sha256": null, "verification_status": "published"},
-      "relations": [{"type":"priloha_k","target_id":"doc-cz-dd-2026-08-10-reakce-18-a-23-2026"}],
+      "topics": [
+        "Ministerstvo spravedlnosti",
+        "nečinnost",
+        "18 A 23/2026",
+        "důkazní příloha"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/024-podani-2026-08-10.pdf",
+        "sha256": "57dadf04c3656e925bd6658db1bb2b9d7dc4db9012aaee5f35d187a7ca7d986c",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-dd-2026-08-10-reakce-18-a-23-2026"
+        }
+      ],
       "submission_side": "outgoing_from_user_or_alliance",
-      "submission_side_basis": "explicit_batch_classification"
+      "submission_side_basis": "explicit_batch_classification",
+      "justice_slalom": {
+        "archive_number": 72,
+        "archive_name": "Ministr spravedlnosti - stiznost dne 10.srpna 2026 na nečinnost MSP - kauza I a II.pdf",
+        "source_sha256": "57dadf04c3656e925bd6658db1bb2b9d7dc4db9012aaee5f35d187a7ca7d986c",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MSP",
+            "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ; 18 A 23/2026",
+            "role": "primary",
+            "subject_cs": "Stížnost na pokračující nečinnost ministerstva ve dvou souvisejících věcech",
+            "subject_en": "Complaint about continuing Justice Ministry inaction in two related matters"
+          }
+        ]
+      }
     }
   ]
 }

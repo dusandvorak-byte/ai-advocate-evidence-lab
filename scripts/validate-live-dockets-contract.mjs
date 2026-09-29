@@ -169,25 +169,27 @@ const item47 = chronologyBlock('doc-cz-osz-pro-2026-07-28-zn-4-2026-6');
 const item56 = chronologyBlock('doc-cz-kpr-2026-08-03-kpr-5080-2026');
 const item59 = chronologyBlock('doc-eu-euda-2026-08-07-ack-article-265-tfeu');
 const item67 = chronologyBlock('doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd');
-const expectedItem47Pdf = '44-dvorak-zadost-soucinnost-osz-prostejov-2026-08-15.pdf';
-for (const pdf of ['50-ct-338889-2025-38-odmitnuti-smiru-2026-06-01.pdf', '51-dvorak-stiznost-ct-rada-ct-necinnost-smir-2026-08-15.pdf']) {
-  if (!item13.includes(pdf)) throw new Error(`Položce 13 chybí aktivní PDF: ${pdf}`);
-}
+const uploadFiles = JSON.parse(await readFile('project-memory/justice-slalom-upload-reconciliation-2026-09-28.json','utf8')).files;
+const pdfForId = id => {
+  const pdf = canonicalDocuments.documents.find(doc => doc.id === id)?.public?.pdf;
+  if (!pdf) throw new Error(`Kanonickému záznamu chybí PDF: ${id}`);
+  return pdf;
+};
+const pdfForUpload = number => {
+  const id = uploadFiles.find(file => file.number === number)?.document_id;
+  if (!id) throw new Error(`Chybí inventura podání ${number}`);
+  return pdfForId(id);
+};
+const hasPdf = (block,pdf,label) => {
+  if (!block.includes(`href="${pdf}"`)) throw new Error(`${label} chybí aktivní kanonické PDF: ${pdf}`);
+};
+hasPdf(item13,pdfForId('doc-cz-ct-2026-06-01-ct-338889-2025-38'),'Položce 13');
+hasPdf(item13,pdfForUpload(78),'Položce 13');
 if ((item13.match(/Reakce na podání orgánu veřejné moci:/g) || []).length !== 1) throw new Error('Položka 13 nemá právě jednu požadovanou reakci');
-const expectedItem67Pdfs = [
-  '37-dvorak-doplneni-stiznosti-ministr-vnitra-2026-08-15.pdf',
-  '38-dvorak-zadost-prezkum-policejni-prezident-2026-08-15.pdf',
-  '39-dvorak-podnet-gibs-2026-08-15.pdf',
-  '40-dvorak-doplneni-prezkumu-msz-praha-2026-08-15.pdf',
-  '41-dvorak-doplneni-dohledu-vsz-praha-olomouc-2026-08-15.pdf',
-  '42-dvorak-seste-doplneni-predzalobni-vyzvy-nsz-2026-08-15.pdf',
-  '43-dvorak-doplneni-zaloby-15-a-44-2026-2026-08-15.pdf'
-];
-if (!item47.includes(expectedItem47Pdf)) throw new Error('Položka 47 nemá aktivní PDF reakce ze dne 15. 8. 2026');
-for (const pdf of ['45-citc-stiznost-kpr-5080-2026-2026-08-03.pdf', '46-dvorak-souhrnna-zprava-kpr-milost-amnestie-2026-08-15.pdf']) {
-  if (!item56.includes(pdf)) throw new Error(`Položce 56 chybí aktivní PDF reakce: ${pdf}`);
-}
-for (const pdf of expectedItem67Pdfs) if (!item67.includes(pdf)) throw new Error(`Položce 67 chybí aktivní PDF reakce: ${pdf}`);
+hasPdf(item47,pdfForUpload(62),'Položce 47');
+for (const number of [11,12]) hasPdf(item56,pdfForUpload(number),'Položce 56');
+for (const number of [26,3,33,73,53,28]) hasPdf(item67,pdfForUpload(number),'Položce 67');
+hasPdf(item67,pdfForId('doc-cz-dd-2026-08-15-zadost-prezkum-policejni-prezident'),'Položce 67');
 if ((item47.match(/Reakce na podání orgánu veřejné moci:/g) || []).length !== 1) throw new Error('Položka 47 nemá právě jednu požadovanou reakci');
 if ((item56.match(/Reakce na podání orgánu veřejné moci:/g) || []).length !== 2) throw new Error('Položka 56 nemá právě dvě požadované reakce');
 for (const pdf of ['47-citc-formal-call-euda-article-265-tfeu-2026-08-07-en.pdf', '48-citc-formalni-vyzva-euda-cl-265-sfeu-2026-08-07-cs.pdf', '49-dvorak-letter-laura-ramos-cannareporter-euda-2026-08-15.pdf']) {

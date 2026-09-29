@@ -1,0 +1,2395 @@
+{
+  "schema_version": "1.0",
+  "source_archive": "od 1.8.2026.zip + three standalone PDFs supplied by author",
+  "documents": [
+    {
+      "id": "doc-cs-dd-2026-08-24-slalom-augsep-002",
+      "user_title": "Mimořádné doplnění trestního oznámení o nové úřední důkazy a zajištění laboratorní dokumentace",
+      "issue_date": "2026-08-24",
+      "received_date": "2026-08-24",
+      "institution_id": "CZ-DD",
+      "reference": "podání z 15. 8. 2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/002-podani-2026-08-24.pdf",
+        "sha256": "354c1b9604b0a5df643de9e61e819fe98968d024a9a6ac2cc23edcc9c517646e",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 50,
+        "archive_name": "GIBS – mimořádně naléhavé doplnění trestního oznámení 24. 8. 2026.pdf",
+        "source_sha256": "354c1b9604b0a5df643de9e61e819fe98968d024a9a6ac2cc23edcc9c517646e",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-GIBS",
+            "reference": "podání z 15. 8. 2026",
+            "role": "primary",
+            "subject_cs": "Mimořádné doplnění trestního oznámení o nové úřední důkazy a zajištění laboratorní dokumentace",
+            "subject_en": "Urgent supplement to criminal report with new official evidence and request to preserve laboratory records"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-08-slalom-augsep-004",
+      "user_title": "Druhé naléhavé doplnění žádosti o milost o dvě úřední listiny z 8. září",
+      "issue_date": "2026-09-08",
+      "received_date": "2026-09-08",
+      "institution_id": "CZ-DD",
+      "reference": "KPR 5080/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/004-podani-2026-09-08.pdf",
+        "sha256": "56e32508f32eed19e31bac004680ee15d6518656ed4c0a8fd2ae5ed1d24fe363",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 52,
+        "archive_name": "KANCELÁŘ PREZIDENTA REPUBLIKY – KPR 5080_2026 – 8. 9. 2026.pdf",
+        "source_sha256": "56e32508f32eed19e31bac004680ee15d6518656ed4c0a8fd2ae5ed1d24fe363",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-KPR",
+            "reference": "KPR 5080/2026",
+            "role": "primary",
+            "subject_cs": "Druhé naléhavé doplnění žádosti o milost o dvě úřední listiny z 8. září",
+            "subject_en": "Second urgent supplement to pardon request with two official records from 8 September"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-21-slalom-augsep-005",
+      "user_title": "Třetí naléhavé doplnění žádosti o milost, pozvání k veřejným zasedáním a důkazní návrhy",
+      "issue_date": "2026-09-21",
+      "received_date": "2026-09-21",
+      "institution_id": "CZ-DD",
+      "reference": "KPR 5080/2026; KPR 4093/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/005-podani-2026-09-21.pdf",
+        "sha256": "24453dc4c031dbd4b1d3c12cb4a57d50fe864adb779fa7fc7cf058799640b91f",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 53,
+        "archive_name": "KPR 21.9.2026- Třetí mimořádně naléhavé doplnění – pozvánka k soudu, test novosti KPR a důkazní návrhy.pdf",
+        "source_sha256": "24453dc4c031dbd4b1d3c12cb4a57d50fe864adb779fa7fc7cf058799640b91f",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-KPR",
+            "reference": "KPR 5080/2026; KPR 4093/2026",
+            "role": "primary",
+            "subject_cs": "Třetí naléhavé doplnění žádosti o milost, pozvání k veřejným zasedáním a důkazní návrhy",
+            "subject_en": "Third urgent pardon supplement, invitation to public hearings and evidentiary motions"
+          },
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "copy",
+            "subject_cs": "Třetí naléhavé doplnění žádosti o milost, pozvání k veřejným zasedáním a důkazní návrhy",
+            "subject_en": "Third urgent pardon supplement, invitation to public hearings and evidentiary motions"
+          },
+          {
+            "institution_id": "CZ-MSP",
+            "reference": "MSP-162/2026-ODKA-SPZ; 18 A 23/2026",
+            "role": "copy",
+            "subject_cs": "Třetí naléhavé doplnění žádosti o milost, pozvání k veřejným zasedáním a důkazní návrhy",
+            "subject_en": "Third urgent pardon supplement, invitation to public hearings and evidentiary motions"
+          },
+          {
+            "institution_id": "CZ-PCR-PP",
+            "reference": "PPR-44020/ČJ-2026-990210-PD",
+            "role": "copy",
+            "subject_cs": "Třetí naléhavé doplnění žádosti o milost, pozvání k veřejným zasedáním a důkazní návrhy",
+            "subject_en": "Third urgent pardon supplement, invitation to public hearings and evidentiary motions"
+          },
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+            "role": "simultaneous",
+            "subject_cs": "Třetí naléhavé doplnění žádosti o milost, pozvání k veřejným zasedáním a důkazní návrhy",
+            "subject_en": "Third urgent pardon supplement, invitation to public hearings and evidentiary motions"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-07-slalom-augsep-007",
+      "user_title": "Doplnění žádosti o milost a rehabilitaci: kontinuita let 2010–2026 a nové úřední důkazy",
+      "issue_date": "2026-09-07",
+      "received_date": "2026-09-07",
+      "institution_id": "CZ-DD",
+      "reference": "KPR 5080/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/007-podani-2026-09-07.pdf",
+        "sha256": "3ba050422200788ca6b6c00b9ae12eb4c1838f47e457cb1a32131bb8251935f8",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 55,
+        "archive_name": "KPR 5080_2026 dne 7.9.2026– kontinuita 2010–2026 a nové podstatné skutečnosti.pdf",
+        "source_sha256": "3ba050422200788ca6b6c00b9ae12eb4c1838f47e457cb1a32131bb8251935f8",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-KPR",
+            "reference": "KPR 5080/2026",
+            "role": "primary",
+            "subject_cs": "Doplnění žádosti o milost a rehabilitaci: kontinuita let 2010–2026 a nové úřední důkazy",
+            "subject_en": "Supplement to pardon and rehabilitation request: 2010–2026 history and new official evidence"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-01-slalom-augsep-008",
+      "user_title": "Stížnost proti neúplnému vyřízení žádosti KPR a žádost o opravu evidence",
+      "issue_date": "2026-08-01",
+      "received_date": "2026-08-01",
+      "institution_id": "CZ-DD",
+      "reference": "KPR 5772/2026-1; KPR 4093/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/008-podani-2026-08-01-verejna-kopie.pdf",
+        "sha256": "9d95664fba57d3a94c675803e9dcc012d24da941e2197eb80dded6f176139c8f",
+        "verification_status": "redacted_public_pdf_copy_assistant_review_completed",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 56,
+        "archive_name": "KPR dne 1.srpna 2026- Stížnost proti sdělení KPR 5772_2026-1 – KPR 4093_2026.pdf",
+        "source_sha256": "bdc7c033922ab778e3cbfb00eab311fee076dd5b68411976dedf21088cbc5d8d",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "recipients": [
+          {
+            "institution_id": "CZ-KPR",
+            "reference": "KPR 5772/2026-1; KPR 4093/2026",
+            "role": "primary",
+            "subject_cs": "Stížnost proti neúplnému vyřízení žádosti KPR a žádost o opravu evidence",
+            "subject_en": "Complaint against incomplete handling by the Presidential Office and request to correct records"
+          }
+        ],
+        "public_sha256": "9d95664fba57d3a94c675803e9dcc012d24da941e2197eb80dded6f176139c8f",
+        "redaction_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-07-12-slalom-augsep-010",
+      "user_title": "Doplnění žádosti o milost o návrh na obnovu řízení a preventivní podání",
+      "issue_date": "2026-07-12",
+      "received_date": "2026-07-12",
+      "institution_id": "CZ-DD",
+      "reference": "KPR 4093/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-07"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-07/010-podani-2026-07-12.pdf",
+        "sha256": "d3d0bca558824bb935a61d9c5602f7a132aaba588baea39d0706346c91f12a86",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 58,
+        "archive_name": "KPR dne 12.7.2026- doplnění žádosti o milost - KPR 4093_2026.pdf",
+        "source_sha256": "d3d0bca558824bb935a61d9c5602f7a132aaba588baea39d0706346c91f12a86",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-KPR",
+            "reference": "KPR 4093/2026",
+            "role": "primary",
+            "subject_cs": "Doplnění žádosti o milost o návrh na obnovu řízení a preventivní podání",
+            "subject_en": "Supplement to pardon request with reopening motion and preventive filing"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-22-slalom-augsep-013",
+      "user_title": "Naléhavé doplnění stížností o policejní důkazy a námitku nestrannosti",
+      "issue_date": "2026-08-22",
+      "received_date": "2026-08-22",
+      "institution_id": "CZ-DD",
+      "reference": "9 To 315/2026; 9 To 316/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/013-podani-2026-08-22.pdf",
+        "sha256": "e53b94ad9a6eea956695b41e3ed7bfacbd7477cf004d12b6eeb23a6ba1c5c705",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 61,
+        "archive_name": "Krajskému soudu v Brně 9To315_316_2026- naléhavé doplnění 22.8.2026",
+        "source_sha256": "e53b94ad9a6eea956695b41e3ed7bfacbd7477cf004d12b6eeb23a6ba1c5c705",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-KS-BRN",
+            "reference": "9 To 315/2026; 9 To 316/2026",
+            "role": "primary",
+            "subject_cs": "Naléhavé doplnění stížností o policejní důkazy a námitku nestrannosti",
+            "subject_en": "Urgent complaint supplement with police evidence and impartiality objection"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-28-slalom-augsep-014",
+      "user_title": "Stížnost na nečinnost při vyřízení dvou přezkumů v Brně",
+      "issue_date": "2026-09-28",
+      "received_date": "2026-09-28",
+      "institution_id": "CZ-DD",
+      "reference": "1 KZT 475/2026; 1 KZN 1079/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/014-podani-2026-09-28.pdf",
+        "sha256": "df4375effc44f132e71e096b46e089b724567a8342e4b42b0e6f3d44e159244a",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 62,
+        "archive_name": "Krajskému státnímu zastupitelství v Brně dne 28.9.2026- stížnost na nečinnost.pdf",
+        "source_sha256": "df4375effc44f132e71e096b46e089b724567a8342e4b42b0e6f3d44e159244a",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-KSZ-BRN",
+            "reference": "1 KZT 475/2026; 1 KZN 1079/2026",
+            "role": "primary",
+            "subject_cs": "Stížnost na nečinnost při vyřízení dvou přezkumů v Brně",
+            "subject_en": "Complaint about inaction in two review proceedings in Brno"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-24-slalom-augsep-015",
+      "user_title": "Společný dodatek stížnosti a důkazní doplnění o podklady k měření THC",
+      "issue_date": "2026-08-24",
+      "received_date": "2026-08-24",
+      "institution_id": "CZ-EKK",
+      "reference": "15 T 11/2025",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/015-podani-2026-08-24-verejna-kopie.pdf",
+        "sha256": "614af13d29c94d582746765991a69049fa01791c9718458479556d0d5eec6910",
+        "verification_status": "redacted_public_pdf_copy_assistant_review_completed",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 63,
+        "archive_name": "KS -OSZ - KSZ dne 24. srpna 2026- doplnění stížností skrze EKK.pdf",
+        "source_sha256": "99ad5adaa674d91489cae44380fbbef1fcc2f55db39ac6797ce99cbb65ac2a43",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-OST",
+            "reference": "15 T 11/2025",
+            "role": "primary",
+            "subject_cs": "Společný dodatek stížnosti a důkazní doplnění o podklady k měření THC",
+            "subject_en": "Joint complaint supplement and evidence on THC testing"
+          },
+          {
+            "institution_id": "CZ-OSZ-FM",
+            "reference": "1 ZN 7061/2026",
+            "role": "simultaneous",
+            "subject_cs": "Společný dodatek stížnosti a důkazní doplnění o podklady k měření THC",
+            "subject_en": "Joint complaint supplement and evidence on THC testing"
+          },
+          {
+            "institution_id": "CZ-KSZ-OST",
+            "reference": "4 KZN 7116/2026; 2 KZZ 2/2026",
+            "role": "simultaneous",
+            "subject_cs": "Společný dodatek stížnosti a důkazní doplnění o podklady k měření THC",
+            "subject_en": "Joint complaint supplement and evidence on THC testing"
+          },
+          {
+            "institution_id": "CZ-KSZ-BRN",
+            "reference": "1 KZT 475/2026; 1 KZN 1079/2026",
+            "role": "simultaneous",
+            "subject_cs": "Společný dodatek stížnosti a důkazní doplnění o podklady k měření THC",
+            "subject_en": "Joint complaint supplement and evidence on THC testing"
+          }
+        ],
+        "public_sha256": "614af13d29c94d582746765991a69049fa01791c9718458479556d0d5eec6910",
+        "redaction_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-03-slalom-augsep-016",
+      "user_title": "Společné důkazní doplnění stížností k obnově řízení",
+      "issue_date": "2026-09-03",
+      "received_date": "2026-09-03",
+      "institution_id": "CZ-DD",
+      "reference": "9 To 315/2026; 9 To 316/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/016-podani-2026-09-03.pdf",
+        "sha256": "69c1c9b4df400151da17eee57bbfa90a2c26efea9acd51c73bed9cc7b9d02b6b",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 64,
+        "archive_name": "KS a KSZ v Brně 3.9.2026 - Další společné důkazní doplnění stížností – 9 To 315_2026 a 9 To 316_2026.pdf",
+        "source_sha256": "69c1c9b4df400151da17eee57bbfa90a2c26efea9acd51c73bed9cc7b9d02b6b",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-KS-BRN",
+            "reference": "9 To 315/2026; 9 To 316/2026",
+            "role": "primary",
+            "subject_cs": "Společné důkazní doplnění stížností k obnově řízení",
+            "subject_en": "Joint evidentiary supplement to complaints concerning reopening of proceedings"
+          },
+          {
+            "institution_id": "CZ-KSZ-BRN",
+            "reference": "1 KZT 475/2026; 1 KZN 1079/2026",
+            "role": "copy",
+            "subject_cs": "Společné důkazní doplnění stížností k obnově řízení",
+            "subject_en": "Joint evidentiary supplement to complaints concerning reopening of proceedings"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-17-slalom-augsep-017",
+      "user_title": "Opravené procesní a důkazní doplnění před veřejnými zasedáními",
+      "issue_date": "2026-09-17",
+      "received_date": "2026-09-17",
+      "institution_id": "CZ-DD",
+      "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/017-podani-2026-09-17-verejna-kopie.pdf",
+        "sha256": "28f48ad956ac58091ccdaa889ebac6bccc78f13460a28c3f576dd9a0a9db313d",
+        "verification_status": "redacted_public_pdf_copy_assistant_review_completed",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 65,
+        "archive_name": "KS Brno a OS prostějov - Souhrnné mimořádně naléhavé důkazní a procesní doplnění- oprava 17.9.2026",
+        "source_sha256": "3a579d83c81c2f63a341b8f5127dc7c66acaf54ed12cc21d312a9803393bfb30",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+            "role": "primary",
+            "subject_cs": "Opravené procesní a důkazní doplnění před veřejnými zasedáními",
+            "subject_en": "Corrected procedural and evidentiary supplement before public hearings"
+          },
+          {
+            "institution_id": "CZ-KS-BRN",
+            "reference": "9 To 315/2026; 9 To 316/2026",
+            "role": "simultaneous",
+            "subject_cs": "Opravené procesní a důkazní doplnění před veřejnými zasedáními",
+            "subject_en": "Corrected procedural and evidentiary supplement before public hearings"
+          }
+        ],
+        "public_sha256": "28f48ad956ac58091ccdaa889ebac6bccc78f13460a28c3f576dd9a0a9db313d",
+        "redaction_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-08-slalom-augsep-020",
+      "user_title": "Třetí naléhavé doplnění stížností ministrovi vnitra o úřední důkazy",
+      "issue_date": "2026-09-08",
+      "received_date": "2026-09-08",
+      "institution_id": "CZ-DD",
+      "reference": "MV-108890-3/TP-2026; MV-97289-3/TP-2026; MV-114818-2/TP-2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/020-podani-2026-09-08.pdf",
+        "sha256": "49cd652929b40333da66363ee2bfa917a8c6235d8adc13523afd11fd123b7795",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 68,
+        "archive_name": "Ministerstvo vnitra – třetí mimořádně naléhavé doplnění stížností – 8. 9. 2026.pdf",
+        "source_sha256": "49cd652929b40333da66363ee2bfa917a8c6235d8adc13523afd11fd123b7795",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MV",
+            "reference": "MV-108890-3/TP-2026; MV-97289-3/TP-2026; MV-114818-2/TP-2026",
+            "role": "primary",
+            "subject_cs": "Třetí naléhavé doplnění stížností ministrovi vnitra o úřední důkazy",
+            "subject_en": "Third urgent supplement to complaints addressed to the Interior Minister"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-01-slalom-augsep-022",
+      "user_title": "Rozklad proti zastavení řízení o registraci Konopné církve",
+      "issue_date": "2026-09-01",
+      "received_date": "2026-09-01",
+      "institution_id": "CZ-DD",
+      "reference": "MK-S 6893/2026 SOCNS; MK 53547/2026 SOCNS",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/022-podani-2026-09-01.pdf",
+        "sha256": "469c3738b7922caa53aef46a1105fa213c0957be0984bef4871bb65abe85a610",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 70,
+        "archive_name": "Ministerstvu kultury 1.září 2026- rozklad proti usnesení Ministerstva kultury ze dne 31. 8. 2026, č. j. MK 53547_2026 SOCNS.pdf",
+        "source_sha256": "469c3738b7922caa53aef46a1105fa213c0957be0984bef4871bb65abe85a610",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MK",
+            "reference": "MK-S 6893/2026 SOCNS; MK 53547/2026 SOCNS",
+            "role": "primary",
+            "subject_cs": "Rozklad proti zastavení řízení o registraci Konopné církve",
+            "subject_en": "Administrative appeal against termination of the Church of Cannabis registration proceedings"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-24-slalom-augsep-023",
+      "user_title": "Odvolání proti částečnému odmítnutí informací o metodice OKTE",
+      "issue_date": "2026-08-24",
+      "received_date": "2026-08-24",
+      "institution_id": "CZ-DD",
+      "reference": "KRPT-203594-8/ČJ-2026-0700KR",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/023-podani-2026-08-24.pdf",
+        "sha256": "854eac91a82a63cb39e3f680350c206c9e390f1a0d5240fa5a08db0954562638",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 71,
+        "archive_name": "Ministerstvu vnitra - 24.8.2026 - Odvolání – KRPT-203594-8_ČJ-2026-0700KR.pdf",
+        "source_sha256": "854eac91a82a63cb39e3f680350c206c9e390f1a0d5240fa5a08db0954562638",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MV",
+            "reference": "KRPT-203594-8/ČJ-2026-0700KR",
+            "role": "primary",
+            "subject_cs": "Odvolání proti částečnému odmítnutí informací o metodice OKTE",
+            "subject_en": "Appeal against partial refusal of information on police forensic methods"
+          },
+          {
+            "institution_id": "CZ-PCR-KRPT",
+            "reference": "KRPT-203594-8/ČJ-2026-0700KR",
+            "role": "through",
+            "subject_cs": "Odvolání proti částečnému odmítnutí informací o metodice OKTE",
+            "subject_en": "Appeal against partial refusal of information on police forensic methods"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-25-slalom-augsep-025",
+      "user_title": "Opakovaná stížnost ministrovi spravedlnosti a důkazní doplnění žaloby",
+      "issue_date": "2026-08-25",
+      "received_date": "2026-08-25",
+      "institution_id": "CZ-DD",
+      "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/025-podani-2026-08-25.pdf",
+        "sha256": "1776d1ff483e096389dc1e8fb593cc121e857f4378a0e9546bd77125132847c7",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 73,
+        "archive_name": "Ministrovi a městskému soudu 18A23 -2026 - dodatek 25.srpna 2026.pdf",
+        "source_sha256": "1776d1ff483e096389dc1e8fb593cc121e857f4378a0e9546bd77125132847c7",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MSP",
+            "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+            "role": "primary",
+            "subject_cs": "Opakovaná stížnost ministrovi spravedlnosti a důkazní doplnění žaloby",
+            "subject_en": "Renewed complaint to the Justice Minister and evidence supplement to the court action"
+          },
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 23/2026",
+            "role": "simultaneous",
+            "subject_cs": "Opakovaná stížnost ministrovi spravedlnosti a důkazní doplnění žaloby",
+            "subject_en": "Renewed complaint to the Justice Minister and evidence supplement to the court action"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-24-slalom-augsep-027",
+      "user_title": "Druhé naléhavé doplnění stížností ministrovi vnitra o nové důkazy",
+      "issue_date": "2026-08-24",
+      "received_date": "2026-08-24",
+      "institution_id": "CZ-DD",
+      "reference": "MV-108890-3/TP-2026; MV-97289-3/TP-2026; MV-114818-2/TP-2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/027-podani-2026-08-24.pdf",
+        "sha256": "83ce24e374c7128dcdd5fdd07c0b7e8f9305bed95ce09a06450c20b42cf49ad5",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 75,
+        "archive_name": "Ministru vnitra – druhé naléhavé doplnění stížností 24.srpna 2026.pdf",
+        "source_sha256": "83ce24e374c7128dcdd5fdd07c0b7e8f9305bed95ce09a06450c20b42cf49ad5",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MV",
+            "reference": "MV-108890-3/TP-2026; MV-97289-3/TP-2026; MV-114818-2/TP-2026",
+            "role": "primary",
+            "subject_cs": "Druhé naléhavé doplnění stížností ministrovi vnitra o nové důkazy",
+            "subject_en": "Second urgent supplement to Interior Minister complaints with new evidence"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-26-slalom-augsep-030",
+      "user_title": "Replika k vyjádření ministerstva spravedlnosti a návrh na zohlednění následných listin",
+      "issue_date": "2026-09-26",
+      "received_date": "2026-09-26",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 23/2026; 18 A 23/2026-182",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/030-podani-2026-09-26.pdf",
+        "sha256": "7b1757618cf60b1f9b2557edc25dd4c797e1ecec32d55939515e26c4dbf3de6c",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 78,
+        "archive_name": "MS v Praze 26.9.2026- Replika k vyjádření žalovaného – 18 A 23_2026.pdf",
+        "source_sha256": "7b1757618cf60b1f9b2557edc25dd4c797e1ecec32d55939515e26c4dbf3de6c",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 23/2026; 18 A 23/2026-182",
+            "role": "primary",
+            "subject_cs": "Replika k vyjádření ministerstva spravedlnosti a návrh na zohlednění následných listin",
+            "subject_en": "Reply to the Justice Ministry’s statement and request to consider subsequent records"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-21-slalom-augsep-032",
+      "user_title": "Návrh na určení lhůty Městskému soudu v Praze k vydání rozhodnutí",
+      "issue_date": "2026-09-21",
+      "received_date": "2026-09-21",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 17/2026; § 174a",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/032-podani-2026-09-21.pdf",
+        "sha256": "28c68d5e3415ac3a9fd542b295d45e16f4e04779aa5a561e58c62851adbf4bc3",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 80,
+        "archive_name": "MS v Praze dne 21.9.2026- Návrh na určení lhůty k provedení procesního úkonu – 18 A 17_2026.pdf",
+        "source_sha256": "28c68d5e3415ac3a9fd542b295d45e16f4e04779aa5a561e58c62851adbf4bc3",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-NSS",
+            "reference": "18 A 17/2026; § 174a",
+            "role": "primary",
+            "subject_cs": "Návrh na určení lhůty Městskému soudu v Praze k vydání rozhodnutí",
+            "subject_en": "Motion to set a deadline for the Prague Municipal Court to decide"
+          },
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 17/2026",
+            "role": "through",
+            "subject_cs": "Návrh na určení lhůty Městskému soudu v Praze k vydání rozhodnutí",
+            "subject_en": "Motion to set a deadline for the Prague Municipal Court to decide"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-25-slalom-augsep-035",
+      "user_title": "Naléhavé důkazní doplnění žaloby proti postupu policie",
+      "issue_date": "2026-08-25",
+      "received_date": "2026-08-25",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 17/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/035-podani-2026-08-25.pdf",
+        "sha256": "0c69944dff2f0a7a38bec55520e4a2e17f92f5885d7c093a28d970b8a5dcfd75",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 82,
+        "archive_name": "Městskému soudu -Naléhavé důkazní doplnění žaloby – 18 A 17_2026 – 25. 8. 2026.pdf",
+        "source_sha256": "0c69944dff2f0a7a38bec55520e4a2e17f92f5885d7c093a28d970b8a5dcfd75",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 17/2026",
+            "role": "primary",
+            "subject_cs": "Naléhavé důkazní doplnění žaloby proti postupu policie",
+            "subject_en": "Urgent evidentiary supplement to the action against the police"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-02-slalom-augsep-036",
+      "user_title": "Další důkazní doplnění zásahové žaloby proti postupu policie",
+      "issue_date": "2026-08-02",
+      "received_date": "2026-08-02",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 17/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/036-podani-2026-08-02.pdf",
+        "sha256": "e61a8e628d584e15a209f3a2926ea804af3ac773493d1bea9ca812dfd33945c5",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 83,
+        "archive_name": "Městskému soudu 2.8.2026  - Další důkazní doplnění žaloby – 18 A 17_2026.pdf",
+        "source_sha256": "e61a8e628d584e15a209f3a2926ea804af3ac773493d1bea9ca812dfd33945c5",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 17/2026",
+            "role": "primary",
+            "subject_cs": "Další důkazní doplnění zásahové žaloby proti postupu policie",
+            "subject_en": "Further evidentiary supplement to the intervention action against the police"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-02-slalom-augsep-037",
+      "user_title": "Naléhavé doplnění žaloby o význam § 97 zákona o Policii ČR",
+      "issue_date": "2026-09-02",
+      "received_date": "2026-09-02",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 17/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/037-podani-2026-09-02.pdf",
+        "sha256": "2d03a11cdc70080904ae4ea2900b09388971828d31c5d6b23389d4aabff93dcc",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 84,
+        "archive_name": "Městskému soudu 2.září 2026-18 A 17_2026 – mimořádně naléhavé doplnění.pdf",
+        "source_sha256": "2d03a11cdc70080904ae4ea2900b09388971828d31c5d6b23389d4aabff93dcc",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 17/2026",
+            "role": "primary",
+            "subject_cs": "Naléhavé doplnění žaloby o význam § 97 zákona o Policii ČR",
+            "subject_en": "Urgent supplement to the action concerning Section 97 of the Police Act"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-24-slalom-augsep-038",
+      "user_title": "Žádost o vyjasnění procesního stavu po přípisu soudu z 23. září",
+      "issue_date": "2026-09-24",
+      "received_date": "2026-09-24",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 17/2026; 18 A 17/2026-182",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/038-podani-2026-09-24.pdf",
+        "sha256": "916fafa432d74a7276b6d6228e5f9e320a096bf824b60e9fa7e4a70b29d4c532",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 85,
+        "archive_name": "Městskému soudu 24.9.2026-procesní sdělení a žádost o vyjasnění procesního stavu - 18 A 17_2026.pdf",
+        "source_sha256": "916fafa432d74a7276b6d6228e5f9e320a096bf824b60e9fa7e4a70b29d4c532",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 17/2026; 18 A 17/2026-182",
+            "role": "primary",
+            "subject_cs": "Žádost o vyjasnění procesního stavu po přípisu soudu z 23. září",
+            "subject_en": "Request to clarify procedural status after the court’s letter of 23 September"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-24-slalom-augsep-039",
+      "user_title": "Naléhavé důkazní doplnění žaloby proti ministerstvu vnitra",
+      "issue_date": "2026-08-24",
+      "received_date": "2026-08-24",
+      "institution_id": "CZ-DD",
+      "reference": "15 A 44/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/039-podani-2026-08-24.pdf",
+        "sha256": "e5aff93e13d15bbb2b50bd060870d66f8bdabe99f537e75f9483720c9aaec18b",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 86,
+        "archive_name": "Městskému soudu 24.srpna 2026 - další naléhavé doplnění žaloby.pdf",
+        "source_sha256": "e5aff93e13d15bbb2b50bd060870d66f8bdabe99f537e75f9483720c9aaec18b",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "15 A 44/2026",
+            "role": "primary",
+            "subject_cs": "Naléhavé důkazní doplnění žaloby proti ministerstvu vnitra",
+            "subject_en": "Urgent evidence supplement to the action against the Interior Ministry"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-16-slalom-augsep-040",
+      "user_title": "Dotaz k převodu a vrácení soudního poplatku ve dvou věcech",
+      "issue_date": "2026-09-16",
+      "received_date": "2026-09-16",
+      "institution_id": "CZ-DD",
+      "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/040-podani-2026-09-16.pdf",
+        "sha256": "41bd771f8d36d83e5c3de9a77190068bd2fb1f73582102e1a5f9098c7de459e0",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 87,
+        "archive_name": "Městskému soudu dne 16. září 2026 - dokaz k poplatku.pdf",
+        "source_sha256": "41bd771f8d36d83e5c3de9a77190068bd2fb1f73582102e1a5f9098c7de459e0",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+            "role": "primary",
+            "subject_cs": "Dotaz k převodu a vrácení soudního poplatku ve dvou věcech",
+            "subject_en": "Question about transfer and refund of court fees in two cases"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-10-slalom-augsep-041",
+      "user_title": "Žádost o naléhavé projednání žaloby proti ministerstvu spravedlnosti",
+      "issue_date": "2026-08-10",
+      "received_date": "2026-08-10",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 23/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/041-podani-2026-08-10.pdf",
+        "sha256": "3ea21a3947168611ba2a46a94c6ca859fe10dbb19b2ec356e31374e55cfcbca2",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 88,
+        "archive_name": "Městskému soudu v Praze - naléhavost - 10.srpna 2026 -zásahová žaloba na MSP.pdf",
+        "source_sha256": "3ea21a3947168611ba2a46a94c6ca859fe10dbb19b2ec356e31374e55cfcbca2",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 23/2026",
+            "role": "primary",
+            "subject_cs": "Žádost o naléhavé projednání žaloby proti ministerstvu spravedlnosti",
+            "subject_en": "Request for urgent hearing of the action against the Justice Ministry"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-08-slalom-augsep-042",
+      "user_title": "Doplnění žaloby o nové sdělení ministra spravedlnosti",
+      "issue_date": "2026-09-08",
+      "received_date": "2026-09-08",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 23/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/042-podani-2026-09-08.pdf",
+        "sha256": "336fbf19530d3cf881d7475d85bdac580388811584f2108d632a999e94eb8abc",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 89,
+        "archive_name": "Městskému soudu v Praze - naléhavost - 8. září 2026 -zásahová žaloba na MSP.pdf",
+        "source_sha256": "336fbf19530d3cf881d7475d85bdac580388811584f2108d632a999e94eb8abc",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 23/2026",
+            "role": "primary",
+            "subject_cs": "Doplnění žaloby o nové sdělení ministra spravedlnosti",
+            "subject_en": "Supplement to the action with a new Justice Minister response"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-31-slalom-augsep-043",
+      "user_title": "Žaloba na ochranu před trvajícím zásahem Státního ústavu pro kontrolu léčiv",
+      "issue_date": "2026-08-31",
+      "received_date": "2026-08-31",
+      "institution_id": "CZ-DD",
+      "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/043-podani-2026-08-31.pdf",
+        "sha256": "aa648d0ea5052c27ff0310713590a67c55461cc665fa7b162d85a04e8c57ccf5",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 90,
+        "archive_name": "Městskému soudu v Praze - Žaloba na SUKL dne 31.srpna 2026.pdf",
+        "source_sha256": "aa648d0ea5052c27ff0310713590a67c55461cc665fa7b162d85a04e8c57ccf5",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+            "role": "primary",
+            "subject_cs": "Žaloba na ochranu před trvajícím zásahem Státního ústavu pro kontrolu léčiv",
+            "subject_en": "Intervention action concerning the State Institute for Drug Control"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-08-slalom-augsep-044",
+      "user_title": "Doplnění žaloby o nové vyrozumění GIBS",
+      "issue_date": "2026-09-08",
+      "received_date": "2026-09-08",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 17/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/044-podani-2026-09-08.pdf",
+        "sha256": "992bf8abe207c847a3ddf9c03fa2341790a207981420ce5ed7fc834c07d7e9c1",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 91,
+        "archive_name": "MĚSTSKÝ SOUD V PRAZE – 18 A 17_2026 – 8. 9. 2026.pdf",
+        "source_sha256": "992bf8abe207c847a3ddf9c03fa2341790a207981420ce5ed7fc834c07d7e9c1",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 17/2026",
+            "role": "primary",
+            "subject_cs": "Doplnění žaloby o nové vyrozumění GIBS",
+            "subject_en": "Supplement to the action with a new GIBS notice"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-18-slalom-augsep-045",
+      "user_title": "Doplnění žaloby o podnět k akreditaci a nový legislativní vývoj",
+      "issue_date": "2026-09-18",
+      "received_date": "2026-09-18",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 23/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/045-podani-2026-09-18.pdf",
+        "sha256": "040c7f874835a67dc925da88e6004c677ffff2e9306951ec78efbdbaaee3556a",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 92,
+        "archive_name": "Městský soud v Praze, sp. zn. 18 A 23_2026- 18.září 2026.pdf",
+        "source_sha256": "040c7f874835a67dc925da88e6004c677ffff2e9306951ec78efbdbaaee3556a",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 23/2026",
+            "role": "primary",
+            "subject_cs": "Doplnění žaloby o podnět k akreditaci a nový legislativní vývoj",
+            "subject_en": "Supplement to the action with accreditation request and legislative developments"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-07-22-slalom-augsep-046",
+      "user_title": "Podnět spolku k doplnění dokazování a určení termínu hlavního líčení",
+      "issue_date": "2026-07-22",
+      "received_date": "2026-07-22",
+      "institution_id": "CZ-CITC",
+      "reference": "45 T 1/2024",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-07"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-07/046-podani-2026-07-22-verejna-kopie.pdf",
+        "sha256": "16fc9d39f5a22638f148d9e22d3f5e5e96fc37821e5312d13f310b92b2972508",
+        "verification_status": "redacted_public_pdf_copy_assistant_review_completed",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 93,
+        "archive_name": "Městský soud v Praze, sp. zn. 45 T 1_2024-22.července 2026- od CC.pdf",
+        "source_sha256": "586a1aee057bbf0413b31a2723b06013663af5c24e0b77e8278d717da8f09a9b",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "45 T 1/2024",
+            "role": "primary",
+            "subject_cs": "Podnět spolku k doplnění dokazování a určení termínu hlavního líčení",
+            "subject_en": "Association request for further evidence and a hearing date"
+          }
+        ],
+        "public_sha256": "16fc9d39f5a22638f148d9e22d3f5e5e96fc37821e5312d13f310b92b2972508",
+        "redaction_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-01-slalom-augsep-047",
+      "user_title": "Kasační stížnost proti odmítnutí zásahové žaloby proti ministerstvu vnitra",
+      "issue_date": "2026-09-01",
+      "received_date": "2026-09-01",
+      "institution_id": "CZ-DD",
+      "reference": "15 A 44/2026-43",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/047-podani-2026-09-01.pdf",
+        "sha256": "ad8bccf603319893fa0432c1e028e83f5fdbd08370a07359b071954403479ae7",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 94,
+        "archive_name": "NSS - Kasační stížnost dne 1.září 2026 - ministerstvo vnitra.pdf",
+        "source_sha256": "ad8bccf603319893fa0432c1e028e83f5fdbd08370a07359b071954403479ae7",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-NSS",
+            "reference": "15 A 44/2026-43",
+            "role": "primary",
+            "subject_cs": "Kasační stížnost proti odmítnutí zásahové žaloby proti ministerstvu vnitra",
+            "subject_en": "Cassation complaint against rejection of the action concerning the Interior Ministry"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-08-slalom-augsep-049",
+      "user_title": "Desáté doplnění předžalobní výzvy o listiny GIBS a ministra spravedlnosti",
+      "issue_date": "2026-09-08",
+      "received_date": "2026-09-08",
+      "institution_id": "CZ-DD",
+      "reference": "6 NZN 1737/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/049-podani-2026-09-08.pdf",
+        "sha256": "d7fdbfa9716dc19d39e3ebfaf64597b14d8248a9d60ae5ae43983570cc96083f",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 96,
+        "archive_name": "NSZ – 6 NZN 1737_2026 – desáté doplnění předžalobní výzvy – 8. 9. 2026.pdf",
+        "source_sha256": "d7fdbfa9716dc19d39e3ebfaf64597b14d8248a9d60ae5ae43983570cc96083f",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "primary",
+            "subject_cs": "Desáté doplnění předžalobní výzvy o listiny GIBS a ministra spravedlnosti",
+            "subject_en": "Tenth supplement to the pre-action demand with GIBS and Justice Minister records"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-02-slalom-augsep-050",
+      "user_title": "Deváté doplnění předžalobní výzvy o nové důkazy",
+      "issue_date": "2026-09-02",
+      "received_date": "2026-09-02",
+      "institution_id": "CZ-DD",
+      "reference": "6 NZN 1737/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/050-podani-2026-09-02-verejna-kopie.pdf",
+        "sha256": "cf785f40ec33b16fa9f0b8a805a30c5fc4b62cfeab82bfdfd0f9ad2f22885a74",
+        "verification_status": "redacted_public_pdf_copy_assistant_review_completed",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 97,
+        "archive_name": "NSZ • 6 NZN 1737_2026 • DEVÁTÉ DOPLNĚNÍ PŘEDŽALOBNÍ VÝZVY • 2. 9. 2026.pdf",
+        "source_sha256": "857aed3ce5b9ac6729f48c0c8b0ce7cd97839484102c54cc8264cfbe707e2c3a",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "recipients": [
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "primary",
+            "subject_cs": "Deváté doplnění předžalobní výzvy o nové důkazy",
+            "subject_en": "Ninth supplement to the pre-action demand with new evidence"
+          }
+        ],
+        "public_sha256": "cf785f40ec33b16fa9f0b8a805a30c5fc4b62cfeab82bfdfd0f9ad2f22885a74",
+        "redaction_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-28-slalom-augsep-051",
+      "user_title": "Osmé doplnění předžalobní výzvy o nové listiny státního zastupitelství",
+      "issue_date": "2026-08-28",
+      "received_date": "2026-08-28",
+      "institution_id": "CZ-DD",
+      "reference": "6 NZN 1737/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/051-podani-2026-08-28.pdf",
+        "sha256": "d93601f0b8d019fe744778ee9f7f15b7297a2445cfabfd92733ea1d91532566f",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 98,
+        "archive_name": "NSZ- osmý dodatek předžalobmí výzvy dne 28.srpna 2026.pdf",
+        "source_sha256": "d93601f0b8d019fe744778ee9f7f15b7297a2445cfabfd92733ea1d91532566f",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "primary",
+            "subject_cs": "Osmé doplnění předžalobní výzvy o nové listiny státního zastupitelství",
+            "subject_en": "Eighth supplement to the pre-action demand with new prosecution records"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-22-slalom-augsep-052",
+      "user_title": "Sedmé doplnění předžalobní výzvy a kárný podnět",
+      "issue_date": "2026-08-22",
+      "received_date": "2026-08-22",
+      "institution_id": "CZ-DD",
+      "reference": "6 NZN 1737/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/052-podani-2026-08-22.pdf",
+        "sha256": "e0a9eb8f035799235333df5e6ba7c1633e035473ca5904c84b11114a3dad8550",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 99,
+        "archive_name": "NSZ- sedmý dodatek předžalobmí výzvy dne 22.srpna 2026 a kárný podnět.pdf",
+        "source_sha256": "e0a9eb8f035799235333df5e6ba7c1633e035473ca5904c84b11114a3dad8550",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "primary",
+            "subject_cs": "Sedmé doplnění předžalobní výzvy a kárný podnět",
+            "subject_en": "Seventh supplement to the pre-action demand and disciplinary request"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-13-slalom-augsep-056",
+      "user_title": "Procesní a důkazní doplnění návrhu na obnovu řízení",
+      "issue_date": "2026-08-13",
+      "received_date": "2026-08-13",
+      "institution_id": "CZ-DD",
+      "reference": "2 T 104/2010",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/056-podani-2026-08-13.pdf",
+        "sha256": "bb8af200cd11beb7787bc3fbd96adac0b25d20d22c7465c62eb49521f3388086",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 103,
+        "archive_name": "OS Prostějov- 13.srpna 2026 Naléhavé procesní a důkazní doplnění návrhu na povolení obnovy řízení – 2 T 104_2010.pdf",
+        "source_sha256": "bb8af200cd11beb7787bc3fbd96adac0b25d20d22c7465c62eb49521f3388086",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "2 T 104/2010",
+            "role": "primary",
+            "subject_cs": "Procesní a důkazní doplnění návrhu na obnovu řízení",
+            "subject_en": "Procedural and evidentiary supplement to reopening motion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-13-slalom-augsep-057",
+      "user_title": "Společné naléhavé doplnění dvou stížností proti zamítnutí obnovy",
+      "issue_date": "2026-08-13",
+      "received_date": "2026-08-13",
+      "institution_id": "CZ-DD",
+      "reference": "9 To 315/2026; 9 To 316/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/057-podani-2026-08-13.pdf",
+        "sha256": "1488484c53c9b8fa44e89e09c4a44a21aaf592a2c32684f7be1cb08597a36210",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 104,
+        "archive_name": "OS Prostějov- 13.srpna2026 Společné naléhavé doplnění obou stížností KS v Brně ze dne 10. a 11. srpna 2026.pdf",
+        "source_sha256": "1488484c53c9b8fa44e89e09c4a44a21aaf592a2c32684f7be1cb08597a36210",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-KS-BRN",
+            "reference": "9 To 315/2026; 9 To 316/2026",
+            "role": "primary",
+            "subject_cs": "Společné naléhavé doplnění dvou stížností proti zamítnutí obnovy",
+            "subject_en": "Urgent joint supplement to two complaints against refusal to reopen"
+          },
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "15 Nt 3105/2026-54; 15 Nt 3103/2026-53",
+            "role": "through",
+            "subject_cs": "Společné naléhavé doplnění dvou stížností proti zamítnutí obnovy",
+            "subject_en": "Urgent joint supplement to two complaints against refusal to reopen"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-22-slalom-augsep-060",
+      "user_title": "Dodatek k návrhu na obnovu s novými důkazy a součinností dalších orgánů",
+      "issue_date": "2026-08-22",
+      "received_date": "2026-08-22",
+      "institution_id": "CZ-DD",
+      "reference": "2 T 104/2010",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/060-podani-2026-08-22.pdf",
+        "sha256": "d6d2640e58f82db7f6f2070973e03858fc3a1215238d5754ac9e8217576af676",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 107,
+        "archive_name": "OS v Prostějově 22.8.2026 - Mimořádně naléhavý dodatek k návrhu na povolení obnovy řízení – 2 T 104_2010.pdf",
+        "source_sha256": "d6d2640e58f82db7f6f2070973e03858fc3a1215238d5754ac9e8217576af676",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "2 T 104/2010",
+            "role": "primary",
+            "subject_cs": "Dodatek k návrhu na obnovu s novými důkazy a součinností dalších orgánů",
+            "subject_en": "Supplement to reopening motion with new evidence and cooperation requests"
+          },
+          {
+            "institution_id": "CZ-OSZ-PV",
+            "reference": "ZN 4/2026",
+            "role": "simultaneous",
+            "subject_cs": "Dodatek k návrhu na obnovu s novými důkazy a součinností dalších orgánů",
+            "subject_en": "Supplement to reopening motion with new evidence and cooperation requests"
+          },
+          {
+            "institution_id": "CZ-PCR-KRPO",
+            "reference": "KRPM-100092/ČJ-2026-1412UO",
+            "role": "simultaneous",
+            "subject_cs": "Dodatek k návrhu na obnovu s novými důkazy a součinností dalších orgánů",
+            "subject_en": "Supplement to reopening motion with new evidence and cooperation requests"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-08-slalom-augsep-063",
+      "user_title": "Druhé naléhavé doplnění žádosti policejnímu prezidentovi o přezkum měření THC",
+      "issue_date": "2026-09-08",
+      "received_date": "2026-09-08",
+      "institution_id": "CZ-DD",
+      "reference": "PPR-24960/ČJ-2026-990810; KU-4139/ČJ-2026-2305KM",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/063-podani-2026-09-08.pdf",
+        "sha256": "dd8bd4c396472fa9e1a3baca9430c34cd7e2e31db4cfa0d7ab5182f3dcac1d6c",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 110,
+        "archive_name": "Policejnimu prezidentovi dne 8.září 2026 - druhé doplnění stížnosti.pdf",
+        "source_sha256": "dd8bd4c396472fa9e1a3baca9430c34cd7e2e31db4cfa0d7ab5182f3dcac1d6c",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-PCR-PP",
+            "reference": "PPR-24960/ČJ-2026-990810; KU-4139/ČJ-2026-2305KM",
+            "role": "primary",
+            "subject_cs": "Druhé naléhavé doplnění žádosti policejnímu prezidentovi o přezkum měření THC",
+            "subject_en": "Second urgent supplement to Police President review request on THC testing"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-14-slalom-augsep-064",
+      "user_title": "Žádost policejnímu prezidentovi o převzetí přezkumné části podání",
+      "issue_date": "2026-08-14",
+      "received_date": "2026-08-14",
+      "institution_id": "CZ-DD",
+      "reference": "PPR-24960/ČJ-2026-990810; KU-4139/ČJ-2026-2305KM",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/064-podani-2026-08-14.pdf",
+        "sha256": "b22f62208cd3c8de87f75dbafff48281b3e8eeac1544258e9967c7138e4c3bfa",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 111,
+        "archive_name": "Policie - policejnímu prezidentovi - 14. 8. 2026.pdf",
+        "source_sha256": "b22f62208cd3c8de87f75dbafff48281b3e8eeac1544258e9967c7138e4c3bfa",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-PCR-PP",
+            "reference": "PPR-24960/ČJ-2026-990810; KU-4139/ČJ-2026-2305KM",
+            "role": "primary",
+            "subject_cs": "Žádost policejnímu prezidentovi o převzetí přezkumné části podání",
+            "subject_en": "Request for the Police President to assume review of part of the submission"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-12-slalom-augsep-066",
+      "user_title": "Opakovaná žádost premiérovi a poslaneckému klubu o ochranu přírodního CBD",
+      "issue_date": "2026-08-12",
+      "received_date": "2026-08-12",
+      "institution_id": "CZ-DD",
+      "reference": "žádost z 23. 6. 2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/066-podani-2026-08-12.pdf",
+        "sha256": "90aa0007db3a6c31c12f8f5c21c1246541b2ac86daa9171b12d3b00dc276153a",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 113,
+        "archive_name": "Premiérovi ze dne 12. srpna 2026- opakovaná žádost.pdf",
+        "source_sha256": "90aa0007db3a6c31c12f8f5c21c1246541b2ac86daa9171b12d3b00dc276153a",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-UV",
+            "reference": "žádost z 23. 6. 2026",
+            "role": "primary",
+            "subject_cs": "Opakovaná žádost premiérovi a poslaneckému klubu o ochranu přírodního CBD",
+            "subject_en": "Renewed request to the Prime Minister and parliamentary group concerning natural CBD"
+          },
+          {
+            "institution_id": "CZ-PS-ANO",
+            "reference": "žádost z 23. 6. 2026",
+            "role": "simultaneous",
+            "subject_cs": "Opakovaná žádost premiérovi a poslaneckému klubu o ochranu přírodního CBD",
+            "subject_en": "Renewed request to the Prime Minister and parliamentary group concerning natural CBD"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-01-slalom-augsep-067",
+      "user_title": "Společný podnět k přezkumu vyřízení OSZ pro Prahu 2",
+      "issue_date": "2026-08-01",
+      "received_date": "2026-08-01",
+      "institution_id": "CZ-DD",
+      "reference": "1 ZN 157/2026-33; 3 KZN 197/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/067-podani-2026-08-01.pdf",
+        "sha256": "20a7597dff376f17ff4c8fd2ff2024f63fc0ae78c4b7d32d860e95aabf999a44",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 114,
+        "archive_name": "Společný podnět MSZ–VSZ–NSZ – přezkum OSZ pro Prahu 2.pdf",
+        "source_sha256": "20a7597dff376f17ff4c8fd2ff2024f63fc0ae78c4b7d32d860e95aabf999a44",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MSZ-PHA",
+            "reference": "1 ZN 157/2026-33; 3 KZN 197/2026",
+            "role": "primary",
+            "subject_cs": "Společný podnět k přezkumu vyřízení OSZ pro Prahu 2",
+            "subject_en": "Joint request for review of the Prague 2 prosecutor’s response"
+          },
+          {
+            "institution_id": "CZ-VSZ-PHA",
+            "reference": "1 VZN 1678/2026",
+            "role": "simultaneous",
+            "subject_cs": "Společný podnět k přezkumu vyřízení OSZ pro Prahu 2",
+            "subject_en": "Joint request for review of the Prague 2 prosecutor’s response"
+          },
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "simultaneous",
+            "subject_cs": "Společný podnět k přezkumu vyřízení OSZ pro Prahu 2",
+            "subject_en": "Joint request for review of the Prague 2 prosecutor’s response"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-12-slalom-augsep-068",
+      "user_title": "Dodatek k podnětu ÚOOÚ o zpracování údajů a nové důkazy pro RRTV",
+      "issue_date": "2026-08-12",
+      "received_date": "2026-08-12",
+      "institution_id": "CZ-DD",
+      "reference": "podnět z 14. 7. 2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/068-podani-2026-08-12.pdf",
+        "sha256": "be86aac4db69401c769887eda7823e1d047e4ad257ee07f11cb1576d1a3fb190",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 115,
+        "archive_name": "UOOU a RRTV dne 12.srpna 2026- dodatek.pdf",
+        "source_sha256": "be86aac4db69401c769887eda7823e1d047e4ad257ee07f11cb1576d1a3fb190",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-UOOU",
+            "reference": "podnět z 14. 7. 2026",
+            "role": "primary",
+            "subject_cs": "Dodatek k podnětu ÚOOÚ o zpracování údajů a nové důkazy pro RRTV",
+            "subject_en": "Supplement to data protection request and new evidence for the broadcasting regulator"
+          },
+          {
+            "institution_id": "CZ-RRTV",
+            "reference": "RRTV/7757/2026-fej; RRTV/2026/20/fej",
+            "role": "copy",
+            "subject_cs": "Dodatek k podnětu ÚOOÚ o zpracování údajů a nové důkazy pro RRTV",
+            "subject_en": "Supplement to data protection request and new evidence for the broadcasting regulator"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-28-slalom-augsep-069",
+      "user_title": "Naléhavé doplnění dohledu a žádost o společný přezkum vyřízení MSZ",
+      "issue_date": "2026-08-28",
+      "received_date": "2026-08-28",
+      "institution_id": "CZ-DD",
+      "reference": "1 VZN 1678/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/069-podani-2026-08-28.pdf",
+        "sha256": "109e457a43f4fbb2a765d08198ed5057817022ae5eb9529bdfb186a6b11c722a",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 116,
+        "archive_name": "VSZ - dne 28.8.2026 - dohled - naléhavé.pdf",
+        "source_sha256": "109e457a43f4fbb2a765d08198ed5057817022ae5eb9529bdfb186a6b11c722a",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-VSZ-PHA",
+            "reference": "1 VZN 1678/2026",
+            "role": "primary",
+            "subject_cs": "Naléhavé doplnění dohledu a žádost o společný přezkum vyřízení MSZ",
+            "subject_en": "Urgent supplement to oversight and request for joint review of municipal prosecution responses"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-03-slalom-augsep-070",
+      "user_title": "Žádost o přezkum vyřízení OSZ Frýdek-Místek s kopií pro dohled",
+      "issue_date": "2026-09-03",
+      "received_date": "2026-09-03",
+      "institution_id": "CZ-DD",
+      "reference": "4 KZN 7116/2026; 1 ZN 7061/2026-79",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/070-podani-2026-09-03.pdf",
+        "sha256": "8905b084b3fa457aa9049fedf647d243b1e5a5cb0129bd8a484f41b48185dfb0",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 117,
+        "archive_name": "VSZ a KSZ dne 3.září 2026- Žádost o přezkoumání vyřízení OSZ Frýdek-Místek č. j. 1 ZN 7061_2026-79.pdf",
+        "source_sha256": "8905b084b3fa457aa9049fedf647d243b1e5a5cb0129bd8a484f41b48185dfb0",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-KSZ-OST",
+            "reference": "4 KZN 7116/2026; 1 ZN 7061/2026-79",
+            "role": "primary",
+            "subject_cs": "Žádost o přezkum vyřízení OSZ Frýdek-Místek s kopií pro dohled",
+            "subject_en": "Request for review of the Frýdek-Místek prosecutor’s response with supervisory copy"
+          },
+          {
+            "institution_id": "CZ-VSZ-OLO",
+            "reference": "3 VZN 239/2026",
+            "role": "copy",
+            "subject_cs": "Žádost o přezkum vyřízení OSZ Frýdek-Místek s kopií pro dohled",
+            "subject_en": "Request for review of the Frýdek-Místek prosecutor’s response with supervisory copy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-01-slalom-augsep-071",
+      "user_title": "Naléhavé doplnění dohledu nad neúplnými přezkumnými spisy",
+      "issue_date": "2026-09-01",
+      "received_date": "2026-09-01",
+      "institution_id": "CZ-DD",
+      "reference": "1 VZN 1678/2026; 3 KZN 974/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/071-podani-2026-09-01.pdf",
+        "sha256": "2ad23155f426889ea6ffaceea5c5233849cacf0dd7028fd7e35235136d36566c",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 118,
+        "archive_name": "VSZ dne 1.9.2026- Mimořádně naléhavé doplnění dohledu – 3 KZN 974_2026.pdf",
+        "source_sha256": "2ad23155f426889ea6ffaceea5c5233849cacf0dd7028fd7e35235136d36566c",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-VSZ-PHA",
+            "reference": "1 VZN 1678/2026; 3 KZN 974/2026",
+            "role": "primary",
+            "subject_cs": "Naléhavé doplnění dohledu nad neúplnými přezkumnými spisy",
+            "subject_en": "Urgent supplement to oversight of incomplete review files"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-24-slalom-augsep-072",
+      "user_title": "Podnět k dohledu nad postupem KSZ v Ostravě a Brně a metodikou OKTE",
+      "issue_date": "2026-08-24",
+      "received_date": "2026-08-24",
+      "institution_id": "CZ-DD",
+      "reference": "3 VZN 239/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/072-podani-2026-08-24-verejna-kopie.pdf",
+        "sha256": "ced4bbb041c44692f848d13654da662370e3d0781e4c4fabd1a6a5cce8be9411",
+        "verification_status": "redacted_public_pdf_copy_assistant_review_completed",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 119,
+        "archive_name": "VSZ v Olomouci – 24. 8. 2026.pdf",
+        "source_sha256": "7aa29d282130b1c9f95e9b39148042315090eb668d1232cc37efd6bca49d6cf5",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "recipients": [
+          {
+            "institution_id": "CZ-VSZ-OLO",
+            "reference": "3 VZN 239/2026",
+            "role": "primary",
+            "subject_cs": "Podnět k dohledu nad postupem KSZ v Ostravě a Brně a metodikou OKTE",
+            "subject_en": "Request to supervise Ostrava and Brno prosecutors and forensic methods"
+          }
+        ],
+        "public_sha256": "ced4bbb041c44692f848d13654da662370e3d0781e4c4fabd1a6a5cce8be9411",
+        "redaction_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-25-slalom-augsep-074",
+      "user_title": "Žádost o přezkum vyřízení MSZ a doplnění dohledové věci",
+      "issue_date": "2026-08-25",
+      "received_date": "2026-08-25",
+      "institution_id": "CZ-DD",
+      "reference": "1 VZN 1678/2026; 2 KZN 683/2026-31",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/074-podani-2026-08-25.pdf",
+        "sha256": "05f7b3bb3c02e190452cf4088760a8ac99d2d0d4a2a66e361f57335cff90bc8e",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 121,
+        "archive_name": "VSZ v Praze dne 25.srpna 2024 - přezkum - MSZ opět bez odůvodnění a s rozpory jako Brno.pdf",
+        "source_sha256": "05f7b3bb3c02e190452cf4088760a8ac99d2d0d4a2a66e361f57335cff90bc8e",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-VSZ-PHA",
+            "reference": "1 VZN 1678/2026; 2 KZN 683/2026-31",
+            "role": "primary",
+            "subject_cs": "Žádost o přezkum vyřízení MSZ a doplnění dohledové věci",
+            "subject_en": "Request to review municipal prosecution response and supplement oversight"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-02-slalom-augsep-075",
+      "user_title": "Přezkum vyřízení MSZ ve věci 3 KZN 974/2026-108",
+      "issue_date": "2026-09-02",
+      "received_date": "2026-09-02",
+      "institution_id": "CZ-DD",
+      "reference": "1 VZN 1678/2026; 3 KZN 974/2026-108",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/075-podani-2026-09-02-verejna-kopie.pdf",
+        "sha256": "4fc7c46de24371154f4c2bc4fa8b604aa1a6b9d26a188049bd1fdf2e071b42b1",
+        "verification_status": "redacted_public_pdf_copy_assistant_review_completed",
+        "source_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 122,
+        "archive_name": "VSZ V PRAZE • 1 VZN 1678_2026 • PŘEZKUM 3 KZN 974_2026-108 • 2. 9. 2026.pdf",
+        "source_sha256": "407e22b04a48256c7ee17bae19161ca95e6dd258139b4dd2b52d8eb1017d8f32",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "recipients": [
+          {
+            "institution_id": "CZ-VSZ-PHA",
+            "reference": "1 VZN 1678/2026; 3 KZN 974/2026-108",
+            "role": "primary",
+            "subject_cs": "Přezkum vyřízení MSZ ve věci 3 KZN 974/2026-108",
+            "subject_en": "Review request concerning municipal prosecution response 3 KZN 974/2026-108"
+          }
+        ],
+        "public_sha256": "4fc7c46de24371154f4c2bc4fa8b604aa1a6b9d26a188049bd1fdf2e071b42b1",
+        "redaction_manifest": "project-memory/justice-slalom-upload-reconciliation-2026-09-28.json"
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-28-slalom-augsep-076",
+      "user_title": "Doplnění stížnosti na nečinnost ČT a Rady ČT o nové důkazy",
+      "issue_date": "2026-08-28",
+      "received_date": "2026-08-28",
+      "institution_id": "CZ-DD",
+      "reference": "CT 338889/2025",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/076-podani-2026-08-28.pdf",
+        "sha256": "b25c3a45fc41d58a05d6c575ca41e85dd717ffa5500c353abd4900b542df9cad",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 123,
+        "archive_name": "ČT 28.8.2026- doplnění stížnosti ze dne 15. srpna 2026.pdf",
+        "source_sha256": "b25c3a45fc41d58a05d6c575ca41e85dd717ffa5500c353abd4900b542df9cad",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-CT",
+            "reference": "CT 338889/2025",
+            "role": "primary",
+            "subject_cs": "Doplnění stížnosti na nečinnost ČT a Rady ČT o nové důkazy",
+            "subject_en": "Supplement to complaint about Czech Television and Council inaction with new evidence"
+          },
+          {
+            "institution_id": "CZ-RADA-CT",
+            "reference": "CT 338889/2025",
+            "role": "simultaneous",
+            "subject_cs": "Doplnění stížnosti na nečinnost ČT a Rady ČT o nové důkazy",
+            "subject_en": "Supplement to complaint about Czech Television and Council inaction with new evidence"
+          },
+          {
+            "institution_id": "CZ-RRTV",
+            "reference": "RRTV/2026/20/fej",
+            "role": "copy",
+            "subject_cs": "Doplnění stížnosti na nečinnost ČT a Rady ČT o nové důkazy",
+            "subject_en": "Supplement to complaint about Czech Television and Council inaction with new evidence"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-25-slalom-augsep-077",
+      "user_title": "Pozvání ČT a Rady ČT na veřejná zasedání o obnově v Prostějově",
+      "issue_date": "2026-09-25",
+      "received_date": "2026-09-25",
+      "institution_id": "CZ-DD",
+      "reference": "CT 338889/2025",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/077-podani-2026-09-25.pdf",
+        "sha256": "053c65e9bef0c1e1efc40cca667da73afc24f844976610fbf0dc8c5d24f7256a",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 124,
+        "archive_name": "ČT dne 25.září 2026 -Pozvání České televize a Rady České televize na veřejná zasedání o obnově.pdf",
+        "source_sha256": "053c65e9bef0c1e1efc40cca667da73afc24f844976610fbf0dc8c5d24f7256a",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-CT",
+            "reference": "CT 338889/2025",
+            "role": "primary",
+            "subject_cs": "Pozvání ČT a Rady ČT na veřejná zasedání o obnově v Prostějově",
+            "subject_en": "Invitation to Czech Television and its Council to public reopening hearings"
+          },
+          {
+            "institution_id": "CZ-RADA-CT",
+            "reference": "CT 338889/2025",
+            "role": "simultaneous",
+            "subject_cs": "Pozvání ČT a Rady ČT na veřejná zasedání o obnově v Prostějově",
+            "subject_en": "Invitation to Czech Television and its Council to public reopening hearings"
+          },
+          {
+            "institution_id": "CZ-RRTV",
+            "reference": "RRTV/2026/20/fej",
+            "role": "copy",
+            "subject_cs": "Pozvání ČT a Rady ČT na veřejná zasedání o obnově v Prostějově",
+            "subject_en": "Invitation to Czech Television and its Council to public reopening hearings"
+          },
+          {
+            "institution_id": "CZ-UOOU",
+            "reference": "podnět z 14. 7. 2026",
+            "role": "copy",
+            "subject_cs": "Pozvání ČT a Rady ČT na veřejná zasedání o obnově v Prostějově",
+            "subject_en": "Invitation to Czech Television and its Council to public reopening hearings"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-09-18-slalom-augsep-079",
+      "user_title": "Doplnění tvrzení a replika na vyjádření ČT v civilní žalobě",
+      "issue_date": "2026-09-18",
+      "received_date": "2026-09-18",
+      "institution_id": "CZ-DD",
+      "reference": "10 C 69/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/079-podani-2026-09-18.pdf",
+        "sha256": "eb57e6baf8a2c99bdf68e1899e2fb7982e1ac41aeeae94e3d57670f1d8f2a471",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 126,
+        "archive_name": "Žaloba -Doplnění tvrzení a replika - 10 C 69_2026 - 18. 9. 2026.pdf",
+        "source_sha256": "eb57e6baf8a2c99bdf68e1899e2fb7982e1ac41aeeae94e3d57670f1d8f2a471",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PHA4",
+            "reference": "10 C 69/2026",
+            "role": "primary",
+            "subject_cs": "Doplnění tvrzení a replika na vyjádření ČT v civilní žalobě",
+            "subject_en": "Supplement to factual allegations and reply to Czech Television in the civil action"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cs-dd-2026-08-12-slalom-augsep-080",
+      "user_title": "Důkazní doplnění žaloby o trvajícím zásahu a nabídce smíru",
+      "issue_date": "2026-08-12",
+      "received_date": "2026-08-12",
+      "institution_id": "CZ-DD",
+      "reference": "10 C 69/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/080-podani-2026-08-12.pdf",
+        "sha256": "10ab2b95c2b4ba1eaf014ad892ebd57072a6ae1ee7e095c84f9fc027a1d3a9cb",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 127,
+        "archive_name": "Žaloba 10C69_2026 důkazní doplnění dne 12. srpna 2026.pdf",
+        "source_sha256": "10ab2b95c2b4ba1eaf014ad892ebd57072a6ae1ee7e095c84f9fc027a1d3a9cb",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PHA4",
+            "reference": "10 C 69/2026",
+            "role": "primary",
+            "subject_cs": "Důkazní doplnění žaloby o trvajícím zásahu a nabídce smíru",
+            "subject_en": "Evidence supplement to action concerning continuing interference and settlement offer"
+          },
+          {
+            "institution_id": "CZ-RADA-CT",
+            "reference": "10 C 69/2026",
+            "role": "copy",
+            "subject_cs": "Důkazní doplnění žaloby o trvajícím zásahu a nabídce smíru",
+            "subject_en": "Evidence supplement to action concerning continuing interference and settlement offer"
+          },
+          {
+            "institution_id": "CZ-CT",
+            "reference": "10 C 69/2026",
+            "role": "copy",
+            "subject_cs": "Důkazní doplnění žaloby o trvajícím zásahu a nabídce smíru",
+            "subject_en": "Evidence supplement to action concerning continuing interference and settlement offer"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-en-dd-2026-09-27-slalom-augsep-081",
+      "user_title": "Stížnost evropské veřejné ochránkyni práv na postup EUDA při kontrole dat o THC (anglické znění)",
+      "issue_date": "2026-09-27",
+      "received_date": "2026-09-27",
+      "institution_id": "CZ-DD",
+      "reference": "stížnost na EUDA",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/081-podani-2026-09-27.pdf",
+        "sha256": "66001cfa1d712f27f2d30c3fd3abd2839a21349121021d2616ce92e6db36219e",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 128,
+        "archive_name": "Complaint European Ombudsman - EUDA 27. September 2026 EN.pdf",
+        "source_sha256": "66001cfa1d712f27f2d30c3fd3abd2839a21349121021d2616ce92e6db36219e",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "EU-OMB",
+            "reference": "stížnost na EUDA",
+            "role": "primary",
+            "subject_cs": "Stížnost evropské veřejné ochránkyni práv na postup EUDA při kontrole dat o THC (anglické znění)",
+            "subject_en": "Complaint to the European Ombudsman concerning EUDA’s oversight of THC data (English version)"
+          }
+        ]
+      },
+      "language": "en"
+    },
+    {
+      "id": "doc-en-dd-2026-09-26-slalom-augsep-082",
+      "user_title": "Zásadní námitka proti odpovědi EUDA z 25. září: srovnatelnost údajů o THC (anglické znění)",
+      "issue_date": "2026-09-26",
+      "received_date": "2026-09-26",
+      "institution_id": "CZ-DD",
+      "reference": "EXO/FHP/pd (26) D 106",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/082-podani-2026-09-26.pdf",
+        "sha256": "b115bfe6df57df88cfbdb5519f1a3dcfb29572d57f1a66d9291114365e74e6aa",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 129,
+        "archive_name": "EUDA- EN- 26.October 2026.pdf",
+        "source_sha256": "b115bfe6df57df88cfbdb5519f1a3dcfb29572d57f1a66d9291114365e74e6aa",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "EU-EUDA",
+            "reference": "EXO/FHP/pd (26) D 106",
+            "role": "primary",
+            "subject_cs": "Zásadní námitka proti odpovědi EUDA z 25. září: srovnatelnost údajů o THC (anglické znění)",
+            "subject_en": "Fundamental objection to EUDA response of 25 September concerning comparability of THC data"
+          }
+        ]
+      },
+      "language": "en"
+    },
+    {
+      "id": "doc-cs-dd-2026-09-27-slalom-augsep-083",
+      "user_title": "Stížnost evropské veřejné ochránkyni práv na postup EUDA při kontrole dat o THC (české znění)",
+      "issue_date": "2026-09-27",
+      "received_date": "2026-09-27",
+      "institution_id": "CZ-DD",
+      "reference": "stížnost na EUDA",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-09"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-09/083-podani-2026-09-27.pdf",
+        "sha256": "c369988e0afc8f1d092d7dfce662e9a9cd195ff7e05580b9b5f91fd86204cf50",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 130,
+        "archive_name": "Stiznost evropskému ombudsmanovi ze dne 27.září 2026.pdf",
+        "source_sha256": "c369988e0afc8f1d092d7dfce662e9a9cd195ff7e05580b9b5f91fd86204cf50",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "EU-OMB",
+            "reference": "stížnost na EUDA",
+            "role": "primary",
+            "subject_cs": "Stížnost evropské veřejné ochránkyni práv na postup EUDA při kontrole dat o THC (české znění)",
+            "subject_en": "Complaint to the European Ombudsman concerning EUDA’s oversight of THC data (Czech version)"
+          }
+        ]
+      }
+    }
+  ]
+}

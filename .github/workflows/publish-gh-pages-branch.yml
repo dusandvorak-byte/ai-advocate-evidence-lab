@@ -68,17 +68,20 @@ jobs:
       - name: Finalizovat anglické plochy Ministerstva dopravy
         run: node scripts/finalize-md-english-surfaces.mjs
 
-      - name: Obnovit společnou jazykovou nabídku po finálních generátorech
-        run: node scripts/build-language-access.mjs
-
       - name: Nahradit veřejné časovače chronologickým archivem Justiční slalom
         run: node scripts/build-justice-slalom.mjs
 
       - name: Znovu ověřit PDF po všech finálních úpravách
         run: node scripts/audit-godot-pdf-links.mjs
 
+      - name: Obnovit společnou jazykovou nabídku po všech generátorech
+        run: node scripts/build-language-access.mjs
+
       - name: Ověřit archiv podání, příjemce, PDF a nepřítomnost časovačů
         run: node scripts/validate-justice-slalom.mjs
+
+      - name: Ověřit nové státní listiny a uzavření přezkumu KSZ
+        run: node scripts/validate-state-release-2026-09-29.mjs
 
       - name: Ověřit tři lišty, barvy a chronologii soudních řízení
         run: node scripts/validate-live-dockets-contract.mjs

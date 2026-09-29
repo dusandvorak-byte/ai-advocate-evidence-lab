@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-29",
+  "purpose": "Dvě autorem dodané úřední listiny do Státu lásky čas; datum z obsahu, původní PDF, CZ/EN a procesní návaznost.",
+  "documents": [
+    {
+      "id": "doc-cz-ksz-brn-2026-09-16-1-kzt-475-2026-71",
+      "user_title": "KSZ v Brně odložilo podnět k dohledu nad OSZ v Prostějově jako nedůvodný; připustilo, že další podněty nelze paušálně odmítat",
+      "issue_date": "2026-09-16",
+      "received_date": null,
+      "institution_id": "CZ-KSZ-BRN",
+      "reference": "1 KZT 475/2026-71",
+      "case_ids": [
+        "CASE-CZ-KSZ-BRN-1KZT475-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "Stát lásky čas",
+        "1 KZT 475/2026-71"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/102-ksz-brno-1-kzt-475-2026-71-2026-09-16.pdf",
+        "sha256": "715ecdb376545de04570a55ca82831be0301289d850c0f723f74e7ac0ec1c631",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; all_pages_text_and_render_reviewed",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-29-ksz-vs.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-ksz-brn-2026-07-21-1-kzt-475-2026-32"
+        },
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-osz-pro-2026-07-07-1-zt-11-2010-752"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_official_document",
+      "evidence_note": "KSZ v Brně po přezkoumání postupu OSZ v Prostějově ve věci 1 ZT 11/2010-752 odložilo podnět k výkonu dohledu jako nedůvodný. Uvedlo, že státní zástupce nemá povinnost před veřejným zasedáním poskytnout stanovisko k návrhu na obnovu a že poskytování právních rad o pěstování konopí nespadá do působnosti státního zastupitelství. Současně přisvědčilo námitce, že další podněty nelze odmítat bez dalšího; takový postup spojilo s opakovanými podáními bez nových skutečností. Listina vypořádává podání z 10. 7. 2026 a doplnění do 13. 9. 2026.",
+      "closes_timer_ids": [
+        "timer-review-ksz-brno-2026-07-10"
+      ]
+    },
+    {
+      "id": "doc-cz-vs-pha-2026-09-14-3-cmo-24-2026-26",
+      "user_title": "Vrchní soud zrušil usnesení MS v Praze ve sporu EKK s FTV Prima; určil příslušnost okresních soudů a postoupení Obvodnímu soudu pro Prahu 10 po právní moci",
+      "issue_date": "2026-09-14",
+      "received_date": null,
+      "institution_id": "CZ-VS-PHA",
+      "reference": "3 Cmo 24/2026-26",
+      "case_ids": [
+        "CASE-CZ-VS-PHA-3CMO24-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "Stát lásky čas",
+        "3 Cmo 24/2026-26"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/103-vs-praha-3-cmo-24-2026-26-2026-09-14.pdf",
+        "sha256": "82137b81ca5a208e0369964e985aaed809af1e32e26d49f8ef88983bbbb52a7f",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; all_pages_text_and_render_reviewed",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-29-ksz-vs.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_official_document",
+      "evidence_note": "Vrchní soud v Praze zrušil usnesení Městského soudu v Praze ze dne 4. 3. 2026, č. j. 3 Cm 2/2026-19, kterým byly zamítnuty žádosti Edukativní konopné kliniky o osvobození od soudních poplatků a ustanovení zástupce. Rozhodl, že k řízení o uveřejnění odpovědi vůči FTV Prima jsou věcně příslušné okresní soudy a že po právní moci bude věc postoupena Obvodnímu soudu pro Prahu 10. Nárok posoudil jako právo na odpověď podle zákona o rozhlasovém a televizním vysílání. O samotné povinnosti FTV Prima odpověď zveřejnit tímto usnesením nerozhodl."
+    }
+  ]
+}

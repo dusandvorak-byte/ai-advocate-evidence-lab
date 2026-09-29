@@ -12,8 +12,21 @@
       "reference": "15 A 44/2026-43",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["správní soudnictví", "zásahová žaloba", "Ministerstvo vnitra", "odmítnutí žaloby", "kasační stížnost"],
-      "public": {"html": null,"pdf": null,"intended_pdf": "documents/report-04082026-010/74-ms-praha-15-a-44-2026-43-2026-08-25.pdf","sha256": "0f374e7dc47072120d82d6d702aad01ea03a6a6d7a9665e9a281cbf39e878d6d","verification_status": "source_pdf_verified_in_intake; awaiting_generated_public_copy","source_manifest": "project-memory/documents-2026-supplement-2026-08-25-courts.json"},
+      "topics": [
+        "správní soudnictví",
+        "zásahová žaloba",
+        "Ministerstvo vnitra",
+        "odmítnutí žaloby",
+        "kasační stížnost"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/74-ms-praha-15-a-44-2026-43-2026-08-25.pdf",
+        "intended_pdf": "documents/report-04082026-010/74-ms-praha-15-a-44-2026-43-2026-08-25.pdf",
+        "sha256": "291ab54dc40cb5e2f438392f36ec4961a1c4d4a32669023cb54b0e3eda9de6a3",
+        "verification_status": "generated_public_copy_from_verified_text; source_original_sha256_recorded; not_byte_identical_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-25-courts.json"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",
@@ -28,8 +41,20 @@
       "reference": "15 Nt 3106/2026",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["trestní řízení", "obnova řízení", "veřejné zasedání", "2 T 104/2010"],
-      "public": {"html": null,"pdf": null,"intended_pdf": "documents/report-04082026-010/75-os-prostejov-15-nt-3106-2026-predvolani-2026-08-25.pdf","sha256": "efd7aa6f60e7cc3ad414972fcf8a468526e7e183a6a35d2d3d6ab0a295f23ec0","verification_status": "source_pdf_verified_in_intake; awaiting_generated_public_copy","source_manifest": "project-memory/documents-2026-supplement-2026-08-25-courts.json"},
+      "topics": [
+        "trestní řízení",
+        "obnova řízení",
+        "veřejné zasedání",
+        "2 T 104/2010"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/75-os-prostejov-15-nt-3106-2026-predvolani-2026-08-25.pdf",
+        "intended_pdf": "documents/report-04082026-010/75-os-prostejov-15-nt-3106-2026-predvolani-2026-08-25.pdf",
+        "sha256": "dc5a83e92b0f4ba60f545bd81d0609b12d9768f05051e33fdd254d154d5ec188",
+        "verification_status": "generated_public_copy_from_verified_text; source_original_sha256_recorded; not_byte_identical_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-25-courts.json"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",
@@ -44,8 +69,21 @@
       "reference": "15 Nt 3106/2026",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["trestní řízení", "obnova řízení", "spojení věcí", "2 T 104/2010", "2 T 65/2011"],
-      "public": {"html": null,"pdf": null,"intended_pdf": "documents/report-04082026-010/76-os-prostejov-15-nt-3106-2026-neslouceni-2026-08-25.pdf","sha256": "f66c9d67d65d5d0ac0042b294592a945321cf2ddf2a8225dce565dc432d8b9ee","verification_status": "source_pdf_verified_in_intake; awaiting_generated_public_copy","source_manifest": "project-memory/documents-2026-supplement-2026-08-25-courts.json"},
+      "topics": [
+        "trestní řízení",
+        "obnova řízení",
+        "spojení věcí",
+        "2 T 104/2010",
+        "2 T 65/2011"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/76-os-prostejov-15-nt-3106-2026-neslouceni-2026-08-25.pdf",
+        "intended_pdf": "documents/report-04082026-010/76-os-prostejov-15-nt-3106-2026-neslouceni-2026-08-25.pdf",
+        "sha256": "9353ac251ca185f4866adaebe38b6b20c4371cb9e07aa135f82634b52c070629",
+        "verification_status": "generated_public_copy_from_verified_text; source_original_sha256_recorded; not_byte_identical_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-25-courts.json"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",

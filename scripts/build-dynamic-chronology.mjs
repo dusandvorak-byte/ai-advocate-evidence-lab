@@ -90,6 +90,11 @@ if (!Array.isArray(registry.documents)) throw new Error('Rejstřík documents-20
 if (!Array.isArray(institutions.institutions)) throw new Error('Rejstřík institutions.json neobsahuje pole institutions');
 
 const institutionMap = new Map(institutions.institutions.map(item => [item.id, item]));
+const caseRegistry = JSON.parse(await readFile('project-memory/cases.json', 'utf8'));
+const caseMap = new Map(caseRegistry.cases.map(item => [item.id, item]));
+for (const id of new Set(registry.documents.flatMap(item => item.case_ids || []))) {
+  if (!caseAnchors.some(([anchor]) => anchor === id) && caseMap.has(id)) caseAnchors.push([id, caseMap.get(id).title]);
+}
 const ids = new Set();
 const documents = [...registry.documents].sort(compareDocuments);
 
@@ -164,7 +169,7 @@ const renderChronologyItem = item => {
   const link = documentLink(item);
   const target = link.external ? ' target="_blank" rel="noopener"' : '';
   const cases = Array.isArray(item.case_ids) && item.case_ids.length
-    ? `<span class="case-links">Řízení: ${item.case_ids.map(id => `<a href="#${escapeHtml(id)}">${escapeHtml(id)}</a>`).join(', ')}</span>`
+    ? `<span class="case-links">Řízení: ${item.case_ids.map(id => `<a href="#${escapeHtml(id)}">${escapeHtml(caseMap.get(id)?.reference || id)}</a>`).join(', ')}</span>`
     : '';
   const reactions = (reactionsByTarget.get(item.id) || []).sort(compareDocuments);
   const preceding = (precedingByTarget.get(item.id) || []).sort(compareDocuments);
@@ -179,7 +184,7 @@ const renderChronologyItem = item => {
   return `<li id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}" data-institution-id="${escapeHtml(item.institution_id)}"><b>Datum:</b> ${escapeHtml(formatDate(item.issue_date))} · <b>Kdo:</b> <span class="institution">${escapeHtml(name)}</span> · <b>Č. j. / sp. zn.:</b> ${escapeHtml(referenceText(item))} · <b>Co se stalo:</b> ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a>${cases}${inline}</li>`;
 };
 
-const caseIndex = `<section id="rizeni-online" class="case-anchor-index"><h3>Aktivní uzly řízení</h3>${caseAnchors.map(([id, label]) => `<article id="${id}" class="case-anchor-node"><h4>${escapeHtml(label)}</h4><p>Související listiny a procesní kroky jsou průběžně řazeny v chronologii výše.</p></article>`).join('')}</section>`;
+const caseIndex = `<section id="rizeni-online" class="case-anchor-index"><h3>Uzly řízení</h3>${caseAnchors.map(([id, label]) => `<article id="${id}" class="case-anchor-node"><h4>${escapeHtml(label)}</h4><p>Související listiny a procesní kroky jsou průběžně řazeny v chronologii výše.</p></article>`).join('')}</section>`;
 const chronologyHtml = `<ol id="chronologie-seznam">${stateDocuments.map(renderChronologyItem).join('')}</ol>`;
 const archiveHtml = archiveDocuments.length
   ? `<h2 id="archiv-vstupu-do-eu">Archiv vstupu do EU</h2><p>Dokumentovaná historie podání, rozhodnutí, obran a institucionálních vazeb před 1. květnem 2026, systematicky zejména od roku 2010.</p><ol id="archiv-seznam" start="${stateDocuments.length + 1}">${archiveDocuments.map(renderChronologyItem).join('')}</ol>`

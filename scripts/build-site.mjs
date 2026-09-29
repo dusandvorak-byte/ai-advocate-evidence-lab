@@ -30,7 +30,17 @@ const runPython = script => new Promise((resolve, reject) => {
 });
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 
+// A checked-out page may contain yesterday's generated archive. Its PDF links
+// must not enter the intermediate build before the terminal archive writer
+// replaces them with links derived from the current canonical registry.
+for (const file of ['web/index.html','web/en.html','web/kc/index.html','web/kc/en.html','web/zpravy/04082026-010.html','web/news/04082026-010.html']) {
+  const previous = await readFile(file, 'utf8');
+  const clean = previous.replace(/<!-- JUSTICE-SLALOM:BEGIN -->[\s\S]*?<!-- JUSTICE-SLALOM:END -->/g, '');
+  if (clean !== previous) await writeFile(file, clean, 'utf8');
+}
+
 await run('scripts/validate-architecture.mjs');
+await runPython('scripts/materialize-pdf-release-2026-09-29.py');
 await runPython('scripts/materialize-state-pdfs-2026-09-03.py');
 await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');

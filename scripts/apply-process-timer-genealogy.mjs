@@ -44,6 +44,16 @@ const suppress = new Set([
   'timer-admin-msz-stiznost-necinnost-2026-07-31'
 ]);
 
+// A source-backed decision closes exactly the phase named by the canonical record.
+// Preserve its history and the decision; do not infer a later remedy or service date.
+const resolved = new Map((timerRegistry.resolved_process_steps || []).map(step => [step.id, step]));
+for (const doc of documents) for (const id of doc.closes_timer_ids || []) {
+  const previous = byId.get(id);
+  if (previous) resolved.set(id, { ...previous, status: 'resolved_by_document', decision_date: doc.issue_date, decision_document_id: doc.id, decision_reference: doc.reference, outcome: doc.evidence_note });
+  suppress.add(id);
+}
+timerRegistry.resolved_process_steps = [...resolved.values()];
+
 const patch = (id, values) => {
   const current = byId.get(id);
   if (!current) throw new Error(`GENEALOGY-GATE: chybí časovač ${id}`);

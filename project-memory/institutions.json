@@ -358,6 +358,55 @@
       "type": "executive_office",
       "name": "Kabinet manželky prezidenta republiky (Mgr. Eva Pavlová)",
       "short_name": "Kabinet manželky prezidenta"
+    },
+    {
+      "id": "CZ-EKK",
+      "country": "CZ",
+      "type": "association",
+      "name": "Edukativní konopná klinika, z. s.",
+      "short_name": "EKK"
+    },
+    {
+      "id": "CZ-CIA",
+      "country": "CZ",
+      "type": "accreditation",
+      "name": "Český institut pro akreditaci, o. p. s.",
+      "short_name": "ČIA"
+    },
+    {
+      "id": "CZ-OS-OST",
+      "country": "CZ",
+      "type": "court",
+      "name": "Okresní soud v Ostravě",
+      "short_name": "OS Ostrava"
+    },
+    {
+      "id": "CZ-UV",
+      "country": "CZ",
+      "type": "executive_office",
+      "name": "Úřad vlády České republiky",
+      "short_name": "Úřad vlády"
+    },
+    {
+      "id": "CZ-PS-ANO",
+      "country": "CZ",
+      "type": "parliamentary_group",
+      "name": "Poslanecký klub ANO 2011",
+      "short_name": "ANO 2011"
+    },
+    {
+      "id": "EU-OMB",
+      "country": "EU",
+      "type": "ombudsman",
+      "name": "Evropská veřejná ochránkyně práv",
+      "short_name": "Evropský ombudsman"
+    },
+    {
+      "id": "CZ-VS-PHA",
+      "country": "CZ",
+      "type": "court",
+      "name": "Vrchní soud v Praze",
+      "short_name": "VS Praha"
     }
   ]
 }

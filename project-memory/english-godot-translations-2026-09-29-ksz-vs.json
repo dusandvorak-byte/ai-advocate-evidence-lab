@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "institutions": {
+    "CZ-VS-PHA": "Prague High Court"
+  },
+  "documents": {
+    "doc-cz-ksz-brn-2026-09-16-1-kzt-475-2026-71": "The Brno Regional Public Prosecutor’s Office dismissed the request for supervision of the Prostějov District Public Prosecutor’s Office as unfounded. It stated that a prosecutor need not provide an opinion on reopening before the public hearing and that legal advice on cannabis cultivation falls outside the prosecution service’s remit. It nevertheless accepted that future submissions cannot be rejected indiscriminately, limiting that approach to repeated submissions containing no new facts. The notice addresses the filing of 10 July 2026 and supplements through 13 September 2026.",
+    "doc-cz-vs-pha-2026-09-14-3-cmo-24-2026-26": "The Prague High Court quashed the Prague Municipal Court’s order of 4 March 2026, reference 3 Cm 2/2026-19, refusing the Educational Cannabis Clinic’s applications for court-fee exemption and appointed counsel. It held that district courts have subject-matter jurisdiction over the claim for a reply against FTV Prima and ordered transfer to Prague 10 District Court once the order becomes final. It classified the claim as a statutory right of reply under broadcasting legislation. The order did not decide whether FTV Prima must publish the reply."
+  }
+}

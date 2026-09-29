@@ -12,8 +12,20 @@
       "reference": "SZU/10724/2026",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["InfZ", "přeprava krve", "biologický materiál", "laboratorní vzorky"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/79-szu-10724-2026-2026-08-25.pdf", "sha256": null, "verification_status": "source_pdf_received; awaiting_public_copy", "source_manifest": "project-memory/documents-2026-supplement-2026-08-27-szu-msz.json"},
+      "topics": [
+        "InfZ",
+        "přeprava krve",
+        "biologický materiál",
+        "laboratorní vzorky"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/79-szu-10724-2026-2026-08-25.pdf",
+        "intended_pdf": "documents/report-04082026-010/79-szu-10724-2026-2026-08-25.pdf",
+        "sha256": "9f37e1b0506f8cca908be12e2e7dd349dd61f051c8f076868c942b14ed1cd6f0",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-27-szu-msz.json"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",
@@ -28,9 +40,26 @@
       "reference": "SZU/10724/2026",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["InfZ", "§ 11b", "přeprava krve", "biologický materiál"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/80-szu-10724-2026-rozhodnuti-2026-08-26.pdf", "sha256": null, "verification_status": "source_pdf_received; awaiting_public_copy", "source_manifest": "project-memory/documents-2026-supplement-2026-08-27-szu-msz.json"},
-      "relations": [{"type":"follows","target_id":"doc-cz-szu-2026-08-25-szu-10724-2026"}],
+      "topics": [
+        "InfZ",
+        "§ 11b",
+        "přeprava krve",
+        "biologický materiál"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/80-szu-10724-2026-rozhodnuti-2026-08-26.pdf",
+        "intended_pdf": "documents/report-04082026-010/80-szu-10724-2026-rozhodnuti-2026-08-26.pdf",
+        "sha256": "d0dc1877b0116e3da854744a7469a8e4fd97ca62f820fa47d79a7c60325e9bc3",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-27-szu-msz.json"
+      },
+      "relations": [
+        {
+          "type": "follows",
+          "target_id": "doc-cz-szu-2026-08-25-szu-10724-2026"
+        }
+      ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",
       "evidence_note": "SZÚ podle § 11b InfZ částečně odmítl žádost v šesti bodech týkajících se metodik, teplotních podmínek, přepravy bez validovaného boxu, přepravy při vysokých teplotách, monitorování teploty a obecně použitelných norem či akreditačních požadavků. Poučení uvádí odvolání do 15 dnů od doručení prostřednictvím SZÚ k ÚOOÚ."
@@ -42,10 +71,27 @@
       "received_date": null,
       "institution_id": "CZ-MSZ-PHA",
       "reference": "3 KZN 974/2026-100",
-      "case_ids": ["1 ZN 320/2026", "1 VZN 1678/2026"],
+      "case_ids": [
+        "1 ZN 320/2026",
+        "1 VZN 1678/2026"
+      ],
       "document_type": "state_record",
-      "topics": ["dohled", "OSZ Praha 4", "státní zastupitelství", "§ 329", "§ 330", "měření THC"],
-      "public": {"html": null, "pdf": null, "intended_pdf": "documents/report-04082026-010/81-msz-praha-3-kzn-974-2026-100-2026-08-27.pdf", "sha256": null, "verification_status": "source_pdf_received; awaiting_public_copy", "source_manifest": "project-memory/documents-2026-supplement-2026-08-27-szu-msz.json"},
+      "topics": [
+        "dohled",
+        "OSZ Praha 4",
+        "státní zastupitelství",
+        "§ 329",
+        "§ 330",
+        "měření THC"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/81-msz-praha-3-kzn-974-2026-100-2026-08-27.pdf",
+        "intended_pdf": "documents/report-04082026-010/81-msz-praha-3-kzn-974-2026-100-2026-08-27.pdf",
+        "sha256": "5b2fa4e6be66bd0212b33b288142bc6a2d808d92d6ae55af8cf907c4aad5696b",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-08-27-szu-msz.json"
+      },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",

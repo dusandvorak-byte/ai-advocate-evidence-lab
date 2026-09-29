@@ -10,15 +10,26 @@
       "received_date": null,
       "institution_id": "CZ-MK",
       "reference": "MK 53547/2026 SOCNS",
-      "case_ids": ["MK-S 6893/2026 SOCNS", "MK-S 8978/2016 OC"],
+      "case_ids": [
+        "MK-S 6893/2026 SOCNS",
+        "MK-S 8978/2016 OC"
+      ],
       "document_type": "state_record",
-      "topics": ["Konopná církev", "registrace církve", "nové řízení", "§ 101 správního řádu", "§ 102 správního řádu", "náboženský pluralismus", "rozklad"],
+      "topics": [
+        "Konopná církev",
+        "registrace církve",
+        "nové řízení",
+        "§ 101 správního řádu",
+        "§ 102 správního řádu",
+        "náboženský pluralismus",
+        "rozklad"
+      ],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/84-mk-53547-2026-socns-2026-08-31.pdf",
         "intended_pdf": "documents/report-04082026-010/84-mk-53547-2026-socns-2026-08-31.pdf",
-        "sha256": null,
-        "verification_status": "verified_text_source_received; awaiting_generated_public_copy",
+        "sha256": "563809ef10ee21e0ff67cbabcab50c5a58442f739c8af2a3e0caca8470f23575",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original",
         "source_manifest": "project-memory/documents-2026-supplement-2026-08-31-mk-church.json"
       },
       "relations": [],
@@ -33,19 +44,34 @@
       "received_date": null,
       "institution_id": "CZ-MK",
       "reference": "MK 53559/2026 SOCNS",
-      "case_ids": ["MK-S 6893/2026 SOCNS", "MK-S 8978/2016 OC"],
+      "case_ids": [
+        "MK-S 6893/2026 SOCNS",
+        "MK-S 8978/2016 OC"
+      ],
       "document_type": "state_record",
-      "topics": ["Konopná církev", "procesní stav", "registrace církve", "náboženské předměty", "Soudní dvůr EU", "THC", "THCA", "náboženský pluralismus"],
+      "topics": [
+        "Konopná církev",
+        "procesní stav",
+        "registrace církve",
+        "náboženské předměty",
+        "Soudní dvůr EU",
+        "THC",
+        "THCA",
+        "náboženský pluralismus"
+      ],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/85-mk-53559-2026-socns-2026-08-31.pdf",
         "intended_pdf": "documents/report-04082026-010/85-mk-53559-2026-socns-2026-08-31.pdf",
-        "sha256": null,
-        "verification_status": "verified_text_source_received; awaiting_generated_public_copy",
+        "sha256": "30fe677d3a480f1793ae04d1faaa8fa5e8b0d2869e5d5f87b73b8d49cc490ec8",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original",
         "source_manifest": "project-memory/documents-2026-supplement-2026-08-31-mk-church.json"
       },
       "relations": [
-        {"type": "related_state_record", "target_id": "doc-cz-mk-2026-08-31-mk-53547-2026-socns"}
+        {
+          "type": "related_state_record",
+          "target_id": "doc-cz-mk-2026-08-31-mk-53547-2026-socns"
+        }
       ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",

@@ -196,7 +196,12 @@
         "verification_status": "source_pdf_received_binary_original",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom.json"
       },
-      "relations": [],
+      "relations": [
+        {
+          "type": "podani_na_ktere_organ_reaguje",
+          "target_id": "doc-cz-ksz-brn-2026-09-16-1-kzt-475-2026-71"
+        }
+      ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship",
       "evidence_note": "Podání č. 06 ze souboru poskytnutého autorem; datum a adresáti ověřeni proti textu PDF. Originální soubor SHA-256 6ce26a6aa80a6699f3704b9ec103c4e80a978ff5e67575c2377ba14ccca84974.",
@@ -243,7 +248,12 @@
         "verification_status": "source_pdf_received_binary_original",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom.json"
       },
-      "relations": [],
+      "relations": [
+        {
+          "type": "podani_na_ktere_organ_reaguje",
+          "target_id": "doc-cz-ksz-brn-2026-09-16-1-kzt-475-2026-71"
+        }
+      ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship",
       "evidence_note": "Podání č. 07 ze souboru poskytnutého autorem; datum a adresáti ověřeni proti textu PDF. Originální soubor SHA-256 3e2100a2b3ffa6b95739d86a119754d9173d26ed7edf73790f5a62acd1e3b6a3.",

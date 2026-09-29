@@ -12,18 +12,35 @@
       "reference": "MSP-19/2026-ODKA-ROZ/27",
       "case_ids": [],
       "document_type": "state_record",
-      "topics": ["Ministerstvo spravedlnosti", "ministr spravedlnosti", "MSP-19/2026-ODKA-ROZ", "opatření proti nečinnosti", "§ 80 správního řádu", "§ 37 odst. 1 správního řádu", "znalecké posudky", "Prostějov", "18 A 23/2026", "návrh na smír"],
+      "topics": [
+        "Ministerstvo spravedlnosti",
+        "ministr spravedlnosti",
+        "MSP-19/2026-ODKA-ROZ",
+        "opatření proti nečinnosti",
+        "§ 80 správního řádu",
+        "§ 37 odst. 1 správního řádu",
+        "znalecké posudky",
+        "Prostějov",
+        "18 A 23/2026",
+        "návrh na smír"
+      ],
       "public": {
         "html": null,
-        "pdf": null,
+        "pdf": "documents/report-04082026-010/msp-19-2026-odka-roz-27-2026-09-08-verejna-kopie.pdf",
         "intended_pdf": "documents/report-04082026-010/msp-19-2026-odka-roz-27-2026-09-08.pdf",
-        "sha256": "06aa9bcdd52cb7242bea04c71cd63cfd50e5caf0b0b35b6fd6164df565be7a33",
-        "verification_status": "uploaded_original_verified_in_intake; awaiting_byte_identical_public_materialization",
+        "sha256": "dff8a4645fafbe5c7d01d24720bf61b8a61175f24b1687f8c49ffdb9fb9a401d",
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original; uploaded_original_sha256_06aa9bcdd52cb7242bea04c71cd63cfd50e5caf0b0b35b6fd6164df565be7a33",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-08-msp.json"
       },
       "relations": [
-        {"type": "reakce_na", "target_id": "doc-cz-dd-2026-08-10-stiznost-necinnost-msp"},
-        {"type": "navazuje_na", "target_id": "doc-cz-msp-2026-06-03-msp-19-2026-odka-roz-7"}
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-08-10-stiznost-necinnost-msp"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-msp-2026-06-03-msp-19-2026-odka-roz-7"
+        }
       ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",

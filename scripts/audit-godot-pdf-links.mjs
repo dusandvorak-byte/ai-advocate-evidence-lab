@@ -57,7 +57,11 @@ const requiresPdf = doc => {
     && requiredInstitutionTypes.has(type);
 };
 
-const hrefs = [...article.matchAll(/href=["']([^"']+\.pdf(?:#[^"']*)?)["']/gi)]
+// The terminal archive builder replaces this whole panel after the canonical build.
+// A prior local build can leave its earlier PDF links in the article at this stage;
+// audit the Godot body here and validate every final panel PDF afterwards.
+const godotArticle = article.replace(/<!-- JUSTICE-SLALOM:BEGIN -->[\s\S]*?<!-- JUSTICE-SLALOM:END -->/g, '');
+const hrefs = [...godotArticle.matchAll(/href=["']([^"']+\.pdf(?:#[^"']*)?)["']/gi)]
   .map(match => match[1].split('#')[0]);
 const articlePdfLinks = [...new Set(hrefs)];
 const brokenArticlePdfLinks = [];

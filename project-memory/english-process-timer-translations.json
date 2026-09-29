@@ -1,55 +1,221 @@
 {
   "schema_version": "1.0",
   "timers": {
-    "timer-court-18a17-2026": {"title":"Prague Municipal Court, case 18 A 17/2026 – action concerning the National Centre against Organised Crime","event":"The action concerning the National Centre against Organised Crime was filed on 1 May 2026."},
-    "timer-court-8ad9-2026": {"title":"Prague Municipal Court, case 8 Ad 9/2026 – Ministry of Health","event":"Subsequent filings identify an intervention action against the Ministry of Health dated 31 May 2026."},
-    "timer-court-10c69-2026": {"title":"Prague 4 District Court, case 10 C 69/2026 – Czech Television","event":"The consolidated action against Czech Television is dated 4 June 2026."},
-    "timer-court-18a23-2026": {"title":"Prague Municipal Court, case 18 A 23/2026 – Ministry of Justice","event":"The source action against the Ministry of Justice is dated 15 June 2026."},
-    "timer-court-os-pro-obnova-2026": {"title":"Prostějov District Court – reopening proceedings: complaint stage after the decisions of 7 August 2026","event":"The District Court decided the reopening applications on 7 August 2026. Complaints followed on 10 and 11 August, and the branch is now at the complaint stage."},
-    "timer-court-os-pro-prevence-2026": {"title":"Prostějov District Court – preventive filing 2026","event":"The preventive filing to the Prostějov District Court and the Police is dated 12 July 2026."},
-    "timer-court-mv-2026-07-23": {"title":"Prague Municipal Court, case 15 A 44/2026 – intervention action against the Ministry of the Interior","event":"The action was filed by data box on 23 July 2026 and was subsequently assigned case number 15 A 44/2026."},
-    "timer-court-45t1-2024": {"title":"Prague Municipal Court, case 45 T 1/2024 – rehearing after remittal by the Prague High Court","event":"On 29 July 2025, the Prague High Court set aside parts of the judgment of 7 May 2024 and returned the matter to the first-instance court."},
-    "timer-preaction-nsz-2026-07-14": {"title":"Supreme Public Prosecutor’s Office – pre-action demand after the fifth supplement","event":"The fifth supplement of 1 August 2026 requested at least an interim response by 21 August and voluntarily allowed until 11 September for a final position."},
-    "timer-preaction-euda-2026-08-07": {"title":"EUDA – formal call to act under Article 265 TFEU","event":"Dušan Dvořák sent EUDA a formal call to act on 7 August 2026 at 09:14; EUDA acknowledged receipt that day at 17:06:35."},
-    "timer-admin-kpr-175-2026-08-03": {"title":"Office of the President – complaint under Section 175 of the Code of Administrative Procedure","event":"The complaint concerning the Office’s procedure is dated 3 August 2026."},
-    "timer-admin-krpt-infz-2026-07-27": {"title":"Moravian-Silesian Regional Police Directorate – request for the Frýdek-Místek forensic unit’s SOP","event":"The information request was filed on 27 July 2026; the Police subsequently extended the response period to 21 August 2026."},
-    "timer-admin-mk-2026-07-22": {"title":"Ministry of Culture – new Church of Cannabis proceeding under Section 101(b) of the Code of Administrative Procedure","event":"On 12 August 2026, the Ministry expressly confirmed that the proceeding had commenced on 26 June 2026."},
-    "timer-review-nsz-6nzn-2026": {"title":"Supreme Public Prosecutor’s Office – review branch 6 NZN 1737/2026","event":"The canonical case register records the review branch as open since 27 April 2026."},
-    "timer-review-msz-praha-3kzn197-2026": {"title":"Prague Municipal Public Prosecutor’s Office, 3 KZN 197/2026 – principal allocation and internal branch","event":"On 11 June 2026, the Office divided the material received from the Supreme Public Prosecutor among several territorially and substantively responsible offices."},
-    "timer-review-vsz-praha-1vzn1678-2026": {"title":"Prague High Public Prosecutor’s Office – supervision of the Prague Municipal Public Prosecutor","event":"The canonical case register records the supervision branch as open since 22 June 2026."},
-    "timer-review-vsz-olomouc-2026-07-10": {"title":"Olomouc High Public Prosecutor’s Office – supervision of the Brno Regional Public Prosecutor","event":"The request for review and supervision is dated 10 July 2026."},
-    "timer-review-ksz-brno-2026-07-10": {"title":"Brno Regional Public Prosecutor’s Office, 1 KZT 475/2026 – review of the Prostějov District Public Prosecutor’s procedure","event":"A review request concerning the communication of 7 July 2026 was filed on 10 July 2026 and registered as 1 KZT 475/2026."},
-    "timer-review-ksz-brno-1kzn1079-2026": {"title":"Brno Regional Public Prosecutor’s Office, 1 KZN 1079/2026 – review of the Brno Municipal Public Prosecutor’s procedure","event":"On 27 July 2026, a review was requested concerning the handling of branch 3 ZN 140/2026 and the communication of 21 July 2026."},
-    "timer-criminal-continuity-2010": {"title":"Criminal complaints – asserted and archivally documented continuity","event":"The date comes from the author’s long-term evidence collection; every individual complaint must remain linked to a specific record."},
-    "timer-criminal-par149-2011": {"title":"Filings invoking Section 149(3)–(5) of the Criminal Code","event":"The author identifies this date for the evidence branch invoking Section 149(3)–(5); the timer does not confirm that legal classification."},
-    "timer-court-ks-ostrava-15t11-2025": {"title":"Ostrava Regional Court – complaint in Ostrava District Court case 15 T 11/2025","event":"The complaint against the order of 14 July 2026 was lodged through the Ostrava District Court on 22 July and supplemented on 23 July 2026."},
-    "timer-review-pcr-ku-2026-05-27": {"title":"Police Institute of Criminalistics – internal expert and control review","event":"On 27 May 2026, an information request was accompanied by an express request for internal review of forensic procedures used in criminal cases from 2009 to 2019."},
-    "timer-review-msz-praha-osz-pha4-2026-07-02": {"title":"Prague Municipal Public Prosecutor’s Office – review of the Prague 4 District Public Prosecutor’s handling","event":"On 2 July 2026, review was requested under Section 16a(7) concerning the communication of 26 June 2026, ref. 1 ZN 320/2026-11."},
-    "timer-review-msz-praha-osz-pha7-2026-07-29": {"title":"Prague Municipal Public Prosecutor’s Office – review of the Prague 7 District Public Prosecutor’s handling","event":"On 29 July 2026, review was requested concerning the communication of 28 July 2026, ref. ZN 87/2026-47."},
-    "timer-review-msz-praha-osz-pha2-2026-08-01": {"title":"Prague Municipal Public Prosecutor’s Office – review of the Prague 2 District Public Prosecutor’s handling","event":"A joint filing addressed on 1 August 2026 expressly requested review of the communication of 30 July 2026, ref. 1 ZN 157/2026-33."},
-    "timer-admin-mv-rozklad-127234-2026": {"title":"Ministry of the Interior / Minister of the Interior – administrative appeal by Ganja For All Animals","event":"The administrative appeal was filed and delivered on 12 August 2026; that day is day 0 and 13 August is day 1."},
-    "timer-admin-nsz-odvolani-sin55-2026": {"title":"Supreme Public Prosecutor’s Office / Office for Personal Data Protection – appeal against SIN 55/2026-19","event":"The appeal was filed on 1 August 2026; the following procedural period begins with day 1 on 2 August 2026."},
-    "timer-admin-msz-odvolani-sin48-2026": {"title":"Prague Municipal / High Public Prosecutor’s Offices – appeal against SIN 48/2026-12","event":"The appeal was filed on 31 July 2026; day 1 of the following period is 1 August 2026."},
-    "timer-admin-msz-stiznost-necinnost-2026-07-31": {"title":"Prague Municipal / High Public Prosecutor’s Offices – Section 16a inactivity complaint","event":"The complaint was filed on 31 July 2026 concerning information requests received on 8 and 13 July."},
-    "timer-admin-kpr-repeat-16a-2026-08-10": {"title":"Office of the President – repeated Section 16a complaint against KPR 5772/2026-2","event":"The repeated complaint was filed on 10 August 2026; day 1 of the following period is 11 August 2026."},
-    "timer-admin-infz-remedy-rule": {"title":"Freedom of Information Act – common rule for the start of procedural periods","event":"For a documented data-box filing, the delivery date is day 0 and the following day is day 1; the applicable period depends on the specific remedy."},
-    "timer-remedy-doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54": {"title":"Prostějov District Court – supplement to the complaint against 15 Nt 3105/2026-54","event":"The supplement alleged that the full scope of the joint reopening application had not been decided and requested that the order be set aside and the matter reheard."},
-    "timer-remedy-doc-cz-dd-2026-08-10-stiznost-necinnost-msp": {"title":"Ministry of Justice – joint complaint concerning continuing inactivity","event":"The complaint alleged failure to deal with the request of 12 July and continuing inactivity after the complaint of 15 July; it was also submitted to the Prague Municipal Court as evidence of urgency."},
-    "timer-remedy-doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53": {"title":"Prostějov District Court – complaint against order 15 Nt 3103/2026-53","event":"A complaint was filed against the Prostějov District Court order of 7 August 2026, ref. 15 Nt 3103/2026-53."},
-    "timer-remedy-doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960": {"title":"Police Presidium – complaint concerning the handling of the THC-measurement review","event":"The complaint challenged the handling of point 3 of the filing of 27 May 2026 and requested review of the internal expert and control examination of THC measurement."},
-    "timer-remedy-doc-cz-dd-2026-08-15-zadost-soucinnost-osz-prostejov": {"title":"Prostějov District Public Prosecutor’s Office – request for cooperation","event":"The request asked for cooperation, procedural guidance and information on the response to the review."},
-    "timer-remedy-doc-cz-dd-2026-08-15-doplneni-stiznosti-ministr-vnitra": {"title":"Minister of the Interior – supplement to the complaints","event":"The supplement submitted the Police Presidium communication and requested managerial and control measures."},
-    "timer-remedy-doc-cz-dd-2026-08-15-zadost-prezkum-policejni-prezident": {"title":"Police President – request for superior review","event":"The request sought a superior and impartial review of the handling of the filing."},
-    "timer-remedy-doc-cz-dd-2026-08-15-podnet-gibs": {"title":"General Inspection of Security Forces – filing concerning THC records","event":"The filing requested examination of specified hypotheses and preservation of laboratory documentation without accusing a particular person."},
-    "timer-remedy-doc-cz-dd-2026-08-15-doplneni-prezkumu-msz-praha": {"title":"Prague Municipal Public Prosecutor’s Office – supplement to review","event":"The supplement submitted the Police Presidium communication in the pending review."},
-    "timer-remedy-doc-cz-dd-2026-08-15-doplneni-dohledu-vsz-praha-olomouc": {"title":"Prague and Olomouc High Public Prosecutor’s Offices – supplement to supervision","event":"The joint filing requested supplemented and coordinated supervisory review."},
-    "timer-remedy-doc-cz-dd-2026-08-15-seste-doplneni-predzalobni-vyzvy-nsz": {"title":"Supreme Public Prosecutor’s Office – sixth supplement to pre-action demand","event":"The supplement requested a single independent and reviewable resolution of the connected branches."},
-    "timer-remedy-doc-cz-dd-2026-08-15-doplneni-zaloby-15-a-44-2026": {"title":"Prague Municipal Court, case 15 A 44/2026 – evidentiary supplement","event":"The filing submitted new evidence without changing the action, grounds or relief sought."},
-    "timer-remedy-doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026": {"title":"Office of the President – complaint against communication KPR 5080/2026","event":"The complaint challenged the accuracy, completeness and reviewability of the Office’s procedure and requested investigation and remedial measures."},
-    "timer-remedy-doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir": {"title":"Czech Television and Czech Television Council – complaint concerning inactivity and settlement","event":"The filing requested substantive consideration, a response and an attempt at settlement; it expressly stated that it was not a complaint under Section 175 of the Code of Administrative Procedure."},
-    "timer-remedy-doc-cz-dd-2026-08-21-mv-druhe-nalehave-doplneni-stiznosti": {"title":"Minister of the Interior – second urgent supplement to the complaints","event":"The filing submitted the Police records of 20 August 2026, highlighted discrepancies in the historical methodology documentation and requested immediate preservation of the remaining evidence."},
-    "timer-remedy-doc-cz-dd-2026-08-22-nsz-sedme-doplneni-karny-podnet": {"title":"Supreme Public Prosecutor’s Office – seventh supplement to the pre-action demand and disciplinary submission","event":"The filing submitted the new Police records of 20 August 2026 and requested review of the handling of branch 6 NZN 1737/2026."},
-    "timer-remedy-doc-cz-dd-2026-08-24-vsz-praha-prezkum-msz-2-kzn-55-2025-136": {"title":"Prague High Public Prosecutor’s Office – request to review the Prague Municipal Public Prosecutor’s handling","event":"The filing requested review of the communication of 20 August 2026, ref. 2 KZN 55/2025-136, and submitted it as an urgent evidentiary supplement in supervision branch 1 VZN 1678/2026."},
-    "timer-remedy-doc-cz-dd-2026-08-24-policejni-prezident-doplneni-prezkumu": {"title":"Police President – urgent supplement to the request for review","event":"The filing relied on the Police Institute record of 20 August and the Internal Control Office record of 24 August 2026, alleged a closed procedural loop between those bodies and requested an impartial review and preservation of evidence."}
+    "timer-court-18a17-2026": {
+      "title": "Prague Municipal Court, case 18 A 17/2026 – action concerning the National Centre against Organised Crime",
+      "event": "The action concerning the National Centre against Organised Crime was filed on 1 May 2026."
+    },
+    "timer-court-8ad9-2026": {
+      "title": "Prague Municipal Court, case 8 Ad 9/2026 – Ministry of Health",
+      "event": "Subsequent filings identify an intervention action against the Ministry of Health dated 31 May 2026."
+    },
+    "timer-court-10c69-2026": {
+      "title": "Prague 4 District Court, case 10 C 69/2026 – Czech Television",
+      "event": "The consolidated action against Czech Television is dated 4 June 2026."
+    },
+    "timer-court-18a23-2026": {
+      "title": "Prague Municipal Court, case 18 A 23/2026 – Ministry of Justice",
+      "event": "The source action against the Ministry of Justice is dated 15 June 2026."
+    },
+    "timer-court-os-pro-obnova-2026": {
+      "title": "Prostějov District Court – reopening proceedings: complaint stage after the decisions of 7 August 2026",
+      "event": "The District Court decided the reopening applications on 7 August 2026. Complaints followed on 10 and 11 August, and the branch is now at the complaint stage."
+    },
+    "timer-court-os-pro-prevence-2026": {
+      "title": "Prostějov District Court – preventive filing 2026",
+      "event": "The preventive filing to the Prostějov District Court and the Police is dated 12 July 2026."
+    },
+    "timer-court-mv-2026-07-23": {
+      "title": "Prague Municipal Court, case 15 A 44/2026 – intervention action against the Ministry of the Interior",
+      "event": "The action was filed by data box on 23 July 2026 and was subsequently assigned case number 15 A 44/2026."
+    },
+    "timer-court-45t1-2024": {
+      "title": "Prague Municipal Court, case 45 T 1/2024 – rehearing after remittal by the Prague High Court",
+      "event": "On 29 July 2025, the Prague High Court set aside parts of the judgment of 7 May 2024 and returned the matter to the first-instance court."
+    },
+    "timer-preaction-nsz-2026-07-14": {
+      "title": "Supreme Public Prosecutor’s Office – pre-action demand after the fifth supplement",
+      "event": "The fifth supplement of 1 August 2026 requested at least an interim response by 21 August and voluntarily allowed until 11 September for a final position."
+    },
+    "timer-preaction-euda-2026-08-07": {
+      "title": "EUDA – formal call to act under Article 265 TFEU",
+      "event": "Dušan Dvořák sent EUDA a formal call to act on 7 August 2026 at 09:14; EUDA acknowledged receipt that day at 17:06:35."
+    },
+    "timer-admin-kpr-175-2026-08-03": {
+      "title": "Office of the President – complaint under Section 175 of the Code of Administrative Procedure",
+      "event": "The complaint concerning the Office’s procedure is dated 3 August 2026."
+    },
+    "timer-admin-krpt-infz-2026-07-27": {
+      "title": "Moravian-Silesian Regional Police Directorate – request for the Frýdek-Místek forensic unit’s SOP",
+      "event": "The information request was filed on 27 July 2026; the Police subsequently extended the response period to 21 August 2026."
+    },
+    "timer-admin-mk-2026-07-22": {
+      "title": "Ministry of Culture – new Church of Cannabis proceeding under Section 101(b) of the Code of Administrative Procedure",
+      "event": "On 12 August 2026, the Ministry expressly confirmed that the proceeding had commenced on 26 June 2026."
+    },
+    "timer-review-nsz-6nzn-2026": {
+      "title": "Supreme Public Prosecutor’s Office – review branch 6 NZN 1737/2026",
+      "event": "The canonical case register records the review branch as open since 27 April 2026."
+    },
+    "timer-review-msz-praha-3kzn197-2026": {
+      "title": "Prague Municipal Public Prosecutor’s Office, 3 KZN 197/2026 – principal allocation and internal branch",
+      "event": "On 11 June 2026, the Office divided the material received from the Supreme Public Prosecutor among several territorially and substantively responsible offices."
+    },
+    "timer-review-vsz-praha-1vzn1678-2026": {
+      "title": "Prague High Public Prosecutor’s Office – supervision of the Prague Municipal Public Prosecutor",
+      "event": "The canonical case register records the supervision branch as open since 22 June 2026."
+    },
+    "timer-review-vsz-olomouc-2026-07-10": {
+      "title": "Olomouc High Public Prosecutor’s Office – supervision of the Brno Regional Public Prosecutor",
+      "event": "The request for review and supervision is dated 10 July 2026."
+    },
+    "timer-review-ksz-brno-2026-07-10": {
+      "title": "Brno Regional Public Prosecutor’s Office, 1 KZT 475/2026 – review of the Prostějov District Public Prosecutor’s procedure",
+      "event": "A review request concerning the communication of 7 July 2026 was filed on 10 July 2026 and registered as 1 KZT 475/2026."
+    },
+    "timer-review-ksz-brno-1kzn1079-2026": {
+      "title": "Brno Regional Public Prosecutor’s Office, 1 KZN 1079/2026 – review of the Brno Municipal Public Prosecutor’s procedure",
+      "event": "On 27 July 2026, a review was requested concerning the handling of branch 3 ZN 140/2026 and the communication of 21 July 2026."
+    },
+    "timer-criminal-continuity-2010": {
+      "title": "Criminal complaints – asserted and archivally documented continuity",
+      "event": "The date comes from the author’s long-term evidence collection; every individual complaint must remain linked to a specific record."
+    },
+    "timer-criminal-par149-2011": {
+      "title": "Filings invoking Section 149(3)–(5) of the Criminal Code",
+      "event": "The author identifies this date for the evidence branch invoking Section 149(3)–(5); the timer does not confirm that legal classification."
+    },
+    "timer-court-ks-ostrava-15t11-2025": {
+      "title": "Ostrava Regional Court – complaint in Ostrava District Court case 15 T 11/2025",
+      "event": "The complaint against the order of 14 July 2026 was lodged through the Ostrava District Court on 22 July and supplemented on 23 July 2026."
+    },
+    "timer-review-pcr-ku-2026-05-27": {
+      "title": "Police Institute of Criminalistics – internal expert and control review",
+      "event": "On 27 May 2026, an information request was accompanied by an express request for internal review of forensic procedures used in criminal cases from 2009 to 2019."
+    },
+    "timer-review-msz-praha-osz-pha4-2026-07-02": {
+      "title": "Prague Municipal Public Prosecutor’s Office – review of the Prague 4 District Public Prosecutor’s handling",
+      "event": "On 2 July 2026, review was requested under Section 16a(7) concerning the communication of 26 June 2026, ref. 1 ZN 320/2026-11."
+    },
+    "timer-review-msz-praha-osz-pha7-2026-07-29": {
+      "title": "Prague Municipal Public Prosecutor’s Office – review of the Prague 7 District Public Prosecutor’s handling",
+      "event": "On 29 July 2026, review was requested concerning the communication of 28 July 2026, ref. ZN 87/2026-47."
+    },
+    "timer-review-msz-praha-osz-pha2-2026-08-01": {
+      "title": "Prague Municipal Public Prosecutor’s Office – review of the Prague 2 District Public Prosecutor’s handling",
+      "event": "A joint filing addressed on 1 August 2026 expressly requested review of the communication of 30 July 2026, ref. 1 ZN 157/2026-33."
+    },
+    "timer-admin-mv-rozklad-127234-2026": {
+      "title": "Ministry of the Interior / Minister of the Interior – administrative appeal by Ganja For All Animals",
+      "event": "The administrative appeal was filed and delivered on 12 August 2026; that day is day 0 and 13 August is day 1."
+    },
+    "timer-admin-nsz-odvolani-sin55-2026": {
+      "title": "Supreme Public Prosecutor’s Office / Office for Personal Data Protection – appeal against SIN 55/2026-19",
+      "event": "The appeal was filed on 1 August 2026; the following procedural period begins with day 1 on 2 August 2026."
+    },
+    "timer-admin-msz-odvolani-sin48-2026": {
+      "title": "Prague Municipal / High Public Prosecutor’s Offices – appeal against SIN 48/2026-12",
+      "event": "The appeal was filed on 31 July 2026; day 1 of the following period is 1 August 2026."
+    },
+    "timer-admin-msz-stiznost-necinnost-2026-07-31": {
+      "title": "Prague Municipal / High Public Prosecutor’s Offices – Section 16a inactivity complaint",
+      "event": "The complaint was filed on 31 July 2026 concerning information requests received on 8 and 13 July."
+    },
+    "timer-admin-kpr-repeat-16a-2026-08-10": {
+      "title": "Office of the President – repeated Section 16a complaint against KPR 5772/2026-2",
+      "event": "The repeated complaint was filed on 10 August 2026; day 1 of the following period is 11 August 2026."
+    },
+    "timer-admin-infz-remedy-rule": {
+      "title": "Freedom of Information Act – common rule for the start of procedural periods",
+      "event": "For a documented data-box filing, the delivery date is day 0 and the following day is day 1; the applicable period depends on the specific remedy."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54": {
+      "title": "Prostějov District Court – supplement to the complaint against 15 Nt 3105/2026-54",
+      "event": "The supplement alleged that the full scope of the joint reopening application had not been decided and requested that the order be set aside and the matter reheard."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-10-stiznost-necinnost-msp": {
+      "title": "Ministry of Justice – joint complaint concerning continuing inactivity",
+      "event": "The complaint alleged failure to deal with the request of 12 July and continuing inactivity after the complaint of 15 July; it was also submitted to the Prague Municipal Court as evidence of urgency."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53": {
+      "title": "Prostějov District Court – complaint against order 15 Nt 3103/2026-53",
+      "event": "A complaint was filed against the Prostějov District Court order of 7 August 2026, ref. 15 Nt 3103/2026-53."
+    },
+    "timer-remedy-doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960": {
+      "title": "Police Presidium – complaint concerning the handling of the THC-measurement review",
+      "event": "The complaint challenged the handling of point 3 of the filing of 27 May 2026 and requested review of the internal expert and control examination of THC measurement."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-15-zadost-soucinnost-osz-prostejov": {
+      "title": "Prostějov District Public Prosecutor’s Office – request for cooperation",
+      "event": "The request asked for cooperation, procedural guidance and information on the response to the review."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-15-doplneni-stiznosti-ministr-vnitra": {
+      "title": "Minister of the Interior – supplement to the complaints",
+      "event": "The supplement submitted the Police Presidium communication and requested managerial and control measures."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-15-zadost-prezkum-policejni-prezident": {
+      "title": "Police President – request for superior review",
+      "event": "The request sought a superior and impartial review of the handling of the filing."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-15-podnet-gibs": {
+      "title": "General Inspection of Security Forces – filing concerning THC records",
+      "event": "The filing requested examination of specified hypotheses and preservation of laboratory documentation without accusing a particular person."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-15-doplneni-prezkumu-msz-praha": {
+      "title": "Prague Municipal Public Prosecutor’s Office – supplement to review",
+      "event": "The supplement submitted the Police Presidium communication in the pending review."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-15-doplneni-dohledu-vsz-praha-olomouc": {
+      "title": "Prague and Olomouc High Public Prosecutor’s Offices – supplement to supervision",
+      "event": "The joint filing requested supplemented and coordinated supervisory review."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-15-seste-doplneni-predzalobni-vyzvy-nsz": {
+      "title": "Supreme Public Prosecutor’s Office – sixth supplement to pre-action demand",
+      "event": "The supplement requested a single independent and reviewable resolution of the connected branches."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-15-doplneni-zaloby-15-a-44-2026": {
+      "title": "Prague Municipal Court, case 15 A 44/2026 – evidentiary supplement",
+      "event": "The filing submitted new evidence without changing the action, grounds or relief sought."
+    },
+    "timer-remedy-doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026": {
+      "title": "Office of the President – complaint against communication KPR 5080/2026",
+      "event": "The complaint challenged the accuracy, completeness and reviewability of the Office’s procedure and requested investigation and remedial measures."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir": {
+      "title": "Czech Television and Czech Television Council – complaint concerning inactivity and settlement",
+      "event": "The filing requested substantive consideration, a response and an attempt at settlement; it expressly stated that it was not a complaint under Section 175 of the Code of Administrative Procedure."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-21-mv-druhe-nalehave-doplneni-stiznosti": {
+      "title": "Minister of the Interior – second urgent supplement to the complaints",
+      "event": "The filing submitted the Police records of 20 August 2026, highlighted discrepancies in the historical methodology documentation and requested immediate preservation of the remaining evidence."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-22-nsz-sedme-doplneni-karny-podnet": {
+      "title": "Supreme Public Prosecutor’s Office – seventh supplement to the pre-action demand and disciplinary submission",
+      "event": "The filing submitted the new Police records of 20 August 2026 and requested review of the handling of branch 6 NZN 1737/2026."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-24-vsz-praha-prezkum-msz-2-kzn-55-2025-136": {
+      "title": "Prague High Public Prosecutor’s Office – request to review the Prague Municipal Public Prosecutor’s handling",
+      "event": "The filing requested review of the communication of 20 August 2026, ref. 2 KZN 55/2025-136, and submitted it as an urgent evidentiary supplement in supervision branch 1 VZN 1678/2026."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-24-policejni-prezident-doplneni-prezkumu": {
+      "title": "Police President – urgent supplement to the request for review",
+      "event": "The filing relied on the Police Institute record of 20 August and the Internal Control Office record of 24 August 2026, alleged a closed procedural loop between those bodies and requested an impartial review and preservation of evidence."
+    },
+    "timer-remedy-doc-cz-ekk-dd-gf-2026-08-24-ostrava-frydek-brno-doplneni": {
+      "title": "Ostrava, Frýdek-Místek and Brno branches – urgent evidentiary supplement",
+      "event": "The filing of 24 August 2026 submitted the new Police records of 20 and 24 August and requested coordinated consideration of the connected criminal, review and supervisory branches."
+    },
+    "timer-remedy-doc-cz-dd-2026-08-22-ks-brno-9-to-315-316-doplneni": {
+      "title": "Brno Regional Court, cases 9 To 315/2026 and 9 To 316/2026 – urgent supplement to the complaints",
+      "event": "The filing of 22 August 2026 submitted the new Police records of 20 August and requested that they be assessed together with the pending complaints and the related reopening branch."
+    },
+    "timer-remedy-doc-cz-dd-2026-09-13-ks-ksz-vsz-doplneni-stiznosti": {
+      "title": "Brno Regional Court / Brno Regional and Olomouc High Public Prosecutor’s Offices – supplement to complaints and supervisory filings",
+      "event": "The filing of 13 September 2026 supplemented complaint proceedings 9 To 315/2026 and 9 To 316/2026 and related supervision/review branches before the Olomouc High and Brno Regional Public Prosecutor’s Offices."
+    },
+    "timer-remedy-doc-cz-dd-2026-09-13-nsz-ct-zaverecne-sdeleni": {
+      "title": "Supreme Public Prosecutor’s Office and Czech Television – closing communication to the pre-action demand and continuing complaint",
+      "event": "The closing communication of 13 September 2026 followed the pre-action demand to the Supreme Public Prosecutor’s Office and the continuing complaint to Czech Television and its Council; it identified the 11 September article and Ministry/Accreditation filing as new records."
+    }
   }
 }

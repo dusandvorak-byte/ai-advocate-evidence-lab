@@ -54,6 +54,9 @@ function dedupeKnownTags(html, file) {
     return '';
   });
 
+  // Old duplicate link tags can leave whitespace-only lines in generated pages.
+  html = html.replace(/^[ \t]+$/gm, '');
+
   return { html, removed, file };
 }
 

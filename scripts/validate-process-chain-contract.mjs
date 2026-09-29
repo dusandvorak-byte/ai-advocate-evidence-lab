@@ -80,7 +80,8 @@ const publicLabelCheck = html => {
   const suspicious = links.filter(label => /PDF|kopie|listina|dokument/i.test(label) && !['Dokument v PDF','Evidenční stránka','Původní PDF'].includes(label));
   return suspicious.slice(0,5);
 };
-const suspicious = publicLabelCheck(czechGodot);
+const godotWithoutSeparateArchive = czechGodot.replace(/<!-- JUSTICE-SLALOM:BEGIN -->[\s\S]*?<!-- JUSTICE-SLALOM:END -->/g,'');
+const suspicious = publicLabelCheck(godotWithoutSeparateArchive);
 if (suspicious.length) fail(`nejednotné veřejné popisky dokumentů: ${suspicious.join(' | ')}`);
 
 console.log(`Procesní kontrakt OK: ${expectedTimerCount} interních záznamů, 0 veřejných časovačů, 9 soudních větví; axiomy zachovány.`);
