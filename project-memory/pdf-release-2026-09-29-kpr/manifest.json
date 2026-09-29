@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "archive_sha256": "09f24c62a880735730c1d16248757fdad80112651a228d6d5dd5a43254dde259",
+  "chunks": [
+    {
+      "name": "chunk-000.b64",
+      "size": 200000,
+      "sha256": "d2bebfa72070dda004fbf151411d263dec17f6b00f6842df578bb91b2e1a798d"
+    },
+    {
+      "name": "chunk-001.b64",
+      "size": 18348,
+      "sha256": "65494ae3293a42a26828d407e39bf3da2c470a013f73059639d01fc9172b7112"
+    }
+  ],
+  "files": [
+    {
+      "path": "web/documents/report-04082026-010/104-kpr-5080-2026-2026-09-29.pdf",
+      "size": 209370,
+      "sha256": "e384de6033213e4026bade7f08233b3b6001651fc709b50b1775c1ff44644d86"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-29",
+  "purpose": "Další autorem dodaná státní listina KPR, původní PDF, CZ/EN a návaznost bez domyšlené lhůty.",
+  "documents": [
+    {
+      "id": "doc-cz-kpr-2026-09-29-kpr-5080-2026",
+      "user_title": "KPR odmítla účast prezidenta i svých zástupců u veřejných zasedání 12. a 13. října; termín dalšího posouzení žádosti o milost nelze předem určit",
+      "issue_date": "2026-09-29",
+      "received_date": null,
+      "institution_id": "CZ-KPR",
+      "reference": "KPR 5080/2026",
+      "case_ids": [
+        "CASE-CZ-KPR-4093-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "milost",
+        "pozvání k veřejným zasedáním",
+        "Stát lásky čas"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/104-kpr-5080-2026-2026-09-29.pdf",
+        "sha256": "e384de6033213e4026bade7f08233b3b6001651fc709b50b1775c1ff44644d86",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; all_pages_text_and_render_reviewed",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-29-kpr.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-kpr-2026-09-02-kpr-5080-2026-vyrizeni-stiznosti"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_official_document",
+      "evidence_note": "Datum 29. 9. 2026 je uvedeno u elektronického podpisu na jediné straně, na který odkazuje záhlaví. KPR potvrzuje dvě podání přijatá 22. 9. 2026. Obsah navazuje na pozvání a test novosti v podání z 21. 9. 2026; datum doručení této odpovědi není doloženo. Jméno podepisujícího JUDr. Víta Šťastného je uvedeno v jeho úřední funkci. Zdroj nemá jiné soukromé třetí osoby.",
+      "process_updates": [
+        {
+          "timer_id": "timer-admin-kpr-175-2026-08-03",
+          "step": {
+            "date": "2026-09-29",
+            "reference": "č. j. KPR 5080/2026",
+            "actor": "KPR",
+            "action": "potvrzení příjmu dvou podání dne 22. 9.; odmítnutí účasti u zasedání 12. a 13. 10.; další posouzení milosti bez předem určitelného termínu"
+          },
+          "activeCs": "Stížnost podle § 175 byla vyřízena 2. 9. 2026. KPR dne 29. 9. 2026 odmítla účast u zasedání a uvedla, že termín nového posouzení milosti nelze předem určit; větev milosti zůstává otevřená bez doložené pevné lhůty. Nejde o nové rozhodnutí o milosti.",
+          "activeEn": "The Section 175 complaint was dealt with on 2 September 2026. On 29 September the Office declined attendance at the hearings and stated that the date of reconsideration of the pardon request could not be specified in advance. The pardon branch remains open without a documented fixed deadline; this is not a new decision on the merits.",
+          "deadlineCs": "60 dnů – stížnost podle § 175 vyřízena 2. 9. 2026 / opakovaná žádost o milost – bez předem určitelného termínu podle KPR 5080/2026 ze dne 29. 9. 2026",
+          "deadlineEn": "60 days – Section 175 complaint dealt with on 2 September 2026 / repeated pardon request – no date can be specified in advance under the notice of 29 September 2026, ref. KPR 5080/2026",
+          "status": "pending_no_fixed_deadline",
+          "limit_kind": "no_fixed_deadline",
+          "limit_days": null,
+          "due_date": null,
+          "limit_label": "Bez předem určitelného termínu; KPR 5080/2026 ze dne 29. 9. 2026"
+        }
+      ]
+    }
+  ]
+}

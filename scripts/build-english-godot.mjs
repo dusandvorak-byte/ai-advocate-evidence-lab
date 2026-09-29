@@ -109,8 +109,13 @@ const reactionCard = (item, label = 'Subsequent filing') => {
       ? translations.institutions[targetDocument.institution_id]
       : null;
   const forAuthority = timer?.for_authority ? translateRoute(timer.for_authority) : null;
-  const from = timer?.actor ? translateRoute(timer.actor) : translations.institutions[item.institution_id];
-  return `<aside id="en-${escapeHtml(item.id)}" class="chronology-reaction" data-outgoing-id="${escapeHtml(item.id)}"><p class="kicker">${escapeHtml(label)}</p><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p>${to ? `<p><b>To:</b> ${escapeHtml(to)}</p>` : ''}${forAuthority ? `<p><b>For:</b> ${escapeHtml(forAuthority)}</p>` : ''}<p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p><p><b>From:</b> ${escapeHtml(from)}</p><p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)}</p></aside>`;
+  // Outgoing records may identify the recipient in institution_id. Only a
+  // documented actor or a person/alliance institution can identify the author.
+  const institution = institutions.institutions.find(entry => entry.id === item.institution_id);
+  const from = item.author_en || (timer?.actor ? translateRoute(timer.actor)
+    : ['person', 'ngo', 'association'].includes(institution?.type)
+      ? translations.institutions[item.institution_id] : null);
+  return `<aside id="en-${escapeHtml(item.id)}" class="chronology-reaction" data-outgoing-id="${escapeHtml(item.id)}"><p class="kicker">${escapeHtml(label)}</p><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p>${to ? `<p><b>To:</b> ${escapeHtml(to)}</p>` : ''}${forAuthority ? `<p><b>For:</b> ${escapeHtml(forAuthority)}</p>` : ''}<p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p>${from ? `<p><b>From:</b> ${escapeHtml(from)}</p>` : ''}<p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)}</p></aside>`;
 };
 
 const chronologyItem = item => {

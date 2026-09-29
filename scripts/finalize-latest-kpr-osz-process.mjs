@@ -73,6 +73,23 @@ for (const [id,update] of Object.entries(updates)) {
     timer.due_date=null;
   }
 }
+// New source-backed notices project their state after the historical patches.
+// Append to the same genealogy; do not restart a disposed complaint's deadline.
+for (const doc of documents) for (const update of doc.process_updates || []) {
+  const timer = timerById.get(update.timer_id);
+  if (!timer) throw new Error(`LATEST-PROCESS-GATE: missing updated branch ${update.timer_id}`);
+  const step = { ...update.step, document_id: doc.id };
+  timer.process_steps = (timer.process_steps || []).filter(item => item.document_id !== doc.id);
+  timer.process_steps.push(step);
+  timer.process_steps.sort((a,b) => String(a.date).localeCompare(String(b.date)));
+  timer.process_history = timer.process_steps.map(item => `${item.date} · ${item.reference} · ${item.actor}: ${item.action}`).join(' → ');
+  timer.active_chain_status = update.activeCs;
+  timer.active_chain_status_en = update.activeEn;
+  timer.deadline_chain = update.deadlineCs.split(' / ');
+  timer.deadline_chain_en = update.deadlineEn.split(' / ');
+  for (const field of ['status','limit_kind','limit_days','due_date','limit_label']) timer[field] = update[field];
+  timer.current_source_document_id = doc.id;
+}
 await writeFile(timerPath, JSON.stringify(data,null,2)+'\n','utf8');
 
 const stepHtml = (step,en) => `<span class="process-chain-arrow" aria-hidden="true">→</span><div class="process-chain-step" role="listitem"><time datetime="${esc(step.date)}">${esc(step.date)}</time><span class="process-chain-reference"><b>${en?'Ref. / case no.':'č. j. / sp. zn.'}:</b> ${esc(step.reference)}</span><span class="process-chain-actor">${esc(step.actor)}</span><span class="process-chain-action">${esc(step.action)}</span></div>`;

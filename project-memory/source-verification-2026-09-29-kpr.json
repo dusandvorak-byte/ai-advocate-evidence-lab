@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "files": [
+    {
+      "document_id": "doc-cz-kpr-2026-09-29-kpr-5080-2026",
+      "source_filename": "KPR dne 29.9.2026, čj. KPR 5080-2026- bude zabývt, nepřijedeme na soud.pdf",
+      "source_sha256": "e384de6033213e4026bade7f08233b3b6001651fc709b50b1775c1ff44644d86",
+      "public_pdf": "documents/report-04082026-010/104-kpr-5080-2026-2026-09-29.pdf",
+      "public_sha256": "e384de6033213e4026bade7f08233b3b6001651fc709b50b1775c1ff44644d86",
+      "pages": 1,
+      "issue_date": "2026-09-29",
+      "reference": "KPR 5080/2026",
+      "receipt_date_not_inferred": true
+    }
+  ]
+}
