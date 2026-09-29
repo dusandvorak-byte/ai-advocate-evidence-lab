@@ -8,7 +8,6 @@ const registrySource = 'project-memory/documents-2026.json';
 const institutionsSource = 'project-memory/institutions.json';
 const registryTarget = `${dataDir}/documents-2026.json`;
 const institutionsTarget = `${dataDir}/institutions.json`;
-const scriptTag = '<script src="document-chronology.js" defer></script>';
 const homeScriptTag = '<script src="live-dockets.js" defer></script>';
 const homeStyleTag = '<link rel="stylesheet" href="live-dockets.css">';
 const MAIN_FROM = '2026-05-01';
@@ -184,7 +183,7 @@ const renderChronologyItem = item => {
   return `<li id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}" data-institution-id="${escapeHtml(item.institution_id)}"><b>Datum:</b> ${escapeHtml(formatDate(item.issue_date))} · <b>Kdo:</b> <span class="institution">${escapeHtml(name)}</span> · <b>Č. j. / sp. zn.:</b> ${escapeHtml(referenceText(item))} · <b>Co se stalo:</b> ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a>${cases}${inline}</li>`;
 };
 
-const caseIndex = `<section id="rizeni-online" class="case-anchor-index"><h3>Uzly řízení</h3>${caseAnchors.map(([id, label]) => `<article id="${id}" class="case-anchor-node"><h4>${escapeHtml(label)}</h4><p>Související listiny a procesní kroky jsou průběžně řazeny v chronologii výše.</p></article>`).join('')}</section>`;
+const caseIndex = `<section id="chronology-case-index" class="case-anchor-index"><h3>Uzly řízení</h3>${caseAnchors.map(([id, label]) => `<article id="${id}" class="case-anchor-node"><h4>${escapeHtml(label)}</h4><p>Související listiny a procesní kroky jsou průběžně řazeny v chronologii výše.</p></article>`).join('')}</section>`;
 const chronologyHtml = `<ol id="chronologie-seznam">${stateDocuments.map(renderChronologyItem).join('')}</ol>`;
 const archiveHtml = archiveDocuments.length
   ? `<h2 id="archiv-vstupu-do-eu">Archiv vstupu do EU</h2><p>Dokumentovaná historie podání, rozhodnutí, obran a institucionálních vazeb před 1. květnem 2026, systematicky zejména od roku 2010.</p><ol id="archiv-seznam" start="${stateDocuments.length + 1}">${archiveDocuments.map(renderChronologyItem).join('')}</ol>`
@@ -196,10 +195,13 @@ article = article
   .replace(/<p class="standfirst">[\s\S]*?<\/p>/, '<p class="standfirst">Průběžná chronologická mapa rozhodnutí, vyrozumění, výzev a dalších procesních dokumentů od 1. května 2026.</p>')
   .replace(/<div class="news-meta">[\s\S]*?<\/div>/, `<div class="news-meta"><span>Od 1. května 2026</span><span>Stát: ${stateDocuments.length} evidovaných listin</span><span>Autor: Mgr. Dušan Dvořák</span></div>`)
   .replace(/<h2 id="chronologie">[\s\S]*?<\/h2>/, '<h2 id="chronologie">Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?</h2>')
-  .replace(/<section id="rizeni-online"[\s\S]*?<\/section>\s*/g, '')
+  .replace(/<section id="(?:rizeni-online|chronology-case-index)"[\s\S]*?<\/section>\s*/g, '')
   .replace(/<ol(?: id="chronologie-seznam")?[^>]*>[\s\S]*?<\/ol>/, `${chronologyHtml}${caseIndex}${archiveHtml}`);
 
-if (!article.includes(scriptTag)) article = article.replace('</body>', `  ${scriptTag}\n</body>`);
+// The canonical build owns chronology, relations, case anchors and PDF labels.
+// Retire both versioned and unversioned legacy renderers: they used to overwrite
+// the finalized HTML after load with an older, incomplete relation model.
+article = article.replace(/\s*<script\b[^>]*\bsrc=["'][^"']*\bdocument-chronology\.js(?:\?[^"']*)?["'][^>]*>\s*<\/script>/gi, '');
 await writeFile(articlePath, article, 'utf8');
 
 let home = await readFile(homePath, 'utf8');
