@@ -51,9 +51,9 @@ const formatDate = value => {
 const referenceText = item => String(item.reference || '').trim() || 'bez samostatného č. j./sp. zn.';
 
 const compareDocuments = (a, b) =>
-  String(a.issue_date || '').localeCompare(String(b.issue_date || '')) ||
-  String(a.received_date || '').localeCompare(String(b.received_date || '')) ||
-  String(a.id || '').localeCompare(String(b.id || ''));
+  String(b.issue_date || '').localeCompare(String(a.issue_date || '')) ||
+  String(b.received_date || '').localeCompare(String(a.received_date || '')) ||
+  String(b.id || '').localeCompare(String(a.id || ''));
 
 const tailPriority = new Map([
   ['doc-eu-euda-2026-08-07-ack-article-265-tfeu', 0],
@@ -64,7 +64,7 @@ const tailPriority = new Map([
 ]);
 
 const compareStateDocuments = (a, b) => {
-  const date = String(a.issue_date || '').localeCompare(String(b.issue_date || ''));
+  const date = String(b.issue_date || '').localeCompare(String(a.issue_date || ''));
   if (date) return date;
   const pa = tailPriority.has(a.id) ? tailPriority.get(a.id) : 999;
   const pb = tailPriority.has(b.id) ? tailPriority.get(b.id) : 999;
