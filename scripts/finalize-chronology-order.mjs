@@ -13,7 +13,7 @@ article = article.replace(chronologyPattern, (_all, open, who, date, reference) 
 
 const entries = [...article.matchAll(/<li\b[^>]*\bid="doc-[^"]+"[^>]*data-issue-date="([^"]+)"[^>]*>/g)].map(match => match[1]);
 for (let i = 1; i < entries.length; i += 1) {
-  if (entries[i - 1].localeCompare(entries[i]) > 0) throw new Error(`Chronologie není vzestupně seřazena: ${entries[i - 1]} před ${entries[i]}`);
+  if (entries[i - 1].localeCompare(entries[i]) < 0) throw new Error(`Chronologie není sestupně seřazena: ${entries[i - 1]} před ${entries[i]}`);
 }
 const itemCount = (article.match(/<li\b[^>]*\bid="doc-[^"]+"/g) || []).length;
 const dateFirstCount = (article.match(/<li\b[^>]*\bid="doc-[^"]+"[^>]*><b>Datum:<\/b>/g) || []).length;
