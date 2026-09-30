@@ -29,8 +29,8 @@ for (const [index,row] of published.rows.entries()) if (row.number !== index + 1
 const expectedOrder = items.flatMap(item => item.justice_slalom.recipients.map((recipient, recipientOrder) => ({
   id: `${item.id}--${recipient.institution_id}`, date: item.issue_date,
   archiveNumber: item.justice_slalom.archive_number, recipientOrder
-}))).sort((a,b) => a.date.localeCompare(b.date) || a.archiveNumber - b.archiveNumber || a.recipientOrder - b.recipientOrder);
-if (JSON.stringify(published.rows.map(row => [row.id,row.date])) !== JSON.stringify(expectedOrder.map(row => [row.id,row.date]))) fail('řádky nejsou vzestupně podle doloženého data podání');
+}))).sort((a,b) => b.date.localeCompare(a.date) || b.archiveNumber - a.archiveNumber || a.recipientOrder - b.recipientOrder);
+if (JSON.stringify(published.rows.map(row => [row.id,row.date])) !== JSON.stringify(expectedOrder.map(row => [row.id,row.date]))) fail('řádky nejsou sestupně podle doloženého data podání');
 
 const pages = [
   ['web/index.html','cs'], ['web/en.html','en'],
