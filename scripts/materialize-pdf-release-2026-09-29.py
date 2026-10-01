@@ -3,7 +3,7 @@ from pathlib import Path
 import base64, hashlib, io, json, lzma, tarfile
 
 root = Path(__file__).resolve().parents[1]
-for folder in ['project-memory/pdf-release-2026-09-29', 'project-memory/pdf-release-2026-09-29-kpr']:
+for folder in ['project-memory/pdf-release-2026-09-29', 'project-memory/pdf-release-2026-09-29-kpr', 'project-memory/pdf-release-2026-10-01']:
     source = root / folder
     manifest = json.loads((source / 'manifest.json').read_text())
     chunks = []

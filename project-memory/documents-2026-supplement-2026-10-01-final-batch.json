@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-01",
+  "purpose": "Finální říjnová dávka: konečná verze společného důkazního doplnění NSZ/VSZ a nové vyřízení stížnosti na průtahy KSZ v Brně.",
+  "documents": [
+    {
+      "id": "doc-cs-dd-2026-10-01-spolecne-doplneni-nsz-vsz-uzavreny-retezec",
+      "user_title": "Mimořádně naléhavé společné důkazní doplnění – uzavřený řetězec odpovědnosti potvrzený MSZ v Praze",
+      "issue_date": "2026-10-01",
+      "received_date": "2026-10-01",
+      "institution_id": "CZ-DD",
+      "reference": "6 NZN 1737/2026; 1 VZN 1678/2026; 3 VZN 239/2026",
+      "case_ids": [
+        "CASE-CZ-NSZ-6NZN1737-2026",
+        "CASE-CZ-VSZ-PHA-1VZN1678-2026",
+        "CASE-CZ-VSZ-OLO-3VZN239-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "THC",
+        "THCA",
+        "dekarboxylace",
+        "vzorkování",
+        "homogenizace",
+        "nejistota měření",
+        "SOP",
+        "Unie obhájců ČR",
+        "MSZ Praha 3 KZN 974/2026-114",
+        "dohled"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf",
+        "sha256": "d1a482411d2e08797b8417ea6708454d47a60faf5ca36b1746c4100406cca71b",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-01-final-batch.json"
+      },
+      "relations": [
+        {
+          "type": "důkazní_doplnění_k",
+          "target_id": "doc-cz-msz-pha-2026-10-01-3-kzn-974-2026-114"
+        },
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-ksz-brn-2026-09-16-1-kzt-475-2026-71"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Finální verze společného důkazního doplnění ze dne 1. 10. 2026 nahrazuje dříve připravenou verzi téhož podání; v kanonickém registru je vedena pouze tato konečná verze. Adresáty jsou NSZ, VSZ v Praze a VSZ v Olomouci.",
+      "justice_slalom": {
+        "archive_number": 131,
+        "archive_name": "NSZ a VSZ -1.října 2026 - společné doplnění důkazů- aktulizace po vyjádření MSZ v Praze.pdf",
+        "source_sha256": "d1a482411d2e08797b8417ea6708454d47a60faf5ca36b1746c4100406cca71b",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "primary",
+            "subject_cs": "Mimořádně naléhavé společné důkazní doplnění – uzavřený řetězec odpovědnosti",
+            "subject_en": "Urgent joint evidentiary supplement – closed chain of responsibility"
+          },
+          {
+            "institution_id": "CZ-VSZ-PHA",
+            "reference": "1 VZN 1678/2026",
+            "role": "simultaneous",
+            "subject_cs": "Mimořádně naléhavé společné důkazní doplnění – uzavřený řetězec odpovědnosti",
+            "subject_en": "Urgent joint evidentiary supplement – closed chain of responsibility"
+          },
+          {
+            "institution_id": "CZ-VSZ-OLO",
+            "reference": "3 VZN 239/2026",
+            "role": "simultaneous",
+            "subject_cs": "Mimořádně naléhavé společné důkazní doplnění – uzavřený řetězec odpovědnosti",
+            "subject_en": "Urgent joint evidentiary supplement – closed chain of responsibility"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-ksz-brn-2026-10-01-1-spr-338-2026-5",
+      "user_title": "KSZ v Brně vyřídilo stížnost na průtahy; potvrdilo opožděné doručení ve věci 1 KZT 475/2026 a prodloužení lhůty ve věci 1 KZN 1079/2026",
+      "issue_date": "2026-10-01",
+      "received_date": null,
+      "institution_id": "CZ-KSZ-BRN",
+      "reference": "1 SPR 338/2026-5",
+      "case_ids": [
+        "CASE-CZ-KSZ-BRN-1SPR338-2026",
+        "CASE-CZ-KSZ-BRN-1KZT475-2026",
+        "CASE-CZ-KSZ-BRN-1KZN1079-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "stížnost na průtahy",
+        "1 KZT 475/2026",
+        "1 KZN 1079/2026",
+        "instanční dohled",
+        "opožděné doručení",
+        "lhůta 2 měsíců",
+        "prodloužení lhůty"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/106-ksz-brno-1-spr-338-2026-5-2026-10-01.pdf",
+        "sha256": "c9cd624bff387428a670ef28351796b8bd4e89f53a7c019add281d6b395696ce",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-01-final-batch.json"
+      },
+      "relations": [
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-ksz-brn-2026-09-16-1-kzt-475-2026-71"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "KSZ v Brně uvedlo, že u sp. zn. 1 KZT 475/2026 byl instanční dohled vykonán 16. 9. 2026 a přípis expedován 18. 9. 2026, ale administrativním nedopatřením nebyl doručen do datové schránky a byl doručen až 29. 9. 2026; za pochybení se omluvilo. U sp. zn. 1 KZN 1079/2026 uvedlo, že základní lhůta byla prodloužena do 9. 10. 2026. Nové vyrozumění označuje přípis z 16. 9. 2026 jako č. j. 1 KZT 475/2026-73, zatímco dříve publikovaný dokument je v kanonickém registru veden jako 1 KZT 475/2026-71; tento rozdíl se bez dalšího primárního ověření nesjednocuje."
+    }
+  ]
+}

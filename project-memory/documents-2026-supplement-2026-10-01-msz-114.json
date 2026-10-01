@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-01",
+  "purpose": "Vyrozumění MSZ v Praze o výsledku dohledu nad OSZ pro Prahu 2 a atomické propojení s podáním ze dne 1. 8. 2026 pro Stát lásky čas.",
+  "documents": [
+    {
+      "id": "doc-cz-msz-pha-2026-10-01-3-kzn-974-2026-114",
+      "user_title": "MSZ v Praze odložilo jako nedůvodný podnět k dohledu nad OSZ pro Prahu 2",
+      "issue_date": "2026-10-01",
+      "received_date": null,
+      "institution_id": "CZ-MSZ-PHA",
+      "reference": "3 KZN 974/2026-114",
+      "case_ids": [
+        "case-cz-msz-praha-3kzn974-2026-osz-pha2"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "dohled",
+        "OSZ Praha 2",
+        "1 ZN 157/2026",
+        "§ 12d zákona o státním zastupitelství",
+        "§ 158 odst. 3 trestního řádu",
+        "§ 329",
+        "§ 330",
+        "THC",
+        "THCA",
+        "dekarboxylace",
+        "právo EU"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/105-msz-praha-3-kzn-974-2026-114-2026-10-01-verejna-kopie.pdf",
+        "intended_pdf": "documents/report-04082026-010/105-msz-praha-3-kzn-974-2026-114-2026-10-01-verejna-kopie.pdf",
+        "sha256": null,
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-01-msz-114.json",
+        "source_original_sha256": "8d24d78a97051ab6ed70c55806277f74880a7e06d6216101976ff6a53b5a5aaf"
+      },
+      "relations": [
+        {
+          "type": "odpoved_na",
+          "target_id": "doc-cs-dd-2026-08-01-slalom-augsep-067"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "MSZ v Praze vyrozuměním č. j. 3 KZN 974/2026-114 ze dne 1. 10. 2026 přezkoumalo postup OSZ pro Prahu 2 ve věci 1 ZN 157/2026. Uvedlo, že podání ze dne 27. 5. 2026 v části týkající se Ministerstva spravedlnosti neobsahovalo konkrétní skutečnosti důvodně nasvědčující spáchání trestného činu, a podnět Mgr. Dušana Dvořáka ze dne 1. 8. 2026 k výkonu dohledu odložilo jako nedůvodný. Současně označilo své stanovisko za konečné vyřízení věci a poučilo, že další obsahově shodné podněty již nebudou přezkoumávány."
+    },
+    {
+      "id": "doc-cs-dd-2026-08-01-slalom-augsep-067",
+      "user_title": "Společný podnět k přezkumu vyřízení OSZ pro Prahu 2",
+      "issue_date": "2026-08-01",
+      "received_date": "2026-08-01",
+      "institution_id": "CZ-DD",
+      "reference": "1 ZN 157/2026-33; 3 KZN 197/2026",
+      "case_ids": [
+        "case-cz-msz-praha-3kzn974-2026-osz-pha2"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "2026-08"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-08/067-podani-2026-08-01.pdf",
+        "sha256": "20a7597dff376f17ff4c8fd2ff2024f63fc0ae78c4b7d32d860e95aabf999a44",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
+      },
+      "relations": [
+        {
+          "type": "podani_na_ktere_organ_reaguje",
+          "target_id": "doc-cz-msz-pha-2026-10-01-3-kzn-974-2026-114"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 114,
+        "archive_name": "Společný podnět MSZ–VSZ–NSZ – přezkum OSZ pro Prahu 2.pdf",
+        "source_sha256": "20a7597dff376f17ff4c8fd2ff2024f63fc0ae78c4b7d32d860e95aabf999a44",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MSZ-PHA",
+            "reference": "1 ZN 157/2026-33; 3 KZN 197/2026",
+            "role": "primary",
+            "subject_cs": "Společný podnět k přezkumu vyřízení OSZ pro Prahu 2",
+            "subject_en": "Joint request for review of the Prague 2 prosecutor’s response"
+          },
+          {
+            "institution_id": "CZ-VSZ-PHA",
+            "reference": "1 VZN 1678/2026",
+            "role": "simultaneous",
+            "subject_cs": "Společný podnět k přezkumu vyřízení OSZ pro Prahu 2",
+            "subject_en": "Joint request for review of the Prague 2 prosecutor’s response"
+          },
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "simultaneous",
+            "subject_cs": "Společný podnět k přezkumu vyřízení OSZ pro Prahu 2",
+            "subject_en": "Joint request for review of the Prague 2 prosecutor’s response"
+          }
+        ]
+      }
+    }
+  ]
+}

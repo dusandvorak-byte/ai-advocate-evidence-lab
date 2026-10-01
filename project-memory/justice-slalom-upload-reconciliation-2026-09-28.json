@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "source_archive": "od 1.8.2026.zip + three standalone PDFs",
+  "source_archive": "od 1.8.2026.zip + three standalone PDFs + final replacement filing of 1 October 2026",
   "files": [
     {
       "number": 1,
@@ -1032,6 +1032,16 @@
       "document_id": "doc-cs-dd-2026-09-27-slalom-augsep-083",
       "public_pdf": "documents/justice-slalom/2026-09/083-podani-2026-09-27.pdf",
       "archive_number": 130
+    },
+    {
+      "number": 84,
+      "filename": "NSZ a VSZ -1.října 2026 - společné doplnění důkazů- aktulizace po vyjádření MSZ v Praze.pdf",
+      "sha256": "d1a482411d2e08797b8417ea6708454d47a60faf5ca36b1746c4100406cca71b",
+      "pages": 7,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cs-dd-2026-10-01-spolecne-doplneni-nsz-vsz-uzavreny-retezec",
+      "public_pdf": "documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf",
+      "archive_number": 131
     }
   ],
   "review_instruction": {

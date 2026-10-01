@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_on": "2026-09-25",
+  "updated_on": "2026-10-01",
   "description": "Ověřené opravy a doplnění živých procesních časovačů. Přepisují shodná ID v process-timers.json a mohou přidávat nové časovače.",
   "patches": [
     {
@@ -62,12 +62,16 @@
       "reference": "KSZ Brno sp. zn. 1 KZT 475/2026; č. j. 1 KZT 475/2026-32 · OSZ Prostějov č. j. 1 ZT 11/2010-752",
       "start_date": "2026-07-10",
       "start_date_basis": "Dne 10. července 2026 byla KSZ v Brně podána žádost o přezkoumání sdělení OSZ v Prostějově ze dne 7. července 2026, č. j. 1 ZT 11/2010-752. KSZ vede přezkum pod sp. zn. 1 KZT 475/2026.",
-      "status": "active",
+      "status": "closed_by_response",
       "limit_kind": "no_fixed_numeric_statutory_deadline",
       "limit_label": "bez doložené univerzální číselné zákonné lhůty k výsledku přezkumu",
       "legal_basis": "přezkum vyřízení podání podle § 16a odst. 7 zákona č. 283/1993 Sb.; bez doložené univerzální číselné lhůty k rozhodnutí",
-      "process_history": "OSZ Prostějov – 7. 7. 2026 – č. j. 1 ZT 11/2010-752 – vydalo napadené sdělení; žádost o přezkum KSZ Brno – 10. 7. 2026 – následně vedena pod sp. zn. 1 KZT 475/2026; KSZ Brno – 21. 7. 2026 – č. j. 1 KZT 475/2026-32 – oznámilo, že po opatření příslušných spisových materiálů postup OSZ přezkoumá a podatele vyrozumí.",
-      "href": "zpravy/04082026-010.html#case-cz-ksz-brno-prezkumy"
+      "process_history": "OSZ Prostějov – 7. 7. 2026 – č. j. 1 ZT 11/2010-752 – vydalo napadené sdělení; žádost o přezkum KSZ Brno – 10. 7. 2026 – následně vedena pod sp. zn. 1 KZT 475/2026; KSZ Brno – 21. 7. 2026 – č. j. 1 KZT 475/2026-32 – oznámilo, že po opatření příslušných spisových materiálů postup OSZ přezkoumá a podatele vyrozumí.; KSZ Brno – 1. 10. 2026 – č. j. 1 SPR 338/2026-5 – potvrzeno opožděné doručení dne 29. 9. 2026 a omluva za administrativní pochybení.",
+      "href": "zpravy/04082026-010.html#case-cz-ksz-brno-prezkumy",
+      "closed_on": "2026-09-16",
+      "result_document_id": "doc-cz-ksz-brn-2026-09-16-1-kzt-475-2026-71",
+      "delivery_date": "2026-09-29",
+      "delivery_note": "KSZ v Brně dne 1. 10. 2026, č. j. 1 SPR 338/2026-5, potvrdilo, že přípis z 16. 9. 2026 byl expedován 18. 9., ale administrativním nedopatřením doručen do datové schránky až 29. 9. 2026."
     },
     {
       "id": "timer-review-ksz-brno-1kzn1079-2026",
@@ -76,12 +80,13 @@
       "reference": "KSZ Brno č. j. 1 KZN 1079/2026-14 · MSZ Brno č. j. 3 ZN 140/2026-3",
       "start_date": "2026-07-27",
       "start_date_basis": "Dne 27. července 2026 byla KSZ v Brně podána žádost o přezkoumání postupu MSZ v Brně ve věci sp. zn. 3 ZN 140/2026, zejména vyrozumění MSZ v Brně ze dne 21. července 2026, č. j. 3 ZN 140/2026-3.",
-      "status": "active",
-      "limit_kind": "no_fixed_numeric_statutory_deadline",
-      "limit_label": "bez doložené univerzální číselné zákonné lhůty k výsledku přezkumu",
-      "legal_basis": "přezkum podle § 16a odst. 7 a instanční dohled; bez doložené univerzální číselné lhůty k rozhodnutí",
-      "process_history": "MSZ Brno – 21. 7. 2026 – č. j. 3 ZN 140/2026-3 – oznámilo věcnou nepříslušnost a vrátilo větev MSZ v Praze; žádost KSZ Brno – 27. 7. 2026 – přezkum postupu MSZ Brno ve sp. zn. 3 ZN 140/2026; KSZ Brno – 31. 7. 2026 – č. j. 1 KZN 1079/2026-14 – potvrdilo příjem a oznámilo, že po doručení spisových materiálů bude věc přezkoumána.",
-      "href": "zpravy/04082026-010.html#case-cz-ksz-brno-prezkumy"
+      "status": "active_extended",
+      "limit_kind": "institution_extended_deadline",
+      "limit_label": "prodloužená lhůta do 9. 10. 2026",
+      "legal_basis": "čl. 10 odst. 9 pokynu obecné povahy nejvyššího státního zástupce č. 1/2017; KSZ v Brně dne 1. 10. 2026 potvrdilo prodloužení do 9. 10. 2026",
+      "process_history": "MSZ Brno – 21. 7. 2026 – č. j. 3 ZN 140/2026-3 – oznámilo věcnou nepříslušnost a vrátilo větev MSZ v Praze; žádost KSZ Brno – 27. 7. 2026 – přezkum postupu MSZ Brno ve sp. zn. 3 ZN 140/2026; KSZ Brno – 31. 7. 2026 – č. j. 1 KZN 1079/2026-14 – potvrdilo příjem a oznámilo, že po doručení spisových materiálů bude věc přezkoumána.; KSZ Brno – 1. 10. 2026 – č. j. 1 SPR 338/2026-5 – potvrzeno prodloužení lhůty k vyřízení do 9. 10. 2026.",
+      "href": "zpravy/04082026-010.html#case-cz-ksz-brno-prezkumy",
+      "deadline_date": "2026-10-09"
     },
     {
       "id": "timer-review-msz-praha-3kzn197-2026",
@@ -132,12 +137,14 @@
       "reference": "napadené OSZ Praha 2 č. j. 1 ZN 157/2026-33 · související MSZ Praha sp. zn. 3 KZN 197/2026",
       "start_date": "2026-08-01",
       "start_date_basis": "Dne 1. srpna 2026 byl MSZ v Praze adresován společný podnět, jehož část A výslovně žádá přezkum vyřízení OSZ pro Prahu 2 ze dne 30. července 2026, č. j. 1 ZN 157/2026-33, podle § 16a odst. 7.",
-      "status": "active",
+      "status": "closed_by_response",
       "limit_kind": "no_fixed_numeric_statutory_deadline",
       "limit_label": "bez doložené univerzální číselné zákonné lhůty k výsledku přezkumu",
       "legal_basis": "§ 16a odst. 7 zákona č. 283/1993 Sb.",
-      "process_history": "OSZ Praha 2 – 30. 7. 2026 – č. j. 1 ZN 157/2026-33 – napadené vyřízení; MSZ Praha – 1. 8. 2026 – výslovná žádost o přezkum v části A společného podnětu; související větev MSZ Praha sp. zn. 3 KZN 197/2026 a dohled VSZ Praha sp. zn. 1 VZN 1678/2026.",
-      "href": "zpravy/04082026-010.html#case-cz-msz-praha-prezkumy"
+      "process_history": "OSZ Praha 2 – 30. 7. 2026 – č. j. 1 ZN 157/2026-33 – napadené vyřízení; MSZ Praha – 1. 8. 2026 – výslovná žádost o přezkum v části A společného podnětu; související větev MSZ Praha sp. zn. 3 KZN 197/2026 a dohled VSZ Praha sp. zn. 1 VZN 1678/2026.; MSZ Praha – 1. 10. 2026 – č. j. 3 KZN 974/2026-114 – podnět k výkonu dohledu odložen jako nedůvodný a stanovisko označeno za konečné vyřízení věci.",
+      "href": "zpravy/04082026-010.html#case-cz-msz-praha-prezkumy",
+      "closed_on": "2026-10-01",
+      "result_document_id": "doc-cz-msz-pha-2026-10-01-3-kzn-974-2026-114"
     }
   ]
 }

@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "archive_sha256": "7540cec9e2d87062b2ceef543b5475fcf62450c7c9301d2d23364d1c73db09ef",
+  "chunks": [
+    {
+      "name": "chunk-000.b64",
+      "size": 60000,
+      "sha256": "dcc174599ffa1b9a465ecb83aaff59e6e9067d2d09831720096d0fc08e5c18b7"
+    },
+    {
+      "name": "chunk-001.b64",
+      "size": 60000,
+      "sha256": "fbf38996f9ebdc09b8e3dd7527c028ed4b67ff63498c893e441663c64ef6eced"
+    },
+    {
+      "name": "chunk-002.b64",
+      "size": 60000,
+      "sha256": "6f7a544b650980ffec70fbef22d0bfc30e7c9c8cb57794c30b6a3a1db98e4069"
+    },
+    {
+      "name": "chunk-003.b64",
+      "size": 60000,
+      "sha256": "8ebc805fa32a6887bff23f915164c63a1ff950135eb0cf844af0fc865c673f01"
+    },
+    {
+      "name": "chunk-004.b64",
+      "size": 60000,
+      "sha256": "b33b18dfafad89bc0db6b016121ac90f4c468e47b8c1aeb47b5f965264e7aa7a"
+    },
+    {
+      "name": "chunk-005.b64",
+      "size": 60000,
+      "sha256": "90429a98aa18b1fe1e387bda4c86281db80db29602574c5413c5ac1d4dd01ed2"
+    },
+    {
+      "name": "chunk-006.b64",
+      "size": 60000,
+      "sha256": "d77843e41a536486134b6e6e4f6bdec113006b9637b9ad14538d18631928caab"
+    },
+    {
+      "name": "chunk-007.b64",
+      "size": 60000,
+      "sha256": "ebab13c9df5e301a2d0cb940a39e475336999e3f1e1e1b8bd922f5631a0d6bc9"
+    },
+    {
+      "name": "chunk-008.b64",
+      "size": 60000,
+      "sha256": "44bc78e9a9ef735a9a31588bf30027c3304ce8acf9292d5aceca000e887ec7f1"
+    },
+    {
+      "name": "chunk-009.b64",
+      "size": 34992,
+      "sha256": "47ed96bc4f35827d43357ba4ff5ad66b25160319189dd6f1b7b6db13c908cbf5"
+    }
+  ],
+  "files": [
+    {
+      "path": "web/documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf",
+      "size": 179257,
+      "sha256": "d1a482411d2e08797b8417ea6708454d47a60faf5ca36b1746c4100406cca71b"
+    },
+    {
+      "path": "web/documents/report-04082026-010/106-ksz-brno-1-spr-338-2026-5-2026-10-01.pdf",
+      "size": 311366,
+      "sha256": "c9cd624bff387428a670ef28351796b8bd4e89f53a7c019add281d6b395696ce"
+    }
+  ]
+}
