@@ -104,6 +104,7 @@ article = article
   .replaceAll('href="web/documents/', 'href="documents/')
   .replaceAll("href='web/documents/", "href='documents/");
 await writeFile(output.article, article, 'utf8');
+await run('scripts/sync-primary-navigation.mjs');
 const home = await readFile(output.home, 'utf8');
 const liveDockets = await readFile('web/live-dockets.js', 'utf8');
 for (const bar of ['Godot online → každá zpráva má zdroj','Aktivní soudní řízení od 1. května 2026','justicni-slalom']) if (!liveDockets.includes(bar)) throw new Error(`Generátor titulní stránky neobsahuje lištu: ${bar}`);
