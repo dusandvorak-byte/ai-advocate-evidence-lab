@@ -71,10 +71,8 @@ const phoneCourtRule = styles.match(/@media \(max-width: 480px\) \{([\s\S]*?)\n\
 if (!phoneCourtRule.includes('grid-template-columns: 1fr')) {
   throw new Error('Soudní karty se na telefonu neskládají do jednoho sloupce');
 }
-if (!styles.includes('#semafor.utility-grid')
-  || !styles.includes('grid-template-columns: minmax(0,1fr)')
-  || !styles.includes('#semafor.utility-grid > .desk')) {
-  throw new Error('Důkazní přepážka nemá smlouvu plné šířky');
+for (const [label, page] of [['CZ home', home], ['EN home', englishHome], ['CZ church', churchHome], ['EN church', churchEnglish]]) {
+  if (page.includes('id="evidence-file"') || page.includes('class="desk"') || page.includes('MÍSTNÍ DŮKAZNÍ PŘEPÁŽKA') || page.includes('LOCAL EVIDENCE DESK')) throw new Error(`${label}: zrušená místní důkazní přepážka se vrátila`);
 }
 if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Titulní stránka nenačítá generátor lišt');
 if (!home.includes('href="#podpora">Podpořit</a>')) throw new Error('Z první lišty zmizela sekce Podpořit');
@@ -133,7 +131,6 @@ for (const [label, page] of [['český', churchCzPage], ['anglický', churchEnPa
 if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Further current reports')) throw new Error('Anglická titulní stránka nemá blok dalších aktuálních zpráv');
 if (/href="zpravy\/\d{8}-\d{3}\.html/.test(englishHome)) throw new Error('Anglická titulní stránka stále odkazuje na český článek');
 if (englishHome.includes('class="quick-memory"') || englishHome.includes('href="#memory"')) throw new Error('Anglická titulní stránka stále obsahuje zrušený vedlejší blok Case memory');
-if (!styles.includes('#traffic.utility-grid') || !styles.includes('#traffic.utility-grid > .desk')) throw new Error('Anglická důkazní přepážka nemá plnou šířku');
 for (const label of ['Godot online → every report has a source', 'Active court proceedings since 1 May 2026', 'justicni-slalom']) {
   if (!script.includes(label)) throw new Error(`Chybí anglická hlavní lišta: ${label}`);
 }
