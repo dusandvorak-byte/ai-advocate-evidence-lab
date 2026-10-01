@@ -3,11 +3,13 @@
 
 /* 2026-10-01: aktivní soudní řízení jsou součástí první navigační lišty. */
 .nav{overflow:visible;align-items:stretch;flex-wrap:wrap}
-.nav .nav-courts{position:relative;margin-right:24px;font-family:var(--sans)}
-.nav .nav-courts>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.38rem;padding:12px 0 10px;font:700 13px var(--sans);text-transform:uppercase;white-space:nowrap}
+.nav>a{flex:0 0 auto}
+.nav .nav-courts{position:relative;flex:1 1 720px;min-width:min(720px,100%);margin-right:24px;font-family:var(--sans)}
+.nav .nav-courts>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.5rem;width:100%;min-height:44px;padding:12px 0 10px;font:800 14px var(--sans);text-transform:uppercase;white-space:nowrap}
 .nav .nav-courts>summary::-webkit-details-marker{display:none}
+.nav .nav-courts-title{flex:0 0 auto}
 .nav .nav-courts-prompt{font-weight:600;text-transform:none}
-.nav .nav-courts-panel{position:absolute;z-index:120;left:0;top:100%;width:min(900px,92vw);max-height:72vh;overflow:auto;padding:14px;background:#fff;border:1px solid #111;box-shadow:0 12px 28px rgba(0,0,0,.16)}
+.nav .nav-courts-panel{position:absolute;z-index:120;left:0;top:100%;width:min(1120px,calc(100vw - 36px));max-height:72vh;overflow:auto;padding:18px;background:#fff;border:1px solid #111;box-shadow:0 12px 28px rgba(0,0,0,.16)}
 .nav .nav-court-item{display:grid;gap:5px;padding:10px 0;border-bottom:1px solid #d8d8d8}
 .nav .nav-court-item:last-child{border-bottom:0}
 .nav .nav-court-item>a{white-space:normal;margin:0;padding:0;font-size:13px;line-height:1.35;text-transform:none}
@@ -15,7 +17,7 @@
 .nav .court-download-note a{display:inline;margin:0;padding:0;text-transform:none;white-space:normal;font-size:12px}
 @media(max-width:720px){
   .nav{display:flex;flex-wrap:wrap}
-  .nav .nav-courts{position:static;width:100%;margin-right:0}
+  .nav .nav-courts{position:static;flex:1 1 100%;min-width:100%;width:100%;margin-right:0}
   .nav .nav-courts>summary{white-space:normal;flex-wrap:wrap}
   .nav .nav-courts-panel{position:static;width:100%;max-height:none;box-shadow:none;margin-bottom:8px}
 }
