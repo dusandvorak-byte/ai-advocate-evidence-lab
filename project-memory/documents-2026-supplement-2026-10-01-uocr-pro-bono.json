@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-01",
+  "purpose": "Naléhavá žádost Mgr. Dušana Dvořáka Unii obhájců České republiky o zprostředkování pro bono obhajoby pro veřejná zasedání OS Prostějov ve dnech 12. a 13. 10. 2026.",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-10-01-uocr-pro-bono",
+      "user_title": "Naléhavá žádost o zprostředkování pro bono obhajoby",
+      "issue_date": "2026-10-01",
+      "received_date": "2026-10-01",
+      "institution_id": "CZ-DD",
+      "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "pro bono obhajoba",
+        "Unie obhájců ČR",
+        "15 Nt 3104/2026",
+        "15 Nt 3106/2026",
+        "obnova řízení",
+        "THC",
+        "THCA",
+        "analytické dokazování"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/086-podani-2026-10-01.pdf",
+        "sha256": "12bd631ab89609b80fb07baffa0d910d4af266f6e849d054371e3d9492786dd7",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 5_pages_reviewed",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-01-uocr-pro-bono.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106"
+        },
+        {
+          "type": "procesní_vazba",
+          "target_id": "doc-cz-os-pro-2026-08-18-15-nt-3104-2026-56"
+        },
+        {
+          "type": "procesní_vazba",
+          "target_id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-predvolani"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Dne 1. 10. 2026 Mgr. Dušan Dvořák požádal Unii obhájců České republiky o pomoc se zprostředkováním advokáta, který by pro bono převzal obhajobu při veřejných zasedáních OS Prostějov dne 12. 10. 2026 ve věci 15 Nt 3104/2026 a dne 13. 10. 2026 ve věci 15 Nt 3106/2026. Podání navazuje na stanovisko Unie č. 3/2026 a na téhož dne podaný návrh soudu na bezplatnou obhajobu a ustanovení obhájce.",
+      "justice_slalom": {
+        "archive_number": 133,
+        "archive_name": "Žádost unii obhájců dne 1.října 2026.pdf",
+        "source_sha256": "12bd631ab89609b80fb07baffa0d910d4af266f6e849d054371e3d9492786dd7",
+        "source_kind": "original_pdf_uploaded_by_user",
+        "recipients": [
+          {
+            "institution_id": "CZ-UOCR",
+            "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+            "role": "primary",
+            "subject_cs": "Naléhavá žádost o zprostředkování pro bono obhajoby",
+            "subject_en": "Urgent request to arrange pro bono defence counsel"
+          }
+        ]
+      }
+    }
+  ]
+}
