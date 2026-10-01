@@ -104,7 +104,7 @@
     },
     {
       "id": "justice-slalom-numbered-recipient-rows",
-      "text": "Veřejná lišta Justiční slalom je odvozena z kanonických podání na čtyřech jazykových plochách a obou Godotových článcích. Řádky jsou vždy vzestupně podle data podání a číslování začíná 1; každý adresát má jeden samostatný řádek a právě jeden PDF odkaz, který se smí opakovat. U data se nezobrazují vysvětlující poznámky, opravené datum KPR je 6. července 2026. Na žádné veřejné HTML stránce nesmí zůstat obsah živého časovače."
+      "text": "Veřejná lišta Justiční slalom je odvozena z kanonických podání na čtyřech jazykových plochách a obou Godotových článcích. Řádky jsou vždy sestupně podle data podání, tedy nejnovější nahoře a nejstarší dole a číslování začíná 1; každý adresát má jeden samostatný řádek a právě jeden PDF odkaz, který se smí opakovat. U data se nezobrazují vysvětlující poznámky, opravené datum KPR je 6. července 2026. Na žádné veřejné HTML stránce nesmí zůstat obsah živého časovače."
     }
   ],
   "error_memory_since_2026_07_18": [
@@ -163,6 +163,10 @@
     {
       "id": "error-public-date-discrepancy-notes-in-justice-slalom",
       "lesson": "Datum doložené podáním zůstává ověřeno v interní evidenci, ale vysvětlující poznámky o rozdílu mezi PDF, názvem souboru a evidencí nesmějí být vloženy do veřejných řádků archivu. Generátor je nesmí vydat do CZ/EN HTML ani JSON; terminální brána porovnává vzestupné pořadí se zdrojovým registrem a odmítá poznámky na všech šesti stránkách."
+    },
+    {
+      "id": "error-church-stale-remonstrance-links",
+      "lesson": "Konopná církev nesmí odkazovat na zaniklou kotvu procesních časovačů ani zobrazovat starší srpnový uzel jako aktuální stav poté, co byl 1. 9. 2026 podán rozklad. Veřejné CZ/EN plochy musí ukazovat aktivní rozkladovou fázi, sp. zn. MK-S 6893/2026 SOCNS a přímo dostupný PDF rozkladu."
     }
   ],
   "definition_of_done": [
