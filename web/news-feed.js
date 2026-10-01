@@ -170,9 +170,8 @@ const reportDateKey = item => {
 const latestPublishedReport = [...cannaNews].sort((a,b) =>
   reportDateKey(b).localeCompare(reportDateKey(a)) || String(b.id).localeCompare(String(a.id))
 )[0];
-// Navigaci „Právě teď“ nastavuje build podle skutečně nejnovějšího publikovaného
-// souboru web/zpravy/DDMMYYYY-NNN.html. Klientský feed ji nesmí přepsat zpět
-// na poslední položku ručně udržovaného pole cannaNews.
+// Odkaz „Právě teď / Latest report“ určuje kanonický build podle skutečně
+// nejaktuálnějšího článku. Runtime feed jej už nesmí přepsat starším datovaným reportem.
 window.latestPublishedReport = latestPublishedReport;
 
 const feed = document.querySelector('[data-shared-news-feed]');
