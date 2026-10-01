@@ -70,6 +70,11 @@
       "path": "scripts/materialize-state-pdf-2026-10-01.py",
       "role": "deterministic_verified_public_pdf_copy_materialization",
       "allowed_caller": "scripts/build-site.mjs"
+    },
+    {
+      "path": "scripts/materialize-october-court-pdfs.py",
+      "role": "deterministic_binary_pdf_materialization",
+      "allowed_caller": "scripts/build-site.mjs"
     }
   ],
   "canonical_generated_outputs": [

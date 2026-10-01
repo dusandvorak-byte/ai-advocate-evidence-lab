@@ -42,7 +42,7 @@ for (const source of manifest.sources) {
 const documents = [...new Map(allDocuments.map(item => [item.id, item])).values()];
 const documentsById = new Map(documents.map(item => [item.id, item]));
 const stateDocuments = documents
-  .filter(item => item.issue_date >= mainFrom && (item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record'))
+  .filter(item => item.issue_date >= mainFrom && item.document_type !== 'state_record_attachment' && (item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record'))
   .sort(compareDocuments);
 const outgoingDocuments = documents.filter(item => item.issue_date >= mainFrom && item.submission_side === 'outgoing_from_user_or_alliance');
 if (!stateDocuments.length) throw new Error('English Godot contains no state/public records');
@@ -71,7 +71,7 @@ const timersByDocument = new Map(timers.timers.filter(item => item.source_docume
 const reactionsByTarget = new Map();
 const precedingByTarget = new Map();
 const attachmentsByTarget = new Map();
-for (const item of outgoingDocuments) {
+for (const item of documents) {
   for (const relation of item.relations || []) {
     const type = relation.type || relation.relation_type;
     const targetId = relation.target_id || relation.document_id;
@@ -125,11 +125,12 @@ const chronologyItem = item => {
     const attachments = (attachmentsByTarget.get(entry.id) || []).sort(compareDocuments).map(attachment => reactionCard(attachment, 'Czech-language version')).join('');
     return `${reactionCard(entry, 'Filing to which the authority responded')}${attachments}`;
   }).join('');
+  const directAttachments = (attachmentsByTarget.get(item.id) || []).sort(compareDocuments).map(attachment => reactionCard(attachment, 'Attachment')).join('');
   const reactionHtml = reactions.map(reaction => {
     const attachments = (attachmentsByTarget.get(reaction.id) || []).sort(compareDocuments).map(attachment => reactionCard(attachment, 'Evidentiary annex')).join('');
     return `${reactionCard(reaction)}${attachments}`;
   }).join('');
-  return `<li id="en-${escapeHtml(item.id)}" data-document-id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}"><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p><p><b>From:</b> ${escapeHtml(translations.institutions[item.institution_id])}</p><p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p><p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)} · <a href="zpravy/04082026-010.html#${escapeHtml(item.id)}" hreflang="cs">Czech chronology entry</a></p>${precedingHtml}${reactionHtml}</li>`;
+  return `<li id="en-${escapeHtml(item.id)}" data-document-id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}"><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p><p><b>From:</b> ${escapeHtml(translations.institutions[item.institution_id])}</p><p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p><p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)} · <a href="zpravy/04082026-010.html#${escapeHtml(item.id)}" hreflang="cs">Czech chronology entry</a></p>${directAttachments}${precedingHtml}${reactionHtml}</li>`;
 };
 
 const chronology = stateDocuments.map(chronologyItem).join('');

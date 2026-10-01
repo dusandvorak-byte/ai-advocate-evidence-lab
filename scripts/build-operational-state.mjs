@@ -12,6 +12,7 @@ const allowed = new Set(operations.classification.allowed_values || []);
 const outgoingTypes = new Set(['user_submission', 'user_filing', 'alliance_submission', 'our_submission']);
 
 function classify(item) {
+  if (item.document_type === 'state_record_attachment') return { value: 'state_attachment', basis: 'state_attachment' };
   if (item.submission_side && allowed.has(item.submission_side)) return { value: item.submission_side, basis: 'explicit' };
   if (item.document_type === 'state_record') return { value: 'incoming_from_state_or_public_institution', basis: 'state_record' };
   if (outgoingTypes.has(item.document_type)) return { value: 'outgoing_from_user_or_alliance', basis: 'document_type' };
@@ -33,13 +34,14 @@ const state = {
   timezone: operations.clock.canonical_timezone,
   counters: {
     state_and_public_institutions: count('incoming_from_state_or_public_institution'),
+    state_attachments: count('state_attachment'),
     our_submissions: count('outgoing_from_user_or_alliance'),
     unclassified: count('unclassified'),
     total_documents: classified.length
   },
   classification_quality: {
     explicit: classified.filter(item => item.basis === 'explicit').length,
-    safely_derived: classified.filter(item => ['state_record', 'document_type'].includes(item.basis)).length,
+    safely_derived: classified.filter(item => ['state_record', 'state_attachment', 'document_type'].includes(item.basis)).length,
     human_review_required: classified.filter(item => item.basis === 'human_review_required').length,
     rule: 'Nezařazené položky se nikdy nepřičítají k našim ani státním podáním bez doložené klasifikace.'
   },

@@ -240,6 +240,35 @@
       "related_case_ids": [
         "case-cz-os-pro-2t104-2010-obnova"
       ]
+    },
+    {
+      "id": "case-cz-ms-praha-18a17-2026",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 17/2026",
+      "title": "Městský soud v Praze – zásahová žaloba proti NCOZ",
+      "status": "active",
+      "opened_on": "2026-05-01",
+      "topics": [
+        "zásahová žaloba",
+        "NCOZ",
+        "§ 82 s. ř. s.",
+        "§ 174a"
+      ]
+    },
+    {
+      "id": "case-cz-ms-praha-18a23-2026",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 23/2026",
+      "title": "Městský soud v Praze – zásahová žaloba proti Ministerstvu spravedlnosti",
+      "status": "active",
+      "opened_on": "2026-06-15",
+      "topics": [
+        "zásahová žaloba",
+        "Ministerstvo spravedlnosti",
+        "znalecká činnost",
+        "THC",
+        "THCA"
+      ]
     }
   ]
 }
