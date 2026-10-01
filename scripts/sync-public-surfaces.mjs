@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, readdir, writeFile } from 'node:fs/promises';
 
 const registry = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
 const institutions = JSON.parse(await readFile('project-memory/institutions.json', 'utf8'));
@@ -22,6 +22,21 @@ const latestStateRecord = [...stateRecords]
   .sort((a, b) => String(a.issue_date).localeCompare(String(b.issue_date)) || String(a.id).localeCompare(String(b.id)))
   .at(-1);
 const latestStateDecisionHref = `zpravy/04082026-010.html#${latestStateRecord.id}`;
+
+const reportFiles = (await readdir('web/zpravy')).filter(name => /^\d{8}-\d+\.html$/.test(name));
+const reportKey = name => {
+  const match = name.match(/^(\d{2})(\d{2})(\d{4})-(\d+)\.html$/);
+  return match ? `${match[3]}-${match[2]}-${match[1]}-${String(match[4]).padStart(6,'0')}` : '';
+};
+const latestPublishedReportFile = [...reportFiles].sort((a,b) => reportKey(a).localeCompare(reportKey(b))).at(-1);
+if (!latestPublishedReportFile) throw new Error('Nelze určit nejnovější publikovaný článek');
+try {
+  await readFile(`web/news/${latestPublishedReportFile}`, 'utf8');
+} catch {
+  throw new Error(`Nejnovější český článek nemá anglickou protistranu: ${latestPublishedReportFile}`);
+}
+const latestPublishedReportHrefCs = `zpravy/${latestPublishedReportFile}`;
+const latestPublishedReportHrefEn = `news/${latestPublishedReportFile}`;
 
 const escapeHtml = value => String(value ?? '')
   .replaceAll('&', '&amp;')
@@ -178,8 +193,8 @@ await update('web/en.html', [
 // Lhůty a ověřování listin se dočasně z veřejné navigace odstraňují.
 {
   const navs = [
-    ['web/index.html', '<nav class="nav"><a data-nav-latest-report href="zpravy/11092026-013.html">Právě teď</a><a href="zpravy/index.html">Archiv zpráv</a><a href="#podpora">Podpořit</a></nav>'],
-    ['web/en.html', '<nav class="nav" aria-label="Main sections"><a data-nav-latest-report href="news/11092026-013.html">Latest report</a><a href="news/index.html">News archive</a><a href="#support">Support</a></nav>']
+    ['web/index.html', `<nav class="nav"><a data-nav-latest-report href="${latestPublishedReportHrefCs}">Právě teď</a><a href="zpravy/index.html">Archiv zpráv</a><a href="#podpora">Podpořit</a></nav>`],
+    ['web/en.html', `<nav class="nav" aria-label="Main sections"><a data-nav-latest-report href="${latestPublishedReportHrefEn}">Latest report</a><a href="news/index.html">News archive</a><a href="#support">Support</a></nav>`]
   ];
   for (const [file, nav] of navs) {
     let html = await readFile(file, 'utf8');
@@ -252,6 +267,21 @@ await update('web/news/index.html', [
 await update('web/zpravy/index.html', [
   [/(<a href="zpravy\/04082026-010\.html">Státu lásky čas<\/a><\/h2><p>)[^<]+/, `$1Živá chronologie ${stateCount} listin státu a veřejných institucí od 1. května do ${latestCz}, s propojenými reakcemi a zdrojovými PDF.`, 'Godot v českém archivu']
 ], 'cs', false);
+
+// Viditelné propojení sesterských veřejných ploch.
+const sisterFooters = [
+  ['web/index.html', '<p class="sister-sites">Propojené weby: <a href="/ai-advocate-evidence-lab/kc/index.html">Konopná církev</a> · <a href="https://www.konopijelek.cz/" target="_blank" rel="noopener">Konopí je lék.cz</a></p>'],
+  ['web/en.html', '<p class="sister-sites">Connected sites: <a href="/ai-advocate-evidence-lab/kc/en.html">Church of Cannabis</a> · <a href="https://www.konopijelek.cz/" target="_blank" rel="noopener">Konopí je lék.cz</a></p>'],
+  ['web/kc/index.html', '<p class="sister-sites">Propojené weby: <a href="/ai-advocate-evidence-lab/index.html">CannaInsider.EU</a> · <a href="https://www.konopijelek.cz/" target="_blank" rel="noopener">Konopí je lék.cz</a></p>'],
+  ['web/kc/en.html', '<p class="sister-sites">Connected sites: <a href="/ai-advocate-evidence-lab/en.html">CannaInsider.EU</a> · <a href="https://www.konopijelek.cz/" target="_blank" rel="noopener">Konopí je lék.cz</a></p>']
+];
+for (const [file, links] of sisterFooters) {
+  let html = await readFile(file, 'utf8');
+  html = html.replace(/<p class="sister-sites">[\s\S]*?<\/p>/g, '');
+  if (!html.includes('</footer>')) throw new Error(`${file}: chybí footer pro propojení sesterských webů`);
+  html = html.replace('</footer>', `${links}</footer>`);
+  await writeFile(file, html, 'utf8');
+}
 
 const surfaces = [
   ['CannaInsider CZ', 'web/index.html'],
