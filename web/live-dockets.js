@@ -17,16 +17,19 @@
 
   const godotHref = isEnglish ? 'news/04082026-010.html' : 'zpravy/04082026-010.html';
   // Chronologicky podle počátku právě aktivní procesní fáze.
+  // Každá větev uvádí plný název soudu a známé spisové značky.
   const courtCases = [
-    ['2025-07-29', 'Městský soud v Praze, sp. zn. 45 T 1/2024 – vráceno Vrchním soudem v Praze', 'Prague Municipal Court, case 45 T 1/2024 – returned by the Prague High Court', 'case-cz-ms-praha-45t1-2024'],
-    ['2026-05-01', 'Městský soud v Praze, sp. zn. 18 A 17/2026 – NCOZ', 'Prague Municipal Court, case 18 A 17/2026 – National Centre against Organised Crime', 'case-cz-ms-praha-18a17-2026'],
+    ['2025-07-29', 'Městský soud v Praze, sp. zn. 45 T 1/2024 – věc vrácena Vrchním soudem v Praze', 'Prague Municipal Court, case 45 T 1/2024 – returned by the Prague High Court', 'case-cz-ms-praha-45t1-2024'],
+    ['2026-05-01', 'Městský soud v Praze, sp. zn. 18 A 17/2026 – zásahová žaloba proti NCOZ', 'Prague Municipal Court, case 18 A 17/2026 – intervention action against the National Centre against Organised Crime', 'case-cz-ms-praha-18a17-2026'],
     ['2026-06-04', 'Obvodní soud pro Prahu 4, sp. zn. 10 C 69/2026 – Česká televize', 'Prague 4 District Court, case 10 C 69/2026 – Czech Television', 'case-cz-os-praha4-10c69-2026'],
-    ['2026-06-15', 'Městský soud v Praze, sp. zn. 18 A 23/2026 – Ministerstvo spravedlnosti', 'Prague Municipal Court, case 18 A 23/2026 – Ministry of Justice', 'case-cz-ms-praha-18a23-2026'],
-    ['2026-07-12', 'Okresní soud v Prostějově, sp. zn. 2 T 104/2010 – obnova', 'Prostějov District Court, case 2 T 104/2010 – reopening', 'case-cz-os-pro-2t104-2010-obnova'],
-    ['2026-07-12', 'Okresní soud v Prostějově – prevence 2026', 'Prostějov District Court – preventive filing 2026', 'case-cz-os-pro-prevence-2026'],
-    ['2026-08-24', 'Krajský soud v Ostravě – stížnostní řízení sp. zn. 5 To 248/2026; původní věc: Okresní soud v Ostravě, sp. zn. 15 T 11/2025', 'Ostrava Regional Court – complaint proceedings case 5 To 248/2026; original matter: Ostrava District Court case 15 T 11/2025', 'chronologie'],
-    ['2026-08-31', 'Městský soud v Praze – nová zásahová žaloba proti SÚKL', 'Prague Municipal Court – new intervention action against SÚKL', 'chronologie'],
-    ['2026-09-01', 'Nejvyšší správní soud – kasační stížnost ve věci 15 A 44/2026', 'Supreme Administrative Court – cassation complaint in case 15 A 44/2026', 'chronologie']
+    ['2026-06-15', 'Městský soud v Praze, sp. zn. 18 A 23/2026 – zásahová žaloba proti Ministerstvu spravedlnosti', 'Prague Municipal Court, case 18 A 23/2026 – intervention action against the Ministry of Justice', 'case-cz-ms-praha-18a23-2026'],
+    ['2026-07-12', 'Okresní soud v Prostějově, sp. zn. 2 T 104/2010 / 15 Nt 3104/2026 – návrh na obnovu řízení', 'Prostějov District Court, case 2 T 104/2010 / 15 Nt 3104/2026 – application to reopen proceedings', 'case-cz-os-pro-2t104-2010-obnova'],
+    ['2026-07-12', 'Okresní soud v Prostějově, sp. zn. 2 T 65/2011 / 15 Nt 3106/2026 – návrh na obnovu řízení', 'Prostějov District Court, case 2 T 65/2011 / 15 Nt 3106/2026 – application to reopen proceedings', 'case-cz-os-pro-2t65-2011-obnova'],
+    ['2026-07-12', 'Okresní soud v Prostějově – preventivní podání k pěstování 2026; bez samostatně doložené sp. zn.', 'Prostějov District Court – preventive cannabis-growing filing 2026; no separately verified case number', 'case-cz-os-pro-prevence-2026'],
+    ['2026-08-24', 'Krajský soud v Ostravě, sp. zn. 5 To 248/2026; původní věc Okresního soudu v Ostravě sp. zn. 15 T 11/2025', 'Ostrava Regional Court, case 5 To 248/2026; original Ostrava District Court case 15 T 11/2025', 'case-cz-os-ostrava-15t11-2025'],
+    ['2026-08-31', 'Městský soud v Praze, sp. zn. 15 Ad 14/2026 – zásahová žaloba proti SÚKL; předchozí věc proti Ministerstvu zdravotnictví sp. zn. 8 Ad 9/2026', 'Prague Municipal Court, case 15 Ad 14/2026 – intervention action against SÚKL; previous Ministry of Health case 8 Ad 9/2026', 'chronologie'],
+    ['2026-09-01', 'Nejvyšší správní soud, sp. zn. 6 As 207/2026 – kasační stížnost; předchozí Městský soud v Praze sp. zn. 15 A 44/2026', 'Supreme Administrative Court, case 6 As 207/2026 – cassation complaint; previous Prague Municipal Court case 15 A 44/2026', 'case-cz-ms-praha-15a44-2026'],
+    ['2026-09-03', 'Krajský soud v Brně, sp. zn. 9 To 315/2026 a 9 To 316/2026 – rozhodnuto 3. 9. 2026; připravována ústavní stížnost', 'Brno Regional Court, cases 9 To 315/2026 and 9 To 316/2026 – decided on 3 September 2026; a constitutional complaint is being prepared', 'chronologie']
   ].sort(([dateA], [dateB]) => dateA.localeCompare(dateB));
 
   const summaryMarkup = title =>
@@ -61,7 +64,7 @@
   const wrapper = document.createElement('section');
   wrapper.id = 'live-dockets';
   wrapper.className = 'live-dockets home-rollup-stack home-rollup-stack-primary';
-  wrapper.setAttribute('aria-label', isEnglish ? 'Three primary evidence entries' : 'Tři hlavní důkazní vstupy');
+  wrapper.setAttribute('aria-label', isEnglish ? 'Primary evidence entries' : 'Hlavní důkazní vstupy');
 
   const godot = document.createElement('a');
   godot.className = 'home-rollup home-rollup-link godot';
@@ -70,16 +73,43 @@
   godot.setAttribute('aria-label', isEnglish ? 'Open the State Love Time chronology – Godot online' : 'Otevřít stránku Státu lásky čas – Godot online');
   wrapper.append(godot);
 
-  const courtGrid = document.createElement('div');
-  courtGrid.className = 'live-docket-links';
-  courtCases.forEach(([startDate, labelCs, labelEn, anchor]) => {
-    const link = document.createElement('a');
-    link.href = `${godotHref}#${anchor}`;
-    link.textContent = isEnglish ? labelEn : labelCs;
-    link.dataset.startDate = startDate;
-    courtGrid.append(link);
-  });
-  wrapper.append(makeDetails(isEnglish ? 'Active court proceedings since 1 May 2026' : 'Aktivní soudní řízení od 1. května 2026', 'court', courtGrid));
+  const nav = document.querySelector('.nav');
+  nav?.querySelector('.nav-courts')?.remove();
+  if (nav) {
+    const courtDetails = document.createElement('details');
+    courtDetails.className = 'nav-courts';
+    const courtSummary = document.createElement('summary');
+    courtSummary.innerHTML = `<span class="nav-courts-title">${isEnglish ? 'Active court proceedings since 1 May 2026' : 'Aktivní soudní řízení od 1. května 2026'}</span><span class="nav-courts-prompt">${isEnglish ? 'read as an investigation with love →' : 'číst jako investigativu s láskou →'}</span><span aria-hidden="true">❤️</span><b>${isEnglish ? 'Expand →' : 'Rozbalit →'}</b>`;
+    courtDetails.append(courtSummary);
+    const courtPanel = document.createElement('div');
+    courtPanel.className = 'nav-courts-panel';
+    const sourceText = isEnglish
+      ? 'All actions against state authorities and applications to reopen proceedings are available for download in the header of Cannabis is The Cure.cz.'
+      : 'Všechny žaloby na státní orgány a návrhy na obnovu řízení jsou uvedeny v záhlaví webových stránek Konopí je lék.cz ke stažení.';
+    courtCases.forEach(([startDate, labelCs, labelEn, anchor]) => {
+      const item = document.createElement('div');
+      item.className = 'nav-court-item';
+      item.dataset.startDate = startDate;
+      const link = document.createElement('a');
+      link.href = `${godotHref}#${anchor}`;
+      link.textContent = isEnglish ? labelEn : labelCs;
+      const note = document.createElement('span');
+      note.className = 'court-download-note';
+      note.append(document.createTextNode(sourceText + ' '));
+      const source = document.createElement('a');
+      source.href = 'https://www.konopijelek.cz/';
+      source.target = '_blank';
+      source.rel = 'noopener';
+      source.textContent = isEnglish ? 'Cannabis is The Cure.cz →' : 'Konopí je lék.cz →';
+      note.append(source);
+      item.append(link, note);
+      courtPanel.append(item);
+    });
+    courtDetails.append(courtPanel);
+    const support = [...nav.querySelectorAll('a')].find(link => /^(Podpořit|Support)$/.test(link.textContent.trim()));
+    if (support) nav.insertBefore(courtDetails, support);
+    else nav.append(courtDetails);
+  }
 
   const slalomShell = document.querySelector('.justice-slalom-shell');
   const slalom = slalomShell?.querySelector('#justicni-slalom');
