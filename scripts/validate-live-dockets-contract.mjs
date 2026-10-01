@@ -28,14 +28,14 @@ for (const obsolete of ['Předžalobní řízení on-line od 1. května 2026', '
 
 const caseRows = [...script.matchAll(/\['(\d{4}-\d{2}-\d{2})',\s*'([^']+)',\s*[^\]]+\]/g)]
   .map(([, date, label]) => ({ date, label }));
-if (caseRows.length !== 9) throw new Error(`Očekáváno devět soudních řízení, nalezeno ${caseRows.length}`);
+if (caseRows.length !== 11) throw new Error(`Očekáváno jedenáct soudních větví, nalezeno ${caseRows.length}`);
 for (const abbreviation of ['MS v Praze', 'OS Praha 4', 'OS Prostějov', 'OS Ostrava', 'vratka VS']) {
   if (caseRows.some(item => item.label.includes(abbreviation))) throw new Error(`V názvu aktivního soudního řízení zůstala zkratka: ${abbreviation}`);
 }
-for (const fullName of ['Městský soud v Praze', 'Obvodní soud pro Prahu 4', 'Okresní soud v Prostějově', 'Okresní soud v Ostravě', 'Vrchním soudem v Praze']) {
+for (const fullName of ['Městský soud v Praze', 'Obvodní soud pro Prahu 4', 'Okresní soud v Prostějově', 'Okresní soud v Ostravě', 'Krajský soud v Ostravě', 'Krajský soud v Brně', 'Nejvyšší správní soud', 'Vrchním soudem v Praze']) {
   if (!caseRows.some(item => item.label.includes(fullName))) throw new Error(`V aktivních soudních řízeních chybí celý název: ${fullName}`);
 }
-for (const fullName of ['Prague Municipal Court', 'Prague 4 District Court', 'Prostějov District Court', 'Ostrava District Court', 'Prague High Court']) {
+for (const fullName of ['Prague Municipal Court', 'Prague 4 District Court', 'Prostějov District Court', 'Ostrava District Court', 'Ostrava Regional Court', 'Brno Regional Court', 'Supreme Administrative Court', 'Prague High Court']) {
   if (!script.includes(fullName)) throw new Error(`V anglických aktivních soudních řízeních chybí celý název: ${fullName}`);
 }
 for (let index = 1; index < caseRows.length; index += 1) {
@@ -43,7 +43,7 @@ for (let index = 1; index < caseRows.length; index += 1) {
     throw new Error(`Soudní řízení nejsou chronologicky: ${caseRows[index - 1].label} → ${caseRows[index].label}`);
   }
 }
-if (!script.includes('link.dataset.startDate = startDate')) throw new Error('Soudní odkazy nemají veřejně kontrolovatelné datum počátku');
+if (!script.includes('item.dataset.startDate = startDate')) throw new Error('Soudní položky nemají veřejně kontrolovatelné datum počátku');
 
 for (const declaration of ['background: #285b6f;', 'color: #fff;']) {
   if (!styles.includes(declaration)) throw new Error(`Chybí barevná smlouva lišt: ${declaration}`);
@@ -68,14 +68,13 @@ if (!styles.includes('#semafor.utility-grid')
   throw new Error('Důkazní přepážka nemá smlouvu plné šířky');
 }
 if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Titulní stránka nenačítá generátor lišt');
-const latestStateRecord = canonicalDocuments.documents
-  .filter(item => item.issue_date >= '2026-05-01' && item.document_type === 'state_record')
-  .sort((a, b) => String(a.issue_date).localeCompare(String(b.issue_date)) || String(a.id).localeCompare(String(b.id)))
-  .at(-1);
-const nowHref = `zpravy/04082026-010.html#${latestStateRecord.id}`;
-if (!home.includes(`<a href="${nowHref}">Právě teď</a>`)) throw new Error('Odkaz Právě teď nevede na poslední rozhodnutí státu v Godotovi');
+if (!home.includes('href="#podpora">Podpořit</a>')) throw new Error('Z první lišty zmizela sekce Podpořit');
+if (home.includes('href="#lhuty">Lhůty</a>') || home.includes('href="#semafor">Ověřit listinu</a>')) throw new Error('V první liště zůstaly dočasně odstraněné položky Lhůty/Ověřit listinu');
+if (!script.includes('nav-courts') || !script.includes('Konopí je lék.cz ke stažení')) throw new Error('Aktivní soudní řízení nejsou přesunuta do první lišty s odkazem na Konopí je lék.cz');
+if (!home.includes('data-nav-latest-report') || !home.includes('href="zpravy/11092026-013.html"')) throw new Error('Právě teď nemá výchozí odkaz na nejnovější publikovaný článek');
+if (!newsFeed.includes("const latestPublishedReport = [...cannaNews].sort")) throw new Error('Právě teď se neodvozuje dynamicky z nejnovějšího článku');
+if (!newsFeed.includes("id: '11092026-013'") || !newsFeed.includes("href: 'zpravy/11092026-013.html'")) throw new Error('Sdílenému feedu chybí poslední publikovaný report 11092026-013');
 const czechGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
-if (!czechGodot.includes(`id="${latestStateRecord.id}"`)) throw new Error('Cíl odkazu Právě teď v českém Godotovi neexistuje');
 if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
 for (const [label, page] of [['CZ home',home],['EN home',englishHome]]) {
   if (!page.includes('id="justicni-slalom"') || page.includes('data-timer-id="')) throw new Error(`${label}: chybí slalom nebo zůstal veřejný časovač`);
@@ -222,4 +221,4 @@ for (const czechField of ['Datum:', 'Kdo:', 'Č. j. / sp. zn.:', 'Co se stalo:']
   if (englishGodot.includes(`<b>${czechField}</b>`)) throw new Error(`V anglickém Godotu zůstalo české pole ${czechField}`);
 }
 
-console.log(`Smlouva titulní stránky: 3 lišty; ${caseRows.length} soudních řízení chronologicky; olejově modrá #285b6f; bílé záhlaví Justičního slalomu; mobilní skládání; důkazní přepážka přes celou stránku.`);
+console.log(`Smlouva titulní stránky: soudní řízení v první navigační liště; ${caseRows.length} větví chronologicky; Podpořit zachováno; Lhůty a Ověřit listinu odstraněny; Justiční slalom zachován.`);
