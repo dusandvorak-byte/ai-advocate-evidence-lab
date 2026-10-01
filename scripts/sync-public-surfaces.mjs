@@ -174,6 +174,21 @@ await update('web/en.html', [
   [/<span>Updated [^<]+<\/span>/i, '', 'duplicitní datum aktualizace', true]
 ], 'en');
 
+// Kanonická první lišta CannaInsider: nejnovější článek, archiv, soudy, podpora.
+// Lhůty a ověřování listin se dočasně z veřejné navigace odstraňují.
+{
+  const navs = [
+    ['web/index.html', '<nav class="nav"><a data-nav-latest-report href="zpravy/11092026-013.html">Právě teď</a><a href="zpravy/index.html">Archiv zpráv</a><a href="#podpora">Podpořit</a></nav>'],
+    ['web/en.html', '<nav class="nav" aria-label="Main sections"><a data-nav-latest-report href="news/11092026-013.html">Latest report</a><a href="news/index.html">News archive</a><a href="#support">Support</a></nav>']
+  ];
+  for (const [file, nav] of navs) {
+    let html = await readFile(file, 'utf8');
+    if (!/<nav class="nav"[^>]*>[\s\S]*?<\/nav>/.test(html)) throw new Error(`${file}: chybí hlavní navigace`);
+    html = html.replace(/<nav class="nav"[^>]*>[\s\S]*?<\/nav>/, nav);
+    await writeFile(file, html, 'utf8');
+  }
+}
+
 // Anglická titulní stránka musí mít stejnou redakční skladbu jako česká:
 // článek → vyhledávač → další zprávy → termíny → důkazní přepážka.
 {
