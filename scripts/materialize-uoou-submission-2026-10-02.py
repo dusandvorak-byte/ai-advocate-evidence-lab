@@ -70,6 +70,7 @@ doc = SimpleDocTemplate(
     topMargin=17 * mm, bottomMargin=18 * mm,
     title="ÚOOÚ – stížnost na nečinnost – 2. října 2026",
     author="Mgr. Dušan Dvořák / Evidence Lab – veřejná kopie",
+    invariant=1,
 )
 story = [
     Paragraph("OVĚŘENÁ VEŘEJNÁ KOPIE PDF", warning),

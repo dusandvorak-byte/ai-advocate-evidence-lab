@@ -218,7 +218,7 @@ jobs:
         run: |
           set -euo pipefail
           base="https://dusandvorak-byte.github.io/ai-advocate-evidence-lab"
-          stamp="?v=${GITHUB_SHA}-${GITHUB_RUN_ID}"
+          stamp="?v=${GITHUB_SHA}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           pages=(
             "index.html"
             "en.html"
