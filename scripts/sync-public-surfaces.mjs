@@ -24,7 +24,9 @@ if (churchTimer.status !== 'active_remonstrance_stage' || churchTimer.start_date
 }
 const stateRecords = documents.filter(item => item.issue_date >= '2026-05-01' && item.document_type === 'state_record');
 const stateCount = stateRecords.length;
-const activePdfCount = documents.filter(item => item.public?.pdf).length;
+const pdfReconciliation = JSON.parse(await readFile('web/data/pdf-reconciliation-report.json', 'utf8'));
+const activePdfCount = pdfReconciliation.linked_pdf_count;
+if (!Number.isInteger(activePdfCount) || activePdfCount < 1) throw new Error('pdf-reconciliation-report.json neobsahuje platný linked_pdf_count');
 const latestIssueDate = stateRecords.map(item => item.issue_date).sort().at(-1);
 if (!latestIssueDate) throw new Error('Registr neobsahuje žádnou státní listinu od 1. května 2026');
 const latestStateRecord = [...stateRecords]
