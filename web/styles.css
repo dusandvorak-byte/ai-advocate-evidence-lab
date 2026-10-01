@@ -2,14 +2,14 @@
 
 
 /* 2026-10-01: aktivní soudní řízení jsou dominantní součástí první navigační lišty. */
-.nav{overflow:visible;display:grid;grid-template-columns:max-content max-content minmax(600px,1fr) max-content;align-items:stretch;column-gap:18px}
+.nav{overflow:visible;display:grid;grid-template-columns:max-content max-content minmax(760px,1fr) max-content;align-items:stretch;column-gap:18px}
 .nav>a{margin-right:0;padding-right:0}
 .nav .nav-courts{position:relative;min-width:0;width:100%;margin:0;font-family:var(--sans)}
-.nav .nav-courts>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:.8rem;width:100%;min-height:48px;padding:11px 16px 10px;border-left:4px solid #285b6f;border-right:4px solid #285b6f;background:#edf2f4;font:800 14px var(--sans);text-transform:uppercase;white-space:nowrap}
+.nav .nav-courts>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(300px,1.55fr) minmax(220px,.75fr) 30px 92px;align-items:center;justify-content:stretch;gap:12px;width:100%;min-height:52px;padding:11px 18px 10px;border-left:4px solid #285b6f;border-right:4px solid #285b6f;background:#edf2f4;font:800 14px var(--sans);text-transform:uppercase;white-space:nowrap}
 .nav .nav-courts>summary::-webkit-details-marker{display:none}
 .nav .nav-courts-title{flex:1 1 auto;min-width:0}
-.nav .nav-courts-prompt{flex:0 1 auto;font-weight:600;text-transform:none}
-.nav .nav-courts>summary>b{flex:0 0 auto}
+.nav .nav-courts-prompt{font-weight:650;text-transform:none;text-align:right}
+.nav .nav-courts>summary>b{text-align:right;white-space:nowrap}
 .nav .nav-courts-panel{position:absolute;z-index:120;left:50%;transform:translateX(-50%);top:100%;width:min(1180px,calc(100vw - 36px));max-height:72vh;overflow:auto;padding:20px 24px;background:#fff;border:2px solid #285b6f;box-shadow:0 14px 34px rgba(0,0,0,.18)}
 .nav .nav-court-item{display:grid;gap:5px;padding:12px 0;border-bottom:1px solid #d8d8d8}
 .nav .nav-court-item:last-child{border-bottom:0}
