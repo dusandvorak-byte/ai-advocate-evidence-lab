@@ -71,13 +71,28 @@ if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new E
 if (!home.includes('href="#podpora">Podpořit</a>')) throw new Error('Z první lišty zmizela sekce Podpořit');
 if (home.includes('href="#lhuty">Lhůty</a>') || home.includes('href="#semafor">Ověřit listinu</a>')) throw new Error('V první liště zůstaly dočasně odstraněné položky Lhůty/Ověřit listinu');
 if (!script.includes('nav-courts') || !script.includes('Konopí je lék.cz ke stažení')) throw new Error('Aktivní soudní řízení nejsou přesunuta do první lišty s odkazem na Konopí je lék.cz');
-if (!home.includes('data-nav-latest-report') || !home.includes('href="zpravy/11092026-013.html"')) throw new Error('Právě teď nemá výchozí odkaz na nejnovější publikovaný článek');
+const reportFiles = (await readdir('web/zpravy')).filter(name => /^\\d{8}-\\d+\\.html$/.test(name));
+const reportKey = name => {
+  const match = name.match(/^(\\d{2})(\\d{2})(\\d{4})-(\\d+)\\.html$/);
+  return match ? `${match[3]}-${match[2]}-${match[1]}-${String(match[4]).padStart(6,'0')}` : '';
+};
+const latestReport = [...reportFiles].sort((a,b) => reportKey(a).localeCompare(reportKey(b))).at(-1);
+if (!latestReport) throw new Error('Nelze určit poslední publikovaný článek');
+if (!home.includes('data-nav-latest-report') || !home.includes(`href="zpravy/${latestReport}"`)) throw new Error(`Právě teď nemá výchozí odkaz na nejnovější publikovaný článek ${latestReport}`);
+if (!englishHome.includes(`href="news/${latestReport}"`)) throw new Error(`Latest report nemá anglický odkaz news/${latestReport}`);
 if (!newsFeed.includes("const latestPublishedReport = [...cannaNews].sort")) throw new Error('Právě teď se neodvozuje dynamicky z nejnovějšího článku');
-if (!newsFeed.includes("id: '11092026-013'") || !newsFeed.includes("href: 'zpravy/11092026-013.html'")) throw new Error('Sdílenému feedu chybí poslední publikovaný report 11092026-013');
 const czechGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
 for (const [label, page] of [['CZ home',home],['EN home',englishHome]]) {
   if (!page.includes('id="justicni-slalom"') || page.includes('data-timer-id="')) throw new Error(`${label}: chybí slalom nebo zůstal veřejný časovač`);
+}
+for (const [label, page, required] of [
+  ['CZ CannaInsider', home, ['/ai-advocate-evidence-lab/kc/index.html','https://www.konopijelek.cz/']],
+  ['EN CannaInsider', englishHome, ['/ai-advocate-evidence-lab/kc/en.html','https://www.konopijelek.cz/']],
+  ['CZ Konopná církev', churchCzPage, ['/ai-advocate-evidence-lab/index.html','https://www.konopijelek.cz/']],
+  ['EN Church of Cannabis', churchEnPage, ['/ai-advocate-evidence-lab/en.html','https://www.konopijelek.cz/']]
+]) {
+  for (const href of required) if (!page.includes(href)) throw new Error(`${label}: chybí propojení ${href}`);
 }
 for (const page of [home, englishHome]) if (!page.includes('auto-translate.js')) throw new Error('Titulní stránka nemá nabídku automatických překladů');
 for (const required of ["['pt', 'Português']", 'Přeložit / Translate', '100+ dalších jazyků / other languages', 'Czech official records and PDFs remain controlling', 'role="dialog"']) {
