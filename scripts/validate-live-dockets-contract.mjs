@@ -71,7 +71,7 @@ const phoneCourtRule = styles.match(/@media \(max-width: 480px\) \{([\s\S]*?)\n\
 if (!phoneCourtRule.includes('grid-template-columns: 1fr')) {
   throw new Error('Soudní karty se na telefonu neskládají do jednoho sloupce');
 }
-for (const [label, page] of [['CZ home', home], ['EN home', englishHome], ['CZ church', churchHome], ['EN church', churchEnglish]]) {
+for (const [label, page] of [['CZ home', home], ['EN home', englishHome], ['CZ church', churchCzPage], ['EN church', churchEnPage]]) {
   if (page.includes('id="evidence-file"') || page.includes('class="desk"') || page.includes('MÍSTNÍ DŮKAZNÍ PŘEPÁŽKA') || page.includes('LOCAL EVIDENCE DESK')) throw new Error(`${label}: zrušená místní důkazní přepážka se vrátila`);
 }
 for (const [label, page] of [['CZ home', home], ['EN home', englishHome]]) {

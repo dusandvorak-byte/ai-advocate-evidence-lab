@@ -96,6 +96,9 @@ jobs:
       - name: Ověřit nové státní listiny a uzavření přezkumu KSZ
         run: node scripts/validate-state-release-2026-09-29.mjs
 
+      - name: Ověřit tři lišty, navigaci a rozbalená soudní řízení
+        run: node scripts/validate-live-dockets-contract.mjs
+
       - name: Ověřit interní procesní registr a aktivní soudní větve
         run: node scripts/validate-process-chain-contract.mjs
 
