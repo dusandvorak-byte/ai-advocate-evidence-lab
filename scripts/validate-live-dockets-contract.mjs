@@ -71,9 +71,9 @@ if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new E
 if (!home.includes('href="#podpora">Podpořit</a>')) throw new Error('Z první lišty zmizela sekce Podpořit');
 if (home.includes('href="#lhuty">Lhůty</a>') || home.includes('href="#semafor">Ověřit listinu</a>')) throw new Error('V první liště zůstaly dočasně odstraněné položky Lhůty/Ověřit listinu');
 if (!script.includes('nav-courts') || !script.includes('Konopí je lék.cz ke stažení')) throw new Error('Aktivní soudní řízení nejsou přesunuta do první lišty s odkazem na Konopí je lék.cz');
-const reportFiles = (await readdir('web/zpravy')).filter(name => /^\\d{8}-\\d+\\.html$/.test(name));
+const reportFiles = (await readdir('web/zpravy')).filter(name => /^\d{8}-\d+\.html$/.test(name));
 const reportKey = name => {
-  const match = name.match(/^(\\d{2})(\\d{2})(\\d{4})-(\\d+)\\.html$/);
+  const match = name.match(/^(\d{2})(\d{2})(\d{4})-(\d+)\.html$/);
   return match ? `${match[3]}-${match[2]}-${match[1]}-${String(match[4]).padStart(6,'0')}` : '';
 };
 const latestReport = [...reportFiles].sort((a,b) => reportKey(a).localeCompare(reportKey(b))).at(-1);
