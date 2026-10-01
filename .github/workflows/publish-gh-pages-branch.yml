@@ -251,26 +251,46 @@ jobs:
             done
           done
 
-          # První navigace a propojení webů musí být ověřeny až na živé produkci.
-          grep -q 'data-nav-latest-report href="zpravy/11092026-013.html">Právě teď</a>' /tmp/live-index.html
-          grep -q 'href="zpravy/index.html">Archiv zpráv</a>' /tmp/live-index.html
-          grep -q 'href="#podpora">Podpořit</a>' /tmp/live-index.html
-          ! grep -q 'href="#lhuty">Lhůty</a>' /tmp/live-index.html
-          ! grep -q 'href="#semafor">Ověřit listinu</a>' /tmp/live-index.html
-          grep -q '/ai-advocate-evidence-lab/kc/index.html' /tmp/live-index.html
-          grep -q 'https://www.konopijelek.cz/' /tmp/live-index.html
-          grep -q '/ai-advocate-evidence-lab/index.html' /tmp/live-kc-index.html
-          grep -q 'https://www.konopijelek.cz/' /tmp/live-kc-index.html
-          grep -q '/ai-advocate-evidence-lab/kc/en.html' /tmp/live-en.html
-          grep -q '/ai-advocate-evidence-lab/en.html' /tmp/live-kc-en.html
+          # První navigace a propojení webů mají vlastní retry, protože GitHub Pages
+          # může po přepisu gh-pages krátce vracet předchozí HTML/JS z edge cache.
+          nav_verified=0
+          for attempt in {1..12}; do
+            curl -fsSL --connect-timeout 10 --max-time 30 "$base/index.html$stamp-nav-$attempt" -o /tmp/live-index.html || true
+            curl -fsSL --connect-timeout 10 --max-time 30 "$base/en.html$stamp-nav-$attempt" -o /tmp/live-en.html || true
+            curl -fsSL --connect-timeout 10 --max-time 30 "$base/kc/index.html$stamp-nav-$attempt" -o /tmp/live-kc-index.html || true
+            curl -fsSL --connect-timeout 10 --max-time 30 "$base/kc/en.html$stamp-nav-$attempt" -o /tmp/live-kc-en.html || true
+            curl -fsSL --connect-timeout 10 --max-time 30 "$base/live-dockets.js$stamp-nav-$attempt" -o /tmp/live-dockets.js || true
+            curl -fsSL --connect-timeout 10 --max-time 30 "$base/zpravy/11092026-013.html$stamp-nav-$attempt" -o /tmp/live-latest-report.html || true
 
-          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/live-dockets.js$stamp" -o /tmp/live-dockets.js
-          for required in "6 As 207/2026" "15 A 44/2026" "15 Ad 14/2026" "8 Ad 9/2026" "9 To 315/2026" "9 To 316/2026" "15 Nt 3104/2026" "2 T 104/2010" "15 Nt 3106/2026" "2 T 65/2011" "Konopí je lék.cz ke stažení"; do
-            grep -q "$required" /tmp/live-dockets.js
+            if grep -q 'data-nav-latest-report href="zpravy/11092026-013.html">Právě teď</a>' /tmp/live-index.html 2>/dev/null \
+              && grep -q 'href="zpravy/index.html">Archiv zpráv</a>' /tmp/live-index.html \
+              && grep -q 'href="#podpora">Podpořit</a>' /tmp/live-index.html \
+              && ! grep -q 'href="#lhuty">Lhůty</a>' /tmp/live-index.html \
+              && ! grep -q 'href="#semafor">Ověřit listinu</a>' /tmp/live-index.html \
+              && grep -q '/ai-advocate-evidence-lab/kc/index.html' /tmp/live-index.html \
+              && grep -q 'https://www.konopijelek.cz/' /tmp/live-index.html \
+              && grep -q '/ai-advocate-evidence-lab/index.html' /tmp/live-kc-index.html \
+              && grep -q 'https://www.konopijelek.cz/' /tmp/live-kc-index.html \
+              && grep -q '/ai-advocate-evidence-lab/kc/en.html' /tmp/live-en.html \
+              && grep -q '/ai-advocate-evidence-lab/en.html' /tmp/live-kc-en.html \
+              && grep -q '6 As 207/2026' /tmp/live-dockets.js \
+              && grep -q '15 A 44/2026' /tmp/live-dockets.js \
+              && grep -q '15 Ad 14/2026' /tmp/live-dockets.js \
+              && grep -q '8 Ad 9/2026' /tmp/live-dockets.js \
+              && grep -q '9 To 315/2026' /tmp/live-dockets.js \
+              && grep -q '9 To 316/2026' /tmp/live-dockets.js \
+              && grep -q '15 Nt 3104/2026' /tmp/live-dockets.js \
+              && grep -q '2 T 104/2010' /tmp/live-dockets.js \
+              && grep -q '15 Nt 3106/2026' /tmp/live-dockets.js \
+              && grep -q '2 T 65/2011' /tmp/live-dockets.js \
+              && grep -q 'Konopí je lék.cz ke stažení' /tmp/live-dockets.js \
+              && grep -q 'Zakázat legální konopí a legalizovat trestnou činnost policie?' /tmp/live-latest-report.html; then
+              nav_verified=1
+              break
+            fi
+            sleep 5
           done
-
-          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/zpravy/11092026-013.html$stamp" -o /tmp/live-latest-report.html
-          grep -q 'Zakázat legální konopí a legalizovat trestnou činnost policie?' /tmp/live-latest-report.html
+          test "$nav_verified" -eq 1
 
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf$stamp" -o /tmp/live-slalom.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf$stamp" -o /tmp/live-ospro.pdf
