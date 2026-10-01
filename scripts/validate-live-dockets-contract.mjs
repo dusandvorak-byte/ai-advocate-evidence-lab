@@ -9,7 +9,16 @@ const siteSearch = await readFile('web/site-search.js', 'utf8');
 const publishWorkflow = await readFile('.github/workflows/publish-gh-pages-branch.yml', 'utf8');
 const timerBuilder = await readFile('scripts/build-process-timers.mjs', 'utf8');
 const englishGodot = await readFile('web/news/04082026-010.html', 'utf8');
-const canonicalDocuments = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
+const sourceManifest = JSON.parse(await readFile('project-memory/document-sources.json', 'utf8'));
+const mergedDocuments = new Map();
+for (const source of sourceManifest.sources || []) {
+  const payload = JSON.parse(await readFile(source.path, 'utf8'));
+  for (const item of payload.documents || []) {
+    const previous = mergedDocuments.get(item.id) || {};
+    mergedDocuments.set(item.id, { ...previous, ...item, public: { ...(previous.public || {}), ...(item.public || {}) } });
+  }
+}
+const canonicalDocuments = { documents: [...mergedDocuments.values()] };
 const automaticTranslation = await readFile('web/auto-translate.js', 'utf8');
 const churchCzPage = await readFile('web/kc/index.html', 'utf8');
 const churchEnPage = await readFile('web/kc/en.html', 'utf8');
@@ -69,6 +78,7 @@ if (!styles.includes('#semafor.utility-grid')
 }
 if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Titulní stránka nenačítá generátor lišt');
 if (!home.includes('href="#podpora">Podpořit</a>')) throw new Error('Z první lišty zmizela sekce Podpořit');
+if (!home.includes('<details class="nav-courts" id="active-court-proceedings">')) throw new Error('Statická první lišta neobsahuje rozbalovací soudy');
 if (home.includes('href="#lhuty">Lhůty</a>') || home.includes('href="#semafor">Ověřit listinu</a>')) throw new Error('V první liště zůstaly dočasně odstraněné položky Lhůty/Ověřit listinu');
 if (!script.includes('nav-courts') || !script.includes('Konopí je lék.cz ke stažení')) throw new Error('Aktivní soudní řízení nejsou přesunuta do první lišty s odkazem na Konopí je lék.cz');
 if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('flex:1 1 720px') && css.includes('width:min(1120px,calc(100vw - 36px))'))) throw new Error('Lišta Aktivní soudní řízení není na desktopu proporčně výrazně širší než ostatní položky navigace');
@@ -77,14 +87,20 @@ for (const requiredRef of ['18 A 17/2026','18 A 23/2026','15 Ad 14/2026','8 Ad 9
   if (!script.includes(requiredRef)) throw new Error(`V první liště Aktivní soudní řízení chybí spisová značka ${requiredRef}`);
 }
 const reportFiles = (await readdir('web/zpravy')).filter(name => /^\d{8}-\d+\.html$/.test(name));
-const reportKey = name => {
+const reportDate = name => {
   const match = name.match(/^(\d{2})(\d{2})(\d{4})-(\d+)\.html$/);
-  return match ? `${match[3]}-${match[2]}-${match[1]}-${String(match[4]).padStart(6,'0')}` : '';
+  return match ? `${match[3]}-${match[2]}-${match[1]}` : '';
 };
-const latestReport = [...reportFiles].sort((a,b) => reportKey(a).localeCompare(reportKey(b))).at(-1);
-if (!latestReport) throw new Error('Nelze určit poslední publikovaný článek');
-if (!home.includes('data-nav-latest-report') || !home.includes(`href="zpravy/${latestReport}"`)) throw new Error(`Právě teď nemá výchozí odkaz na nejnovější publikovaný článek ${latestReport}`);
-if (!englishHome.includes(`href="news/${latestReport}"`)) throw new Error(`Latest report nemá anglický odkaz news/${latestReport}`);
+const latestStandalone = reportFiles
+  .filter(name => name !== '04082026-010.html')
+  .sort((a,b) => reportDate(a).localeCompare(reportDate(b)) || a.localeCompare(b))
+  .at(-1);
+if (!latestStandalone) throw new Error('Nelze určit poslední samostatný publikovaný článek');
+const latestCanonicalDate = canonicalDocuments.documents.map(item => item.issue_date).filter(Boolean).sort().at(-1);
+const currentCs = latestCanonicalDate > reportDate(latestStandalone) ? 'zpravy/04082026-010.html#chronologie' : `zpravy/${latestStandalone}`;
+const currentEn = latestCanonicalDate > reportDate(latestStandalone) ? 'news/04082026-010.html#chronologie' : `news/${latestStandalone}`;
+if (!home.includes('data-nav-current-article') || !home.includes(`href="${currentCs}"`)) throw new Error(`Právě teď nevede na aktuální článek ${currentCs}`);
+if (!englishHome.includes(`href="${currentEn}"`)) throw new Error(`Latest report nevede na aktuální článek ${currentEn}`);
 if (newsFeed.includes("latestNav.href") || newsFeed.includes("querySelector('[data-nav-latest-report]')")) throw new Error('Klientský news-feed znovu přepisuje buildem určený odkaz Právě teď');
 const czechGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
