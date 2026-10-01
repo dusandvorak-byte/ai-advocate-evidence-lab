@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_on": "2026-09-05",
+  "updated_on": "2026-10-01",
   "institutions": [
     {
       "id": "CZ-GIBS",
@@ -407,6 +407,13 @@
       "type": "court",
       "name": "Vrchní soud v Praze",
       "short_name": "VS Praha"
+    },
+    {
+      "id": "CZ-UOCR",
+      "country": "CZ",
+      "type": "professional_association",
+      "name": "Unie obhájců České republiky, z. s.",
+      "short_name": "Unie obhájců ČR"
     }
   ]
 }
