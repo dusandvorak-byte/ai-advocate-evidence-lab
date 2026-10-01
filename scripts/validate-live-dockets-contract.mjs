@@ -28,7 +28,7 @@ for (const obsolete of ['Předžalobní řízení on-line od 1. května 2026', '
 
 const caseRows = [...script.matchAll(/\['(\d{4}-\d{2}-\d{2})',\s*'([^']+)',\s*[^\]]+\]/g)]
   .map(([, date, label]) => ({ date, label }));
-if (caseRows.length !== 11) throw new Error(`Očekáváno jedenáct soudních větví, nalezeno ${caseRows.length}`);
+if (caseRows.length !== 10) throw new Error(`Očekáváno deset skutečných soudních větví se známou spisovou značkou, nalezeno ${caseRows.length}`);
 for (const abbreviation of ['MS v Praze', 'OS Praha 4', 'OS Prostějov', 'OS Ostrava', 'vratka VS']) {
   if (caseRows.some(item => item.label.includes(abbreviation))) throw new Error(`V názvu aktivního soudního řízení zůstala zkratka: ${abbreviation}`);
 }
@@ -71,6 +71,10 @@ if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new E
 if (!home.includes('href="#podpora">Podpořit</a>')) throw new Error('Z první lišty zmizela sekce Podpořit');
 if (home.includes('href="#lhuty">Lhůty</a>') || home.includes('href="#semafor">Ověřit listinu</a>')) throw new Error('V první liště zůstaly dočasně odstraněné položky Lhůty/Ověřit listinu');
 if (!script.includes('nav-courts') || !script.includes('Konopí je lék.cz ke stažení')) throw new Error('Aktivní soudní řízení nejsou přesunuta do první lišty s odkazem na Konopí je lék.cz');
+if (script.includes('preventivní podání k pěstování 2026')) throw new Error('V Aktivních soudních řízeních zůstalo preventivní podání bez soudní spisové značky');
+for (const requiredRef of ['18 A 17/2026','18 A 23/2026','15 Ad 14/2026','8 Ad 9/2026','6 As 207/2026','15 A 44/2026','9 To 315/2026','9 To 316/2026','2 T 104/2010','15 Nt 3104/2026','2 T 65/2011','15 Nt 3106/2026']) {
+  if (!script.includes(requiredRef)) throw new Error(`V první liště Aktivní soudní řízení chybí spisová značka ${requiredRef}`);
+}
 const reportFiles = (await readdir('web/zpravy')).filter(name => /^\d{8}-\d+\.html$/.test(name));
 const reportKey = name => {
   const match = name.match(/^(\d{2})(\d{2})(\d{4})-(\d+)\.html$/);
@@ -80,7 +84,7 @@ const latestReport = [...reportFiles].sort((a,b) => reportKey(a).localeCompare(r
 if (!latestReport) throw new Error('Nelze určit poslední publikovaný článek');
 if (!home.includes('data-nav-latest-report') || !home.includes(`href="zpravy/${latestReport}"`)) throw new Error(`Právě teď nemá výchozí odkaz na nejnovější publikovaný článek ${latestReport}`);
 if (!englishHome.includes(`href="news/${latestReport}"`)) throw new Error(`Latest report nemá anglický odkaz news/${latestReport}`);
-if (!newsFeed.includes("const latestPublishedReport = [...cannaNews].sort")) throw new Error('Právě teď se neodvozuje dynamicky z nejnovějšího článku');
+if (newsFeed.includes("latestNav.href") || newsFeed.includes("querySelector('[data-nav-latest-report]')")) throw new Error('Klientský news-feed znovu přepisuje buildem určený odkaz Právě teď');
 const czechGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
 for (const [label, page] of [['CZ home',home],['EN home',englishHome]]) {
