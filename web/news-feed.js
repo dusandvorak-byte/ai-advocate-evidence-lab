@@ -4,6 +4,20 @@
  */
 const cannaNews = [
   {
+    id: '11092026-013',
+    dateCs: '11. 9. 2026',
+    dateEn: '11 September 2026',
+    score: '9/9',
+    titleCs: 'Zakázat legální konopí a legalizovat trestnou činnost policie?',
+    titleEn: 'Ban legal cannabis and legalise unlawful police practice?',
+    summaryCs: 'Autorský komentář k návrhu novely zákona o návykových látkách, CBD, THCA a dlouhodobě namítané policejní praxi při určování obsahu THC v konopí.',
+    summaryEn: 'Authorial commentary on the proposed amendment to the Czech Addictive Substances Act, CBD, THCA and the long-contested police practice for determining THC content in cannabis.',
+    keywordsCs: 'novela zákona o návykových látkách CBD THCA THC Policie ČR znalecké ústavy metodika měření',
+    keywordsEn: 'Addictive Substances Act CBD THCA THC Czech Police forensic institutes measurement methodology',
+    href: 'zpravy/11092026-013.html',
+    hrefEn: 'news/11092026-013.html'
+  },
+  {
     id: '15082026-012',
     dateCs: '15. 8. 2026',
     dateEn: '15 August 2026',
@@ -146,6 +160,22 @@ const cannaNews = [
 ];
 
 window.cannaNews = cannaNews;
+window.latestPublishedReport = null;
+
+const reportDateKey = item => {
+  const id = String(item?.id || '');
+  const m = id.match(/^(\d{2})(\d{2})(\d{4})-/);
+  return m ? `${m[3]}-${m[2]}-${m[1]}` : '0000-00-00';
+};
+const latestPublishedReport = [...cannaNews].sort((a,b) =>
+  reportDateKey(b).localeCompare(reportDateKey(a)) || String(b.id).localeCompare(String(a.id))
+)[0];
+const latestNav = document.querySelector('[data-nav-latest-report]');
+if (latestNav && latestPublishedReport) {
+  latestNav.href = document.documentElement.lang === 'en' ? latestPublishedReport.hrefEn : latestPublishedReport.href;
+}
+
+window.latestPublishedReport = latestPublishedReport;
 
 const feed = document.querySelector('[data-shared-news-feed]');
 if (feed) {
