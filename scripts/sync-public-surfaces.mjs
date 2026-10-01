@@ -1,12 +1,25 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 
-const registry = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
+const sourceManifest = JSON.parse(await readFile('project-memory/document-sources.json', 'utf8'));
 const institutions = JSON.parse(await readFile('project-memory/institutions.json', 'utf8'));
 const processTimers = JSON.parse(await readFile('project-memory/process-timers.json', 'utf8'));
-if (!Array.isArray(registry.documents)) throw new Error('documents-2026.json neobsahuje kanonické dokumenty');
+if (!Array.isArray(sourceManifest.sources)) throw new Error('document-sources.json neobsahuje kanonické zdroje');
 if (!Array.isArray(institutions.institutions)) throw new Error('institutions.json neobsahuje kanonické instituce');
 
-const documents = registry.documents;
+const documentMap = new Map();
+for (const source of sourceManifest.sources) {
+  const payload = JSON.parse(await readFile(source.path, 'utf8'));
+  if (!Array.isArray(payload.documents)) throw new Error(`${source.path} neobsahuje documents`);
+  for (const item of payload.documents) {
+    const previous = documentMap.get(item.id) || {};
+    documentMap.set(item.id, {
+      ...previous,
+      ...item,
+      public: { ...(previous.public || {}), ...(item.public || {}) }
+    });
+  }
+}
+const documents = [...documentMap.values()];
 const institutionMap = new Map(institutions.institutions.map(item => [item.id, item]));
 const churchTimer = processTimers.timers?.find(item => item.id === 'timer-admin-mk-2026-07-22');
 if (!churchTimer) throw new Error('Chybí kanonický procesní uzel Konopné církve / Ministerstva kultury');
@@ -24,19 +37,53 @@ const latestStateRecord = [...stateRecords]
 const latestStateDecisionHref = `zpravy/04082026-010.html#${latestStateRecord.id}`;
 
 const reportFiles = (await readdir('web/zpravy')).filter(name => /^\d{8}-\d+\.html$/.test(name));
-const reportKey = name => {
+const reportDate = name => {
   const match = name.match(/^(\d{2})(\d{2})(\d{4})-(\d+)\.html$/);
-  return match ? `${match[3]}-${match[2]}-${match[1]}-${String(match[4]).padStart(6,'0')}` : '';
+  return match ? `${match[3]}-${match[2]}-${match[1]}` : '';
 };
-const latestPublishedReportFile = [...reportFiles].sort((a,b) => reportKey(a).localeCompare(reportKey(b))).at(-1);
-if (!latestPublishedReportFile) throw new Error('Nelze určit nejnovější publikovaný článek');
+const standaloneReportFiles = reportFiles.filter(name => name !== '04082026-010.html');
+const latestStandaloneReportFile = [...standaloneReportFiles]
+  .sort((a,b) => reportDate(a).localeCompare(reportDate(b)) || a.localeCompare(b))
+  .at(-1);
+if (!latestStandaloneReportFile) throw new Error('Nelze určit nejnovější samostatný publikovaný článek');
 try {
-  await readFile(`web/news/${latestPublishedReportFile}`, 'utf8');
+  await readFile(`web/news/${latestStandaloneReportFile}`, 'utf8');
 } catch {
-  throw new Error(`Nejnovější český článek nemá anglickou protistranu: ${latestPublishedReportFile}`);
+  throw new Error(`Nejnovější český článek nemá anglickou protistranu: ${latestStandaloneReportFile}`);
 }
-const latestPublishedReportHrefCs = `zpravy/${latestPublishedReportFile}`;
-const latestPublishedReportHrefEn = `news/${latestPublishedReportFile}`;
+const latestStandaloneDate = reportDate(latestStandaloneReportFile);
+const godotIsCurrent = latestIssueDate > latestStandaloneDate;
+const currentArticleHrefCs = godotIsCurrent ? 'zpravy/04082026-010.html#chronologie' : `zpravy/${latestStandaloneReportFile}`;
+const currentArticleHrefEn = godotIsCurrent ? 'news/04082026-010.html#chronologie' : `news/${latestStandaloneReportFile}`;
+
+const courtNavRows = [
+  ['2025-07-29','Městský soud v Praze, sp. zn. 45 T 1/2024; po vrácení Vrchním soudem v Praze, sp. zn. 11 To 88/2024','Prague Municipal Court, case 45 T 1/2024; after remittal by the Prague High Court, case 11 To 88/2024','case-cz-ms-praha-45t1-2024'],
+  ['2026-05-01','Městský soud v Praze, sp. zn. 18 A 17/2026 – zásahová žaloba proti NCOZ','Prague Municipal Court, case 18 A 17/2026 – intervention action against NCOZ','case-cz-ms-praha-18a17-2026'],
+  ['2026-06-04','Obvodní soud pro Prahu 4, sp. zn. 10 C 69/2026 – Česká televize','Prague 4 District Court, case 10 C 69/2026 – Czech Television','case-cz-os-praha4-10c69-2026'],
+  ['2026-06-15','Městský soud v Praze, sp. zn. 18 A 23/2026 – zásahová žaloba proti Ministerstvu spravedlnosti','Prague Municipal Court, case 18 A 23/2026 – intervention action against the Ministry of Justice','case-cz-ms-praha-18a23-2026'],
+  ['2026-07-12','Okresní soud v Prostějově, sp. zn. 2 T 104/2010 / 15 Nt 3104/2026 – návrh na obnovu řízení','Prostějov District Court, case 2 T 104/2010 / 15 Nt 3104/2026 – application to reopen proceedings','case-cz-os-pro-2t104-2010-obnova'],
+  ['2026-07-12','Okresní soud v Prostějově, sp. zn. 2 T 65/2011 / 15 Nt 3106/2026 – návrh na obnovu řízení','Prostějov District Court, case 2 T 65/2011 / 15 Nt 3106/2026 – application to reopen proceedings','case-cz-os-pro-2t65-2011-obnova'],
+  ['2026-08-24','Krajský soud v Ostravě, sp. zn. 5 To 248/2026; původní věc Okresního soudu v Ostravě, sp. zn. 15 T 11/2025','Ostrava Regional Court, case 5 To 248/2026; original Ostrava District Court case 15 T 11/2025','case-cz-os-ostrava-15t11-2025'],
+  ['2026-08-31','Městský soud v Praze, sp. zn. 15 Ad 14/2026 – žaloba proti SÚKL; předchozí věc proti Ministerstvu zdravotnictví sp. zn. 8 Ad 9/2026','Prague Municipal Court, case 15 Ad 14/2026 – action against SÚKL; previous Ministry of Health case 8 Ad 9/2026','chronologie'],
+  ['2026-09-01','Nejvyšší správní soud, sp. zn. 6 As 207/2026 – kasační stížnost; navazuje na Městský soud v Praze, sp. zn. 15 A 44/2026','Supreme Administrative Court, case 6 As 207/2026 – cassation complaint; following Prague Municipal Court case 15 A 44/2026','case-cz-ms-praha-15a44-2026'],
+  ['2026-09-03','Krajský soud v Brně, sp. zn. 9 To 315/2026 a 9 To 316/2026 – rozhodnuto 3. 9. 2026; připravována ústavní stížnost','Brno Regional Court, cases 9 To 315/2026 and 9 To 316/2026 – decided 3 September 2026; constitutional complaint in preparation','chronologie']
+].sort(([a],[b]) => a.localeCompare(b));
+
+function courtNavigation(lang) {
+  const en = lang === 'en';
+  const godot = en ? 'news/04082026-010.html' : 'zpravy/04082026-010.html';
+  const summary = en
+    ? 'Active court proceedings since 1 May 2026'
+    : 'Aktivní soudní řízení od 1. května 2026';
+  const prompt = en ? 'read as an investigation with love →' : 'číst jako investigativu s láskou →';
+  const action = en ? 'Expand →' : 'Rozbalit →';
+  const sourceText = en
+    ? 'All actions against state authorities and applications to reopen proceedings are available for download in the header of Cannabis is The Cure.cz.'
+    : 'Všechny žaloby na státní orgány a návrhy na obnovu řízení jsou uvedeny v záhlaví webových stránek Konopí je lék.cz ke stažení.';
+  const sourceLabel = en ? 'Cannabis is The Cure.cz →' : 'Konopí je lék.cz →';
+  const items = courtNavRows.map(([date,cs,enLabel,anchor]) => `<div class="nav-court-item" data-start-date="${date}"><a href="${godot}#${anchor}">${escapeHtml(en ? enLabel : cs)}</a><span class="court-download-note">${escapeHtml(sourceText)} <a href="https://www.konopijelek.cz/" target="_blank" rel="noopener">${escapeHtml(sourceLabel)}</a></span></div>`).join('');
+  return `<details class="nav-courts" id="active-court-proceedings"><summary><span class="nav-courts-title">${summary}</span><span class="nav-courts-prompt">${prompt}</span><span aria-hidden="true">❤️</span><b>${action}</b></summary><div class="nav-courts-panel">${items}</div></details>`;
+}
 
 const escapeHtml = value => String(value ?? '')
   .replaceAll('&', '&amp;')
@@ -193,8 +240,8 @@ await update('web/en.html', [
 // Lhůty a ověřování listin se dočasně z veřejné navigace odstraňují.
 {
   const navs = [
-    ['web/index.html', `<nav class="nav"><a data-nav-latest-report href="${latestPublishedReportHrefCs}">Právě teď</a><a href="zpravy/index.html">Archiv zpráv</a><a href="#podpora">Podpořit</a></nav>`],
-    ['web/en.html', `<nav class="nav" aria-label="Main sections"><a data-nav-latest-report href="${latestPublishedReportHrefEn}">Latest report</a><a href="news/index.html">News archive</a><a href="#support">Support</a></nav>`]
+    ['web/index.html', `<nav class="nav"><a data-nav-current-article href="${currentArticleHrefCs}">Právě teď</a><a href="zpravy/index.html">Archiv zpráv</a>${courtNavigation('cs')}<a href="#podpora">Podpořit</a></nav>`],
+    ['web/en.html', `<nav class="nav" aria-label="Main sections"><a data-nav-current-article href="${currentArticleHrefEn}">Latest report</a><a href="news/index.html">News archive</a>${courtNavigation('en')}<a href="#support">Support</a></nav>`]
   ];
   for (const [file, nav] of navs) {
     let html = await readFile(file, 'utf8');
