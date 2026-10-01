@@ -170,11 +170,8 @@ const reportDateKey = item => {
 const latestPublishedReport = [...cannaNews].sort((a,b) =>
   reportDateKey(b).localeCompare(reportDateKey(a)) || String(b.id).localeCompare(String(a.id))
 )[0];
-const latestNav = document.querySelector('[data-nav-latest-report]');
-if (latestNav && latestPublishedReport) {
-  latestNav.href = document.documentElement.lang === 'en' ? latestPublishedReport.hrefEn : latestPublishedReport.href;
-}
-
+// Odkaz „Právě teď / Latest report“ určuje kanonický build podle skutečně
+// nejaktuálnějšího článku. Runtime feed jej už nesmí přepsat starším datovaným reportem.
 window.latestPublishedReport = latestPublishedReport;
 
 const feed = document.querySelector('[data-shared-news-feed]');
