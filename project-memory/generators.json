@@ -75,6 +75,11 @@
       "path": "scripts/materialize-october-court-pdfs.py",
       "role": "deterministic_binary_pdf_materialization",
       "allowed_caller": "scripts/build-site.mjs"
+    },
+    {
+      "path": "scripts/sync-primary-navigation.mjs",
+      "role": "homepage_primary_navigation_sync",
+      "allowed_caller": "scripts/build-site.mjs"
     }
   ],
   "canonical_generated_outputs": [
