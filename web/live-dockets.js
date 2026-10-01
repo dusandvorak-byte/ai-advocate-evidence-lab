@@ -83,8 +83,8 @@
     const courtPanel = document.createElement('div');
     courtPanel.className = 'nav-courts-panel';
     const sourceText = isEnglish
-      ? 'All actions against state authorities and applications to reopen proceedings are available for download in the header of Cannabis is The Cure.cz.'
-      : 'Všechny žaloby na státní orgány a návrhy na obnovu řízení jsou uvedeny v záhlaví webových stránek Konopí je lék.cz ke stažení.';
+      ? 'All actions against state authorities and applications to reopen proceedings are available for download in the header of'
+      : 'Všechny žaloby na státní orgány a návrhy na obnovu řízení jsou uvedeny v záhlaví webových stránek';
     courtCases.forEach(([startDate, labelCs, labelEn, anchor]) => {
       const item = document.createElement('div');
       item.className = 'nav-court-item';
@@ -101,6 +101,7 @@
       source.rel = 'noopener';
       source.textContent = isEnglish ? 'Cannabis is The Cure.cz →' : 'Konopí je lék.cz →';
       note.append(source);
+      note.append(document.createTextNode(isEnglish ? '.' : ' ke stažení.'));
       item.append(link, note);
       courtPanel.append(item);
     });

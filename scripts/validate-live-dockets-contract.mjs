@@ -71,17 +71,20 @@ const phoneCourtRule = styles.match(/@media \(max-width: 480px\) \{([\s\S]*?)\n\
 if (!phoneCourtRule.includes('grid-template-columns: 1fr')) {
   throw new Error('Soudní karty se na telefonu neskládají do jednoho sloupce');
 }
-if (!styles.includes('#semafor.utility-grid')
-  || !styles.includes('grid-template-columns: minmax(0,1fr)')
-  || !styles.includes('#semafor.utility-grid > .desk')) {
-  throw new Error('Důkazní přepážka nemá smlouvu plné šířky');
+for (const [label, page] of [['CZ home', home], ['EN home', englishHome], ['CZ church', churchHome], ['EN church', churchEnglish]]) {
+  if (page.includes('id="evidence-file"') || page.includes('class="desk"') || page.includes('MÍSTNÍ DŮKAZNÍ PŘEPÁŽKA') || page.includes('LOCAL EVIDENCE DESK')) throw new Error(`${label}: zrušená místní důkazní přepážka se vrátila`);
+}
+for (const [label, page] of [['CZ home', home], ['EN home', englishHome]]) {
+  if (page.includes('class="deadline-watch"') || page.includes('id="lhuty"') || page.includes('id="deadlines"') || page.includes('SLEDOVANÁ DATA') || page.includes('TRACKED DATES')) throw new Error(`${label}: zastaralý blok sledovaných dat se vrátil`);
 }
 if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Titulní stránka nenačítá generátor lišt');
 if (!home.includes('href="#podpora">Podpořit</a>')) throw new Error('Z první lišty zmizela sekce Podpořit');
 if (home.includes('href="#lhuty">Lhůty</a>') || home.includes('href="#semafor">Ověřit listinu</a>')) throw new Error('V první liště zůstaly dočasně odstraněné položky Lhůty/Ověřit listinu');
-if (!script.includes('nav-courts') || !script.includes('Konopí je lék.cz ke stažení')) throw new Error('Aktivní soudní řízení nejsou přesunuta do první lišty s odkazem na Konopí je lék.cz');
-if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('grid-template-columns:max-content max-content minmax(760px,1fr) max-content') && css.includes('width:min(1180px,calc(100vw - 36px))'))) throw new Error('Lišta Aktivní soudní řízení není na desktopu dominantně širší než ostatní položky první navigace');
+if (!script.includes('nav-courts') || !script.includes("source.href = 'https://www.konopijelek.cz/'") || !script.includes("source.textContent = isEnglish ? 'Cannabis is The Cure.cz →' : 'Konopí je lék.cz →'")) throw new Error('Aktivní soudní řízení nemají zřetelný aktivní odkaz na Konopí je lék.cz');
+if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.nav{position:relative;overflow:visible;display:grid;grid-template-columns:max-content max-content minmax(760px,1fr) max-content') && css.includes('.nav .nav-courts{position:static;') && css.includes('.nav .nav-courts-panel{position:absolute;z-index:120;left:0;right:0;top:100%;width:auto;transform:none;'))) throw new Error('Rozbalená Aktivní soudní řízení nejsou na desktopu zarovnána přes celou šířku hlavního rámce');
 if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.nav>a{margin-right:0;padding:11px 14px 10px;background:#ffeb3b;color:#111;border:1px solid #111'))) throw new Error('Ostatní tři položky první navigace nejsou podbarvené žlutě');
+if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.church-site .nav>a{background:#f1e8bc;color:#16242d;border-color:#b9aa63;font-weight:900;letter-spacing:.03em;text-shadow:0 0 .2px currentColor}'))) throw new Error('Konopná církev nemá tlumenou žlutou a zesílenou typografii navigace');
+if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.nav .court-download-note a{display:inline;margin:0;padding:0;text-transform:none;white-space:normal;font-size:12px;font-weight:800;text-decoration:underline;text-underline-offset:2px}'))) throw new Error('Odkaz Konopí je lék.cz není v rozbalených soudních řízeních zřetelně aktivní');
 if (script.includes('preventivní podání k pěstování 2026')) throw new Error('V Aktivních soudních řízeních zůstalo preventivní podání bez soudní spisové značky');
 for (const requiredRef of ['18 A 17/2026','18 A 23/2026','15 Ad 14/2026','8 Ad 9/2026','6 As 207/2026','15 A 44/2026','9 To 315/2026','9 To 316/2026','2 T 104/2010','15 Nt 3104/2026','2 T 65/2011','15 Nt 3106/2026']) {
   if (!script.includes(requiredRef)) throw new Error(`V první liště Aktivní soudní řízení chybí spisová značka ${requiredRef}`);
@@ -96,9 +99,8 @@ const latestStandalone = reportFiles
   .sort((a,b) => reportDate(a).localeCompare(reportDate(b)) || a.localeCompare(b))
   .at(-1);
 if (!latestStandalone) throw new Error('Nelze určit poslední samostatný publikovaný článek');
-const latestCanonicalDate = canonicalDocuments.documents.map(item => item.issue_date).filter(Boolean).sort().at(-1);
-const currentCs = latestCanonicalDate > reportDate(latestStandalone) ? 'zpravy/04082026-010.html#chronologie' : `zpravy/${latestStandalone}`;
-const currentEn = latestCanonicalDate > reportDate(latestStandalone) ? 'news/04082026-010.html#chronologie' : `news/${latestStandalone}`;
+const currentCs = `zpravy/${latestStandalone}`;
+const currentEn = `news/${latestStandalone}`;
 if (!home.includes('data-nav-current-article') || !home.includes(`href="${currentCs}"`)) throw new Error(`Právě teď nevede na aktuální článek ${currentCs}`);
 if (!englishHome.includes(`href="${currentEn}"`)) throw new Error(`Latest report nevede na aktuální článek ${currentEn}`);
 if (newsFeed.includes("latestNav.href") || newsFeed.includes("querySelector('[data-nav-latest-report]')")) throw new Error('Klientský news-feed znovu přepisuje buildem určený odkaz Právě teď');
@@ -133,7 +135,6 @@ for (const [label, page] of [['český', churchCzPage], ['anglický', churchEnPa
 if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Further current reports')) throw new Error('Anglická titulní stránka nemá blok dalších aktuálních zpráv');
 if (/href="zpravy\/\d{8}-\d{3}\.html/.test(englishHome)) throw new Error('Anglická titulní stránka stále odkazuje na český článek');
 if (englishHome.includes('class="quick-memory"') || englishHome.includes('href="#memory"')) throw new Error('Anglická titulní stránka stále obsahuje zrušený vedlejší blok Case memory');
-if (!styles.includes('#traffic.utility-grid') || !styles.includes('#traffic.utility-grid > .desk')) throw new Error('Anglická důkazní přepážka nemá plnou šířku');
 for (const label of ['Godot online → every report has a source', 'Active court proceedings since 1 May 2026', 'justicni-slalom']) {
   if (!script.includes(label)) throw new Error(`Chybí anglická hlavní lišta: ${label}`);
 }

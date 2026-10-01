@@ -23,7 +23,8 @@ if (JSON.stringify(allArchiveNumbers) !== JSON.stringify(contiguousNumbers) || a
 const esc = value => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;')
   .replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
-const originalPdf = item => item.justice_slalom.source_kind !== 'redacted_public_copy_from_user_original';
+const publicCopyKinds = new Set(['redacted_public_copy_from_user_original', 'verified_public_copy_from_user_original']);
+const originalPdf = item => !publicCopyKinds.has(item.justice_slalom.source_kind);
 const root = '/ai-advocate-evidence-lab/';
 const rows = [];
 for (const doc of entries) {
@@ -36,7 +37,8 @@ for (const doc of entries) {
   if (bytes.subarray(0, 5).toString() !== '%PDF-' || !bytes.subarray(-2048).toString('latin1').includes('%%EOF') || bytes.length < 1024) {
     throw new Error(`JUSTICE-SLALOM: neplatné PDF ${doc.public.pdf}`);
   }
-  if (sha(bytes) !== doc.public.sha256 || (originalPdf(doc) ? sha(bytes) !== meta.source_sha256 : sha(bytes) !== meta.public_sha256 || !meta.redaction_manifest)) {
+  const copyManifest = meta.source_kind === 'redacted_public_copy_from_user_original' ? meta.redaction_manifest : meta.public_copy_manifest;
+  if (sha(bytes) !== doc.public.sha256 || (originalPdf(doc) ? sha(bytes) !== meta.source_sha256 : sha(bytes) !== meta.public_sha256 || !copyManifest)) {
     throw new Error(`JUSTICE-SLALOM: veřejné PDF neodpovídá deklarovanému zdroji a typu kopie ${doc.id}`);
   }
   for (const [index, recipient] of meta.recipients.entries()) {

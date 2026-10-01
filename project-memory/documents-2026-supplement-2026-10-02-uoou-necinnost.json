@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-02",
+  "purpose": "Stížnost Mgr. Dušana Dvořáka na nečinnost Úřadu pro ochranu osobních údajů a naléhavá žádost o procesní vyřízení tří samostatných větví: NSZ, KPR a Česká televize / Rada ČT / RRTV.",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-10-02-uoou-stiznost-necinnost",
+      "user_title": "Stížnost na nečinnost ÚOOÚ a naléhavá žádost o okamžité procesní vyřízení tří samostatných věcí",
+      "issue_date": "2026-10-02",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "SIN 55/2026-19; KPR 5772/2026-2; podnět ÚOOÚ z 14. 7. 2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "ÚOOÚ",
+        "nečinnost",
+        "InfZ",
+        "NSZ",
+        "SIN 55/2026-19",
+        "KPR 5772/2026-2",
+        "Česká televize",
+        "Rada ČT",
+        "RRTV",
+        "GDPR",
+        "čl. 78 odst. 2 GDPR"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/089-podani-2026-10-02.pdf",
+        "sha256": null,
+        "verification_status": "pending_verified_public_copy_from_complete_text_of_uploaded_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-02-uoou-necinnost.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-dd-2026-08-01-odvolani-nsz-sin-55-2026-19"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-citc-2026-08-10-stiznost-kpr-5772-2026-2"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cs-dd-2026-08-12-slalom-augsep-068"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Podání je datováno 2. 10. 2026 a adresováno předsedovi ÚOOÚ. Požaduje samostatné procesní vyřízení tří větví: odvolání proti rozhodnutí NSZ SIN 55/2026-19, stížnosti podle § 16a InfZ ve věci KPR 5772/2026-2 a podnětu k postupu České televize, Rady ČT a RRTV. U třetí větve upozorňuje na tříměsíční limit podle čl. 78 odst. 2 GDPR počítaný od 15. 7. 2026 do 15. 10. 2026.",
+      "justice_slalom": {
+        "archive_number": 136,
+        "archive_name": "UOOU - stížnost na nečinnost - 2.října 2026.pdf",
+        "source_sha256": "37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74",
+        "source_kind": "verified_public_copy_from_user_original",
+        "recipients": [
+          {
+            "institution_id": "CZ-UOOU",
+            "reference": "SIN 55/2026-19; KPR 5772/2026-2; podnět z 14. 7. 2026",
+            "role": "primary",
+            "subject_cs": "Stížnost na nečinnost ÚOOÚ a žádost o okamžité procesní vyřízení tří samostatných věcí",
+            "subject_en": "Complaint about inaction by the Czech Data Protection Authority and request for immediate procedural action in three separate matters"
+          }
+        ],
+        "public_sha256": null,
+        "public_copy_manifest": {
+          "kind": "complete_text_public_copy",
+          "source_text": "project-memory/user-text-sources-2026-10-02/uoou-stiznost-necinnost.txt",
+          "original_pages_reviewed": 4,
+          "original_sha256": "37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74",
+          "byte_identical_original": false
+        }
+      }
+    }
+  ]
+}

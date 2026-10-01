@@ -65,9 +65,13 @@ for (const item of items) {
   const file = `web/${item.public.pdf}`;
   const bytes = await readFile(file).catch(() => fail(`chybí ${file}`));
   const hash = createHash('sha256').update(bytes).digest('hex');
-  const redacted = item.justice_slalom.source_kind === 'redacted_public_copy_from_user_original';
-  if (hash !== item.public.sha256 || (redacted ? hash !== item.justice_slalom.public_sha256 || !item.justice_slalom.redaction_manifest : hash !== item.justice_slalom.source_sha256) || !bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF')) fail(`poškozené nebo chybně popsané PDF ${item.id}`);
-  if (redacted && !published.rows.filter(row => row.document_id === item.id).every(row => row.pdf_kind === 'redacted_public_copy')) fail(`veřejná kopie je klamně označena jako originál ${item.id}`);
+  const sourceKind = item.justice_slalom.source_kind;
+  const redacted = sourceKind === 'redacted_public_copy_from_user_original';
+  const verifiedPublicCopy = sourceKind === 'verified_public_copy_from_user_original';
+  const publicCopy = redacted || verifiedPublicCopy;
+  const copyManifest = redacted ? item.justice_slalom.redaction_manifest : item.justice_slalom.public_copy_manifest;
+  if (hash !== item.public.sha256 || (publicCopy ? hash !== item.justice_slalom.public_sha256 || !copyManifest : hash !== item.justice_slalom.source_sha256) || !bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF')) fail(`poškozené nebo chybně popsané PDF ${item.id}`);
+  if (publicCopy && !published.rows.filter(row => row.document_id === item.id).every(row => row.pdf_kind === 'redacted_public_copy')) fail(`veřejná kopie je klamně označena jako originál ${item.id}`);
   if (!published.rows.filter(row => row.document_id === item.id).every(row => row.pdf_sha256 === hash)) fail(`hash adresátů nesouhlasí ${item.id}`);
 }
 async function walk(dir) {
@@ -83,6 +87,9 @@ for (const file of await walk('web')) {
   const html = await readFile(file,'utf8');
   if (/data-timer-id=|id="procesni-casovace"|PROCESS-TIMERS:BEGIN|Živé procesní časovače|Live procedural timers/.test(html)) fail(`veřejná stránka obsahuje původní časovač: ${file}`);
 }
+const uoouPublicCopy = items.find(item => item.id === 'doc-cz-dd-2026-10-02-uoou-stiznost-necinnost');
+if (!uoouPublicCopy || uoouPublicCopy.justice_slalom.source_kind !== 'verified_public_copy_from_user_original' || uoouPublicCopy.justice_slalom.source_sha256 !== '37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74' || !uoouPublicCopy.justice_slalom.public_copy_manifest) fail('ÚOOÚ 2. 10. 2026 nemá korektní provenienci veřejné kopie');
+if (!published.rows.some(row => row.document_id === uoouPublicCopy.id && row.date === '2026-10-02' && row.recipient_id === 'CZ-UOOU' && row.pdf_kind === 'redacted_public_copy')) fail('ÚOOÚ 2. 10. 2026 chybí v čele Justičního slalomu jako veřejná PDF kopie');
 const publicCopies = uploads.filter(upload => upload.public_sha256);
 if (publicCopies.length !== 9) fail('chybí devět prověřených veřejných kopií');
 for (const upload of publicCopies) {

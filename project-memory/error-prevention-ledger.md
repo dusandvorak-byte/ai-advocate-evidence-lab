@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Rozbalená Aktivní soudní řízení byla vyosená a užší než stránka
+
+- Projev: po rozbalení panel působil jako nezarovnaná karta přes přibližně tři čtvrtiny stránky místo jako plnohodnotná sekce v ose webu.
+- Příčina: absolutně pozicovaný panel se centroval vůči prostřední položce `.nav-courts`, nikoli vůči celé navigaci / hlavnímu obsahovému rámci.
+- Náprava: pozičním rámcem je celá `.nav`; `.nav-courts` je na desktopu statická a panel používá `left:0; right:0; width:auto; transform:none`.
+- Pojistka: `scripts/validate-live-dockets-contract.mjs` kontroluje právě tuto geometrii a nesmí připustit návrat pevné tříčtvrteční šířky centrované vůči jedné položce.
+
+
 ### Duplicitní Godotova lišta
 
 - Projev: nad požadovanou lištou zůstal starý text „Každá zpráva má dohledatelný zdroj / Godot online“.
