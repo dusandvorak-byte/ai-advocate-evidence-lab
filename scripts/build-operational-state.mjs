@@ -12,8 +12,8 @@ const allowed = new Set(operations.classification.allowed_values || []);
 const outgoingTypes = new Set(['user_submission', 'user_filing', 'alliance_submission', 'our_submission']);
 
 function classify(item) {
-  if (item.submission_side && allowed.has(item.submission_side)) return { value: item.submission_side, basis: 'explicit' };
   if (item.document_type === 'state_record_attachment') return { value: 'state_attachment', basis: 'state_attachment' };
+  if (item.submission_side && allowed.has(item.submission_side)) return { value: item.submission_side, basis: 'explicit' };
   if (item.document_type === 'state_record') return { value: 'incoming_from_state_or_public_institution', basis: 'state_record' };
   if (outgoingTypes.has(item.document_type)) return { value: 'outgoing_from_user_or_alliance', basis: 'document_type' };
   if (item.document_type === 'court_record') return { value: 'court_record', basis: 'document_type' };
