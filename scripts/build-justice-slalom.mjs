@@ -68,7 +68,8 @@ for (const doc of entries) {
         'CZ-PCR-KRPO': 'Olomouc Regional Police Directorate',
         'CZ-RRTV': 'Council for Radio and Television Broadcasting',
         'CZ-CT': 'Czech Television', 'CZ-RADA-CT': 'Czech Television Council',
-        'CZ-OS-PHA4': 'Prague 4 District Court'
+        'CZ-OS-PHA4': 'Prague 4 District Court',
+        'CZ-UOCR': 'Czech Defence Lawyers’ Union'
       })[recipient.institution_id] || names.get(recipient.institution_id),
       role: recipient.role, reference: recipient.reference,
       subject_cs: recipient.subject_cs, subject_en: recipient.subject_en,
