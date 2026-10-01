@@ -80,6 +80,7 @@ if (home.includes('href="#lhuty">Lhůty</a>') || home.includes('href="#semafor">
 if (!script.includes('nav-courts') || !script.includes('Konopí je lék.cz ke stažení')) throw new Error('Aktivní soudní řízení nejsou přesunuta do první lišty s odkazem na Konopí je lék.cz');
 if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('grid-template-columns:max-content max-content minmax(760px,1fr) max-content') && css.includes('width:min(1180px,calc(100vw - 36px))'))) throw new Error('Lišta Aktivní soudní řízení není na desktopu dominantně širší než ostatní položky první navigace');
 if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.nav>a{margin-right:0;padding:11px 14px 10px;background:#ffeb3b;color:#111;border:1px solid #111'))) throw new Error('Ostatní tři položky první navigace nejsou podbarvené žlutě');
+if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.church-site .nav>a{background:#f1e8bc;color:#16242d;border-color:#b9aa63;font-weight:900;letter-spacing:.03em;text-shadow:0 0 .2px currentColor}'))) throw new Error('Konopná církev nemá tlumenou žlutou a zesílenou typografii navigace');
 if (script.includes('preventivní podání k pěstování 2026')) throw new Error('V Aktivních soudních řízeních zůstalo preventivní podání bez soudní spisové značky');
 for (const requiredRef of ['18 A 17/2026','18 A 23/2026','15 Ad 14/2026','8 Ad 9/2026','6 As 207/2026','15 A 44/2026','9 To 315/2026','9 To 316/2026','2 T 104/2010','15 Nt 3104/2026','2 T 65/2011','15 Nt 3106/2026']) {
   if (!script.includes(requiredRef)) throw new Error(`V první liště Aktivní soudní řízení chybí spisová značka ${requiredRef}`);
@@ -94,9 +95,8 @@ const latestStandalone = reportFiles
   .sort((a,b) => reportDate(a).localeCompare(reportDate(b)) || a.localeCompare(b))
   .at(-1);
 if (!latestStandalone) throw new Error('Nelze určit poslední samostatný publikovaný článek');
-const latestCanonicalDate = canonicalDocuments.documents.map(item => item.issue_date).filter(Boolean).sort().at(-1);
-const currentCs = latestCanonicalDate > reportDate(latestStandalone) ? 'zpravy/04082026-010.html#chronologie' : `zpravy/${latestStandalone}`;
-const currentEn = latestCanonicalDate > reportDate(latestStandalone) ? 'news/04082026-010.html#chronologie' : `news/${latestStandalone}`;
+const currentCs = `zpravy/${latestStandalone}`;
+const currentEn = `news/${latestStandalone}`;
 if (!home.includes('data-nav-current-article') || !home.includes(`href="${currentCs}"`)) throw new Error(`Právě teď nevede na aktuální článek ${currentCs}`);
 if (!englishHome.includes(`href="${currentEn}"`)) throw new Error(`Latest report nevede na aktuální článek ${currentEn}`);
 if (newsFeed.includes("latestNav.href") || newsFeed.includes("querySelector('[data-nav-latest-report]')")) throw new Error('Klientský news-feed znovu přepisuje buildem určený odkaz Právě teď');
