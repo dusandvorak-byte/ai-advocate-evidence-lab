@@ -248,3 +248,108 @@
   background: #1f4a5c;
   color: #fff;
 }
+
+
+/* První navigační lišta CannaInsider: rozbalovací aktivní soudy. */
+.nav{
+  flex-wrap:wrap;
+  overflow:visible;
+}
+.nav > .nav-court-rollup{
+  margin:0 24px 0 0;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:inherit;
+  flex:0 1 auto;
+  min-width:min(720px,100%);
+}
+.nav > .nav-court-rollup > summary{
+  list-style:none;
+  cursor:pointer;
+  display:grid;
+  grid-template-columns:minmax(230px,1fr) minmax(180px,280px) 28px 92px;
+  gap:10px;
+  align-items:center;
+  min-height:39px;
+  padding:7px 0 5px;
+  font:700 12px/1.2 var(--sans,Arial,Helvetica,sans-serif);
+  text-transform:uppercase;
+}
+.nav > .nav-court-rollup > summary::-webkit-details-marker{display:none}
+.nav > .nav-court-rollup .rollup-prompt{font-size:11px;text-transform:none;text-align:right}
+.nav > .nav-court-rollup .rollup-heart{text-align:center}
+.nav > .nav-court-rollup .rollup-action{text-align:right;white-space:nowrap}
+.nav > .nav-court-rollup[open]{
+  flex-basis:100%;
+  margin-right:0;
+  padding-bottom:14px;
+}
+.nav > .nav-court-rollup[open] > summary{
+  border-bottom:1px solid #111;
+}
+.nav > .nav-court-rollup[open] > summary .rollup-action{font-size:0}
+.nav > .nav-court-rollup[open] > summary .rollup-action::after{content:'Zavřít ↑';font-size:11px}
+.nav-court-grid{
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  padding:14px 0 0;
+  background:#f4f1e8;
+}
+.nav-court-card{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  border:1px solid #173f50;
+  background:#fff;
+}
+.nav-court-card > a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:150px;
+  padding:16px;
+  margin:0;
+  color:#173f50;
+  text-align:center;
+  font-weight:800;
+  line-height:1.32;
+  text-decoration:none;
+  text-transform:none;
+  white-space:normal;
+}
+.nav-court-card > a:hover,
+.nav-court-card > a:focus-visible{
+  background:#e4edf0;
+  outline:3px solid #285b6f;
+  outline-offset:-3px;
+}
+.nav-court-card .court-download-note{
+  display:block;
+  margin-top:auto;
+  padding:11px 12px;
+  border-top:1px solid #c8d1d5;
+  background:#f7fafb;
+  font:600 11px/1.35 var(--sans,Arial,Helvetica,sans-serif);
+  text-transform:none;
+}
+.nav-court-card .court-download-note a{
+  padding:0;
+  margin:0;
+  white-space:normal;
+  text-transform:none;
+  font:inherit;
+  text-decoration:underline;
+}
+@media(max-width:900px){
+  .nav > .nav-court-rollup{flex-basis:100%;margin-right:0}
+  .nav-court-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+  .nav > .nav-court-rollup > summary{grid-template-columns:1fr 26px 86px}
+  .nav > .nav-court-rollup .rollup-prompt{grid-column:1/-1;text-align:left}
+  .nav-court-grid{grid-template-columns:1fr}
+  .nav-court-card > a{min-height:110px}
+}
