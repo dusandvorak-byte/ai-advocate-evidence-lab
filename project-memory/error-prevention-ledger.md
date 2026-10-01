@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Produkce odhalila chybu validátoru, kterou PR workflow nespouštělo
+
+- Projev: PR prošel zeleně, ale produkční workflow po merge spadlo v `validate-live-dockets-contract.mjs` na nedefinovaných proměnných církevních ploch.
+- Příčina: produkční workflow spouštělo kontrakt titulní navigace, zatímco PR validační workflow tentýž validátor vůbec nespouštělo; chyba validátoru proto vznikla až po merge.
+- Náprava: proměnné jsou sjednoceny na `churchCzPage` / `churchEnPage` a PR workflow nyní spouští stejný `validate-live-dockets-contract.mjs` před merge.
+- Pojistka: každý produkční kontrakt, který může zablokovat publikaci kvůli zdrojům webu, musí mít odpovídající pre-merge běh; produkce nesmí být prvním místem, kde se syntaxe nebo reference validátoru vykonají.
+
+
 ### Rozbalená Aktivní soudní řízení byla vyosená a užší než stránka
 
 - Projev: po rozbalení panel působil jako nezarovnaná karta přes přibližně tři čtvrtiny stránky místo jako plnohodnotná sekce v ose webu.
