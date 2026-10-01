@@ -414,6 +414,13 @@
       "type": "professional_association",
       "name": "Unie obhájců České republiky, z. s.",
       "short_name": "Unie obhájců ČR"
+    },
+    {
+      "id": "CZ-NCOZ",
+      "country": "CZ",
+      "type": "police_unit",
+      "name": "Policie České republiky – Národní centrála proti organizovanému zločinu SKPV",
+      "short_name": "NCOZ"
     }
   ]
 }
