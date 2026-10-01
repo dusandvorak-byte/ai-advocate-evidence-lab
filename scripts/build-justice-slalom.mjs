@@ -23,7 +23,8 @@ if (JSON.stringify(allArchiveNumbers) !== JSON.stringify(contiguousNumbers) || a
 const esc = value => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;')
   .replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
-const originalPdf = item => item.justice_slalom.source_kind !== 'redacted_public_copy_from_user_original';
+const publicCopyKinds = new Set(['redacted_public_copy_from_user_original', 'verified_public_copy_from_user_original']);
+const originalPdf = item => !publicCopyKinds.has(item.justice_slalom.source_kind);
 const root = '/ai-advocate-evidence-lab/';
 const rows = [];
 for (const doc of entries) {
