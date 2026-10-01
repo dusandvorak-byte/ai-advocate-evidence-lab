@@ -211,6 +211,11 @@
       "path": "project-memory/documents-2026-supplement-2026-09-29-kpr.json",
       "role": "batch",
       "batch_date": "2026-09-29"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-01-justice-slalom.json",
+      "role": "batch",
+      "batch_date": "2026-10-01"
     }
   ]
 }

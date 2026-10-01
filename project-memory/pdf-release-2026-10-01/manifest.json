@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "encoding": "base64(lzma(tar))",
+  "archive_sha256": "1b43d2c8320832f595b4014d7ddadf4d81109a904c7e5c44c428df37c7ae0d40",
+  "chunks": [
+    {
+      "name": "chunk-001.b64",
+      "size": 12000,
+      "sha256": "f0e6044a3deb209288c13a57958eec88baf686b3ef50f4fc4856cc045a010983"
+    },
+    {
+      "name": "chunk-002.b64",
+      "size": 55000,
+      "sha256": "8ef76ccb88467ad26149769e1c206451f5754086d316f69bc9c28ccf796e4743"
+    },
+    {
+      "name": "chunk-003.b64",
+      "size": 55000,
+      "sha256": "a3bd09cf6ef37891102051237b59ec1e36850a3f1587961ccbace6ff2616f151"
+    },
+    {
+      "name": "chunk-004.b64",
+      "size": 52972,
+      "sha256": "c945687ffd8362909c6b7a20d7df7e7c9708411b946c067ac3ae374f192f4d60"
+    }
+  ],
+  "files": [
+    {
+      "path": "web/documents/justice-slalom/2026-10/130-podani-2026-10-01.pdf",
+      "size": 146368,
+      "sha256": "69058baab748088ee5d1c1b1fb1ed9931b4f0388ca07351f0343540300399912"
+    }
+  ]
+}

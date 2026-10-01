@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_on": "2026-09-29",
+  "updated_on": "2026-10-01",
   "cases": [
     {
       "id": "CASE-CZ-NSZ-6NZN1737-2026",
@@ -160,6 +160,38 @@
         "právo na odpověď",
         "věcná příslušnost",
         "FTV Prima"
+      ]
+    },
+    {
+      "id": "case-cz-ms-praha-18a17-2026",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 17/2026",
+      "title": "Zásahová žaloba proti NCOZ",
+      "status": "active",
+      "opened_on": "2026-05-01",
+      "topics": [
+        "zásahová žaloba",
+        "NCOZ",
+        "18 A 17/2026",
+        "§ 174a",
+        "kontradiktornost řízení"
+      ]
+    },
+    {
+      "id": "case-cz-mk-konopna-cirkev",
+      "institution_id": "CZ-MK",
+      "reference": "MK-S 6893/2026 SOCNS",
+      "title": "Konopná církev – nové řízení a navazující rozklad",
+      "status": "active_remonstrance_stage",
+      "opened_on": "2026-06-26",
+      "topics": [
+        "Konopná církev",
+        "registrace církve",
+        "Ministerstvo kultury",
+        "MK-S 6893/2026 SOCNS",
+        "MK 53547/2026 SOCNS",
+        "rozklad",
+        "§ 152 správního řádu"
       ]
     }
   ]
