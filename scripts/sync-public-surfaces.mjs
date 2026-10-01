@@ -1,12 +1,25 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 
-const registry = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
+const sourceManifest = JSON.parse(await readFile('project-memory/document-sources.json', 'utf8'));
 const institutions = JSON.parse(await readFile('project-memory/institutions.json', 'utf8'));
 const processTimers = JSON.parse(await readFile('project-memory/process-timers.json', 'utf8'));
-if (!Array.isArray(registry.documents)) throw new Error('documents-2026.json neobsahuje kanonické dokumenty');
+if (!Array.isArray(sourceManifest.sources)) throw new Error('document-sources.json neobsahuje kanonické zdroje');
 if (!Array.isArray(institutions.institutions)) throw new Error('institutions.json neobsahuje kanonické instituce');
 
-const documents = registry.documents;
+const documentMap = new Map();
+for (const source of sourceManifest.sources) {
+  const payload = JSON.parse(await readFile(source.path, 'utf8'));
+  if (!Array.isArray(payload.documents)) throw new Error(`${source.path} neobsahuje documents`);
+  for (const item of payload.documents) {
+    const previous = documentMap.get(item.id) || {};
+    documentMap.set(item.id, {
+      ...previous,
+      ...item,
+      public: { ...(previous.public || {}), ...(item.public || {}) }
+    });
+  }
+}
+const documents = [...documentMap.values()];
 const institutionMap = new Map(institutions.institutions.map(item => [item.id, item]));
 const churchTimer = processTimers.timers?.find(item => item.id === 'timer-admin-mk-2026-07-22');
 if (!churchTimer) throw new Error('Chybí kanonický procesní uzel Konopné církve / Ministerstva kultury');
