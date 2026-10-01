@@ -28,7 +28,7 @@ for (const label of [
 
 const caseRows = [...script.matchAll(/\['(\d{4}-\d{2}-\d{2})',\s*'([^']+)',\s*'([^']+)',\s*'([^']+)'\]/g)]
   .map(([,date,cs,en,anchor]) => ({date,cs,en,anchor}));
-if (caseRows.length !== 11) fail(`očekáváno 11 soudních větví v první navigaci, nalezeno ${caseRows.length}`);
+if (caseRows.length !== 10) fail(`očekáváno 10 skutečných soudních větví se známou spisovou značkou v první navigaci, nalezeno ${caseRows.length}`);
 for (let i=1;i<caseRows.length;i+=1) if (caseRows[i-1].date > caseRows[i].date) fail(`soudní větve nejsou chronologické: ${caseRows[i-1].cs} → ${caseRows[i].cs}`);
 for (const name of ['Městský soud v Praze','Obvodní soud pro Prahu 4','Okresní soud v Prostějově','Okresní soud v Ostravě','Krajský soud v Ostravě','Krajský soud v Brně','Nejvyšší správní soud']) {
   if (!caseRows.some(row => row.cs.includes(name))) fail(`v aktivních soudních větvích chybí ${name}`);

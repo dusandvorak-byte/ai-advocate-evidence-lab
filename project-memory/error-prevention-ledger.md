@@ -262,3 +262,11 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 - **Anglická karta zaměnila adresáta za autora podání:** Živý DOM uvedl u vlastního podání z 13. 9. 2026 „From: Brno Regional Court“. Příčina: fallback z obecného `institution_id`, které u novějších podání určuje adresáta. Oprava: autora převzít pouze z doloženého `author_en`, procesního aktéra nebo subjektu typu osoba/spolek; jinak nevyplňovat nedoloženou roli. Terminální gate odmítá veřejný orgán jako autora vlastní odchozí karty.
 - **KPR 29. 9. 2026 není nové rozhodnutí o milosti:** Datum plyne z viditelného elektronického podpisu, nikoli z názvu souboru. Potvrzení dvou podání a odmítnutí účasti u zasedání nepřeměňovat na příslib konkrétního termínu milosti. Původní stížnost zůstává vyřízená 2. 9.; kanonická projekce připojí odpověď 29. 9. do téže genealogie a odstraní číselnou lhůtu z aktuální fáze. Nezávislá informační větev KPR 5772/2026 se nemění. Gate ověřuje poslední pramen, historii a nulovou novou pevnou lhůtu.
+
+
+### „Právě teď“ se mohlo znovu zaseknout na ručně vedeném posledním článku
+
+- Projev: build správně nastavil odkaz na nejnovější skutečně publikovaný soubor článku, ale klientský `news-feed.js` jej po načtení stránky znovu přepsal podle ručně vedeného pole `cannaNews`. Nový článek by proto mohl existovat a navigace by stále otevírala starší report.
+- Příčina: existovaly dva zdroje pravdy pro stejný navigační odkaz.
+- Závazné řešení: jediným zdrojem pro „Právě teď“ je build, který skenuje skutečné články `web/zpravy/DDMMYYYY-NNN.html` a vybere nejnovější datum/číslo. Klientský JavaScript nesmí atribut `href` prvku `data-nav-latest-report` měnit.
+- Pojistka: validační skript ověřuje, že statický odkaz míří na nejnovější článek a současně odmítne návrat klientského přepisu. Seznam „Aktivní soudní řízení“ navíc nesmí obsahovat pouhé preventivní podání bez soudní spisové značky; povinně kontroluje známé spisové značky z aktuálního zadání.
