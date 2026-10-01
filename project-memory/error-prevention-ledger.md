@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Veřejná PDF kopie měnila hash mezi dvěma běhy stejného commitu
+
+- Projev: build, Slalom i publikace prošly, ale opakovaný live-check stejného SHA porovnal čerstvě vygenerované PDF ÚOOÚ s předchozí živou kopií a hash se lišil.
+- Příčina: ReportLab generoval do PDF proměnlivá metadata, takže obsahově totožná veřejná kopie nebyla byte-deterministická. Rerun navíc používal stejný cache-busting parametr bez čísla pokusu.
+- Náprava: materializátor používá `invariant=1`, takže stejný text a kód dávají stejné bajty a SHA-256; live URL používají i `GITHUB_RUN_ATTEMPT`.
+- Pojistka: validační Slalom gate vyžaduje deterministický režim materializátoru; generovaný důkazní artefakt musí být reprodukovatelný napříč opakovanými běhy téhož zdroje.
+
+
 ### Produkce odhalila chybu validátoru, kterou PR workflow nespouštělo
 
 - Projev: PR prošel zeleně, ale produkční workflow po merge spadlo v `validate-live-dockets-contract.mjs` na nedefinovaných proměnných církevních ploch.
