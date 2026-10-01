@@ -47,7 +47,7 @@
       "institution_id": "CZ-KSZ-BRN",
       "reference": "1 KZN 1079/2026",
       "title": "Přezkum postupu MSZ v Brně ve věci 3 ZN 140/2026",
-      "status": "active",
+      "status": "active_extended",
       "opened_on": "2026-07-31",
       "topics": [
         "dohled",
@@ -57,7 +57,9 @@
       ],
       "related_case_ids": [
         "CASE-CZ-MSZ-BRN-3ZN140-2026"
-      ]
+      ],
+      "next_due_on": "2026-10-09",
+      "deadline_note": "KSZ v Brně dne 1. 10. 2026, č. j. 1 SPR 338/2026-5, uvedlo, že základní lhůta byla prodloužena do 9. 10. 2026."
     },
     {
       "id": "CASE-CZ-VSZ-PHA-1VZN1678-2026",
@@ -143,7 +145,9 @@
       "topics": [
         "dohled",
         "OSZ Prostějov"
-      ]
+      ],
+      "served_on": "2026-09-29",
+      "delivery_note": "KSZ v Brně dne 1. 10. 2026 pod č. j. 1 SPR 338/2026-5 potvrdilo administrativní nedopatření: přípis z 16. 9. byl expedován 18. 9., ale do datové schránky byl opožděně doručen 29. 9. 2026."
     },
     {
       "id": "CASE-CZ-VS-PHA-3CMO24-2026",
@@ -179,6 +183,43 @@
         "THCA",
         "metodika měření",
         "právo EU"
+      ]
+    },
+    {
+      "id": "CASE-CZ-VSZ-OLO-3VZN239-2026",
+      "institution_id": "CZ-VSZ-OLO",
+      "reference": "3 VZN 239/2026",
+      "title": "Dohled VSZ v Olomouci nad moravskými větvemi souvisejícími s metodikou THC a obnovami",
+      "status": "active",
+      "opened_on": "2026-07-10",
+      "topics": [
+        "dohled",
+        "KSZ Brno",
+        "OSZ Prostějov",
+        "obnova řízení",
+        "THC",
+        "THCA",
+        "analytické metody"
+      ]
+    },
+    {
+      "id": "CASE-CZ-KSZ-BRN-1SPR338-2026",
+      "institution_id": "CZ-KSZ-BRN",
+      "reference": "1 SPR 338/2026",
+      "title": "Stížnost na průtahy při vyřizování 1 KZT 475/2026 a 1 KZN 1079/2026",
+      "status": "resolved",
+      "opened_on": "2026-09-28",
+      "decided_on": "2026-10-01",
+      "decision_document_id": "doc-cz-ksz-brn-2026-10-01-1-spr-338-2026-5",
+      "topics": [
+        "stížnost na průtahy",
+        "instanční dohled",
+        "doručování",
+        "prodloužení lhůty"
+      ],
+      "related_case_ids": [
+        "CASE-CZ-KSZ-BRN-1KZT475-2026",
+        "CASE-CZ-KSZ-BRN-1KZN1079-2026"
       ]
     }
   ]
