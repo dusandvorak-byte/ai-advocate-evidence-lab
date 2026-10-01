@@ -252,7 +252,7 @@ jobs:
           done
 
           # První navigace a propojení webů musí být ověřeny až na živé produkci.
-          grep -q 'data-nav-latest-report href="zpravy/11092026-013.html">Právě teď</a>' /tmp/live-index.html
+          grep -q 'data-nav-current-article href="zpravy/04082026-010.html#chronologie">Právě teď</a>' /tmp/live-index.html
           grep -q 'href="zpravy/index.html">Archiv zpráv</a>' /tmp/live-index.html
           grep -q 'href="#podpora">Podpořit</a>' /tmp/live-index.html
           ! grep -q 'href="#lhuty">Lhůty</a>' /tmp/live-index.html
@@ -269,8 +269,11 @@ jobs:
             grep -q "$required" /tmp/live-dockets.js
           done
 
-          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/zpravy/11092026-013.html$stamp" -o /tmp/live-latest-report.html
-          grep -q 'Zakázat legální konopí a legalizovat trestnou činnost policie?' /tmp/live-latest-report.html
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/zpravy/04082026-010.html$stamp" -o /tmp/live-current-article.html
+          grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' /tmp/live-current-article.html
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/styles.css$stamp" -o /tmp/live-styles.css
+          grep -q 'grid-template-columns:max-content max-content minmax(760px,1fr) max-content' /tmp/live-styles.css
+          grep -q 'width:min(1180px,calc(100vw - 36px))' /tmp/live-styles.css
 
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf$stamp" -o /tmp/live-slalom.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf$stamp" -o /tmp/live-ospro.pdf

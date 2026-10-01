@@ -1,12 +1,21 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 
-const registry = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
+const sourceManifest = JSON.parse(await readFile('project-memory/document-sources.json', 'utf8'));
 const institutions = JSON.parse(await readFile('project-memory/institutions.json', 'utf8'));
 const processTimers = JSON.parse(await readFile('project-memory/process-timers.json', 'utf8'));
-if (!Array.isArray(registry.documents)) throw new Error('documents-2026.json neobsahuje kanonické dokumenty');
+if (!Array.isArray(sourceManifest.sources)) throw new Error('document-sources.json neobsahuje kanonické zdroje');
 if (!Array.isArray(institutions.institutions)) throw new Error('institutions.json neobsahuje kanonické instituce');
 
-const documents = registry.documents;
+const documentMap = new Map();
+for (const source of sourceManifest.sources) {
+  const payload = JSON.parse(await readFile(source.path, 'utf8'));
+  if (!Array.isArray(payload.documents)) throw new Error(`${source.path} neobsahuje documents`);
+  for (const item of payload.documents) {
+    const previous = documentMap.get(item.id) || {};
+    documentMap.set(item.id, { ...previous, ...item, public: { ...(previous.public || {}), ...(item.public || {}) } });
+  }
+}
+const documents = [...documentMap.values()];
 const institutionMap = new Map(institutions.institutions.map(item => [item.id, item]));
 const churchTimer = processTimers.timers?.find(item => item.id === 'timer-admin-mk-2026-07-22');
 if (!churchTimer) throw new Error('Chybí kanonický procesní uzel Konopné církve / Ministerstva kultury');
@@ -15,7 +24,9 @@ if (churchTimer.status !== 'active_remonstrance_stage' || churchTimer.start_date
 }
 const stateRecords = documents.filter(item => item.issue_date >= '2026-05-01' && item.document_type === 'state_record');
 const stateCount = stateRecords.length;
-const activePdfCount = documents.filter(item => item.public?.pdf).length;
+const pdfReconciliation = JSON.parse(await readFile('web/data/pdf-reconciliation-report.json', 'utf8'));
+const activePdfCount = pdfReconciliation.linked_pdf_count;
+if (!Number.isInteger(activePdfCount) || activePdfCount < 1) throw new Error('pdf-reconciliation-report.json neobsahuje platný linked_pdf_count');
 const latestIssueDate = stateRecords.map(item => item.issue_date).sort().at(-1);
 if (!latestIssueDate) throw new Error('Registr neobsahuje žádnou státní listinu od 1. května 2026');
 const latestStateRecord = [...stateRecords]
@@ -24,19 +35,24 @@ const latestStateRecord = [...stateRecords]
 const latestStateDecisionHref = `zpravy/04082026-010.html#${latestStateRecord.id}`;
 
 const reportFiles = (await readdir('web/zpravy')).filter(name => /^\d{8}-\d+\.html$/.test(name));
-const reportKey = name => {
+const reportDate = name => {
   const match = name.match(/^(\d{2})(\d{2})(\d{4})-(\d+)\.html$/);
-  return match ? `${match[3]}-${match[2]}-${match[1]}-${String(match[4]).padStart(6,'0')}` : '';
+  return match ? `${match[3]}-${match[2]}-${match[1]}` : '';
 };
-const latestPublishedReportFile = [...reportFiles].sort((a,b) => reportKey(a).localeCompare(reportKey(b))).at(-1);
-if (!latestPublishedReportFile) throw new Error('Nelze určit nejnovější publikovaný článek');
+const latestStandaloneReportFile = reportFiles
+  .filter(name => name !== '04082026-010.html')
+  .sort((a,b) => reportDate(a).localeCompare(reportDate(b)) || a.localeCompare(b))
+  .at(-1);
+if (!latestStandaloneReportFile) throw new Error('Nelze určit nejnovější samostatný publikovaný článek');
 try {
-  await readFile(`web/news/${latestPublishedReportFile}`, 'utf8');
+  await readFile(`web/news/${latestStandaloneReportFile}`, 'utf8');
 } catch {
-  throw new Error(`Nejnovější český článek nemá anglickou protistranu: ${latestPublishedReportFile}`);
+  throw new Error(`Nejnovější český článek nemá anglickou protistranu: ${latestStandaloneReportFile}`);
 }
-const latestPublishedReportHrefCs = `zpravy/${latestPublishedReportFile}`;
-const latestPublishedReportHrefEn = `news/${latestPublishedReportFile}`;
+const latestStandaloneDate = reportDate(latestStandaloneReportFile);
+const godotIsCurrent = latestIssueDate > latestStandaloneDate;
+const currentArticleHrefCs = godotIsCurrent ? 'zpravy/04082026-010.html#chronologie' : `zpravy/${latestStandaloneReportFile}`;
+const currentArticleHrefEn = godotIsCurrent ? 'news/04082026-010.html#chronologie' : `news/${latestStandaloneReportFile}`;
 
 const escapeHtml = value => String(value ?? '')
   .replaceAll('&', '&amp;')
@@ -193,8 +209,8 @@ await update('web/en.html', [
 // Lhůty a ověřování listin se dočasně z veřejné navigace odstraňují.
 {
   const navs = [
-    ['web/index.html', `<nav class="nav"><a data-nav-latest-report href="${latestPublishedReportHrefCs}">Právě teď</a><a href="zpravy/index.html">Archiv zpráv</a><a href="#podpora">Podpořit</a></nav>`],
-    ['web/en.html', `<nav class="nav" aria-label="Main sections"><a data-nav-latest-report href="${latestPublishedReportHrefEn}">Latest report</a><a href="news/index.html">News archive</a><a href="#support">Support</a></nav>`]
+    ['web/index.html', `<nav class="nav"><a data-nav-current-article href="${currentArticleHrefCs}">Právě teď</a><a href="zpravy/index.html">Archiv zpráv</a><a href="#podpora">Podpořit</a></nav>`],
+    ['web/en.html', `<nav class="nav" aria-label="Main sections"><a data-nav-current-article href="${currentArticleHrefEn}">Latest report</a><a href="news/index.html">News archive</a><a href="#support">Support</a></nav>`]
   ];
   for (const [file, nav] of navs) {
     let html = await readFile(file, 'utf8');
