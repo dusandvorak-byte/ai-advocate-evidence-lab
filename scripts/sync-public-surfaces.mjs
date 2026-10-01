@@ -221,7 +221,7 @@ await update('web/en.html', [
 }
 
 // Anglická titulní stránka musí mít stejnou redakční skladbu jako česká:
-// článek → vyhledávač → další zprávy → termíny → důkazní přepážka.
+// článek → vyhledávač → další zprávy → termíny.
 {
   const englishPath = 'web/en.html';
   let html = await readFile(englishPath, 'utf8');
