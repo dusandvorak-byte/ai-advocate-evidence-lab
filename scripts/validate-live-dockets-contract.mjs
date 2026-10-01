@@ -71,6 +71,7 @@ if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new E
 if (!home.includes('href="#podpora">Podpořit</a>')) throw new Error('Z první lišty zmizela sekce Podpořit');
 if (home.includes('href="#lhuty">Lhůty</a>') || home.includes('href="#semafor">Ověřit listinu</a>')) throw new Error('V první liště zůstaly dočasně odstraněné položky Lhůty/Ověřit listinu');
 if (!script.includes('nav-courts') || !script.includes('Konopí je lék.cz ke stažení')) throw new Error('Aktivní soudní řízení nejsou přesunuta do první lišty s odkazem na Konopí je lék.cz');
+if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('flex:1 1 720px') && css.includes('width:min(1120px,calc(100vw - 36px))'))) throw new Error('Lišta Aktivní soudní řízení není na desktopu proporčně výrazně širší než ostatní položky navigace');
 if (script.includes('preventivní podání k pěstování 2026')) throw new Error('V Aktivních soudních řízeních zůstalo preventivní podání bez soudní spisové značky');
 for (const requiredRef of ['18 A 17/2026','18 A 23/2026','15 Ad 14/2026','8 Ad 9/2026','6 As 207/2026','15 A 44/2026','9 To 315/2026','9 To 316/2026','2 T 104/2010','15 Nt 3104/2026','2 T 65/2011','15 Nt 3106/2026']) {
   if (!script.includes(requiredRef)) throw new Error(`V první liště Aktivní soudní řízení chybí spisová značka ${requiredRef}`);
