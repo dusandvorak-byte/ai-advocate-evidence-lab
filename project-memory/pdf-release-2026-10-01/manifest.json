@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "archive_sha256": "7540cec9e2d87062b2ceef543b5475fcf62450c7c9301d2d23364d1c73db09ef",
+  "chunks": [
+    {
+      "name": "chunk-000.b64",
+      "size": 60000,
+      "sha256": "dcc174599ffa1b9a465ecb83aaff59e6e9067d2d09831720096d0fc08e5c18b7"
+    },
+    {
