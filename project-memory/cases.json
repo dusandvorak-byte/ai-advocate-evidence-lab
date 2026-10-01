@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_on": "2026-09-29",
+  "updated_on": "2026-10-01",
   "cases": [
     {
       "id": "CASE-CZ-NSZ-6NZN1737-2026",
@@ -160,6 +160,25 @@
         "právo na odpověď",
         "věcná příslušnost",
         "FTV Prima"
+      ]
+    },
+    {
+      "id": "case-cz-msz-praha-3kzn974-2026-osz-pha2",
+      "institution_id": "CZ-MSZ-PHA",
+      "reference": "3 KZN 974/2026 / 1 ZN 157/2026",
+      "title": "Dohled MSZ v Praze nad postupem OSZ pro Prahu 2 ve věci 1 ZN 157/2026",
+      "status": "supervisory_request_dismissed",
+      "opened_on": "2026-08-01",
+      "decided_on": "2026-10-01",
+      "decision_document_id": "doc-cz-msz-pha-2026-10-01-3-kzn-974-2026-114",
+      "topics": [
+        "dohled",
+        "OSZ Praha 2",
+        "Ministerstvo spravedlnosti",
+        "THC",
+        "THCA",
+        "metodika měření",
+        "právo EU"
       ]
     }
   ]
