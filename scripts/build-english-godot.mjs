@@ -115,7 +115,8 @@ const reactionCard = (item, label = 'Subsequent filing') => {
   const from = item.author_en || (timer?.actor ? translateRoute(timer.actor)
     : ['person', 'ngo', 'association'].includes(institution?.type)
       ? translations.institutions[item.institution_id] : null);
-  return `<aside id="en-${escapeHtml(item.id)}" class="chronology-reaction" data-outgoing-id="${escapeHtml(item.id)}"><p class="kicker">${escapeHtml(label)}</p><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p>${to ? `<p><b>To:</b> ${escapeHtml(to)}</p>` : ''}${forAuthority ? `<p><b>For:</b> ${escapeHtml(forAuthority)}</p>` : ''}<p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p>${from ? `<p><b>From:</b> ${escapeHtml(from)}</p>` : ''}<p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)}</p></aside>`;
+  const trackingAttr = item.submission_side === 'outgoing_from_user_or_alliance' ? 'data-outgoing-id="' + escapeHtml(item.id) + '"' : 'data-state-attachment-id="' + escapeHtml(item.id) + '"';
+  return `<aside id="en-${escapeHtml(item.id)}" class="chronology-reaction" ${trackingAttr}><p class="kicker">${escapeHtml(label)}</p><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p>${to ? `<p><b>To:</b> ${escapeHtml(to)}</p>` : ''}${forAuthority ? `<p><b>For:</b> ${escapeHtml(forAuthority)}</p>` : ''}<p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p>${from ? `<p><b>From:</b> ${escapeHtml(from)}</p>` : ''}<p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)}</p></aside>`;
 };
 
 const chronologyItem = item => {
