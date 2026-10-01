@@ -44,6 +44,7 @@ await runPython('scripts/materialize-pdf-release-2026-09-29.py');
 await runPython('scripts/materialize-state-pdfs-2026-09-03.py');
 await runPython('scripts/materialize-state-pdf-2026-10-01.py');
 await runPython('scripts/materialize-october-court-pdfs.py');
+await runPython('scripts/materialize-uoou-submission-2026-10-02.py');
 await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');
 await run('scripts/reconcile-public-pdfs.mjs');
