@@ -213,6 +213,49 @@ jobs:
           git commit -m "Publish verified Evidence Lab 2.0 from $GITHUB_SHA"
           git push --force origin HEAD:gh-pages
 
+      - name: Ověřit živou produkci po publikaci
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://dusandvorak-byte.github.io/ai-advocate-evidence-lab"
+          stamp="?v=${GITHUB_SHA}-${GITHUB_RUN_ID}"
+          pages=(
+            "index.html"
+            "en.html"
+            "kc/index.html"
+            "kc/en.html"
+            "zpravy/04082026-010.html"
+            "news/04082026-010.html"
+          )
+          for page in "${pages[@]}"; do
+            target="/tmp/live-$(echo "$page" | tr '/' '-')"
+            for attempt in {1..12}; do
+              if curl -fsSL --connect-timeout 10 --max-time 30 "$base/$page$stamp" -o "$target"; then
+                if grep -q 'doc-cs-dd-2026-10-01-spolecne-doplneni-nsz-vsz-uzavreny-retezec' "$target" \
+                   && grep -q '1 SPR 338/2026-5' "$target" \
+                   && grep -q '3 KZN 974/2026-114' "$target" \
+                   && ! grep -Eq 'data-timer-id=|id="procesni-casovace"|Živé procesní časovače|Live procedural timers' "$target"; then
+                  break
+                fi
+              fi
+              if [ "$attempt" -eq 12 ]; then
+                echo "Živá produkce není synchronizovaná: $page" >&2
+                exit 1
+              fi
+              sleep 5
+            done
+          done
+
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf$stamp" -o /tmp/live-slalom.pdf
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/106-ksz-brno-1-spr-338-2026-5-2026-10-01.pdf$stamp" -o /tmp/live-ksz.pdf
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/105-msz-praha-3-kzn-974-2026-114-2026-10-01-verejna-kopie.pdf$stamp" -o /tmp/live-msz.pdf
+          test "$(head -c 5 /tmp/live-slalom.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-ksz.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-msz.pdf)" = '%PDF-'
+          echo "d1a482411d2e08797b8417ea6708454d47a60faf5ca36b1746c4100406cca71b  /tmp/live-slalom.pdf" | sha256sum -c -
+          echo "c9cd624bff387428a670ef28351796b8bd4e89f53a7c019add281d6b395696ce  /tmp/live-ksz.pdf" | sha256sum -c -
+          echo "Živá produkce ověřena na 6/6 veřejných plochách a 3 PDF."
+
       - name: Souhrn
         shell: bash
         run: |
