@@ -62,6 +62,7 @@ for (const file of surfacePaths) {
     .replace(/<h2>Kanonická důkazní paměť do [^<]+<\/h2>/g, `<h2>Kanonická důkazní paměť do ${latestCz}</h2>`)
     .replace(/<h2>Canonical evidence memory through [^<]+<\/h2>/g, `<h2>Canonical evidence memory through ${latestEn}</h2>`)
     .replace(/The canonical chronology now links \d+ public records/g, `The canonical chronology now links ${stateCount} public records`)
+    .replace(/\d+ verified public PDFs/g, `${verifiedPdfCount} verified public PDFs`)
     .replaceAll('Anonymizovaná veřejná kopie PDF', 'Ověřená anonymizovaná veřejná kopie PDF')
     .replaceAll('Anonymised public PDF copy', 'Verified anonymised public PDF copy');
   await writeFile(file, html, 'utf8');
