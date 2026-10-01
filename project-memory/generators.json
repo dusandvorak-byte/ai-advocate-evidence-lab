@@ -75,6 +75,11 @@
       "path": "scripts/materialize-october-court-pdfs.py",
       "role": "deterministic_binary_pdf_materialization",
       "allowed_caller": "scripts/build-site.mjs"
+    },
+    {
+      "path": "scripts/materialize-uoou-submission-2026-10-02.py",
+      "role": "deterministic_verified_public_copy_materialization",
+      "allowed_caller": "scripts/build-site.mjs"
     }
   ],
   "canonical_generated_outputs": [
