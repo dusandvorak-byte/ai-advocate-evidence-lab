@@ -252,7 +252,7 @@ jobs:
           done
 
           # První navigace a propojení webů musí být ověřeny až na živé produkci.
-          grep -q 'data-nav-current-article href="zpravy/04082026-010.html#chronologie">Právě teď</a>' /tmp/live-index.html
+          grep -Eq 'data-nav-current-article href="zpravy/[0-9]{8}-[0-9]+\.html">Právě teď</a>' /tmp/live-index.html
           grep -q 'href="zpravy/index.html">Archiv zpráv</a>' /tmp/live-index.html
           grep -q 'href="#podpora">Podpořit</a>' /tmp/live-index.html
           ! grep -q 'href="#lhuty">Lhůty</a>' /tmp/live-index.html
