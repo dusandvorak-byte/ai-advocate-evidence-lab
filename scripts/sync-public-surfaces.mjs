@@ -49,10 +49,8 @@ try {
 } catch {
   throw new Error(`Nejnovější český článek nemá anglickou protistranu: ${latestStandaloneReportFile}`);
 }
-const latestStandaloneDate = reportDate(latestStandaloneReportFile);
-const godotIsCurrent = latestIssueDate > latestStandaloneDate;
-const currentArticleHrefCs = godotIsCurrent ? 'zpravy/04082026-010.html#chronologie' : `zpravy/${latestStandaloneReportFile}`;
-const currentArticleHrefEn = godotIsCurrent ? 'news/04082026-010.html#chronologie' : `news/${latestStandaloneReportFile}`;
+const currentArticleHrefCs = `zpravy/${latestStandaloneReportFile}`;
+const currentArticleHrefEn = `news/${latestStandaloneReportFile}`;
 
 const escapeHtml = value => String(value ?? '')
   .replaceAll('&', '&amp;')
