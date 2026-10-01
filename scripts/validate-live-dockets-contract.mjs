@@ -2,6 +2,7 @@ import { readFile, readdir } from 'node:fs/promises';
 
 const script = await readFile('web/live-dockets.js', 'utf8');
 const styles = await readFile('web/home-rollups.css', 'utf8');
+const navStyles = await readFile('web/styles.css', 'utf8');
 const home = await readFile('web/index.html', 'utf8');
 const englishHome = await readFile('web/en.html', 'utf8');
 const newsFeed = await readFile('web/news-feed.js', 'utf8');
@@ -9,7 +10,16 @@ const siteSearch = await readFile('web/site-search.js', 'utf8');
 const publishWorkflow = await readFile('.github/workflows/publish-gh-pages-branch.yml', 'utf8');
 const timerBuilder = await readFile('scripts/build-process-timers.mjs', 'utf8');
 const englishGodot = await readFile('web/news/04082026-010.html', 'utf8');
-const canonicalDocuments = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
+const sourceManifest = JSON.parse(await readFile('project-memory/document-sources.json', 'utf8'));
+const mergedDocuments = new Map();
+for (const source of sourceManifest.sources || []) {
+  const payload = JSON.parse(await readFile(source.path, 'utf8'));
+  for (const item of payload.documents || []) {
+    const previous = mergedDocuments.get(item.id) || {};
+    mergedDocuments.set(item.id, { ...previous, ...item, public: { ...(previous.public || {}), ...(item.public || {}) } });
+  }
+}
+const canonicalDocuments = { documents: [...mergedDocuments.values()] };
 const automaticTranslation = await readFile('web/auto-translate.js', 'utf8');
 const churchCzPage = await readFile('web/kc/index.html', 'utf8');
 const churchEnPage = await readFile('web/kc/en.html', 'utf8');
@@ -28,7 +38,7 @@ for (const obsolete of ['Předžalobní řízení on-line od 1. května 2026', '
 
 const caseRows = [...script.matchAll(/\['(\d{4}-\d{2}-\d{2})',\s*'([^']+)',\s*[^\]]+\]/g)]
   .map(([, date, label]) => ({ date, label }));
-if (caseRows.length !== 11) throw new Error(`Očekáváno jedenáct soudních větví, nalezeno ${caseRows.length}`);
+if (caseRows.length !== 10) throw new Error(`Očekáváno deset skutečných soudních větví, nalezeno ${caseRows.length}`);
 for (const abbreviation of ['MS v Praze', 'OS Praha 4', 'OS Prostějov', 'OS Ostrava', 'vratka VS']) {
   if (caseRows.some(item => item.label.includes(abbreviation))) throw new Error(`V názvu aktivního soudního řízení zůstala zkratka: ${abbreviation}`);
 }
@@ -44,6 +54,9 @@ for (let index = 1; index < caseRows.length; index += 1) {
   }
 }
 if (!script.includes('item.dataset.startDate = startDate')) throw new Error('Soudní položky nemají veřejně kontrolovatelné datum počátku');
+for (const geometry of ['flex:1 1 62%', 'min-width:560px', 'width:min(1180px,calc(100vw - 36px))']) {
+  if (!navStyles.includes(geometry)) throw new Error(`Soudní lišta nemá požadovanou dominantní šířku/proporci: ${geometry}`);
+}
 
 for (const declaration of ['background: #285b6f;', 'color: #fff;']) {
   if (!styles.includes(declaration)) throw new Error(`Chybí barevná smlouva lišt: ${declaration}`);
@@ -69,18 +82,24 @@ if (!styles.includes('#semafor.utility-grid')
 }
 if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Titulní stránka nenačítá generátor lišt');
 if (!home.includes('href="#podpora">Podpořit</a>')) throw new Error('Z první lišty zmizela sekce Podpořit');
+if (!home.includes('<details class="nav-courts" id="active-court-proceedings">')) throw new Error('Statická první lišta neobsahuje rozbalovací soudy');
 if (home.includes('href="#lhuty">Lhůty</a>') || home.includes('href="#semafor">Ověřit listinu</a>')) throw new Error('V první liště zůstaly dočasně odstraněné položky Lhůty/Ověřit listinu');
 if (!script.includes('nav-courts') || !script.includes('Konopí je lék.cz ke stažení')) throw new Error('Aktivní soudní řízení nejsou přesunuta do první lišty s odkazem na Konopí je lék.cz');
 const reportFiles = (await readdir('web/zpravy')).filter(name => /^\d{8}-\d+\.html$/.test(name));
-const reportKey = name => {
+const reportDate = name => {
   const match = name.match(/^(\d{2})(\d{2})(\d{4})-(\d+)\.html$/);
-  return match ? `${match[3]}-${match[2]}-${match[1]}-${String(match[4]).padStart(6,'0')}` : '';
+  return match ? `${match[3]}-${match[2]}-${match[1]}` : '';
 };
-const latestReport = [...reportFiles].sort((a,b) => reportKey(a).localeCompare(reportKey(b))).at(-1);
-if (!latestReport) throw new Error('Nelze určit poslední publikovaný článek');
-if (!home.includes('data-nav-latest-report') || !home.includes(`href="zpravy/${latestReport}"`)) throw new Error(`Právě teď nemá výchozí odkaz na nejnovější publikovaný článek ${latestReport}`);
-if (!englishHome.includes(`href="news/${latestReport}"`)) throw new Error(`Latest report nemá anglický odkaz news/${latestReport}`);
-if (!newsFeed.includes("const latestPublishedReport = [...cannaNews].sort")) throw new Error('Právě teď se neodvozuje dynamicky z nejnovějšího článku');
+const standalone = reportFiles.filter(name => name !== '04082026-010.html')
+  .sort((a,b) => reportDate(a).localeCompare(reportDate(b)) || a.localeCompare(b))
+  .at(-1);
+if (!standalone) throw new Error('Nelze určit poslední samostatný publikovaný článek');
+const latestCanonicalDate = canonicalDocuments.documents.map(item => item.issue_date).filter(Boolean).sort().at(-1);
+const currentCs = latestCanonicalDate > reportDate(standalone) ? 'zpravy/04082026-010.html#chronologie' : `zpravy/${standalone}`;
+const currentEn = latestCanonicalDate > reportDate(standalone) ? 'news/04082026-010.html#chronologie' : `news/${standalone}`;
+if (!home.includes('data-nav-current-article') || !home.includes(`href="${currentCs}"`)) throw new Error(`Právě teď nevede na aktuální článek ${currentCs}`);
+if (!englishHome.includes(`href="${currentEn}"`)) throw new Error(`Latest report nevede na aktuální článek ${currentEn}`);
+if (newsFeed.includes("querySelector('[data-nav-latest-report]')")) throw new Error('Runtime feed stále přepisuje kanonický odkaz Právě teď starším reportem');
 const czechGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
 for (const [label, page] of [['CZ home',home],['EN home',englishHome]]) {
