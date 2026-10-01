@@ -74,6 +74,9 @@ if (!phoneCourtRule.includes('grid-template-columns: 1fr')) {
 for (const [label, page] of [['CZ home', home], ['EN home', englishHome], ['CZ church', churchHome], ['EN church', churchEnglish]]) {
   if (page.includes('id="evidence-file"') || page.includes('class="desk"') || page.includes('MÍSTNÍ DŮKAZNÍ PŘEPÁŽKA') || page.includes('LOCAL EVIDENCE DESK')) throw new Error(`${label}: zrušená místní důkazní přepážka se vrátila`);
 }
+for (const [label, page] of [['CZ home', home], ['EN home', englishHome]]) {
+  if (page.includes('class="deadline-watch"') || page.includes('id="lhuty"') || page.includes('id="deadlines"') || page.includes('SLEDOVANÁ DATA') || page.includes('TRACKED DATES')) throw new Error(`${label}: zastaralý blok sledovaných dat se vrátil`);
+}
 if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Titulní stránka nenačítá generátor lišt');
 if (!home.includes('href="#podpora">Podpořit</a>')) throw new Error('Z první lišty zmizela sekce Podpořit');
 if (home.includes('href="#lhuty">Lhůty</a>') || home.includes('href="#semafor">Ověřit listinu</a>')) throw new Error('V první liště zůstaly dočasně odstraněné položky Lhůty/Ověřit listinu');
