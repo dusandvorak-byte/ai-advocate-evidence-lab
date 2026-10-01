@@ -273,8 +273,8 @@ jobs:
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/zpravy/04082026-010.html$stamp" -o /tmp/live-current-article.html
           grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' /tmp/live-current-article.html
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/styles.css$stamp" -o /tmp/live-styles.css
-          grep -q 'flex:1 1 62%' /tmp/live-styles.css
-          grep -q 'width:min(1180px,calc(100vw - 36px))' /tmp/live-styles.css
+          grep -q 'flex:1 1 720px' /tmp/live-styles.css
+          grep -q 'width:min(1120px,calc(100vw - 36px))' /tmp/live-styles.css
 
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf$stamp" -o /tmp/live-slalom.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf$stamp" -o /tmp/live-ospro.pdf
