@@ -4,6 +4,7 @@
 /* 2026-10-01: aktivní soudní řízení jsou dominantní součástí první navigační lišty. */
 .nav{overflow:visible;display:grid;grid-template-columns:max-content max-content minmax(760px,1fr) max-content;align-items:stretch;column-gap:18px}
 .nav>a{margin-right:0;padding:11px 14px 10px;background:#ffeb3b;color:#111;border:1px solid #111;display:flex;align-items:center;justify-content:center}
+.church-site .nav>a{background:#f1e8bc;color:#16242d;border-color:#b9aa63;font-weight:900;letter-spacing:.03em;text-shadow:0 0 .2px currentColor}
 .nav .nav-courts{position:relative;min-width:0;width:100%;margin:0;font-family:var(--sans)}
 .nav .nav-courts>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(300px,1.55fr) minmax(220px,.75fr) 30px 92px;align-items:center;justify-content:stretch;gap:12px;width:100%;min-height:52px;padding:11px 18px 10px;border-left:4px solid #285b6f;border-right:4px solid #285b6f;background:#edf2f4;font:800 14px var(--sans);text-transform:uppercase;white-space:nowrap}
 .nav .nav-courts>summary::-webkit-details-marker{display:none}
