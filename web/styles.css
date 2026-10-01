@@ -6,7 +6,7 @@
 .nav .nav{overflow:visible;flex-wrap:wrap;align-items:stretch}
 .nav-courts{
   position:relative;
-  flex:1 1 62%;
+  flex:1 1 720px;
   min-width:560px;
   margin:0 24px 0 0;
   font-family:var(--sans);
@@ -38,7 +38,7 @@
   left:50%;
   transform:translateX(-50%);
   top:100%;
-  width:min(1180px,calc(100vw - 36px));
+  width:min(1120px,calc(100vw - 36px));
   max-height:74vh;
   overflow:auto;
   padding:18px;
