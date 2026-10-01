@@ -1,0 +1,189 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-01",
+  "purpose": "Doplnění chybějících listin ve věcech 18 A 17/2026 a 18 A 23/2026: soudní sdělení 30. 9. s přiloženým vyjádřením NCOZ z 20. 5. na jednom veřejném chronologickém řádku a dvě podání žalobce z 1. 10. 2026.",
+  "documents": [
+    {
+      "id": "doc-cz-ms-pha-2026-09-30-18-a-17-2026-186",
+      "user_title": "Soud zaslal žalobci na vědomí vyjádření NCOZ ze dne 20. 5. 2026 a sdělil, že žalovaná předložila správní spis",
+      "issue_date": "2026-09-30",
+      "received_date": "2026-09-30",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 17/2026-186",
+      "case_ids": [
+        "case-cz-ms-praha-18a17-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "18 A 17/2026",
+        "NCOZ",
+        "vyjádření žalované",
+        "správní spis",
+        "kontradiktornost"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf",
+        "sha256": "00db06c75bb6451328a92f66e4b9c0ad810d92dab59f5a049e4231fd841c940c",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 1_page_reviewed",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-01-ms-praha-18a17-18a23.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-ms-pha-2026-09-23-18-a-17-2026-182"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Městský soud v Praze dne 30. 9. 2026 pod č. j. 18 A 17/2026-186 zaslal žalobci na vědomí vyjádření žalované NCOZ datované 20. 5. 2026 a sdělil, že žalovaná předložila správní spis. Vyjádření NCOZ je vedeno jako samostatná kanonická příloha se skutečným datem 20. 5. 2026, ale ve veřejné chronologii je zobrazeno na témže řádku jako soudní sdělení, protože právě tímto přípisem bylo žalobci zpřístupněno."
+    },
+    {
+      "id": "doc-cz-ncoz-2026-05-20-ncoz-4346-2-cj-2026-410012",
+      "user_title": "Vyjádření NCOZ k zásahové žalobě, které Městský soud v Praze žalobci zaslal až přípisem ze dne 30. 9. 2026",
+      "issue_date": "2026-05-20",
+      "received_date": null,
+      "institution_id": "CZ-NCOZ",
+      "reference": "NCOZ-4346-2/ČJ-2026-410012",
+      "case_ids": [
+        "case-cz-ms-praha-18a17-2026"
+      ],
+      "document_type": "state_record_attachment",
+      "topics": [
+        "18 A 17/2026",
+        "NCOZ",
+        "vyjádření žalované",
+        "§ 82 s. ř. s.",
+        "trestní řád"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/108-ncoz-4346-2-cj-2026-410012-2026-05-20.pdf",
+        "sha256": "612e7ac3a5e7b26f6f6c6586552cbd7a09e82256ca8e64e064d9bbe0d05d4869",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 7_pages_reviewed",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-01-ms-praha-18a17-18a23.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-ms-pha-2026-09-30-18-a-17-2026-186"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Vyjádření NCOZ je datováno 20. 5. 2026. Veřejná chronologie je nezobrazuje jako samostatný květnový řádek, ale jako přílohu na řádku soudního přípisu 18 A 17/2026-186 ze dne 30. 9. 2026, kterým bylo žalobci zasláno."
+    },
+    {
+      "id": "doc-cz-dd-2026-10-01-ms-pha-18-a-17-procesni-vyjadreni",
+      "user_title": "Procesní vyjádření k přípisu soudu ze dne 30. 9. 2026 a předběžná replika k vyjádření NCOZ ze dne 20. 5. 2026",
+      "issue_date": "2026-10-01",
+      "received_date": "2026-10-01",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 17/2026",
+      "case_ids": [
+        "case-cz-ms-praha-18a17-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "18 A 17/2026",
+        "NCOZ",
+        "kontradiktornost",
+        "§ 51 s. ř. s.",
+        "§ 174a",
+        "správní spis"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/087-podani-2026-10-01.pdf",
+        "sha256": "69058baab748088ee5d1c1b1fb1ed9931b4f0388ca07351f0343540300399912",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 3_pages_reviewed",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-01-ms-praha-18a17-18a23.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-ms-pha-2026-09-30-18-a-17-2026-186"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 134,
+        "archive_name": "Městskému soudu dne 1.října 2026 – 18 A 17_2026.pdf",
+        "source_sha256": "69058baab748088ee5d1c1b1fb1ed9931b4f0388ca07351f0343540300399912",
+        "source_kind": "original_pdf_uploaded_by_user",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 17/2026",
+            "role": "primary",
+            "subject_cs": "Procesní vyjádření k přípisu soudu ze dne 30. 9. 2026 a předběžná replika k vyjádření NCOZ ze dne 20. 5. 2026",
+            "subject_en": "Procedural statement on the court letter of 30 September 2026 and preliminary reply to the NCOZ statement of 20 May 2026"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-dd-2026-10-01-ms-pha-msp-18-a-23-uocr-dukaz",
+      "user_title": "Mimořádně naléhavé doplnění žaloby a podnětu k výkonu dohledu – nový důkaz: stanovisko Unie obhájců ČR č. 3/2026",
+      "issue_date": "2026-10-01",
+      "received_date": "2026-10-01",
+      "institution_id": "CZ-DD",
+      "reference": "18 A 23/2026; MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+      "case_ids": [
+        "case-cz-ms-praha-18a23-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "18 A 23/2026",
+        "Ministerstvo spravedlnosti",
+        "Unie obhájců ČR",
+        "THCA",
+        "THC",
+        "dekarboxylace",
+        "znalecká činnost"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/088-podani-2026-10-01.pdf",
+        "sha256": "ea6af2bfa418f1c41d2ec4ff2748ac0403336b860094ee9644e854e2b9f6aca7",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 5_pages_reviewed",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-01-ms-praha-18a17-18a23.json"
+      },
+      "relations": [
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-ms-pha-2026-09-23-18-a-23-2026-182"
+        },
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-msp-2026-08-27-msp-19-2026-odka-roz-26"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "justice_slalom": {
+        "archive_number": 135,
+        "archive_name": "Městskému soudu a ministerstvu dne 1.října 2026 ke sp.zn. 18 A 23 2026- unie obhájců.pdf",
+        "source_sha256": "ea6af2bfa418f1c41d2ec4ff2748ac0403336b860094ee9644e854e2b9f6aca7",
+        "source_kind": "original_pdf_uploaded_by_user",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 23/2026",
+            "role": "primary",
+            "subject_cs": "Mimořádně naléhavé doplnění žaloby – nový důkaz: stanovisko Unie obhájců ČR č. 3/2026",
+            "subject_en": "Urgent supplement to the action – new evidence: Czech Defence Lawyers’ Union Statement No. 3/2026"
+          },
+          {
+            "institution_id": "CZ-MSP",
+            "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+            "role": "simultaneous",
+            "subject_cs": "Mimořádně naléhavé doplnění podnětu k výkonu dohledu – nový důkaz: stanovisko Unie obhájců ČR č. 3/2026",
+            "subject_en": "Urgent supplement to the supervisory request – new evidence: Czech Defence Lawyers’ Union Statement No. 3/2026"
+          }
+        ]
+      }
+    }
+  ]
+}
