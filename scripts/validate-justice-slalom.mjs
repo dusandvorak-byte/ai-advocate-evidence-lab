@@ -3,6 +3,8 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 
 const fail = message => { throw new Error(`JUSTICE-SLALOM-GATE: ${message}`); };
+const uoouMaterializer = await readFile('scripts/materialize-uoou-submission-2026-10-02.py','utf8');
+if (!uoouMaterializer.includes('invariant=1')) fail('generátor veřejné kopie ÚOOÚ není deterministický');
 const memory = JSON.parse(await readFile('project-memory/documents-2026.json','utf8'));
 const published = JSON.parse(await readFile('web/data/justice-slalom.json','utf8'));
 const manifest = JSON.parse(await readFile('web/data/build-manifest.json','utf8'));
