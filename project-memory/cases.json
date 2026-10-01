@@ -115,6 +115,9 @@
         "2 T 104/2010",
         "15 Nt 3104/2026",
         "veřejné zasedání"
+      ],
+      "related_case_ids": [
+        "case-cz-os-pro-2t65-2011-obnova"
       ]
     },
     {
@@ -220,6 +223,22 @@
       "related_case_ids": [
         "CASE-CZ-KSZ-BRN-1KZT475-2026",
         "CASE-CZ-KSZ-BRN-1KZN1079-2026"
+      ]
+    },
+    {
+      "id": "case-cz-os-pro-2t65-2011-obnova",
+      "institution_id": "CZ-OS-PRO",
+      "reference": "2 T 65/2011 / 15 Nt 3106/2026",
+      "title": "Návrh na povolení obnovy řízení ve věci 2 T 65/2011",
+      "status": "active",
+      "topics": [
+        "obnova řízení",
+        "2 T 65/2011",
+        "15 Nt 3106/2026",
+        "veřejné zasedání"
+      ],
+      "related_case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova"
       ]
     }
   ]

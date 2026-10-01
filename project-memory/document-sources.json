@@ -221,6 +221,11 @@
       "path": "project-memory/documents-2026-supplement-2026-10-01-final-batch.json",
       "role": "batch",
       "batch_date": "2026-10-01"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-01-os-pro-obhajoba.json",
+      "role": "batch",
+      "batch_date": "2026-10-01"
     }
   ]
 }

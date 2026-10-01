@@ -232,6 +232,7 @@ jobs:
             for attempt in {1..12}; do
               if curl -fsSL --connect-timeout 10 --max-time 30 "$base/$page$stamp" -o "$target"; then
                 if grep -q 'doc-cs-dd-2026-10-01-spolecne-doplneni-nsz-vsz-uzavreny-retezec' "$target" \
+                   && grep -q 'doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106' "$target" \
                    && grep -q '1 SPR 338/2026-5' "$target" \
                    && grep -q '3 KZN 974/2026-114' "$target" \
                    && ! grep -Eq 'data-timer-id=|id="procesni-casovace"|Živé procesní časovače|Live procedural timers' "$target"; then
@@ -247,14 +248,17 @@ jobs:
           done
 
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf$stamp" -o /tmp/live-slalom.pdf
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf$stamp" -o /tmp/live-ospro.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/106-ksz-brno-1-spr-338-2026-5-2026-10-01.pdf$stamp" -o /tmp/live-ksz.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/105-msz-praha-3-kzn-974-2026-114-2026-10-01-verejna-kopie.pdf$stamp" -o /tmp/live-msz.pdf
           test "$(head -c 5 /tmp/live-slalom.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-ospro.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ksz.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-msz.pdf)" = '%PDF-'
           echo "d1a482411d2e08797b8417ea6708454d47a60faf5ca36b1746c4100406cca71b  /tmp/live-slalom.pdf" | sha256sum -c -
+          echo "b591b955aad3d9c94e972378b55611b29e7d5ea62c8185de285f4f88a32ba8b2  /tmp/live-ospro.pdf" | sha256sum -c -
           echo "c9cd624bff387428a670ef28351796b8bd4e89f53a7c019add281d6b395696ce  /tmp/live-ksz.pdf" | sha256sum -c -
-          echo "Živá produkce ověřena na 6/6 veřejných plochách a 3 PDF."
+          echo "Živá produkce ověřena na 6/6 veřejných plochách a 4 PDF."
 
       - name: Souhrn
         shell: bash
