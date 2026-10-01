@@ -2,10 +2,8 @@
 
 
 /* 2026-10-01: aktivní soudní řízení jsou dominantní součástí první navigační lišty. */
-.nav{overflow:visible;align-items:stretch;display:grid;grid-template-columns:max-content max-content minmax(0,1fr) max-content;column-gap:22px}
+.nav{overflow:visible;display:grid;grid-template-columns:max-content max-content minmax(600px,1fr) max-content;align-items:stretch;column-gap:18px}
 .nav>a{margin-right:0;padding-right:0}
-.nav{display:grid;grid-template-columns:max-content max-content minmax(600px,1fr) max-content;align-items:stretch;column-gap:18px}
-.nav>a{margin-right:0}
 .nav .nav-courts{position:relative;min-width:0;width:100%;margin:0;font-family:var(--sans)}
 .nav .nav-courts>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:.8rem;width:100%;min-height:48px;padding:11px 16px 10px;border-left:4px solid #285b6f;border-right:4px solid #285b6f;background:#edf2f4;font:800 14px var(--sans);text-transform:uppercase;white-space:nowrap}
 .nav .nav-courts>summary::-webkit-details-marker{display:none}
