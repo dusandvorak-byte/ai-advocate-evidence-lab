@@ -119,7 +119,7 @@ const documentLink = (item, fallbackLabel = 'originál PDF') => {
 const mainDocuments = documents.filter(item => item.issue_date >= MAIN_FROM);
 const archiveDocuments = documents.filter(item => item.issue_date < MAIN_FROM);
 const stateDocuments = mainDocuments
-  .filter(item => item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record')
+  .filter(item => item.document_type !== 'state_record_attachment' && (item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record'))
   .sort(compareStateDocuments);
 const outgoingDocuments = mainDocuments.filter(item => item.submission_side === 'outgoing_from_user_or_alliance');
 
@@ -139,7 +139,7 @@ for (const item of outgoingDocuments) {
 }
 
 const attachmentsByTarget = new Map();
-for (const item of outgoingDocuments) {
+for (const item of documents) {
   for (const rel of item.relations || []) {
     if ((rel.type || rel.relation_type) !== 'priloha_k') continue;
     const targetId = rel.target_id || rel.document_id;
@@ -158,7 +158,8 @@ const renderInlineReaction = (item, relationLabel = null) => {
       : 'reakce PDF';
   const link = documentLink(item, linkLabel);
   const target = link.external ? ' target="_blank" rel="noopener"' : '';
-  const label = relationLabel || (item.document_type === 'user_submission_attachment' ? 'Příloha' : 'Reakce na podání orgánu veřejné moci');
+  const isAttachment = String(item.document_type || '').endsWith('_attachment');
+  const label = relationLabel || (isAttachment ? 'Příloha' : 'Reakce na podání orgánu veřejné moci');
   return `<span class="chronology-reaction"> · <b>${label}:</b> ${escapeHtml(formatDate(item.issue_date))} · ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a></span>`;
 };
 
@@ -176,7 +177,8 @@ const renderChronologyItem = item => {
     const nested = (attachmentsByTarget.get(entry.id) || []).sort(compareDocuments).map(attachment => renderInlineReaction(attachment)).join('');
     return `${renderInlineReaction(entry, label)}${nested}`;
   };
-  const inline = preceding.map(entry => renderWithAttachments(entry, 'Podání, na které orgán veřejné moci reaguje')).join('') + reactions.map(reaction => {
+  const directAttachments = (attachmentsByTarget.get(item.id) || []).sort(compareDocuments).map(attachment => renderInlineReaction(attachment, 'Příloha')).join('');
+  const inline = directAttachments + preceding.map(entry => renderWithAttachments(entry, 'Podání, na které orgán veřejné moci reaguje')).join('') + reactions.map(reaction => {
     const nested = (attachmentsByTarget.get(reaction.id) || []).sort(compareDocuments).map(renderInlineReaction).join('');
     return `${renderInlineReaction(reaction)}${nested}`;
   }).join('');
