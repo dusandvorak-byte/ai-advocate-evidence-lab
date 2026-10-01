@@ -10,9 +10,9 @@ const items = memory.documents.filter(item => item.justice_slalom);
 const expectedRows = items.reduce((sum,item) => sum + item.justice_slalom.recipients.length, 0);
 if (items.length < 129 || expectedRows < 189 || published.filings !== items.length || published.rows.length !== expectedRows) fail('nesouhlasí počet podání či adresátů');
 const uploads = JSON.parse(await readFile('project-memory/justice-slalom-upload-reconciliation-2026-09-28.json','utf8')).files;
-if (uploads.length !== 83 || uploads.filter(file => file.status === 'text_identical_duplicate_of_067').length !== 1) fail('chybí inventura 83 dodaných souborů a věcně shodné dvojice');
+if (uploads.length !== 84 || uploads.filter(file => file.status === 'text_identical_duplicate_of_067').length !== 1) fail('chybí inventura 84 dodaných souborů a věcně shodné dvojice');
 const archivedUploads = uploads.filter(file => file.document_id);
-if (archivedUploads.length !== 82 || new Set(archivedUploads.map(file => file.document_id)).size !== 82) fail('neúplná dávka 82 jedinečných podání');
+if (archivedUploads.length !== 83 || new Set(archivedUploads.map(file => file.document_id)).size !== 83) fail('neúplná dávka 83 jedinečných podání');
 for (const upload of archivedUploads) {
   const item = items.find(doc => doc.id === upload.document_id);
   if (!item || item.justice_slalom.archive_number !== upload.archive_number || item.public.pdf !== upload.public_pdf || item.justice_slalom.source_sha256 !== upload.sha256) fail(`neúplná provenance zdroje ${upload.number}`);
