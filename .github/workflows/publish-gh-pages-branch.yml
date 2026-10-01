@@ -265,7 +265,7 @@ jobs:
           grep -q '/ai-advocate-evidence-lab/en.html' /tmp/live-kc-en.html
 
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/live-dockets.js$stamp" -o /tmp/live-dockets.js
-          for required in "6 As 207/2026" "15 A 44/2026" "15 Ad 14/2026" "8 Ad 9/2026" "9 To 315/2026" "9 To 316/2026" "15 Nt 3104/2026" "2 T 104/2010" "15 Nt 3106/2026" "2 T 65/2011" "Konopí je lék.cz ke stažení"; do
+          for required in "6 As 207/2026" "15 A 44/2026" "15 Ad 14/2026" "8 Ad 9/2026" "9 To 315/2026" "9 To 316/2026" "15 Nt 3104/2026" "2 T 104/2010" "15 Nt 3106/2026" "2 T 65/2011" "https://www.konopijelek.cz/" "Konopí je lék.cz →"; do
             grep -q "$required" /tmp/live-dockets.js
           done
 
@@ -273,7 +273,7 @@ jobs:
           grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' /tmp/live-current-article.html
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/styles.css$stamp" -o /tmp/live-styles.css
           grep -q 'grid-template-columns:max-content max-content minmax(760px,1fr) max-content' /tmp/live-styles.css
-          grep -q 'width:min(1180px,calc(100vw - 36px))' /tmp/live-styles.css
+          grep -q '.nav .nav-courts-panel{position:absolute;z-index:120;left:0;right:0;top:100%;width:auto;transform:none;' /tmp/live-styles.css
 
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf$stamp" -o /tmp/live-slalom.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf$stamp" -o /tmp/live-ospro.pdf
