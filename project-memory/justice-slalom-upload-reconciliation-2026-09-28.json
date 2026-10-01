@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "source_archive": "od 1.8.2026.zip + three standalone PDFs + final replacement filing of 1 October 2026",
+  "source_archive": "od 1.8.2026.zip + three standalone PDFs + final replacement filing of 1 October 2026 + OS Prostějov application of 1 October 2026",
   "files": [
     {
       "number": 1,
@@ -1042,6 +1042,16 @@
       "document_id": "doc-cs-dd-2026-10-01-spolecne-doplneni-nsz-vsz-uzavreny-retezec",
       "public_pdf": "documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf",
       "archive_number": 131
+    },
+    {
+      "number": 85,
+      "filename": "OS v Prostějově - návrh na zastoupení- 1.října 2026.pdf",
+      "sha256": "b591b955aad3d9c94e972378b55611b29e7d5ea62c8185de285f4f88a32ba8b2",
+      "pages": 3,
+      "status": "added_exact_pdf",
+      "document_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106",
+      "public_pdf": "documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf",
+      "archive_number": 132
     }
   ],
   "review_instruction": {
