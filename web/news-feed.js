@@ -4,6 +4,20 @@
  */
 const cannaNews = [
   {
+    id: '11092026-013',
+    dateCs: '11. 9. 2026',
+    dateEn: '11 September 2026',
+    score: '9/9',
+    titleCs: 'Zakázat legální konopí a legalizovat trestnou činnost policie?',
+    titleEn: 'Ban legal cannabis and legalise unlawful police conduct?',
+    summaryCs: 'Autorský komentář k návrhu novely zákona o návykových látkách, CBD, THCA a dlouhodobě namítané policejní praxi měření THC.',
+    summaryEn: 'Authorial commentary on the proposed amendment to the Addictive Substances Act, CBD, THCA and the long-contested police practice of THC measurement.',
+    keywordsCs: 'konopí THC THCA CBD policie novela zákon o návykových látkách analytické metody',
+    keywordsEn: 'cannabis THC THCA CBD police addictive substances amendment analytical methods',
+    href: 'zpravy/11092026-013.html',
+    hrefEn: 'news/11092026-013.html'
+  },
+  {
     id: '15082026-012',
     dateCs: '15. 8. 2026',
     dateEn: '15 August 2026',
