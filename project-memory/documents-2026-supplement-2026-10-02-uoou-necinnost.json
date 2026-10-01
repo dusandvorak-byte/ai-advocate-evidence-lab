@@ -28,8 +28,8 @@
       "public": {
         "html": null,
         "pdf": "documents/justice-slalom/2026-10/089-podani-2026-10-02.pdf",
-        "sha256": "37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74",
-        "verification_status": "source_pdf_received_binary_original; sha256_verified; 4_pages_reviewed",
+        "sha256": null,
+        "verification_status": "pending_verified_public_copy_from_complete_text_of_uploaded_original",
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-02-uoou-necinnost.json"
       },
       "relations": [
@@ -53,7 +53,7 @@
         "archive_number": 136,
         "archive_name": "UOOU - stížnost na nečinnost - 2.října 2026.pdf",
         "source_sha256": "37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74",
-        "source_kind": "original_pdf_uploaded_by_user",
+        "source_kind": "verified_public_copy_from_user_original",
         "recipients": [
           {
             "institution_id": "CZ-UOOU",
@@ -62,7 +62,15 @@
             "subject_cs": "Stížnost na nečinnost ÚOOÚ a žádost o okamžité procesní vyřízení tří samostatných věcí",
             "subject_en": "Complaint about inaction by the Czech Data Protection Authority and request for immediate procedural action in three separate matters"
           }
-        ]
+        ],
+        "public_sha256": null,
+        "public_copy_manifest": {
+          "kind": "complete_text_public_copy",
+          "source_text": "project-memory/user-text-sources-2026-10-02/uoou-stiznost-necinnost.txt",
+          "original_pages_reviewed": 4,
+          "original_sha256": "37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74",
+          "byte_identical_original": false
+        }
       }
     }
   ]
