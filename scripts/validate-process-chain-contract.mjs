@@ -28,12 +28,17 @@ for (const label of [
 
 const caseRows = [...script.matchAll(/\['(\d{4}-\d{2}-\d{2})',\s*'([^']+)',\s*'([^']+)',\s*'([^']+)'\]/g)]
   .map(([,date,cs,en,anchor]) => ({date,cs,en,anchor}));
-if (caseRows.length !== 9) fail(`očekáváno 9 aktivních soudních větví, nalezeno ${caseRows.length}`);
+if (caseRows.length !== 11) fail(`očekáváno 11 aktivních soudních větví, nalezeno ${caseRows.length}`);
 for (let i=1;i<caseRows.length;i+=1) if (caseRows[i-1].date > caseRows[i].date) fail(`soudní větve nejsou chronologické: ${caseRows[i-1].cs} → ${caseRows[i].cs}`);
-for (const name of ['Městský soud v Praze','Obvodní soud pro Prahu 4','Okresní soud v Prostějově','Okresní soud v Ostravě','Krajský soud v Ostravě','Nejvyšší správní soud']) {
+for (const name of ['Městský soud v Praze','Obvodní soud pro Prahu 4','Okresní soud v Prostějově','Krajský soud v Ostravě','Krajský soud v Brně','Nejvyšší správní soud']) {
   if (!caseRows.some(row => row.cs.includes(name))) fail(`v aktivních soudních větvích chybí ${name}`);
 }
 if (!caseRows.some(row => row.cs.includes('5 To 248/2026') && row.cs.includes('15 T 11/2025'))) fail('ostravská větev neukazuje 5 To 248/2026 i původní 15 T 11/2025');
+if (!caseRows.some(row => row.cs.includes('6 As 207/2026') && row.cs.includes('15 A 44/2026'))) fail('kasační větev neukazuje NSS 6 As 207/2026 i předchozí MS Praha 15 A 44/2026');
+if (!caseRows.some(row => row.cs.includes('15 Ad 14/2026') && row.cs.includes('8 Ad 9/2026'))) fail('větev SÚKL/MZ neukazuje 15 Ad 14/2026 i předchozí 8 Ad 9/2026');
+if (!caseRows.some(row => row.cs.includes('9 To 315/2026') && row.cs.includes('9 To 316/2026') && row.cs.includes('ústavní stížnost'))) fail('brněnská větev neukazuje 9 To 315/2026, 9 To 316/2026 a připravovanou ústavní stížnost');
+if (!caseRows.some(row => row.cs.includes('15 Nt 3104/2026') && row.cs.includes('2 T 104/2010'))) fail('první prostějovská obnova neukazuje obě spisové značky');
+if (!caseRows.some(row => row.cs.includes('15 Nt 3106/2026') && row.cs.includes('2 T 65/2011'))) fail('druhá prostějovská obnova neukazuje obě spisové značky');
 if (!caseRows.some(row => row.cs.includes('nová zásahová žaloba proti SÚKL'))) fail('chybí aktivní nová žaloba proti SÚKL');
 if (!caseRows.some(row => row.cs.includes('kasační stížnost') && row.cs.includes('15 A 44/2026'))) fail('15 A 44/2026 není převedeno do kasační fáze');
 
@@ -84,4 +89,4 @@ const godotWithoutSeparateArchive = czechGodot.replace(/<!-- JUSTICE-SLALOM:BEGI
 const suspicious = publicLabelCheck(godotWithoutSeparateArchive);
 if (suspicious.length) fail(`nejednotné veřejné popisky dokumentů: ${suspicious.join(' | ')}`);
 
-console.log(`Procesní kontrakt OK: ${expectedTimerCount} interních záznamů, 0 veřejných časovačů, 9 soudních větví; axiomy zachovány.`);
+console.log(`Procesní kontrakt OK: ${expectedTimerCount} interních záznamů, 0 veřejných časovačů, 11 soudních větví; axiomy zachovány.`);
