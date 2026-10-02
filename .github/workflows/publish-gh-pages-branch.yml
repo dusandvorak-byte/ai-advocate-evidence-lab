@@ -89,6 +89,9 @@ jobs:
       - name: Ověřit aktuální rozkladovou fázi Konopné církve a propojení webů
         run: node scripts/validate-church-current-state.mjs
 
+      - name: Ověřit EKK balík z 2. října včetně obou PDF
+        run: node scripts/validate-ekk-evidence-2026-10-02.mjs
+
       - name: Ověřit tři lišty, barvy a chronologii soudních řízení
         run: node scripts/validate-live-dockets-contract.mjs
 
@@ -325,6 +328,8 @@ jobs:
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/087-podani-2026-10-01.pdf$stamp" -o /tmp/live-18a17.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/088-podani-2026-10-01.pdf$stamp" -o /tmp/live-18a23.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/089-podani-2026-10-02.pdf$stamp" -o /tmp/live-uoou-1002.pdf
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/090-podani-2026-10-02-verejna-textova-kopie.pdf$stamp" -o /tmp/live-ekk-1002.pdf
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/091-priloha-dukazni-chronologie-2008-2026-verejna-textova-kopie.pdf$stamp" -o /tmp/live-ekk-chronology-1002.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf$stamp" -o /tmp/live-ms186.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/108-ncoz-4346-2-cj-2026-410012-2026-05-20.pdf$stamp" -o /tmp/live-ncoz.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf$stamp" -o /tmp/live-euda-1001.pdf
@@ -336,6 +341,8 @@ jobs:
           test "$(head -c 5 /tmp/live-18a17.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-18a23.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-uoou-1002.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-ekk-1002.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-ekk-chronology-1002.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ms186.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ncoz.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-euda-1001.pdf)" = '%PDF-'
@@ -347,11 +354,17 @@ jobs:
           echo "69058baab748088ee5d1c1b1fb1ed9931b4f0388ca07351f0343540300399912  /tmp/live-18a17.pdf" | sha256sum -c -
           echo "ea6af2bfa418f1c41d2ec4ff2748ac0403336b860094ee9644e854e2b9f6aca7  /tmp/live-18a23.pdf" | sha256sum -c -
           test "$(sha256sum /tmp/live-uoou-1002.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/089-podani-2026-10-02.pdf | cut -d' ' -f1)"
+          test "$(sha256sum /tmp/live-ekk-1002.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/090-podani-2026-10-02-verejna-textova-kopie.pdf | cut -d' ' -f1)"
+          test "$(sha256sum /tmp/live-ekk-chronology-1002.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/091-priloha-dukazni-chronologie-2008-2026-verejna-textova-kopie.pdf | cut -d' ' -f1)"
+          grep -q 'doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh' /tmp/live-current-article.html
+          grep -q 'doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026' /tmp/live-current-article.html
+          grep -q 'en-doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh' /tmp/live-current-article-en.html
+          grep -q 'en-doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026' /tmp/live-current-article-en.html
           echo "00db06c75bb6451328a92f66e4b9c0ad810d92dab59f5a049e4231fd841c940c  /tmp/live-ms186.pdf" | sha256sum -c -
           echo "612e7ac3a5e7b26f6f6c6586552cbd7a09e82256ca8e64e064d9bbe0d05d4869  /tmp/live-ncoz.pdf" | sha256sum -c -
           test "$(sha256sum /tmp/live-euda-1001.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf | cut -d' ' -f1)"
           echo "c9cd624bff387428a670ef28351796b8bd4e89f53a7c019add281d6b395696ce  /tmp/live-ksz.pdf" | sha256sum -c -
-          echo "Živá produkce ověřena na 6/6 veřejných plochách a 11 PDF."
+          echo "Živá produkce ověřena na 6/6 veřejných plochách a 13 PDF."
 
       - name: Souhrn
         shell: bash

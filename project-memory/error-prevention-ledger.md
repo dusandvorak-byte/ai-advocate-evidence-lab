@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Nahrané PDF nesmí skončit jen jako popis bez samostatného veřejného PDF artefaktu
+
+- Projev: uživatel výslovně požadoval zveřejnit hlavní podání EKK z 2. 10. 2026 i jeho 33stránkovou Důkazní chronologii jako PDF, nikoli jen jako položky chronologie.
+- Náprava: oba dokumenty mají samostatné deterministické veřejné PDF kopie, přímé odkazy, SHA-256, provenienci originálu a CZ/EN vazby. Hlavní podání je archiv 137 Justičního slalomu; Důkazní chronologie je samostatná příloha typu user_submission_attachment.
+- Omezení veřejných kopií: v tomto release jsou vytvářeny z kompletního extrahovaného textu po původních stranách. Nevydávají se za byte-identické originály a u Důkazní chronologie se výslovně uvádí, že vložené obrazové scany originálu nejsou ve veřejné textové kopii reprodukovány. SHA-256 obou nahraných originálů je zachováno.
+- Pojistka: scripts/validate-ekk-evidence-2026-10-02.mjs a produkční live gate vyžadují oba PDF soubory, správný počet stran, hash veřejných kopií, původní zdrojové SHA, archiv 137, oba procesní případy a CZ/EN odkazy.
+
+
 ### Rozbalená Aktivní soudní řízení měla příliš malé písmo
 
 - Projev: názvy soudních řízení v rozbalené liště měly jen 13 px a doprovodný text o dostupnosti žalob a návrhů na obnovu jen 12 px, takže byl panel při běžném zobrazení špatně čitelný.

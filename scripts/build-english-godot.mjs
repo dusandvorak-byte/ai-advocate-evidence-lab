@@ -23,6 +23,7 @@ const englishReferenceText = item => referenceText(item)
   .replace(/^bez samostatného č\. j\.\/sp\. zn\. v e-mailu$/i, 'no separate reference number in the email')
   .replace(/^odvolání proti /i, 'appeal against ')
   .replace(/^Rozklad k /i, 'administrative appeal against ')
+  .replace(/^Příloha k /i, 'Annex to ')
   .replace(/^proti /i, 'against ')
   .replace(/^stížnost podle § 16a InfZ – žádosti /i, 'complaint under Section 16a of the Freedom of Information Act – requests ');
 const compareDocuments = (a, b) => String(b.issue_date).localeCompare(String(a.issue_date)) || String(b.id).localeCompare(String(a.id));
@@ -88,9 +89,12 @@ const sourceLink = item => {
   const published = item.public || {};
   if (published.pdf) {
     const href = publicPath(published.pdf);
-    const label = /(?:verejna-kopie|public-copy)\.pdf$/i.test(href)
-      ? 'Anonymised public PDF copy'
-      : (item.language === 'en' ? 'Original English PDF' : 'Original Czech PDF');
+    const status = String(published.verification_status || '');
+    const label = status.includes('verified_text_public_copy')
+      ? 'Verified public text PDF copy'
+      : /(?:verejna-kopie|public-copy)\.pdf$/i.test(href)
+        ? 'Anonymised public PDF copy'
+        : (item.language === 'en' ? 'Original English PDF' : 'Original Czech PDF');
     return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener">${label}</a>`;
   }
   if (published.html) return `<a href="${escapeHtml(publicPath(published.html))}">Czech evidence record</a>`;

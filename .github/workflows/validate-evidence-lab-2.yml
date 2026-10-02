@@ -106,6 +106,9 @@ jobs:
       - name: Ověřit aktuální rozkladovou fázi Konopné církve a propojení webů
         run: node scripts/validate-church-current-state.mjs
 
+      - name: Ověřit EKK balík z 2. října včetně obou PDF
+        run: node scripts/validate-ekk-evidence-2026-10-02.mjs
+
       - name: Ověřit tři lišty, navigaci a rozbalená soudní řízení
         run: node scripts/validate-live-dockets-contract.mjs
 

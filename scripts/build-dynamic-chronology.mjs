@@ -109,7 +109,8 @@ const documentLink = (item, fallbackLabel = 'originál PDF') => {
   const published = item.public || {};
   if (published.pdf) {
     const href = normalizePublicPath(published.pdf);
-    const label = /(?:verejna-kopie|public-copy)\.pdf$/i.test(href) ? 'anonymizovaná veřejná kopie PDF' : fallbackLabel;
+    const status = String(published.verification_status || '');
+    const label = status.includes('verified_text_public_copy') ? 'ověřená veřejná textová kopie PDF' : /(?:verejna-kopie|public-copy)\.pdf$/i.test(href) ? 'anonymizovaná veřejná kopie PDF' : fallbackLabel;
     return { href, label, external: true };
   }
   if (published.html) return { href: normalizePublicPath(published.html), label: 'stránka listiny', external: false };
