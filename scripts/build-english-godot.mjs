@@ -88,9 +88,12 @@ const sourceLink = item => {
   const published = item.public || {};
   if (published.pdf) {
     const href = publicPath(published.pdf);
-    const label = /(?:verejna-kopie|public-copy)\.pdf$/i.test(href)
-      ? 'Anonymised public PDF copy'
-      : (item.language === 'en' ? 'Original English PDF' : 'Original Czech PDF');
+    const status = String(published.verification_status || '');
+    const label = status.includes('verified_text_public_copy')
+      ? 'Verified public text PDF copy'
+      : /(?:verejna-kopie|public-copy)\.pdf$/i.test(href)
+        ? 'Anonymised public PDF copy'
+        : (item.language === 'en' ? 'Original English PDF' : 'Original Czech PDF');
     return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener">${label}</a>`;
   }
   if (published.html) return `<a href="${escapeHtml(publicPath(published.html))}">Czech evidence record</a>`;
