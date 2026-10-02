@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Rozbalená Aktivní soudní řízení měla příliš malé písmo
+
+- Projev: názvy soudních řízení v rozbalené liště měly jen 13 px a doprovodný text o dostupnosti žalob a návrhů na obnovu jen 12 px, takže byl panel při běžném zobrazení špatně čitelný.
+- Příčina: původní typografie byla nastavena jako drobný navigační detail, i když se panel obsahově chová jako samostatná informační sekce přes celou šířku stránky.
+- Náprava: názvy řízení používají 16 px / 1,45 a váhu 800; doprovodný text i aktivní odkaz Konopí je lék.cz používají 14 px / 1,5. Svislé rozestupy položek byly mírně zvětšeny.
+- Pojistka: `validate-live-dockets-contract.mjs` a produkční live gate ověřují přesné 16/14px hodnoty a jejich zachování na finálním CSS artefaktu.
+
+
 ### Konopná církev zmiňovala rozklad, ale nevedla návštěvníka na jeho konkrétní důkaz
 
 - Projev: živá církevní plocha správně uváděla usnesení MK 53547/2026 SOCNS a rozklad z 1. 9. 2026, ale odkazy mířily jen na obecnou chronologii; uzel sdílené paměti přitom stále zvýrazňoval starší MK 49467/2026 SOCNS. Rozklad navíc nebyl v kanonickém registru propojen relací `reakce_na` s usnesením o zastavení řízení.
