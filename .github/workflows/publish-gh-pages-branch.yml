@@ -269,11 +269,18 @@ jobs:
             grep -q "$required" /tmp/live-dockets.js
           done
 
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/zpravy/index.html$stamp" -o /tmp/live-news-archive-cz.html
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/news/index.html$stamp" -o /tmp/live-news-archive-en.html
+          grep -q 'aria-current="page">Archiv zpráv</a>' /tmp/live-news-archive-cz.html
+          grep -q 'aria-current="page">News archive</a>' /tmp/live-news-archive-en.html
+
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/zpravy/04082026-010.html$stamp" -o /tmp/live-current-article.html
           grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' /tmp/live-current-article.html
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/styles.css$stamp" -o /tmp/live-styles.css
           grep -q 'grid-template-columns:max-content max-content minmax(760px,1fr) max-content' /tmp/live-styles.css
           grep -q '.nav .nav-courts-panel{position:absolute;z-index:120;left:0;right:0;top:100%;width:auto;transform:none;' /tmp/live-styles.css
+          grep -q '.nav>a{margin-right:0;padding:11px 14px 10px;background:#eee6bd;color:#16242d;border:1px solid #b9aa63' /tmp/live-styles.css
+          ! grep -q 'background:#ffeb3b' /tmp/live-styles.css
 
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf$stamp" -o /tmp/live-slalom.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf$stamp" -o /tmp/live-ospro.pdf
