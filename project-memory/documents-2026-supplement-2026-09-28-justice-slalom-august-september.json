@@ -2337,7 +2337,12 @@
         "verification_status": "source_pdf_received_binary_original",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
       },
-      "relations": [],
+      "relations": [
+        {
+          "type": "podani_na_ktere_organ_reaguje",
+          "target_id": "doc-eu-euda-2026-10-01-access-documents-1049-2001"
+        }
+      ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship",
       "justice_slalom": {
@@ -2355,7 +2360,8 @@
           }
         ]
       },
-      "language": "en"
+      "language": "en",
+      "evidence_note": "EUDA ve svém e-mailu z 1. 10. 2026 výslovně odkazuje na e-mail ze dne 27. 9. 2026 se shodným názvem zásadní námitky. Ve veřejném archivu je tato námitka vedena jako dokument datovaný 26. 9. 2026; vazba se proto eviduje, ale rozdíl dat se bez dalšího primárního podkladu nesjednocuje."
     },
     {
       "id": "doc-cs-dd-2026-09-27-slalom-augsep-083",
