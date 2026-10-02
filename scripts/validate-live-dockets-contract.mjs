@@ -22,6 +22,8 @@ const canonicalDocuments = { documents: [...mergedDocuments.values()] };
 const automaticTranslation = await readFile('web/auto-translate.js', 'utf8');
 const churchCzPage = await readFile('web/kc/index.html', 'utf8');
 const churchEnPage = await readFile('web/kc/en.html', 'utf8');
+const czechArchive = await readFile('web/zpravy/index.html', 'utf8');
+const englishArchive = await readFile('web/news/index.html', 'utf8');
 
 const requiredBars = [
   'Godot online → každá zpráva má zdroj',
@@ -82,7 +84,7 @@ if (!home.includes('href="#podpora">Podpořit</a>')) throw new Error('Z první l
 if (home.includes('href="#lhuty">Lhůty</a>') || home.includes('href="#semafor">Ověřit listinu</a>')) throw new Error('V první liště zůstaly dočasně odstraněné položky Lhůty/Ověřit listinu');
 if (!script.includes('nav-courts') || !script.includes("source.href = 'https://www.konopijelek.cz/'") || !script.includes("source.textContent = isEnglish ? 'Cannabis is The Cure.cz →' : 'Konopí je lék.cz →'")) throw new Error('Aktivní soudní řízení nemají zřetelný aktivní odkaz na Konopí je lék.cz');
 if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.nav{position:relative;overflow:visible;display:grid;grid-template-columns:max-content max-content minmax(760px,1fr) max-content') && css.includes('.nav .nav-courts{position:static;') && css.includes('.nav .nav-courts-panel{position:absolute;z-index:120;left:0;right:0;top:100%;width:auto;transform:none;'))) throw new Error('Rozbalená Aktivní soudní řízení nejsou na desktopu zarovnána přes celou šířku hlavního rámce');
-if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.nav>a{margin-right:0;padding:11px 14px 10px;background:#ffeb3b;color:#111;border:1px solid #111'))) throw new Error('Ostatní tři položky první navigace nejsou podbarvené žlutě');
+if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.nav>a{margin-right:0;padding:11px 14px 10px;background:#eee6bd;color:#16242d;border:1px solid #b9aa63') && css.includes('body:not(.church-site) .nav>a:hover,body:not(.church-site) .nav>a:focus-visible,body:not(.church-site) .nav>a[aria-current="page"]{background:#dfd29a;color:#111820;border-color:#95863e}'))) throw new Error('CannaInsider navigace nemá tlumenou žlutou a tmavé čitelné písmo');
 if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.church-site .nav>a{background:#f1e8bc;color:#16242d;border-color:#b9aa63;font-weight:900;letter-spacing:.03em;text-shadow:0 0 .2px currentColor}'))) throw new Error('Konopná církev nemá tlumenou žlutou a zesílenou typografii navigace');
 if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.nav .court-download-note a{display:inline;margin:0;padding:0;text-transform:none;white-space:normal;font-size:12px;font-weight:800;text-decoration:underline;text-underline-offset:2px}'))) throw new Error('Odkaz Konopí je lék.cz není v rozbalených soudních řízeních zřetelně aktivní');
 if (script.includes('preventivní podání k pěstování 2026')) throw new Error('V Aktivních soudních řízeních zůstalo preventivní podání bez soudní spisové značky');
@@ -103,6 +105,10 @@ const currentCs = `zpravy/${latestStandalone}`;
 const currentEn = `news/${latestStandalone}`;
 if (!home.includes('data-nav-current-article') || !home.includes(`href="${currentCs}"`)) throw new Error(`Právě teď nevede na aktuální článek ${currentCs}`);
 if (!englishHome.includes(`href="${currentEn}"`)) throw new Error(`Latest report nevede na aktuální článek ${currentEn}`);
+for (const [label, page, currentText] of [['CZ archiv', czechArchive, 'Archiv zpráv'], ['EN archive', englishArchive, 'News archive']]) {
+  if (!page.includes('class="nav"') || !page.includes('aria-current="page"') || !page.includes(currentText)) throw new Error(`${label}: archiv nemá čitelnou hlavní navigaci s označenou aktuální položkou`);
+}
+
 if (newsFeed.includes("latestNav.href") || newsFeed.includes("querySelector('[data-nav-latest-report]')")) throw new Error('Klientský news-feed znovu přepisuje buildem určený odkaz Právě teď');
 const czechGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
@@ -141,7 +147,6 @@ for (const label of ['Godot online → every report has a source', 'Active court
 for (const id of ['07082026-011','04082026-010','28072026-009','25072026-007','24072026-006','24072026-005','23072026-004','22072026-002','20072026-001']) {
   if (!newsFeed.includes(`hrefEn: 'news/${id}.html'`)) throw new Error(`Zpráva ${id} nemá skutečnou anglickou stránku`);
 }
-const englishArchive = await readFile('web/news/index.html', 'utf8');
 for (const id of ['04082026-010','28072026-009','25072026-007','24072026-006','24072026-005','23072026-004','22072026-002','20072026-001']) {
   if (!englishArchive.includes(`href="news/${id}.html"`)) throw new Error(`Anglický archiv nevede na anglickou zprávu ${id}`);
   if (englishArchive.includes(`href="zpravy/${id}.html"`)) throw new Error(`Anglický archiv stále vede na českou zprávu ${id}`);
