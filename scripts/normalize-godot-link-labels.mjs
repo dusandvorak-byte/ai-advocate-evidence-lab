@@ -13,6 +13,12 @@ const replaceAnchorTextByHref = (html, hrefPattern, label) => html.replace(
   new RegExp(`<a([^>]*\\bhref=["'][^"']*${hrefPattern}[^"']*["'][^>]*)>([\\s\\S]*?)<\\/a>`, 'gi'),
   (_match, attrs, currentLabel) => {
     const plain = String(currentLabel).replace(/<[^>]+>/g, '').trim();
+    if (String(attrs).includes('verejna-textova-kopie.pdf')) {
+      const verifiedLabel = label === 'Dokument v PDF'
+        ? 'ověřená veřejná textová kopie PDF'
+        : 'Verified public text PDF copy';
+      return `<a${attrs}>${verifiedLabel}</a>`;
+    }
     if (['ověřená veřejná textová kopie PDF', 'Verified public text PDF copy'].includes(plain)) {
       return `<a${attrs}>${plain}</a>`;
     }
