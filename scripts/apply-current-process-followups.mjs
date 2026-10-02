@@ -35,7 +35,7 @@ patch('timer-admin-mk-2026-07-22', {
   limit_label:'rozklad podle § 152 správního řádu – aktivní rozkladová fáze',
   legal_basis:'§ 152 správního řádu; původní lhůta řízení do 31. 8. 2026 skončila vydáním usnesení, aktivní je rozklad podaný a doručený 1. 9. 2026.',
   due_date:null,
-  href:'zpravy/04082026-010.html#procesni-casovace'
+  href:'zpravy/04082026-010.html#doc-cz-mk-2026-08-31-mk-53547-2026-socns'
 });
 
 data.timers=[...timers.values()];
