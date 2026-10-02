@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Konopná církev zmiňovala rozklad, ale nevedla návštěvníka na jeho konkrétní důkaz
+
+- Projev: živá církevní plocha správně uváděla usnesení MK 53547/2026 SOCNS a rozklad z 1. 9. 2026, ale odkazy mířily jen na obecnou chronologii; uzel sdílené paměti přitom stále zvýrazňoval starší MK 49467/2026 SOCNS. Rozklad navíc nebyl v kanonickém registru propojen relací `reakce_na` s usnesením o zastavení řízení.
+- Příčina: procesní stav byl aktualizován v interním časovači a redakčním textu, nikoli zároveň v dokumentovém grafu a přesných veřejných odkazových cílech.
+- Náprava: rozklad č. 022 z 1. 9. 2026 je veden jako `appeal`, má relaci `reakce_na` na MK 53547/2026 SOCNS, církevní CZ/EN plochy odkazují na přesný záznam rozhodnutí a přímo na PDF rozkladu a aktuální uzel již nezvýrazňuje MK 49467/2026.
+- Pojistka: `validate-church-current-state.mjs` kontroluje kanonickou relaci, interní rozkladovou fázi, přímý PDF důkaz, přesné CZ/EN kotvy, sesterské odkazy, nepřítomnost zrušené kotvy časovačů a právě jeden finální `shell-axis.css`.
+
+
 ### Live gate zaměnil historickou listinu za trvalou součást trojice nejnovějších záznamů
 
 - Projev: po korektním přidání nové listiny EUDA z 1. 10. 2026 produkce dvakrát spadla na `index.html`, přestože build i `gh-pages` byly správné. Pevně vyžadovaný údaj `18 A 17/2026-186` už nebyl na titulních plochách, protože legitimně vypadl z trojice nejnovějších listin.
