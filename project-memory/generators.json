@@ -85,6 +85,11 @@
       "path": "scripts/materialize-euda-access-documents-2026-10-01.py",
       "role": "deterministic_verified_public_copy_materialization",
       "allowed_caller": "scripts/build-site.mjs"
+    },
+    {
+      "path": "scripts/materialize-ekk-evidence-2026-10-02.py",
+      "role": "deterministic_verified_public_text_copy_materialization",
+      "allowed_caller": "scripts/build-site.mjs"
     }
   ],
   "canonical_generated_outputs": [
@@ -97,4 +102,4 @@
     "web/data/registry-audit.json",
     "web/documents/report-04082026-010/96-os-praha4-10-c-69-2026-predvolani-2026-09-16.pdf"
   ]
-}
+}\n
