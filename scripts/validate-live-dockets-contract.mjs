@@ -24,6 +24,19 @@ const churchCzPage = await readFile('web/kc/index.html', 'utf8');
 const churchEnPage = await readFile('web/kc/en.html', 'utf8');
 const czechArchive = await readFile('web/zpravy/index.html', 'utf8');
 const englishArchive = await readFile('web/news/index.html', 'utf8');
+const latestCardIds = page => [...page.matchAll(/class="latest-record-card" data-document-id="([^"]+)"/g)].map(match => match[1]);
+const canonicalLatestStateIds = canonicalDocuments.documents
+  .filter(item => item.issue_date >= '2026-05-01' && item.document_type === 'state_record')
+  .sort((a,b) => String(b.issue_date).localeCompare(String(a.issue_date)) || String(a.id).localeCompare(String(b.id)))
+  .slice(0,3)
+  .map(item => item.id);
+if (canonicalLatestStateIds.length !== 3) throw new Error('Nelze odvodit tři nejnovější kanonické státní/veřejné listiny');
+for (const [label, page] of [['CZ home', home], ['EN home', englishHome], ['CZ church', churchCzPage], ['EN church', churchEnPage]]) {
+  const ids = latestCardIds(page);
+  if (ids.length !== 3 || ids.join('|') !== canonicalLatestStateIds.join('|')) {
+    throw new Error(`${label}: nejnovější listiny nejsou dynamicky synchronizované; očekáváno ${canonicalLatestStateIds.join(', ')}, nalezeno ${ids.join(', ')}`);
+  }
+}
 
 const requiredBars = [
   'Godot online → každá zpráva má zdroj',
