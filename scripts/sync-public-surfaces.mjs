@@ -349,5 +349,10 @@ if (churchCz.includes('Ministerstvo kultury dne 12. srpna 2026 formálně potvrd
 if (churchEn.includes('On 12 August 2026, the Ministry of Culture formally confirmed')) throw new Error('Anglická církevní plocha obsahuje zastaralý srpnový headline');
 if (!churchCz.includes('Dne 1. září 2026 byl podán rozklad')) throw new Error('Česká církevní plocha neobsahuje aktuální rozkladovou fázi');
 if (!churchEn.includes('A remonstrance was filed on 1 September 2026')) throw new Error('Anglická církevní plocha neobsahuje aktuální remonstrance stage');
+if (churchCz.includes('#procesni-casovace') || churchEn.includes('#procesni-casovace')) throw new Error('Církevní plocha odkazuje na zrušenou veřejnou kotvu procesních časovačů');
+if (!churchCz.includes('/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/022-podani-2026-09-01.pdf')) throw new Error('Česká církevní plocha nemá přímý PDF odkaz na rozklad z 1. 9. 2026');
+if (!churchEn.includes('/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/022-podani-2026-09-01.pdf')) throw new Error('Anglická církevní plocha nemá přímý PDF odkaz na rozklad z 1. 9. 2026');
+if (churchCz.includes('<span>MINISTERSTVO KULTURY</span><h3>MK 49467/2026 SOCNS</h3>')) throw new Error('Český aktuální církevní uzel stále zvýrazňuje staré MK 49467/2026 SOCNS');
+if (churchEn.includes('<span>MINISTRY OF CULTURE</span><h3>MK 49467/2026 SOCNS</h3>')) throw new Error('Anglický aktuální církevní uzel stále zvýrazňuje staré MK 49467/2026 SOCNS');
 
 console.log(`Veřejné varianty synchronizovány: ${czDisplayDate}; ${stateCount} státních listin; ${activePdfCount} aktivních PDF; 4/4 plochy obsahují stejné tři nejnovější evidenční záznamy.`);
