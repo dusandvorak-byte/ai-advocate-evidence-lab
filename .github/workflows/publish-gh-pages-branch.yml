@@ -86,6 +86,9 @@ jobs:
       - name: Ověřit odpověď EUDA z 1. října a její procesní vazbu
         run: node scripts/validate-euda-access-documents-2026-10-01.mjs
 
+      - name: Ověřit aktuální rozkladovou fázi Konopné církve a propojení webů
+        run: node scripts/validate-church-current-state.mjs
+
       - name: Ověřit tři lišty, barvy a chronologii soudních řízení
         run: node scripts/validate-live-dockets-contract.mjs
 
@@ -278,6 +281,14 @@ jobs:
           grep -q 'https://www.konopijelek.cz/' /tmp/live-kc-index.html
           grep -q '/ai-advocate-evidence-lab/kc/en.html' /tmp/live-en.html
           grep -q '/ai-advocate-evidence-lab/en.html' /tmp/live-kc-en.html
+          grep -q '/ai-advocate-evidence-lab/zpravy/04082026-010.html#doc-cz-mk-2026-08-31-mk-53547-2026-socns' /tmp/live-kc-index.html
+          grep -q '/ai-advocate-evidence-lab/news/04082026-010.html#en-doc-cz-mk-2026-08-31-mk-53547-2026-socns' /tmp/live-kc-en.html
+          grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/022-podani-2026-09-01.pdf' /tmp/live-kc-index.html
+          grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/022-podani-2026-09-01.pdf' /tmp/live-kc-en.html
+          ! grep -q '#procesni-casovace' /tmp/live-kc-index.html
+          ! grep -q '#procesni-casovace' /tmp/live-kc-en.html
+          ! grep -q '<span>MINISTERSTVO KULTURY</span><h3>MK 49467/2026 SOCNS</h3>' /tmp/live-kc-index.html
+          ! grep -q '<span>MINISTRY OF CULTURE</span><h3>MK 49467/2026 SOCNS</h3>' /tmp/live-kc-en.html
 
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/live-dockets.js$stamp" -o /tmp/live-dockets.js
           for required in "6 As 207/2026" "15 A 44/2026" "15 Ad 14/2026" "8 Ad 9/2026" "9 To 315/2026" "9 To 316/2026" "15 Nt 3104/2026" "2 T 104/2010" "15 Nt 3106/2026" "2 T 65/2011" "https://www.konopijelek.cz/" "Konopí je lék.cz →"; do
