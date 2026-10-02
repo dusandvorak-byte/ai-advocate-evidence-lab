@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Křiklavě žlutá navigace CannaInsideru zhoršila čitelnost, nejvýrazněji v archivu zpráv
+
+- Projev: na CannaInsideru, zejména na `zpravy/index.html`, byla sytá žlutá `#ffeb3b` opticky agresivní a text navigace se četl špatně.
+- Příčina: sdílený vizuální kontrakt používal velmi syté žluté pozadí bez samostatného čitelnostního gate pro archivní plochy.
+- Náprava: CannaInsider CZ/EN používá tlumenou slámově-krémovou `#eee6bd`, tmavý text `#16242d`, silnější řez a tlumenější aktivní/hover stav `#dfd29a`. Konopná církev zůstává na vlastním vizuálním kontraktu.
+- Pojistka: `validate-live-dockets-contract.mjs` kontroluje nový barevný kontrakt a oba archivy; produkční workflow ověřuje CSS i živé archivní stránky a zakazuje návrat `#ffeb3b`.
+
+
 ### Veřejná PDF kopie měnila hash mezi dvěma běhy stejného commitu
 
 - Projev: build, Slalom i publikace prošly, ale opakovaný live-check stejného SHA porovnal čerstvě vygenerované PDF ÚOOÚ s předchozí živou kopií a hash se lišil.
