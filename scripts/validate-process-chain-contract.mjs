@@ -79,7 +79,7 @@ for (const phrase of ['Povinný formát:', 'Počítání:', 'Úplnost:']) if (ti
 
 const publicLabelCheck = html => {
   const links = [...html.matchAll(/<a[^>]+href="[^"]+"[^>]*>([^<]+)<\/a>/g)].map(m => m[1].trim());
-  const suspicious = links.filter(label => /PDF|kopie|listina|dokument/i.test(label) && !['Dokument v PDF','Evidenční stránka','Původní PDF'].includes(label));
+  const suspicious = links.filter(label => /PDF|kopie|listina|dokument/i.test(label) && !['Dokument v PDF','Evidenční stránka','Původní PDF','ověřená veřejná textová kopie PDF'].includes(label));
   return suspicious.slice(0,5);
 };
 const godotWithoutSeparateArchive = czechGodot.replace(/<!-- JUSTICE-SLALOM:BEGIN -->[\s\S]*?<!-- JUSTICE-SLALOM:END -->/g,'');
