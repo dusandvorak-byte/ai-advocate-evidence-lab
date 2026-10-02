@@ -50,7 +50,7 @@ for (const id of main.case_ids) {
 
 const cz = await readFile('web/zpravy/04082026-010.html','utf8');
 const en = await readFile('web/news/04082026-010.html','utf8');
-if (!cz.includes(`id="${mainId}"`) || !cz.includes(`id="${annexId}"`) || !cz.includes(main.public.pdf) || !cz.includes(annex.public.pdf) || !cz.includes('ověřená veřejná textová kopie PDF')) fail('CZ Godot neobsahuje hlavní podání, přílohu a oba PDF odkazy s pravdivým označením');
+if (!cz.includes(main.user_title) || !cz.includes(annex.user_title) || !cz.includes(main.public.pdf) || !cz.includes(annex.public.pdf) || !cz.includes('ověřená veřejná textová kopie PDF')) fail('CZ Godot neobsahuje hlavní podání, přílohu a oba PDF odkazy s pravdivým označením');
 if (!en.includes(`id="en-${mainId}"`) || !en.includes(`id="en-${annexId}"`) || !en.includes(main.public.pdf) || !en.includes(annex.public.pdf) || !en.includes('Verified public text PDF copy')) fail('EN Godot neobsahuje hlavní podání, přílohu a oba PDF odkazy s pravdivým označením');
 
 console.log('EKK 2. 10. 2026: hlavní podání + 33stránková Důkazní chronologie, 2 veřejné PDF kopie, archiv 137, obě obnovy a CZ/EN Godot OK.');
