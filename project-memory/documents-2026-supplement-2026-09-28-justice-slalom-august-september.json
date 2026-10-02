@@ -552,10 +552,13 @@
       "institution_id": "CZ-DD",
       "reference": "MK-S 6893/2026 SOCNS; MK 53547/2026 SOCNS",
       "case_ids": [],
-      "document_type": "user_submission",
+      "document_type": "appeal",
       "topics": [
         "Justiční slalom",
-        "2026-09"
+        "2026-09",
+        "Konopná církev",
+        "rozklad",
+        "Ministerstvo kultury"
       ],
       "public": {
         "html": null,
@@ -564,7 +567,12 @@
         "verification_status": "source_pdf_received_binary_original",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom-august-september.json"
       },
-      "relations": [],
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-mk-2026-08-31-mk-53547-2026-socns"
+        }
+      ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship",
       "justice_slalom": {
@@ -581,7 +589,8 @@
             "subject_en": "Administrative appeal against termination of the Church of Cannabis registration proceedings"
           }
         ]
-      }
+      },
+      "evidence_note": "Rozklad proti usnesení Ministerstva kultury ze dne 31. 8. 2026, č. j. MK 53547/2026 SOCNS, byl podán a doručen 1. 9. 2026 v řízení MK-S 6893/2026 SOCNS. Veřejný PDF soubor je veden v Justičním slalomu jako 022-podani-2026-09-01.pdf a rozklad je kanonicky propojen jako reakce na usnesení o zastavení řízení."
     },
     {
       "id": "doc-cs-dd-2026-08-24-slalom-augsep-023",
