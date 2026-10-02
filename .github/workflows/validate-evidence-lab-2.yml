@@ -100,6 +100,9 @@ jobs:
       - name: Ověřit nové státní listiny a uzavření přezkumu KSZ
         run: node scripts/validate-state-release-2026-09-29.mjs
 
+      - name: Ověřit odpověď EUDA z 1. října a její procesní vazbu
+        run: node scripts/validate-euda-access-documents-2026-10-01.mjs
+
       - name: Ověřit tři lišty, navigaci a rozbalená soudní řízení
         run: node scripts/validate-live-dockets-contract.mjs
 
