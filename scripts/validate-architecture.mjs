@@ -43,6 +43,9 @@ for (const workflowFile of workflowFiles) {
   for (const item of generators.subgenerators || []) {
     if (workflow.includes(`node ${item.path}`)) throw new Error(`Workflow ${workflowFile} spouští podgenerátor napřímo: ${item.path}`);
   }
+  if (workflowFile !== 'publish-gh-pages-branch.yml' && workflow.includes('gh workflow run publish-gh-pages-branch.yml')) {
+    throw new Error(`Workflow ${workflowFile} duplicitně spouští produkční publikaci; jediný automatický trigger je push do main.`);
+  }
 }
 
 const requiredGoals = [

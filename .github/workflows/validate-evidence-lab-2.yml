@@ -23,6 +23,10 @@ permissions:
 env:
   NODE_VERSION: '24'
 
+concurrency:
+  group: evidence-lab-pr-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     name: Ověřit architekturu a sestavit web bez publikace
