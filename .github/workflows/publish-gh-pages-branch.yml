@@ -83,6 +83,9 @@ jobs:
       - name: Ověřit nové státní listiny a uzavření přezkumu KSZ
         run: node scripts/validate-state-release-2026-09-29.mjs
 
+      - name: Ověřit odpověď EUDA z 1. října a její procesní vazbu
+        run: node scripts/validate-euda-access-documents-2026-10-01.mjs
+
       - name: Ověřit tři lišty, barvy a chronologii soudních řízení
         run: node scripts/validate-live-dockets-contract.mjs
 
@@ -275,7 +278,12 @@ jobs:
           grep -q 'aria-current="page">News archive</a>' /tmp/live-news-archive-en.html
 
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/zpravy/04082026-010.html$stamp" -o /tmp/live-current-article.html
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/news/04082026-010.html$stamp" -o /tmp/live-current-article-en.html
           grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' /tmp/live-current-article.html
+          grep -q 'doc-eu-euda-2026-10-01-access-documents-1049-2001' /tmp/live-current-article.html
+          grep -q 'EUDA potvrdila registraci samostatné žádosti o přístup k dokumentům' /tmp/live-current-article.html
+          grep -q 'en-doc-eu-euda-2026-10-01-access-documents-1049-2001' /tmp/live-current-article-en.html
+          grep -q 'registered a separate access-to-documents request' /tmp/live-current-article-en.html
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/styles.css$stamp" -o /tmp/live-styles.css
           grep -q 'grid-template-columns:max-content max-content minmax(760px,1fr) max-content' /tmp/live-styles.css
           grep -q '.nav .nav-courts-panel{position:absolute;z-index:120;left:0;right:0;top:100%;width:auto;transform:none;' /tmp/live-styles.css
@@ -290,6 +298,7 @@ jobs:
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/089-podani-2026-10-02.pdf$stamp" -o /tmp/live-uoou-1002.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf$stamp" -o /tmp/live-ms186.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/108-ncoz-4346-2-cj-2026-410012-2026-05-20.pdf$stamp" -o /tmp/live-ncoz.pdf
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf$stamp" -o /tmp/live-euda-1001.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/106-ksz-brno-1-spr-338-2026-5-2026-10-01.pdf$stamp" -o /tmp/live-ksz.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/105-msz-praha-3-kzn-974-2026-114-2026-10-01-verejna-kopie.pdf$stamp" -o /tmp/live-msz.pdf
           test "$(head -c 5 /tmp/live-slalom.pdf)" = '%PDF-'
@@ -300,6 +309,7 @@ jobs:
           test "$(head -c 5 /tmp/live-uoou-1002.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ms186.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ncoz.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-euda-1001.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ksz.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-msz.pdf)" = '%PDF-'
           echo "d1a482411d2e08797b8417ea6708454d47a60faf5ca36b1746c4100406cca71b  /tmp/live-slalom.pdf" | sha256sum -c -
@@ -310,8 +320,9 @@ jobs:
           test "$(sha256sum /tmp/live-uoou-1002.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/089-podani-2026-10-02.pdf | cut -d' ' -f1)"
           echo "00db06c75bb6451328a92f66e4b9c0ad810d92dab59f5a049e4231fd841c940c  /tmp/live-ms186.pdf" | sha256sum -c -
           echo "612e7ac3a5e7b26f6f6c6586552cbd7a09e82256ca8e64e064d9bbe0d05d4869  /tmp/live-ncoz.pdf" | sha256sum -c -
+          test "$(sha256sum /tmp/live-euda-1001.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf | cut -d' ' -f1)"
           echo "c9cd624bff387428a670ef28351796b8bd4e89f53a7c019add281d6b395696ce  /tmp/live-ksz.pdf" | sha256sum -c -
-          echo "Živá produkce ověřena na 6/6 veřejných plochách a 10 PDF."
+          echo "Živá produkce ověřena na 6/6 veřejných plochách a 11 PDF."
 
       - name: Souhrn
         shell: bash
