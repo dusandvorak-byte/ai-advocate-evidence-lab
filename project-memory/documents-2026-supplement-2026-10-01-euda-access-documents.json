@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-01",
+  "purpose": "EUDA acknowledgement of registration and separate processing of the access-to-documents request under Regulation (EC) No 1049/2001 concerning comparability and methodological traceability of THC data.",
+  "documents": [
+    {
+      "id": "doc-eu-euda-2026-10-01-access-documents-1049-2001",
+      "user_title": "EUDA potvrdila registraci samostatné žádosti o přístup k dokumentům podle nařízení 1049/2001 a její oddělené vyřizování od výzvy k jednání",
+      "issue_date": "2026-10-01",
+      "received_date": "2026-10-01",
+      "institution_id": "EU-EUDA",
+      "reference": "bez samostatného č. j./sp. zn. v e-mailu",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "EUDA",
+        "nařízení (ES) č. 1049/2001",
+        "přístup k dokumentům",
+        "THC",
+        "srovnatelnost dat",
+        "metodologická dohledatelnost",
+        "výzva k jednání",
+        "samostatné řízení"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf",
+        "intended_pdf": "documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf",
+        "sha256": null,
+        "verification_status": "pending_verified_public_copy_from_complete_text_of_uploaded_email_pdf",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-01-euda-access-documents.json",
+        "source_original_sha256": "d3a61bda167f6cbe0fc77c4e38580d9a427212210585e61ec1b4d330347cef71"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-eu-euda-2026-09-25-exo-fhp-pd-26-d-106"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "E-mail EUDA ze dne 1. 10. 2026 v 12:03:52 od Gonçala Felgueirase e Sousy potvrzuje, že samostatná žádost o přístup k dokumentům podle nařízení (ES) č. 1049/2001 byla EUDA přijata, zaregistrována a její vyřizování již začalo jako samostatné řízení odlišné od výzvy k jednání. EUDA uvedla, že bude identifikovat požadované dokumenty, které mohou mít příslušné útvary k dispozici, a odpoví v lhůtách podle použitelné legislativy. E-mail neuvádí samostatné číslo jednací ani konkrétní konečné datum lhůty. EUDA odkazuje na e-mail ze dne 27. 9. 2026 s názvem zásadní námitky; v kanonickém archivu je pod shodným názvem evidován dokument datovaný 26. 9. 2026. Tento rozdíl dat se nesjednocuje bez dalšího primárního podkladu."
+    }
+  ]
+}
