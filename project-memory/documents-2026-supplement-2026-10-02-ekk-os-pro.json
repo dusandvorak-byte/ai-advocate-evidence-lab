@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-02",
+  "purpose": "Procesní a důkazní návrh Edukativní konopné kliniky k obnovám 15 Nt 3104/2026 a 15 Nt 3106/2026 a jeho příloha Důkazní chronologie Konopí je lék 2008–2026.",
+  "documents": [
+    {
+      "id": "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
+      "user_title": "Procesní a důkazní návrh EKK k řízením 15 Nt 3104/2026 a 15 Nt 3106/2026 před veřejnými zasedáními 12. a 13. října 2026",
+      "issue_date": "2026-10-02",
+      "received_date": null,
+      "institution_id": "CZ-EKK",
+      "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "obnova řízení",
+        "15 Nt 3104/2026",
+        "15 Nt 3106/2026",
+        "2 T 104/2010",
+        "2 T 65/2011",
+        "procesní postavení",
+        "zmocněnec",
+        "důkazní návrh",
+        "Edukativní konopná klinika"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/090-podani-2026-10-02-verejna-textova-kopie.pdf",
+        "sha256": null,
+        "verification_status": "pending_verified_text_public_copy_from_complete_extracted_text",
+        "source_original_sha256": "b697024e256b3f3d16fed31c6d0785248f3eec971fd366a00f139592fd00638f",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-02-ekk-os-pro.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-os-pro-2026-09-14-15-nt-3104-2026"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-os-pro-2026-09-14-15-nt-3106-2026"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Podání EKK je datováno 2. 10. 2026, je určeno Okresnímu soudu v Prostějově do obou řízení o obnově 15 Nt 3104/2026 a 15 Nt 3106/2026 a vztahuje se k veřejným zasedáním 12. a 13. 10. 2026. Žádá posouzení procesního postavení dotčených právnických osob, případné uznání EKK jako společného zmocněnce a subsidiárně provedení podání a aktualizované Důkazní chronologie jako listinných důkazů. Nahrané PDF neobsahuje samostatný důkaz o okamžiku doručení soudu, proto received_date zůstává null.",
+      "justice_slalom": {
+        "archive_number": 137,
+        "archive_name": "OS v Prostějově - návrh EKK ze dne 2.října 2026.pdf",
+        "source_sha256": "b697024e256b3f3d16fed31c6d0785248f3eec971fd366a00f139592fd00638f",
+        "source_kind": "verified_public_copy_from_user_original",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+            "role": "primary",
+            "subject_cs": "Procesní a důkazní návrh EKK k oběma řízením o obnově a k veřejným zasedáním 12. a 13. října 2026",
+            "subject_en": "Procedural and evidentiary filing by the Educational Cannabis Clinic in both reopening proceedings and for the public hearings of 12 and 13 October 2026"
+          }
+        ],
+        "public_sha256": null,
+        "public_copy_manifest": {
+          "kind": "complete_extracted_text_public_copy",
+          "source_text": "project-memory/user-text-sources-2026-10-02/ekk-os-pro-procesni-dukazni-navrh.txt",
+          "original_pages_reviewed": 5,
+          "original_sha256": "b697024e256b3f3d16fed31c6d0785248f3eec971fd366a00f139592fd00638f",
+          "byte_identical_original": false,
+          "limitation": "public copy preserves the complete extracted text page-by-page; original graphic layout is not reproduced"
+        }
+      }
+    },
+    {
+      "id": "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",
+      "user_title": "Důkazní chronologie Konopí je lék 2008–2026, stav k 2. říjnu 2026 – příloha procesního a důkazního návrhu EKK",
+      "issue_date": "2026-10-02",
+      "received_date": null,
+      "institution_id": "CZ-EKK",
+      "reference": "Příloha k 15 Nt 3104/2026 a 15 Nt 3106/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "user_submission_attachment",
+      "topics": [
+        "Důkazní chronologie",
+        "Konopí je lék",
+        "2008–2026",
+        "obnova řízení",
+        "vědecké důkazy",
+        "institucionální důkazy",
+        "daňové důkazy",
+        "trestní větev",
+        "notifikace EU"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/091-priloha-dukazni-chronologie-2008-2026-verejna-textova-kopie.pdf",
+        "sha256": null,
+        "verification_status": "pending_verified_text_public_copy_from_complete_extracted_text; embedded graphical scans are not reproduced in the public text copy",
+        "source_original_sha256": "6a54415e26fe4fc36e577329a7883382c656f5e3bcc9946d4f405c61fae26afe",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-02-ekk-os-pro.json",
+        "public_copy_manifest": {
+          "kind": "complete_extracted_text_public_copy",
+          "source_text": "project-memory/user-text-sources-2026-10-02/dukazni-chronologie-kjl-2008-2026.txt",
+          "original_pages_reviewed": 33,
+          "original_sha256": "6a54415e26fe4fc36e577329a7883382c656f5e3bcc9946d4f405c61fae26afe",
+          "byte_identical_original": false,
+          "limitation": "public copy preserves the complete extracted text page-by-page; embedded graphical scans and the original visual layout are not reproduced"
+        }
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Třiatřicetistránková Důkazní chronologie je v procesním návrhu EKK výslovně označena jako příloha a listinný důkaz. Nahraný originál obsahuje vedle textu také vložené obrazové scany důkazů. Veřejná textová kopie zachovává kompletní extrahovaný text po jednotlivých původních stranách, ale nevydává se za byte-identický nebo graficky totožný originál; SHA-256 originálu je zachováno v metadatech."
+    }
+  ]
+}
