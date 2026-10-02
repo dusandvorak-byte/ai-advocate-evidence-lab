@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Live gate zaměnil historickou listinu za trvalou součást trojice nejnovějších záznamů
+
+- Projev: po korektním přidání nové listiny EUDA z 1. 10. 2026 produkce dvakrát spadla na `index.html`, přestože build i `gh-pages` byly správné. Pevně vyžadovaný údaj `18 A 17/2026-186` už nebyl na titulních plochách, protože legitimně vypadl z trojice nejnovějších listin.
+- Příčina: live workflow měl natvrdo zapsané konkrétní státní reference a vyžadoval je na všech šesti veřejných plochách, místo aby odvozoval aktuální trojici nejnovějších listin z kanonického buildu. Test tím zaměnil proměnlivý redakční výběr za trvalý invariant.
+- Náprava: live gate nyní odvozuje tři aktuální `latest-record-card` ID z finálního buildu a ověřuje tutéž dynamickou trojici na CannaInsideru CZ/EN i Konopné církvi CZ/EN a v Godotovi. Historické státní reference se kontrolují pouze v úplné chronologii Godota.
+- Pojistka: pre-merge validátor porovnává tři nejnovější kanonické státní/veřejné záznamy se čtyřmi hlavními veřejnými plochami; přidání nové listiny nesmí vyžadovat ruční přepis pevného seznamu ve workflow.
+
+
 ### Jeden merge spouštěl produkci dvakrát a vytvářel zbytečné GitHub notifikace
 
 - Projev: po merge se současně rozběhl produkční workflow z `push main` a druhý běh přes `dispatch-production-after-merge.yml`; concurrency pak jeden z nich rušila a vznikal další notifikační šum.
