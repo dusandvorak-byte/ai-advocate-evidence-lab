@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Jeden merge spouštěl produkci dvakrát a vytvářel zbytečné GitHub notifikace
+
+- Projev: po merge se současně rozběhl produkční workflow z `push main` a druhý běh přes `dispatch-production-after-merge.yml`; concurrency pak jeden z nich rušila a vznikal další notifikační šum.
+- Příčina: vedle kanonického produkčního triggeru existoval ještě redundantní workflow, který po uzavření PR volal `gh workflow run publish-gh-pages-branch.yml --ref main`.
+- Náprava: redundantní dispatcher je odstraněn; produkce se automaticky spouští pouze jednou, přímo pushnutím merge commitu do `main`. PR validace má concurrency podle čísla PR a ruší pouze starší rozběhnutou validaci stejného PR.
+- Pojistka: `scripts/validate-architecture.mjs` odmítne jakýkoli další workflow, který znovu volá produkční `publish-gh-pages-branch.yml`.
+
+
 ### Křiklavě žlutá navigace CannaInsideru zhoršila čitelnost, nejvýrazněji v archivu zpráv
 
 - Projev: na CannaInsideru, zejména na `zpravy/index.html`, byla sytá žlutá `#ffeb3b` opticky agresivní a text navigace se četl špatně.
