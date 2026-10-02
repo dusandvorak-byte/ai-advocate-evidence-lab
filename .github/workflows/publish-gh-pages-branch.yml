@@ -230,24 +230,36 @@ jobs:
             "zpravy/04082026-010.html"
             "news/04082026-010.html"
           )
+          mapfile -t latest_ids < <(grep -o 'class="latest-record-card" data-document-id="[^"]*"' web/index.html | sed -E 's/.*data-document-id="([^"]+)"/\1/' | head -n 3)
+          test "${#latest_ids[@]}" -eq 3
+          shared_ids=(
+            "doc-cs-dd-2026-10-01-spolecne-doplneni-nsz-vsz-uzavreny-retezec"
+            "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106"
+            "doc-cz-dd-2026-10-01-uocr-pro-bono"
+            "doc-cz-dd-2026-10-01-ms-pha-18-a-17-procesni-vyjadreni"
+            "doc-cz-dd-2026-10-01-ms-pha-msp-18-a-23-uocr-dukaz"
+          )
           for page in "${pages[@]}"; do
             target="/tmp/live-$(echo "$page" | tr '/' '-')"
             for attempt in {1..12}; do
               if curl -fsSL --connect-timeout 10 --max-time 30 "$base/$page$stamp" -o "$target"; then
-                if grep -q 'doc-cs-dd-2026-10-01-spolecne-doplneni-nsz-vsz-uzavreny-retezec' "$target" \
-                   && grep -q 'doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106' "$target" \
-                   && grep -q 'doc-cz-dd-2026-10-01-uocr-pro-bono' "$target" \
-                   && grep -q 'doc-cz-dd-2026-10-01-ms-pha-18-a-17-procesni-vyjadreni' "$target" \
-                   && grep -q 'doc-cz-dd-2026-10-01-ms-pha-msp-18-a-23-uocr-dukaz' "$target" \
-                   && grep -q '18 A 17/2026-186' "$target" \
-                   && grep -q '1 SPR 338/2026-5' "$target" \
-                   && grep -q '3 KZN 974/2026-114' "$target" \
-                   && ! grep -Eq 'data-timer-id=|id="procesni-casovace"|Živé procesní časovače|Live procedural timers' "$target"; then
+                ok=1
+                for required in "${shared_ids[@]}" "${latest_ids[@]}"; do
+                  if ! grep -q "$required" "$target"; then
+                    ok=0
+                    break
+                  fi
+                done
+                if [ "$ok" -eq 1 ] && ! grep -Eq 'data-timer-id=|id="procesni-casovace"|Živé procesní časovače|Live procedural timers' "$target"; then
                   break
                 fi
               fi
               if [ "$attempt" -eq 12 ]; then
                 echo "Živá produkce není synchronizovaná: $page" >&2
+                echo "Očekávané dynamické nejnovější listiny: ${latest_ids[*]}" >&2
+                for required in "${shared_ids[@]}" "${latest_ids[@]}"; do
+                  grep -q "$required" "$target" || echo "Chybí: $required" >&2
+                done
                 exit 1
               fi
               sleep 5
@@ -284,6 +296,9 @@ jobs:
           grep -q 'EUDA potvrdila registraci samostatné žádosti o přístup k dokumentům' /tmp/live-current-article.html
           grep -q 'en-doc-eu-euda-2026-10-01-access-documents-1049-2001' /tmp/live-current-article-en.html
           grep -q 'registered a separate access-to-documents request' /tmp/live-current-article-en.html
+          grep -q '18 A 17/2026-186' /tmp/live-current-article.html
+          grep -q '1 SPR 338/2026-5' /tmp/live-current-article.html
+          grep -q '3 KZN 974/2026-114' /tmp/live-current-article.html
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/styles.css$stamp" -o /tmp/live-styles.css
           grep -q 'grid-template-columns:max-content max-content minmax(760px,1fr) max-content' /tmp/live-styles.css
           grep -q '.nav .nav-courts-panel{position:absolute;z-index:120;left:0;right:0;top:100%;width:auto;transform:none;' /tmp/live-styles.css
