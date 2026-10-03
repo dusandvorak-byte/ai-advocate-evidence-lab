@@ -92,6 +92,9 @@ jobs:
       - name: Ověřit EKK balík z 2. října včetně obou PDF
         run: node scripts/validate-ekk-evidence-2026-10-02.mjs
 
+      - name: Ověřit čtyři nově doložené soudní listiny a jejich PDF
+        run: node scripts/validate-four-records-2026-10-03.mjs
+
       - name: Ověřit tři lišty, barvy a chronologii soudních řízení
         run: node scripts/validate-live-dockets-contract.mjs
 
@@ -330,6 +333,10 @@ jobs:
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/089-podani-2026-10-02.pdf$stamp" -o /tmp/live-uoou-1002.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/090-podani-2026-10-02-verejna-textova-kopie.pdf$stamp" -o /tmp/live-ekk-1002.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/091-priloha-dukazni-chronologie-2008-2026-verejna-textova-kopie.pdf$stamp" -o /tmp/live-ekk-chronology-1002.pdf
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf$stamp" -o /tmp/live-ks315.pdf
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/092-podani-2026-10-02-verejna-textova-kopie.pdf$stamp" -o /tmp/live-prima-1002.pdf
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf$stamp" -o /tmp/live-ms191.pdf
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/093-podani-2026-10-04-verejna-textova-kopie.pdf$stamp" -o /tmp/live-a17-reaction-1004.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf$stamp" -o /tmp/live-ms186.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/108-ncoz-4346-2-cj-2026-410012-2026-05-20.pdf$stamp" -o /tmp/live-ncoz.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf$stamp" -o /tmp/live-euda-1001.pdf
@@ -343,6 +350,10 @@ jobs:
           test "$(head -c 5 /tmp/live-uoou-1002.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ekk-1002.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ekk-chronology-1002.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-ks315.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-prima-1002.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-ms191.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-a17-reaction-1004.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ms186.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ncoz.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-euda-1001.pdf)" = '%PDF-'
@@ -356,6 +367,18 @@ jobs:
           test "$(sha256sum /tmp/live-uoou-1002.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/089-podani-2026-10-02.pdf | cut -d' ' -f1)"
           test "$(sha256sum /tmp/live-ekk-1002.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/090-podani-2026-10-02-verejna-textova-kopie.pdf | cut -d' ' -f1)"
           test "$(sha256sum /tmp/live-ekk-chronology-1002.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/091-priloha-dukazni-chronologie-2008-2026-verejna-textova-kopie.pdf | cut -d' ' -f1)"
+          test "$(sha256sum /tmp/live-ks315.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf | cut -d' ' -f1)"
+          test "$(sha256sum /tmp/live-prima-1002.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/092-podani-2026-10-02-verejna-textova-kopie.pdf | cut -d' ' -f1)"
+          test "$(sha256sum /tmp/live-ms191.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf | cut -d' ' -f1)"
+          test "$(sha256sum /tmp/live-a17-reaction-1004.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/093-podani-2026-10-04-verejna-textova-kopie.pdf | cut -d' ' -f1)"
+          grep -q 'doc-cz-ks-brn-2026-09-03-9-to-315-2026-140' /tmp/live-current-article.html
+          grep -q 'doc-cz-ekk-2026-10-02-os-praha10-ftv-prima-doplneni-zaloby' /tmp/live-current-article.html
+          grep -q 'doc-cz-ms-pha-2026-10-02-18-a-17-2026-191' /tmp/live-current-article.html
+          grep -q 'doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce' /tmp/live-current-article.html
+          grep -q 'en-doc-cz-ks-brn-2026-09-03-9-to-315-2026-140' /tmp/live-current-article-en.html
+          grep -q 'en-doc-cz-ekk-2026-10-02-os-praha10-ftv-prima-doplneni-zaloby' /tmp/live-current-article-en.html
+          grep -q 'en-doc-cz-ms-pha-2026-10-02-18-a-17-2026-191' /tmp/live-current-article-en.html
+          grep -q 'en-doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce' /tmp/live-current-article-en.html
           grep -q 'doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh' /tmp/live-current-article.html
           grep -q 'doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026' /tmp/live-current-article.html
           grep -q 'en-doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh' /tmp/live-current-article-en.html
@@ -364,7 +387,7 @@ jobs:
           echo "612e7ac3a5e7b26f6f6c6586552cbd7a09e82256ca8e64e064d9bbe0d05d4869  /tmp/live-ncoz.pdf" | sha256sum -c -
           test "$(sha256sum /tmp/live-euda-1001.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf | cut -d' ' -f1)"
           echo "c9cd624bff387428a670ef28351796b8bd4e89f53a7c019add281d6b395696ce  /tmp/live-ksz.pdf" | sha256sum -c -
-          echo "Živá produkce ověřena na 6/6 veřejných plochách a 13 PDF."
+          echo "Živá produkce ověřena na 6/6 veřejných plochách a 17 PDF."
 
       - name: Souhrn
         shell: bash

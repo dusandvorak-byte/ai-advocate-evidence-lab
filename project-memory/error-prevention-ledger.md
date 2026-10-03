@@ -15,6 +15,22 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Finální normalizátor vracel nestandardní popisky veřejných PDF kopií
+
+- Projev: kanonický generátor správně použil veřejný popisek `Dokument v PDF`, ale pozdější writer `normalize-godot-link-labels.mjs` jej u souborů `verejna-textova-kopie.pdf` znovu změnil na `ověřená veřejná textová kopie PDF`. Tím selhal starší validační gate a porušil se axiom dvoustavových veřejných popisků.
+- Příčina: typ veřejné kopie byl chybně promítnut do uživatelského textu odkazu místo do provenienčních metadat.
+- Náprava: všechny veřejné PDF odkazy v českém Godotovi používají pouze `Dokument v PDF`, v anglickém `PDF document`; provenience a informace o ne-byte-identické kopii zůstávají v registru, SHA a verifikačním stavu.
+- Pojistka: normalizátor odmítne návrat starého popisku a procesní i EKK validační gate kontrolují kanonické dvoustavové označení.
+
+
+### Při průběžné publikaci nesmí novější uploady v témže vlákně zůstat mimo release balík
+
+- Projev: po zveřejnění dřívějšího balíku zůstaly mimo web čtyři později nahrané listiny: KS Brno 9 To 315/2026-140, doplnění žaloby EKK pro OS Praha 10, přípis MS Praha 18 A 17/2026-191 a navazující reakce žalobce datovaná 4. 10. 2026.
+- Příčina: publikační průchod byl uzavřen podle dříve vymezeného balíku, aniž byl před release znovu porovnán seznam nejnovějších uploadů ve vlákně s kanonickým registrem.
+- Náprava: před každým release se nyní dělá delta kontrola posledních uploadů proti `document-sources.json`; již evidovaná listina se neduplikuje a chybějící listiny se přidají do jednoho následného balíku.
+- Pojistka: `validate-four-records-2026-10-03.mjs` kontroluje všechny čtyři ID, jejich PDF, CZ/EN Godot, procesní vazby a obě nové položky Justičního slalomu.
+
+
 ### Nahrané PDF nesmí skončit jen jako popis bez samostatného veřejného PDF artefaktu
 
 - Projev: uživatel výslovně požadoval zveřejnit hlavní podání EKK z 2. 10. 2026 i jeho 33stránkovou Důkazní chronologii jako PDF, nikoli jen jako položky chronologie.

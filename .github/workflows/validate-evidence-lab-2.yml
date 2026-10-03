@@ -109,6 +109,9 @@ jobs:
       - name: Ověřit EKK balík z 2. října včetně obou PDF
         run: node scripts/validate-ekk-evidence-2026-10-02.mjs
 
+      - name: Ověřit čtyři nově doložené soudní listiny a jejich PDF
+        run: node scripts/validate-four-records-2026-10-03.mjs
+
       - name: Ověřit tři lišty, navigaci a rozbalená soudní řízení
         run: node scripts/validate-live-dockets-contract.mjs
 

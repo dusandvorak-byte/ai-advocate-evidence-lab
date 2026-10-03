@@ -168,11 +168,17 @@
       "decision_document_id": "doc-cz-vs-pha-2026-09-14-3-cmo-24-2026-26",
       "next_authority": "Obvodní soud pro Prahu 10",
       "finality_date": null,
-      "successor_case_reference": null,
+      "successor_case_reference": "nová sp. zn. OS Praha 10 dosud nesdělena",
       "topics": [
         "právo na odpověď",
         "věcná příslušnost",
         "FTV Prima"
+      ],
+      "last_filing_on": "2026-10-02",
+      "last_filing_document_id": "doc-cz-ekk-2026-10-02-os-praha10-ftv-prima-doplneni-zaloby",
+      "related_document_ids": [
+        "doc-cz-vs-pha-2026-09-14-3-cmo-24-2026-26",
+        "doc-cz-ekk-2026-10-02-os-praha10-ftv-prima-doplneni-zaloby"
       ]
     },
     {
@@ -265,6 +271,13 @@
         "NCOZ",
         "§ 82 s. ř. s.",
         "§ 174a"
+      ],
+      "latest_state_document_id": "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
+      "last_filing_on": "2026-10-04",
+      "last_filing_document_id": "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce",
+      "related_document_ids": [
+        "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
+        "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce"
       ]
     },
     {
@@ -280,6 +293,27 @@
         "znalecká činnost",
         "THC",
         "THCA"
+      ]
+    },
+    {
+      "id": "case-cz-ks-brno-9to315-2026",
+      "institution_id": "CZ-KS-BRN",
+      "reference": "9 To 315/2026 / 15 Nt 3103/2026",
+      "title": "Stížnostní větev obnovy řízení – 9 To 315/2026",
+      "status": "complaint_dismissed_no_ordinary_remedy",
+      "opened_on": "2026-08-11",
+      "decided_on": "2026-09-03",
+      "decision_document_id": "doc-cz-ks-brn-2026-09-03-9-to-315-2026-140",
+      "topics": [
+        "obnova řízení",
+        "9 To 315/2026",
+        "15 Nt 3103/2026",
+        "zabrání věci",
+        "úrody 2011–2012"
+      ],
+      "related_document_ids": [
+        "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
+        "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53"
       ]
     }
   ]

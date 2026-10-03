@@ -421,6 +421,13 @@
       "type": "police_unit",
       "name": "Policie České republiky – Národní centrála proti organizovanému zločinu SKPV",
       "short_name": "NCOZ"
+    },
+    {
+      "id": "CZ-OS-PHA10",
+      "country": "CZ",
+      "type": "court",
+      "name": "Obvodní soud pro Prahu 10",
+      "short_name": "OS Praha 10"
     }
   ]
 }
