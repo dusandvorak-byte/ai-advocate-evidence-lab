@@ -105,16 +105,13 @@ for (const item of documents) {
   ids.add(item.id);
 }
 
-const documentLink = (item, fallbackLabel = 'originál PDF') => {
+const documentLink = (item, fallbackLabel = 'Dokument v PDF') => {
   const published = item.public || {};
   if (published.pdf) {
-    const href = normalizePublicPath(published.pdf);
-    const status = String(published.verification_status || '');
-    const label = status.includes('verified_text_public_copy') ? 'ověřená veřejná textová kopie PDF' : /(?:verejna-kopie|public-copy)\.pdf$/i.test(href) ? 'anonymizovaná veřejná kopie PDF' : fallbackLabel;
-    return { href, label, external: true };
+    return { href: normalizePublicPath(published.pdf), label: 'Dokument v PDF', external: true };
   }
-  if (published.html) return { href: normalizePublicPath(published.html), label: 'stránka listiny', external: false };
-  return { href: `listiny/${item.id}.html`, label: 'evidenční stránka', external: false };
+  if (published.html) return { href: normalizePublicPath(published.html), label: 'Evidenční stránka', external: false };
+  return { href: `listiny/${item.id}.html`, label: 'Evidenční stránka', external: false };
 };
 
 const mainDocuments = documents.filter(item => item.issue_date >= MAIN_FROM);
