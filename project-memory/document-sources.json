@@ -251,6 +251,11 @@
       "path": "project-memory/documents-2026-supplement-2026-10-02-ekk-os-pro.json",
       "role": "batch",
       "batch_date": "2026-10-02"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-03-four-records.json",
+      "role": "batch",
+      "batch_date": "2026-10-03"
     }
   ]
 }
