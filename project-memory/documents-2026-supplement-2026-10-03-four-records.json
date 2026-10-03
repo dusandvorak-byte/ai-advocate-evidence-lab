@@ -84,7 +84,7 @@
         "archive_number": 138,
         "archive_name": "OBVODNÍMU SOUDU PRO PRAHU 10 - žaloba - 2.10.2026- FTV Prima(1).pdf",
         "source_sha256": "483f849dbe816df2bfaac7b8d7a5b7be2dc2a796b711c7aec9c880fc34f6a457",
-        "source_kind": "original_pdf_uploaded_by_user",
+        "source_kind": "verified_public_copy_from_user_original",
         "recipients": [
           {
             "institution_id": "CZ-OS-PHA10",
@@ -93,7 +93,16 @@
             "subject_cs": "Doplnění a zpřesnění žaloby po usnesení Vrchního soudu v Praze; žádost o sdělení nové spisové značky",
             "subject_en": "Supplement and clarification of the action following the Prague High Court order; request for the new case number"
           }
-        ]
+        ],
+        "public_sha256": null,
+        "public_copy_manifest": {
+          "kind": "complete_extracted_text_public_copy",
+          "source_text": "project-memory/user-text-sources-2026-10-03/os-praha10-ftv-prima-doplneni.txt",
+          "original_pages_reviewed": 7,
+          "original_sha256": "483f849dbe816df2bfaac7b8d7a5b7be2dc2a796b711c7aec9c880fc34f6a457",
+          "byte_identical_original": false,
+          "limitation": "public copy preserves the complete extracted text; original graphic layout is not reproduced"
+        }
       }
     },
     {
@@ -183,7 +192,7 @@
         "archive_number": 139,
         "archive_name": "Městskému soudu a NCOZ -18A17-2026 - reakce na sdělení soudu dne 4.října 2026(1).pdf",
         "source_sha256": "3dd1854522b5bcb9d0f87f9d14f199881915e80bc91a9850a04ac404f33981a2",
-        "source_kind": "original_pdf_uploaded_by_user",
+        "source_kind": "verified_public_copy_from_user_original",
         "recipients": [
           {
             "institution_id": "CZ-NCOZ",
@@ -199,7 +208,16 @@
             "subject_cs": "Na vědomí do soudního spisu: reakce žalobce na přípis 18 A 17/2026-191",
             "subject_en": "For the court file: claimant’s response to letter 18 A 17/2026-191"
           }
-        ]
+        ],
+        "public_sha256": null,
+        "public_copy_manifest": {
+          "kind": "complete_extracted_text_public_copy",
+          "source_text": "project-memory/user-text-sources-2026-10-03/ncoz-ms-praha-18-a-17-reakce-2026-10-04.txt",
+          "original_pages_reviewed": 5,
+          "original_sha256": "3dd1854522b5bcb9d0f87f9d14f199881915e80bc91a9850a04ac404f33981a2",
+          "byte_identical_original": false,
+          "limitation": "public copy preserves the complete extracted text; original graphic layout is not reproduced"
+        }
       }
     }
   ]
