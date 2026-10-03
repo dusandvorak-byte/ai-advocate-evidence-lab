@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Finální normalizátor vracel nestandardní popisky veřejných PDF kopií
+
+- Projev: kanonický generátor správně použil veřejný popisek `Dokument v PDF`, ale pozdější writer `normalize-godot-link-labels.mjs` jej u souborů `verejna-textova-kopie.pdf` znovu změnil na `ověřená veřejná textová kopie PDF`. Tím selhal starší validační gate a porušil se axiom dvoustavových veřejných popisků.
+- Příčina: typ veřejné kopie byl chybně promítnut do uživatelského textu odkazu místo do provenienčních metadat.
+- Náprava: všechny veřejné PDF odkazy v českém Godotovi používají pouze `Dokument v PDF`, v anglickém `PDF document`; provenience a informace o ne-byte-identické kopii zůstávají v registru, SHA a verifikačním stavu.
+- Pojistka: normalizátor odmítne návrat starého popisku a procesní i EKK validační gate kontrolují kanonické dvoustavové označení.
+
+
 ### Při průběžné publikaci nesmí novější uploady v témže vlákně zůstat mimo release balík
 
 - Projev: po zveřejnění dřívějšího balíku zůstaly mimo web čtyři později nahrané listiny: KS Brno 9 To 315/2026-140, doplnění žaloby EKK pro OS Praha 10, přípis MS Praha 18 A 17/2026-191 a navazující reakce žalobce datovaná 4. 10. 2026.
