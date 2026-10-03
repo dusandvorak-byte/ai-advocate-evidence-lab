@@ -89,16 +89,10 @@ const sourceLink = item => {
   const published = item.public || {};
   if (published.pdf) {
     const href = publicPath(published.pdf);
-    const status = String(published.verification_status || '');
-    const label = status.includes('verified_text_public_copy')
-      ? 'Verified public text PDF copy'
-      : /(?:verejna-kopie|public-copy)\.pdf$/i.test(href)
-        ? 'Anonymised public PDF copy'
-        : (item.language === 'en' ? 'Original English PDF' : 'Original Czech PDF');
-    return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener">${label}</a>`;
+    return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener">PDF document</a>`;
   }
-  if (published.html) return `<a href="${escapeHtml(publicPath(published.html))}">Czech evidence record</a>`;
-  return `<a href="listiny/${escapeHtml(item.id)}.html">Czech evidence record</a>`;
+  if (published.html) return `<a href="${escapeHtml(publicPath(published.html))}">Evidence page</a>`;
+  return `<a href="listiny/${escapeHtml(item.id)}.html">Evidence page</a>`;
 };
 
 const reactionCard = (item, label = 'Subsequent filing') => {
