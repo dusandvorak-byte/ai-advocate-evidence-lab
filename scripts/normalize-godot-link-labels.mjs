@@ -11,19 +11,7 @@ const surfacePaths = [
 
 const replaceAnchorTextByHref = (html, hrefPattern, label) => html.replace(
   new RegExp(`<a([^>]*\\bhref=["'][^"']*${hrefPattern}[^"']*["'][^>]*)>([\\s\\S]*?)<\\/a>`, 'gi'),
-  (_match, attrs, currentLabel) => {
-    const plain = String(currentLabel).replace(/<[^>]+>/g, '').trim();
-    if (String(attrs).includes('verejna-textova-kopie.pdf')) {
-      const verifiedLabel = label === 'Dokument v PDF'
-        ? 'ověřená veřejná textová kopie PDF'
-        : 'Verified public text PDF copy';
-      return `<a${attrs}>${verifiedLabel}</a>`;
-    }
-    if (['ověřená veřejná textová kopie PDF', 'Verified public text PDF copy'].includes(plain)) {
-      return `<a${attrs}>${plain}</a>`;
-    }
-    return `<a${attrs}>${label}</a>`;
-  }
+  (_match, attrs) => `<a${attrs}>${label}</a>`
 );
 
 const normalizeGodot = async (path, lang) => {
@@ -92,8 +80,7 @@ for (const label of forbidden) {
 const pdfLinks = (chronology.match(/>Dokument v PDF<\/a>/g) || []).length;
 const evidenceLinks = (chronology.match(/>Evidenční stránka<\/a>/g) || []).length;
 if (pdfLinks + evidenceLinks === 0) throw new Error('Godot po normalizaci neobsahuje žádný standardizovaný odkaz');
-const verifiedTextCopies = (chronology.match(/>ověřená veřejná textová kopie PDF<\/a>/gi) || []).length;
-if (chronology.includes('090-podani-2026-10-02-verejna-textova-kopie.pdf') && verifiedTextCopies < 2) {
-  throw new Error('Godot ztratil pravdivý popisek ověřené veřejné textové PDF kopie EKK');
+if (chronology.includes('ověřená veřejná textová kopie PDF') || chronology.includes('Verified public text PDF copy')) {
+  throw new Error('Godot obsahuje starý nestandardní popisek veřejné PDF kopie');
 }
 console.log(`Godot link labels: ${pdfLinks} × Dokument v PDF; ${evidenceLinks} × Evidenční stránka. CZ/EN veřejné plochy synchronizovány.`);
