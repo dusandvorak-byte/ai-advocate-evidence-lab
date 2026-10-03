@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-03",
+  "purpose": "Čtyři uživatelem doložené listiny: rozhodnutí KS Brno 9 To 315/2026-140, doplnění žaloby EKK ve věci FTV Prima pro OS Praha 10, sdělení MS Praha 18 A 17/2026-191 a navazující reakce žalobce datovaná 4. 10. 2026.",
+  "documents": [
+    {
+      "id": "doc-cz-ks-brn-2026-09-03-9-to-315-2026-140",
+      "user_title": "KS Brno zamítl stížnost ve věci 9 To 315/2026 jako podanou neoprávněnou osobou, bez věcného přezkoumání",
+      "issue_date": "2026-09-03",
+      "received_date": null,
+      "institution_id": "CZ-KS-BRN",
+      "reference": "9 To 315/2026-140",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "9 To 315/2026",
+        "15 Nt 3103/2026-53",
+        "obnova řízení",
+        "zabrání věci",
+        "§ 148 odst. 1 písm. b) trestního řádu",
+        "úrody 2011–2012"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf",
+        "intended_pdf": "documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf",
+        "sha256": null,
+        "verification_status": "pending_deterministic_public_text_copy_from_reviewed_scan",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-03-four-records.json",
+        "source_original_sha256": "e565b7e3bb122f00ff04720f1acce031525c1b9c2a2457a87cdac96055ec64a6"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_official_document",
+      "evidence_note": "Pětistránkový sken usnesení KS Brno č. j. 9 To 315/2026-140 je datován 3. 9. 2026. Výrok zamítá stížnost podle § 148 odst. 1 písm. b) trestního řádu. Odůvodnění uzavírá, že stěžovatel nebyl oprávněn podat návrh na obnovu ve vztahu k dotčeným rozhodnutím o zabrání věci, a stížnost proto byla zamítnuta jako podaná neoprávněnou osobou bez věcného přezkoumání. Veřejný PDF artefakt je označen jako ne-byte-identická textová kopie rozhodných částí; SHA-256 originálního skenu je zachován."
+    },
+    {
+      "id": "doc-cz-ekk-2026-10-02-os-praha10-ftv-prima-doplneni-zaloby",
+      "user_title": "EKK doplnila a zpřesnila žalobu proti FTV Prima po rozhodnutí Vrchního soudu a požádala OS Praha 10 o sdělení nové spisové značky",
+      "issue_date": "2026-10-02",
+      "received_date": "2026-10-02",
+      "institution_id": "CZ-EKK",
+      "reference": "3 Cm 2/2026; 3 Cmo 24/2026-26; nová sp. zn. OS Praha 10 dosud nesdělena",
+      "case_ids": [
+        "CASE-CZ-VS-PHA-3CMO24-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "FTV Prima",
+        "právo na odpověď",
+        "Obvodní soud pro Prahu 10",
+        "3 Cm 2/2026",
+        "3 Cmo 24/2026-26",
+        "§ 35 až § 40 zákona č. 231/2001 Sb."
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/092-podani-2026-10-02-verejna-textova-kopie.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/092-podani-2026-10-02-verejna-textova-kopie.pdf",
+        "sha256": null,
+        "verification_status": "pending_deterministic_public_text_copy_from_complete_extracted_text",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-03-four-records.json",
+        "source_original_sha256": "483f849dbe816df2bfaac7b8d7a5b7be2dc2a796b711c7aec9c880fc34f6a457"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-vs-pha-2026-09-14-3-cmo-24-2026-26"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Sedmistránkové podání je datováno 2. 10. 2026 a výslovně označeno jako podání datovou schránkou Obvodnímu soudu pro Prahu 10. Navazuje na usnesení Vrchního soudu v Praze č. j. 3 Cmo 24/2026-26 a žádá také sdělení nové spisové značky poté, co bude spis u OS Praha 10 založen. Veřejný PDF artefakt je ne-byte-identická textová kopie z kompletního extrahovaného textu.",
+      "justice_slalom": {
+        "archive_number": 138,
+        "archive_name": "OBVODNÍMU SOUDU PRO PRAHU 10 - žaloba - 2.10.2026- FTV Prima(1).pdf",
+        "source_sha256": "483f849dbe816df2bfaac7b8d7a5b7be2dc2a796b711c7aec9c880fc34f6a457",
+        "source_kind": "original_pdf_uploaded_by_user",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PHA10",
+            "reference": "3 Cm 2/2026; 3 Cmo 24/2026-26; nová sp. zn. dosud nesdělena",
+            "role": "primary",
+            "subject_cs": "Doplnění a zpřesnění žaloby po usnesení Vrchního soudu v Praze; žádost o sdělení nové spisové značky",
+            "subject_en": "Supplement and clarification of the action following the Prague High Court order; request for the new case number"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
+      "user_title": "MS Praha zachoval desetidenní lhůtu k vyjádření k vyjádření NCOZ a po jejím uplynutí je připraven rozhodnout",
+      "issue_date": "2026-10-02",
+      "received_date": "2026-10-02",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 17/2026-191",
+      "case_ids": [
+        "case-cz-ms-praha-18a17-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "18 A 17/2026",
+        "NCOZ",
+        "desetidenní lhůta",
+        "vyjádření žalované",
+        "správní spis",
+        "rozhodnutí soudu"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf",
+        "intended_pdf": "documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf",
+        "sha256": null,
+        "verification_status": "pending_deterministic_public_text_copy_from_complete_extracted_text",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-03-four-records.json",
+        "source_original_sha256": "394d9db7e01099561138c77382e162b59810a4fdb77f1114b471fdc2e336f293"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-01-ms-pha-18-a-17-procesni-vyjadreni"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-ms-pha-2026-09-30-18-a-17-2026-186"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_official_document",
+      "evidence_note": "Městský soud v Praze dne 2. 10. 2026 sdělil, že zachová lhůtu 10 dnů k vyjádření žalobce k vyjádření žalované; lhůtu počítá od data, kdy žalobci vyjádření žalované doručil. Po jejím uplynutí je soud připraven rozhodnout. Konkrétní konečné datum se zde nevypočítává bez samostatně doloženého data doručení. Veřejný PDF artefakt je ne-byte-identická textová kopie z kompletního extrahovaného textu."
+    },
+    {
+      "id": "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce",
+      "user_title": "Reakce žalobce na přípis MS Praha 18 A 17/2026-191, zaslaná NCOZ k zachování rovnosti zbraní a soudu na vědomí",
+      "issue_date": "2026-10-04",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "18 A 17/2026",
+      "case_ids": [
+        "case-cz-ms-praha-18a17-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "18 A 17/2026",
+        "NCOZ",
+        "rovnost zbraní",
+        "kontradiktornost",
+        "zúžený petit",
+        "reakce na soudní přípis"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/093-podani-2026-10-04-verejna-textova-kopie.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/093-podani-2026-10-04-verejna-textova-kopie.pdf",
+        "sha256": null,
+        "verification_status": "pending_deterministic_public_text_copy_from_complete_extracted_text",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-03-four-records.json",
+        "source_original_sha256": "3dd1854522b5bcb9d0f87f9d14f199881915e80bc91a9850a04ac404f33981a2"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-dd-2026-10-01-ms-pha-18-a-17-procesni-vyjadreni"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Pětistránkové podání je v samotné listině datováno 4. 10. 2026, je adresováno NCOZ datovou schránkou a Městskému soudu v Praze na vědomí do spisu. Podání výslovně uvádí, že žalobu nemění ani nerozšiřuje a že zúžený petit ze dne 4. 6. 2026 zůstává zachován. Protože ke dni zařazení není samostatně doloženo skutečné budoucí doručení dne 4. 10., received_date zůstává null; registr zachovává pouze datum uvedené na listině. Veřejný PDF artefakt je ne-byte-identická textová kopie z kompletního extrahovaného textu.",
+      "justice_slalom": {
+        "archive_number": 139,
+        "archive_name": "Městskému soudu a NCOZ -18A17-2026 - reakce na sdělení soudu dne 4.října 2026(1).pdf",
+        "source_sha256": "3dd1854522b5bcb9d0f87f9d14f199881915e80bc91a9850a04ac404f33981a2",
+        "source_kind": "original_pdf_uploaded_by_user",
+        "recipients": [
+          {
+            "institution_id": "CZ-NCOZ",
+            "reference": "18 A 17/2026",
+            "role": "primary",
+            "subject_cs": "Reakce žalobce na přípis soudu 18 A 17/2026-191; zajištění rovnosti zbraní a kontradiktornosti",
+            "subject_en": "Claimant’s response to court letter 18 A 17/2026-191; preserving equality of arms and adversarial proceedings"
+          },
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 17/2026",
+            "role": "copy",
+            "subject_cs": "Na vědomí do soudního spisu: reakce žalobce na přípis 18 A 17/2026-191",
+            "subject_en": "For the court file: claimant’s response to letter 18 A 17/2026-191"
+          }
+        ]
+      }
+    }
+  ]
+}
