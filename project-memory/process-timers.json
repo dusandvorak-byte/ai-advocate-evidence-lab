@@ -18,11 +18,14 @@
       "reference": "18 A 17/2026",
       "start_date": "2026-05-01",
       "start_date_basis": "Žaloba proti NCOZ podána 1. května 2026; doloženo navazujícími podáními a evidencí projektu.",
-      "status": "active",
+      "status": "active_response_period_before_decision",
       "limit_kind": "no_fixed_numeric_statutory_deadline",
       "limit_label": "bez pevné číselné zákonné lhůty k rozhodnutí",
       "legal_basis": "soudní řízení – povinnost rozhodovat bez zbytečných průtahů; zde není evidována univerzální číselná lhůta k meritornímu rozhodnutí",
-      "href": "zpravy/04082026-010.html#case-cz-ms-praha-18a17-2026"
+      "href": "zpravy/04082026-010.html#case-cz-ms-praha-18a17-2026",
+      "next_event": "MS Praha přípisem ze dne 2. 10. 2026, č. j. 18 A 17/2026-191, zachoval desetidenní lhůtu k vyjádření počítanou od doručení vyjádření žalované; po jejím uplynutí je připraven rozhodnout. Listina žalobce datovaná 4. 10. 2026 reaguje bez změny zúženého petitu; přesné datum skončení lhůty se bez samostatně doloženého data doručení neodvozuje.",
+      "latest_document_id": "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
+      "latest_related_filing_id": "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce"
     },
     {
       "id": "timer-court-8ad9-2026",
