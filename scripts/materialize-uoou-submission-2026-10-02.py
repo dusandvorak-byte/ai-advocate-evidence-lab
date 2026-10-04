@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
 PARTS = ROOT / "project-memory/binary-transport/2026-10-04/uoou-2026-10-02"
 REGISTRY = ROOT / "project-memory/documents-2026-supplement-2026-10-02-uoou-necinnost.json"
-TARGET = WEB / "documents/justice-slalom/2026-10/089-podani-2026-10-02.pdf"
+TARGET = WEB / "documents/justice-slalom/2026-10/089-podani-2026-10-02-original.pdf"
 ORIGINAL_SHA256 = "37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74"
 ORIGINAL_SIZE = 193343
 
