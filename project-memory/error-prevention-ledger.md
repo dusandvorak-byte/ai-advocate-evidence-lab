@@ -19,9 +19,11 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 - Projev: produkční build, kanonické validátory i publikace do gh-pages uspěly, ale závěrečný live gate skončil 404, protože dál stahoval staré cesty `092-...-verejna-textova-kopie.pdf` a `093-...-verejna-textova-kopie.pdf` po jejich nahrazení byte-identickými originály.
 - Příčina: změna kanonické PDF cesty nebyla atomicky propsána do produkčního live smoke testu.
-- Náprava: live gate používá nové originální cesty 092/093 a navíc přímo ověřuje, že EKK 2. 10. není v Justičním slalomu, zatímco dopis Unii obhájců a originály ÚOOÚ, FTV Prima a NCOZ/MS Praha jsou v živém HTML přítomny.
+- Náprava: live gate používá nové originální cesty 092/093 a samostatnou originální cestu ÚOOÚ 089-original. Stav živého Slalomu i SHA-256 těchto originálů se kontrolují opakovaně až po skutečné propagaci GitHub Pages; zároveň se ověřuje, že EKK 2. 10. není v Justičním slalomu, zatímco dopis Unii obhájců a originály ÚOOÚ, FTV Prima a NCOZ/MS Praha jsou v živém HTML přítomny.
 - Pojistka: při každé změně `public.pdf` nebo typu provenance musí stejný release packet aktualizovat také všechny live `curl`/hash kontroly daného artefaktu; stará veřejná cesta se nesmí ponechat jako povinný live test, pokud nemá být záměrně kompatibilní.
 
+
+- Doplňující pravidlo: HTML i PDF mohou být po pushi do gh-pages krátce na rozdílné verzi. Live gate proto nesmí po prvním úspěšném HTTP 200 ihned prohlásit shodu; musí čekat na obsahový marker HTML a u binárních originálů na přesnou SHA-256 shodu.
 
 ### Dostupný binární originál nesmí být nahrazen nově vysázenou „veřejnou kopií“
 
