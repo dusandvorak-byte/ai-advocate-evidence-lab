@@ -151,7 +151,11 @@ const currentEnglishDate = new Intl.DateTimeFormat('en-GB', {
 const linkedOutgoingIds = new Set([...reactionsByTarget.values(), ...precedingByTarget.values(), ...attachmentsByTarget.values()].flat().map(item => item.id));
 const unlinkedOutgoing = outgoingDocuments.filter(item => !linkedOutgoingIds.has(item.id)).sort(compareDocuments);
 const unlinkedSection = unlinkedOutgoing.length
-  ? `<section><h2>Additional tracked filings without an explicit reaction link</h2><p>These filings are translated and retained separately because the canonical registry does not identify a specific state record to which they should be attached.</p>${unlinkedOutgoing.map(item => reactionCard(item, 'Separately tracked filing')).join('')}</section>`
+  ? `<section><h2>Additional tracked filings without an explicit reaction link</h2><p>These filings are translated and retained separately because the canonical registry does not identify a specific state record to which they should be attached.</p>${unlinkedOutgoing.map(item => {
+      const attachments = (attachmentsByTarget.get(item.id) || []).sort(compareDocuments)
+        .map(attachment => reactionCard(attachment, 'Attachment')).join('');
+      return `${reactionCard(item, 'Separately tracked filing')}${attachments}`;
+    }).join('')}</section>`
   : '';
 const html = `<!doctype html>
 <html lang="en"><head><base href="../"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Godot online: complete English chronology of ${stateDocuments.length} source-linked Czech public records from 1 May 2026."><title>A time for the state to love — Godot online | CannaInsider.EU</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="brand.css"><link rel="stylesheet" href="process-timers.css"><style>.english-chronology{display:grid;gap:1rem;padding-left:1.4rem}.english-chronology>li{padding:1rem;border:1px solid #c8d3d8;background:#fff}.english-chronology p{margin:.35rem 0}.chronology-reaction{margin-top:.8rem;padding:.8rem;border-left:4px solid #285b6f;background:#eef4f6}.chronology-reaction .kicker{color:#285b6f}.evidence-boundary{padding:1rem;border:1px solid #285b6f;background:#eef4f6}</style></head>
