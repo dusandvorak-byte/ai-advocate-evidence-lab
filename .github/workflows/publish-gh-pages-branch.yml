@@ -291,6 +291,12 @@ jobs:
           grep -q '/ai-advocate-evidence-lab/news/04082026-010.html#en-doc-cz-mk-2026-08-31-mk-53547-2026-socns' /tmp/live-kc-en.html
           grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/022-podani-2026-09-01.pdf' /tmp/live-kc-index.html
           grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/022-podani-2026-09-01.pdf' /tmp/live-kc-en.html
+          # Aktuální redakční stav Justičního slalomu: EKK 2. 10. není veřejný řádek; Unie a tři opravené originály ano.
+          ! grep -q 'doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh' /tmp/live-index.html
+          grep -q 'doc-cz-dd-2026-10-01-uocr-pro-bono--CZ-UOCR' /tmp/live-index.html
+          grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/089-podani-2026-10-02.pdf' /tmp/live-index.html
+          grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf' /tmp/live-index.html
+          grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf' /tmp/live-index.html
           ! grep -q '#procesni-casovace' /tmp/live-kc-index.html
           ! grep -q '#procesni-casovace' /tmp/live-kc-en.html
           ! grep -q '<span>MINISTERSTVO KULTURY</span><h3>MK 49467/2026 SOCNS</h3>' /tmp/live-kc-index.html

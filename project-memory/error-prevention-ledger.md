@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Živá validační brána nesmí kontrolovat zastaralou cestu po změně PDF provenance
+
+- Projev: produkční build, kanonické validátory i publikace do gh-pages uspěly, ale závěrečný live gate skončil 404, protože dál stahoval staré cesty `092-...-verejna-textova-kopie.pdf` a `093-...-verejna-textova-kopie.pdf` po jejich nahrazení byte-identickými originály.
+- Příčina: změna kanonické PDF cesty nebyla atomicky propsána do produkčního live smoke testu.
+- Náprava: live gate používá nové originální cesty 092/093 a navíc přímo ověřuje, že EKK 2. 10. není v Justičním slalomu, zatímco dopis Unii obhájců a originály ÚOOÚ, FTV Prima a NCOZ/MS Praha jsou v živém HTML přítomny.
+- Pojistka: při každé změně `public.pdf` nebo typu provenance musí stejný release packet aktualizovat také všechny live `curl`/hash kontroly daného artefaktu; stará veřejná cesta se nesmí ponechat jako povinný live test, pokud nemá být záměrně kompatibilní.
+
+
 ### Dostupný binární originál nesmí být nahrazen nově vysázenou „veřejnou kopií“
 
 - Projev: u podání ÚOOÚ z 2. 10. 2026, doplnění žaloby FTV Prima z 2. 10. 2026 a reakce NCOZ/MS Praha z 4. 10. 2026 byly v Justičním slalomu zveřejněny nově vysázené textové kopie, přestože autor dodal původní binární PDF.
