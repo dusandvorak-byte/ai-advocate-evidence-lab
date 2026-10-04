@@ -64,10 +64,10 @@
       ],
       "public": {
         "html": null,
-        "pdf": "documents/justice-slalom/2026-10/092-podani-2026-10-02-verejna-textova-kopie.pdf",
-        "intended_pdf": "documents/justice-slalom/2026-10/092-podani-2026-10-02-verejna-textova-kopie.pdf",
-        "sha256": null,
-        "verification_status": "pending_deterministic_public_text_copy_from_complete_extracted_text",
+        "pdf": "documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf",
+        "sha256": "483f849dbe816df2bfaac7b8d7a5b7be2dc2a796b711c7aec9c880fc34f6a457",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 7_pages_reviewed",
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-03-four-records.json",
         "source_original_sha256": "483f849dbe816df2bfaac7b8d7a5b7be2dc2a796b711c7aec9c880fc34f6a457"
       },
@@ -79,12 +79,12 @@
       ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship",
-      "evidence_note": "Sedmistránkové podání je datováno 2. 10. 2026 a výslovně označeno jako podání datovou schránkou Obvodnímu soudu pro Prahu 10. Navazuje na usnesení Vrchního soudu v Praze č. j. 3 Cmo 24/2026-26 a žádá také sdělení nové spisové značky poté, co bude spis u OS Praha 10 založen. Veřejný PDF artefakt je ne-byte-identická textová kopie z kompletního extrahovaného textu.",
+      "evidence_note": "Sedmistránkové podání je datováno 2. 10. 2026 a výslovně označeno jako podání datovou schránkou Obvodnímu soudu pro Prahu 10. Navazuje na usnesení Vrchního soudu v Praze č. j. 3 Cmo 24/2026-26 a žádá také sdělení nové spisové značky poté, co bude spis u OS Praha 10 založen. Na veřejném webu je publikován byte-identický binární originál PDF se SHA-256 483f849dbe816df2bfaac7b8d7a5b7be2dc2a796b711c7aec9c880fc34f6a457.",
       "justice_slalom": {
-        "archive_number": 138,
+        "archive_number": 137,
         "archive_name": "OBVODNÍMU SOUDU PRO PRAHU 10 - žaloba - 2.10.2026- FTV Prima(1).pdf",
         "source_sha256": "483f849dbe816df2bfaac7b8d7a5b7be2dc2a796b711c7aec9c880fc34f6a457",
-        "source_kind": "verified_public_copy_from_user_original",
+        "source_kind": "original_pdf_uploaded_by_user",
         "recipients": [
           {
             "institution_id": "CZ-OS-PHA10",
@@ -93,16 +93,7 @@
             "subject_cs": "Doplnění a zpřesnění žaloby po usnesení Vrchního soudu v Praze; žádost o sdělení nové spisové značky",
             "subject_en": "Supplement and clarification of the action following the Prague High Court order; request for the new case number"
           }
-        ],
-        "public_sha256": null,
-        "public_copy_manifest": {
-          "kind": "complete_extracted_text_public_copy",
-          "source_text": "project-memory/user-text-sources-2026-10-03/os-praha10-ftv-prima-doplneni.txt",
-          "original_pages_reviewed": 7,
-          "original_sha256": "483f849dbe816df2bfaac7b8d7a5b7be2dc2a796b711c7aec9c880fc34f6a457",
-          "byte_identical_original": false,
-          "limitation": "public copy preserves the complete extracted text; original graphic layout is not reproduced"
-        }
+        ]
       }
     },
     {
@@ -168,10 +159,10 @@
       ],
       "public": {
         "html": null,
-        "pdf": "documents/justice-slalom/2026-10/093-podani-2026-10-04-verejna-textova-kopie.pdf",
-        "intended_pdf": "documents/justice-slalom/2026-10/093-podani-2026-10-04-verejna-textova-kopie.pdf",
-        "sha256": null,
-        "verification_status": "pending_deterministic_public_text_copy_from_complete_extracted_text",
+        "pdf": "documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf",
+        "sha256": "3dd1854522b5bcb9d0f87f9d14f199881915e80bc91a9850a04ac404f33981a2",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 5_pages_reviewed",
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-03-four-records.json",
         "source_original_sha256": "3dd1854522b5bcb9d0f87f9d14f199881915e80bc91a9850a04ac404f33981a2"
       },
@@ -187,12 +178,12 @@
       ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship",
-      "evidence_note": "Pětistránkové podání je v samotné listině datováno 4. 10. 2026, je adresováno NCOZ datovou schránkou a Městskému soudu v Praze na vědomí do spisu. Podání výslovně uvádí, že žalobu nemění ani nerozšiřuje a že zúžený petit ze dne 4. 6. 2026 zůstává zachován. Protože ke dni zařazení není samostatně doloženo skutečné budoucí doručení dne 4. 10., received_date zůstává null; registr zachovává pouze datum uvedené na listině. Veřejný PDF artefakt je ne-byte-identická textová kopie z kompletního extrahovaného textu.",
+      "evidence_note": "Pětistránkové podání je v samotné listině datováno 4. 10. 2026, je adresováno NCOZ datovou schránkou a Městskému soudu v Praze na vědomí do spisu. Podání výslovně uvádí, že žalobu nemění ani nerozšiřuje a že zúžený petit ze dne 4. 6. 2026 zůstává zachován. Protože ke dni zařazení není samostatně doloženo skutečné budoucí doručení dne 4. 10., received_date zůstává null; registr zachovává pouze datum uvedené na listině. Na veřejném webu je publikován byte-identický binární originál PDF se SHA-256 3dd1854522b5bcb9d0f87f9d14f199881915e80bc91a9850a04ac404f33981a2.",
       "justice_slalom": {
-        "archive_number": 139,
+        "archive_number": 138,
         "archive_name": "Městskému soudu a NCOZ -18A17-2026 - reakce na sdělení soudu dne 4.října 2026(1).pdf",
         "source_sha256": "3dd1854522b5bcb9d0f87f9d14f199881915e80bc91a9850a04ac404f33981a2",
-        "source_kind": "verified_public_copy_from_user_original",
+        "source_kind": "original_pdf_uploaded_by_user",
         "recipients": [
           {
             "institution_id": "CZ-NCOZ",
@@ -208,16 +199,7 @@
             "subject_cs": "Na vědomí do soudního spisu: reakce žalobce na přípis 18 A 17/2026-191",
             "subject_en": "For the court file: claimant’s response to letter 18 A 17/2026-191"
           }
-        ],
-        "public_sha256": null,
-        "public_copy_manifest": {
-          "kind": "complete_extracted_text_public_copy",
-          "source_text": "project-memory/user-text-sources-2026-10-03/ncoz-ms-praha-18-a-17-reakce-2026-10-04.txt",
-          "original_pages_reviewed": 5,
-          "original_sha256": "3dd1854522b5bcb9d0f87f9d14f199881915e80bc91a9850a04ac404f33981a2",
-          "byte_identical_original": false,
-          "limitation": "public copy preserves the complete extracted text; original graphic layout is not reproduced"
-        }
+        ]
       }
     }
   ]

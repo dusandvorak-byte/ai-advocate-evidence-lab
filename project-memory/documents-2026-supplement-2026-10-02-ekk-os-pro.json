@@ -46,31 +46,7 @@
       ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship",
-      "evidence_note": "Podání EKK je datováno 2. 10. 2026, je určeno Okresnímu soudu v Prostějově do obou řízení o obnově 15 Nt 3104/2026 a 15 Nt 3106/2026 a vztahuje se k veřejným zasedáním 12. a 13. 10. 2026. Žádá posouzení procesního postavení dotčených právnických osob, případné uznání EKK jako společného zmocněnce a subsidiárně provedení podání a aktualizované Důkazní chronologie jako listinných důkazů. Nahrané PDF neobsahuje samostatný důkaz o okamžiku doručení soudu, proto received_date zůstává null.",
-      "justice_slalom": {
-        "archive_number": 137,
-        "archive_name": "OS v Prostějově - návrh EKK ze dne 2.října 2026.pdf",
-        "source_sha256": "b697024e256b3f3d16fed31c6d0785248f3eec971fd366a00f139592fd00638f",
-        "source_kind": "verified_public_copy_from_user_original",
-        "recipients": [
-          {
-            "institution_id": "CZ-OS-PRO",
-            "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
-            "role": "primary",
-            "subject_cs": "Procesní a důkazní návrh EKK k oběma řízením o obnově a k veřejným zasedáním 12. a 13. října 2026",
-            "subject_en": "Procedural and evidentiary filing by the Educational Cannabis Clinic in both reopening proceedings and for the public hearings of 12 and 13 October 2026"
-          }
-        ],
-        "public_sha256": null,
-        "public_copy_manifest": {
-          "kind": "complete_extracted_text_public_copy",
-          "source_text": "project-memory/user-text-sources-2026-10-02/ekk-os-pro-procesni-dukazni-navrh.txt",
-          "original_pages_reviewed": 5,
-          "original_sha256": "b697024e256b3f3d16fed31c6d0785248f3eec971fd366a00f139592fd00638f",
-          "byte_identical_original": false,
-          "limitation": "public copy preserves the complete extracted text page-by-page; original graphic layout is not reproduced"
-        }
-      }
+      "evidence_note": "Podání EKK je datováno 2. 10. 2026, je určeno Okresnímu soudu v Prostějově do obou řízení o obnově 15 Nt 3104/2026 a 15 Nt 3106/2026 a vztahuje se k veřejným zasedáním 12. a 13. 10. 2026. Žádá posouzení procesního postavení dotčených právnických osob, případné uznání EKK jako společného zmocněnce a subsidiárně provedení podání a aktualizované Důkazní chronologie jako listinných důkazů. Nahrané PDF neobsahuje samostatný důkaz o okamžiku doručení soudu, proto received_date zůstává null. Na základě výslovného redakčního pokynu autora ze dne 4. 10. 2026 se toto podání nezobrazuje v modulu Justiční slalom; zůstává evidováno v důkazní paměti a příslušných procesních vazbách."
     },
     {
       "id": "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",

@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Dostupný binární originál nesmí být nahrazen nově vysázenou „veřejnou kopií“
+
+- Projev: u podání ÚOOÚ z 2. 10. 2026, doplnění žaloby FTV Prima z 2. 10. 2026 a reakce NCOZ/MS Praha z 4. 10. 2026 byly v Justičním slalomu zveřejněny nově vysázené textové kopie, přestože autor dodal původní binární PDF.
+- Příčina: materializační fallback z extrahovaného textu byl použit jako výchozí cesta místo až jako nouzová cesta při skutečné nedostupnosti binárního originálu.
+- Náprava: veřejný web nyní materializuje byte-identické binární originály a kontroluje jejich původní SHA-256; FTV Prima a reakce 4. 10. mají neutrální originální PDF cesty, ÚOOÚ zachovává stabilní cestu 089 s nahrazením obsahu přesným originálem.
+- Pojistka: zdrojový stav original_pdf_uploaded_by_user vyžaduje shodu hash(public PDF) = source_sha256, nulová metadata public_copy_manifest/public_sha256 a veřejný popisek Původní PDF / Original PDF. Textový fallback je dovolen jen při doložené nedostupnosti binárního zdroje.
+
+
 ### Finální normalizátor vracel nestandardní popisky veřejných PDF kopií
 
 - Projev: kanonický generátor správně použil veřejný popisek `Dokument v PDF`, ale pozdější writer `normalize-godot-link-labels.mjs` jej u souborů `verejna-textova-kopie.pdf` znovu změnil na `ověřená veřejná textová kopie PDF`. Tím selhal starší validační gate a porušil se axiom dvoustavových veřejných popisků.
@@ -31,12 +39,11 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Pojistka: `validate-four-records-2026-10-03.mjs` kontroluje všechny čtyři ID, jejich PDF, CZ/EN Godot, procesní vazby a obě nové položky Justičního slalomu.
 
 
-### Nahrané PDF nesmí skončit jen jako popis bez samostatného veřejného PDF artefaktu
+### EKK 2. 10. 2026 zůstává důkazem, ale není položkou Justičního slalomu
 
-- Projev: uživatel výslovně požadoval zveřejnit hlavní podání EKK z 2. 10. 2026 i jeho 33stránkovou Důkazní chronologii jako PDF, nikoli jen jako položky chronologie.
-- Náprava: oba dokumenty mají samostatné deterministické veřejné PDF kopie, přímé odkazy, SHA-256, provenienci originálu a CZ/EN vazby. Hlavní podání je archiv 137 Justičního slalomu; Důkazní chronologie je samostatná příloha typu user_submission_attachment.
-- Omezení veřejných kopií: v tomto release jsou vytvářeny z kompletního extrahovaného textu po původních stranách. Nevydávají se za byte-identické originály a u Důkazní chronologie se výslovně uvádí, že vložené obrazové scany originálu nejsou ve veřejné textové kopii reprodukovány. SHA-256 obou nahraných originálů je zachováno.
-- Pojistka: scripts/validate-ekk-evidence-2026-10-02.mjs a produkční live gate vyžadují oba PDF soubory, správný počet stran, hash veřejných kopií, původní zdrojové SHA, archiv 137, oba procesní případy a CZ/EN odkazy.
+- Aktuální redakční pokyn autora ze dne 4. 10. 2026 výslovně vylučuje hlavní procesní a důkazní návrh EKK z 2. 10. 2026 z modulu Justiční slalom.
+- Dokument a jeho 33stránková Důkazní chronologie zůstávají v kanonické důkazní paměti, procesních vazbách a CZ/EN Godotovi; odstranění z Justičního slalomu není odstraněním důkazu z projektu.
+- Pojistka: scripts/validate-ekk-evidence-2026-10-02.mjs fatálně selže, pokud se document_id hlavního podání EKK znovu objeví v web/data/justice-slalom.json.
 
 
 ### Rozbalená Aktivní soudní řízení měla příliš malé písmo
