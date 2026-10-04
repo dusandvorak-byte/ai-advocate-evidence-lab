@@ -336,13 +336,38 @@ jobs:
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/086-podani-2026-10-01.pdf$stamp" -o /tmp/live-uocr.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/087-podani-2026-10-01.pdf$stamp" -o /tmp/live-18a17.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/088-podani-2026-10-01.pdf$stamp" -o /tmp/live-18a23.pdf
-          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/089-podani-2026-10-02.pdf$stamp" -o /tmp/live-uoou-1002.pdf
+          fetch_pdf_until_sha() {
+            rel="$1"
+            local_file="$2"
+            target="$3"
+            expected="$(sha256sum "$local_file" | cut -d' ' -f1)"
+            for attempt in {1..12}; do
+              rm -f "$target"
+              if curl -fsSL --connect-timeout 10 --max-time 30 "$base/$rel$stamp&pdf_try=$attempt" -o "$target"; then
+                actual="$(sha256sum "$target" | cut -d' ' -f1)"
+                if [ "$actual" = "$expected" ]; then
+                  return 0
+                fi
+              fi
+              if [ "$attempt" -eq 12 ]; then
+                echo "Živé PDF není po publikaci byte-identické: $rel" >&2
+                echo "Očekáváno SHA-256: $expected" >&2
+                if [ -f "$target" ]; then
+                  echo "Živě vráceno SHA-256: $(sha256sum "$target" | cut -d' ' -f1)" >&2
+                fi
+                return 1
+              fi
+              sleep 5
+            done
+          }
+
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/089-podani-2026-10-02.pdf" "web/documents/justice-slalom/2026-10/089-podani-2026-10-02.pdf" /tmp/live-uoou-1002.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/090-podani-2026-10-02-verejna-textova-kopie.pdf$stamp" -o /tmp/live-ekk-1002.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/091-priloha-dukazni-chronologie-2008-2026-verejna-textova-kopie.pdf$stamp" -o /tmp/live-ekk-chronology-1002.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf$stamp" -o /tmp/live-ks315.pdf
-          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf$stamp" -o /tmp/live-prima-1002.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf" "web/documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf" /tmp/live-prima-1002.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf$stamp" -o /tmp/live-ms191.pdf
-          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf$stamp" -o /tmp/live-a17-reaction-1004.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf" "web/documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf" /tmp/live-a17-reaction-1004.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf$stamp" -o /tmp/live-ms186.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/108-ncoz-4346-2-cj-2026-410012-2026-05-20.pdf$stamp" -o /tmp/live-ncoz.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf$stamp" -o /tmp/live-euda-1001.pdf

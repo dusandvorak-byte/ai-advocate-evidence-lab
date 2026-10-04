@@ -18,9 +18,9 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 ### Živá validační brána nesmí kontrolovat zastaralou cestu po změně PDF provenance
 
 - Projev: produkční build, kanonické validátory i publikace do gh-pages uspěly, ale závěrečný live gate skončil 404, protože dál stahoval staré cesty `092-...-verejna-textova-kopie.pdf` a `093-...-verejna-textova-kopie.pdf` po jejich nahrazení byte-identickými originály.
-- Příčina: změna kanonické PDF cesty nebyla atomicky propsána do produkčního live smoke testu.
+- Příčina: změna kanonické PDF cesty nebyla atomicky propsána do produkčního live smoke testu. Po opravě cesty se navíc ukázalo, že GitHub Pages může po publikaci nové HTML krátce vracet pod stabilní PDF URL ještě předchozí bajty; jednorázová SHA kontrola proto není spolehlivá.
 - Náprava: live gate používá nové originální cesty 092/093 a navíc přímo ověřuje, že EKK 2. 10. není v Justičním slalomu, zatímco dopis Unii obhájců a originály ÚOOÚ, FTV Prima a NCOZ/MS Praha jsou v živém HTML přítomny.
-- Pojistka: při každé změně `public.pdf` nebo typu provenance musí stejný release packet aktualizovat také všechny live `curl`/hash kontroly daného artefaktu; stará veřejná cesta se nesmí ponechat jako povinný live test, pokud nemá být záměrně kompatibilní.
+- Pojistka: při každé změně `public.pdf` nebo typu provenance musí stejný release packet aktualizovat také všechny live `curl`/hash kontroly daného artefaktu; stará veřejná cesta se nesmí ponechat jako povinný live test, pokud nemá být záměrně kompatibilní. U byte-identických originálů se live gate opakuje až do shody SHA-256 nebo do explicitního timeoutu, aby se za live-verified nepovažoval přechodový stav CDN.
 
 
 ### Dostupný binární originál nesmí být nahrazen nově vysázenou „veřejnou kopií“
