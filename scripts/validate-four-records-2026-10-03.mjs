@@ -14,8 +14,8 @@ const ids=[
   'doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce',
 ];
 for(const id of ids) if(!docs.has(id)) fail('chybí kanonická listina '+id);
-
 const ks=docs.get(ids[0]), prima=docs.get(ids[1]), ms=docs.get(ids[2]), reaction=docs.get(ids[3]);
+
 if(ks.reference!=='9 To 315/2026-140' || ks.issue_date!=='2026-09-03') fail('KS Brno: nesprávné datum nebo č. j.');
 if(!ks.relations?.some(r=>r.type==='reakce_na'&&r.target_id==='doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53')) fail('KS Brno: chybí vazba na stížnost z 11. 8.');
 if(prima.issue_date!=='2026-10-02' || prima.received_date!=='2026-10-02') fail('FTV Prima: chybné datum podání/doručení datovou schránkou');
@@ -24,8 +24,8 @@ if(ms.reference!=='18 A 17/2026-191' || ms.issue_date!=='2026-10-02') fail('18 A
 if(reaction.issue_date!=='2026-10-04' || reaction.received_date!==null) fail('Reakce 4. 10.: datum listiny musí být zachováno, doručení se nesmí předjímat');
 if(!reaction.relations?.some(r=>r.type==='reakce_na'&&r.target_id===ms.id)) fail('Reakce 4. 10.: chybí vazba na přípis soudu');
 
-if(prima.justice_slalom?.archive_number!==138) fail('FTV Prima musí mít archivní číslo 138');
-if(reaction.justice_slalom?.archive_number!==139) fail('Reakce 4. 10. musí mít archivní číslo 139');
+if(prima.justice_slalom?.archive_number!==137) fail('FTV Prima musí po vyřazení EKK mít interní archivní číslo 137');
+if(reaction.justice_slalom?.archive_number!==138) fail('Reakce 4. 10. musí po vyřazení EKK mít interní archivní číslo 138');
 if(!prima.justice_slalom?.recipients?.some(r=>r.institution_id==='CZ-OS-PHA10')) fail('FTV Prima: chybí OS Praha 10 jako adresát');
 if(!reaction.justice_slalom?.recipients?.some(r=>r.institution_id==='CZ-NCOZ'&&r.role==='primary')) fail('Reakce 4. 10.: chybí NCOZ jako hlavní adresát');
 if(!reaction.justice_slalom?.recipients?.some(r=>r.institution_id==='CZ-MS-PHA'&&r.role==='copy')) fail('Reakce 4. 10.: chybí MS Praha na vědomí');
@@ -36,13 +36,19 @@ const originals={
   [ms.id]:'394d9db7e01099561138c77382e162b59810a4fdb77f1114b471fdc2e336f293',
   [reaction.id]:'3dd1854522b5bcb9d0f87f9d14f199881915e80bc91a9850a04ac404f33981a2',
 };
-for(const item of [ks,prima,ms,reaction]){
+for(const item of [ks,ms]){
   if(item.public?.source_original_sha256!==originals[item.id]) fail(item.id+': nesouhlasí SHA-256 nahraného originálu');
-  if(!item.public?.pdf || !item.public?.sha256) fail(item.id+': chybí veřejný PDF artefakt nebo jeho SHA');
   if(!String(item.public.verification_status||'').includes('not_byte_identical_original')) fail(item.id+': veřejná kopie není jasně odlišena od originálu');
   const bytes=await readFile('web/'+item.public.pdf);
-  if(!bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF') || bytes.length<4000) fail(item.id+': veřejný PDF soubor je neúplný');
-  if(sha256(bytes)!==item.public.sha256) fail(item.id+': veřejný PDF hash neodpovídá registru');
+  if(!bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF') || bytes.length<4000 || sha256(bytes)!==item.public.sha256) fail(item.id+': veřejná kopie je neúplná nebo má chybný hash');
+}
+for(const item of [prima,reaction]){
+  const bytes=await readFile('web/'+item.public.pdf);
+  if(!bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF')) fail(item.id+': originální PDF je neúplné');
+  if(sha256(bytes)!==originals[item.id] || item.public.sha256!==originals[item.id]) fail(item.id+': veřejný soubor není byte-identický s nahraným originálem');
+  if(item.justice_slalom?.source_kind!=='original_pdf_uploaded_by_user' || item.justice_slalom?.source_sha256!==originals[item.id]) fail(item.id+': Justiční slalom nevede binární originál');
+  if(item.justice_slalom?.public_copy_manifest || item.justice_slalom?.public_sha256) fail(item.id+': u binárního originálu zůstala metadata veřejné kopie');
+  if(!String(item.public.verification_status||'').includes('source_pdf_received_binary_original')) fail(item.id+': chybí stav binárního originálu');
 }
 
 const institutions=JSON.parse(await readFile('project-memory/institutions.json','utf8'));
@@ -74,7 +80,8 @@ if(!cz.includes('9 To 315/2026-140') || !cz.includes('18 A 17/2026-191')) fail('
 if(!cz.includes('Obvodní soud pro Prahu 10')) fail('CZ Godot neobsahuje podání pro OS Praha 10');
 
 const slalom=JSON.parse(await readFile('web/data/justice-slalom.json','utf8'));
-if(!slalom.rows?.some(r=>r.document_id===prima.id)) fail('FTV Prima podání chybí v Justičním slalomu');
-if(!slalom.rows?.some(r=>r.document_id===reaction.id)) fail('Reakce 4. 10. chybí v Justičním slalomu');
-
-console.log('Čtyři nové listiny: kanonická data, PDF, vazby, CZ/EN Godot a Justiční slalom OK.');
+for(const item of [prima,reaction]){
+  const rows=slalom.rows?.filter(r=>r.document_id===item.id)||[];
+  if(!rows.length || rows.some(r=>r.pdf_kind!=='original' || r.pdf!==item.public.pdf)) fail(item.id+': Justiční slalom neodkazuje na původní PDF');
+}
+console.log('Čtyři listiny: státní veřejné kopie zachovány; FTV Prima a reakce 4. 10. publikují byte-identické originály; vazby CZ/EN a Justiční slalom OK.');
