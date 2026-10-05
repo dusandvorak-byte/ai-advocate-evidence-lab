@@ -2293,7 +2293,9 @@
       "received_date": "2026-09-27",
       "institution_id": "CZ-DD",
       "reference": "stížnost na EUDA",
-      "case_ids": [],
+      "case_ids": [
+        "case-eu-omb-euda-thc-comparability-2026"
+      ],
       "document_type": "user_submission",
       "topics": [
         "Justiční slalom",
@@ -2379,7 +2381,9 @@
       "received_date": "2026-09-27",
       "institution_id": "CZ-DD",
       "reference": "stížnost na EUDA",
-      "case_ids": [],
+      "case_ids": [
+        "case-eu-omb-euda-thc-comparability-2026"
+      ],
       "document_type": "user_submission",
       "topics": [
         "Justiční slalom",

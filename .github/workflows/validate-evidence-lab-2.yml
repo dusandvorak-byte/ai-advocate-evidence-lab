@@ -103,6 +103,9 @@ jobs:
       - name: Ověřit odpověď EUDA z 1. října a její procesní vazbu
         run: node scripts/validate-euda-access-documents-2026-10-01.mjs
 
+      - name: Ověřit procesní odpověď Evropského ombudsmana z 28. září
+        run: node scripts/validate-eu-ombudsman-2026-09-28.mjs
+
       - name: Ověřit aktuální rozkladovou fázi Konopné církve a propojení webů
         run: node scripts/validate-church-current-state.mjs
 

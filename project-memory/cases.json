@@ -315,6 +315,28 @@
         "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
         "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53"
       ]
+    },
+    {
+      "id": "case-eu-omb-euda-thc-comparability-2026",
+      "institution_id": "EU-OMB",
+      "reference": "stížnost na EUDA – bez přiděleného č. j.",
+      "title": "Stížnost Evropskému ombudsmanovi k postupu EUDA a srovnatelnosti dat o THC",
+      "status": "active",
+      "opened_on": "2026-09-27",
+      "topics": [
+        "EUDA",
+        "Evropský ombudsman",
+        "THC",
+        "THCA",
+        "srovnatelnost dat"
+      ],
+      "related_document_ids": [
+        "doc-en-dd-2026-09-27-slalom-augsep-081",
+        "doc-cs-dd-2026-09-27-slalom-augsep-083",
+        "doc-eu-omb-2026-09-28-complaint-form-required"
+      ],
+      "last_filing_on": "2026-09-28",
+      "last_filing_document_id": "doc-eu-omb-2026-09-28-complaint-form-required"
     }
   ]
 }

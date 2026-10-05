@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-09-28",
+  "purpose": "Procesní odpověď Evropského ombudsmana ze dne 28. 9. 2026 na e-mailovou stížnost z 27. 9. 2026 týkající se EUDA a srovnatelnosti dat o THC.",
+  "documents": [
+    {
+      "id": "doc-eu-omb-2026-09-28-complaint-form-required",
+      "user_title": "Evropský ombudsman: e-mailovou stížnost na EUDA je nutné podat přes oficiální formulář",
+      "issue_date": "2026-09-28",
+      "received_date": "2026-09-28",
+      "institution_id": "EU-OMB",
+      "reference": "e-mail 28/09/2026",
+      "case_ids": [
+        "case-eu-omb-euda-thc-comparability-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "Evropský ombudsman",
+        "EUDA",
+        "srovnatelnost dat o THC",
+        "THC",
+        "THCA",
+        "stížnost",
+        "procesní formulář"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "verification_status": "verified_from_user_supplied_pdf; public_record_without_public_pdf",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-eu-ombudsman-record.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-en-dd-2026-09-27-slalom-augsep-081"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cs-dd-2026-09-27-slalom-augsep-083"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Evropský ombudsman dne 28. 9. 2026 sdělil, že informace zaslané běžným e-mailem nebudou zpracovány jako stížnost, pokud nebude použit oficiální formulář Make a Complaint. Současně uvedl, že před podáním stížnosti musí stěžovatel nejprve využít příslušné postupy u dotčeného orgánu EU a k online stížnosti přiložit předchozí korespondenci. Sdělení nepředstavuje věcné zamítnutí námitek vůči EUDA."
+    }
+  ]
+}
