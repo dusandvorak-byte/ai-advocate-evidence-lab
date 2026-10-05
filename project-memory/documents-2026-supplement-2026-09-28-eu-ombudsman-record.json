@@ -10,7 +10,9 @@
       "received_date": "2026-09-28",
       "institution_id": "EU-OMB",
       "reference": "e-mail 28/09/2026",
-      "case_ids": [],
+      "case_ids": [
+        "case-eu-omb-euda-thc-comparability-2026"
+      ],
       "document_type": "state_record",
       "topics": [
         "Evropský ombudsman",
