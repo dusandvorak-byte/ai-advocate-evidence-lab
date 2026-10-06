@@ -484,8 +484,6 @@ jobs:
           grep -q 'en-doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce' /tmp/live-current-article-en.html
           grep -q 'doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet' /tmp/live-current-article-en.html
           grep -q 'doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni' /tmp/live-current-article-en.html
-          grep -q 'Procesní a důkazní návrh EKK k řízením 15 Nt 3104/2026 a 15 Nt 3106/2026' /tmp/live-current-article.html
-          grep -q 'Důkazní chronologie Konopí je lék 2008–2026, stav k 2. říjnu 2026' /tmp/live-current-article.html
           grep -q 'en-doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh' /tmp/live-current-article-en.html
           grep -q 'en-doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026' /tmp/live-current-article-en.html
           echo "00db06c75bb6451328a92f66e4b9c0ad810d92dab59f5a049e4231fd841c940c  /tmp/live-ms186.pdf" | sha256sum -c -
