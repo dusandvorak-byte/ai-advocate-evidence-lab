@@ -112,7 +112,7 @@
     },
     {
       "id": "state-love-table-mirrors-slalom",
-      "text": "Státu lásky čas používá tabulkový vizuál Justičního slalomu. Řazení vychází z issue_date, tedy doloženého data dokumentu; received_date se eviduje odděleně a ani pozdní doručení nesmí listinu přesunout mezi dnešní dokumenty. Pořadí řádků se nepřevrací: nejnovější dokument je vždy nahoře, nejstarší dole. Převrací se pouze pořadová čísla, takže nejstarší řádek má 1 a nejnovější nejvyšší číslo. Za tabulkou se nesmějí regenerovat Uzly řízení, Lhůty a nečinnost, Anonymizační axiom ani Důkazní hranice."
+      "text": "Státu lásky čas musí vizuálně používat stejnou tabulkovou masku jako Justiční slalom, ale hlavní řádky obsahují pouze příchozí reakce českých veřejných orgánů a mezinárodních/EU institucí. Naše podání nikdy nejsou samostatným hlavním řádkem; smějí se zobrazit jen vztahově ve sloupci Na co orgán reaguje nebo Námitka / opravný prostředek. Oba vztahové sloupce musí odvozovat aktivní odkazy z kanonických relací, zejména reakce_na a podani_na_ktere_organ_reaguje. Pořadí hlavních reakcí je nejnovější nahoře, nejstarší dole; nejstarší řádek má číslo 1 a nejnovější nejvyšší číslo. Za tabulkou se nesmějí regenerovat Uzly řízení, Lhůty a nečinnost, Anonymizační axiom ani Důkazní hranice."
     }
   ],
   "error_memory_since_2026_07_18": [

@@ -35,7 +35,13 @@ if (sha256(bytes) !== item.public.sha256) fail('SHA-256 veřejné PDF kopie neod
 const cz = await readFile('web/zpravy/04082026-010.html', 'utf8');
 const en = await readFile('web/news/04082026-010.html', 'utf8');
 if (!cz.includes(`id="${item.id}"`) || !cz.includes('EUDA potvrdila registraci samostatné žádosti o přístup k dokumentům')) fail('záznam chybí ve Státu lásky čas');
-if (!cz.includes(`id="${objection.id}"`) || !en.includes(`data-document-id="${objection.id}"`)) fail('CZ/EN tabulka nezobrazuje související zásadní námitku jako vlastní chronologický řádek');
+const czStart=cz.indexOf(`<tr id="${item.id}"`);
+const czEnd=czStart<0?-1:cz.indexOf('</tr>',czStart);
+const enStart=en.indexOf(`<tr id="en-${item.id}"`);
+const enEnd=enStart<0?-1:en.indexOf('</tr>',enStart);
+const czRow=czStart>=0&&czEnd>=0?cz.slice(czStart,czEnd+5):'';
+const enRow=enStart>=0&&enEnd>=0?en.slice(enStart,enEnd+5):'';
+if (!czRow.includes(`data-related-document-id="${objection.id}"`) || !enRow.includes(`data-related-document-id="${objection.id}"`)) fail('CZ/EN tabulka neuvádí související zásadní námitku ve vztahovém sloupci reakce EUDA');
 if (!en.includes(`id="en-${item.id}"`) || !en.includes('registered a separate access-to-documents request')) fail('záznam chybí v anglickém Godotovi');
 
 console.log('EUDA 1. 10. 2026 access-to-documents gate OK.');

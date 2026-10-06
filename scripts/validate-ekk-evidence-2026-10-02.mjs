@@ -45,7 +45,15 @@ for (const id of main.case_ids) {
 
 const cz = await readFile('web/zpravy/04082026-010.html','utf8');
 const en = await readFile('web/news/04082026-010.html','utf8');
-if (!cz.includes(main.user_title) || !cz.includes(annex.user_title) || !cz.includes(main.public.pdf) || !cz.includes(annex.public.pdf) || !cz.includes('Dokument v PDF')) fail('CZ Godot neobsahuje hlavní podání, přílohu a oba PDF odkazy s kanonickým označením');
-if (!en.includes(`id="en-${mainId}"`) || !en.includes(`id="en-${annexId}"`) || !en.includes(main.public.pdf) || !en.includes(annex.public.pdf) || !en.includes('PDF document')) fail('EN Godot neobsahuje hlavní podání, přílohu a oba PDF odkazy s kanonickým označením');
+if (cz.includes(`<tr id="${mainId}"`) || en.includes(`<tr id="en-${mainId}"`)) fail('EKK podání 2. 10. se nesmí zobrazovat jako hlavní řádek Státu lásky čas');
+const targetId='doc-cz-os-pro-2026-09-14-15-nt-3104-2026';
+const czStart=cz.indexOf(`<tr id="${targetId}"`);
+const czEnd=czStart<0?-1:cz.indexOf('</tr>',czStart);
+const enStart=en.indexOf(`<tr id="en-${targetId}"`);
+const enEnd=enStart<0?-1:en.indexOf('</tr>',enStart);
+const czRow=czStart>=0&&czEnd>=0?cz.slice(czStart,czEnd+5):'';
+const enRow=enStart>=0&&enEnd>=0?en.slice(enStart,enEnd+5):'';
+if (!czRow.includes(`data-related-document-id="${mainId}"`) || !czRow.includes(main.public.pdf)) fail('CZ Godot neuvádí EKK podání jako navazující námitku/podání u reakce soudu');
+if (!enRow.includes(`data-related-document-id="${mainId}"`) || !enRow.includes(main.public.pdf)) fail('EN Godot neuvádí EKK podání jako navazující námitku/podání u reakce soudu');
 
-console.log('EKK 2. 10. 2026: hlavní podání + 33stránková Důkazní chronologie zůstávají v důkazní paměti a CZ/EN Godot; Justiční slalom je výslovně vyloučen.');
+console.log('EKK 2. 10. 2026: podání zůstává v důkazní paměti a je pouze vztahově uvedeno u reakce soudu; není hlavním řádkem Státu lásky čas ani Justičního slalomu.');

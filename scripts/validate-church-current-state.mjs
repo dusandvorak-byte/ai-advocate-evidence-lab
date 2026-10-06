@@ -60,15 +60,14 @@ if (!churchCz.includes('/ai-advocate-evidence-lab/index.html') || !churchCz.incl
 if (!churchEn.includes('/ai-advocate-evidence-lab/en.html') || !churchEn.includes('https://www.konopijelek.cz/')) fail('EN Church: chybí sesterské propojení');
 
 const czDecisionStart = godotCz.indexOf(`<tr id="${decisionId}"`);
-const enDecisionStart = godotEn.indexOf(`data-document-id="${decisionId}"`);
-const czRemonstranceStart = godotCz.indexOf(`<tr id="${remonstranceId}"`);
-const enRemonstranceStart = godotEn.indexOf(`data-document-id="${remonstranceId}"`);
-if ([czDecisionStart,enDecisionStart,czRemonstranceStart,enRemonstranceStart].some(x=>x<0)) fail('MK 53547/2026 nebo navazující rozklad chybí v CZ/EN tabulce');
-const czRemonstranceEnd = godotCz.indexOf('</tr>',czRemonstranceStart);
-const enRemonstranceEnd = godotEn.indexOf('</tr>',enRemonstranceStart);
-const czRemonstranceRow = godotCz.slice(czRemonstranceStart,czRemonstranceEnd+5);
-const enRemonstranceRow = godotEn.slice(enRemonstranceStart,enRemonstranceEnd+5);
-if (!czRemonstranceRow.includes('Rozklad proti zastavení řízení o registraci Konopné církve') || !czRemonstranceRow.includes(remonstrancePdf)) fail('CZ Godot nezobrazuje rozklad jako vlastní tabulkový řádek s přímým PDF');
-if (!enRemonstranceRow.includes('Administrative appeal against termination of the Church of Cannabis registration proceedings') || !enRemonstranceRow.includes(remonstrancePdf)) fail('EN Godot nezobrazuje rozklad jako vlastní tabulkový řádek s přímým PDF');
+const enDecisionStart = godotEn.indexOf(`<tr id="en-${decisionId}"`);
+if ([czDecisionStart,enDecisionStart].some(x=>x<0)) fail('MK 53547/2026 chybí jako hlavní řádek v CZ/EN tabulce');
+const czDecisionEnd = godotCz.indexOf('</tr>',czDecisionStart);
+const enDecisionEnd = godotEn.indexOf('</tr>',enDecisionStart);
+const czDecisionRow = godotCz.slice(czDecisionStart,czDecisionEnd+5);
+const enDecisionRow = godotEn.slice(enDecisionStart,enDecisionEnd+5);
+if (godotCz.includes(`<tr id="${remonstranceId}"`) || godotEn.includes(`<tr id="en-${remonstranceId}"`)) fail('rozklad se nesmí zobrazovat jako samostatný hlavní řádek Státu lásky čas');
+if (!czDecisionRow.includes(`data-related-document-id="${remonstranceId}"`) || !czDecisionRow.includes(remonstrancePdf)) fail('CZ Godot neuvádí rozklad jako opravný prostředek u rozhodnutí MK');
+if (!enDecisionRow.includes(`data-related-document-id="${remonstranceId}"`) || !enDecisionRow.includes(remonstrancePdf)) fail('EN Godot neuvádí rozklad jako opravný prostředek u rozhodnutí MK');
 
-console.log('Konopná církev: aktuální rozkladová fáze, vlastní tabulkový řádek rozkladu, přesné odkazy, CZ/EN parita a sesterské propojení OK.');
+console.log('Konopná církev: rozhodnutí MK je hlavní řádek; rozklad je vztahově uveden jako opravný prostředek; CZ/EN parita OK.');

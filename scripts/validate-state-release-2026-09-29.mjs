@@ -50,8 +50,8 @@ for (const file of source.files) {
     const preceding = registry.documents.filter(d => (d.relations || []).some(r =>
       (r.type || r.relation_type) === 'podani_na_ktere_organ_reaguje' && (r.target_id || r.document_id) === doc.id));
     for (const submission of preceding) {
-      const marker = index === 0 ? `<tr id="${submission.id}"` : `data-document-id="${submission.id}"`;
-      if (!page.includes(marker)) fail(`missing preceding filing table row ${file.document_id}: ${submission.id}`);
+      if (!block.includes(`data-related-document-id="${submission.id}"`)) fail(`missing preceding filing relation in authority row ${file.document_id}: ${submission.id}`);
+      if (submission.public?.pdf && !block.includes(submission.public.pdf)) fail(`missing preceding filing PDF in authority row ${file.document_id}: ${submission.id}`);
     }
   }
   for (const id of doc.closes_timer_ids || []) {

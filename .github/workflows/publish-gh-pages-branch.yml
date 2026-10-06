@@ -448,6 +448,36 @@ jobs:
           grep -q 'doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni' /tmp/live-current-article.html
           grep -q 'doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936' /tmp/live-current-article.html
           grep -q 'state-love-table' /tmp/live-current-article.html
+          python3 - <<'PY'
+          from pathlib import Path
+          cs=Path('/tmp/live-current-article.html').read_text(encoding='utf-8')
+          en=Path('/tmp/live-current-article-en.html').read_text(encoding='utf-8')
+          def table(html, marker):
+              s=html.find(marker)
+              assert s>=0, marker
+              e=html.find('</table>',s)
+              assert e>=0
+              return html[s:e+8]
+          cst=table(cs,'<table id="chronologie-seznam"')
+          ent=table(en,'<table id="en-chronology-list"')
+          assert 'data-submission-side="outgoing_from_user_or_alliance"' not in cst
+          assert 'data-submission-side="outgoing_from_user_or_alliance"' not in ent
+          for x in ['Na co orgán reaguje','Námitka / opravný prostředek']:
+              assert x in cst, x
+          for x in ['What the authority responded to','Objection / remedy']:
+              assert x in ent, x
+          assert 'justice-slalom-shell state-love-shell' in cs
+          assert 'home-rollup justice-slalom state-love-panel' in cs
+          for own in [
+              'doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet',
+              'doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni',
+              'doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936',
+          ]:
+              assert f'<tr id="{own}"' not in cst, own
+          assert '<tr id="doc-eu-omb-2026-09-28-complaint-form-required"' in cst
+          assert 'data-related-document-id="doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936"' in cst
+          print('LIVE_STATE_LOVE_OK')
+          PY
           grep -q 'en-doc-cz-ks-brn-2026-09-03-9-to-315-2026-140' /tmp/live-current-article-en.html
           grep -q 'en-doc-cz-ekk-2026-10-02-os-praha10-ftv-prima-doplneni-zaloby' /tmp/live-current-article-en.html
           grep -q 'en-doc-cz-ms-pha-2026-10-02-18-a-17-2026-191' /tmp/live-current-article-en.html
@@ -462,7 +492,7 @@ jobs:
           echo "612e7ac3a5e7b26f6f6c6586552cbd7a09e82256ca8e64e064d9bbe0d05d4869  /tmp/live-ncoz.pdf" | sha256sum -c -
           test "$(sha256sum /tmp/live-euda-1001.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf | cut -d' ' -f1)"
           echo "c9cd624bff387428a670ef28351796b8bd4e89f53a7c019add281d6b395696ce  /tmp/live-ksz.pdf" | sha256sum -c -
-          echo "Živá produkce ověřena na 6/6 veřejných plochách včetně podání a veřejných PDF kopií ze 6. 10. 2026."
+          echo "Živá produkce ověřena na 6/6 veřejných plochách: Státu lásky čas = pouze reakce orgánů, vlastní podání jen ve vztahových sloupcích; originální PDF ze 6. 10. zachována."
 
       - name: Souhrn
         shell: bash

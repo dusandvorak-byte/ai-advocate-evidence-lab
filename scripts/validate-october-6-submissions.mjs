@@ -62,12 +62,30 @@ must(Boolean(translations.documents[cnbId]) && Boolean(translations.documents[ms
 
 const godotCs=await readFile('web/zpravy/04082026-010.html','utf8');
 const godotEn=await readFile('web/news/04082026-010.html','utf8');
-for (const id of [cnbId,msId,ombId,'doc-eu-omb-2026-09-28-complaint-form-required']) {
-  must(godotCs.includes(id), 'Státu lásky čas postrádá '+id);
-  must(godotEn.includes('en-'+id) || godotEn.includes(`data-document-id="${id}"`), 'EN Státu lásky čas postrádá '+id);
-}
-must(godotCs.includes('id="chronologie-seznam"') && godotCs.includes('state-love-table'), 'Státu lásky čas není tabulka');
-must(!godotCs.includes('chronology-case-index') && !godotCs.includes('lhuty-a-necinnost') && !godotCs.includes('Anonymizační axiom:') && !godotCs.includes('Důkazní hranice:'), 'za tabulkou zůstaly odstraněné pomocné bloky');
-must(!slalom.rows.some(row=>row.document_id===ombId), 'stížnost Evropskému ombudsmanovi patří do Státu lásky čas, ne do Justičního slalomu');
+const ombResponseId='doc-eu-omb-2026-09-28-complaint-form-required';
 
-console.log('OCT6 OK: ČNB + MS Praha jsou byte-identické originály ve Slalomu; stížnost EOWEB_COMPLAINT_ID 59936 je originál ve Státu lásky čas; CZ/EN parita zachována.');
+const csStart=godotCs.indexOf('<table id="chronologie-seznam"');
+const csEnd=csStart<0?-1:godotCs.indexOf('</table>',csStart);
+const enStart=godotEn.indexOf('<table id="en-chronology-list"');
+const enEnd=enStart<0?-1:godotEn.indexOf('</table>',enStart);
+must(csStart>=0&&csEnd>=0&&enStart>=0&&enEnd>=0,'Státu lásky čas není uzavřená CZ/EN tabulka');
+const csTable=godotCs.slice(csStart,csEnd+8);
+const enTable=godotEn.slice(enStart,enEnd+8);
+
+for (const id of [cnbId,msId,ombId]) {
+  must(!csTable.includes(`<tr id="${id}"`), 'vlastní podání nesmí být hlavní řádek Státu lásky čas: '+id);
+  must(!enTable.includes(`<tr id="en-${id}"`), 'EN: vlastní podání nesmí být hlavní řádek Státu lásky čas: '+id);
+}
+must(csTable.includes(`<tr id="${ombResponseId}"`), 'odpověď Evropského ombudsmana chybí jako hlavní řádek');
+must(enTable.includes(`<tr id="en-${ombResponseId}"`), 'EN odpověď Evropského ombudsmana chybí jako hlavní řádek');
+const ombCsStart=csTable.indexOf(`<tr id="${ombResponseId}"`);
+const ombCsEnd=csTable.indexOf('</tr>',ombCsStart);
+const ombCsRow=csTable.slice(ombCsStart,ombCsEnd+5);
+must(ombCsRow.includes(`data-related-document-id="${ombId}"`), 'stížnost 59936 musí být uvedena jako námitka/opravný prostředek u odpovědi Ombudsmana');
+must(ombCsRow.includes('112-complaint-european-ombudsman-euda-2026-10-06.pdf'), 'u stížnosti 59936 chybí aktivní originální PDF');
+must(godotCs.includes('justice-slalom-shell state-love-shell')&&godotCs.includes('home-rollup justice-slalom state-love-panel'),'CZ Státu lásky čas nemá vizuál Justičního slalomu');
+must(godotEn.includes('justice-slalom-shell state-love-shell')&&godotEn.includes('home-rollup justice-slalom state-love-panel'),'EN Státu lásky čas nemá vizuál Justičního slalomu');
+must(!godotCs.includes('chronology-case-index')&&!godotCs.includes('lhuty-a-necinnost')&&!godotCs.includes('Anonymizační axiom:')&&!godotCs.includes('Důkazní hranice:'),'za tabulkou zůstaly odstraněné pomocné bloky');
+must(!slalom.rows.some(row=>row.document_id===ombId),'stížnost Evropskému ombudsmanovi patří jako vztah k odpovědi ve Státu lásky čas, ne do Justičního slalomu');
+
+console.log('OCT6 OK: ČNB + MS Praha jsou originály ve Slalomu; ve Státu lásky čas jsou pouze reakce orgánů a stížnost 59936 je vztahově uvedena u odpovědi Evropského ombudsmana.');

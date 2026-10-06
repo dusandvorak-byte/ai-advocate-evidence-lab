@@ -71,14 +71,20 @@ for(const id of ids) if(!tr.documents?.[id]) fail('chybí EN překlad '+id);
 
 const cz=await readFile('web/zpravy/04082026-010.html','utf8');
 const en=await readFile('web/news/04082026-010.html','utf8');
-for(const item of [ks,prima,ms,reaction]){
-  if(!cz.includes(`id="${item.id}"`)) fail('CZ Godot neobsahuje '+item.id);
-  if(!en.includes(`id="en-${item.id}"`)) fail('EN Godot neobsahuje '+item.id);
+for(const item of [ks,ms]){
+  if(!cz.includes(`id="${item.id}"`)) fail('CZ Godot neobsahuje státní listinu '+item.id);
+  if(!en.includes(`id="en-${item.id}"`)) fail('EN Godot neobsahuje státní listinu '+item.id);
   const href=item.public.pdf;
-  if(!cz.includes(href) || !en.includes(href)) fail('CZ/EN Godot nemá přímý PDF odkaz '+item.id);
+  if(!cz.includes(href) || !en.includes(href)) fail('CZ/EN Godot nemá přímý PDF odkaz státní listiny '+item.id);
 }
+for(const item of [prima,reaction]){
+  if(cz.includes(`<tr id="${item.id}"`) || en.includes(`<tr id="en-${item.id}"`)) fail('naše podání se nesmí vrátit jako hlavní řádek Státu lásky čas: '+item.id);
+}
+const msStart=cz.indexOf(`<tr id="${ms.id}"`);
+const msEnd=msStart<0?-1:cz.indexOf('</tr>',msStart);
+const msRow=msStart>=0&&msEnd>=0?cz.slice(msStart,msEnd+5):'';
+if(!msRow.includes(`data-related-document-id="${reaction.id}"`) || !msRow.includes(reaction.public.pdf)) fail('reakce 4. 10. není uvedena jako námitka/opravný prostředek u přípisu MS Praha');
 if(!cz.includes('9 To 315/2026-140') || !cz.includes('18 A 17/2026-191')) fail('CZ Godot neobsahuje klíčové reference');
-if(!cz.includes('Obvodní soud pro Prahu 10')) fail('CZ Godot neobsahuje podání pro OS Praha 10');
 
 const slalom=JSON.parse(await readFile('web/data/justice-slalom.json','utf8'));
 for(const item of [prima,reaction]){

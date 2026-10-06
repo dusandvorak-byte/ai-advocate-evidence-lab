@@ -124,34 +124,39 @@ const outgoingWithoutActivePdf = requiredOutgoingPdfDocuments.filter(doc => !doc
 
 const missingRenderedReactions = [];
 const missingReactionPdfLinks = [];
-for (const reaction of reactionDocuments) {
+const stateIds = new Set(registry.documents
+  .filter(doc => String(doc.issue_date || '') >= '2026-05-01'
+    && doc.document_type !== 'state_record_attachment'
+    && (doc.submission_side === 'incoming_from_state_or_public_institution' || doc.document_type === 'state_record'))
+  .map(doc => doc.id));
+const relevantReactionDocuments = reactionDocuments.filter(reaction => (reaction.relations || []).some(rel =>
+  rel.type === 'reakce_na' && stateIds.has(rel.target_id || rel.target)
+));
+for (const reaction of relevantReactionDocuments) {
   const rel = reaction.relations.find(item => item.type === 'reakce_na' && (item.target_id || item.target));
-  const targetId = rel.target_id || rel.target;
-  const targetMarker = `id="${targetId}"`;
-  const reactionMarker = `id="${reaction.id}"`;
+  const targetId = rel?.target_id || rel?.target;
+  if (!targetId || !stateIds.has(targetId)) continue;
+  const targetMarker = `<tr id="${targetId}"`;
   const targetStart = article.indexOf(targetMarker);
-  const reactionStart = article.indexOf(reactionMarker);
   if (targetStart < 0) {
-    missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'target-not-rendered-as-table-row' });
+    missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'state-target-not-rendered-as-table-row' });
     continue;
   }
-  if (reactionStart < 0) {
-    missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'reaction-not-rendered-as-own-table-row' });
+  const targetEnd = article.indexOf('</tr>', targetStart);
+  if (targetEnd < 0) {
+    missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'state-target-row-not-closed' });
     continue;
   }
-  const reactionEnd = article.indexOf('</tr>', reactionStart);
-  if (reactionEnd < 0) {
-    missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'reaction-table-row-not-closed' });
+  const targetHtml = article.slice(targetStart, targetEnd + 5);
+  if (!targetHtml.includes(`data-related-document-id="${reaction.id}"`)) {
+    missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'remedy-not-rendered-inside-state-row' });
     continue;
   }
-  const reactionHtml = article.slice(reactionStart, reactionEnd + 5);
   if (reaction.public?.pdf) {
     const pdf = publicPath(reaction.public.pdf);
     const hrefCandidates = [pdf, `/ai-advocate-evidence-lab/${pdf}`];
-    const hasPdfLink = hrefCandidates.some(href => reactionHtml.includes(`href="${href}"`) || reactionHtml.includes(`href='${href}'`));
-    if (!hasPdfLink) {
-      missingReactionPdfLinks.push({ reaction_id: reaction.id, target_id: targetId, expected_pdf: pdf });
-    }
+    const hasPdfLink = hrefCandidates.some(href => targetHtml.includes(`href="${href}"`) || targetHtml.includes(`href='${href}'`));
+    if (!hasPdfLink) missingReactionPdfLinks.push({ reaction_id: reaction.id, target_id: targetId, expected_pdf: pdf });
   }
 }
 
@@ -186,7 +191,7 @@ const report = {
   registry_pdf_document_count: registryPdfDocuments.length,
   invalid_registry_pdf_link_count: invalidRegistryPdfLinks.length,
   invalid_registry_pdf_links: invalidRegistryPdfLinks,
-  reaction_document_count: reactionDocuments.length,
+  reaction_document_count: relevantReactionDocuments.length,
   outgoing_pdf_hard_cutoff: OUTGOING_PDF_HARD_CUTOFF,
   required_outgoing_pdf_document_count: requiredOutgoingPdfDocuments.length,
   outgoing_without_active_pdf_count: outgoingWithoutActivePdf.length,
@@ -231,7 +236,7 @@ console.log(
   + `${requiredWithActivePdf.length}/${requiredDocuments.length} povinných institucionálních listin má PDF; `
   + `${requiredOutgoingPdfDocuments.length}/${requiredOutgoingPdfDocuments.length} našich podání od ${OUTGOING_PDF_HARD_CUTOFF} má PDF; `
   + `${exemptDocuments.length} dokumentů je v povolené výjimce; `
-  + `${reactionDocuments.length}/${reactionDocuments.length} kanonických reakcí vykresleno jako samostatné tabulkové řádky.`
+  + `${relevantReactionDocuments.length - missingRenderedReactions.length}/${relevantReactionDocuments.length} opravných prostředků proti státním listinám je inline v řádku orgánu.`
 );
 
 await import('./validate-publication-surfaces.mjs');

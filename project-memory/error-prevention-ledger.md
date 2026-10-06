@@ -375,3 +375,11 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: existovaly dva zdroje pravdy pro stejný navigační odkaz.
 - Závazné řešení: jediným zdrojem pro „Právě teď“ je build, který skenuje skutečné články `web/zpravy/DDMMYYYY-NNN.html` a vybere nejnovější datum/číslo. Klientský JavaScript nesmí atribut `href` prvku `data-nav-latest-report` měnit.
 - Pojistka: validační skript ověřuje, že statický odkaz míří na nejnovější článek a současně odmítne návrat klientského přepisu. Seznam „Aktivní soudní řízení“ navíc nesmí obsahovat pouhé preventivní podání bez soudní spisové značky; povinně kontroluje známé spisové značky z aktuálního zadání.
+
+### Státu lásky čas nesmí kopírovat obsah Justičního slalomu
+
+- **Projev:** Po sjednocení tabulkového vzhledu byly do Státu lásky čas chybně vloženy jako samostatné hlavní řádky také naše vlastní podání. Tím se zaměnil smysl dvou veřejných registrů a tabulka byla navíc vizuálně pouze přibližná, nikoli skutečně totožná s Justičním slalomem.
+- **Příčina:** Generátor filtroval dohromady `incoming_from_state_or_public_institution` i `outgoing_from_user_or_alliance` a vlastní podání považoval za plnohodnotné chronologické řádky. Vizuál současně nepoužil celý obal a CSS kontrakt Justičního slalomu.
+- **Závazná náprava:** Hlavní řádky Státu lásky čas tvoří pouze příchozí reakce veřejných, státních a mezinárodních/EU orgánů. Naše podání se smějí objevit pouze vztahově: ve sloupci **Na co orgán reaguje** a ve sloupci **Námitka / opravný prostředek**, vždy s aktivním odkazem, je-li PDF veřejně dostupné. Vizuál tabulky musí sdílet stejné třídy a stejné CSS vlastnosti jako Justiční slalom; odlišuje se pouze počtem sloupců.
+- **Pojistka:** Build selže, pokud hlavní tabulka Státu lásky čas obsahuje řádek s `submission_side=outgoing_from_user_or_alliance`, pokud počet hlavních řádků neodpovídá kanonickému počtu příchozích reakcí, pokud chybějí sloupce vztahů, nebo pokud tabulka není vložena do stejného `justice-slalom` vizuálního wrapperu. CZ a EN se kontrolují položku po položce a nejnovější reakce zůstává nahoře, zatímco nejstarší má číslo 1.
+
