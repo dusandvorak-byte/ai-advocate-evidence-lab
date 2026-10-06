@@ -128,24 +128,26 @@ for (const reaction of reactionDocuments) {
   const rel = reaction.relations.find(item => item.type === 'reakce_na' && (item.target_id || item.target));
   const targetId = rel.target_id || rel.target;
   const targetMarker = `id="${targetId}"`;
+  const reactionMarker = `id="${reaction.id}"`;
   const targetStart = article.indexOf(targetMarker);
+  const reactionStart = article.indexOf(reactionMarker);
   if (targetStart < 0) {
-    missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'target-not-rendered' });
+    missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'target-not-rendered-as-table-row' });
     continue;
   }
-  const targetEnd = article.indexOf('</li>', targetStart);
-  if (targetEnd < 0) {
-    missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'target-li-not-closed' });
+  if (reactionStart < 0) {
+    missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'reaction-not-rendered-as-own-table-row' });
     continue;
   }
-  const targetHtml = article.slice(targetStart, targetEnd);
-  const evidenceTokens = [reaction.user_title, reaction.reference].filter(Boolean);
-  const hasReactionSignal = targetHtml.includes('chronology-reaction')
-    && evidenceTokens.some(token => targetHtml.includes(String(token).slice(0, Math.min(40, String(token).length))));
-  if (!hasReactionSignal) missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'reaction-not-inline' });
+  const reactionEnd = article.indexOf('</tr>', reactionStart);
+  if (reactionEnd < 0) {
+    missingRenderedReactions.push({ reaction_id: reaction.id, target_id: targetId, reason: 'reaction-table-row-not-closed' });
+    continue;
+  }
+  const reactionHtml = article.slice(reactionStart, reactionEnd + 5);
   if (reaction.public?.pdf) {
     const pdf = publicPath(reaction.public.pdf);
-    if (!targetHtml.includes(`href="${pdf}"`) && !targetHtml.includes(`href='${pdf}'`)) {
+    if (!reactionHtml.includes(`href="${pdf}"`) && !reactionHtml.includes(`href='${pdf}'`)) {
       missingReactionPdfLinks.push({ reaction_id: reaction.id, target_id: targetId, expected_pdf: pdf });
     }
   }
