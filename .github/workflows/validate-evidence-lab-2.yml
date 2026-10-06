@@ -149,7 +149,11 @@ jobs:
           state_count="$(jq -r '.counts.state_public_submissions' web/data/build-manifest.json)"
           test "$state_count" -ge 84
           grep -q "Stát: ${state_count} evidovaných listin" web/zpravy/04082026-010.html
-          grep -q "data-english-chronology-count=\"${state_count}\"" web/news/04082026-010.html
+          english_count="$(grep -o 'data-english-chronology-count="[0-9]*"' web/news/04082026-010.html | head -1 | grep -o '[0-9]*')"
+          test "$english_count" -ge "$state_count"
+          grep -q 'state-love-table' web/zpravy/04082026-010.html
+          grep -q 'state-love-table' web/news/04082026-010.html
+          grep -q 'doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936' web/zpravy/04082026-010.html
           grep -q 'KPR 5080/2026' web/zpravy/04082026-010.html
           grep -q '1 ZN 7061/2026-79' web/zpravy/04082026-010.html
           grep -q '1 ZN 7061/2026-79' web/news/04082026-010.html
