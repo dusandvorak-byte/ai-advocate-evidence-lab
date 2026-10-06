@@ -30,9 +30,10 @@ if (staleStart >= 0) {
     // Veřejný blok "Lhůty a nečinnost" byl záměrně odstraněn. Starý duplicitní
     // obsah za vygenerovaným timer blokem je tedy terminální legacy obsah článku
     // a musí zmizet až k uzavření article-body.
-    const articleBodyClose = html.indexOf('</div></article>', staleStart);
-    if (articleBodyClose < 0) throw new Error('Godot: nalezen duplicitní blok časovačů bez bezpečné koncové kotvy článku');
-    html = html.slice(0, staleStart) + html.slice(articleBodyClose);
+    const footerStart = html.indexOf('<footer', staleStart);
+    const articleClose = footerStart >= 0 ? html.lastIndexOf('</article>', footerStart) : html.lastIndexOf('</article>');
+    if (articleClose < staleStart) throw new Error('Godot: nalezen duplicitní blok časovačů bez bezpečné koncové kotvy článku');
+    html = html.slice(0, staleStart) + html.slice(articleClose);
   }
 }
 
