@@ -178,8 +178,10 @@ article = article
   .replace(/<h2 id="chronologie">[\s\S]*?<\/h2>/, '<h2 id="chronologie">Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?</h2>')
   .replace(/<section id="(?:rizeni-online|chronology-case-index)"[\s\S]*?<\/section>\s*/g, '')
   .replace(/<h2 id="archiv-vstupu-do-eu">[\s\S]*?<ol id="archiv-seznam"[^>]*>[\s\S]*?<\/ol>/g, '')
-  .replace(/<ol(?: id="chronologie-seznam")?[^>]*>[\s\S]*?<\/ol>/, chronologyHtml)
-  .replace(/<div class="justice-slalom-scroll state-love-scroll">[\s\S]*?<\/table><\/div>/, chronologyHtml)
+  .replace(/<section class="justice-slalom-shell state-love-shell"[\s\S]*?<\/section>/, '__STATE_LOVE_TABLE__')
+  .replace(/<div class="justice-slalom-scroll state-love-scroll">[\s\S]*?<\/table><\/div>/, '__STATE_LOVE_TABLE__')
+  .replace(/<ol(?: id="chronologie-seznam")?[^>]*>[\s\S]*?<\/ol>/, '__STATE_LOVE_TABLE__')
+  .replace('__STATE_LOVE_TABLE__', chronologyHtml)
   .replace(/<section id="lhuty-a-necinnost"[\s\S]*?<\/section>\s*/g, '')
   .replace(/<p><b>Anonymizační axiom:<\/b>[\s\S]*?<\/p>\s*/g, '')
   .replace(/<p><b>Důkazní hranice:<\/b>[\s\S]*?<\/p>\s*/g, '');
