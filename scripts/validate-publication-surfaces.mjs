@@ -10,6 +10,11 @@ if (!Array.isArray(registry.documents)) throw new Error('Kanonický registr neob
 
 const stateDocs = registry.documents.filter(item => item.issue_date >= '2026-05-01' && item.document_type === 'state_record');
 const stateCount = stateDocs.length;
+const chronologyDocs = registry.documents.filter(item =>
+  item.issue_date >= '2026-05-01' &&
+  (item.submission_side === 'incoming_from_state_or_public_institution' || item.submission_side === 'outgoing_from_user_or_alliance' || item.document_type === 'state_record')
+);
+const chronologyCount = chronologyDocs.length;
 
 const criticalHtml = [
   'web/index.html',
@@ -51,10 +56,11 @@ for (const file of criticalHtml) {
 
 const czGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 const enGodot = await readFile('web/news/04082026-010.html', 'utf8');
-const renderedCz = (czGodot.match(/<li id="doc-[^"]+"/g) || []).length;
-const renderedEn = (enGodot.match(/<li id="en-doc-[^"]+" data-document-id="doc-[^"]+"/g) || []).length;
-if (renderedCz !== stateCount) throw new Error(`CZ Godot ${renderedCz}/${stateCount}`);
-if (renderedEn !== stateCount) throw new Error(`EN Godot ${renderedEn}/${stateCount}`);
+const renderedCz = (czGodot.match(/<tr id="doc-[^"]+" data-state-love-id=/g) || []).length;
+const renderedEn = (enGodot.match(/<tr id="en-doc-[^"]+" data-document-id="doc-[^"]+"/g) || []).length;
+if (renderedCz !== chronologyCount) throw new Error(`CZ Godot tabulka ${renderedCz}/${chronologyCount}`);
+if (renderedEn !== chronologyCount) throw new Error(`EN Godot tabulka ${renderedEn}/${chronologyCount}`);
+if (!czGodot.includes('state-love-table') || !enGodot.includes('state-love-table')) throw new Error('CZ/EN Godot nemá sjednocený tabulkový vizuál');
 if (!czGodot.includes(`Stát: ${stateCount} evidovaných listin`)) throw new Error('CZ Godot nemá kanonický počet');
 if (!enGodot.includes(`${stateCount} source-linked records`) && !enGodot.includes(`${stateCount} source-linked Czech public records`)) {
   throw new Error('EN Godot nemá kanonický počet');
@@ -138,4 +144,4 @@ for (const file of await walk(ROOT)) {
   }
 }
 
-console.log(`Publikační integrita OK: ${stateCount} státních listin CZ/EN, ${publicPdfDocs.length} veřejných PDF, články feedu existují, kritické interní odkazy fungují, duplicitní sdílené assety: ${duplicateSharedAssetPages}.`);
+console.log(`Publikační integrita OK: ${stateCount} státních listin, ${chronologyCount} tabulkových záznamů CZ/EN, ${publicPdfDocs.length} veřejných PDF, články feedu existují, kritické interní odkazy fungují, duplicitní sdílené assety: ${duplicateSharedAssetPages}.`);
