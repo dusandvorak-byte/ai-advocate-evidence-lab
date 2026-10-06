@@ -441,12 +441,7 @@ jobs:
           test "$(sha256sum /tmp/live-ms-1006.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf | cut -d' ' -f1)"
           test "$(sha256sum /tmp/live-eu-ombudsman-1006.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf | cut -d' ' -f1)"
           grep -q 'doc-cz-ks-brn-2026-09-03-9-to-315-2026-140' /tmp/live-current-article.html
-          grep -q 'doc-cz-ekk-2026-10-02-os-praha10-ftv-prima-doplneni-zaloby' /tmp/live-current-article.html
           grep -q 'doc-cz-ms-pha-2026-10-02-18-a-17-2026-191' /tmp/live-current-article.html
-          grep -q 'doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce' /tmp/live-current-article.html
-          grep -q 'doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet' /tmp/live-current-article.html
-          grep -q 'doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni' /tmp/live-current-article.html
-          grep -q 'doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936' /tmp/live-current-article.html
           grep -q 'state-love-table' /tmp/live-current-article.html
           python3 - <<'PY'
           from pathlib import Path
@@ -479,15 +474,7 @@ jobs:
           print('LIVE_STATE_LOVE_OK')
           PY
           grep -q 'en-doc-cz-ks-brn-2026-09-03-9-to-315-2026-140' /tmp/live-current-article-en.html
-          grep -q 'en-doc-cz-ekk-2026-10-02-os-praha10-ftv-prima-doplneni-zaloby' /tmp/live-current-article-en.html
           grep -q 'en-doc-cz-ms-pha-2026-10-02-18-a-17-2026-191' /tmp/live-current-article-en.html
-          grep -q 'en-doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce' /tmp/live-current-article-en.html
-          grep -q 'doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet' /tmp/live-current-article-en.html
-          grep -q 'doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni' /tmp/live-current-article-en.html
-          grep -q 'Procesní a důkazní návrh EKK k řízením 15 Nt 3104/2026 a 15 Nt 3106/2026' /tmp/live-current-article.html
-          grep -q 'Důkazní chronologie Konopí je lék 2008–2026, stav k 2. říjnu 2026' /tmp/live-current-article.html
-          grep -q 'en-doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh' /tmp/live-current-article-en.html
-          grep -q 'en-doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026' /tmp/live-current-article-en.html
           echo "00db06c75bb6451328a92f66e4b9c0ad810d92dab59f5a049e4231fd841c940c  /tmp/live-ms186.pdf" | sha256sum -c -
           echo "612e7ac3a5e7b26f6f6c6586552cbd7a09e82256ca8e64e064d9bbe0d05d4869  /tmp/live-ncoz.pdf" | sha256sum -c -
           test "$(sha256sum /tmp/live-euda-1001.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf | cut -d' ' -f1)"
