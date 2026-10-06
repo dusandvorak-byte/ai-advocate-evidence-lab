@@ -46,11 +46,15 @@ const stateDocuments = documents
   .filter(item => item.issue_date >= mainFrom && item.document_type !== 'state_record_attachment' && (item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record'))
   .sort(compareDocuments);
 const outgoingDocuments = documents.filter(item => item.issue_date >= mainFrom && item.submission_side === 'outgoing_from_user_or_alliance');
-if (!stateDocuments.length) throw new Error('English Godot contains no state/public records');
+const chronologyDocuments = documents
+  .filter(item => item.issue_date >= mainFrom)
+  .filter(item => item.submission_side === 'incoming_from_state_or_public_institution' || item.submission_side === 'outgoing_from_user_or_alliance' || item.document_type === 'state_record')
+  .sort(compareDocuments);
+if (!stateDocuments.length || !chronologyDocuments.length) throw new Error('English Godot contains no canonical records');
 
 const usedInstitutionIds = new Set([...stateDocuments, ...outgoingDocuments].map(item => item.institution_id));
 for (const id of usedInstitutionIds) if (!translations.institutions?.[id]) throw new Error(`Missing English institution name: ${id}`);
-for (const item of [...stateDocuments, ...outgoingDocuments]) if (!translations.documents?.[item.id]) throw new Error(`Missing English document description: ${item.id}`);
+for (const item of chronologyDocuments) if (!translations.documents?.[item.id]) throw new Error(`Missing English document description: ${item.id}`);
 
 const routeTranslations = new Map([
   ['Policejní prezidium České republiky', 'Police Presidium of the Czech Republic'],
@@ -117,22 +121,18 @@ const reactionCard = (item, label = 'Subsequent filing') => {
   return `<aside id="en-${escapeHtml(item.id)}" class="chronology-reaction" ${trackingAttr}><p class="kicker">${escapeHtml(label)}</p><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p>${to ? `<p><b>To:</b> ${escapeHtml(to)}</p>` : ''}${forAuthority ? `<p><b>For:</b> ${escapeHtml(forAuthority)}</p>` : ''}<p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p>${from ? `<p><b>From:</b> ${escapeHtml(from)}</p>` : ''}<p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)}</p></aside>`;
 };
 
-const chronologyItem = item => {
-  const preceding = (precedingByTarget.get(item.id) || []).sort(compareDocuments);
-  const reactions = (reactionsByTarget.get(item.id) || []).sort(compareDocuments);
-  const precedingHtml = preceding.map(entry => {
-    const attachments = (attachmentsByTarget.get(entry.id) || []).sort(compareDocuments).map(attachment => reactionCard(attachment, 'Czech-language version')).join('');
-    return `${reactionCard(entry, 'Filing to which the authority responded')}${attachments}`;
-  }).join('');
-  const directAttachments = (attachmentsByTarget.get(item.id) || []).sort(compareDocuments).map(attachment => reactionCard(attachment, 'Attachment')).join('');
-  const reactionHtml = reactions.map(reaction => {
-    const attachments = (attachmentsByTarget.get(reaction.id) || []).sort(compareDocuments).map(attachment => reactionCard(attachment, 'Evidentiary annex')).join('');
-    return `${reactionCard(reaction)}${attachments}`;
-  }).join('');
-  return `<li id="en-${escapeHtml(item.id)}" data-document-id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}"><p><b>Date:</b> ${escapeHtml(formatDate(item.issue_date))}</p><p><b>From:</b> ${escapeHtml(translations.institutions[item.institution_id])}</p><p><b>Reference:</b> ${escapeHtml(englishReferenceText(item))}</p><p><b>What happened:</b> ${escapeHtml(translations.documents[item.id])}</p><p>${sourceLink(item)} · <a href="zpravy/04082026-010.html#${escapeHtml(item.id)}" hreflang="cs">Czech chronology entry</a></p>${directAttachments}${precedingHtml}${reactionHtml}</li>`;
+const chronologyRow = (item, index) => {
+  const institution = translations.institutions[item.institution_id] || item.institution_id;
+  const recipient = item.recipient_id ? (translations.institutions[item.recipient_id] || item.recipient_id) : null;
+  const actor = recipient && item.submission_side === 'outgoing_from_user_or_alliance'
+    ? `${institution} → ${recipient}`
+    : institution;
+  const number = chronologyDocuments.length - index;
+  const outgoingAttr = item.submission_side === 'outgoing_from_user_or_alliance' ? ` data-outgoing-id="${escapeHtml(item.id)}"` : '';
+  return `<tr id="en-${escapeHtml(item.id)}" data-document-id="${escapeHtml(item.id)}" data-row-number="${number}" data-issue-date="${escapeHtml(item.issue_date)}"${outgoingAttr}><td class="slalom-number">${number}</td><td><time datetime="${escapeHtml(item.issue_date)}">${escapeHtml(formatDate(item.issue_date))}</time></td><td>${escapeHtml(actor)}</td><td>${escapeHtml(englishReferenceText(item))}</td><td>${escapeHtml(translations.documents[item.id])} · ${sourceLink(item)}</td></tr>`;
 };
 
-const chronology = stateDocuments.map(chronologyItem).join('');
+const chronology = `<div class="justice-slalom-scroll state-love-scroll"><table id="en-chronology-list" class="state-love-table" data-english-chronology-count="${chronologyDocuments.length}"><thead><tr><th scope="col">No.</th><th scope="col">Date</th><th scope="col">Subject / authority</th><th scope="col">Ref./case no.</th><th scope="col">What happened</th></tr></thead><tbody>${chronologyDocuments.map(chronologyRow).join('')}</tbody></table></div>`;
 const courtProceedings = [
   ['2025-07-29', 'case-cz-ms-praha-45t1-2024', 'Prague Municipal Court, case 45 T 1/2024 – returned by the Prague High Court'],
   ['2026-05-01', 'case-cz-ms-praha-18a17-2026', 'Prague Municipal Court, case 18 A 17/2026 – National Centre against Organised Crime'],
@@ -148,19 +148,10 @@ const courtProceedingsHtml = courtProceedings.map(([date, id, label]) => `<artic
 const currentEnglishDate = new Intl.DateTimeFormat('en-GB', {
   day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Prague'
 }).format(new Date()).toLocaleUpperCase('en-GB');
-const linkedOutgoingIds = new Set([...reactionsByTarget.values(), ...precedingByTarget.values(), ...attachmentsByTarget.values()].flat().map(item => item.id));
-const unlinkedOutgoing = outgoingDocuments.filter(item => !linkedOutgoingIds.has(item.id)).sort(compareDocuments);
-const unlinkedSection = unlinkedOutgoing.length
-  ? `<section><h2>Additional tracked filings without an explicit reaction link</h2><p>These filings are translated and retained separately because the canonical registry does not identify a specific state record to which they should be attached.</p>${unlinkedOutgoing.map(item => {
-      const attachments = (attachmentsByTarget.get(item.id) || []).sort(compareDocuments)
-        .map(attachment => reactionCard(attachment, 'Attachment')).join('');
-      return `${reactionCard(item, 'Separately tracked filing')}${attachments}`;
-    }).join('')}</section>`
-  : '';
 const html = `<!doctype html>
 <html lang="en"><head><base href="../"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Godot online: complete English chronology of ${stateDocuments.length} source-linked Czech public records from 1 May 2026."><title>A time for the state to love — Godot online | CannaInsider.EU</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="brand.css"><link rel="stylesheet" href="process-timers.css"><style>.english-chronology{display:grid;gap:1rem;padding-left:1.4rem}.english-chronology>li{padding:1rem;border:1px solid #c8d3d8;background:#fff}.english-chronology p{margin:.35rem 0}.chronology-reaction{margin-top:.8rem;padding:.8rem;border-left:4px solid #285b6f;background:#eef4f6}.chronology-reaction .kicker{color:#285b6f}.evidence-boundary{padding:1rem;border:1px solid #285b6f;background:#eef4f6}</style></head>
 <body><header class="topline"><span>${currentEnglishDate}</span><span>INDEPENDENT EVIDENCE MEMORY · CZECHIA</span><a href="zpravy/04082026-010.html" lang="cs">ČESKY</a></header><header class="masthead"><a class="brand" href="en.html"><b>CannaInsider.EU</b><span>INTERNATIONAL EVIDENCE REPORTER</span></a><div class="brand-promise"><p>Will there be a cannabis amnesty?</p><img class="heart-logo" src="assets/votruba/heart-red-grayscale.png" alt="A red winged heart on a hand, Jiří Votruba"></div></header><nav class="nav"><a href="en.html">Front page</a><a href="news/index.html">News archive</a><a href="zpravy/04082026-010.html" hreflang="cs">Czech canonical edition</a></nav>
-<main class="article-shell"><article><header class="article-header"><p class="kicker">GODOT ONLINE · COMPLETE ENGLISH CHRONOLOGY</p><h1>A time for the state to love — Godot online</h1><p class="standfirst">A complete English rendering of ${stateDocuments.length} source-linked records issued by Czech state bodies and public institutions from 1 May 2026.</p><div class="score score-red"><strong>${stateDocuments.length}/${stateDocuments.length}</strong><span>PUBLIC RECORDS TRANSLATED · CZECH SOURCES CONTROL</span></div><div class="news-meta"><span>From 1 May 2026</span><span>Author: Mgr. Dušan Dvořák</span></div></header><div class="article-body"><section class="evidence-boundary"><h2>Evidence boundary</h2><p>The Czech official records and linked Czech PDFs remain the controlling sources. This page translates the project’s factual descriptions; it does not replace the originals or provide legal advice.</p><p>A transfer, referral, acknowledgement, review or opening of a proceeding is reported as a procedural act. It is not presented as proof of wrongdoing or as a prediction of the final outcome.</p><p>For subsequent filings, <b>To</b> identifies the receiving authority, while <b>For</b> identifies a separately documented authority expected to decide or substantively handle the filing. “For” is omitted when no distinct authority is documented.</p></section><section><h2>Active court proceedings since 1 May 2026</h2><div class="live-docket-links">${courtProceedingsHtml}</div></section><h2 id="chronology">Proceedings from 1 May 2026 — when will Godot arrive?</h2><ol class="english-chronology" data-english-chronology-count="${stateDocuments.length}">${chronology}</ol>${unlinkedSection}</div></article></main><footer><div class="brand"><b>CannaInsider.EU</b><span>INTERNATIONAL EVIDENCE REPORTER</span></div><p><b>Operator: Cannabis is The Cure, z. s.</b></p><p>Czech official records remain controlling. Human review is required before relying on a translation.</p></footer></body></html>`;
+<main class="article-shell"><article><header class="article-header"><p class="kicker">GODOT ONLINE · COMPLETE ENGLISH CHRONOLOGY</p><h1>A time for the state to love — Godot online</h1><p class="standfirst">A complete English rendering of ${stateDocuments.length} source-linked records issued by Czech state bodies and public institutions from 1 May 2026.</p><div class="score score-red"><strong>${stateDocuments.length}/${stateDocuments.length}</strong><span>PUBLIC RECORDS TRANSLATED · CZECH SOURCES CONTROL</span></div><div class="news-meta"><span>From 1 May 2026</span><span>Author: Mgr. Dušan Dvořák</span></div></header><div class="article-body"><section class="evidence-boundary"><h2>Evidence boundary</h2><p>The Czech official records and linked Czech PDFs remain the controlling sources. This page translates the project’s factual descriptions; it does not replace the originals or provide legal advice.</p><p>A transfer, referral, acknowledgement, review or opening of a proceeding is reported as a procedural act. It is not presented as proof of wrongdoing or as a prediction of the final outcome.</p><p>For subsequent filings, <b>To</b> identifies the receiving authority, while <b>For</b> identifies a separately documented authority expected to decide or substantively handle the filing. “For” is omitted when no distinct authority is documented.</p></section><section><h2>Active court proceedings since 1 May 2026</h2><div class="live-docket-links">${courtProceedingsHtml}</div></section><h2 id="chronology">Proceedings from 1 May 2026 — when will Godot arrive?</h2>${chronology}</div></article></main><footer><div class="brand"><b>CannaInsider.EU</b><span>INTERNATIONAL EVIDENCE REPORTER</span></div><p><b>Operator: Cannabis is The Cure, z. s.</b></p><p>Czech official records remain controlling. Human review is required before relying on a translation.</p></footer></body></html>`;
 
 await writeFile(targetPath, html, 'utf8');
-console.log(`English Godot: ${stateDocuments.length}/${stateDocuments.length} public records and ${outgoingDocuments.length}/24 translated outgoing filings (${unlinkedOutgoing.length} separately tracked).`);
+console.log(`English Godot: ${chronologyDocuments.length} documents in one table; newest on top, oldest=1; ${outgoingDocuments.length} outgoing filings included.`);
