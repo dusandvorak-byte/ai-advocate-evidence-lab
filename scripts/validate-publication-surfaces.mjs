@@ -8,12 +8,13 @@ const readJson = async file => JSON.parse(await readFile(file, 'utf8'));
 const registry = await readJson('project-memory/documents-2026.json');
 if (!Array.isArray(registry.documents)) throw new Error('Kanonický registr neobsahuje documents');
 
-const stateDocs = registry.documents.filter(item => item.issue_date >= '2026-05-01' && item.document_type === 'state_record');
-const stateCount = stateDocs.length;
-const chronologyDocs = registry.documents.filter(item =>
-  item.issue_date >= '2026-05-01' &&
-  (item.submission_side === 'incoming_from_state_or_public_institution' || item.submission_side === 'outgoing_from_user_or_alliance' || item.document_type === 'state_record')
+const stateDocs = registry.documents.filter(item =>
+  item.issue_date >= '2026-05-01'
+  && item.document_type !== 'state_record_attachment'
+  && (item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record')
 );
+const stateCount = stateDocs.length;
+const chronologyDocs = stateDocs;
 const chronologyCount = chronologyDocs.length;
 
 const criticalHtml = [
@@ -61,6 +62,21 @@ const renderedEn = (enGodot.match(/<tr id="en-doc-[^"]+" data-document-id="doc-[
 if (renderedCz !== chronologyCount) throw new Error(`CZ Godot tabulka ${renderedCz}/${chronologyCount}`);
 if (renderedEn !== chronologyCount) throw new Error(`EN Godot tabulka ${renderedEn}/${chronologyCount}`);
 if (!czGodot.includes('state-love-table') || !enGodot.includes('state-love-table')) throw new Error('CZ/EN Godot nemá sjednocený tabulkový vizuál');
+const czTableStart = czGodot.indexOf('<table id="chronologie-seznam"');
+const czTableEnd = czTableStart < 0 ? -1 : czGodot.indexOf('</table>', czTableStart);
+const enTableStart = enGodot.indexOf('<table id="en-chronology-list"');
+const enTableEnd = enTableStart < 0 ? -1 : enGodot.indexOf('</table>', enTableStart);
+if (czTableStart < 0 || czTableEnd < 0 || enTableStart < 0 || enTableEnd < 0) throw new Error('CZ/EN Státu lásky čas nemá uzavřenou tabulku');
+const czTable = czGodot.slice(czTableStart, czTableEnd + 8);
+const enTable = enGodot.slice(enTableStart, enTableEnd + 8);
+if (!czGodot.includes('justice-slalom-shell state-love-shell') || !czGodot.includes('home-rollup justice-slalom state-love-panel')) throw new Error('CZ Státu lásky čas nepoužívá vizuální wrapper Justičního slalomu');
+if (!enGodot.includes('justice-slalom-shell state-love-shell') || !enGodot.includes('home-rollup justice-slalom state-love-panel')) throw new Error('EN Státu lásky čas nepoužívá vizuální wrapper Justičního slalomu');
+for (const needle of ['Na co orgán reaguje','Námitka / opravný prostředek']) if (!czTable.includes(needle)) throw new Error('CZ tabulce chybí vztahový sloupec: '+needle);
+for (const needle of ['What the authority responded to','Objection / remedy']) if (!enTable.includes(needle)) throw new Error('EN tabulce chybí vztahový sloupec: '+needle);
+if (czTable.includes('data-submission-side="outgoing_from_user_or_alliance"') || enTable.includes('data-submission-side="outgoing_from_user_or_alliance"')) throw new Error('Státu lásky čas obsahuje naše vlastní podání jako hlavní řádek');
+const czNumbers=[...czTable.matchAll(/data-row-number="(\d+)"/g)].map(m=>Number(m[1]));
+const enNumbers=[...enTable.matchAll(/data-row-number="(\d+)"/g)].map(m=>Number(m[1]));
+if (czNumbers[0] !== chronologyCount || czNumbers.at(-1) !== 1 || JSON.stringify(czNumbers)!==JSON.stringify(enNumbers)) throw new Error('CZ/EN číslování Státu lásky čas není nejnovější nahoře / nejstarší=1');
 if (!czGodot.includes(`Stát: ${stateCount} evidovaných listin`)) throw new Error('CZ Godot nemá kanonický počet');
 if (!enGodot.includes(`${stateCount} source-linked records`) && !enGodot.includes(`${stateCount} source-linked Czech public records`)) {
   throw new Error('EN Godot nemá kanonický počet');
@@ -144,4 +160,4 @@ for (const file of await walk(ROOT)) {
   }
 }
 
-console.log(`Publikační integrita OK: ${stateCount} státních listin, ${chronologyCount} tabulkových záznamů CZ/EN, ${publicPdfDocs.length} veřejných PDF, články feedu existují, kritické interní odkazy fungují, duplicitní sdílené assety: ${duplicateSharedAssetPages}.`);
+console.log(`Publikační integrita OK: ${stateCount} reakcí veřejných/mezinárodních orgánů ve Státu lásky čas, bez vlastních podání jako hlavních řádků; CZ/EN parita; ${publicPdfDocs.length} veřejných PDF.`);
