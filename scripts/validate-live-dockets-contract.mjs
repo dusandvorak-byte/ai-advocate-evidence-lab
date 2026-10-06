@@ -213,8 +213,10 @@ const englishGodotDeclaredCount = Number(englishGodot.match(/data-english-chrono
 if (englishGodotRecords < 1 || englishGodotDeclaredCount !== englishGodotRecords) {
   throw new Error(`Anglický Godot nemá konzistentní počet záznamů: vykresleno ${englishGodotRecords}, deklarováno ${englishGodotDeclaredCount}`);
 }
-const expectedEnglishOutgoing = canonicalDocuments.documents.filter(item => item.issue_date >= '2026-05-01' && item.submission_side === 'outgoing_from_user_or_alliance').length;
-if (englishGodotOutgoing !== expectedEnglishOutgoing) throw new Error(`Anglický Godot nemá všechna kanonická navazující podání: ${englishGodotOutgoing}/${expectedEnglishOutgoing}`);
+if (englishGodotOutgoing !== 0) throw new Error(`Anglický Státu lásky čas obsahuje vlastní podání jako hlavní řádek: ${englishGodotOutgoing}`);
+for (const header of ['What the authority responded to','Objection / remedy']) {
+  if (!englishGodot.includes(`>${header}</th>`)) throw new Error(`Anglickému Státu lásky čas chybí vztahový sloupec ${header}`);
+}
 const chronologyRow = id => {
   const start = czechGodot.indexOf(`<tr id="${id}"`);
   const end = start < 0 ? -1 : czechGodot.indexOf('</tr>', start);
@@ -254,10 +256,10 @@ for (const match of englishGodot.matchAll(/href="zpravy\/04082026-010\.html#([^"
 for (const id of ['case-cz-ms-praha-45t1-2024','case-cz-ms-praha-18a17-2026','case-cz-ms-praha-8ad9-2026','case-cz-os-praha4-10c69-2026','case-cz-ms-praha-18a23-2026','case-cz-os-pro-2t104-2010-obnova','case-cz-os-pro-prevence-2026','case-cz-os-ostrava-15t11-2025','case-cz-ms-praha-15a44-2026']) {
   if (!englishGodot.includes(`id="${id}"`)) throw new Error(`Anglickému Godotu chybí soudní řízení ${id}`);
 }
-for (const header of ['No.','Date','Subject / authority','Ref./case no.','What happened']) {
+for (const header of ['No.','Date','Authority','Ref./case no.','What happened','What the authority responded to','Objection / remedy']) {
   if (!englishGodot.includes(`>${header}</th>`)) throw new Error(`Anglickému Godotu chybí tabulkový sloupec ${header}`);
 }
-for (const header of ['Č.','Datum','Subjekt / orgán','č. j./sp. zn.','Co se stalo']) {
+for (const header of ['Č.','Datum','Orgán','č. j./sp. zn.','Co se stalo','Na co orgán reaguje','Námitka / opravný prostředek']) {
   if (!czechGodot.includes(`>${header}</th>`)) throw new Error(`Českému Godotu chybí tabulkový sloupec ${header}`);
 }
 
