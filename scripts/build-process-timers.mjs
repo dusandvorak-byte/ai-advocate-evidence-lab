@@ -117,6 +117,7 @@ for (const doc of remedyDocuments) {
   const reactionTarget = reaction ? documentsById.get(reaction.target_id) : null;
   const route = remedyRoutes.get(doc.id) || {};
   const recipient = route.recipient
+    || (doc.recipient_id ? institutionNames.get(doc.recipient_id) : null)
     || (reactionTarget ? institutionNames.get(reactionTarget.institution_id) : null)
     || institutionNames.get(doc.institution_id)
     || doc.institution_id
@@ -322,11 +323,11 @@ assertRequiredTimersRendered(englishHome, 'English front page');
 await writeFile(englishHomePath, englishHome, 'utf8');
 
 let godot = removeGeneratedTimerBlock(await readFile(godotPath, 'utf8'), 'section');
-const chronologyMarker = '<ol id="chronologie-seznam">';
-if (!godot.includes(chronologyMarker)) throw new Error('Godot nemá hlavní chronologii veřejných institucí');
-const chronologyClose = godot.indexOf('</ol>', godot.indexOf(chronologyMarker));
-if (chronologyClose < 0) throw new Error('Godot nemá ukončenou hlavní chronologii');
-const insertAt = chronologyClose + '</ol>'.length;
+const chronologyMarker = '<table id="chronologie-seznam"';
+if (!godot.includes(chronologyMarker)) throw new Error('Godot nemá hlavní tabulku Státu lásky čas');
+const chronologyClose = godot.indexOf('</table>', godot.indexOf(chronologyMarker));
+if (chronologyClose < 0) throw new Error('Godot nemá ukončenou hlavní tabulku');
+const insertAt = chronologyClose + '</table>'.length;
 godot = godot.slice(0, insertAt) + `\n${godotSection}` + godot.slice(insertAt);
 const legacyDocketsStart = godot.indexOf('<section id="rizeni-online"');
 if (legacyDocketsStart >= 0) godot = removeBalancedElement(godot, legacyDocketsStart, 'section');

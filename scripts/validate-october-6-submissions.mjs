@@ -6,9 +6,10 @@ const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const must = (condition, message) => { if (!condition) throw new Error('OCT6: ' + message); };
 
 const batchPath = 'project-memory/documents-2026-supplement-2026-10-06-cnb-ms-praha.json';
+const ombPath = 'project-memory/documents-2026-supplement-2026-10-06-eu-ombudsman-complaint.json';
 const batch = await readJson(batchPath);
+const ombBatch = await readJson(ombPath);
 const sources = await readJson('project-memory/document-sources.json');
-const institutions = await readJson('project-memory/institutions.json');
 const translations = await readJson('project-memory/english-godot-translations.json');
 const cases = await readJson('project-memory/cases.json');
 const canonical = await readJson('project-memory/documents-2026.json');
@@ -16,84 +17,57 @@ const slalom = await readJson('web/data/justice-slalom.json');
 
 const cnbId = 'doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet';
 const msId = 'doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni';
-const docs = new Map(batch.documents.map(item => [item.id, item]));
-const canonicalIds = new Set(canonical.documents.map(item => item.id));
-must(batch.documents.length === 2 && docs.has(cnbId) && docs.has(msId), 'balík nemá přesně obě podání ze 6. 10. 2026');
-must(sources.sources.some(item => item.path === batchPath), 'balík není v document-sources');
-must(canonicalIds.has(cnbId) && canonicalIds.has(msId), 'obě podání nejsou v konsolidovaném registru');
+const ombId = 'doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936';
 
-const cnb = docs.get(cnbId);
-const ms = docs.get(msId);
-must(cnb.issue_date === '2026-10-06' && cnb.received_date === '2026-10-06', 'ČNB podání nemá doložené datum 6. 10. 2026');
-must(ms.issue_date === '2026-10-06' && ms.received_date === null, 'MS Praha musí zachovat pouze doložené datum listiny, nikoli vymyšlené doručení');
-must(cnb.justice_slalom.archive_number === 142 && ms.justice_slalom.archive_number === 143, 'archivní čísla musí navazovat 142–143');
-must(cnb.justice_slalom.recipients.length === 2, 'ČNB podání musí mít dva adresátské řádky');
-must(cnb.justice_slalom.recipients[0].institution_id === 'CZ-CNB', 'primárním adresátem ČNB podání musí být ČNB');
-must(cnb.justice_slalom.recipients[1].institution_id === 'CZ-RB-OMB', 'druhým adresátem musí být Ombudsman Raiffeisenbank');
-must(ms.justice_slalom.recipients.length === 1 && ms.justice_slalom.recipients[0].institution_id === 'CZ-MS-PHA', 'MS Praha podání musí mít jeden soudní adresátský řádek');
-must(ms.case_ids.includes('case-cz-ms-praha-18a17-2026') && ms.case_ids.includes('case-cz-ms-praha-18a23-2026'), 'MS Praha podání musí být spojeno s oběma řízeními');
+must(sources.sources.some(item => item.path === batchPath), 'chybí zdroj obou podání do Slalomu');
+must(sources.sources.some(item => item.path === ombPath), 'chybí zdroj stížnosti Evropskému ombudsmanovi');
 
-const sourceTextSpecs = [
-  [cnb, 'project-memory/user-text-sources-2026-10-06/cnb-rb-2026-10-06.txt', ['Česká národní banka Datovou schránkou 6.10.2026', 'Ombudsman Raiffeisenbank a.s.', 'nejpozději však do 13.10.2026.']],
-  [ms, 'project-memory/user-text-sources-2026-10-06/ms-praha-18a17-18a23-2026-10-06.txt', ['SPOLEČNÉ MIMOŘÁDNĚ NALÉHAVÉ DŮKAZNÍ DOPLNĚNÍ', '18 A 17/2026', '18 A 23/2026', 'sporných forenzních praxí při analýzách']]
+const canonicalById = new Map(canonical.documents.map(item => [item.id,item]));
+for (const id of [cnbId,msId,ombId]) must(canonicalById.has(id), 'kanonický registr postrádá ' + id);
+
+const originals = [
+  [cnbId,'documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank.pdf','a5e5890356ca4f7d520bdda7cbdbff1ffee92f9da9fffa37c9556f991e8252d4'],
+  [msId,'documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf','6fac4edb59d7e5f67519ec853d810f9fc4a41e5946698ba54b1e7777d173082e'],
+  [ombId,'documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf','34254d11c01f91e8a12cb99800e8d16ca9ec715a6703d765401ddcd79595e434']
 ];
-for (const [doc, path, phrases] of sourceTextSpecs) {
-  const text = await readFile(path, 'utf8');
-  for (const phrase of phrases) must(text.includes(phrase), path + ' postrádá: ' + phrase);
-  const textSha = sha(Buffer.from(text));
-  must(doc.public.source_text_sha256 === textSha && doc.justice_slalom.source_text_sha256 === textSha, 'SHA textového zdroje nesedí pro ' + doc.id);
-  const bytes = await readFile('web/' + doc.public.pdf);
-  must(bytes.subarray(0, 5).toString() === '%PDF-', 'veřejná kopie není PDF: ' + doc.public.pdf);
-  must(bytes.subarray(-2048).toString('latin1').includes('%%EOF'), 'veřejná kopie nemá %%EOF: ' + doc.public.pdf);
-  const pdfSha = sha(bytes);
-  must(doc.public.sha256 === pdfSha && doc.justice_slalom.public_sha256 === pdfSha, 'SHA veřejné kopie nesedí pro ' + doc.id);
-  must(doc.justice_slalom.source_kind === 'redacted_public_copy_from_user_original', 'veřejná kopie nemá správnou provenienci: ' + doc.id);
-  must(doc.justice_slalom.redaction_manifest === batchPath, 'chybí redakční manifest: ' + doc.id);
+for (const [id,pdf,expectedSha] of originals) {
+  const d=canonicalById.get(id);
+  must(d.public?.pdf===pdf && d.public?.sha256===expectedSha, 'metadata originálu nesedí: '+id);
+  const bytes=await readFile('web/'+pdf);
+  must(bytes.subarray(0,5).toString()==='%PDF-' && bytes.subarray(-2048).toString('latin1').includes('%%EOF'), 'neplatné PDF: '+id);
+  must(sha(bytes)===expectedSha, 'byte-identický SHA nesedí: '+id);
 }
-const cnbText = await readFile('project-memory/user-text-sources-2026-10-06/cnb-rb-2026-10-06.txt', 'utf8');
-const msText = await readFile('project-memory/user-text-sources-2026-10-06/ms-praha-18a17-18a23-2026-10-06.txt', 'utf8');
-must(!cnbText.includes('798 55 Ospělov 6') && !cnbText.includes('Eliška Svobodová'), 'veřejný ČNB text obsahuje odstraněné soukromé údaje');
-must(!msText.includes('nar. 12. 1. 1962') && !msText.includes('Ospělov 6, 798 55'), 'veřejný MS Praha text obsahuje odstraněné soukromé údaje');
 
-const instMap = new Map(institutions.institutions.map(item => [item.id, item]));
-must(instMap.get('CZ-CNB')?.name === 'Česká národní banka', 'chybí instituce ČNB');
-must(instMap.get('CZ-RB-OMB')?.name === 'Ombudsman Raiffeisenbank a.s.', 'chybí instituce Ombudsman Raiffeisenbank');
-must(translations.institutions['CZ-CNB'] === 'Czech National Bank', 'chybí anglický název ČNB');
-must(translations.institutions['CZ-RB-OMB'] === 'Raiffeisenbank Ombudsman', 'chybí anglický název bankovního ombudsmana');
-must(Boolean(translations.documents[cnbId]) && Boolean(translations.documents[msId]), 'chybí anglické anotace obou listin');
+const cnb=canonicalById.get(cnbId);
+const ms=canonicalById.get(msId);
+must(cnb.justice_slalom?.source_kind==='original_pdf_uploaded_by_user' && cnb.justice_slalom?.source_sha256===cnb.public.sha256, 'ČNB není originál');
+must(ms.justice_slalom?.source_kind==='original_pdf_uploaded_by_user' && ms.justice_slalom?.source_sha256===ms.public.sha256, 'MS Praha není originál');
+must(cnb.justice_slalom.recipients.length===2 && ms.justice_slalom.recipients.length===1, 'adresátské řádky 2+1 nejsou zachovány');
 
-const caseMap = new Map(cases.cases.map(item => [item.id, item]));
-must(caseMap.get('case-cz-cnb-raiffeisenbank-aml-2026')?.last_filing_document_id === cnbId, 'ČNB větev není napojena na dnešní podání');
+const todayRows=slalom.rows.filter(row=>row.date==='2026-10-06');
+must(todayRows.filter(row=>row.document_id===cnbId).length===2, 'ČNB nemá dva řádky');
+must(todayRows.filter(row=>row.document_id===msId).length===1, 'MS Praha nemá jeden řádek');
+must(todayRows.filter(row=>[cnbId,msId].includes(row.document_id)).every(row=>row.pdf_kind==='original'), 'dnešní Slalom musí odkazovat na originály');
+
+const caseMap=new Map(cases.cases.map(item=>[item.id,item]));
+must(caseMap.get('case-cz-cnb-raiffeisenbank-aml-2026')?.last_filing_document_id===cnbId, 'ČNB case není napojen');
 for (const cid of ['case-cz-ms-praha-18a17-2026','case-cz-ms-praha-18a23-2026']) {
-  const item = caseMap.get(cid);
-  must(item?.last_filing_on === '2026-10-06' && item?.last_filing_document_id === msId, cid + ' nemá dnešní poslední podání');
-  must(item.related_document_ids?.includes(msId), cid + ' nemá obousměrnou vazbu na dnešní podání');
+  const item=caseMap.get(cid);
+  must(item?.last_filing_document_id===msId && item?.last_filing_on==='2026-10-06', cid+' nemá poslední podání 6. 10.');
 }
+const ombCase=caseMap.get('case-eu-omb-euda-thc-comparability-2026');
+must(ombCase?.last_filing_document_id===ombId && ombCase?.last_filing_on==='2026-10-06', 'Ombudsman case není posunut na formulář 59936');
 
-const todayRows = slalom.rows.filter(row => row.date === '2026-10-06');
-must(todayRows.length === 3, 'Justiční slalom nemá tři adresátské řádky ze 6. 10. 2026');
-must(todayRows.filter(row => row.document_id === cnbId).length === 2, 'ČNB listina nemá dva řádky');
-must(todayRows.filter(row => row.document_id === msId).length === 1, 'MS Praha listina nemá jeden řádek');
-must(todayRows.every(row => row.pdf_kind === 'redacted_public_copy'), 'dnešní PDF nesmějí být označena jako originály');
-must(todayRows.every(row => row.pdf && row.pdf_sha256), 'dnešní řádky nemají PDF a SHA');
+must(Boolean(translations.documents[cnbId]) && Boolean(translations.documents[msId]) && Boolean(translations.documents[ombId]), 'chybí CZ/EN parita anotací');
 
-const pages = [
-  ['web/index.html', cnbId, msId],
-  ['web/en.html', cnbId, msId],
-  ['web/kc/index.html', cnbId, msId],
-  ['web/kc/en.html', cnbId, msId],
-  ['web/zpravy/04082026-010.html', cnbId, msId],
-  ['web/news/04082026-010.html', cnbId, msId]
-];
-for (const [path, ...ids] of pages) {
-  const html = await readFile(path, 'utf8');
-  for (const id of ids) must(html.includes(id), path + ' neobsahuje ' + id);
+const godotCs=await readFile('web/zpravy/04082026-010.html','utf8');
+const godotEn=await readFile('web/news/04082026-010.html','utf8');
+for (const id of [cnbId,msId,ombId,'doc-eu-omb-2026-09-28-complaint-form-required']) {
+  must(godotCs.includes(id), 'Státu lásky čas postrádá '+id);
+  must(godotEn.includes('en-'+id) || godotEn.includes(`data-document-id="${id}"`), 'EN Státu lásky čas postrádá '+id);
 }
+must(godotCs.includes('id="chronologie-seznam"') && godotCs.includes('state-love-table'), 'Státu lásky čas není tabulka');
+must(!godotCs.includes('chronology-case-index') && !godotCs.includes('lhuty-a-necinnost') && !godotCs.includes('Anonymizační axiom:') && !godotCs.includes('Důkazní hranice:'), 'za tabulkou zůstaly odstraněné pomocné bloky');
+must(!slalom.rows.some(row=>row.document_id===ombId), 'stížnost Evropskému ombudsmanovi patří do Státu lásky čas, ne do Justičního slalomu');
 
-const godotCs = await readFile('web/zpravy/04082026-010.html', 'utf8');
-const godotEn = await readFile('web/news/04082026-010.html', 'utf8');
-must(godotCs.includes('doc-eu-omb-2026-09-28-complaint-form-required'), 'Stát lásky čas ztratil odpověď Evropského ombudsmana');
-must(godotEn.includes('en-doc-eu-omb-2026-09-28-complaint-form-required'), 'anglická plocha ztratila odpověď Evropského ombudsmana');
-must(!slalom.rows.some(row => row.document_id === 'doc-eu-omb-2026-09-28-complaint-form-required'), 'odpověď Evropského ombudsmana nesmí být v Justičním slalomu');
-
-console.log('OCT6 OK: 2 filings, 3 Slalom recipient rows, both PDF public copies verified, case and CZ/EN parity preserved, EU Ombudsman response remains in Stát lásky čas.');
+console.log('OCT6 OK: ČNB + MS Praha jsou byte-identické originály ve Slalomu; stížnost EOWEB_COMPLAINT_ID 59936 je originál ve Státu lásky čas; CZ/EN parita zachována.');

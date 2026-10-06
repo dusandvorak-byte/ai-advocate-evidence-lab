@@ -85,7 +85,7 @@ for (const doc of entries) {
   }
 }
 rows.sort((a, b) => b.date.localeCompare(a.date) || b.archive_number - a.archive_number || a.recipient_order - b.recipient_order);
-rows.forEach((row, index) => { row.number = index + 1; });
+rows.forEach((row, index) => { row.number = rows.length - index; });
 if (new Set(rows.map(row => row.id)).size !== rows.length) throw new Error('JUSTICE-SLALOM: duplicitní řádek adresáta');
 if (entries.length < 47 || rows.length < 65) throw new Error(`JUSTICE-SLALOM: očekáváno nejméně 47 originálů a 65 adresátů, nalezeno ${entries.length}/${rows.length}`);
 

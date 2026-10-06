@@ -128,7 +128,8 @@ jobs:
           ! grep -q 'Předžalobní řízení on-line od 1. května 2026' web/live-dockets.js
           ! grep -q 'Státní láska online od 1. května 2026' web/live-dockets.js
           grep -q '<script src="live-dockets.js" defer></script>' web/index.html
-          grep -q 'Naše podání, na které orgán reaguje' web/zpravy/04082026-010.html
+          grep -q 'state-love-table' web/zpravy/04082026-010.html
+          grep -q 'doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936' web/zpravy/04082026-010.html
           grep -q 'grid-auto-columns:minmax(0,1fr)' web/layout-fix.css
           grep -q 'grid-template-columns:260px minmax(0,1fr)' web/live-dockets.css
           grep -q 'grid-template-columns:repeat(3,minmax(0,1fr))' web/live-dockets.css
@@ -312,8 +313,8 @@ jobs:
               && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf' /tmp/live-index.html \
               && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf' /tmp/live-index.html \
               && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf' /tmp/live-index.html \
-              && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy-verejna-kopie.pdf' /tmp/live-index.html \
-              && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava-verejna-kopie.pdf' /tmp/live-index.html; then
+              && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf' /tmp/live-index.html \
+              && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava.pdf' /tmp/live-index.html; then
               break
             fi
             if [ "$attempt" -eq 12 ]; then
@@ -394,10 +395,11 @@ jobs:
           fetch_pdf_until_sha "documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf" "web/documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf" /tmp/live-ms191.pdf
           fetch_pdf_until_sha "documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf" "web/documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf" /tmp/live-a17-reaction-1004.pdf
           fetch_pdf_until_sha "documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf" "web/documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf" /tmp/live-chronology-1004.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy-verejna-kopie.pdf" "web/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy-verejna-kopie.pdf" /tmp/live-key-evidence-1004.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava-verejna-kopie.pdf" "web/documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava-verejna-kopie.pdf" /tmp/live-ks-ostrava-1004.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank-verejna-kopie.pdf" "web/documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank-verejna-kopie.pdf" /tmp/live-cnb-1006.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23-verejna-kopie.pdf" "web/documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23-verejna-kopie.pdf" /tmp/live-ms-1006.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf" "web/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf" /tmp/live-key-evidence-1004.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava.pdf" "web/documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava.pdf" /tmp/live-ks-ostrava-1004.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank.pdf" "web/documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank.pdf" /tmp/live-cnb-1006.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf" "web/documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf" /tmp/live-ms-1006.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf" "web/documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf" /tmp/live-eu-ombudsman-1006.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf$stamp" -o /tmp/live-ms186.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/108-ncoz-4346-2-cj-2026-410012-2026-05-20.pdf$stamp" -o /tmp/live-ncoz.pdf
           fetch_pdf_until_sha "documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf" "web/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf" /tmp/live-euda-1001.pdf
@@ -417,6 +419,7 @@ jobs:
           test "$(head -c 5 /tmp/live-a17-reaction-1004.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-cnb-1006.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ms-1006.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-eu-ombudsman-1006.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ms186.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ncoz.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-euda-1001.pdf)" = '%PDF-'
@@ -434,14 +437,17 @@ jobs:
           test "$(sha256sum /tmp/live-prima-1002.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf | cut -d' ' -f1)"
           test "$(sha256sum /tmp/live-ms191.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf | cut -d' ' -f1)"
           test "$(sha256sum /tmp/live-a17-reaction-1004.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf | cut -d' ' -f1)"
-          test "$(sha256sum /tmp/live-cnb-1006.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank-verejna-kopie.pdf | cut -d' ' -f1)"
-          test "$(sha256sum /tmp/live-ms-1006.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23-verejna-kopie.pdf | cut -d' ' -f1)"
+          test "$(sha256sum /tmp/live-cnb-1006.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank.pdf | cut -d' ' -f1)"
+          test "$(sha256sum /tmp/live-ms-1006.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf | cut -d' ' -f1)"
+          test "$(sha256sum /tmp/live-eu-ombudsman-1006.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf | cut -d' ' -f1)"
           grep -q 'doc-cz-ks-brn-2026-09-03-9-to-315-2026-140' /tmp/live-current-article.html
           grep -q 'doc-cz-ekk-2026-10-02-os-praha10-ftv-prima-doplneni-zaloby' /tmp/live-current-article.html
           grep -q 'doc-cz-ms-pha-2026-10-02-18-a-17-2026-191' /tmp/live-current-article.html
           grep -q 'doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce' /tmp/live-current-article.html
           grep -q 'doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet' /tmp/live-current-article.html
           grep -q 'doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni' /tmp/live-current-article.html
+          grep -q 'doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936' /tmp/live-current-article.html
+          grep -q 'state-love-table' /tmp/live-current-article.html
           grep -q 'en-doc-cz-ks-brn-2026-09-03-9-to-315-2026-140' /tmp/live-current-article-en.html
           grep -q 'en-doc-cz-ekk-2026-10-02-os-praha10-ftv-prima-doplneni-zaloby' /tmp/live-current-article-en.html
           grep -q 'en-doc-cz-ms-pha-2026-10-02-18-a-17-2026-191' /tmp/live-current-article-en.html

@@ -118,11 +118,15 @@ if (!home.includes('id="procesni-casovace"')) throw new Error('Mezikrok buildu n
 if (!article.includes('id="procesni-casovace"')) throw new Error('Mezikrok Godota neobsahuje procesní historii před finálním nahrazením');
 if (!article.includes(correctTitle)) throw new Error('Článek neobsahuje správný Godotův název');
 if (article.includes(wrongTitle)) throw new Error('Článek obsahuje chybný název s křižákem z Branibor');
-if (!article.includes('id="chronologie-seznam"')) throw new Error('Článek neobsahuje statickou chronologii');
+if (!article.includes('id="chronologie-seznam"') || !article.includes('state-love-table')) throw new Error('Článek neobsahuje tabulku Státu lásky čas');
 if (/aktivní originály/i.test(article)) throw new Error('Článek obsahuje samostatný blok aktivních originálů');
 if (/href=["']web\/documents\//i.test(article)) throw new Error('Ve veřejném HTML zůstal prefix web/documents/');
-const chronologyCount = (article.match(/<li id="doc-[^"]*"/g) || []).length;
-if (chronologyCount !== expectedStateCount) throw new Error(`Rozpor chronologie: Godot ${chronologyCount}, státní a veřejné listiny ${expectedStateCount}`);
+const expectedChronologyCount = documentsRegistry.documents.filter(item =>
+  item.issue_date >= '2026-05-01' &&
+  (item.submission_side === 'incoming_from_state_or_public_institution' || item.submission_side === 'outgoing_from_user_or_alliance' || item.document_type === 'state_record')
+).length;
+const chronologyCount = (article.match(/<tr id="doc-[^"]*" data-state-love-id=/g) || []).length;
+if (chronologyCount !== expectedChronologyCount) throw new Error(`Rozpor tabulky Státu lásky čas: ${chronologyCount}/${expectedChronologyCount}`);
 if (!article.includes(`Stát: ${expectedStateCount} evidovaných listin`)) throw new Error(`Godot neobsahuje odvozený státní počet ${expectedStateCount}`);
 if (!home.includes('id="latest-records"')) throw new Error('Titulní stránka neobsahuje synchronizované nejnovější listiny');
 if (!article.includes('process-chain-strip')) throw new Error('Godot neobsahuje nové široké procesní řetězce');

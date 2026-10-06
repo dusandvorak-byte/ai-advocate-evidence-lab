@@ -82,7 +82,8 @@ if (liveDockets.includes('Předžalobní řízení on-line od 1. května 2026') 
 if (liveDockets.includes("document.getElementById('latest-records')?.remove()")) throw new Error('RUNTIME-GATE: live-dockets.js odstraňuje synchronizovaný blok nejnovějších listin');
 if (/Chronologický seznam \d+ listin sbírky Godot/i.test(newsFeed) || /chronological list of \d+ public records in the Godot/i.test(newsFeed)) throw new Error('NEWS-FEED-GATE: sdílený feed obsahuje ručně zapsaný počet Godota');
 const article = await readFile('web/zpravy/04082026-010.html', 'utf8');
-if (!/<li\b[^>]*\bid="doc-[^"]+"[^>]*><b>Datum:<\/b>/.test(article)) throw new Error('Finální chronologie nezačíná Datem');
+if (!/<table\b[^>]*\bid="chronologie-seznam"[^>]*class="state-love-table"/.test(article)) throw new Error('Finální Státu lásky čas není tabulka');
+if (!/<tr\b[^>]*\bid="doc-[^"]+"[^>]*data-row-number="\d+"[^>]*data-issue-date="[^"]+"/.test(article)) throw new Error('Finální tabulka Státu lásky čas nemá číslované dokumenty');
 
 const requireText = (name, text, needle) => {
   if (!text.includes(needle)) throw new Error(`PRODUCTION-GATE ${name}: chybí ${JSON.stringify(needle)}`);

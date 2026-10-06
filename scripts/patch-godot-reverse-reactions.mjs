@@ -1,53 +1,45 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 
 const registryPath = 'project-memory/documents-2026.json';
 const articlePath = 'web/zpravy/04082026-010.html';
 const registry = JSON.parse(await readFile(registryPath, 'utf8'));
 const documents = Array.isArray(registry.documents) ? registry.documents : [];
 const byId = new Map(documents.map(item => [item.id, item]));
-
-const escapeHtml = value => String(value ?? '')
-  .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
-  .replaceAll('"', '&quot;').replaceAll("'", '&#39;');
-const formatDate = value => {
-  if (!value) return 'datum neuvedeno';
-  const [y,m,d] = String(value).split('-');
-  return `${Number(d)}. ${Number(m)}. ${y}`;
-};
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 const isOutgoing = item => item?.submission_side === 'outgoing_from_user_or_alliance';
 const isState = item => item?.submission_side === 'incoming_from_state_or_public_institution' || item?.document_type === 'state_record';
 
-let article = await readFile(articlePath, 'utf8');
-let injected = 0;
-const generatedFragments = [];
+const article = await readFile(articlePath, 'utf8');
+if (!article.includes('id="chronologie-seznam"') || !article.includes('state-love-table')) {
+  throw new Error('REVERSE-REACTION-GATE: Státu lásky čas není tabulka');
+}
+
+let checked = 0;
 for (const state of documents.filter(isState)) {
   const sources = (state.relations || [])
     .filter(rel => (rel.type || rel.relation_type) === 'reakce_na')
     .map(rel => byId.get(rel.target_id || rel.document_id || rel.target))
     .filter(isOutgoing);
   if (!sources.length) continue;
-  const needle = `<li id="${state.id}"`;
-  const start = article.indexOf(needle);
-  if (start < 0) throw new Error(`V Godotovi chybí státní uzel ${state.id}`);
-  const end = article.indexOf('</li>', start);
-  if (end < 0) throw new Error(`Uzel ${state.id} nemá </li>`);
-  let block = article.slice(start, end);
-  block = block.replace(/<span class="chronology-reaction chronology-reaction-source">[\s\S]*?<\/span>/g, '');
-  const extra = sources.map(source => {
-    const pdf = source.public?.pdf ? publicPath(source.public.pdf) : null;
-    const href = pdf || `listiny/${source.id}.html`;
-    const label = pdf ? 'Dokument v PDF' : 'Evidenční stránka';
-    const target = pdf ? ' target="_blank" rel="noopener"' : '';
-    return `<span class="chronology-reaction chronology-reaction-source"> · <b>Naše podání, na které orgán reaguje ${escapeHtml(formatDate(source.issue_date))}:</b> ${escapeHtml(source.user_title)} · <a href="${escapeHtml(href)}"${target}>${label}</a></span>`;
-  }).join('');
-  generatedFragments.push(extra);
-  article = article.slice(0, start) + block + extra + article.slice(end);
-  injected += sources.length;
+
+  const stateMarker = `<tr id="${state.id}"`;
+  if (!article.includes(stateMarker)) throw new Error(`REVERSE-REACTION-GATE: chybí tabulkový řádek státu ${state.id}`);
+
+  for (const source of sources) {
+    const sourceMarker = `<tr id="${source.id}"`;
+    if (!article.includes(sourceMarker)) throw new Error(`REVERSE-REACTION-GATE: chybí tabulkový řádek navazujícího podání ${source.id}`);
+    if (source.public?.pdf) {
+      const start = article.indexOf(sourceMarker);
+      const end = article.indexOf('</tr>', start);
+      if (end < 0) throw new Error(`REVERSE-REACTION-GATE: neuzavřený tabulkový řádek ${source.id}`);
+      const row = article.slice(start, end + 5);
+      const pdf = publicPath(source.public.pdf);
+      if (!row.includes(`href="${pdf}"`) && !row.includes(`href='${pdf}'`)) {
+        throw new Error(`REVERSE-REACTION-GATE: podání ${source.id} nemá v tabulce kanonický PDF odkaz ${pdf}`);
+      }
+    }
+    checked += 1;
+  }
 }
-const generated = generatedFragments.join('');
-const generatedLabels = [...generated.matchAll(/<a\b[^>]*>([^<]+)<\/a>/g)].map(match => match[1].trim());
-const invalidLabels = generatedLabels.filter(label => !['Dokument v PDF', 'Evidenční stránka'].includes(label));
-if (invalidLabels.length) throw new Error(`REVERSE-REACTION-GATE: nepovolené veřejné popisky: ${[...new Set(invalidLabels)].join(', ')}`);
-await writeFile(articlePath, article, 'utf8');
-console.log(`Godot: doplněno ${injected} opačných vazeb stát → naše předchozí podání; nově vložené vazby používají pouze Dokument v PDF / Evidenční stránka.`);
+
+console.log(`Godot tabulka: ověřeno ${checked} opačných vztahových vazeb stát → naše podání; nic se neinjektuje mimo tabulku.`);

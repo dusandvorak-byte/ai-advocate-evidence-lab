@@ -14,7 +14,7 @@ const en = await readFile('web/news/04082026-010.html', 'utf8');
 
 const d = docs.find(x => x.id === id);
 if (!d) fail('chybí kanonický záznam');
-if (d.issue_date !== '2026-09-28' || d.received_date !== '2026-09-28') fail('nesprávné datum');
+if (d.issue_date !== '2026-09-28' || d.received_date !== '2026-10-06') fail('nesprávné datum vydání/doručení; odpověď je z 28. 9. a doručena 6. 10.');
 if (d.institution_id !== 'EU-OMB' || d.document_type !== 'state_record') fail('nesprávná instituce nebo typ');
 if (d.submission_side !== 'incoming_from_state_or_public_institution') fail('nesprávná klasifikace');
 if (!d.case_ids?.includes(caseId)) fail('chybí procesní větev');
@@ -27,10 +27,10 @@ for (const complaintId of [enComplaint, csComplaint]) {
   if (!complaint?.case_ids?.includes(caseId)) fail(`stížnost není v procesní větvi: ${complaintId}`);
 }
 const c = cases.find(x => x.id === caseId);
-if (!c || c.institution_id !== 'EU-OMB' || c.opened_on !== '2026-09-27' || c.last_filing_document_id !== id) fail('procesní větev není úplná');
+if (!c || c.institution_id !== 'EU-OMB' || c.opened_on !== '2026-09-27' || c.last_filing_document_id !== 'doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936' || !c.related_document_ids?.includes(id)) fail('procesní větev není úplná po následném formulářovém podání 6. 10.');
 
 if (!cz.includes(`id="${id}"`) || !cz.includes('Evropský ombudsman')) fail('český Stát lásky čas neobsahuje záznam');
 if (!en.includes(`id="en-${id}"`) || !en.includes('European Ombudsman')) fail('anglický Godot neobsahuje záznam');
 if (slalom.rows.some(x => x.document_id === id)) fail('příchozí odpověď ombudsmana nesmí být položkou Justičního slalomu');
 
-console.log('Evropský ombudsman 28. 9. 2026 OK: procesní odpověď, vazba na stížnost, case a CZ/EN Godot.');
+console.log('Evropský ombudsman 28. 9. 2026 OK: vydáno 28. 9., doručeno 6. 10., chronologicky vedeno k 28. 9.; následná stížnost 6. 10. zachována v case.');

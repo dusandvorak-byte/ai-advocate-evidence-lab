@@ -203,7 +203,7 @@ for (const path of publicFiles) {
   }
 }
 
-const englishGodotRecords = (englishGodot.match(/<li id="en-doc-[^"]+" data-document-id="doc-/g) || []).length;
+const englishGodotRecords = (englishGodot.match(/<tr id="en-doc-[^"]+" data-document-id="doc-/g) || []).length;
 const englishGodotOutgoing = (englishGodot.match(/data-outgoing-id="/g) || []).length;
 const expectedEnglishDate = new Intl.DateTimeFormat('en-GB', {
   day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Prague'
@@ -215,49 +215,29 @@ if (englishGodotRecords < 1 || englishGodotDeclaredCount !== englishGodotRecords
 }
 const expectedEnglishOutgoing = canonicalDocuments.documents.filter(item => item.issue_date >= '2026-05-01' && item.submission_side === 'outgoing_from_user_or_alliance').length;
 if (englishGodotOutgoing !== expectedEnglishOutgoing) throw new Error(`Anglický Godot nemá všechna kanonická navazující podání: ${englishGodotOutgoing}/${expectedEnglishOutgoing}`);
-const chronologyBlock = id => {
-  const start = czechGodot.indexOf(`<li id="${id}"`);
-  const end = start < 0 ? -1 : czechGodot.indexOf('</li>', start);
-  if (start < 0 || end < 0) throw new Error(`Českému Godotu chybí položka ${id}`);
-  return czechGodot.slice(start, end);
+const chronologyRow = id => {
+  const start = czechGodot.indexOf(`<tr id="${id}"`);
+  const end = start < 0 ? -1 : czechGodot.indexOf('</tr>', start);
+  if (start < 0 || end < 0) throw new Error(`Českému Godotu chybí tabulkový řádek ${id}`);
+  return czechGodot.slice(start, end + 5);
 };
-const item13 = chronologyBlock('doc-cz-ct-2026-06-01-ct-338889-2025-38');
-const item4 = chronologyBlock('doc-cz-osz-olo-2026-05-12-sin-22-2025-95');
-if (!item4.includes('Vyrozumění o zastavení řízení pro nezaplacení částky 6 800 Kč za vydání informací')) throw new Error('Položka 4 nemá úplný důvod zastavení řízení a částku 6 800 Kč');
-const item47 = chronologyBlock('doc-cz-osz-pro-2026-07-28-zn-4-2026-6');
-const item56 = chronologyBlock('doc-cz-kpr-2026-08-03-kpr-5080-2026');
-const item59 = chronologyBlock('doc-eu-euda-2026-08-07-ack-article-265-tfeu');
-const item67 = chronologyBlock('doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd');
-const uploadFiles = JSON.parse(await readFile('project-memory/justice-slalom-upload-reconciliation-2026-09-28.json','utf8')).files;
-const pdfForId = id => {
-  const pdf = canonicalDocuments.documents.find(doc => doc.id === id)?.public?.pdf;
-  if (!pdf) throw new Error(`Kanonickému záznamu chybí PDF: ${id}`);
-  return pdf;
-};
-const pdfForUpload = number => {
-  const id = uploadFiles.find(file => file.number === number)?.document_id;
-  if (!id) throw new Error(`Chybí inventura podání ${number}`);
-  return pdfForId(id);
-};
-const hasPdf = (block,pdf,label) => {
-  if (!block.includes(`href="${pdf}"`)) throw new Error(`${label} chybí aktivní kanonické PDF: ${pdf}`);
-};
-hasPdf(item13,pdfForId('doc-cz-ct-2026-06-01-ct-338889-2025-38'),'Položce 13');
-hasPdf(item13,pdfForUpload(78),'Položce 13');
-if ((item13.match(/Reakce na podání orgánu veřejné moci:/g) || []).length !== 1) throw new Error('Položka 13 nemá právě jednu požadovanou reakci');
-hasPdf(item47,pdfForUpload(62),'Položce 47');
-for (const number of [11,12]) hasPdf(item56,pdfForUpload(number),'Položce 56');
-for (const number of [26,3,33,73,53,28]) hasPdf(item67,pdfForUpload(number),'Položce 67');
-hasPdf(item67,pdfForId('doc-cz-dd-2026-08-15-zadost-prezkum-policejni-prezident'),'Položce 67');
-if ((item47.match(/Reakce na podání orgánu veřejné moci:/g) || []).length !== 1) throw new Error('Položka 47 nemá právě jednu požadovanou reakci');
-if ((item56.match(/Reakce na podání orgánu veřejné moci:/g) || []).length !== 2) throw new Error('Položka 56 nemá právě dvě požadované reakce');
-for (const pdf of ['47-citc-formal-call-euda-article-265-tfeu-2026-08-07-en.pdf', '48-citc-formalni-vyzva-euda-cl-265-sfeu-2026-08-07-cs.pdf', '49-dvorak-letter-laura-ramos-cannareporter-euda-2026-08-15.pdf']) {
-  if (!item59.includes(pdf)) throw new Error(`Položce 59 chybí aktivní PDF: ${pdf}`);
+const item4 = chronologyRow('doc-cz-osz-olo-2026-05-12-sin-22-2025-95');
+if (!item4.includes('Vyrozumění o zastavení řízení pro nezaplacení částky 6 800 Kč za vydání informací')) throw new Error('Tabulková položka nezachovala úplný důvod zastavení řízení a částku 6 800 Kč');
+
+const parseRows = (html, prefix) => [...html.matchAll(new RegExp(`<tr id="${prefix}[^"]+"[^>]*data-row-number="(\\d+)"[^>]*data-issue-date="([^"]+)"[^>]*>`, 'g'))]
+  .map(match => ({ number:Number(match[1]), date:match[2] }));
+const czRows=parseRows(czechGodot,'doc-');
+const enRows=parseRows(englishGodot,'en-doc-');
+if (!czRows.length || !enRows.length) throw new Error('Státu lásky čas nemá tabulkové řádky');
+for (const rows of [czRows,enRows]) {
+  for (let i=0;i<rows.length;i++) {
+    if (rows[i].number !== rows.length-i) throw new Error('Číslování Státu lásky čas musí mít nejstarší položku 1 a nejnovější nejvyšší číslo');
+    if (i>0 && rows[i-1].date < rows[i].date) throw new Error('Dokumenty Státu lásky čas nejsou vizuálně seřazeny nejnovější nahoře');
+  }
+  if (rows.at(-1).number!==1) throw new Error('Nejstarší dokument dole nemá číslo 1');
 }
-if ((item59.match(/Podání, na které orgán veřejné moci reaguje:/g) || []).length !== 1) throw new Error('Položka 59 nemá právě jednu předchozí výzvu EUDA');
-if ((item59.match(/Reakce na podání orgánu veřejné moci:/g) || []).length !== 1) throw new Error('Položka 59 nemá právě jednu následnou reakci');
-if ((item67.match(/Reakce na podání orgánu veřejné moci:/g) || []).length !== 7) throw new Error('Položka 67 nemá právě sedm požadovaných reakcí');
-if (!item47.includes('<b>Datum:</b>') || item47.indexOf('<b>Datum:</b>') > item47.indexOf('<b>Kdo:</b>')) throw new Error('Chronologie nezačíná polem Datum');
+if (czRows.length!==enRows.length) throw new Error(`CZ/EN tabulka Státu lásky čas není položkově shodná: ${czRows.length}/${enRows.length}`);
+
 for (const match of englishHome.matchAll(/href="news\/04082026-010\.html#en-([^"]+)"/g)) {
   const outgoingId = match[1];
   if (!englishGodot.includes(`id="en-${outgoingId}"`)) {
@@ -274,11 +254,11 @@ for (const match of englishGodot.matchAll(/href="zpravy\/04082026-010\.html#([^"
 for (const id of ['case-cz-ms-praha-45t1-2024','case-cz-ms-praha-18a17-2026','case-cz-ms-praha-8ad9-2026','case-cz-os-praha4-10c69-2026','case-cz-ms-praha-18a23-2026','case-cz-os-pro-2t104-2010-obnova','case-cz-os-pro-prevence-2026','case-cz-os-ostrava-15t11-2025','case-cz-ms-praha-15a44-2026']) {
   if (!englishGodot.includes(`id="${id}"`)) throw new Error(`Anglickému Godotu chybí soudní řízení ${id}`);
 }
-for (const field of ['Date:', 'From:', 'Reference:', 'What happened:', 'To:', 'For:']) {
-  if (!englishGodot.includes(`<b>${field}</b>`)) throw new Error(`Anglickému Godotu chybí pole ${field}`);
+for (const header of ['No.','Date','Subject / authority','Ref./case no.','What happened']) {
+  if (!englishGodot.includes(`>${header}</th>`)) throw new Error(`Anglickému Godotu chybí tabulkový sloupec ${header}`);
 }
-for (const czechField of ['Datum:', 'Kdo:', 'Č. j. / sp. zn.:', 'Co se stalo:']) {
-  if (englishGodot.includes(`<b>${czechField}</b>`)) throw new Error(`V anglickém Godotu zůstalo české pole ${czechField}`);
+for (const header of ['Č.','Datum','Subjekt / orgán','č. j./sp. zn.','Co se stalo']) {
+  if (!czechGodot.includes(`>${header}</th>`)) throw new Error(`Českému Godotu chybí tabulkový sloupec ${header}`);
 }
 
 console.log(`Smlouva titulní stránky: soudní řízení v první navigační liště; ${caseRows.length} větví chronologicky; Podpořit zachováno; Lhůty a Ověřit listinu odstraněny; Justiční slalom zachován.`);

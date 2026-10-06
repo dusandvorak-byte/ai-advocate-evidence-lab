@@ -2,7 +2,7 @@
   "schema_version": "1.1",
   "status": "binding",
   "effective_from": "2026-07-18",
-  "recorded_on": "2026-08-10",
+  "recorded_on": "2026-10-06",
   "purpose": "Trvalá paměť pravidel tvorby CannaInsider.EU a Church of Cannabis a zákaz opakování chyb zjištěných od zahájení tvorby webů 18. 7. 2026.",
   "mandatory_work_algorithm": [
     "1. PŘED JAKOUKOLI PRACÍ načíst a rešeršovat aktuální project-memory/publication-axioms.json, project-memory/web-development-axioms-and-error-memory.json, project-memory/project-goals.json a další registry přímo relevantní k úkolu.",
@@ -104,11 +104,15 @@
     },
     {
       "id": "justice-slalom-numbered-recipient-rows",
-      "text": "Veřejná lišta Justiční slalom je odvozena z kanonických podání na čtyřech jazykových plochách a obou Godotových článcích. Od 1. 10. 2026 jsou řádky vždy sestupně podle doloženého data podání, nejnovější nahoře, a číslování začíná 1 u nejnovějšího řádku; každý adresát má jeden samostatný řádek a právě jeden PDF odkaz, který se smí opakovat. U data se nezobrazují vysvětlující poznámky. Na žádné veřejné HTML stránce nesmí zůstat obsah živého časovače. Toto pravidlo výslovně nahrazuje dřívější vzestupné řazení."
+      "text": "Veřejná lišta Justiční slalom je odvozena z kanonických podání na čtyřech jazykových plochách a obou Godotových článcích. Řádky jsou veřejně vždy sestupně podle doloženého data podání, nejnovější nahoře a nejstarší dole. Číslo řádku je však chronologické pořadové číslo: nejstarší řádek dole má číslo 1 a čísla směrem k novějším dokumentům rostou; nejnovější řádek nahoře proto nese nejvyšší číslo. Každý adresát má jeden samostatný řádek a právě jeden PDF odkaz, který se smí opakovat. Je-li k dispozici uživatelem dodaný originální PDF soubor, musí být veřejně použit byte-identický originál a nesmí být nahrazen odvozenou kopií. U data se nezobrazují vysvětlující poznámky. Na žádné veřejné HTML stránce nesmí zůstat obsah živého časovače."
     },
     {
       "id": "primary-nav-and-sister-sites",
       "text": "První navigace CannaInsider.EU: Právě teď → automaticky nejnovější publikovaný článek; Archiv zpráv; Aktivní soudní řízení; Podpořit. Lhůty a Ověřit listinu nejsou v první liště. CannaInsider a Konopná církev se navzájem viditelně odkazují a obě odkazují na Konopí je lék.cz; soudní položky uvádějí plné názvy a známé spisové značky."
+    },
+    {
+      "id": "state-love-table-mirrors-slalom",
+      "text": "Státu lásky čas používá tabulkový vizuál Justičního slalomu. Řazení vychází z issue_date, tedy doloženého data dokumentu; received_date se eviduje odděleně a ani pozdní doručení nesmí listinu přesunout mezi dnešní dokumenty. Pořadí řádků se nepřevrací: nejnovější dokument je vždy nahoře, nejstarší dole. Převrací se pouze pořadová čísla, takže nejstarší řádek má 1 a nejnovější nejvyšší číslo. Za tabulkou se nesmějí regenerovat Uzly řízení, Lhůty a nečinnost, Anonymizační axiom ani Důkazní hranice."
     }
   ],
   "error_memory_since_2026_07_18": [
@@ -167,6 +171,14 @@
     {
       "id": "error-public-date-discrepancy-notes-in-justice-slalom",
       "lesson": "Datum doložené podáním zůstává ověřeno v interní evidenci, ale vysvětlující poznámky o rozdílu mezi PDF, názvem souboru a evidencí nesmějí být vloženy do veřejných řádků archivu. Generátor je nesmí vydat do CZ/EN HTML ani JSON; terminální brána porovnává vzestupné pořadí se zdrojovým registrem a odmítá poznámky na všech šesti stránkách."
+    },
+    {
+      "id": "error-reversed-display-instead-of-numbering",
+      "lesson": "Při požadavku na chronologické číslování bylo snadné zaměnit pořadí zobrazení za pořadové číslo. Závazná oprava: vizuálně zůstává nejnovější nahoře a nejstarší dole; pouze čísla běží od 1 u nejstaršího dokumentu směrem k nejvyššímu číslu u nejnovějšího."
+    },
+    {
+      "id": "error-late-receipt-misorders-chronology",
+      "lesson": "Pozdě doručená listina nesmí být ve veřejné chronologii zařazena podle dne, kdy byla získána. Kanonické řazení používá doložené datum dokumentu issue_date; received_date zůstává samostatným procesním údajem. Automatická brána musí umět ověřit případ, kdy received_date > issue_date."
     }
   ],
   "definition_of_done": [

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.7",
   "status": "binding",
-  "updated_on": "2026-10-01",
+  "updated_on": "2026-10-06",
   "axioms": [
     {
       "id": "identity-author-alliance",
@@ -125,7 +125,7 @@
     },
     {
       "id": "justice-slalom-publication",
-      "text": "Od 1. 10. 2026 veřejné titulní stránky CZ/EN CannaInsider a Konopné církve a oba Godotovy články obsahují místo živých procesních časovačů rozbalovací lištu Justiční slalom od 1. července 2026. Jediný kanonický registr odvozuje souvisle číslované řádky sestupně podle doloženého data podání, tedy nejnovější nahoře; každý skutečný adresát včetně adresáta na vědomí má vlastní řádek Datum, Adresát, č. j./sp. zn., Předmět a právě jeden aktivní odkaz na původní PDF nebo pravdivě označenou veřejnou kopii. Stejné PDF lze odkázat z více řádků bez duplikace kanonického dokumentu. Původní PDF se nemění; rozdíly mezi původním PDF, názvem souboru a datem evidence zůstávají pouze v interní chybové paměti a veřejný archiv nevypisuje poznámky k datům. Toto pravidlo výslovně nahrazuje starší pravidlo vzestupného řazení."
+      "text": "Od 1. 10. 2026 veřejné titulní stránky CZ/EN CannaInsider a Konopné církve a oba Godotovy články obsahují místo živých procesních časovačů rozbalovací lištu Justiční slalom od 1. července 2026. Jediný kanonický registr odvozuje souvisle číslované adresátské řádky a veřejně je zobrazuje sestupně podle doloženého data podání, tedy nejnovější nahoře a nejstarší dole. Číslování však vyjadřuje chronologické pořadí vzniku: nejstarší řádek má číslo 1 a s každým novějším řádkem číslo roste, takže nejnovější položka nahoře má nejvyšší číslo. Každý skutečný adresát včetně adresáta na vědomí má vlastní řádek Datum, Adresát, č. j./sp. zn., Předmět a právě jeden aktivní odkaz na původní PDF nebo pravdivě označenou veřejnou kopii. Je-li uživatelem dodáno originální PDF a jeho binární podoba je dostupná, publikuje se byte-identický originál beze změny a nesmí být nahrazen veřejnou kopií. Stejné PDF lze odkázat z více řádků bez duplikace kanonického dokumentu. Původní PDF se nemění; rozdíly mezi původním PDF, názvem souboru a datem evidence zůstávají pouze v interní chybové paměti a veřejný archiv nevypisuje poznámky k datům."
     },
     {
       "id": "cannainsider-primary-navigation",
@@ -134,6 +134,10 @@
     {
       "id": "public-sister-site-crosslinks",
       "text": "CannaInsider.EU CZ/EN a Konopná církev / Church of Cannabis CZ/EN mají viditelné vzájemné odkazy a odkaz na Konopí je lék.cz. U každé položky aktivních soudních řízení je uvedeno, že žaloby na státní orgány a návrhy na obnovu řízení jsou v záhlaví Konopí je lék.cz ke stažení, přičemž název Konopí je lék.cz je vždy zřetelný aktivní odkaz na https://www.konopijelek.cz/. Přehled soudů používá plné názvy a všechny doložené spisové značky aktuální a bezprostředně předchozí fáze."
+    },
+    {
+      "id": "state-love-table-publication",
+      "text": "Státu lásky čas se veřejně zobrazuje jako tabulka ve stejném vizuálním systému jako Justiční slalom. Dokumenty se řadí primárně podle doloženého data vydání / data dokumentu (issue_date), nikoli podle dne, kdy byly dodatečně doručeny nebo získány; pozdější received_date je samostatná procesní metadata a nesmí dokument přesunout na dnešní datum. Vizuálně zůstává nejnovější dokument nahoře a nejstarší dole; obrací se pouze číslování, takže nejstarší dokument dole má číslo 1 a nejnovější dokument nahoře nejvyšší číslo. Tabulka obsahuje Datum, Subjekt / orgán, č. j./sp. zn., popis děje a odkaz na dokument. Za touto tabulkou se nezobrazují pomocné bloky Uzly řízení, Lhůty a nečinnost, Anonymizační axiom ani Důkazní hranice. Procesní data mohou zůstat interně evidována, ale nesmějí tento veřejný konec článku znovu vytvářet."
     }
   ]
 }

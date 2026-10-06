@@ -24,8 +24,17 @@ for (const marker of staleStartCandidates) {
 
 if (staleStart >= 0) {
   const deadlinesStart = html.indexOf(deadlines, staleStart);
-  if (deadlinesStart < 0) throw new Error('Godot: nalezen duplicitní blok časovačů, ale chybí sekce lhůt');
-  html = html.slice(0, staleStart) + html.slice(deadlinesStart);
+  if (deadlinesStart >= 0) {
+    html = html.slice(0, staleStart) + html.slice(deadlinesStart);
+  } else {
+    // Veřejný blok "Lhůty a nečinnost" byl záměrně odstraněn. Starý duplicitní
+    // obsah za vygenerovaným timer blokem je tedy terminální legacy obsah článku
+    // a musí zmizet až k uzavření article-body.
+    const footerStart = html.indexOf('<footer', staleStart);
+    const articleClose = footerStart >= 0 ? html.lastIndexOf('</article>', footerStart) : html.lastIndexOf('</article>');
+    if (articleClose < staleStart) throw new Error('Godot: nalezen duplicitní blok časovačů bez bezpečné koncové kotvy článku');
+    html = html.slice(0, staleStart) + html.slice(articleClose);
+  }
 }
 
 const occurrences = marker => (html.match(new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g')) || []).length;

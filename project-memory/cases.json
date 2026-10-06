@@ -339,10 +339,12 @@
       "related_document_ids": [
         "doc-en-dd-2026-09-27-slalom-augsep-081",
         "doc-cs-dd-2026-09-27-slalom-augsep-083",
-        "doc-eu-omb-2026-09-28-complaint-form-required"
+        "doc-eu-omb-2026-09-28-complaint-form-required",
+        "doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936",
+        "doc-eu-euda-2026-10-01-access-documents-1049-2001"
       ],
-      "last_filing_on": "2026-09-28",
-      "last_filing_document_id": "doc-eu-omb-2026-09-28-complaint-form-required"
+      "last_filing_on": "2026-10-06",
+      "last_filing_document_id": "doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936"
     },
     {
       "id": "case-cz-cnb-raiffeisenbank-aml-2026",

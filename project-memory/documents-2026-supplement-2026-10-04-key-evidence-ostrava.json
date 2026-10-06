@@ -1,45 +1,7 @@
 {
   "schema_version": "1.0",
   "batch_date": "2026-10-04",
-  "purpose": "Publikace podání a důkazní chronologie z 4. 10. 2026 v Justičním slalomu. U podání EKK a u podání ke KS Ostrava je veřejná kopie totožná s originálem s výjimkou trvalého odstranění dat narození a soukromých adres fyzických osob; Důkazní chronologie je publikována jako byte-identický originál.",
-  "redaction_review": {
-    "key_evidence": {
-      "source_sha256": "fccc5b47a05de21b7a59982125693996f73356ccd9c1d8fd9d8f5de3fcb32193",
-      "public_sha256": "6a50f5b6bee33a5894de50cdcf42af83d70d902a916d39f3558061d4ff78b8f7",
-      "pages": 7,
-      "removed_categories": [
-        "dates_of_birth_of_third_parties",
-        "private_home_addresses_of_third_parties"
-      ],
-      "preserved_categories": [
-        "names",
-        "titles",
-        "roles",
-        "organization_names",
-        "organization_registered_offices",
-        "case_numbers",
-        "document_content",
-        "signatures"
-      ]
-    },
-    "ks_ostrava": {
-      "source_sha256": "3c340c53e1200ac426be98ba859ba1676b8d79ca7abf201dec06f0d7bdc64716",
-      "public_sha256": "f2ce716589784b0b4d078c1882b236da0b4611c4e7a7e69dc22fe21833962ef9",
-      "pages": 7,
-      "removed_categories": [
-        "dates_of_birth",
-        "private_home_addresses"
-      ],
-      "preserved_categories": [
-        "names",
-        "roles",
-        "data_box_ids",
-        "case_numbers",
-        "document_content",
-        "signatures"
-      ]
-    }
-  },
+  "purpose": "Publikace uživatelem dodaných originálních PDF podání a důkazní chronologie z 4. 10. 2026 v Justičním slalomu.",
   "documents": [
     {
       "id": "doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy",
@@ -61,23 +23,21 @@
       ],
       "public": {
         "html": null,
-        "pdf": "documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy-verejna-kopie.pdf",
-        "sha256": "6a50f5b6bee33a5894de50cdcf42af83d70d902a916d39f3558061d4ff78b8f7",
-        "verification_status": "redacted_public_copy_reviewed_from_user_original",
+        "pdf": "documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf",
+        "sha256": "fccc5b47a05de21b7a59982125693996f73356ccd9c1d8fd9d8f5de3fcb32193",
+        "verification_status": "source_pdf_received_binary_original_sha256_verified",
         "source_original_sha256": "fccc5b47a05de21b7a59982125693996f73356ccd9c1d8fd9d8f5de3fcb32193",
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-04-key-evidence-ostrava.json"
       },
       "relations": [],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship_and_user_publication_instruction",
-      "evidence_note": "Podání z 4. 10. 2026 je určeno KPR, NSZ, Ministerstvu spravedlnosti, Policejnímu prezidiu ČR a Okresnímu soudu v Prostějově. Veřejná kopie zachovává věcný obsah a grafiku; odstraněna byla pouze data narození a soukromé adresy jiných fyzických osob.",
+      "evidence_note": "Podání z 4. 10. 2026 je určeno KPR, NSZ, Ministerstvu spravedlnosti, Policejnímu prezidiu ČR a Okresnímu soudu v Prostějově. Veřejný soubor je byte-identický s uživatelem dodaným originálním PDF.",
       "justice_slalom": {
         "archive_number": 140,
         "archive_name": "OS v Protějově a zůčastněným- klíčové důkazy  4.října 2026.pdf",
         "source_sha256": "fccc5b47a05de21b7a59982125693996f73356ccd9c1d8fd9d8f5de3fcb32193",
-        "source_kind": "redacted_public_copy_from_user_original",
-        "public_sha256": "6a50f5b6bee33a5894de50cdcf42af83d70d902a916d39f3558061d4ff78b8f7",
-        "redaction_manifest": "project-memory/documents-2026-supplement-2026-10-04-key-evidence-ostrava.json",
+        "source_kind": "original_pdf_uploaded_by_user",
         "recipients": [
           {
             "institution_id": "CZ-KPR",
@@ -219,9 +179,9 @@
       ],
       "public": {
         "html": null,
-        "pdf": "documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava-verejna-kopie.pdf",
-        "sha256": "f2ce716589784b0b4d078c1882b236da0b4611c4e7a7e69dc22fe21833962ef9",
-        "verification_status": "redacted_public_copy_reviewed_from_user_original",
+        "pdf": "documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava.pdf",
+        "sha256": "3c340c53e1200ac426be98ba859ba1676b8d79ca7abf201dec06f0d7bdc64716",
+        "verification_status": "source_pdf_received_binary_original_sha256_verified",
         "source_original_sha256": "3c340c53e1200ac426be98ba859ba1676b8d79ca7abf201dec06f0d7bdc64716",
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-04-key-evidence-ostrava.json"
       },
@@ -229,14 +189,12 @@
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship_and_user_publication_instruction",
       "author_en": "Gabriela Foltová and Jan Kohout",
-      "evidence_note": "Společné podání Gabriely Foltové a Jana Kohouta ze 4. 10. 2026 ke sp. zn. 5 To 248/2026, navazující na 15 T 11/2025. Veřejná kopie zachovává obsah a grafiku; z první strany byla odstraněna pouze data narození a soukromé adresy stěžovatelů.",
+      "evidence_note": "Společné podání Gabriely Foltové a Jana Kohouta ze 4. 10. 2026 ke sp. zn. 5 To 248/2026, navazující na 15 T 11/2025. Veřejný soubor je byte-identický s uživatelem dodaným originálním PDF.",
       "justice_slalom": {
         "archive_number": 141,
         "archive_name": "KRAJSKÉMU SOUDU V OSTRAVĚ- dodatek stížnosti - 4.10.2026.pdf",
         "source_sha256": "3c340c53e1200ac426be98ba859ba1676b8d79ca7abf201dec06f0d7bdc64716",
-        "source_kind": "redacted_public_copy_from_user_original",
-        "public_sha256": "f2ce716589784b0b4d078c1882b236da0b4611c4e7a7e69dc22fe21833962ef9",
-        "redaction_manifest": "project-memory/documents-2026-supplement-2026-10-04-key-evidence-ostrava.json",
+        "source_kind": "original_pdf_uploaded_by_user",
         "recipients": [
           {
             "institution_id": "CZ-KS-OST",
@@ -248,5 +206,17 @@
         ]
       }
     }
-  ]
+  ],
+  "original_pdf_verification": {
+    "key_evidence": {
+      "sha256": "fccc5b47a05de21b7a59982125693996f73356ccd9c1d8fd9d8f5de3fcb32193",
+      "pages": 7,
+      "status": "byte_identical_user_original"
+    },
+    "ks_ostrava": {
+      "sha256": "3c340c53e1200ac426be98ba859ba1676b8d79ca7abf201dec06f0d7bdc64716",
+      "pages": 7,
+      "status": "byte_identical_user_original"
+    }
+  }
 }
