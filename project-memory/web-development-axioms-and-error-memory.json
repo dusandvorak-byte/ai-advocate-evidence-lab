@@ -2,7 +2,7 @@
   "schema_version": "1.1",
   "status": "binding",
   "effective_from": "2026-07-18",
-  "recorded_on": "2026-08-10",
+  "recorded_on": "2026-10-06",
   "purpose": "Trvalá paměť pravidel tvorby CannaInsider.EU a Church of Cannabis a zákaz opakování chyb zjištěných od zahájení tvorby webů 18. 7. 2026.",
   "mandatory_work_algorithm": [
     "1. PŘED JAKOUKOLI PRACÍ načíst a rešeršovat aktuální project-memory/publication-axioms.json, project-memory/web-development-axioms-and-error-memory.json, project-memory/project-goals.json a další registry přímo relevantní k úkolu.",
@@ -104,7 +104,7 @@
     },
     {
       "id": "justice-slalom-numbered-recipient-rows",
-      "text": "Veřejná lišta Justiční slalom je odvozena z kanonických podání na čtyřech jazykových plochách a obou Godotových článcích. Od 1. 10. 2026 jsou řádky vždy sestupně podle doloženého data podání, nejnovější nahoře, a číslování začíná 1 u nejnovějšího řádku; každý adresát má jeden samostatný řádek a právě jeden PDF odkaz, který se smí opakovat. U data se nezobrazují vysvětlující poznámky. Na žádné veřejné HTML stránce nesmí zůstat obsah živého časovače. Toto pravidlo výslovně nahrazuje dřívější vzestupné řazení."
+      "text": "Veřejná lišta Justiční slalom je odvozena z kanonických podání na čtyřech jazykových plochách a obou Godotových článcích. Řádky jsou veřejně vždy sestupně podle doloženého data podání, nejnovější nahoře a nejstarší dole. Číslo řádku je však chronologické pořadové číslo: nejstarší řádek dole má číslo 1 a čísla směrem k novějším dokumentům rostou; nejnovější řádek nahoře proto nese nejvyšší číslo. Každý adresát má jeden samostatný řádek a právě jeden PDF odkaz, který se smí opakovat. Je-li k dispozici uživatelem dodaný originální PDF soubor, musí být veřejně použit byte-identický originál a nesmí být nahrazen odvozenou kopií. U data se nezobrazují vysvětlující poznámky. Na žádné veřejné HTML stránce nesmí zůstat obsah živého časovače."
     },
     {
       "id": "primary-nav-and-sister-sites",
