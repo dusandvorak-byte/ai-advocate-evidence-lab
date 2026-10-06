@@ -59,12 +59,16 @@ if (!churchEn.includes('Remonstrance PDF →')) fail('EN Church: chybí zřeteln
 if (!churchCz.includes('/ai-advocate-evidence-lab/index.html') || !churchCz.includes('https://www.konopijelek.cz/')) fail('CZ Church: chybí sesterské propojení');
 if (!churchEn.includes('/ai-advocate-evidence-lab/en.html') || !churchEn.includes('https://www.konopijelek.cz/')) fail('EN Church: chybí sesterské propojení');
 
-const czStart = godotCz.indexOf(`id="${decisionId}"`);
-const enStart = godotEn.indexOf(`id="en-${decisionId}"`);
-if (czStart < 0 || enStart < 0) fail('MK 53547/2026 chybí v CZ/EN Godotovi');
-const czSlice = godotCz.slice(czStart, godotCz.indexOf('</li>',czStart)+5);
-const enSlice = godotEn.slice(enStart, godotEn.indexOf('</li>',enStart)+5);
-if (!czSlice.includes('Rozklad proti zastavení řízení o registraci Konopné církve') || !czSlice.includes(remonstrancePdf)) fail('CZ Godot nezobrazuje rozklad inline u MK 53547/2026 s přímým PDF');
-if (!enSlice.includes('Administrative appeal against termination of the Church of Cannabis registration proceedings') || !enSlice.includes(remonstrancePdf)) fail('EN Godot nezobrazuje rozklad inline u MK 53547/2026 s přímým PDF');
+const czDecisionStart = godotCz.indexOf(`<tr id="${decisionId}"`);
+const enDecisionStart = godotEn.indexOf(`data-document-id="${decisionId}"`);
+const czRemonstranceStart = godotCz.indexOf(`<tr id="${remonstranceId}"`);
+const enRemonstranceStart = godotEn.indexOf(`data-document-id="${remonstranceId}"`);
+if ([czDecisionStart,enDecisionStart,czRemonstranceStart,enRemonstranceStart].some(x=>x<0)) fail('MK 53547/2026 nebo navazující rozklad chybí v CZ/EN tabulce');
+const czRemonstranceEnd = godotCz.indexOf('</tr>',czRemonstranceStart);
+const enRemonstranceEnd = godotEn.indexOf('</tr>',enRemonstranceStart);
+const czRemonstranceRow = godotCz.slice(czRemonstranceStart,czRemonstranceEnd+5);
+const enRemonstranceRow = godotEn.slice(enRemonstranceStart,enRemonstranceEnd+5);
+if (!czRemonstranceRow.includes('Rozklad proti zastavení řízení o registraci Konopné církve') || !czRemonstranceRow.includes(remonstrancePdf)) fail('CZ Godot nezobrazuje rozklad jako vlastní tabulkový řádek s přímým PDF');
+if (!enRemonstranceRow.includes('Administrative appeal against termination of the Church of Cannabis registration proceedings') || !enRemonstranceRow.includes(remonstrancePdf)) fail('EN Godot nezobrazuje rozklad jako vlastní tabulkový řádek s přímým PDF');
 
-console.log('Konopná církev: aktuální rozkladová fáze, přesné odkazy, CZ/EN parita a sesterské propojení OK.');
+console.log('Konopná církev: aktuální rozkladová fáze, vlastní tabulkový řádek rozkladu, přesné odkazy, CZ/EN parita a sesterské propojení OK.');
