@@ -109,6 +109,10 @@
     {
       "id": "primary-nav-and-sister-sites",
       "text": "První navigace CannaInsider.EU: Právě teď → automaticky nejnovější publikovaný článek; Archiv zpráv; Aktivní soudní řízení; Podpořit. Lhůty a Ověřit listinu nejsou v první liště. CannaInsider a Konopná církev se navzájem viditelně odkazují a obě odkazují na Konopí je lék.cz; soudní položky uvádějí plné názvy a známé spisové značky."
+    },
+    {
+      "id": "state-love-table-mirrors-slalom",
+      "text": "Státu lásky čas používá tabulkový vizuál Justičního slalomu. Pořadí řádků se nepřevrací: nejnovější dokument je vždy nahoře, nejstarší dole. Převrací se pouze pořadová čísla, takže nejstarší řádek má 1 a nejnovější nejvyšší číslo. Za tabulkou se nesmějí regenerovat Uzly řízení, Lhůty a nečinnost, Anonymizační axiom ani Důkazní hranice."
     }
   ],
   "error_memory_since_2026_07_18": [
@@ -167,6 +171,10 @@
     {
       "id": "error-public-date-discrepancy-notes-in-justice-slalom",
       "lesson": "Datum doložené podáním zůstává ověřeno v interní evidenci, ale vysvětlující poznámky o rozdílu mezi PDF, názvem souboru a evidencí nesmějí být vloženy do veřejných řádků archivu. Generátor je nesmí vydat do CZ/EN HTML ani JSON; terminální brána porovnává vzestupné pořadí se zdrojovým registrem a odmítá poznámky na všech šesti stránkách."
+    },
+    {
+      "id": "error-reversed-display-instead-of-numbering",
+      "lesson": "Při požadavku na chronologické číslování bylo snadné zaměnit pořadí zobrazení za pořadové číslo. Závazná oprava: vizuálně zůstává nejnovější nahoře a nejstarší dole; pouze čísla běží od 1 u nejstaršího dokumentu směrem k nejvyššímu číslu u nejnovějšího."
     }
   ],
   "definition_of_done": [
