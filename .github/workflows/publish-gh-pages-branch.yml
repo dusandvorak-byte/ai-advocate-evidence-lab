@@ -101,6 +101,9 @@ jobs:
       - name: Ověřit podání a důkazní chronologii ze 4. října
         run: node scripts/validate-october-4-submissions.mjs
 
+      - name: Ověřit podnět ČNB a společné podání MS Praha ze 6. října
+        run: node scripts/validate-october-6-submissions.mjs
+
       - name: Ověřit tři lišty, barvy a chronologii soudních řízení
         run: node scripts/validate-live-dockets-contract.mjs
 
