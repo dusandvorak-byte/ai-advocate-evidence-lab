@@ -147,7 +147,9 @@ for (const reaction of reactionDocuments) {
   const reactionHtml = article.slice(reactionStart, reactionEnd + 5);
   if (reaction.public?.pdf) {
     const pdf = publicPath(reaction.public.pdf);
-    if (!reactionHtml.includes(`href="${pdf}"`) && !reactionHtml.includes(`href='${pdf}'`)) {
+    const hrefCandidates = [pdf, `/ai-advocate-evidence-lab/${pdf}`];
+    const hasPdfLink = hrefCandidates.some(href => reactionHtml.includes(`href="${href}"`) || reactionHtml.includes(`href='${href}'`));
+    if (!hasPdfLink) {
       missingReactionPdfLinks.push({ reaction_id: reaction.id, target_id: targetId, expected_pdf: pdf });
     }
   }
@@ -229,7 +231,7 @@ console.log(
   + `${requiredWithActivePdf.length}/${requiredDocuments.length} povinných institucionálních listin má PDF; `
   + `${requiredOutgoingPdfDocuments.length}/${requiredOutgoingPdfDocuments.length} našich podání od ${OUTGOING_PDF_HARD_CUTOFF} má PDF; `
   + `${exemptDocuments.length} dokumentů je v povolené výjimce; `
-  + `${reactionDocuments.length}/${reactionDocuments.length} kanonických reakcí vykresleno inline.`
+  + `${reactionDocuments.length}/${reactionDocuments.length} kanonických reakcí vykresleno jako samostatné tabulkové řádky.`
 );
 
 await import('./validate-publication-surfaces.mjs');
