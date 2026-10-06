@@ -73,7 +73,9 @@ for (const doc of entries) {
         'CZ-RRTV': 'Council for Radio and Television Broadcasting',
         'CZ-CT': 'Czech Television', 'CZ-RADA-CT': 'Czech Television Council',
         'CZ-OS-PHA4': 'Prague 4 District Court',
-        'CZ-UOCR': 'Czech Defence Lawyers’ Union'
+        'CZ-UOCR': 'Czech Defence Lawyers’ Union',
+        'CZ-CNB': 'Czech National Bank',
+        'CZ-RB-OMB': 'Raiffeisenbank Ombudsman'
       })[recipient.institution_id] || names.get(recipient.institution_id),
       role: recipient.role, reference: recipient.reference,
       subject_cs: recipient.subject_cs, subject_en: recipient.subject_en,
