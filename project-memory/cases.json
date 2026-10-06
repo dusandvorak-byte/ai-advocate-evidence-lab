@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_on": "2026-10-01",
+  "updated_on": "2026-10-06",
   "cases": [
     {
       "id": "CASE-CZ-NSZ-6NZN1737-2026",
@@ -273,11 +273,12 @@
         "§ 174a"
       ],
       "latest_state_document_id": "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
-      "last_filing_on": "2026-10-04",
-      "last_filing_document_id": "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce",
+      "last_filing_on": "2026-10-06",
+      "last_filing_document_id": "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
       "related_document_ids": [
         "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
-        "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce"
+        "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce",
+        "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni"
       ]
     },
     {
@@ -293,6 +294,11 @@
         "znalecká činnost",
         "THC",
         "THCA"
+      ],
+      "last_filing_on": "2026-10-06",
+      "last_filing_document_id": "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
+      "related_document_ids": [
+        "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni"
       ]
     },
     {
@@ -337,6 +343,27 @@
       ],
       "last_filing_on": "2026-09-28",
       "last_filing_document_id": "doc-eu-omb-2026-09-28-complaint-form-required"
+    },
+    {
+      "id": "case-cz-cnb-raiffeisenbank-aml-2026",
+      "institution_id": "CZ-CNB",
+      "reference": "podnět k postupu Raiffeisenbank – bez přiděleného č. j.",
+      "title": "Česká národní banka – podnět k opakovaným AML/KYC výzvám Raiffeisenbank",
+      "status": "active",
+      "opened_on": "2026-10-06",
+      "topics": [
+        "ČNB",
+        "Raiffeisenbank",
+        "AML",
+        "KYC",
+        "§ 9 zákona č. 253/2008 Sb.",
+        "bankovní účet"
+      ],
+      "last_filing_on": "2026-10-06",
+      "last_filing_document_id": "doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet",
+      "related_document_ids": [
+        "doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet"
+      ]
     }
   ]
 }

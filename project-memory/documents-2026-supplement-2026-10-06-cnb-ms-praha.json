@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-06",
+  "purpose": "Dvě podání ze dne 6. 10. 2026 pro Justiční slalom: podnět Edukativní konopné kliniky ČNB a Ombudsmanovi Raiffeisenbank k opakovaným AML/KYC výzvám a společné důkazní doplnění Městskému soudu v Praze do řízení 18 A 17/2026 a 18 A 23/2026.",
+  "redaction_review": {
+    "cnb_raiffeisenbank": {
+      "removed_categories": [
+        "private_home_address",
+        "name_of_other_natural_person",
+        "direct_contact_detail"
+      ],
+      "preserved_categories": [
+        "organization_names",
+        "author_name",
+        "official_recipient_names",
+        "legal_references",
+        "substantive_document_content",
+        "case_context"
+      ],
+      "note": "Raw PDF bytes were not available to the publication runtime. The public copy is deterministically generated from the complete extracted text after the listed privacy reductions."
+    },
+    "ms_praha": {
+      "removed_categories": [
+        "date_of_birth",
+        "private_home_address"
+      ],
+      "preserved_categories": [
+        "author_name",
+        "court_address",
+        "data_box_id",
+        "case_numbers",
+        "substantive_document_content",
+        "attachments_list"
+      ],
+      "note": "Raw PDF bytes were not available to the publication runtime. The public copy is deterministically generated from the complete extracted text after the listed privacy reductions."
+    }
+  },
+  "documents": [
+    {
+      "id": "doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet",
+      "user_title": "Podnět ČNB a Ombudsmanovi Raiffeisenbank k opakovaným AML/KYC výzvám podle § 9 zákona č. 253/2008 Sb.",
+      "issue_date": "2026-10-06",
+      "received_date": "2026-10-06",
+      "institution_id": "CZ-EKK",
+      "reference": "bez přiděleného č. j.",
+      "case_ids": [
+        "case-cz-cnb-raiffeisenbank-aml-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "ČNB",
+        "Raiffeisenbank",
+        "AML",
+        "KYC",
+        "§ 9 zákona č. 253/2008 Sb.",
+        "bankovní účet",
+        "výzva k součinnosti"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank-verejna-kopie.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank-verejna-kopie.pdf",
+        "sha256": null,
+        "source_text_sha256": null,
+        "verification_status": "pending_deterministic_redacted_public_text_copy",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-06-cnb-ms-praha.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship_and_user_publication_instruction",
+      "evidence_note": "Podání Edukativní konopné kliniky ze dne 6. 10. 2026 je výslovně adresováno České národní bance datovou schránkou a Ombudsmanovi Raiffeisenbank. Namítá opakované používání AML/KYC dotazníků podle § 9 zákona č. 253/2008 Sb. u účtu s velmi nízkým obratem a dokládá výzvu banky téhož dne s termínem do 13. 10. 2026 a upozorněním na možné omezení služeb nebo ukončení vztahu. Veřejná kopie omezuje soukromé kontaktní údaje a jméno jiné fyzické osoby.",
+      "justice_slalom": {
+        "archive_number": 142,
+        "archive_name": "Edukativní konopná klinika ČNB a RF dne 6.10.2026.pdf",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "public_sha256": null,
+        "source_text_sha256": null,
+        "redaction_manifest": "project-memory/documents-2026-supplement-2026-10-06-cnb-ms-praha.json",
+        "recipients": [
+          {
+            "institution_id": "CZ-CNB",
+            "reference": "bez přiděleného č. j.",
+            "role": "primary",
+            "subject_cs": "Podnět k opakovaným AML/KYC výzvám Raiffeisenbank podle § 9 zákona č. 253/2008 Sb. a hrozbě omezení či ukončení bankovních služeb",
+            "subject_en": "Complaint concerning repeated Raiffeisenbank AML/KYC requests under Section 9 of Act No. 253/2008 and the threat of restricting or terminating banking services"
+          },
+          {
+            "institution_id": "CZ-RB-OMB",
+            "reference": "bez přiděleného č. j.",
+            "role": "simultaneous",
+            "subject_cs": "Podnět Ombudsmanovi Raiffeisenbank k opakovaným AML/KYC výzvám a hrozbě omezení či ukončení bankovních služeb",
+            "subject_en": "Complaint to the Raiffeisenbank Ombudsman concerning repeated AML/KYC requests and the threat of restricting or terminating banking services"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
+      "user_title": "Společné mimořádně naléhavé důkazní doplnění ve věcech 18 A 17/2026 a 18 A 23/2026",
+      "issue_date": "2026-10-06",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "18 A 17/2026; 18 A 23/2026",
+      "case_ids": [
+        "case-cz-ms-praha-18a17-2026",
+        "case-cz-ms-praha-18a23-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "Městský soud v Praze",
+        "18 A 17/2026",
+        "18 A 23/2026",
+        "NCOZ",
+        "Ministerstvo spravedlnosti",
+        "THC",
+        "THCA",
+        "sporné forenzní praxe",
+        "dekarboxylace",
+        "sněmovní tisk 321"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23-verejna-kopie.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23-verejna-kopie.pdf",
+        "sha256": null,
+        "source_text_sha256": null,
+        "verification_status": "pending_deterministic_redacted_public_text_copy",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-06-cnb-ms-praha.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-dd-2026-10-01-ms-pha-msp-18-a-23-uocr-dukaz"
+        },
+        {
+          "type": "doklada",
+          "target_id": "doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship_and_user_publication_instruction",
+      "evidence_note": "Podání Městskému soudu v Praze ze dne 6. 10. 2026 je společným důkazním doplněním pro sp. zn. 18 A 17/2026 a 18 A 23/2026. Výslovně nemění žalované, skutkové jádro ani petit; předkládá nové následné důkazy k otázce sporných forenzních praxí při analýzách obsahu THC v zabraném konopí, přeměny THCA na THC při zahřívání a možného legislativního překrytí dřívější praxe. Veřejná kopie vypouští datum narození a soukromou adresu žalobce.",
+      "justice_slalom": {
+        "archive_number": 143,
+        "archive_name": "Městskému soudu dne 6. října 2026 ke sp.zn. 18 A 23 2026-a 18 A 17 -2026-společně a 3 důkazní přílohy.pdf",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "public_sha256": null,
+        "source_text_sha256": null,
+        "redaction_manifest": "project-memory/documents-2026-supplement-2026-10-06-cnb-ms-praha.json",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 17/2026; 18 A 23/2026",
+            "role": "primary",
+            "subject_cs": "Společné mimořádně naléhavé důkazní doplnění k otázce sporných forenzních praxí při analýzách obsahu THC v zabraném konopí, THCA → THC a možného legislativního překrytí dřívější praxe",
+            "subject_en": "Joint urgent evidentiary supplement concerning disputed forensic practices in analysing THC content in seized cannabis, THCA → THC conversion and possible legislative overlay of earlier practice"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -53,7 +53,9 @@
     "CZ-PS-ANO": "ANO 2011 parliamentary group",
     "EU-OMB": "European Ombudsman",
     "CZ-VS-PHA": "Prague High Court",
-    "CZ-GF-JK": "Gabriela Foltová and Jan Kohout"
+    "CZ-GF-JK": "Gabriela Foltová and Jan Kohout",
+    "CZ-CNB": "Czech National Bank",
+    "CZ-RB-OMB": "Raiffeisenbank Ombudsman"
   },
   "documents": {
     "doc-cz-exe-lib-2026-05-06-131-ex-8674-15-127": "Order concerning the application to discontinue enforcement proceedings",
@@ -360,6 +362,8 @@
     "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce": "The claimant’s document dated 4 October 2026 responds to court letter 18 A 17/2026-191, sends the narrowed claim and subsequent evidentiary supplements directly to NCOZ to preserve equality of arms, and copies the Prague Municipal Court; the filing expressly states that it does not change or expand the action.",
     "doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy": "A filing dated 4 October 2026 by the Educational Cannabis Clinic and the Cannabis is The Cure alliance to the Office of the President, Supreme Public Prosecutor’s Office, Ministry of Justice, Police Presidium and Prostějov District Court. It highlights new evidence concerning THC/THCA analytical methodology and the two reopening proceedings. The public copy removes only dates of birth and private home addresses of third parties.",
     "doc-cz-ekk-2026-10-04-dukazni-chronologie-kjl-2008-2026": "A 55-page evidence chronology of the Cannabis is The Cure programme for 2008–2026, current to 28 September 2026 and sent on 4 October 2026 as an annex to the filing concerning the Prostějov reopening proceedings and related authorities. The public PDF is the byte-identical original supplied by the author.",
-    "doc-cz-gf-jk-2026-10-04-ks-ostrava-5-to-248-sumarizujici-sdeleni": "A joint filing by Gabriela Foltová and Jan Kohout dated 4 October 2026 in Ostrava Regional Court case 5 To 248/2026, related to Ostrava District Court case 15 T 11/2025. It asks the court to examine the analytical basis for the reported 3.7% THC result, including sampling, homogenisation, THC/THCA distinction, decarboxylation, SOPs, validation, accreditation and uncertainty. The public copy removes only dates of birth and private home addresses."
+    "doc-cz-gf-jk-2026-10-04-ks-ostrava-5-to-248-sumarizujici-sdeleni": "A joint filing by Gabriela Foltová and Jan Kohout dated 4 October 2026 in Ostrava Regional Court case 5 To 248/2026, related to Ostrava District Court case 15 T 11/2025. It asks the court to examine the analytical basis for the reported 3.7% THC result, including sampling, homogenisation, THC/THCA distinction, decarboxylation, SOPs, validation, accreditation and uncertainty. The public copy removes only dates of birth and private home addresses.",
+    "doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet": "A filing dated 6 October 2026 by the Educational Cannabis Clinic to the Czech National Bank and the Raiffeisenbank Ombudsman. It challenges repeated AML/KYC questionnaire requests under Section 9 of Act No. 253/2008 in the context of a very low-turnover association account and encloses the bank’s same-day request warning that services may be restricted or the relationship terminated if the questionnaire is not provided by 13 October 2026. The public copy limits private contact information and the name of another natural person.",
+    "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni": "A joint urgent evidentiary supplement dated 6 October 2026 for Prague Municipal Court cases 18 A 17/2026 and 18 A 23/2026. It expressly does not alter the defendants, factual core or relief sought and presents subsequent evidence concerning disputed forensic practices in analysing THC content in seized cannabis, THCA-to-THC conversion during heating and the possible legislative overlay of earlier practice. The public copy omits the claimant’s date of birth and private home address."
   }
 }
