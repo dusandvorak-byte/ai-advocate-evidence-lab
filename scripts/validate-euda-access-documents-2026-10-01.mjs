@@ -35,7 +35,7 @@ if (sha256(bytes) !== item.public.sha256) fail('SHA-256 veřejné PDF kopie neod
 const cz = await readFile('web/zpravy/04082026-010.html', 'utf8');
 const en = await readFile('web/news/04082026-010.html', 'utf8');
 if (!cz.includes(`id="${item.id}"`) || !cz.includes('EUDA potvrdila registraci samostatné žádosti o přístup k dokumentům')) fail('záznam chybí ve Státu lásky čas');
-if (!cz.includes('Podání, na které orgán veřejné moci reaguje')) fail('česká chronologie nezobrazuje související zásadní námitku');
+if (!cz.includes(`id="${objection.id}"`) || !en.includes(`data-document-id="${objection.id}"`)) fail('CZ/EN tabulka nezobrazuje související zásadní námitku jako vlastní chronologický řádek');
 if (!en.includes(`id="en-${item.id}"`) || !en.includes('registered a separate access-to-documents request')) fail('záznam chybí v anglickém Godotovi');
 
 console.log('EUDA 1. 10. 2026 access-to-documents gate OK.');
