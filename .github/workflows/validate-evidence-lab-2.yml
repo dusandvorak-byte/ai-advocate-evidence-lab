@@ -115,6 +115,9 @@ jobs:
       - name: Ověřit čtyři nově doložené soudní listiny a jejich PDF
         run: node scripts/validate-four-records-2026-10-03.mjs
 
+      - name: Ověřit podnět ČNB a společné podání MS Praha ze 6. října
+        run: node scripts/validate-october-6-submissions.mjs
+
       - name: Ověřit tři lišty, navigaci a rozbalená soudní řízení
         run: node scripts/validate-live-dockets-contract.mjs
 
