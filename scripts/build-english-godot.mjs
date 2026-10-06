@@ -88,7 +88,7 @@ const renderRelated = items => {
   if (!items.length) return '<span class="state-love-empty">—</span>';
   return items.map(item => {
     const title = translations.documents?.[item.id] || item.user_title;
-    return `<span id="en-${escapeHtml(item.id)}" class="state-love-related" data-related-document-id="${escapeHtml(item.id)}"><b>${escapeHtml(formatDate(item.issue_date))}</b> · ${escapeHtml(title)} · ${sourceLink(item)}</span>`;
+    return `<span class="state-love-related" data-related-document-id="${escapeHtml(item.id)}"><b>${escapeHtml(formatDate(item.issue_date))}</b> · ${escapeHtml(title)} · ${sourceLink(item)}</span>`;
   }).join('<br>');
 };
 
@@ -99,9 +99,7 @@ const chronologyRow = (item, index) => {
   return `<tr id="en-${escapeHtml(item.id)}" data-document-id="${escapeHtml(item.id)}" data-row-number="${number}" data-issue-date="${escapeHtml(item.issue_date)}" data-submission-side="incoming_from_state_or_public_institution"><td class="slalom-number">${number}</td><td><time datetime="${escapeHtml(item.issue_date)}">${escapeHtml(formatDate(item.issue_date))}</time></td><td>${escapeHtml(institution)}</td><td>${escapeHtml(englishReferenceText(item))}</td><td>${escapeHtml(translations.documents[item.id])} · ${sourceLink(item)}</td><td class="state-love-relation-cell">${renderRelated(filingsForState(item))}</td><td class="state-love-relation-cell">${renderRelated(remediesForState(item))}</td></tr>`;
 };
 
-const relatedOutgoingIds = new Set(stateDocuments.flatMap(item => [...filingsForState(item), ...remediesForState(item)].map(doc => doc.id)));
 const hiddenOutgoingAnchors = outgoingDocuments
-  .filter(item => !relatedOutgoingIds.has(item.id))
   .map(item => `<span id="en-${escapeHtml(item.id)}" hidden aria-hidden="true"></span>`)
   .join('');
 
