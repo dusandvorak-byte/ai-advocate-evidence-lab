@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-06",
+  "purpose": "Stížnost Cannabis is The Cure, z. s. podaná 6. 10. 2026 prostřednictvím oficiálního formuláře Evropského ombudsmana ve věci postupu EUDA a metodické srovnatelnosti evropských údajů o THC.",
+  "documents": [
+    {
+      "id": "doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936",
+      "user_title": "Stížnost Evropskému ombudsmanovi ve věci postupu EUDA a srovnatelnosti dat o THC – EOWEB_COMPLAINT_ID 59936",
+      "issue_date": "2026-10-06",
+      "received_date": "2026-10-06",
+      "institution_id": "CZ-CITC",
+      "recipient_id": "EU-OMB",
+      "reference": "EOWEB_COMPLAINT_ID: 59936",
+      "case_ids": [
+        "case-eu-omb-euda-thc-comparability-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "Evropský ombudsman",
+        "EUDA",
+        "THC",
+        "THCA",
+        "srovnatelnost dat",
+        "přístup k dokumentům",
+        "nařízení (EU) 2023/1322",
+        "nařízení (ES) č. 1049/2001"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf",
+        "sha256": "623f4334331dcd9de6acb5fa45231132cdd3d8ec780376990374879b654a753e",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 8_pages",
+        "source_original_sha256": "623f4334331dcd9de6acb5fa45231132cdd3d8ec780376990374879b654a753e",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-06-eu-ombudsman-complaint.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-eu-omb-2026-09-28-complaint-form-required"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-eu-euda-2026-10-01-access-documents-1049-2001"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cs-dd-2026-09-27-slalom-augsep-083"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship_and_user_publication_instruction",
+      "evidence_note": "Cannabis is The Cure, z. s. podalo dne 6. 10. 2026 v 11:39 CEST stížnost prostřednictvím oficiálního formuláře Evropského ombudsmana. Formulář eviduje EOWEB_COMPLAINT_ID 59936. Stížnost namítá možný nesprávný úřední postup EUDA při zajišťování, kontrole, interpretaci a zveřejňování evropských údajů o obsahu THC a žádá přezkum metodické auditní stopy, definice THC/THCA, vzorkování, homogenizace, sušení, skladování, analytických metod a nejistoty měření. Veřejný soubor je byte-identický s uživatelem dodaným originálním PDF."
+    }
+  ]
+}
