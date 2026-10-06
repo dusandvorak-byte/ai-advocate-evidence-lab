@@ -56,7 +56,8 @@ if(!institutions.institutions?.some(i=>i.id==='CZ-OS-PHA10'&&i.name==='Obvodní 
 
 const cases=JSON.parse(await readFile('project-memory/cases.json','utf8'));
 const a17=cases.cases?.find(c=>c.id==='case-cz-ms-praha-18a17-2026');
-if(a17?.latest_state_document_id!==ms.id || a17?.last_filing_document_id!==reaction.id) fail('18 A 17/2026 není aktualizováno v grafu řízení');
+// Historical validator: the 4 Oct filing must remain linked, but newer filings may legitimately become last_filing.
+if(a17?.latest_state_document_id!==ms.id || !a17?.related_document_ids?.includes(reaction.id) || !a17?.last_filing_document_id || String(a17?.last_filing_on||'')<'2026-10-04') fail('18 A 17/2026 není aktualizováno v grafu řízení');
 const c315=cases.cases?.find(c=>c.id==='case-cz-ks-brno-9to315-2026');
 if(c315?.decision_document_id!==ks.id || c315?.status!=='complaint_dismissed_no_ordinary_remedy') fail('9 To 315/2026 nemá rozhodnutí v grafu řízení');
 
