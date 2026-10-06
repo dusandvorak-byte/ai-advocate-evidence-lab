@@ -122,11 +122,19 @@ if (!article.includes('id="chronologie-seznam"') || !article.includes('state-lov
 if (/aktivní originály/i.test(article)) throw new Error('Článek obsahuje samostatný blok aktivních originálů');
 if (/href=["']web\/documents\//i.test(article)) throw new Error('Ve veřejném HTML zůstal prefix web/documents/');
 const expectedChronologyCount = documentsRegistry.documents.filter(item =>
-  item.issue_date >= '2026-05-01' &&
-  (item.submission_side === 'incoming_from_state_or_public_institution' || item.submission_side === 'outgoing_from_user_or_alliance' || item.document_type === 'state_record')
+  item.issue_date >= '2026-05-01'
+  && item.document_type !== 'state_record_attachment'
+  && (item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record')
 ).length;
 const chronologyCount = (article.match(/<tr id="doc-[^"]*" data-state-love-id=/g) || []).length;
 if (chronologyCount !== expectedChronologyCount) throw new Error(`Rozpor tabulky Státu lásky čas: ${chronologyCount}/${expectedChronologyCount}`);
+const stateLoveStart = article.indexOf('<table id="chronologie-seznam"');
+const stateLoveEnd = stateLoveStart < 0 ? -1 : article.indexOf('</table>', stateLoveStart);
+if (stateLoveStart < 0 || stateLoveEnd < 0) throw new Error('Státu lásky čas nemá uzavřenou tabulku');
+const stateLoveTable = article.slice(stateLoveStart, stateLoveEnd + 8);
+if (stateLoveTable.includes('data-submission-side="outgoing_from_user_or_alliance"')) throw new Error('Státu lásky čas obsahuje naše podání jako samostatný hlavní řádek');
+for (const needle of ['Na co orgán reaguje','Námitka / opravný prostředek']) if (!stateLoveTable.includes(needle)) throw new Error('Státu lásky čas postrádá sloupec '+needle);
+if (!article.includes('justice-slalom-shell state-love-shell') || !article.includes('home-rollup justice-slalom state-love-panel')) throw new Error('Státu lásky čas nepoužívá vizuální wrapper Justičního slalomu');
 if (!article.includes(`Stát: ${expectedStateCount} evidovaných listin`)) throw new Error(`Godot neobsahuje odvozený státní počet ${expectedStateCount}`);
 if (!home.includes('id="latest-records"')) throw new Error('Titulní stránka neobsahuje synchronizované nejnovější listiny');
 if (!article.includes('process-chain-strip')) throw new Error('Godot neobsahuje nové široké procesní řetězce');
