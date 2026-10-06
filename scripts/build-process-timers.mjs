@@ -323,12 +323,10 @@ assertRequiredTimersRendered(englishHome, 'English front page');
 await writeFile(englishHomePath, englishHome, 'utf8');
 
 let godot = removeGeneratedTimerBlock(await readFile(godotPath, 'utf8'), 'section');
-const chronologyMarker = '<table id="chronologie-seznam"';
+const chronologyMarker = '<section class="justice-slalom-shell state-love-shell"';
 if (!godot.includes(chronologyMarker)) throw new Error('Godot nemá hlavní tabulku Státu lásky čas');
-const chronologyClose = godot.indexOf('</table>', godot.indexOf(chronologyMarker));
-if (chronologyClose < 0) throw new Error('Godot nemá ukončenou hlavní tabulku');
-const insertAt = chronologyClose + '</table>'.length;
-godot = godot.slice(0, insertAt) + `\n${godotSection}` + godot.slice(insertAt);
+const insertAt = godot.indexOf(chronologyMarker);
+godot = godot.slice(0, insertAt) + `${godotSection}\n` + godot.slice(insertAt);
 const legacyDocketsStart = godot.indexOf('<section id="rizeni-online"');
 if (legacyDocketsStart >= 0) godot = removeBalancedElement(godot, legacyDocketsStart, 'section');
 godot = injectAssets(godot);
