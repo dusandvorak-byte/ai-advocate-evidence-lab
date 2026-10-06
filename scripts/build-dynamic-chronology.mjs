@@ -114,6 +114,7 @@ const documentLink = (item, fallbackLabel = 'Dokument v PDF') => {
   return { href: `listiny/${item.id}.html`, label: 'Evidenční stránka', external: false };
 };
 
+const documentsById = new Map(documents.map(item => [item.id, item]));
 const mainDocuments = documents.filter(item => item.issue_date >= MAIN_FROM);
 const stateDocuments = mainDocuments
   .filter(item => item.document_type !== 'state_record_attachment' && (item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record'))
@@ -122,29 +123,52 @@ const outgoingDocuments = mainDocuments
   .filter(item => item.submission_side === 'outgoing_from_user_or_alliance')
   .sort(compareDocuments);
 
-// "Státu lásky čas" is a single canonical table: newest documents remain visually
-// at the top, but numbering expresses chronological age. Therefore the oldest
-// visible document is No. 1 and the newest (top) row carries the highest number.
-const chronologyDocuments = mainDocuments
-  .filter(item => item.submission_side === 'incoming_from_state_or_public_institution' || item.submission_side === 'outgoing_from_user_or_alliance' || item.document_type === 'state_record')
-  .sort(compareDocuments);
+const isOutgoing = item => item?.submission_side === 'outgoing_from_user_or_alliance';
+const uniqueById = items => [...new Map(items.filter(Boolean).map(item => [item.id, item])).values()].sort(compareDocuments);
 
+const filingsForState = state => {
+  const direct = (state.relations || [])
+    .filter(rel => (rel.type || rel.relation_type) === 'reakce_na')
+    .map(rel => documentsById.get(rel.target_id || rel.document_id || rel.target))
+    .filter(isOutgoing);
+  const reverse = outgoingDocuments.filter(item => (item.relations || []).some(rel =>
+    (rel.type || rel.relation_type) === 'podani_na_ktere_organ_reaguje'
+    && (rel.target_id || rel.document_id || rel.target) === state.id
+  ));
+  return uniqueById([...direct, ...reverse]);
+};
+
+const remediesForState = state => uniqueById(outgoingDocuments.filter(item => (item.relations || []).some(rel =>
+  (rel.type || rel.relation_type) === 'reakce_na'
+  && (rel.target_id || rel.document_id || rel.target) === state.id
+)));
+
+const renderRelated = items => {
+  if (!items.length) return '<span class="state-love-empty">—</span>';
+  return items.map(item => {
+    const link = documentLink(item);
+    const target = link.external ? ' target="_blank" rel="noopener"' : '';
+    return `<span class="state-love-related" data-related-document-id="${escapeHtml(item.id)}"><b>${escapeHtml(formatDate(item.issue_date))}</b> · ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a></span>`;
+  }).join('<br>');
+};
+
+// Státu lásky čas contains only incoming state/public/international responses.
+// Newest response stays visually on top; numbering runs chronologically from the oldest = 1.
+const chronologyDocuments = stateDocuments;
 const chronologyNumber = index => chronologyDocuments.length - index;
 
 const renderChronologyRow = (item, index) => {
   const institution = institutionMap.get(item.institution_id);
   const subjectName = institution?.name_cs || institution?.name || item.institution_id;
-  const recipient = item.recipient_id ? institutionMap.get(item.recipient_id) : null;
-  const actor = recipient && item.submission_side === 'outgoing_from_user_or_alliance'
-    ? `${subjectName} → ${recipient.name_cs || recipient.name || item.recipient_id}`
-    : subjectName;
   const link = documentLink(item);
   const target = link.external ? ' target="_blank" rel="noopener"' : '';
   const number = chronologyNumber(index);
-  return `<tr id="${escapeHtml(item.id)}" data-state-love-id="${escapeHtml(item.id)}" data-row-number="${number}" data-issue-date="${escapeHtml(item.issue_date)}" data-submission-side="${escapeHtml(item.submission_side || '')}"><td class="slalom-number">${number}</td><td><time datetime="${escapeHtml(item.issue_date)}">${escapeHtml(formatDate(item.issue_date))}</time></td><td>${escapeHtml(actor)}</td><td>${escapeHtml(referenceText(item))}</td><td>${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a></td></tr>`;
+  const sourceFilings = filingsForState(item);
+  const remedies = remediesForState(item);
+  return `<tr id="${escapeHtml(item.id)}" data-state-love-id="${escapeHtml(item.id)}" data-row-number="${number}" data-issue-date="${escapeHtml(item.issue_date)}" data-submission-side="incoming_from_state_or_public_institution"><td class="slalom-number">${number}</td><td><time datetime="${escapeHtml(item.issue_date)}">${escapeHtml(formatDate(item.issue_date))}</time></td><td>${escapeHtml(subjectName)}</td><td>${escapeHtml(referenceText(item))}</td><td>${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a></td><td class="state-love-relation-cell">${renderRelated(sourceFilings)}</td><td class="state-love-relation-cell">${renderRelated(remedies)}</td></tr>`;
 };
 
-const chronologyHtml = `<div class="justice-slalom-scroll state-love-scroll"><table id="chronologie-seznam" class="state-love-table"><thead><tr><th scope="col">Č.</th><th scope="col">Datum</th><th scope="col">Subjekt / orgán</th><th scope="col">č. j./sp. zn.</th><th scope="col">Co se stalo</th></tr></thead><tbody>${chronologyDocuments.map(renderChronologyRow).join('')}</tbody></table></div>`;
+const chronologyHtml = `<section class="justice-slalom-shell state-love-shell" aria-label="Státu lásky čas"><details class="home-rollup justice-slalom state-love-panel" open><summary><span class="rollup-title">Státu lásky čas</span><span class="rollup-prompt">reakce státu, veřejných a mezinárodních orgánů</span><span class="rollup-heart" aria-hidden="true">❤️</span><b class="rollup-action">Rozbalit ↓</b></summary><div class="justice-slalom-body"><p class="justice-slalom-intro">${chronologyDocuments.length} reakcí orgánů · nejnovější nahoře · nejstarší reakce má číslo 1.</p><div class="justice-slalom-scroll state-love-scroll"><table id="chronologie-seznam" class="state-love-table"><thead><tr><th scope="col">Č.</th><th scope="col">Datum</th><th scope="col">Orgán</th><th scope="col">č. j./sp. zn.</th><th scope="col">Co se stalo</th><th scope="col">Na co orgán reaguje</th><th scope="col">Námitka / opravný prostředek</th></tr></thead><tbody>${chronologyDocuments.map(renderChronologyRow).join('')}</tbody></table></div></div></details></section>`;
 
 let article = await readFile(articlePath, 'utf8');
 article = article
@@ -193,4 +217,4 @@ for (const item of documents) {
 
 if (!article.includes('id="chronologie-seznam"') || chronologyDocuments.length === 0) throw new Error('Tabulka Státu lásky čas nebyla vytvořena');
 if (article.includes('chronology-case-index') || article.includes('lhuty-a-necinnost') || article.includes('Anonymizační axiom:') || article.includes('Důkazní hranice:')) throw new Error('Za tabulkou Státu lásky čas zůstal odstraněný pomocný blok');
-console.log(`Státu lásky čas: ${chronologyDocuments.length} dokumentů v tabulce; nejnovější nahoře, nejstarší=1; ${generatedPages} evidenčních stránek.`);
+console.log(`Státu lásky čas: ${chronologyDocuments.length} reakcí orgánů; vlastní podání pouze ve vztahových sloupcích; nejnovější nahoře, nejstarší=1; ${generatedPages} evidenčních stránek.`);
