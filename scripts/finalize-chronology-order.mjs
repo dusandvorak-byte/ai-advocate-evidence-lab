@@ -23,4 +23,4 @@ for (const entry of await readdir(listinyDir, { withFileTypes: true })) {
   html = html.replace(/<p><b>Kdo:<\/b>\s*([\s\S]*?)<\/p><p><b>Datum:<\/b>\s*([\s\S]*?)<\/p><p><b>Č\. j\. \/ sp\. zn\.:<\/b>/, '<p><b>Datum:</b> $2</p><p><b>Kdo:</b> $1</p><p><b>Č. j. / sp. zn.:</b>');
   if (html !== before) { await writeFile(file, html, 'utf8'); pageChanges += 1; }
 }
-console.log(`Chronologie vynucena v pořadí Datum → Kdo → Č. j./sp. zn. → Co se stalo: ${changed} položek; ${pageChanges} evidenčních stránek.`);
+console.log(`Chronologie ověřena v tabulce: ${rows.length} řádků; ${pageChanges} evidenčních stránek mělo opravené pořadí polí.`);
