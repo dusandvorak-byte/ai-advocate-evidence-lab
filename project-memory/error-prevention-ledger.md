@@ -383,3 +383,10 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - **Závazná náprava:** Hlavní řádky Státu lásky čas tvoří pouze příchozí reakce veřejných, státních a mezinárodních/EU orgánů. Naše podání se smějí objevit pouze vztahově: ve sloupci **Na co orgán reaguje** a ve sloupci **Námitka / opravný prostředek**, vždy s aktivním odkazem, je-li PDF veřejně dostupné. Vizuál tabulky musí sdílet stejné třídy a stejné CSS vlastnosti jako Justiční slalom; odlišuje se pouze počtem sloupců.
 - **Pojistka:** Build selže, pokud hlavní tabulka Státu lásky čas obsahuje řádek s `submission_side=outgoing_from_user_or_alliance`, pokud počet hlavních řádků neodpovídá kanonickému počtu příchozích reakcí, pokud chybějí sloupce vztahů, nebo pokud tabulka není vložena do stejného `justice-slalom` vizuálního wrapperu. CZ a EN se kontrolují položku po položce a nejnovější reakce zůstává nahoře, zatímco nejstarší má číslo 1.
 
+### Státu lásky čas nesmí zdědit úzký 760px článek
+
+- **Projev:** tabulka Státu lásky čas byla přibližně na polovinu šířky stránky, zatímco Justiční slalom používal celý page shell.
+- **Příčina:** panel byl vložen uvnitř `.article-body`, která je na desktopu první buňkou dvousloupcové mřížky `.article-layout` s maximem 760 px. Pravidlo `width:100%` proto znamenalo 100 % úzkého textového sloupce, nikoli 100 % hlavního page shellu.
+- **Náprava:** `.article-body` obsahující `.state-love-shell` musí přes `grid-column:1/-1` zabrat celou šířku mřížky; samotný panel pak může bezpečně zůstat na `width:100%` a geometricky odpovídá Justičnímu slalomu.
+- **Pojistka:** publikační validátor musí ověřit existenci full-width grid pravidla a nesmí připustit návrat Státu lásky čas do 760px sloupce.
+
