@@ -28,7 +28,7 @@ for (const id of [cnbId,msId,ombId]) must(canonicalById.has(id), 'kanonický reg
 const originals = [
   [cnbId,'documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank.pdf','a5e5890356ca4f7d520bdda7cbdbff1ffee92f9da9fffa37c9556f991e8252d4'],
   [msId,'documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf','6fac4edb59d7e5f67519ec853d810f9fc4a41e5946698ba54b1e7777d173082e'],
-  [ombId,'documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf','623f4334331dcd9de6acb5fa45231132cdd3d8ec780376990374879b654a753e']
+  [ombId,'documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf','34254d11c01f91e8a12cb99800e8d16ca9ec715a6703d765401ddcd79595e434']
 ];
 for (const [id,pdf,expectedSha] of originals) {
   const d=canonicalById.get(id);
