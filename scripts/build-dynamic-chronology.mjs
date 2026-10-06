@@ -115,79 +115,37 @@ const documentLink = (item, fallbackLabel = 'Dokument v PDF') => {
 };
 
 const mainDocuments = documents.filter(item => item.issue_date >= MAIN_FROM);
-const archiveDocuments = documents.filter(item => item.issue_date < MAIN_FROM);
 const stateDocuments = mainDocuments
   .filter(item => item.document_type !== 'state_record_attachment' && (item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record'))
   .sort(compareStateDocuments);
-const outgoingDocuments = mainDocuments.filter(item => item.submission_side === 'outgoing_from_user_or_alliance');
+const outgoingDocuments = mainDocuments
+  .filter(item => item.submission_side === 'outgoing_from_user_or_alliance' && !String(item.document_type || '').endsWith('_attachment'))
+  .sort(compareDocuments);
 
-const reactionsByTarget = new Map();
-const precedingByTarget = new Map();
-for (const item of outgoingDocuments) {
-  for (const rel of item.relations || []) {
-    const type = rel.type || rel.relation_type;
-    const map = type === 'reakce_na' ? reactionsByTarget : type === 'podani_na_ktere_organ_reaguje' ? precedingByTarget : null;
-    if (!map) continue;
-    const targetId = rel.target_id || rel.document_id;
-    if (!targetId) continue;
-    const bucket = map.get(targetId) || [];
-    bucket.push(item);
-    map.set(targetId, bucket);
-  }
-}
+// "Státu lásky čas" is a single canonical table: newest documents remain visually
+// at the top, but numbering expresses chronological age. Therefore the oldest
+// visible document is No. 1 and the newest (top) row carries the highest number.
+const chronologyDocuments = mainDocuments
+  .filter(item => !String(item.document_type || '').endsWith('_attachment'))
+  .filter(item => item.submission_side === 'incoming_from_state_or_public_institution' || item.submission_side === 'outgoing_from_user_or_alliance' || item.document_type === 'state_record')
+  .sort(compareDocuments);
 
-const attachmentsByTarget = new Map();
-for (const item of documents) {
-  for (const rel of item.relations || []) {
-    if ((rel.type || rel.relation_type) !== 'priloha_k') continue;
-    const targetId = rel.target_id || rel.document_id;
-    if (!targetId) continue;
-    const bucket = attachmentsByTarget.get(targetId) || [];
-    bucket.push(item);
-    attachmentsByTarget.set(targetId, bucket);
-  }
-}
+const chronologyNumber = index => chronologyDocuments.length - index;
 
-const renderInlineReaction = (item, relationLabel = null) => {
-  const linkLabel = item.document_type === 'user_submission_attachment'
-    ? 'příloha PDF'
-    : relationLabel === 'Podání, na které orgán veřejné moci reaguje'
-      ? 'podání PDF'
-      : 'reakce PDF';
-  const link = documentLink(item, linkLabel);
-  const target = link.external ? ' target="_blank" rel="noopener"' : '';
-  const isAttachment = String(item.document_type || '').endsWith('_attachment');
-  const label = relationLabel || (isAttachment ? 'Příloha' : 'Reakce na podání orgánu veřejné moci');
-  return `<span class="chronology-reaction"> · <b>${label}:</b> ${escapeHtml(formatDate(item.issue_date))} · ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a></span>`;
-};
-
-const renderChronologyItem = item => {
+const renderChronologyRow = (item, index) => {
   const institution = institutionMap.get(item.institution_id);
-  const name = institution?.name_cs || institution?.name || item.institution_id;
+  const subjectName = institution?.name_cs || institution?.name || item.institution_id;
+  const recipient = item.recipient_id ? institutionMap.get(item.recipient_id) : null;
+  const actor = recipient && item.submission_side === 'outgoing_from_user_or_alliance'
+    ? `${subjectName} → ${recipient.name_cs || recipient.name || item.recipient_id}`
+    : subjectName;
   const link = documentLink(item);
   const target = link.external ? ' target="_blank" rel="noopener"' : '';
-  const cases = Array.isArray(item.case_ids) && item.case_ids.length
-    ? `<span class="case-links">Řízení: ${item.case_ids.map(id => `<a href="#${escapeHtml(id)}">${escapeHtml(caseMap.get(id)?.reference || id)}</a>`).join(', ')}</span>`
-    : '';
-  const reactions = (reactionsByTarget.get(item.id) || []).sort(compareDocuments);
-  const preceding = (precedingByTarget.get(item.id) || []).sort(compareDocuments);
-  const renderWithAttachments = (entry, label = null) => {
-    const nested = (attachmentsByTarget.get(entry.id) || []).sort(compareDocuments).map(attachment => renderInlineReaction(attachment)).join('');
-    return `${renderInlineReaction(entry, label)}${nested}`;
-  };
-  const directAttachments = (attachmentsByTarget.get(item.id) || []).sort(compareDocuments).map(attachment => renderInlineReaction(attachment, 'Příloha')).join('');
-  const inline = directAttachments + preceding.map(entry => renderWithAttachments(entry, 'Podání, na které orgán veřejné moci reaguje')).join('') + reactions.map(reaction => {
-    const nested = (attachmentsByTarget.get(reaction.id) || []).sort(compareDocuments).map(renderInlineReaction).join('');
-    return `${renderInlineReaction(reaction)}${nested}`;
-  }).join('');
-  return `<li id="${escapeHtml(item.id)}" data-issue-date="${escapeHtml(item.issue_date)}" data-institution-id="${escapeHtml(item.institution_id)}"><b>Datum:</b> ${escapeHtml(formatDate(item.issue_date))} · <b>Kdo:</b> <span class="institution">${escapeHtml(name)}</span> · <b>Č. j. / sp. zn.:</b> ${escapeHtml(referenceText(item))} · <b>Co se stalo:</b> ${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a>${cases}${inline}</li>`;
+  const number = chronologyNumber(index);
+  return `<tr id="${escapeHtml(item.id)}" data-state-love-id="${escapeHtml(item.id)}" data-row-number="${number}" data-issue-date="${escapeHtml(item.issue_date)}" data-submission-side="${escapeHtml(item.submission_side || '')}"><td class="slalom-number">${number}</td><td><time datetime="${escapeHtml(item.issue_date)}">${escapeHtml(formatDate(item.issue_date))}</time></td><td>${escapeHtml(actor)}</td><td>${escapeHtml(referenceText(item))}</td><td>${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a></td></tr>`;
 };
 
-const caseIndex = `<section id="chronology-case-index" class="case-anchor-index"><h3>Uzly řízení</h3>${caseAnchors.map(([id, label]) => `<article id="${id}" class="case-anchor-node"><h4>${escapeHtml(label)}</h4><p>Související listiny a procesní kroky jsou průběžně řazeny v chronologii výše.</p></article>`).join('')}</section>`;
-const chronologyHtml = `<ol id="chronologie-seznam">${stateDocuments.map(renderChronologyItem).join('')}</ol>`;
-const archiveHtml = archiveDocuments.length
-  ? `<h2 id="archiv-vstupu-do-eu">Archiv vstupu do EU</h2><p>Dokumentovaná historie podání, rozhodnutí, obran a institucionálních vazeb před 1. květnem 2026, systematicky zejména od roku 2010.</p><ol id="archiv-seznam" start="${stateDocuments.length + 1}">${archiveDocuments.map(renderChronologyItem).join('')}</ol>`
-  : '';
+const chronologyHtml = `<div class="justice-slalom-scroll state-love-scroll"><table id="chronologie-seznam" class="state-love-table"><thead><tr><th scope="col">Č.</th><th scope="col">Datum</th><th scope="col">Subjekt / orgán</th><th scope="col">č. j./sp. zn.</th><th scope="col">Co se stalo</th></tr></thead><tbody>${chronologyDocuments.map(renderChronologyRow).join('')}</tbody></table></div>`;
 
 let article = await readFile(articlePath, 'utf8');
 article = article
@@ -229,5 +187,6 @@ for (const item of documents) {
   generatedPages += 1;
 }
 
-if (!article.includes('id="chronologie-seznam"') || stateDocuments.length === 0) throw new Error('Statická chronologie nebyla vytvořena');
-console.log(`Statický Pavouk: ${stateDocuments.length} číslovaných státních/veřejných listin od 1. 5. 2026; ${outgoingDocuments.length} našich podání zobrazeno pouze inline jako reakce/přílohy; ${archiveDocuments.length} archivních položek; ${generatedPages} evidenčních stránek.`);
+if (!article.includes('id="chronologie-seznam"') || chronologyDocuments.length === 0) throw new Error('Tabulka Státu lásky čas nebyla vytvořena');
+if (article.includes('chronology-case-index') || article.includes('lhuty-a-necinnost') || article.includes('Anonymizační axiom:') || article.includes('Důkazní hranice:')) throw new Error('Za tabulkou Státu lásky čas zůstal odstraněný pomocný blok');
+console.log(`Státu lásky čas: ${chronologyDocuments.length} dokumentů v tabulce; nejnovější nahoře, nejstarší=1; ${generatedPages} evidenčních stránek.`);
