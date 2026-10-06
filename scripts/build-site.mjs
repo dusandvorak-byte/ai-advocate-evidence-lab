@@ -48,7 +48,6 @@ await runPython('scripts/materialize-uoou-submission-2026-10-02.py');
 await runPython('scripts/materialize-euda-access-documents-2026-10-01.py');
 await runPython('scripts/materialize-ekk-evidence-2026-10-02.py');
 await runPython('scripts/materialize-four-records-2026-10-03.py');
-await runPython('scripts/materialize-october-6-submissions.py');
 await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');
 await run('scripts/reconcile-public-pdfs.mjs');
@@ -119,6 +118,13 @@ if (!article.includes('id="procesni-casovace"')) throw new Error('Mezikrok Godot
 if (!article.includes(correctTitle)) throw new Error('Článek neobsahuje správný Godotův název');
 if (article.includes(wrongTitle)) throw new Error('Článek obsahuje chybný název s křižákem z Branibor');
 if (!article.includes('id="chronologie-seznam"') || !article.includes('state-love-table')) throw new Error('Článek neobsahuje tabulku Státu lásky čas');
+const stateLoveTableStart = article.indexOf('<table id="chronologie-seznam"');
+const stateLoveTableEnd = stateLoveTableStart < 0 ? -1 : article.indexOf('</table>', stateLoveTableStart);
+if (stateLoveTableEnd < 0) throw new Error('Státu lásky čas nemá uzavřenou tabulku');
+const afterStateLoveTable = article.slice(stateLoveTableEnd + '</table>'.length);
+for (const forbidden of ['chronology-case-index','lhuty-a-necinnost','Anonymizační axiom:','Důkazní hranice:']) {
+  if (afterStateLoveTable.includes(forbidden)) throw new Error(`Za tabulkou Státu lásky čas zůstal zakázaný blok: ${forbidden}`);
+}
 if (/aktivní originály/i.test(article)) throw new Error('Článek obsahuje samostatný blok aktivních originálů');
 if (/href=["']web\/documents\//i.test(article)) throw new Error('Ve veřejném HTML zůstal prefix web/documents/');
 const expectedChronologyCount = documentsRegistry.documents.filter(item =>
