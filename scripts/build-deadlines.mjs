@@ -57,21 +57,14 @@ const sorted = registry.deadlines.map(item => {
   return { ...item, computed_status: calculateStatus(item) };
 }).sort((a, b) => String(a.due_date || '9999-12-31').localeCompare(String(b.due_date || '9999-12-31')));
 
-const rows = sorted.length ? sorted.map(item => {
-  const response = item.response_document_id
-    ? `<a href="#${escapeHtml(item.response_document_id)}">odpověď ${escapeHtml(formatDate(item.response_date))}</a>`
-    : 'dosud bez evidované odpovědi';
-  return `<tr class="deadline-${escapeHtml(item.computed_status)}"><td>${escapeHtml(labels[item.computed_status])}</td><td>${escapeHtml(item.responsible_institution_id)}</td><td><a href="#${escapeHtml(item.trigger_document_id)}">${escapeHtml(item.title || item.trigger_document_id)}</a></td><td>${escapeHtml(formatDate(item.start_date))}</td><td>${escapeHtml(formatDate(item.due_date))}</td><td>${response}</td></tr>`;
-}).join('') : '<tr><td colspan="6">Lhůty budou doplňovány z rejstříku při evidenci opravných prostředků a podání.</td></tr>';
-
-const section = `<section id="lhuty-a-necinnost" class="deadlines"><h2>Lhůty a nečinnost</h2><p>Stav se při každém nasazení automaticky přepočítává podle evidovaného počátku, konce lhůty a doručené odpovědi.</p><table><thead><tr><th>Stav</th><th>Odpovědný orgán</th><th>Podání nebo opravný prostředek</th><th>Počátek</th><th>Konec lhůty</th><th>Odpověď</th></tr></thead><tbody>${rows}</tbody></table></section>`;
-
+// Lhůty zůstávají součástí interního datového modelu, ale uživatel výslovně
+// odstranil veřejný blok "Lhůty a nečinnost" ze Státu lásky čas.
 let article = await readFile(articlePath, 'utf8');
-article = article.replace(/<section id="lhuty-a-necinnost"[\s\S]*?<\/section>/, '');
-const marker = '<p><b>Anonymizační axiom:</b>';
-if (!article.includes(marker)) throw new Error('V článku chybí místo pro vložení sekce lhůt');
-article = article.replace(marker, `${section}\n${marker}`);
+article = article
+  .replace(/<section id="lhuty-a-necinnost"[\s\S]*?<\/section>\s*/g, '')
+  .replace(/<p><b>Anonymizační axiom:<\/b>[\s\S]*?<\/p>\s*/g, '')
+  .replace(/<p><b>Důkazní hranice:<\/b>[\s\S]*?<\/p>\s*/g, '');
 await writeFile(articlePath, article, 'utf8');
 await writeFile(target, JSON.stringify({ ...registry, generated_at: new Date().toISOString(), deadlines: sorted }, null, 2), 'utf8');
 
-console.log(`Lhůty vytvořeny: ${sorted.length}; po lhůtě bez odpovědi: ${sorted.filter(item => item.computed_status === 'overdue_unanswered').length}.`);
+console.log(`Lhůty datově aktualizovány: ${sorted.length}; veřejný blok ve Státu lásky čas je záměrně odstraněn.`);
