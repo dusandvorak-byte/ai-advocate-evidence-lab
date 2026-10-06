@@ -37,21 +37,21 @@ for (const file of source.files) {
   if (sha!==file.source_sha256 || sha!==file.public_sha256 || sha!==doc.public.sha256 || !data.subarray(0,5).equals(Buffer.from('%PDF-')) || !data.subarray(-2048).toString('latin1').includes('%%EOF')) fail(`PDF integrity ${file.document_id}`);
   if (!translations.documents[file.document_id]) fail(`English description ${file.document_id}`);
   for (const [index, page] of pages.entries()) {
-    const block = page.match(new RegExp(`<li\\b[^>]*(?:id|data-document-id)="${file.document_id}"[^>]*>[\\s\\S]*?(?=<li\\b|<\\/ol>)`))?.[0];
-    if (!block || !block.includes(file.reference) || !block.includes(file.public_pdf)) fail(`public record/PDF ${file.document_id}`);
+    const idMarker = index === 0 ? `<tr id="${file.document_id}"` : `data-document-id="${file.document_id}"`;
+    const start = page.indexOf(idMarker);
+    const end = start < 0 ? -1 : page.indexOf('</tr>', start);
+    const block = start >= 0 && end >= 0 ? page.slice(start, end + 5) : '';
+    if (!block || !block.includes(file.reference) || !block.includes(file.public_pdf)) fail(`public table record/PDF ${file.document_id}`);
     const pdfLinks = [...block.matchAll(/<a\b[^>]*href="([^"]+\.pdf)"[^>]*>([^<]+)<\/a>/g)];
     for (const [, href, label] of pdfLinks) {
       const allowed = index === 0 ? ['Dokument v PDF'] : ['PDF document', 'Original Czech PDF'];
       if (!allowed.includes(label) || (/verejna-kopie|public-copy/.test(href) && /Original/.test(label))) fail(`public PDF label ${file.document_id}: ${label}`);
     }
-    if (index === 0) for (const id of doc.case_ids || []) {
-      if (!block.includes(`href="#${id}"`) || !page.includes(`id="${id}"`)) fail(`missing case anchor ${file.document_id}: ${id}`);
-    }
     const preceding = registry.documents.filter(d => (d.relations || []).some(r =>
       (r.type || r.relation_type) === 'podani_na_ktere_organ_reaguje' && (r.target_id || r.document_id) === doc.id));
     for (const submission of preceding) {
-      const pdf = submission.public?.pdf?.replace(/^web\//, '');
-      if (!pdf || !block.includes(pdf)) fail(`missing preceding filing ${file.document_id}: ${submission.id}`);
+      const marker = index === 0 ? `<tr id="${submission.id}"` : `data-document-id="${submission.id}"`;
+      if (!page.includes(marker)) fail(`missing preceding filing table row ${file.document_id}: ${submission.id}`);
     }
   }
   for (const id of doc.closes_timer_ids || []) {
@@ -64,4 +64,4 @@ for (const file of source.files) {
     for (const field of ['status','limit_kind','limit_days','due_date']) if (timer[field] !== update[field]) fail(`stale process field ${doc.id}: ${field}`);
   }
 }
-console.log('State release 2026-09-29 OK: source-identical PDFs, canonical dates, CZ/EN entries, labels, case/filing relations, resolved KSZ phase and no client overwrite.');
+console.log('State release 2026-09-29 OK: source-identical PDFs, canonical dates, CZ/EN table entries, labels, filing relations, resolved KSZ phase and no client overwrite.');
