@@ -271,6 +271,11 @@
       "path": "project-memory/documents-2026-supplement-2026-10-04-key-evidence-ostrava.json",
       "role": "batch",
       "batch_date": "2026-10-04"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-06-cnb-ms-praha.json",
+      "role": "batch",
+      "batch_date": "2026-10-06"
     }
   ]
 }
