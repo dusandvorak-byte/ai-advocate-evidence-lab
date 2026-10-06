@@ -137,7 +137,7 @@
     },
     {
       "id": "state-love-table-publication",
-      "text": "Státu lásky čas se veřejně zobrazuje jako tabulka ve stejném vizuálním systému jako Justiční slalom. Dokumenty zůstávají vizuálně seřazeny od nejnovějších nahoře k nejstarším dole; obrací se pouze číslování, takže nejstarší dokument dole má číslo 1 a nejnovější dokument nahoře nejvyšší číslo. Tabulka obsahuje Datum, Subjekt / orgán, č. j./sp. zn., popis děje a odkaz na dokument. Za touto tabulkou se nezobrazují pomocné bloky Uzly řízení, Lhůty a nečinnost, Anonymizační axiom ani Důkazní hranice. Procesní data mohou zůstat interně evidována, ale nesmějí tento veřejný konec článku znovu vytvářet."
+      "text": "Státu lásky čas se veřejně zobrazuje jako tabulka ve stejném vizuálním systému jako Justiční slalom. Dokumenty se řadí primárně podle doloženého data vydání / data dokumentu (issue_date), nikoli podle dne, kdy byly dodatečně doručeny nebo získány; pozdější received_date je samostatná procesní metadata a nesmí dokument přesunout na dnešní datum. Vizuálně zůstává nejnovější dokument nahoře a nejstarší dole; obrací se pouze číslování, takže nejstarší dokument dole má číslo 1 a nejnovější dokument nahoře nejvyšší číslo. Tabulka obsahuje Datum, Subjekt / orgán, č. j./sp. zn., popis děje a odkaz na dokument. Za touto tabulkou se nezobrazují pomocné bloky Uzly řízení, Lhůty a nečinnost, Anonymizační axiom ani Důkazní hranice. Procesní data mohou zůstat interně evidována, ale nesmějí tento veřejný konec článku znovu vytvářet."
     }
   ]
 }
