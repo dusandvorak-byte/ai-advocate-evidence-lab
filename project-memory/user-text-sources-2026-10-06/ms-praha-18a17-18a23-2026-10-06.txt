@@ -1,1 +1,343 @@
-No readable content was found in this file for the requested mode.
+MĚSTSKÝ SOUD V PRAZE • 18 A 17/2026 + 18 A 23/2026 • 6. 10. 2026
+Mgr. Dušan Dvořák • společné důkazní doplnění • strana 1
+MĚSTSKÉMU SOUDU V PRAZE
+Slezská 9, 120 00 Praha 2
+ID datové schránky: snkabbm
+Spisy: 18 A 17/2026 a 18 A 23/2026
+Žalobce: Mgr. Dušan Dvořák [datum narození a soukromá adresa vypuštěny ve veřejné kopii]
+Žalovaná 18 A 17/2026: Policie České republiky – Národní centrála proti organizovanému
+zločinu SKPV
+Žalovaný 18 A 23/2026: Ministerstvo spravedlnosti České republiky
+Datum: 6. října 2026
+SPOLEČNÉ MIMOŘÁDNĚ NALÉHAVÉ DŮKAZNÍ DOPLNĚNÍ
+k založení a vyhodnocení v řízeních sp. zn. 18 A 17/2026 a 18 A 23/2026
+nové následné důkazy k otázce sporných forenzních praxí při analýzách obsahu THC v
+zabraném konopí, THCA → THC při zahřívání a možného legislativního překrytí dřívější praxe
+PROCESNÍ REŽIM: Žalobce tímto nemění žalované, skutkové jádro ani petit žádné z obou žalob.
+Předkládá nové následné listinné důkazy a žádá jejich hodnocení pouze v rozsahu, v němž osvětlují trvání,
+důsledky a přezkoumatelnost již tvrzených zásahů.
+I. Důvod společného podání oběma senátům 18 A
+Obě řízení mají rozdílné žalované a rozdílný bezprostřední předmět, spojuje je však tatáž odborně-právní
+otázka, kterou žalobce předkládá státním orgánům dlouhodobě: zda sporné forenzní praxe při analýzách
+obsahu THC v zabraném konopí byly založeny na předem stanoveném, dokumentovaném, validovaném či
+verifikovaném a zpětně přezkoumatelném postupu a zda policejní znalecká pracoviště transparentně
+oddělovala THC přítomné v původním vzorku od THC, které vzniklo teprve dekarboxylací THCA při zahřívání
+během laboratorní analýzy.
+V řízení 18 A 17/2026 je tato otázka významná pro posouzení, zda NCOZ mohla podněty žalobce pouze
+evidovat, odkládat či uzavírat bez přezkoumatelného odborného prověření. V řízení 18 A 23/2026 je
+významná pro posouzení veřejnosprávního postupu Ministerstva spravedlnosti při zacházení s podněty
+týkajícími se znalecké činnosti, oprávnění znaleckých pracovišť Policie ČR a přezkoumatelnosti znaleckých
+výstupů.
+Žalobce proto předkládá oběma senátům totožný nový důkazní celek, aby nebyla tatáž odborná otázka
+posuzována izolovaně ve dvou souvisejících správních věcech.
+II. Nový důkazní celek ze dne 4. 10. 2026 předložený Okresnímu soudu v Prostějově
+Dne 4. října 2026 bylo Okresnímu soudu v Prostějově ve věcech obnovy řízení sp. zn. 15 Nt 3104/2026 a
+15 Nt 3106/2026 předloženo podání „Potvrzení klíčových důkazů pro obnovu řízení 2 T 104/2010 a 2 T
+65/2011…“. Podání bylo současně adresováno dalším dotčeným orgánům a navazuje na veřejná zasedání
+nařízená na 12. a 13. října 2026.
+Pro nynější správní řízení je podstatné, že tento nový podklad výslovně formuluje otázku, zda při plynové
+chromatografii docházelo k dekarboxylaci THCA na THC a proč nebylo v protokolu transparentně sděleno,
+zda a v jakém rozsahu výsledně vykázané THC vzniklo až analytickým postupem ve znalecké laboratoři.
+Současně spojuje tuto otázku se Stanoviskem Unie obhájců České republiky č. 3/2026 ze dne 25. září 2026,
+dánským přehodnocením forenzního dokazování a stanoviskem Evropské komise.
+
+MĚSTSKÝ SOUD V PRAZE • 18 A 17/2026 + 18 A 23/2026 • 6. 10. 2026
+Mgr. Dušan Dvořák • společné důkazní doplnění • strana 2
+Podání Okresnímu soudu přitom výslovně rozlišuje mezi tím, co je doložený skutkový podklad, a tím, co
+je nutno teprve ověřit z prvotních laboratorních podkladů. Nečiní tedy bez dokazování závěr, že každý
+konkrétní historický vzorek byl zpracován vadně; žádá zjistit konkrétní chromatogramy, pracovní listy, SOP,
+validační podklady a znalecké výstupy. Tuto metodickou zdrženlivost žalobce zachovává i v tomto
+společném podání.
+III. První legislativní zásah: nařízení vlády č. 3/2012 Sb. změnilo trestněprávně
+rozhodný vzorek
+Nařízení vlády č. 3/2012 Sb., účinné od 5. ledna 2012, změnilo přílohu č. 1 nařízení vlády č. 455/2009 Sb.
+tak, že slova „z celkové hmotnosti rostliny“ byla nahrazena slovy „v kvetoucím nebo plodonosném vrcholíku
+rostliny konopí (s výjimkou zrn) včetně listů“. Nešlo tedy jen o terminologickou změnu, ale o změnu části
+rostliny, z níž se pro trestněprávní účely odvozovala koncentrace látek ze skupiny tetrahydrokanabinolů.
+Žalobce netvrdí, že samotná následnost této změny prokazuje nezákonný motiv vlády. Tvrdí však, že
+změna přijatá až po skutkových dějích původních trestních věcí je právně významná pro posouzení, zda
+dřívější znalecká pracoviště používala postup odpovídající tehdy účinnému právu a zda nebyla pozdější
+právní úpravou dodatečně překryta či normalizována praxe, která v době provádění znaleckých zkoumání
+neměla transparentní a přezkoumatelný normativní základ.
+IV. Druhý aktuální legislativní zásah: vládou schválený návrh novely ZoNL, nyní
+sněmovní tisk 321
+Dne 14. září 2026 vláda schválila návrh novely zákona č. 167/1998 Sb., o návykových látkách, evidovaný
+pod č. j. OVA 684/26. Návrh byl Poslanecké sněmovně předložen dne 29. září 2026 a je veden jako sněmovní
+tisk 321. Ke dni tohoto podání jde stále o projednávaný návrh zákona; žalobce jej proto nepředkládá jako
+účinné právo, ale jako nový legislativní fakt relevantní pro hodnocení stejné odborné otázky.
+Z hlediska této věci je mimořádně významný navržený § 15 odst. 1 písm. i), který má zakazovat
+„zpracovávat látku kanabidiol a látku kyselina tetrahydrokanabinolová na jiné chemické látky“, spolu se
+zvláštními výjimkami podle navrženého § 15 odst. 2. Právě výslovné legislativní uchopení chemické přeměny
+CBD a THCA v roce 2026 činí ještě naléhavější otázku, jaký byl právní a metodický základ dřívější policejní
+laboratorní praxe, jestliže při zahřívání vzorku mohla být THCA přeměněna na THC přímo během analýzy.
+Žalobce proto nově formuluje důvodné podezření, které žádá věcně přezkoumat, zda nejde již o druhé
+legislativní překrytí sporné forenzní praxe při analýzách obsahu THC v zabraném konopí: nejprve změnou
+trestněprávně rozhodného vzorku v roce 2012 a nyní výslovnou regulací chemické přeměny THCA a CBD v
+návrhu zákona z roku 2026.
+Toto podezření není v tomto podání předkládáno jako prokázaný motiv zákonodárce ani vlády. Je
+předkládáno jako konkrétní časová a věcná souvislost, která podle žalobce zesiluje potřebu dohledat
+původní policejní metodiky, SOP, validační dokumentaci a úplné znalecké protokoly a vysvětlit, zda znalec
+při laboratorním postupu změnil chemické složení zkoumaného vzorku a zda tuto skutečnost soudu
+výslovně a srozumitelně sdělil.
+V. Tabulka již předložená Krajskému soudu v Ostravě dne 22. 9. 2026
+Pro úplnost žalobce přebírá do tohoto podání tabulku k novele ZoNL (sněmovní tisk č. 321), která byla dne
+22. září 2026 předložena Krajskému soudu v Ostravě ve věci sp. zn. 5 To 248/2026. Tabulka je interpretační
+analýzou vládou schváleného návrhu dne 14.září 2026 a má nabyl účinnosti od roku 2027.
+
+MĚSTSKÝ SOUD V PRAZE • 18 A 17/2026 + 18 A 23/2026 • 6. 10. 2026
+Mgr. Dušan Dvořák • společné důkazní doplnění • strana 3
+Otázka, kterou
+novela ZoNL řeší
+Relevantní paragraf
+schváleného návrhu
+Námitky Spornost a riziko
+širokého výkladu
+Prodej výrobků
+obsahujících
+legální
+neomamné
+konopí fyzickým
+osobám
+§ 15 odst. 1 písm. f):
+zakazuje „prodávat nebo
+bezúplatně předávat
+výrobky obsahující
+technické konopí
+fyzickým osobám“.
+Neexistující botanický
+pojem technické konopí
+slouží jen a pouze k matení
+veřejnosti. Riziko plošného
+zásahu do legálního
+neomamného konopí.
+Pojem „výrobek obsahující“
+není v tomto ustanovení
+zúžen a může zahrnout
+široké spektrum dosud
+běžných výrobků.
+Extrémně vysoká
+spornost rozsahu.
+Jazykové znění není
+omezeno na výrobky se
+syntetickými nebo
+polysyntetickými
+psychoaktivními látkami.
+Široký výklad zasáhne
+široký okruh legálních
+výrobků z konopí.
+Vnášení látek do
+konopí po sklizni a
+sušení
+§ 15 odst. 1 písm. g):
+„obohacování“ je
+definováno jako jakýkoli
+technologický postup,
+zejména rozprašování,
+máčení, impregnování,
+povlakování, infuze nebo
+obdobný postup, jímž je
+po sklizni a sušení do
+konopí nebo na ně
+dodatečně vnesena
+jakákoli látka.
+Rizika dopadů širokého
+technologického vymezení.
+Zejména při výrobě mastí a
+extraktů, při jejichž výrobě
+dochází k máčení nebo
+kontaktu s tukem, při výrobě
+tinktur naopak s alkoholem.
+Extrémně vysoká
+spornost. Text vyžaduje
+dodatečné vnesení látky,
+jaké zpracování pod něj
+nutně spadá však neřeší.
+Demonstrativní výčet
+„máčení“ a „infuze“
+současně vytváří prostor
+pro široký správní výklad.
+Dovoz a vývoz
+takto upraveného
+konopí
+§ 15 odst. 1 písm. h):
+zákaz dovozu nebo
+vývozu konopí, které je
+výsledkem postupu
+podle písm. g) nebo
+obdobného postupu.
+Námitka navazuje na
+neurčitost písm. g): nebude-li předvídatelně vyloženo
+„obohacování“, nebude
+předvídatelná ani hranice
+zakázaného dovozu a
+vývozu.
+Odvozená spornost.
+Rozsah písm. h) je přímo
+závislý na výkladu písm.
+g).
+Chemická
+přeměna CBD a
+THCA
+§ 15 odst. 1 písm. i):
+zakazuje „zpracovávat
+látku kanabidiol a látku
+kyselina
+tetrahydrokanabinolová na jiné chemické
+látky“.
+Možný pokus o zpětnou
+legalizaci znaleckých
+posudků policie!
+Při běžném nakládání s
+konopím (sušením), natož
+při výrobě mastí a extraktů či
+tinktur dochází k přirozeným
+přeměnám CBD a THCA.
+Text novely otevírá
+extrémně široký jazykový
+výklad.
+Nejvyšší míra spornosti.
+Text neomezuje zákaz na
+cílenou syntézu
+psychoaktivních derivátů,
+nevymezuje zakázanou
+výslednou látku ani
+výslovně nestanoví, že
+musí jít o úmyslnou
+chemickou konverzi.
+Výjimky pro
+výzkum, státní
+orgány a terapii
+§ 15 odst. 2: zvláštní
+výjimky pro vymezené
+vědecké a výzkumné
+činnosti a státní orgány; u
+Námitka spočívá v tom, že
+návrh chrání konkrétně
+vyjmenované režimy, ale
+neobsahuje obecnou
+Významná interpretační
+indicie. Existence
+specifických výjimek
+podporuje potřebu
+
+MĚSTSKÝ SOUD V PRAZE • 18 A 17/2026 + 18 A 23/2026 • 6. 10. 2026
+Mgr. Dušan Dvořák • společné důkazní doplnění • strana 4
+písm. i) také pro
+terapeutické účely
+vymezené v povolení.
+výjimku pro běžné legální
+zpracování mimo tyto
+režimy.
+přesně vymezit hranici
+obecného zákazu.
+Sankční následek § 36 odst. 1 písm. t) až w)
+zavádí přestupky za
+porušení § 15 odst. 1
+písm. f) až i); § 37 odst. 1
+písm. d) stanoví pro
+porušení písm. g) až i)
+pokutu až 20 000 000 Kč.
+Široce formulovaný zákaz je
+zvlášť problematický, pokud
+na něj navazuje mimořádně
+vysoká správní sankce.
+Závažná otázka
+předvídatelnosti sankční
+normy. Čím širší a
+neurčitější výklad
+skutkové podstaty, tím
+naléhavější je potřeba
+restriktivního a
+předvídatelného výkladu.
+Konopné výrobky
+určené ke kouření
+Změna zákona č.
+110/1997 Sb., navržený §
+12j odst. 6: bylinné
+výrobky určené ke
+kouření nesmějí
+obsahovat mimo jiné
+kanabinoidy a jejich
+deriváty.
+Schválený balík nezasahuje
+pouze proti chemickým
+nástřikům, jak tvrdila vláda,
+ale obsahuje i další přímé
+zákazy týkající se
+jakéhokoliv legálního
+konopí.
+Interpretační spornost
+jako u § 15 odst. 1 písm. i),
+přímý dopad je z textu
+novely výraznější.
+VI. Rozhodná forenzní otázka pro oba senáty
+Žalobce žádá oba senáty, aby při hodnocení předložených podkladů oddělily dvě rozdílné veličiny: (1)
+delta-9-THC skutečně přítomné v zabaveném konopí před laboratorní analýzou a (2) THC, které mohlo
+vzniknout až přeměnou THCA v průběhu zahřívání vzorku použitou analytickou metodou. Není-li ze
+znaleckého protokolu, chromatogramu, pracovního listu a použité SOP zřejmé, zda a jak byla tato přeměna
+zohledněna, je podle žalobce zásadně oslabena přezkoumatelnost výsledku použitého k právnímu závěru o
+trestnosti.
+Klíčová otázka proto zní: co stát zabavil, jaký reprezentativní vzorek z toho vybral, jak jej homogenizoval
+a upravil, co se se vzorkem stalo při laboratorním měření, kolik delta-9-THC bylo ve vzorku před zahřátím,
+kolik THC vzniklo teprve přeměnou THCA při analýze a podle jakého tehdy účinného právně závazného
+pravidla byl výsledný údaj použit pro trestněprávní závěr.
+VII. Význam pro řízení 18 A 17/2026 - NCOZ
+V řízení 18 A 17/2026 žalobce nepředkládá tyto listiny proto, aby Městský soud v Praze přezkoumával
+pravomocné trestní rozsudky. Předkládá je jako následné důkazy významnosti a odborné konkrétnosti
+podnětů, které NCOZ obdržela a které podle vlastních pozdějších sdělení nebyly prověřeny úkony trestního
+řízení, nebyly k nim vytvořeny záznamy o vyhodnocení, nebyla vyžádána expertní stanoviska či odborné
+posudky a věci byly ukládány ad acta.
+Jestliže se nyní nezávisle a institucionálně potvrzuje, že způsob analytického stanovení THC a přeměna
+THCA během měření mohou přímo ovlivnit hranici trestní odpovědnosti, zesiluje to podle žalobce potřebu
+vysvětlit, na jakém odborném podkladu mohla NCOZ dospět k závěru, že oznámené skutečnosti nevyžadují
+prověřování, a současně tvrdit svou věcnou nepříslušnost.
+VIII. Význam pro řízení 18 A 23/2026 - Ministerstvo spravedlnosti
+V řízení 18 A 23/2026 je nový důkazní celek významný přímo pro posouzení postupu Ministerstva
+spravedlnosti v oblasti znalecké činnosti. Podání ze dne 1. října 2026 již soudu předložilo Stanovisko Unie
+
+MĚSTSKÝ SOUD V PRAZE • 18 A 17/2026 + 18 A 23/2026 • 6. 10. 2026
+Mgr. Dušan Dvořák • společné důkazní doplnění • strana 5
+obhájců ČR č. 3/2026 jako následný důkaz k otázkám THC/THCA, dekarboxylace, použité analytické
+metody, validace a přezkoumatelnosti znaleckých výstupů. Podání Okresnímu soudu v Prostějově ze dne 4.
+října 2026 tento důkazní řetězec dále rozvíjí a váže jej ke konkrétním historickým trestním věcem a k
+požadavku zjistit prvotní laboratorní dokumentaci.
+Nově předložený legislativní vývoj současně zvyšuje význam otázky, zda historická znalecká praxe měla
+v rozhodné době jasný normativní a metodický základ a zda následné právní změny nepřekrývají dřívější praxi
+bez toho, aby byly její možné vady věcně přezkoumány.
+IX. Důkazní návrhy
+1. provést jako listinný důkaz celé podání Okresnímu soudu v Prostějově ze dne 4. 10. 2026 „Potvrzení
+klíčových důkazů pro obnovu řízení 2 T 104/2010 a 2 T 65/2011…“;
+2. provést jako podpůrný důkaz Důkazní chronologii 2008–2026 - stav ke dni 28. 9. 2026, schválenou a
+vypravenou dne 4. 10. 2026;
+3. provést jako listinný důkaz podání Krajskému soudu v Ostravě ze dne 22. 9. 2026, sp. zn. 5 To 248/2026,
+zejména tabulku na stranách 2 a 3, která je v tomto podání pro přehlednost převzata;
+4. v obou řízeních hodnotit uvedené listiny jako následné důkazy bez změny žalovaného, skutkového jádra
+a petitu;
+5. v řízení 18 A 17/2026 posoudit, zda nový důkazní celek zesiluje tvrzení o nepřezkoumatelnosti a trvání
+zásahu NCOZ spočívajícího v nevěcném nakládání s konkrétními podněty;
+6. v řízení 18 A 23/2026 posoudit, zda nový důkazní celek zesiluje tvrzení o povinnosti Ministerstva
+spravedlnosti věcně se zabývat otázkami znalecké metodiky, oprávnění, validace a přezkoumatelnosti
+policejních znaleckých výstupů.
+X. Závěr
+Žalobce znovu zdůrazňuje, že netvrdí, že časová následnost legislativních změn sama o sobě prokazuje
+úmysl zpětně legalizovat dřívější postup policejních znaleckých pracovišť. Tvrdí však, že ve spojení s
+doloženými pochybnostmi o historickém metodickém základu, se změnou trestněprávně rozhodného
+vzorku nařízením vlády č. 3/2012 Sb., s novými poznatky o dekarboxylaci THCA při plynové chromatografii a
+s nynějším výslovným legislativním uchopením chemické přeměny THCA a CBD vzniká konkrétní a
+přezkoumatelná otázka, zda legislativní změny dodatečně nepřekrývají sporné forenzní praxe při analýzách
+obsahu THC v zabraném konopí, které nebyly v době jejich použití transparentně popsány ani právně
+vymezeny.
+Tato otázka podle žalobce nemá být nahrazena domněnkou ani jednostranným tvrzením. Má být
+zodpovězena porovnáním tehdy účinného práva, skutečně použitých laboratorních metod, původních SOP,
+validace či verifikace, chromatogramů, pracovních listů a znaleckých protokolů. Právě proto je nový důkazní
+celek významný pro obě nynější správní věci.
+V Ospělově dne 6. října 2026 Mgr. Dušan Dvořák
+žalobce ve věcech sp. zn. 18 A 17/2026 a 18 A 23/2026
+Přílohy ve věci porušení § 283 tr. zákoníku pěstováním a nakládáním s konopím a jeho legalitě –
+aktuální podání členy aliance Cannabis is The Cure, z.s.
+• 1. Edukativní konopná klinika, z.s. - OS v Prostějově a zúčastněným – klíčové důkazy ze dne 4. 10. 2026
+k oběma řízením o obnově 2 T104/2010 a 2 T 65/2011 (7 stran).
+• 2. Důkazní chronologie Konopí je lék 2008–2026, stav ke dni 28. 9. 2026, schváleno aliancí Cannabis is The
+Cure,z.s. a odesláno 4. 10. 2026 (55 stran).
+• 3. Krajskému soudu v Ostravě – dodatek stížnosti ze dne 22. 9. 2026, sp. zn. 5 To 248/2026
+místopředsedkyně správní rady Edukativní konopné kliniky, z.s. (3 strany).
