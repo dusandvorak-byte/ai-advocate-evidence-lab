@@ -28,9 +28,9 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf",
-        "sha256": "623f4334331dcd9de6acb5fa45231132cdd3d8ec780376990374879b654a753e",
+        "sha256": "34254d11c01f91e8a12cb99800e8d16ca9ec715a6703d765401ddcd79595e434",
         "verification_status": "source_pdf_received_binary_original; sha256_verified; 8_pages",
-        "source_original_sha256": "623f4334331dcd9de6acb5fa45231132cdd3d8ec780376990374879b654a753e",
+        "source_original_sha256": "34254d11c01f91e8a12cb99800e8d16ca9ec715a6703d765401ddcd79595e434",
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-06-eu-ombudsman-complaint.json"
       },
       "relations": [
