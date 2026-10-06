@@ -117,6 +117,7 @@ for (const doc of remedyDocuments) {
   const reactionTarget = reaction ? documentsById.get(reaction.target_id) : null;
   const route = remedyRoutes.get(doc.id) || {};
   const recipient = route.recipient
+    || (doc.recipient_id ? institutionNames.get(doc.recipient_id) : null)
     || (reactionTarget ? institutionNames.get(reactionTarget.institution_id) : null)
     || institutionNames.get(doc.institution_id)
     || doc.institution_id
