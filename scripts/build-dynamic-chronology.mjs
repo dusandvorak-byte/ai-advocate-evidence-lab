@@ -119,14 +119,13 @@ const stateDocuments = mainDocuments
   .filter(item => item.document_type !== 'state_record_attachment' && (item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record'))
   .sort(compareStateDocuments);
 const outgoingDocuments = mainDocuments
-  .filter(item => item.submission_side === 'outgoing_from_user_or_alliance' && !String(item.document_type || '').endsWith('_attachment'))
+  .filter(item => item.submission_side === 'outgoing_from_user_or_alliance')
   .sort(compareDocuments);
 
 // "Státu lásky čas" is a single canonical table: newest documents remain visually
 // at the top, but numbering expresses chronological age. Therefore the oldest
 // visible document is No. 1 and the newest (top) row carries the highest number.
 const chronologyDocuments = mainDocuments
-  .filter(item => !String(item.document_type || '').endsWith('_attachment'))
   .filter(item => item.submission_side === 'incoming_from_state_or_public_institution' || item.submission_side === 'outgoing_from_user_or_alliance' || item.document_type === 'state_record')
   .sort(compareDocuments);
 
