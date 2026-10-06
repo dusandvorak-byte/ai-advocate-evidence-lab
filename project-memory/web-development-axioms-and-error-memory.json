@@ -112,7 +112,7 @@
     },
     {
       "id": "state-love-table-mirrors-slalom",
-      "text": "Státu lásky čas používá tabulkový vizuál Justičního slalomu. Pořadí řádků se nepřevrací: nejnovější dokument je vždy nahoře, nejstarší dole. Převrací se pouze pořadová čísla, takže nejstarší řádek má 1 a nejnovější nejvyšší číslo. Za tabulkou se nesmějí regenerovat Uzly řízení, Lhůty a nečinnost, Anonymizační axiom ani Důkazní hranice."
+      "text": "Státu lásky čas používá tabulkový vizuál Justičního slalomu. Řazení vychází z issue_date, tedy doloženého data dokumentu; received_date se eviduje odděleně a ani pozdní doručení nesmí listinu přesunout mezi dnešní dokumenty. Pořadí řádků se nepřevrací: nejnovější dokument je vždy nahoře, nejstarší dole. Převrací se pouze pořadová čísla, takže nejstarší řádek má 1 a nejnovější nejvyšší číslo. Za tabulkou se nesmějí regenerovat Uzly řízení, Lhůty a nečinnost, Anonymizační axiom ani Důkazní hranice."
     }
   ],
   "error_memory_since_2026_07_18": [
@@ -175,6 +175,10 @@
     {
       "id": "error-reversed-display-instead-of-numbering",
       "lesson": "Při požadavku na chronologické číslování bylo snadné zaměnit pořadí zobrazení za pořadové číslo. Závazná oprava: vizuálně zůstává nejnovější nahoře a nejstarší dole; pouze čísla běží od 1 u nejstaršího dokumentu směrem k nejvyššímu číslu u nejnovějšího."
+    },
+    {
+      "id": "error-late-receipt-misorders-chronology",
+      "lesson": "Pozdě doručená listina nesmí být ve veřejné chronologii zařazena podle dne, kdy byla získána. Kanonické řazení používá doložené datum dokumentu issue_date; received_date zůstává samostatným procesním údajem. Automatická brána musí umět ověřit případ, kdy received_date > issue_date."
     }
   ],
   "definition_of_done": [
