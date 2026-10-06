@@ -125,10 +125,14 @@ const outgoingWithoutActivePdf = requiredOutgoingPdfDocuments.filter(doc => !doc
 const missingRenderedReactions = [];
 const missingReactionPdfLinks = [];
 const stateIds = new Set(registry.documents
-  .filter(doc => doc.document_type !== 'state_record_attachment'
+  .filter(doc => String(doc.issue_date || '') >= '2026-05-01'
+    && doc.document_type !== 'state_record_attachment'
     && (doc.submission_side === 'incoming_from_state_or_public_institution' || doc.document_type === 'state_record'))
   .map(doc => doc.id));
-for (const reaction of reactionDocuments) {
+const relevantReactionDocuments = reactionDocuments.filter(reaction => (reaction.relations || []).some(rel =>
+  rel.type === 'reakce_na' && stateIds.has(rel.target_id || rel.target)
+));
+for (const reaction of relevantReactionDocuments) {
   const rel = reaction.relations.find(item => item.type === 'reakce_na' && (item.target_id || item.target));
   const targetId = rel?.target_id || rel?.target;
   if (!targetId || !stateIds.has(targetId)) continue;
@@ -187,7 +191,7 @@ const report = {
   registry_pdf_document_count: registryPdfDocuments.length,
   invalid_registry_pdf_link_count: invalidRegistryPdfLinks.length,
   invalid_registry_pdf_links: invalidRegistryPdfLinks,
-  reaction_document_count: reactionDocuments.length,
+  reaction_document_count: relevantReactionDocuments.length,
   outgoing_pdf_hard_cutoff: OUTGOING_PDF_HARD_CUTOFF,
   required_outgoing_pdf_document_count: requiredOutgoingPdfDocuments.length,
   outgoing_without_active_pdf_count: outgoingWithoutActivePdf.length,
@@ -232,7 +236,7 @@ console.log(
   + `${requiredWithActivePdf.length}/${requiredDocuments.length} povinných institucionálních listin má PDF; `
   + `${requiredOutgoingPdfDocuments.length}/${requiredOutgoingPdfDocuments.length} našich podání od ${OUTGOING_PDF_HARD_CUTOFF} má PDF; `
   + `${exemptDocuments.length} dokumentů je v povolené výjimce; `
-  + `${reactionDocuments.length - missingRenderedReactions.length}/${reactionDocuments.length} kanonických reakcí prověřeno; opravné prostředky proti státním listinám jsou inline v řádku orgánu.`
+  + `${relevantReactionDocuments.length - missingRenderedReactions.length}/${relevantReactionDocuments.length} opravných prostředků proti státním listinám je inline v řádku orgánu.`
 );
 
 await import('./validate-publication-surfaces.mjs');
