@@ -27,12 +27,13 @@ if (new Set(items.map(item => item.id)).size !== items.length) fail('duplicitní
 if (new Set(published.rows.map(row => row.id)).size !== expectedRows) fail('duplicitní kombinace podání a adresáta');
 if (items.some(item => 'date_note_cs' in item.justice_slalom || 'date_note_en' in item.justice_slalom) ||
     published.rows.some(row => 'date_note_cs' in row || 'date_note_en' in row)) fail('archiv nesmí obsahovat veřejné poznámky k datům');
-for (const [index,row] of published.rows.entries()) if (row.number !== index + 1) fail(`číslování 1–${expectedRows}: řádek ${index + 1} má číslo ${row.number}`);
+for (const [index,row] of published.rows.entries()) if (row.number !== expectedRows - index) fail(`chronologické číslování: vizuální řádek ${index + 1} má číslo ${row.number}, očekáváno ${expectedRows - index}`);
 const expectedOrder = items.flatMap(item => item.justice_slalom.recipients.map((recipient, recipientOrder) => ({
   id: `${item.id}--${recipient.institution_id}`, date: item.issue_date,
   archiveNumber: item.justice_slalom.archive_number, recipientOrder
 }))).sort((a,b) => b.date.localeCompare(a.date) || b.archiveNumber - a.archiveNumber || a.recipientOrder - b.recipientOrder);
-if (JSON.stringify(published.rows.map(row => [row.id,row.date])) !== JSON.stringify(expectedOrder.map(row => [row.id,row.date]))) fail('řádky nejsou sestupně podle doloženého data podání');
+if (JSON.stringify(published.rows.map(row => [row.id,row.date])) !== JSON.stringify(expectedOrder.map(row => [row.id,row.date]))) fail('řádky nejsou vizuálně sestupně podle doloženého data podání (nejnovější nahoře)');
+if (published.rows.at(-1)?.number !== 1 || published.rows[0]?.number !== expectedRows) fail('nejstarší řádek dole musí mít číslo 1 a nejnovější nahoře nejvyšší číslo');
 
 const pages = [
   ['web/index.html','cs'], ['web/en.html','en'],
