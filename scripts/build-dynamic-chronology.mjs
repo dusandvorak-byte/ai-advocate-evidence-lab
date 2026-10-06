@@ -154,7 +154,12 @@ article = article
   .replace(/<div class="news-meta">[\s\S]*?<\/div>/, `<div class="news-meta"><span>Od 1. května 2026</span><span>Stát: ${stateDocuments.length} evidovaných listin</span><span>Autor: Mgr. Dušan Dvořák</span></div>`)
   .replace(/<h2 id="chronologie">[\s\S]*?<\/h2>/, '<h2 id="chronologie">Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?</h2>')
   .replace(/<section id="(?:rizeni-online|chronology-case-index)"[\s\S]*?<\/section>\s*/g, '')
-  .replace(/<ol(?: id="chronologie-seznam")?[^>]*>[\s\S]*?<\/ol>/, `${chronologyHtml}${caseIndex}${archiveHtml}`);
+  .replace(/<h2 id="archiv-vstupu-do-eu">[\s\S]*?<ol id="archiv-seznam"[^>]*>[\s\S]*?<\/ol>/g, '')
+  .replace(/<ol(?: id="chronologie-seznam")?[^>]*>[\s\S]*?<\/ol>/, chronologyHtml)
+  .replace(/<div class="justice-slalom-scroll state-love-scroll">[\s\S]*?<\/table><\/div>/, chronologyHtml)
+  .replace(/<section id="lhuty-a-necinnost"[\s\S]*?<\/section>\s*/g, '')
+  .replace(/<p><b>Anonymizační axiom:<\/b>[\s\S]*?<\/p>\s*/g, '')
+  .replace(/<p><b>Důkazní hranice:<\/b>[\s\S]*?<\/p>\s*/g, '');
 
 // The canonical build owns chronology, relations, case anchors and PDF labels.
 // Retire both versioned and unversioned legacy renderers: they used to overwrite
