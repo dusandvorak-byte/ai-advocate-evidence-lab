@@ -23,14 +23,14 @@ const normalizeGodot = async (path, lang) => {
   const startMarker = `id="${chronologyId}"`;
   const start = html.indexOf(startMarker);
   if (start !== -1) {
-    const olStart = html.lastIndexOf('<ol', start);
-    const olEnd = html.indexOf('</ol>', start);
-    if (olStart !== -1 && olEnd !== -1) {
-      const before = html.slice(0, olStart);
-      let block = html.slice(olStart, olEnd + 5);
-      block = replaceAnchorTextByHref(block, "\\.pdf(?:[?#][^\"']*)?", pdfLabel);
-      block = replaceAnchorTextByHref(block, "(?:listiny|news\\/04082026-010\\.html#)[^\"']*", evidenceLabel);
-      html = before + block + html.slice(olEnd + 5);
+    const tableStart = html.lastIndexOf('<table', start);
+    const tableEnd = html.indexOf('</table>', start);
+    if (tableStart !== -1 && tableEnd !== -1) {
+      const before = html.slice(0, tableStart);
+      let chronologyBlock = html.slice(tableStart, tableEnd + 8);
+      chronologyBlock = replaceAnchorTextByHref(chronologyBlock, "\\.pdf(?:[?#][^\"']*)?", pdfLabel);
+      chronologyBlock = replaceAnchorTextByHref(chronologyBlock, "(?:listiny|news\\/04082026-010\\.html#)[^\"']*", evidenceLabel);
+      html = before + chronologyBlock + html.slice(tableEnd + 8);
     }
   }
 
@@ -64,9 +64,9 @@ for (const name of listiny.filter(name => name.endsWith('.html'))) {
 
 const czGodot = await readFile(czGodotPath, 'utf8');
 const chronologyStart = czGodot.indexOf('id="chronologie-seznam"');
-const chronologyEnd = chronologyStart === -1 ? -1 : czGodot.indexOf('</ol>', chronologyStart);
-if (chronologyStart === -1 || chronologyEnd === -1) throw new Error('Godot nemá statickou chronologii pro kontrolu popisků');
-const chronology = czGodot.slice(chronologyStart, chronologyEnd + 5);
+const chronologyEnd = chronologyStart === -1 ? -1 : czGodot.indexOf('</table>', chronologyStart);
+if (chronologyStart === -1 || chronologyEnd === -1) throw new Error('Godot nemá tabulkovou chronologii pro kontrolu popisků');
+const chronology = czGodot.slice(chronologyStart, chronologyEnd + 8);
 const forbidden = [
   'Originální PDF', 'originál PDF', 'anonymizovaná veřejná kopie PDF', 'stránka listiny',
   'příloha PDF', 'podání PDF', 'reakce PDF', 'PDF dosud není veřejné'
