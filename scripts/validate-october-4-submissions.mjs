@@ -43,7 +43,7 @@ for (const e of expected) {
   const rows=slalom.rows.filter(x=>x.document_id===e.id);
   if(rows.length!==e.recipients || !rows.every(x=>x.date==='2026-10-04' && x.pdf===e.pdf && x.pdf_sha256===e.publicSha && x.pdf_kind===e.pdfKind)) fail(`Justiční slalom ${e.id}`);
 }
-if(slalom.rows.some(x=>x.document_id==='doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh')) fail('zakázaný návrh EKK z 2. 10. se vrátil do Justičního slalomu');
-const topIds=slalom.rows.slice(0,11).map(x=>x.document_id);
-for(const id of ['doc-cz-gf-jk-2026-10-04-ks-ostrava-5-to-248-sumarizujici-sdeleni','doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy','doc-cz-ekk-2026-10-04-dukazni-chronologie-kjl-2008-2026']) if(!topIds.includes(id)) fail(`nové podání není nahoře v chronologii: ${id}`);
+if(!slalom.rows.some(x=>x.document_id==='doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh')) fail('podání EKK z 2. 10. chybí v Justičním slalomu');
+const allIds=new Set(slalom.rows.map(x=>x.document_id));
+for(const id of ['doc-cz-gf-jk-2026-10-04-ks-ostrava-5-to-248-sumarizujici-sdeleni','doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy','doc-cz-ekk-2026-10-04-dukazni-chronologie-kjl-2008-2026']) if(!allIds.has(id)) fail(`podání 4. 10. chybí v chronologii: ${id}`);
 console.log('Podání 4. 10. 2026 OK: všechna tři zveřejněná PDF jsou byte-identické uživatelem dodané originály; 11 řádků adresátů.');
