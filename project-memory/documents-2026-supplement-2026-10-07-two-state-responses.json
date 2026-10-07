@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-07",
+  "purpose": "Dvě nové institucionální odpovědi pro Státu lásky čas a jejich procesní vazby: KSZ v Brně 1 KZN 1079/2026-41 a Policejní prezidium PPR-52605-2/ČJ-2026-990210-PD.",
+  "documents": [
+    {
+      "id": "doc-cz-ksz-brn-2026-10-01-1-kzn-1079-2026-41",
+      "user_title": "KSZ v Brně odložilo podnět k výkonu dohledu ve věci 3 ZN 140/2026 jako nedůvodný; současně konstatovalo dílčí pochybení při vrácení věci MSZ v Praze",
+      "issue_date": "2026-10-01",
+      "received_date": null,
+      "institution_id": "CZ-KSZ-BRN",
+      "reference": "1 KZN 1079/2026-41",
+      "case_ids": [
+        "CASE-CZ-KSZ-BRN-1KZN1079-2026",
+        "CASE-CZ-MSZ-BRN-3ZN140-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "dohled",
+        "přezkum",
+        "MSZ Brno",
+        "MSZ Praha",
+        "NSZ",
+        "§ 12d zákona o státním zastupitelství",
+        "§ 16a zákona o státním zastupitelství",
+        "THC",
+        "analytická metodika"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/113-ksz-brno-1-kzn-1079-2026-41-2026-10-01-verejna-textova-kopie.pdf",
+        "sha256": null,
+        "verification_status": "awaiting_deterministic_public_text_copy",
+        "source_original_sha256": "f21487295ab845769b9e4a610c7d5fce4f9e7446c3cdc42af8094cf81bdd9f4e",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-07-two-state-responses.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-07-27-slalom-08"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cs-dd-2026-08-24-slalom-augsep-015"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cs-dd-2026-09-03-slalom-augsep-016"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-09-13-ks-ksz-vsz-doplneni-stiznosti"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-ksz-brn-2026-07-31-1-kzn-1079-2026-14"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-ksz-brn-2026-10-01-1-spr-338-2026-5"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "KSZ v Brně dne 1. 10. 2026 pod č. j. 1 KZN 1079/2026-41 vyřídilo podnět k výkonu dohledu nad postupem MSZ v Brně ve věci 3 ZN 140/2026 jako nedůvodný. Současně výslovně konstatovalo pochybení MSZ v Brně spočívající v přímém vrácení části podání MSZ v Praze, avšak uzavřelo, že toto pochybení nemělo vliv na věcné vyřízení. Podle KSZ měla být daná část podání vyřízena postupem podle § 16a odst. 4 věty druhé zákona o státním zastupitelství. Vyrozumění obsahuje poučení, že tutéž věc ze stejných důvodů lze v rámci dohledu přezkoumat pouze jednou. Datum skutečného doručení uživateli není z nahraného PDF doloženo; datum elektronického podpisu vyhotovení 7. 10. 2026 se proto nepovažuje za datum doručení."
+    },
+    {
+      "id": "doc-cz-pcr-pp-2026-10-07-ppr-52605-2-cj-2026-990210-pd",
+      "user_title": "Policejní prezidium uložilo bez dalších opatření podání k neprošetřování postupu znaleckých pracovišť a uvedlo, že nemůže hodnotit postup orgánu činného v trestním řízení ani předjímat další postup útvaru",
+      "issue_date": "2026-10-07",
+      "received_date": null,
+      "institution_id": "CZ-PCR-PP",
+      "reference": "PPR-52605-2/ČJ-2026-990210-PD",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "Policejní prezidium",
+        "Úřad vnitřní kontroly",
+        "Kriminalistický ústav",
+        "OKTE Frýdek-Místek",
+        "THC",
+        "znalecká pracoviště",
+        "interní přezkum"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/114-ppr-52605-2-cj-2026-990210-pd-2026-10-07-verejna-textova-kopie.pdf",
+        "sha256": null,
+        "verification_status": "awaiting_deterministic_public_text_copy",
+        "source_original_sha256": "796deaddb0723757a023dd27d2f88fc97ef525a7a653ebad1da15c4ee38f2c68",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-07-two-state-responses.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-gibs-2026-09-08-gi-3794-4-cj-2026-840502-p"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-pcr-pp-2026-08-24-ppr-44020-2-cj-2026-990210-pd"
+        },
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-osz-pro-2026-07-28-zn-4-2026-6"
+        },
+        {
+          "type": "souvisí",
+          "target_id": "doc-cs-dd-2026-09-08-slalom-augsep-063"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Sdělení Policejního prezidia ze dne 7. 10. 2026 je v nadpisu označeno jako reakce na „Podání ze dne 6. října 2026“, zatímco v prvním odstavci těla uvádí „podání ze dne 6. října 2024“. Tento rozpor mezi nadpisem a tělem listiny je v evidenci zachován a není redakčně opravován. Úřad vnitřní kontroly uvedl, že podání obsahovalo sdělení KSZ v Ostravě 4 KZN 3239/2026-12 ze dne 29. 9. 2026 a sdělení OSZ v Prostějově ZN 4/2026-6 ze dne 28. 7. 2026. K prvnímu dokumentu uvedl, že podnět byl odložen jako nedůvodný, a k druhému, že kontrolnímu útvaru nepřísluší hodnotit postup orgánu činného v trestním řízení ani předjímat následný postup útvaru; podání v této části proto uložil bez dalších opatření. Originál samotného podání ze 6. 10. 2026 není v tomto release packetu k dispozici, proto se nevytváří neověřená přímá vazba reakce_na na vymyšlený dokument.",
+      "process_updates": [
+        {
+          "timer_id": "timer-review-pcr-ku-2026-05-27",
+          "step": {
+            "date": "2026-10-07",
+            "reference": "č. j. PPR-52605-2/ČJ-2026-990210-PD",
+            "actor": "Úřad vnitřní kontroly Policejního prezidia České republiky",
+            "action": "sdělil, že podání označené v nadpisu datem 6. 10. 2026 v části týkající se ZN 4/2026-6 ukládá bez dalších opatření; kontrolnímu útvaru nepřísluší hodnotit postup orgánu činného v trestním řízení ani předjímat další postup útvaru"
+          },
+          "activeCs": "Policejní prezidium dne 7. 10. 2026 sdělilo, že podání označené v nadpisu jako podání ze 6. 10. 2026 v části týkající se ZN 4/2026-6 ukládá bez dalších opatření. Toto sdělení samo nedokládá, že Kriminalistický ústav dokončil interní odborné prověření; procesní genealogie proto zůstává otevřená bez nového samostatného časovače.",
+          "activeEn": "On 7 October 2026 the Police Presidium stated that the filing identified in the heading as dated 6 October 2026 would be placed on file without further measures in the part concerning ZN 4/2026-6. This notice does not itself establish that the Institute of Criminalistics completed the internal expert review; the same procedural genealogy therefore remains open without creating a separate timer.",
+          "deadlineCs": "interní policejní přezkum – bez doložené univerzální pevné číselné lhůty / 7. 10. 2026 Policejní prezidium uložilo aktuální podání v uvedené části bez dalších opatření; dokončení odborného přezkumu Kriminalistickým ústavem není touto listinou doloženo",
+          "deadlineEn": "internal police review – no documented universal fixed numerical deadline / on 7 October 2026 the Police Presidium placed the current filing on file without further measures in the stated part; this notice does not document completion of the Institute of Criminalistics expert review",
+          "status": "active",
+          "limit_kind": "no_fixed_numeric_statutory_deadline",
+          "limit_days": null,
+          "due_date": null,
+          "limit_label": "bez doložené univerzální číselné zákonné lhůty k výsledku interního prověření"
+        }
+      ]
+    }
+  ]
+}
