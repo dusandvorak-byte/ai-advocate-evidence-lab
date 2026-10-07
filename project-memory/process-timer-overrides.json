@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_on": "2026-10-01",
+  "updated_on": "2026-10-07",
   "description": "Ověřené opravy a doplnění živých procesních časovačů. Přepisují shodná ID v process-timers.json a mohou přidávat nové časovače.",
   "patches": [
     {
@@ -72,21 +72,6 @@
       "result_document_id": "doc-cz-ksz-brn-2026-09-16-1-kzt-475-2026-71",
       "delivery_date": "2026-09-29",
       "delivery_note": "KSZ v Brně dne 1. 10. 2026, č. j. 1 SPR 338/2026-5, potvrdilo, že přípis z 16. 9. 2026 byl expedován 18. 9., ale administrativním nedopatřením doručen do datové schránky až 29. 9. 2026."
-    },
-    {
-      "id": "timer-review-ksz-brno-1kzn1079-2026",
-      "category": "review_supervision",
-      "title": "KSZ v Brně sp. zn. 1 KZN 1079/2026 – přezkum postupu MSZ v Brně sp. zn. 3 ZN 140/2026",
-      "reference": "KSZ Brno č. j. 1 KZN 1079/2026-14 · MSZ Brno č. j. 3 ZN 140/2026-3",
-      "start_date": "2026-07-27",
-      "start_date_basis": "Dne 27. července 2026 byla KSZ v Brně podána žádost o přezkoumání postupu MSZ v Brně ve věci sp. zn. 3 ZN 140/2026, zejména vyrozumění MSZ v Brně ze dne 21. července 2026, č. j. 3 ZN 140/2026-3.",
-      "status": "active_extended",
-      "limit_kind": "institution_extended_deadline",
-      "limit_label": "prodloužená lhůta do 9. 10. 2026",
-      "legal_basis": "čl. 10 odst. 9 pokynu obecné povahy nejvyššího státního zástupce č. 1/2017; KSZ v Brně dne 1. 10. 2026 potvrdilo prodloužení do 9. 10. 2026",
-      "process_history": "MSZ Brno – 21. 7. 2026 – č. j. 3 ZN 140/2026-3 – oznámilo věcnou nepříslušnost a vrátilo větev MSZ v Praze; žádost KSZ Brno – 27. 7. 2026 – přezkum postupu MSZ Brno ve sp. zn. 3 ZN 140/2026; KSZ Brno – 31. 7. 2026 – č. j. 1 KZN 1079/2026-14 – potvrdilo příjem a oznámilo, že po doručení spisových materiálů bude věc přezkoumána.; KSZ Brno – 1. 10. 2026 – č. j. 1 SPR 338/2026-5 – potvrzeno prodloužení lhůty k vyřízení do 9. 10. 2026.",
-      "href": "zpravy/04082026-010.html#case-cz-ksz-brno-prezkumy",
-      "deadline_date": "2026-10-09"
     },
     {
       "id": "timer-review-msz-praha-3kzn197-2026",

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_on": "2026-10-06",
+  "updated_on": "2026-10-07",
   "cases": [
     {
       "id": "CASE-CZ-NSZ-6NZN1737-2026",
@@ -34,20 +34,23 @@
       "institution_id": "CZ-MSZ-BRN",
       "reference": "3 ZN 140/2026",
       "title": "Větev podání vrácená MSZ v Praze",
-      "status": "under_review",
+      "status": "supervisory_review_concluded",
       "opened_on": "2026-07-14",
       "topics": [
         "věcná nepříslušnost",
         "vrácení věci",
         "přezkum"
-      ]
+      ],
+      "decided_on": "2026-10-01",
+      "decision_document_id": "doc-cz-ksz-brn-2026-10-01-1-kzn-1079-2026-41",
+      "latest_state_document_id": "doc-cz-ksz-brn-2026-10-01-1-kzn-1079-2026-41"
     },
     {
       "id": "CASE-CZ-KSZ-BRN-1KZN1079-2026",
       "institution_id": "CZ-KSZ-BRN",
       "reference": "1 KZN 1079/2026",
       "title": "Přezkum postupu MSZ v Brně ve věci 3 ZN 140/2026",
-      "status": "active_extended",
+      "status": "supervisory_request_dismissed",
       "opened_on": "2026-07-31",
       "topics": [
         "dohled",
@@ -58,8 +61,9 @@
       "related_case_ids": [
         "CASE-CZ-MSZ-BRN-3ZN140-2026"
       ],
-      "next_due_on": "2026-10-09",
-      "deadline_note": "KSZ v Brně dne 1. 10. 2026, č. j. 1 SPR 338/2026-5, uvedlo, že základní lhůta byla prodloužena do 9. 10. 2026."
+      "decided_on": "2026-10-01",
+      "decision_document_id": "doc-cz-ksz-brn-2026-10-01-1-kzn-1079-2026-41",
+      "latest_state_document_id": "doc-cz-ksz-brn-2026-10-01-1-kzn-1079-2026-41"
     },
     {
       "id": "CASE-CZ-VSZ-PHA-1VZN1678-2026",
@@ -365,6 +369,27 @@
       "last_filing_document_id": "doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet",
       "related_document_ids": [
         "doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet"
+      ]
+    },
+    {
+      "id": "case-cz-pcr-ku-interni-prezkum",
+      "institution_id": "CZ-PCR-PP",
+      "reference": "KU-4139/ČJ-2026-2305KM · PPR-52605-2/ČJ-2026-990210-PD",
+      "title": "Interní odborné a kontrolní prověření policejních a znaleckých postupů při stanovení THC",
+      "status": "active",
+      "opened_on": "2026-05-27",
+      "latest_state_document_id": "doc-cz-pcr-pp-2026-10-07-ppr-52605-2-cj-2026-990210-pd",
+      "related_case_ids": [
+        "CASE-CZ-PCR-KRPT-203594-2026"
+      ],
+      "topics": [
+        "Kriminalistický ústav",
+        "Policejní prezidium",
+        "OKTE Frýdek-Místek",
+        "THC",
+        "THCA",
+        "analytické metody",
+        "interní přezkum"
       ]
     }
   ]

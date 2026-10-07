@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_on": "2026-09-25",
+  "updated_on": "2026-10-07",
   "description": "Kanonický registr živých procesních časovačů. Levá hodnota je počet kalendářních dnů od doloženého počátku do dne zobrazení; pravá hodnota je pouze doložená zákonná, smluvená nebo výslovně stanovená procesní lhůta. Není-li univerzální číselná zákonná lhůta, registr ji nevymýšlí.",
   "display_rule": "elapsed_days / legal_or_procedural_limit",
   "categories": [
@@ -224,19 +224,6 @@
       "reference": "přezkumná větev 2026",
       "start_date": "2026-07-10",
       "start_date_basis": "Podání k přezkumu a dohledu je datováno 10. července 2026; později vznikla i samostatná větev 1 KZN 1079/2026.",
-      "status": "active",
-      "limit_kind": "no_fixed_numeric_statutory_deadline",
-      "limit_label": "bez doložené univerzální číselné zákonné lhůty",
-      "legal_basis": "přezkumná/dohledová činnost státního zastupitelství",
-      "href": "zpravy/04082026-010.html#case-cz-ksz-brno-prezkumy"
-    },
-    {
-      "id": "timer-review-ksz-brno-1kzn1079-2026",
-      "category": "review_supervision",
-      "title": "KSZ Brno – přezkum postupu MSZ Brno",
-      "reference": "1 KZN 1079/2026",
-      "start_date": "2026-07-31",
-      "start_date_basis": "Kanonický registr cases.json vede tuto větev jako otevřenou od 31. července 2026.",
       "status": "active",
       "limit_kind": "no_fixed_numeric_statutory_deadline",
       "limit_label": "bez doložené univerzální číselné zákonné lhůty",
