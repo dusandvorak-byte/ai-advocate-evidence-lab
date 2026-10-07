@@ -14,6 +14,11 @@
         "NCOZ",
         "příslušnost",
         "předávání podání"
+      ],
+      "last_filing_on": "2026-10-06",
+      "last_filing_document_id": "doc-cz-dd-2026-10-06-nsz-vsz-nalehave-dukazni-doplneni",
+      "related_document_ids": [
+        "doc-cz-dd-2026-10-06-nsz-vsz-nalehave-dukazni-doplneni"
       ]
     },
     {
@@ -72,6 +77,11 @@
         "dohled",
         "spisová úplnost",
         "rozdělení podání"
+      ],
+      "last_filing_on": "2026-10-06",
+      "last_filing_document_id": "doc-cz-dd-2026-10-06-nsz-vsz-nalehave-dukazni-doplneni",
+      "related_document_ids": [
+        "doc-cz-dd-2026-10-06-nsz-vsz-nalehave-dukazni-doplneni"
       ]
     },
     {
@@ -123,7 +133,9 @@
       "last_filing_document_id": "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
       "related_document_ids": [
         "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
-        "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026"
+        "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",
+        "doc-cz-os-pro-2026-10-06-15-nt-3104-prelozeni",
+        "doc-cz-os-pro-2026-10-06-15-nt-3104-predvolani"
       ]
     },
     {
@@ -215,6 +227,11 @@
         "THC",
         "THCA",
         "analytické metody"
+      ],
+      "last_filing_on": "2026-10-06",
+      "last_filing_document_id": "doc-cz-dd-2026-10-06-nsz-vsz-nalehave-dukazni-doplneni",
+      "related_document_ids": [
+        "doc-cz-dd-2026-10-06-nsz-vsz-nalehave-dukazni-doplneni"
       ]
     },
     {
@@ -256,7 +273,9 @@
       "last_filing_document_id": "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
       "related_document_ids": [
         "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
-        "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026"
+        "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",
+        "doc-cz-os-pro-2026-10-06-15-nt-3106-prelozeni",
+        "doc-cz-os-pro-2026-10-06-15-nt-3106-predvolani"
       ]
     },
     {
@@ -365,6 +384,26 @@
       "last_filing_document_id": "doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet",
       "related_document_ids": [
         "doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet"
+      ]
+    },
+    {
+      "id": "case-cz-ks-brno-9to316-2026-service",
+      "institution_id": "CZ-KS-BRN",
+      "reference": "9 To 316/2026",
+      "title": "Doručení usnesení KS Brno 9 To 316/2026 po stížnosti na průtahy",
+      "status": "closed",
+      "opened_on": "2026-10-06",
+      "topics": [
+        "9 To 316/2026",
+        "15 Nt 3105/2026",
+        "stížnost na průtahy",
+        "doručení rozhodnutí"
+      ],
+      "last_filing_on": "2026-10-06",
+      "last_filing_document_id": "doc-cz-dd-2026-10-06-os-pro-stiznost-prutahy-9to315-9to316",
+      "related_document_ids": [
+        "doc-cz-dd-2026-10-06-os-pro-stiznost-prutahy-9to315-9to316",
+        "doc-cz-ks-brn-2026-10-07-9-to-316-2026-219-doruceni"
       ]
     }
   ]
