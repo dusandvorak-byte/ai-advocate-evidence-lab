@@ -90,7 +90,7 @@ const pprRow = pprStart >= 0 && pprEnd >= 0 ? cz.slice(pprStart, pprEnd + 5) : '
 if (/data-related-document-id="[^"]*2026-10-06[^"]*"/.test(pprRow)) fail('Policejní řádek obsahuje vymyšlenou přímou vazbu na nedoložené podání 6. 10.');
 for (const html of [cz, en]) {
   if (html.includes('data-timer-id="timer-review-ksz-brno-1kzn1079-2026"')) fail('uzavřený KSZ timer se vrátil do finálního HTML');
-  if (!html.includes('data-timer-id="timer-review-pcr-ku-2026-05-27"') || !html.includes('PPR-52605-2/ČJ-2026-990210-PD')) fail('finální HTML nemá aktualizovanou aktivní policejní genealogii');
+  if (html.includes('data-timer-id="timer-review-pcr-ku-2026-05-27"')) fail('veřejný policejní časovač se vrátil navzdory přechodu veřejných ploch na Justiční slalom');
 }
 
 console.log('Dvě institucionální odpovědi 1./7. 10. 2026: provenance PDF, CZ/EN Státu lásky čas, uzavření KSZ přezkumu a pokračující policejní genealogie jsou konzistentní.');
