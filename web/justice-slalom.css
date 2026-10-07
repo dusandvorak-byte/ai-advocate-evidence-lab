@@ -30,14 +30,17 @@ html[lang="en"] .justice-slalom-shell .justice-slalom[open] .rollup-action:after
 
 .article-layout>.article-body:has(.state-love-shell){grid-column:1/-1;min-width:0}
 .article-body .state-love-shell{width:100%;max-width:none;margin:18px 0 28px;padding:0}
-.justice-slalom .state-love-table{min-width:1280px}
+.justice-slalom .state-love-scroll{overflow-x:visible}
+.justice-slalom .state-love-table{width:100%;min-width:0;table-layout:fixed}
 .justice-slalom .state-love-table th:nth-child(1){width:4%}
-.justice-slalom .state-love-table th:nth-child(2){width:6%}
+.justice-slalom .state-love-table th:nth-child(2){width:7%}
 .justice-slalom .state-love-table th:nth-child(3){width:10%}
-.justice-slalom .state-love-table th:nth-child(4){width:9%}
-.justice-slalom .state-love-table th:nth-child(5){width:25%}
-.justice-slalom .state-love-table th:nth-child(6){width:23%}
-.justice-slalom .state-love-table th:nth-child(7){width:23%}
+.justice-slalom .state-love-table th:nth-child(4){width:11%}
+.justice-slalom .state-love-table th:nth-child(5){width:22%}
+.justice-slalom .state-love-table th:nth-child(6){width:21%}
+.justice-slalom .state-love-table th:nth-child(7){width:25%}
 .justice-slalom .state-love-relation-cell{font-size:.88rem;line-height:1.4}
 .justice-slalom .state-love-related{display:block}
 .justice-slalom .state-love-empty{color:#60717a}
+
+.justice-slalom .state-love-table th,.justice-slalom .state-love-table td{padding:8px 9px;overflow-wrap:anywhere;word-break:normal;hyphens:auto}
