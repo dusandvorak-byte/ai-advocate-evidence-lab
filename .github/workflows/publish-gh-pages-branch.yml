@@ -270,7 +270,7 @@ jobs:
           for page in "${pages[@]}"; do
             target="/tmp/live-$(echo "$page" | tr '/' '-')"
             for attempt in {1..12}; do
-              if curl -fsSL --connect-timeout 10 --max-time 30 "$base/$page$stamp" -o "$target"; then
+              if curl -fsSL --connect-timeout 10 --max-time 30 "$base/$page$stamp&live_try=$attempt" -o "$target"; then
                 ok=1
                 for required in "${shared_ids[@]}" "${latest_ids[@]}"; do
                   if ! grep -q "$required" "$target"; then
