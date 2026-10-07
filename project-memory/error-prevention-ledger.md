@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Vyřízený opravný prostředek se nesmí znovu odvodit jako aktivní timer
+
+- Projev: po zveřejnění rozhodnutí o rozkladu by obecný generátor mohl z původního odchozího rozkladu znovu vytvořit aktivní interní časovač, i když příchozí rozhodnutí už opravný prostředek vyřídilo.
+- Příčina: odvození opravných prostředků dosud zohledňovalo typ a datum odchozího podání, ale nikoli kanonickou relaci `resolves` z pozdější příchozí státní listiny.
+- Náprava: generátor vytváří množinu `resolvedRemedyDocumentIds` z příchozích listin a vyřízené opravné prostředky před odvozením časovače vyloučí; současně se odstraní jejich staré ruční povinné časovače.
+- Pojistka: validator odmítne build, pokud se vyřízený rozklad znovu objeví v konečném procesním registru nebo veřejném HTML.
+
+
 ### Živá validační brána nesmí kontrolovat zastaralou cestu po změně PDF provenance
 
 - Projev: produkční build, kanonické validátory i publikace do gh-pages uspěly, ale závěrečný live gate skončil 404, protože dál stahoval staré cesty `092-...-verejna-textova-kopie.pdf` a `093-...-verejna-textova-kopie.pdf` po jejich nahrazení byte-identickými originály.

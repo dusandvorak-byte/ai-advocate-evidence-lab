@@ -391,6 +391,33 @@
         "analytické metody",
         "interní přezkum"
       ]
+    },
+    {
+      "id": "case-cz-mv-infz-ganja-for-all-animals",
+      "institution_id": "CZ-MV",
+      "reference": "MV-127234-2/OBP-2026 · MV-134798-4/SO-2026",
+      "title": "Žádost Ganja For All Animals, z.s. podle InfZ k pravidlům převzetí, úschovy, přepravy a předání krevních vzorků Policie ČR",
+      "status": "remanded_for_new_proceeding",
+      "opened_on": "2026-08-04",
+      "decided_on": "2026-10-07",
+      "decision_document_id": "doc-cz-mv-2026-10-07-mv-134798-4-so-2026",
+      "latest_state_document_id": "doc-cz-mv-2026-10-07-mv-134798-4-so-2026",
+      "last_remedy_document_id": "doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026",
+      "related_document_ids": [
+        "doc-cz-mv-2026-08-11-mv-127234-2-obp-2026",
+        "doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026",
+        "doc-cz-mv-2026-10-07-mv-134798-4-so-2026"
+      ],
+      "topics": [
+        "zákon č. 106/1999 Sb.",
+        "Ministerstvo vnitra",
+        "Policie ČR",
+        "krevní vzorky",
+        "chain of custody",
+        "toxikologie",
+        "rozklad",
+        "§ 11b InfZ"
+      ]
     }
   ]
 }

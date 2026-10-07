@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-07",
+  "purpose": "Rozhodnutí ministra vnitra o rozkladu Ganja For All Animals, z.s.; zrušení rozhodnutí MV-127234-2/OBP-2026 a vrácení věci k novému projednání.",
+  "documents": [
+    {
+      "id": "doc-cz-mv-2026-10-07-mv-134798-4-so-2026",
+      "user_title": "Ministr vnitra vyhověl rozkladu Ganja For All Animals, z.s., zrušil rozhodnutí Ministerstva vnitra ze dne 11. 8. 2026 č. j. MV-127234-2/OBP-2026 a vrátil věc k novému projednání",
+      "issue_date": "2026-10-07",
+      "received_date": null,
+      "institution_id": "CZ-MV",
+      "reference": "MV-134798-4/SO-2026",
+      "case_ids": [
+        "case-cz-mv-infz-ganja-for-all-animals"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "Ministerstvo vnitra",
+        "ministr vnitra",
+        "Ganja For All Animals, z.s.",
+        "rozklad",
+        "zákon č. 106/1999 Sb.",
+        "§ 11b InfZ",
+        "§ 152 správního řádu",
+        "§ 90 správního řádu",
+        "přeprava krevních vzorků",
+        "chain of custody"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07-verejna-textova-kopie.pdf",
+        "sha256": null,
+        "verification_status": "awaiting_deterministic_public_text_copy",
+        "source_original_sha256": "3309bb2da6053045d842ef2d9263dcdeab4fcce2d399264da08a7233f15b9366",
+        "source_original_size_bytes": 274596,
+        "source_original_page_count": 6,
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-07-mv-rozklad.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-mv-2026-08-11-mv-127234-2-obp-2026"
+        },
+        {
+          "type": "resolves",
+          "target_id": "doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Ministr vnitra dne 7. 10. 2026 pod č. j. MV-134798-4/SO-2026 vyhověl rozkladu spolku Ganja For All Animals, z.s., zrušil rozhodnutí Ministerstva vnitra ze dne 11. 8. 2026 č. j. MV-127234-2/OBP-2026 a věc vrátil k novému projednání. Přisvědčil námitce nepřezkoumatelnosti: původní rozhodnutí neuvádělo, jak byly informace vyhledávány, které útvary a evidence byly prověřeny, ani zda některé informace nelze získat jednoduchými úkony. Při novém projednání má povinný subjekt žádost znovu posoudit a informace částečně nebo úplně poskytnout, nebo případné odmítnutí přezkoumatelně odůvodnit. Proti rozhodnutí o rozkladu se nelze odvolat. Nahraný binární originál má SHA-256 3309bb2da6053045d842ef2d9263dcdeab4fcce2d399264da08a7233f15b9366; protože aktuální GitHub konektor neumožňuje bezpečný přenos lokálního binárního souboru, veřejný web používá úplnou ověřenou deterministickou textovou kopii a výslovně ji neoznačuje jako originál."
+    }
+  ]
+}
