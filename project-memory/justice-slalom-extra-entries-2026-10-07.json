@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Doplnění kanonicky evidovaných vlastních podání od 1. 7. 2026, která byla chybně vynechána z Justičního slalomu. PDF již byla veřejně publikována; tento soubor doplňuje pouze chybějící adresátská metadata.",
+  "entries": [
+    {
+      "document_id": "doc-cz-citc-2026-08-07-formalni-vyzva-euda-cl-265-sfeu-en",
+      "justice_slalom": {
+        "archive_number": 144,
+        "archive_name": "Formální výzva EUDA podle čl. 265 SFEU – 7.8.2026.pdf",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "EU-EUDA",
+            "reference": "bez přiděleného č. j.",
+            "role": "primary",
+            "subject_cs": "Formální výzva EUDA k jednání podle čl. 265 SFEU ve věci srovnatelnosti analytických metod stanovení THC",
+            "subject_en": "Formal call to EUDA to act under Article 265 TFEU concerning comparability of analytical methods for THC"
+          }
+        ]
+      }
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-10-reakce-18-a-23-2026",
+      "justice_slalom": {
+        "archive_number": 145,
+        "archive_name": "MS Praha 18 A 23-2026 – reakce žalobce 10.8.2026.pdf",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MS-PHA",
+            "reference": "18 A 23/2026",
+            "role": "primary",
+            "subject_cs": "Reakce žalobce: souhlas s rozhodnutím bez jednání, úhrada soudního poplatku a nový důkaz trvání zásahu",
+            "subject_en": "Claimant’s response: consent to decision without a hearing, payment of the court fee and new evidence of the continuing interference"
+          }
+        ]
+      }
+    },
+    {
+      "document_id": "doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026",
+      "justice_slalom": {
+        "archive_number": 146,
+        "archive_name": "Ganja For All Animals – rozklad MV 12.8.2026.pdf",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-MV",
+            "reference": "MV-127234-2/OBP-2026",
+            "role": "primary",
+            "subject_cs": "Rozklad proti odmítnutí žádosti podle InfZ ve věci informací k přepravě vzorku krve a toxikologii",
+            "subject_en": "Appeal against refusal of the freedom-of-information request concerning blood-sample transport and toxicology"
+          }
+        ]
+      }
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-15-zadost-prezkum-policejni-prezident",
+      "justice_slalom": {
+        "archive_number": 147,
+        "archive_name": "Žádost policejnímu prezidentovi o přezkum – 15.8.2026.pdf",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-PCR-PP",
+            "reference": "bez přiděleného č. j.",
+            "role": "primary",
+            "subject_cs": "Žádost policejnímu prezidentovi o nadřízený a nestranný přezkum postupu ve věci Kriminalistického ústavu",
+            "subject_en": "Request to the Police President for a superior and impartial review of the handling of the Criminalistics Institute matter"
+          }
+        ]
+      }
+    },
+    {
+      "document_id": "doc-cz-dd-2026-08-15-dopis-laura-ramos-cannareporter-euda",
+      "justice_slalom": {
+        "archive_number": 148,
+        "archive_name": "Dopis Laura Ramos CannaReporter EUDA – 15.8.2026.pdf",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "PT-CANNAREPORTER",
+            "reference": "bez přiděleného č. j.",
+            "role": "primary",
+            "subject_cs": "Dopis šéfredaktorce CannaReporter.eu o případu Paula Santose, měření THC a formální výzvě EUDA",
+            "subject_en": "Letter to the Editor-in-Chief of CannaReporter.eu about Paulo Santos, THC measurement and the formal call to EUDA"
+          }
+        ]
+      }
+    },
+    {
+      "document_id": "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
+      "justice_slalom": {
+        "archive_number": 149,
+        "archive_name": "EKK – procesní a důkazní návrh OS Prostějov 2.10.2026.pdf",
+        "source_kind": "verified_public_copy_from_user_original",
+        "public_sha256": "028e38a6ce090cd6ac4a6e4d081ce399e1873756745cb3e89983368da8b4f9be",
+        "public_copy_manifest": {
+          "reason": "Zdrojový originál nebyl v době původní publikace binárně materializovatelný; veřejná textová kopie byla ověřena proti úplnému textu.",
+          "byte_identical_original": false
+        },
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+            "role": "primary",
+            "subject_cs": "Procesní a důkazní návrh EKK k oběma řízením o obnově před veřejnými zasedáními",
+            "subject_en": "EKK procedural and evidentiary submission in both reopening proceedings before the public hearings"
+          }
+        ]
+      }
+    },
+    {
+      "document_id": "doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936",
+      "justice_slalom": {
+        "archive_number": 150,
+        "archive_name": "Complaint European Ombudsman EUDA – EOWEB_COMPLAINT_ID 59936 – 6.10.2026.pdf",
+        "source_kind": "original_pdf_uploaded_by_user",
+        "source_sha256": "34254d11c01f91e8a12cb99800e8d16ca9ec715a6703d765401ddcd79595e434",
+        "recipients": [
+          {
+            "institution_id": "EU-OMB",
+            "reference": "EOWEB_COMPLAINT_ID 59936",
+            "role": "primary",
+            "subject_cs": "Stížnost Evropskému ombudsmanovi ve věci postupu EUDA a srovnatelnosti evropských dat o THC",
+            "subject_en": "Complaint to the European Ombudsman concerning EUDA’s conduct and comparability of European THC data"
+          }
+        ]
+      }
+    }
+  ]
+}
