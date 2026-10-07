@@ -24,8 +24,7 @@ const REQUIRED_CURRENT_TIMER_IDS = [
   'timer-admin-kpr-repeat-16a-2026-08-10',
   'timer-admin-msz-stiznost-necinnost-2026-07-31',
   'timer-admin-msz-odvolani-sin48-2026',
-  'timer-admin-nsz-odvolani-sin55-2026',
-  'timer-admin-mv-rozklad-127234-2026'
+  'timer-admin-nsz-odvolani-sin55-2026'
 ];
 
 const escapeHtml = value => String(value ?? '')
@@ -98,8 +97,16 @@ for (const patch of [...overrides.patches, ...currentOverrides.patches]) {
 const remedyPattern = /\b(stížnost|stížnosti|odvolání|rozklad)\b/i;
 // The historical July archive is a filing index, not evidence of a currently
 // running remedy. It must never create a new "live" clock from a subject line.
+const resolvedRemedyDocumentIds = new Set(
+  documents
+    .filter(doc => doc.submission_side === 'incoming_from_state_or_public_institution')
+    .flatMap(doc => (doc.relations || [])
+      .filter(rel => rel.type === 'resolves' && rel.target_id)
+      .map(rel => rel.target_id))
+);
 const outgoing = documents.filter(doc => doc.submission_side === 'outgoing_from_user_or_alliance' && doc.issue_date >= remedySince && !doc.justice_slalom);
 const remedyDocuments = outgoing.filter(doc => {
+  if (resolvedRemedyDocumentIds.has(doc.id)) return false;
   const text = [doc.user_title, doc.reference, doc.document_type, ...(doc.topics || [])].filter(Boolean).join(' ');
   return doc.document_type === 'appeal' || remedyPattern.test(text);
 });

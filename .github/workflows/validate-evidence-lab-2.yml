@@ -121,6 +121,9 @@ jobs:
       - name: Ověřit dvě institucionální odpovědi z 1. a 7. října
         run: node scripts/validate-state-responses-2026-10-07.mjs
 
+      - name: Ověřit rozhodnutí ministra vnitra o rozkladu ze 7. října
+        run: node scripts/validate-mv-rozklad-2026-10-07.mjs
+
       - name: Ověřit tři lišty, navigaci a rozbalená soudní řízení
         run: node scripts/validate-live-dockets-contract.mjs
 
