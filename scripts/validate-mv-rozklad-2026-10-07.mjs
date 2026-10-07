@@ -37,7 +37,10 @@ if(generated.timers?.some(t=>t.id===timerId||t.source_document_id===appealId)) f
 const oldOverrides=JSON.parse(await readFile('project-memory/process-timer-overrides-2026-08-12.json','utf8'));
 if(oldOverrides.patches?.some(t=>t.id===timerId)) fail('stará ruční definice rozkladového časovače nebyla odstraněna');
 const processBuilder=await readFile('scripts/build-process-timers.mjs','utf8');
-const requiredBlock=processBuilder.match(/const REQUIRED_CURRENT_TIMER_IDS = \\[([\\s\\S]*?)\\];/)?.[1] || '';
+const requiredStart=processBuilder.indexOf('const REQUIRED_CURRENT_TIMER_IDS = [');
+const requiredEnd=requiredStart<0?-1:processBuilder.indexOf('];',requiredStart);
+const requiredBlock=requiredStart>=0&&requiredEnd>=0?processBuilder.slice(requiredStart,requiredEnd+2):'';
+if(!requiredBlock) fail('nelze nalézt seznam povinných aktivních časovačů');
 if(requiredBlock.includes(timerId)) fail('generátor stále vyžaduje zaniklý rozkladový časovač jako povinně aktivní');
 if(!processBuilder.includes('resolvedRemedyDocumentIds')||!processBuilder.includes("rel.type === 'resolves'")) fail('generátor nemá obecnou pojistku proti znovuvytvoření vyřízeného opravného prostředku');
 
