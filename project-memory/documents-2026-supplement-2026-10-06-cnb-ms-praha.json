@@ -87,10 +87,10 @@
         "html": null,
         "pdf": "documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf",
         "intended_pdf": "documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf",
-        "sha256": "6fac4edb59d7e5f67519ec853d810f9fc4a41e5946698ba54b1e7777d173082e",
-        "verification_status": "source_pdf_received_binary_original_sha256_verified",
+        "sha256": "ed5097243c80805a0ce6eaaf833b2bfd859bc6579ad9b70bffcd59f95e9cef82",
+        "verification_status": "source_pdf_received_binary_original_sha256_verified_final_6_page_4_annex_version",
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-06-cnb-ms-praha.json",
-        "source_original_sha256": "6fac4edb59d7e5f67519ec853d810f9fc4a41e5946698ba54b1e7777d173082e"
+        "source_original_sha256": "ed5097243c80805a0ce6eaaf833b2bfd859bc6579ad9b70bffcd59f95e9cef82"
       },
       "relations": [
         {
@@ -104,14 +104,18 @@
         {
           "type": "doklada",
           "target_id": "doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy"
+        },
+        {
+          "type": "doklada",
+          "target_id": "doc-cz-ksz-ost-2026-09-29-4-kzn-3239-2026-12"
         }
       ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship_and_user_publication_instruction",
-      "evidence_note": "Podání Městskému soudu v Praze ze dne 6. 10. 2026 je společným důkazním doplněním pro sp. zn. 18 A 17/2026 a 18 A 23/2026. Veřejný soubor je byte-identický s uživatelem dodaným originálním PDF.",
+      "evidence_note": "Konečná šestistránková verze společného důkazního doplnění Městskému soudu v Praze ze dne 6. 10. 2026 pro sp. zn. 18 A 17/2026 a 18 A 23/2026 obsahuje čtyři důkazní přílohy; nově jako čtvrtou přílohu výslovně navrhuje vyrozumění KSZ v Ostravě ze dne 29. 9. 2026, č. j. 4 KZN 3239/2026-12. Veřejný soubor je byte-identický s uživatelem dodaným konečným originálním PDF.",
       "justice_slalom": {
         "archive_number": 143,
-        "archive_name": "Městskému soudu dne 6. října 2026 ke sp.zn. 18 A 23 2026-a 18 A 17 -2026-společně a 3 důkazní přílohy.pdf",
+        "archive_name": "Městskému soudu dne 6. října 2026 ke sp.zn. 18 A 23 2026-a 18 A 17 -2026-společně a 4 důkazní přílohy.pdf",
         "source_kind": "original_pdf_uploaded_by_user",
         "recipients": [
           {
@@ -122,7 +126,7 @@
             "subject_en": "Joint urgent evidentiary supplement concerning disputed forensic practices in analysing THC content in seized cannabis, THCA → THC conversion and possible legislative overlay of earlier practice"
           }
         ],
-        "source_sha256": "6fac4edb59d7e5f67519ec853d810f9fc4a41e5946698ba54b1e7777d173082e"
+        "source_sha256": "ed5097243c80805a0ce6eaaf833b2bfd859bc6579ad9b70bffcd59f95e9cef82"
       }
     }
   ],
@@ -133,9 +137,9 @@
       "status": "byte_identical_user_original"
     },
     "ms_praha": {
-      "sha256": "6fac4edb59d7e5f67519ec853d810f9fc4a41e5946698ba54b1e7777d173082e",
-      "pages": 5,
-      "status": "byte_identical_user_original"
+      "sha256": "ed5097243c80805a0ce6eaaf833b2bfd859bc6579ad9b70bffcd59f95e9cef82",
+      "pages": 6,
+      "status": "byte_identical_user_original_final_4_annex_version"
     }
   }
 }
