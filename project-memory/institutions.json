@@ -449,6 +449,13 @@
       "type": "bank_ombudsman",
       "name": "Ombudsman Raiffeisenbank a.s.",
       "short_name": "Ombudsman Raiffeisenbank"
+    },
+    {
+      "id": "PT-CANNAREPORTER",
+      "country": "PT",
+      "type": "media",
+      "name": "CannaReporter.eu",
+      "short_name": "CannaReporter"
     }
   ]
 }
