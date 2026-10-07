@@ -58,6 +58,14 @@ for (const file of criticalHtml) {
 const czGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 const enGodot = await readFile('web/news/04082026-010.html', 'utf8');
 const slalomCss = await readFile('web/justice-slalom.css', 'utf8');
+for (const rule of [
+  '.justice-slalom .state-love-table th:nth-child(2){width:6%}',
+  '.justice-slalom .state-love-table th:nth-child(3){width:10%}',
+  '.justice-slalom .state-love-table th:nth-child(4){width:9%}',
+  '.justice-slalom .state-love-table th:nth-child(5){width:25%}',
+  '.justice-slalom .state-love-table th:nth-child(6){width:23%}',
+  '.justice-slalom .state-love-table th:nth-child(7){width:23%}'
+]) if (!slalomCss.includes(rule)) throw new Error('State Love nemá schválené proporce sloupců: '+rule);
 if (!slalomCss.includes('.article-layout>.article-body:has(.state-love-shell){grid-column:1/-1;min-width:0}')) throw new Error('State Love je znovu omezen úzkým article-body místo plné šířky Justičního slalomu');
 const renderedCz = (czGodot.match(/<tr id="doc-[^"]+" data-state-love-id=/g) || []).length;
 const renderedEn = (enGodot.match(/<tr id="en-doc-[^"]+" data-document-id="doc-[^"]+"/g) || []).length;
