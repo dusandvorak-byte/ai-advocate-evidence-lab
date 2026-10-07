@@ -15,6 +15,14 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Live cache-busting musí být unikátní pro každý opakovaný pokus
+
+- Projev: produkční workflow po úspěšném pushi do `gh-pages` opakovaně hlásilo starý `index.html`, přestože samotná větev `gh-pages` už obsahovala nový dokument a správný `.source-commit`.
+- Příčina: všech 12 live pokusů používalo stejný query parametr odvozený jen z SHA/run ID/run attempt. První stará odpověď CDN se proto mohla uložit pod tímto klíčem a všechny další pokusy četly tutéž cache.
+- Náprava: každý opakovaný požadavek v hlavní šestiplošné live kontrole přidává vlastní `live_try=$attempt`, takže opakování skutečně znovu ověřuje aktuální publikaci.
+- Pojistka: při každé opakované live kontrole musí být cache-busting klíč proměnný i uvnitř smyčky; samotné číslo workflow attempt nestačí.
+
+
 ### Vyřízený opravný prostředek se nesmí znovu odvodit jako aktivní timer
 
 - Projev: po zveřejnění rozhodnutí o rozkladu by obecný generátor mohl z původního odchozího rozkladu znovu vytvořit aktivní interní časovač, i když příchozí rozhodnutí už opravný prostředek vyřídilo.
