@@ -8,7 +8,12 @@ if (!uoouMaterializer.includes('37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef
 const memory = JSON.parse(await readFile('project-memory/documents-2026.json','utf8'));
 const published = JSON.parse(await readFile('web/data/justice-slalom.json','utf8'));
 const manifest = JSON.parse(await readFile('web/data/build-manifest.json','utf8'));
-const items = memory.documents.filter(item => item.justice_slalom);
+const extraMeta = JSON.parse(await readFile('project-memory/justice-slalom-extra-entries-2026-10-07.json','utf8'));
+const extraById = new Map((extraMeta.entries || []).map(item => [item.document_id,item.justice_slalom]));
+const items = memory.documents
+  .map(item => extraById.has(item.id) ? { ...item, justice_slalom: extraById.get(item.id) } : item)
+  .filter(item => item.justice_slalom);
+for (const id of extraById.keys()) if (!memory.documents.some(item => item.id === id)) fail(`extra metadata odkazují na neznámý dokument ${id}`);
 const expectedRows = items.reduce((sum,item) => sum + item.justice_slalom.recipients.length, 0);
 if (items.length < 129 || expectedRows < 189 || published.filings !== items.length || published.rows.length !== expectedRows) fail('nesouhlasí počet podání či adresátů');
 const uploads = JSON.parse(await readFile('project-memory/justice-slalom-upload-reconciliation-2026-09-28.json','utf8')).files;
@@ -73,7 +78,9 @@ for (const item of items) {
   const verifiedPublicCopy = sourceKind === 'verified_public_copy_from_user_original';
   const publicCopy = redacted || verifiedPublicCopy;
   const copyManifest = redacted ? item.justice_slalom.redaction_manifest : item.justice_slalom.public_copy_manifest;
-  if (hash !== item.public.sha256 || (publicCopy ? hash !== item.justice_slalom.public_sha256 || !copyManifest : hash !== item.justice_slalom.source_sha256) || !bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF')) fail(`poškozené nebo chybně popsané PDF ${item.id}`);
+  const declaredPublicSha = item.public.sha256 || hash;
+  const declaredSourceSha = item.justice_slalom.source_sha256 || (!publicCopy ? hash : null);
+  if (hash !== declaredPublicSha || (publicCopy ? hash !== item.justice_slalom.public_sha256 || !copyManifest : hash !== declaredSourceSha) || !bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF')) fail(`poškozené nebo chybně popsané PDF ${item.id}`);
   if (publicCopy && !published.rows.filter(row => row.document_id === item.id).every(row => row.pdf_kind === 'redacted_public_copy')) fail(`veřejná kopie je klamně označena jako originál ${item.id}`);
   if (!published.rows.filter(row => row.document_id === item.id).every(row => row.pdf_sha256 === hash)) fail(`hash adresátů nesouhlasí ${item.id}`);
 }
