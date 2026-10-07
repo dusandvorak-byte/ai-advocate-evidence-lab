@@ -83,7 +83,9 @@
       "received_date": "2026-10-06",
       "institution_id": "CZ-DD",
       "reference": "15 Nt 3105/2026-54; 9 To 316/2026",
-      "case_ids": [],
+      "case_ids": [
+        "case-cz-ks-brno-9to316-2026-service"
+      ],
       "document_type": "user_submission",
       "topics": [
         "stížnost na průtahy",
@@ -313,7 +315,9 @@
       "received_date": "2026-10-07",
       "institution_id": "CZ-KS-BRN",
       "reference": "9 To 316/2026-219",
-      "case_ids": [],
+      "case_ids": [
+        "case-cz-ks-brno-9to316-2026-service"
+      ],
       "document_type": "state_record",
       "topics": [
         "9 To 316/2026",
