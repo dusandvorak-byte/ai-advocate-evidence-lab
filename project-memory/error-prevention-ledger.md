@@ -390,3 +390,10 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - **Náprava:** `.article-body` obsahující `.state-love-shell` musí přes `grid-column:1/-1` zabrat celou šířku mřížky; samotný panel pak může bezpečně zůstat na `width:100%` a geometricky odpovídá Justičnímu slalomu.
 - **Pojistka:** publikační validátor musí ověřit existenci full-width grid pravidla a nesmí připustit návrat Státu lásky čas do 760px sloupce.
 
+### Státu lásky čas nesmí vyžadovat vodorovné posouvání tabulky
+
+- **Projev:** i po roztažení panelu na plnou šířku měla tabulka pevné minimum 1280 px, takže poslední sloupec byl mimo viditelnou část a bylo nutné posouvat vodorovnou lištu.
+- **Příčina:** pravidlo `.state-love-table{min-width:1280px}` přebilo skutečnou šířku panelu.
+- **Náprava:** tabulka používá `width:100%; min-width:0; table-layout:fixed`; sloupce mají procentní šířky se součtem 100 % a text se zalamuje do vyšších řádků.
+- **Pojistka:** publikační validátor musí odmítnout návrat pevného minima 1280 px a vyžadovat full-width fixed layout bez horizontálního scrollu pro Státu lásky čas.
+
