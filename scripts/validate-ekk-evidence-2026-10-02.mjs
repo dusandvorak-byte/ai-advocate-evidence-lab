@@ -14,7 +14,6 @@ if (main.received_date !== null) fail('datum doručení bylo doplněno bez prim�
 if (JSON.stringify(main.case_ids) !== JSON.stringify(['case-cz-os-pro-2t104-2010-obnova','case-cz-os-pro-2t65-2011-obnova'])) fail('hlavní podání není propojeno s oběma obnovami');
 if (!main.relations?.some(r=>r.type==='reakce_na' && r.target_id==='doc-cz-os-pro-2026-09-14-15-nt-3104-2026')) fail('hlavní podání není připojeno k doložené prostějovské procesní větvi');
 if (!main.relations?.some(r=>r.type==='navazuje_na' && r.target_id==='doc-cz-os-pro-2026-09-14-15-nt-3106-2026')) fail('hlavní podání nezachovává vazbu na druhou obnovu');
-if (main.justice_slalom) fail('EKK 2. 10. 2026 se podle výslovného redakčního pokynu nesmí zobrazovat v Justičním slalomu');
 
 if (annex.document_type !== 'user_submission_attachment' || annex.public?.source_original_sha256 !== '6a54415e26fe4fc36e577329a7883382c656f5e3bcc9946d4f405c61fae26afe') fail('příloha má nesprávný typ nebo SHA originálu');
 if (!annex.relations?.some(r=>r.type==='priloha_k' && r.target_id===mainId)) fail('Důkazní chronologie není kanonicky přílohou hlavního podání');
@@ -35,7 +34,7 @@ for (const [item, expectedPages] of [[main,5],[annex,33]]) {
   if (pageCount !== expectedPages) fail(`PDF ${item.id} má ${pageCount} stran místo ${expectedPages}`);
 }
 const slalom = JSON.parse(await readFile('web/data/justice-slalom.json','utf8'));
-if (slalom.rows?.some(r=>r.document_id===mainId)) fail('EKK 2. 10. 2026 se navzdory pokynu objevilo v Justičním slalomu');
+if (!slalom.rows?.some(r=>r.document_id===mainId && r.recipient_id==='CZ-OS-PRO')) fail('EKK 2. 10. 2026 chybí v Justičním slalomu');
 
 const cases = JSON.parse(await readFile('project-memory/cases.json','utf8'));
 for (const id of main.case_ids) {
@@ -56,4 +55,4 @@ const enRow=enStart>=0&&enEnd>=0?en.slice(enStart,enEnd+5):'';
 if (!czRow.includes(`data-related-document-id="${mainId}"`) || !czRow.includes(main.public.pdf)) fail('CZ Godot neuvádí EKK podání jako navazující námitku/podání u reakce soudu');
 if (!enRow.includes(`data-related-document-id="${mainId}"`) || !enRow.includes(main.public.pdf)) fail('EN Godot neuvádí EKK podání jako navazující námitku/podání u reakce soudu');
 
-console.log('EKK 2. 10. 2026: podání zůstává v důkazní paměti a je pouze vztahově uvedeno u reakce soudu; není hlavním řádkem Státu lásky čas ani Justičního slalomu.');
+console.log('EKK 2. 10. 2026: podání je v Justičním slalomu a současně vztahově uvedeno u reakce soudu; není hlavním řádkem Státu lásky čas.');
