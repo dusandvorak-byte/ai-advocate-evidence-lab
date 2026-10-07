@@ -59,6 +59,17 @@ const czGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 const enGodot = await readFile('web/news/04082026-010.html', 'utf8');
 const slalomCss = await readFile('web/justice-slalom.css', 'utf8');
 for (const rule of [
+  '.justice-slalom .state-love-scroll{overflow-x:visible}',
+  '.justice-slalom .state-love-table{width:100%;min-width:0;table-layout:fixed}',
+  '.justice-slalom .state-love-table th:nth-child(2){width:7%}',
+  '.justice-slalom .state-love-table th:nth-child(3){width:10%}',
+  '.justice-slalom .state-love-table th:nth-child(4){width:11%}',
+  '.justice-slalom .state-love-table th:nth-child(5){width:22%}',
+  '.justice-slalom .state-love-table th:nth-child(6){width:21%}',
+  '.justice-slalom .state-love-table th:nth-child(7){width:25%}'
+]) if (!slalomCss.includes(rule)) throw new Error('State Love tabulka nemá schválené full-width rozložení: '+rule);
+if (slalomCss.includes('.justice-slalom .state-love-table{min-width:1280px}')) throw new Error('State Love tabulka znovu vyžaduje horizontální scroll');
+for (const rule of [
   '.justice-slalom .state-love-table th:nth-child(2){width:6%}',
   '.justice-slalom .state-love-table th:nth-child(3){width:10%}',
   '.justice-slalom .state-love-table th:nth-child(4){width:9%}',
