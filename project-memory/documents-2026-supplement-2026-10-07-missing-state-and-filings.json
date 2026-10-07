@@ -1,0 +1,343 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-07",
+  "purpose": "Doplnění včera dodaných vlastních podání a státních reakcí, včetně bezprostředního doručení rozhodnutí KS Brno 9 To 316/2026-219 po stížnosti na průtahy.",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-10-06-nsz-vsz-nalehave-dukazni-doplneni",
+      "user_title": "Mimořádně naléhavé společné důkazní doplnění NSZ, VSZ v Praze a VSZ v Olomouci k novým vyrozuměním KSZ v Ostravě a KSZ v Brně",
+      "issue_date": "2026-10-06",
+      "received_date": "2026-10-06",
+      "institution_id": "CZ-DD",
+      "reference": "6 NZN 1737/2026; 1 VZN 1678/2026; 3 VZN 239/2026",
+      "case_ids": [
+        "CASE-CZ-NSZ-6NZN1737-2026",
+        "CASE-CZ-VSZ-PHA-1VZN1678-2026",
+        "CASE-CZ-VSZ-OLO-3VZN239-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "NSZ",
+        "VSZ Praha",
+        "VSZ Olomouc",
+        "KSZ Ostrava",
+        "KSZ Brno",
+        "THC",
+        "THCA",
+        "sporné forenzní praxe při analýzách obsahu THC v zabraném konopí"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni.pdf",
+        "sha256": "c831604cc60860d0dee289ea4a39bb61aa5a006f720ad975bcf1ef590fb9c0a7",
+        "verification_status": "byte_identical_user_original_materialized_from_base64_source",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-07-missing-state-and-filings.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-ksz-ost-2026-09-29-4-kzn-3239-2026-12"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-ksz-brn-2026-09-30-1-kzn-1090-2026-20"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship_and_user_publication_instruction",
+      "evidence_note": "Podání ze dne 6. 10. 2026 je společně adresováno NSZ, VSZ v Praze a VSZ v Olomouci a reaguje na nová vyrozumění KSZ v Ostravě ze dne 29. 9. 2026 a KSZ v Brně ze dne 30. 9. 2026.",
+      "justice_slalom": {
+        "archive_number": 151,
+        "archive_name": "NSZ a VSZ dne 6.října 2026-naléhavé.pdf",
+        "source_kind": "original_pdf_uploaded_by_user",
+        "source_sha256": "c831604cc60860d0dee289ea4a39bb61aa5a006f720ad975bcf1ef590fb9c0a7",
+        "recipients": [
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "primary",
+            "subject_cs": "Mimořádně naléhavé společné důkazní doplnění k novým vyrozuměním KSZ v Ostravě a KSZ v Brně",
+            "subject_en": "Urgent joint evidentiary supplement concerning the new responses from the Ostrava and Brno Regional Public Prosecutor’s Offices"
+          },
+          {
+            "institution_id": "CZ-VSZ-PHA",
+            "reference": "1 VZN 1678/2026",
+            "role": "simultaneous",
+            "subject_cs": "Mimořádně naléhavé společné důkazní doplnění k novým vyrozuměním KSZ v Ostravě a KSZ v Brně",
+            "subject_en": "Urgent joint evidentiary supplement concerning the new responses from the Ostrava and Brno Regional Public Prosecutor’s Offices"
+          },
+          {
+            "institution_id": "CZ-VSZ-OLO",
+            "reference": "3 VZN 239/2026",
+            "role": "simultaneous",
+            "subject_cs": "Mimořádně naléhavé společné důkazní doplnění k novým vyrozuměním KSZ v Ostravě a KSZ v Brně",
+            "subject_en": "Urgent joint evidentiary supplement concerning the new responses from the Ostrava and Brno Regional Public Prosecutor’s Offices"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-dd-2026-10-06-os-pro-stiznost-prutahy-9to315-9to316",
+      "user_title": "Stížnost na průtahy při doručení rozhodnutí Krajského soudu v Brně 9 To 316/2026 a žádost o jeho urgentní zaslání",
+      "issue_date": "2026-10-06",
+      "received_date": "2026-10-06",
+      "institution_id": "CZ-DD",
+      "reference": "15 Nt 3105/2026-54; 9 To 316/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "topics": [
+        "stížnost na průtahy",
+        "9 To 316/2026",
+        "15 Nt 3105/2026",
+        "doručení rozhodnutí"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/100-podani-2026-10-06-os-pro-stiznost-prutahy-9to315-9to316.pdf",
+        "sha256": "2d87c87da8372655bd3f56316c2c17ffefd5b536d7ad97f362590c6e93120118",
+        "verification_status": "byte_identical_user_original_materialized_from_base64_source",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-07-missing-state-and-filings.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship_and_user_publication_instruction",
+      "evidence_note": "Stížnost předsedovi Okresního soudu v Prostějově ze dne 6. 10. 2026 namítla prodlení při doručení již vydaného rozhodnutí KS Brno 9 To 316/2026 a výslovně žádala jeho neprodlené zaslání.",
+      "justice_slalom": {
+        "archive_number": 152,
+        "archive_name": "OS v Prostějově- stížnost na průtahy dne 6.října 2026.pdf",
+        "source_kind": "original_pdf_uploaded_by_user",
+        "source_sha256": "2d87c87da8372655bd3f56316c2c17ffefd5b536d7ad97f362590c6e93120118",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "15 Nt 3105/2026-54; 9 To 316/2026",
+            "role": "primary",
+            "subject_cs": "Stížnost na průtahy při doručení rozhodnutí KS Brno 9 To 316/2026 a žádost o jeho urgentní zaslání",
+            "subject_en": "Complaint about delay in service of the Brno Regional Court decision 9 To 316/2026 and request for urgent delivery"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-ksz-ost-2026-09-29-4-kzn-3239-2026-12",
+      "user_title": "KSZ v Ostravě přezkoumalo postup OSZ ve Frýdku-Místku ve věci 1 ZN 7061/2026, neshledalo pochybení a odkázalo odborný či metodický přezkum policejní znalecké praxe na jiné kontrolní, řídicí nebo odborné orgány",
+      "issue_date": "2026-09-29",
+      "received_date": "2026-10-06",
+      "institution_id": "CZ-KSZ-OST",
+      "reference": "4 KZN 3239/2026-12",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "KSZ Ostrava",
+        "OSZ Frýdek-Místek",
+        "OKTE Frýdek-Místek",
+        "THC",
+        "metodika",
+        "dohled"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/113-ksz-ostrava-4-kzn-3239-2026-12-2026-09-29.pdf",
+        "sha256": "6233b9a3b1ab1a07e83cca854b6fedc9a9678144e6a67527328ad2d84e33dfe4",
+        "verification_status": "byte_identical_user_original_materialized_from_base64_source",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-07-missing-state-and-filings.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "document_issuer",
+      "evidence_note": "Vyrozumění KSZ v Ostravě ze dne 29. 9. 2026 č. j. 4 KZN 3239/2026-12 se týká dohledu nad postupem OSZ ve Frýdku-Místku ve věci 1 ZN 7061/2026."
+    },
+    {
+      "id": "doc-cz-ksz-brn-2026-09-30-1-kzn-1090-2026-20",
+      "user_title": "KSZ v Brně vyřídilo podání postoupená NSZ k postupu OSZ v Prostějově, přezkoumalo spis ZN 4/2026 a sdělilo své závěry k zákonnosti a úplnosti postupu nižšího státního zastupitelství",
+      "issue_date": "2026-09-30",
+      "received_date": "2026-10-06",
+      "institution_id": "CZ-KSZ-BRN",
+      "reference": "1 KZN 1090/2026-20",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "KSZ Brno",
+        "OSZ Prostějov",
+        "NSZ",
+        "dohled",
+        "ZN 4/2026"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/114-ksz-brno-1-kzn-1090-2026-20-2026-09-30.pdf",
+        "sha256": "435a844d59f61d4136a4953eccc476c79ce295cc98bca40a1ed4ed97cb61aba6",
+        "verification_status": "byte_identical_user_original_materialized_from_base64_source",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-07-missing-state-and-filings.json"
+      },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "document_issuer"
+    },
+    {
+      "id": "doc-cz-os-pro-2026-10-06-15-nt-3104-prelozeni",
+      "user_title": "Soud přeložil veřejné zasedání v řízení 15 Nt 3104/2026 z 12. 10. 2026 na 30. 11. 2026 v 9:00 z důvodu posouzení žádosti o bezplatnou obhajobu a ustanovení obhájce",
+      "issue_date": "2026-10-06",
+      "received_date": "2026-10-06",
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3104/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "obnova řízení",
+        "přeložení veřejného zasedání",
+        "bezplatná obhajoba",
+        "15 Nt 3104/2026"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/115-os-pro-15-nt-3104-2026-prelozeni-2026-10-06.pdf",
+        "sha256": "8501ea116c03527f0025c88846481889c3c558df57e74286d60a8c0064c119f5",
+        "verification_status": "byte_identical_user_original_materialized_from_base64_source",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-07-missing-state-and-filings.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "document_issuer"
+    },
+    {
+      "id": "doc-cz-os-pro-2026-10-06-15-nt-3104-predvolani",
+      "user_title": "Nové předvolání k veřejnému zasedání v řízení 15 Nt 3104/2026 na 30. 11. 2026 v 9:00",
+      "issue_date": "2026-10-06",
+      "received_date": "2026-10-06",
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3104/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "obnova řízení",
+        "předvolání",
+        "15 Nt 3104/2026",
+        "30. 11. 2026"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/116-os-pro-15-nt-3104-2026-predvolani-2026-10-06.pdf",
+        "sha256": "61f9c34be63965ad6bf04011bd90838d499bb3732b54f691f97993b8677a26b5",
+        "verification_status": "byte_identical_user_original_materialized_from_base64_source",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-07-missing-state-and-filings.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "document_issuer"
+    },
+    {
+      "id": "doc-cz-os-pro-2026-10-06-15-nt-3106-prelozeni",
+      "user_title": "Soud přeložil veřejné zasedání v řízení 15 Nt 3106/2026 z 13. 10. 2026 na 30. 11. 2026 ve 13:00 z důvodu posouzení žádosti o bezplatnou obhajobu a ustanovení obhájce",
+      "issue_date": "2026-10-06",
+      "received_date": "2026-10-06",
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3106/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "obnova řízení",
+        "přeložení veřejného zasedání",
+        "bezplatná obhajoba",
+        "15 Nt 3106/2026"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/117-os-pro-15-nt-3106-2026-prelozeni-2026-10-06.pdf",
+        "sha256": "6bc54398c249cf84be51720e1a50f8534775cbc190d07009105548a27d75199c",
+        "verification_status": "byte_identical_user_original_materialized_from_base64_source",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-07-missing-state-and-filings.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "document_issuer"
+    },
+    {
+      "id": "doc-cz-os-pro-2026-10-06-15-nt-3106-predvolani",
+      "user_title": "Nové předvolání k veřejnému zasedání v řízení 15 Nt 3106/2026 na 30. 11. 2026 ve 13:00",
+      "issue_date": "2026-10-06",
+      "received_date": "2026-10-06",
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3106/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "obnova řízení",
+        "předvolání",
+        "15 Nt 3106/2026",
+        "30. 11. 2026"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/118-os-pro-15-nt-3106-2026-predvolani-2026-10-06.pdf",
+        "sha256": "a8946058816cd8f86707736202db2a5076fe8f86377657c727a14c315f939399",
+        "verification_status": "byte_identical_user_original_materialized_from_base64_source",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-07-missing-state-and-filings.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "document_issuer"
+    },
+    {
+      "id": "doc-cz-ks-brn-2026-10-07-9-to-316-2026-219-doruceni",
+      "user_title": "Po stížnosti na průtahy z 6. 10. 2026 bylo dne 7. 10. 2026 dodatečně doručeno usnesení KS Brno ze dne 3. 9. 2026 č. j. 9 To 316/2026-219, jímž byla stížnost zamítnuta podle § 148 odst. 1 písm. b) trestního řádu",
+      "issue_date": "2026-10-07",
+      "received_date": "2026-10-07",
+      "institution_id": "CZ-KS-BRN",
+      "reference": "9 To 316/2026-219",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "9 To 316/2026",
+        "doručení rozhodnutí",
+        "stížnost na průtahy",
+        "15 Nt 3105/2026"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/119-ks-brno-9-to-316-2026-219-doruceno-2026-10-07.pdf",
+        "sha256": "237040f1d04d717aec1d945442574f36c7c89dc545626335760f653d3bbbc99f",
+        "verification_status": "byte_identical_user_original_materialized_from_base64_source",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-07-missing-state-and-filings.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-06-os-pro-stiznost-prutahy-9to315-9to316"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "document_issuer_and_delivery_event",
+      "source_document_date": "2026-09-03",
+      "evidence_note": "Veřejně je publikován byte-identický originál rozhodnutí KS Brno č. j. 9 To 316/2026-219 ze dne 3. 9. 2026. Záznam je v chronologii datován 7. 10. 2026 jako doložený okamžik dodatečného doručení po stížnosti na průtahy ze dne 6. 10. 2026."
+    }
+  ]
+}
