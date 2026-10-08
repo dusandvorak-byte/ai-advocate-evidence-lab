@@ -330,9 +330,11 @@ assertRequiredTimersRendered(englishHome, 'English front page');
 await writeFile(englishHomePath, englishHome, 'utf8');
 
 let godot = removeGeneratedTimerBlock(await readFile(godotPath, 'utf8'), 'section');
-const chronologyMarker = '<section class="justice-slalom-shell state-love-shell"';
-if (!godot.includes(chronologyMarker)) throw new Error('Godot nemá hlavní tabulku Státu lásky čas');
-const insertAt = godot.indexOf(chronologyMarker);
+const chronologyMarker = 'class="justice-slalom-shell state-love-shell"';
+const chronologyClassAt = godot.indexOf(chronologyMarker);
+if (chronologyClassAt < 0) throw new Error('Godot nemá hlavní tabulku Státu lásky čas');
+const insertAt = godot.lastIndexOf('<section', chronologyClassAt);
+if (insertAt < 0) throw new Error('Godot má třídu Státu lásky čas bez počátečního <section>');
 // Procesní interní kontext může zůstat před tabulkou, ale za tabulkou Státu lásky čas
 // nesmí být znovu generován žádný pomocný blok.
 godot = godot.slice(0, insertAt) + `${godotSection}\n` + godot.slice(insertAt);

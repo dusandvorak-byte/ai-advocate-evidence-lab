@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Generátor nesmí předpokládat pořadí HTML atributů
+
+- Projev: po přesunu kotvy `id="chronologie"` přímo na State Love panel selhal build-process-timers, protože hledal pouze doslovný začátek `<section class="justice-slalom-shell state-love-shell"`.
+- Příčina: selektor byl založen na pořadí atributů místo na stabilní třídě a hranici elementu.
+- Náprava: generátor nyní nejprve vyhledá stabilní class marker a následně nejbližší předchozí `<section`; pořadí atributů `id`/ `class` je irelevantní.
+- Pojistka: nové veřejné panely smějí měnit nebo doplňovat atributy bez nutnosti přepisovat interní generátory; build selže pouze tehdy, když skutečně chybí třída nebo počáteční element.
+
 ### State Love nesmí přetékat mimo page shell a Godot nesmí být jen odkaz
 
 - Projev: sedmisloupcová tabulka Státu lásky čas měla pevné minimum 1280 px, takže na části desktopových šířek vybočovala z 1240px page shellu; první pořadové číslo se mohlo zalomit. Godot online byl na titulní stránce pouze odkaz, zatímco Justiční slalom byl skutečný rozbalovací panel.
