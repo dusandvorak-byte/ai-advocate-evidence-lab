@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Vlastní podání a reakce orgánů nesmějí být zaměněny mezi Godotem a Justičním slalomem
+
+- Projev: podání autora z 6. a 8. 10. 2026 byla po předchozím pokynu publikována pouze vztahově v Godotu a bez položek Justičního slalomu.
+- Aktuální závazné rozdělení: hlavní řádky Godota / Státu lásky čas tvoří příchozí listiny státních, veřejných a mezinárodních institucí; vlastní podání autora a aliance tvoří Justiční slalom. V Godotu se vlastní podání smějí současně zobrazit pouze vztahově u reakce orgánu.
+- Náprava: podání 6. a 8. 10. dostávají metadata Justičního slalomu a byte-identické originální PDF; potvrzení Evropského ombudsmana 202602199 a listiny MS Praha 15 Ad 14/2026-13 a -17 se přidávají jako tři nové příchozí řádky Godota.
+- Pojistka: validační gate výslovně vyžaduje, aby oba vlastní dokumenty byly v `web/data/justice-slalom.json` a nebyly hlavními řádky State Love, zatímco všechny tři příchozí dokumenty musí být hlavními řádky State Love a nesmějí být položkami Justičního slalomu.
+
 ### Produkční kontrola Justičního slalomu nesmí prohledávat celý Godot/Index
 
 - Projev: produkční workflow #613 označilo živý Justiční slalom za nesynchronizovaný, protože hledalo dokument výslovně vyloučený ze Slalomu v celém `index.html`; tentýž dokument byl přitom legitimně přítomen v Godotu jako vztahová listina.

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "batch_date": "2026-10-08",
-  "purpose": "Dvě uživatelská důkazní podání z 6. a 8. 10. 2026 zveřejněná v Godotu výhradně jako navazující procesní reakce ve vztahových sloupcích Státu lásky čas; nejsou položkami Justičního slalomu ani hlavními řádky reakcí státu.",
+  "purpose": "Správné oddělení veřejných vrstev: dvě vlastní podání z 6. a 8. 10. 2026 patří do Justičního slalomu; tři příchozí listiny Evropského ombudsmana a Městského soudu v Praze patří jako hlavní řádky do Godota / Státu lásky čas.",
   "documents": [
     {
       "id": "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni",
@@ -34,10 +34,10 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "intended_pdf": "documents/report-04082026-010/116-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni-verejna-textova-kopie.pdf",
-        "sha256": null,
-        "verification_status": "pending_deterministic_public_text_copy_from_complete_extracted_text",
+        "pdf": "documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz.pdf",
+        "sha256": "c831604cc60860d0dee289ea4a39bb61aa5a006f720ad975bcf1ef590fb9c0a7",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 5_pages",
         "source_original_sha256": "c831604cc60860d0dee289ea4a39bb61aa5a006f720ad975bcf1ef590fb9c0a7",
         "source_original_size_bytes": 86287,
         "source_original_page_count": 5,
@@ -54,8 +54,37 @@
         }
       ],
       "submission_side": "outgoing_from_user_or_alliance",
-      "submission_side_basis": "explicit_document_authorship_and_user_instruction_to_publish_in_godot_relation_columns",
-      "evidence_note": "Podání ze dne 6. 10. 2026 je adresováno NSZ, VSZ v Praze a VSZ v Olomouci. Výslovně reaguje na nové procesní závěry státních zastupitelství, mimo jiné na vyrozumění MSZ v Praze ze dne 1. 10. 2026 č. j. 3 KZN 974/2026-114, a žádá společné posouzení otázek reprezentativního odběru, homogenizace, THC/THCA, dekarboxylace a nejistoty měření. Datum skutečného doručení jednotlivým adresátům není z nahraného PDF samo o sobě doloženo. Uživatel dne 8. 10. 2026 výslovně určil, že tato listina má být zveřejněna v Godotu, nikoli v Justičním slalomu. Veřejný PDF soubor je deterministická úplná textová kopie z extrahovaného obsahu nahraného PDF; není byte-identická s originálem."
+      "submission_side_basis": "explicit_document_authorship_and_user_instruction_to_publish_in_justice_slalom",
+      "evidence_note": "Podání ze dne 6. 10. 2026 je vlastním podáním Mgr. Dušana Dvořáka adresovaným NSZ, VSZ v Praze a VSZ v Olomouci. Výslovně reaguje na nové procesní závěry státních zastupitelství a žádá společné posouzení otázek reprezentativního odběru, homogenizace, THC/THCA, dekarboxylace a nejistoty měření. Datum skutečného doručení jednotlivým adresátům není z PDF samo o sobě doloženo. Podle aktuálního redakčního pravidla vlastní podání patří do Justičního slalomu; v Godotu se smí objevit pouze vztahově u příslušných reakcí orgánů. Veřejný PDF soubor je byte-identický s uživatelem nahraným originálem.",
+      "justice_slalom": {
+        "archive_number": 144,
+        "archive_name": "NSZ a VSZ dne 6.října 2026-naléhavé(1).pdf",
+        "source_sha256": "c831604cc60860d0dee289ea4a39bb61aa5a006f720ad975bcf1ef590fb9c0a7",
+        "source_kind": "original_pdf_uploaded_by_user",
+        "recipients": [
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "primary",
+            "subject_cs": "Mimořádně naléhavé společné důkazní doplnění k novým vyrozuměním KSZ a uzavřenému řetězci přezkumu",
+            "subject_en": "Urgent joint evidentiary supplement concerning new regional-prosecution notices and the closed review chain"
+          },
+          {
+            "institution_id": "CZ-VSZ-PHA",
+            "reference": "1 VZN 1678/2026",
+            "role": "primary",
+            "subject_cs": "Mimořádně naléhavé společné důkazní doplnění k novým vyrozuměním KSZ a uzavřenému řetězci přezkumu",
+            "subject_en": "Urgent joint evidentiary supplement concerning new regional-prosecution notices and the closed review chain"
+          },
+          {
+            "institution_id": "CZ-VSZ-OLO",
+            "reference": "3 VZN 239/2026",
+            "role": "primary",
+            "subject_cs": "Mimořádně naléhavé společné důkazní doplnění k novým vyrozuměním KSZ a uzavřenému řetězci přezkumu",
+            "subject_en": "Urgent joint evidentiary supplement concerning new regional-prosecution notices and the closed review chain"
+          }
+        ]
+      }
     },
     {
       "id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
@@ -91,10 +120,10 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "intended_pdf": "documents/report-04082026-010/117-ekk-dd-2026-10-08-dukazni-doplneni-verejna-textova-kopie.pdf",
-        "sha256": null,
-        "verification_status": "pending_deterministic_public_text_copy_from_complete_extracted_text",
+        "pdf": "documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf",
+        "sha256": "9490a2cde83d76ec9b9fcf838df622e706725de651ed3b807a46e0f3b57fcda3",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 9_pages",
         "source_original_sha256": "9490a2cde83d76ec9b9fcf838df622e706725de651ed3b807a46e0f3b57fcda3",
         "source_original_size_bytes": 156145,
         "source_original_page_count": 9,
@@ -119,8 +148,191 @@
         }
       ],
       "submission_side": "outgoing_from_user_or_alliance",
-      "submission_side_basis": "explicit_document_authorship_and_user_instruction_to_publish_in_godot_relation_columns",
-      "evidence_note": "Podání ze dne 8. 10. 2026 je adresováno Kanceláři prezidenta republiky, Nejvyššímu státnímu zastupitelství, Ministerstvu spravedlnosti, Policejnímu prezidiu, Ministerstvu vnitra a Okresnímu soudu v Prostějově. Soustřeďuje nové úřední listiny a stanovisko Unie obhájců ČR č. 3/2026 a formuluje jako důvodné podezření, nikoli hotový závěr, otázku dvojího legislativního překrytí sporných forenzních praxí při analýzách obsahu THC v zabraném konopí. Současně zve adresáty k veřejným zasedáním o obnově řízení dne 30. 11. 2026. V záhlaví výslovně uvádí také větev Policejního prezidia PPR-52605/ČJ-2026-990210-PD, proto je tato listina vedena jako navazující reakce i k policejnímu sdělení ze 7. 10. 2026. Datum skutečného doručení jednotlivým adresátům není z nahraného PDF samo o sobě doloženo. Uživatel dne 8. 10. 2026 výslovně určil, že tato listina má být zveřejněna v Godotu, nikoli v Justičním slalomu. Veřejný PDF soubor je deterministická úplná textová kopie z extrahovaného obsahu nahraného PDF; není byte-identická s originálem."
+      "submission_side_basis": "explicit_document_authorship_and_user_instruction_to_publish_in_justice_slalom",
+      "evidence_note": "Podání ze dne 8. 10. 2026 je vlastním podáním Mgr. Dušana Dvořáka / Edukativní konopné kliniky adresovaným KPR, NSZ, Ministerstvu spravedlnosti, Policejnímu prezidiu, Ministerstvu vnitra a Okresnímu soudu v Prostějově. Formuluje důvodné podezření na dvojí legislativní překrytí sporných forenzních praxí při analýzách obsahu THC v zabraném konopí jako otázku vyžadující dokazování a současně zve adresáty k veřejným zasedáním o obnově řízení dne 30. 11. 2026. Datum skutečného doručení jednotlivým adresátům není z PDF samo o sobě doloženo. Podle aktuálního redakčního pravidla vlastní podání patří do Justičního slalomu; v Godotu se smí objevit pouze vztahově u příslušných reakcí orgánů. Veřejný PDF soubor je byte-identický s uživatelem nahraným originálem.",
+      "justice_slalom": {
+        "archive_number": 145,
+        "archive_name": "NSZ, MSP, PP, KPR a OS Prostejov dne 8.října 2026 -.pdf",
+        "source_sha256": "9490a2cde83d76ec9b9fcf838df622e706725de651ed3b807a46e0f3b57fcda3",
+        "source_kind": "original_pdf_uploaded_by_user",
+        "recipients": [
+          {
+            "institution_id": "CZ-KPR",
+            "reference": "KPR 5080/2026",
+            "role": "primary",
+            "subject_cs": "Mimořádně naléhavé důkazní doplnění a pozvánka k veřejnému zasedání 30. 11. 2026",
+            "subject_en": "Urgent evidentiary supplement and invitation to the reopening hearing on 30 November 2026"
+          },
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "primary",
+            "subject_cs": "Mimořádně naléhavé důkazní doplnění a pozvánka k veřejnému zasedání 30. 11. 2026",
+            "subject_en": "Urgent evidentiary supplement and invitation to the reopening hearing on 30 November 2026"
+          },
+          {
+            "institution_id": "CZ-MSP",
+            "reference": "18 A 23/2026; MSP-19/2026-ODKA-ROZ; MSP-162/2026-ODKA-SPZ",
+            "role": "primary",
+            "subject_cs": "Mimořádně naléhavé důkazní doplnění k forenzním otázkám THC a odpovědnosti Ministerstva spravedlnosti",
+            "subject_en": "Urgent evidentiary supplement on forensic THC issues and the Ministry of Justice's responsibility"
+          },
+          {
+            "institution_id": "CZ-PCR-PP",
+            "reference": "18 A 17/2026; PPR-52605/ČJ-2026-990210-PD",
+            "role": "primary",
+            "subject_cs": "Mimořádně naléhavé důkazní doplnění k internímu přezkumu policejních znaleckých pracovišť",
+            "subject_en": "Urgent evidentiary supplement concerning internal review of police forensic laboratories"
+          },
+          {
+            "institution_id": "CZ-MV",
+            "reference": "15 A 44/2026; MV-108890-3/TP-2026; MV-97289/TP-2026; MV-114818/TP-2026",
+            "role": "primary",
+            "subject_cs": "Mimořádně naléhavé důkazní doplnění k metodice THC a vnitřnímu přezkumu",
+            "subject_en": "Urgent evidentiary supplement concerning THC methodology and internal review"
+          },
+          {
+            "institution_id": "CZ-OS-PRO",
+            "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 2 T 104/2010; 2 T 65/2011",
+            "role": "primary",
+            "subject_cs": "Důkazní doplnění k obnově řízení a pozvánka k veřejným zasedáním dne 30. 11. 2026",
+            "subject_en": "Evidentiary supplement for reopening proceedings and invitation to the hearings on 30 November 2026"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-eu-omb-2026-10-07-202602199-registration",
+      "user_title": "Evropská veřejná ochránkyně práv potvrdila přijetí a registraci stížnosti pod č. 202602199",
+      "issue_date": "2026-10-07",
+      "received_date": "2026-10-07",
+      "institution_id": "EU-OMB",
+      "reference": "202602199",
+      "case_ids": [
+        "case-eu-omb-euda-thc-comparability-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "Evropský ombudsman",
+        "EUDA",
+        "stížnost",
+        "registrace",
+        "THC",
+        "THCA"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/116-eu-ombudsman-202602199-2026-10-07.pdf",
+        "intended_pdf": "documents/report-04082026-010/116-eu-ombudsman-202602199-2026-10-07.pdf",
+        "sha256": "8da9712f3ea540ce2b5f6364175b06eb9e95dfa826506f7be758d998ab9fcdc2",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 2_pages",
+        "source_original_sha256": "8da9712f3ea540ce2b5f6364175b06eb9e95dfa826506f7be758d998ab9fcdc2",
+        "source_original_size_bytes": 53281,
+        "source_original_page_count": 2,
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-08-godot-filings.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-eu-omb-2026-09-28-complaint-form-required"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Evropská veřejná ochránkyně práv e-mailem ze dne 7. 10. 2026 potvrdila přijetí stížnosti a její registraci pod číslem 202602199. Uvedla, že znovu sdělí, zda se lze stížností dále zabývat a jaké budou další kroky, obvykle během následujících čtyř týdnů. Současně upozornila, že podání stížnosti nemá vliv na zákonné lhůty souvisejících správních nebo soudních řízení. Čtyři týdny jsou v listině popsány jako obvyklá doba komunikace, nikoli jako závazná zákonná lhůta."
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13",
+      "user_title": "Městský soud v Praze odmítl zásahovou žalobu proti SÚKL ve věci 15 Ad 14/2026",
+      "issue_date": "2026-10-06",
+      "received_date": null,
+      "institution_id": "CZ-MS-PHA",
+      "reference": "15 Ad 14/2026-13",
+      "case_ids": [
+        "case-cz-ms-praha-15-ad-14-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "Městský soud v Praze",
+        "SÚKL",
+        "15 Ad 14/2026",
+        "zásahová žaloba",
+        "eRecept",
+        "vysoce návyková látka",
+        "kasační stížnost"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf",
+        "intended_pdf": "documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf",
+        "sha256": "25ecfff3def2fe8b328cc90bf970801b2778038befb9e0330e6abeb968c1a2c8",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 4_pages",
+        "source_original_sha256": "25ecfff3def2fe8b328cc90bf970801b2778038befb9e0330e6abeb968c1a2c8",
+        "source_original_size_bytes": 181141,
+        "source_original_page_count": 4,
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-08-godot-filings.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cs-dd-2026-08-31-slalom-augsep-043"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-ms-pha-2026-09-22-15-ad-14-2026-12"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Městský soud v Praze usnesením ze dne 6. 10. 2026 č. j. 15 Ad 14/2026-13 žalobu na ochranu před nezákonným zásahem proti SÚKL odmítl podle § 46 odst. 1 písm. a) s. ř. s. Soud uzavřel, že tvrzené jednání nemůže být z povahy věci zásahem podle § 82 s. ř. s. Poučení připouští kasační stížnost do dvou týdnů od doručení; datum doručení z nahrané listiny doloženo není, proto se nevytváří konkrétní kalendářní lhůta. V odstavci 14 zdrojová listina uvádí označení 8 Ad 8/2026-85, zatímco na jiných místech odkazuje na 8 Ad 9/2026; tento rozpor se redakčně neopravuje."
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17",
+      "user_title": "Městský soud v Praze sdělil přidělení věci 15 Ad 14/2026 specializovanému senátu 15 Ad a poučil o námitce podjatosti",
+      "issue_date": "2026-10-07",
+      "received_date": null,
+      "institution_id": "CZ-MS-PHA",
+      "reference": "15 Ad 14/2026-17",
+      "case_ids": [
+        "case-cz-ms-praha-15-ad-14-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "Městský soud v Praze",
+        "SÚKL",
+        "15 Ad 14/2026",
+        "specializovaný senát",
+        "námitka podjatosti",
+        "§ 8 odst. 5 s. ř. s."
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf",
+        "intended_pdf": "documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf",
+        "sha256": "72c6162e095559546988d4f8b0e2423a486d6213c4881fb2b240b44fd5275383",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 1_page",
+        "source_original_sha256": "72c6162e095559546988d4f8b0e2423a486d6213c4881fb2b240b44fd5275383",
+        "source_original_size_bytes": 109261,
+        "source_original_page_count": 1,
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-08-godot-filings.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cs-dd-2026-08-31-slalom-augsep-043"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type",
+      "evidence_note": "Přípis Městského soudu v Praze ze dne 7. 10. 2026 č. j. 15 Ad 14/2026-17 sděluje, že věc byla podle rozvrhu práce přidělena specializovanému senátu 15 Ad, a reprodukuje poučení podle § 8 odst. 5 s. ř. s. o námitce podjatosti, kterou je třeba uplatnit do jednoho týdne ode dne, kdy se účastník o důvodu podjatosti dozvěděl. Datum skutečného doručení listiny není doloženo. Přípis je evidován samostatně tak, jak byl vydán 7. 10. 2026, přestože v témže spise existuje usnesení č. j. 15 Ad 14/2026-13 ze dne 6. 10. 2026; tato časová posloupnost se bez dalšího primárního podkladu nesjednocuje ani nevysvětluje."
     }
   ]
 }

@@ -1010,7 +1010,9 @@
       "received_date": "2026-09-16",
       "institution_id": "CZ-DD",
       "reference": "15 Ad 14/2026; 8 Ad 9/2026",
-      "case_ids": [],
+      "case_ids": [
+        "case-cz-ms-praha-15-ad-14-2026"
+      ],
       "document_type": "user_submission",
       "topics": [
         "Justiční slalom",
@@ -1127,7 +1129,9 @@
       "received_date": "2026-08-31",
       "institution_id": "CZ-DD",
       "reference": "15 Ad 14/2026; 8 Ad 9/2026",
-      "case_ids": [],
+      "case_ids": [
+        "case-cz-ms-praha-15-ad-14-2026"
+      ],
       "document_type": "user_submission",
       "topics": [
         "Justiční slalom",
