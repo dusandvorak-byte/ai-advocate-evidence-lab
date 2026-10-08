@@ -10,7 +10,9 @@
       "received_date": null,
       "institution_id": "CZ-MS-PHA",
       "reference": "15 Ad 14/2026-12",
-      "case_ids": [],
+      "case_ids": [
+        "case-cz-ms-praha-15-ad-14-2026"
+      ],
       "document_type": "state_record",
       "topics": [
         "správní soudnictví",

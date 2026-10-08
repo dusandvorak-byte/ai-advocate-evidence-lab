@@ -109,7 +109,7 @@ jobs:
       - name: Ověřit podnět ČNB a společné podání MS Praha ze 6. října
         run: node scripts/validate-october-6-submissions.mjs
 
-      - name: Ověřit dvě důkazní podání z 6. a 8. října v Godotu
+      - name: Ověřit rozdělení Godot / Justiční slalom pro listiny 6.–8. října
         run: node scripts/validate-godot-filings-2026-10-08.mjs
 
       - name: Ověřit dvě institucionální odpovědi z 1. a 7. října
@@ -328,8 +328,10 @@ jobs:
             curl -fsSL --connect-timeout 10 --max-time 30 "$base/index.html$stamp&slalom_try=$attempt" -o /tmp/live-index.html
             python3 -c "from pathlib import Path; h=Path('/tmp/live-index.html').read_text(encoding='utf-8'); a=h.find('<!-- JUSTICE-SLALOM:BEGIN -->'); b=h.find('<!-- JUSTICE-SLALOM:END -->',a); assert a>=0 and b>=0; Path('/tmp/live-justice-slalom-panel.html').write_text(h[a:b],encoding='utf-8')"
             if ! grep -q 'doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh' /tmp/live-justice-slalom-panel.html \
-              && ! grep -q 'doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni' /tmp/live-justice-slalom-panel.html \
-              && ! grep -q 'doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni' /tmp/live-justice-slalom-panel.html \
+              && grep -q 'doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni' /tmp/live-justice-slalom-panel.html \
+              && grep -q 'doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni' /tmp/live-justice-slalom-panel.html \
+              && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz.pdf' /tmp/live-justice-slalom-panel.html \
+              && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf' /tmp/live-justice-slalom-panel.html \
               && grep -q 'doc-cz-dd-2026-10-01-uocr-pro-bono--CZ-UOCR' /tmp/live-justice-slalom-panel.html \
               && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/089-podani-2026-10-02-original.pdf' /tmp/live-justice-slalom-panel.html \
               && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf' /tmp/live-justice-slalom-panel.html \
@@ -380,8 +382,17 @@ jobs:
           grep -q 'data-related-document-id="doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"' /tmp/live-current-article.html
           grep -q 'data-related-document-id="doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni"' /tmp/live-current-article-en.html
           grep -q 'data-related-document-id="doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"' /tmp/live-current-article-en.html
-          grep -q 'documents/report-04082026-010/116-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni-verejna-textova-kopie.pdf' /tmp/live-current-article.html
-          grep -q 'documents/report-04082026-010/117-ekk-dd-2026-10-08-dukazni-doplneni-verejna-textova-kopie.pdf' /tmp/live-current-article.html
+          grep -q 'documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz.pdf' /tmp/live-current-article.html
+          grep -q 'documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf' /tmp/live-current-article.html
+          grep -q 'doc-eu-omb-2026-10-07-202602199-registration' /tmp/live-current-article.html
+          grep -q 'doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13' /tmp/live-current-article.html
+          grep -q 'doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17' /tmp/live-current-article.html
+          grep -q 'en-doc-eu-omb-2026-10-07-202602199-registration' /tmp/live-current-article-en.html
+          grep -q 'en-doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13' /tmp/live-current-article-en.html
+          grep -q 'en-doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17' /tmp/live-current-article-en.html
+          grep -q 'documents/report-04082026-010/116-eu-ombudsman-202602199-2026-10-07.pdf' /tmp/live-current-article.html
+          grep -q 'documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf' /tmp/live-current-article.html
+          grep -q 'documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf' /tmp/live-current-article.html
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/styles.css$stamp" -o /tmp/live-styles.css
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/justice-slalom.css$stamp" -o /tmp/live-justice-slalom.css
           grep -q '.justice-slalom .state-love-table{width:100%;min-width:0}' /tmp/live-justice-slalom.css
@@ -443,8 +454,11 @@ jobs:
           fetch_pdf_until_sha "documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf" "web/documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf" /tmp/live-ms-1006.pdf
           fetch_pdf_until_sha "documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf" "web/documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf" /tmp/live-eu-ombudsman-1006.pdf
           fetch_pdf_until_sha "documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07.pdf" "web/documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07.pdf" /tmp/live-mv-1007.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/116-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni-verejna-textova-kopie.pdf" "web/documents/report-04082026-010/116-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni-verejna-textova-kopie.pdf" /tmp/live-godot-filing-1006.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/117-ekk-dd-2026-10-08-dukazni-doplneni-verejna-textova-kopie.pdf" "web/documents/report-04082026-010/117-ekk-dd-2026-10-08-dukazni-doplneni-verejna-textova-kopie.pdf" /tmp/live-godot-filing-1008.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz.pdf" "web/documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz.pdf" /tmp/live-slalom-1006-nsz-vsz.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf" "web/documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf" /tmp/live-slalom-1008.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/116-eu-ombudsman-202602199-2026-10-07.pdf" "web/documents/report-04082026-010/116-eu-ombudsman-202602199-2026-10-07.pdf" /tmp/live-omb-1007.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf" "web/documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf" /tmp/live-ms15ad13.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf" "web/documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf" /tmp/live-ms15ad17.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf$stamp" -o /tmp/live-ms186.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/108-ncoz-4346-2-cj-2026-410012-2026-05-20.pdf$stamp" -o /tmp/live-ncoz.pdf
           fetch_pdf_until_sha "documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf" "web/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf" /tmp/live-euda-1001.pdf
@@ -466,8 +480,11 @@ jobs:
           test "$(head -c 5 /tmp/live-ms-1006.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-eu-ombudsman-1006.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-mv-1007.pdf)" = '%PDF-'
-          test "$(head -c 5 /tmp/live-godot-filing-1006.pdf)" = '%PDF-'
-          test "$(head -c 5 /tmp/live-godot-filing-1008.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-slalom-1006-nsz-vsz.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-slalom-1008.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-omb-1007.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-ms15ad13.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-ms15ad17.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ms186.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ncoz.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-euda-1001.pdf)" = '%PDF-'
@@ -518,10 +535,19 @@ jobs:
               'doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet',
               'doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni',
               'doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936',
+              'doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni',
+              'doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni',
           ]:
               assert f'<tr id="{own}"' not in cst, own
           assert '<tr id="doc-eu-omb-2026-09-28-complaint-form-required"' in cst
           assert 'data-related-document-id="doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936"' in cst
+          for incoming in [
+              'doc-eu-omb-2026-10-07-202602199-registration',
+              'doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13',
+              'doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17',
+          ]:
+              assert f'<tr id="{incoming}"' in cst, incoming
+              assert f'<tr id="en-{incoming}"' in ent, incoming
           print('LIVE_STATE_LOVE_OK')
           PY
           grep -q 'en-doc-cz-ks-brn-2026-09-03-9-to-315-2026-140' /tmp/live-current-article-en.html
@@ -530,7 +556,7 @@ jobs:
           echo "612e7ac3a5e7b26f6f6c6586552cbd7a09e82256ca8e64e064d9bbe0d05d4869  /tmp/live-ncoz.pdf" | sha256sum -c -
           test "$(sha256sum /tmp/live-euda-1001.pdf | cut -d' ' -f1)" = "$(sha256sum web/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf | cut -d' ' -f1)"
           echo "c9cd624bff387428a670ef28351796b8bd4e89f53a7c019add281d6b395696ce  /tmp/live-ksz.pdf" | sha256sum -c -
-          echo "Živá produkce ověřena na 6/6 veřejných plochách: Státu lásky čas = pouze reakce orgánů, vlastní podání jen ve vztahových sloupcích; originální PDF ze 6. 10. zachována."
+          echo "Živá produkce ověřena: orgány jsou hlavní řádky Godota; vlastní podání 6. a 8. 10. jsou v Justičním slalomu a v Godotu pouze vztahově; všech 5 nových PDF je byte-identických s originály."
 
       - name: Souhrn
         shell: bash

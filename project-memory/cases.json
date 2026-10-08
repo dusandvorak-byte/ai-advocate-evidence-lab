@@ -354,9 +354,9 @@
     {
       "id": "case-eu-omb-euda-thc-comparability-2026",
       "institution_id": "EU-OMB",
-      "reference": "stížnost na EUDA – bez přiděleného č. j.",
+      "reference": "202602199",
       "title": "Stížnost Evropskému ombudsmanovi k postupu EUDA a srovnatelnosti dat o THC",
-      "status": "active",
+      "status": "complaint_registered_awaiting_admissibility_review",
       "opened_on": "2026-09-27",
       "topics": [
         "EUDA",
@@ -370,10 +370,14 @@
         "doc-cs-dd-2026-09-27-slalom-augsep-083",
         "doc-eu-omb-2026-09-28-complaint-form-required",
         "doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936",
-        "doc-eu-euda-2026-10-01-access-documents-1049-2001"
+        "doc-eu-euda-2026-10-01-access-documents-1049-2001",
+        "doc-eu-omb-2026-10-07-202602199-registration"
       ],
       "last_filing_on": "2026-10-06",
-      "last_filing_document_id": "doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936"
+      "last_filing_document_id": "doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936",
+      "latest_state_on": "2026-10-07",
+      "latest_state_document_id": "doc-eu-omb-2026-10-07-202602199-registration",
+      "process_note": "Evropský ombudsman 7. 10. 2026 potvrdil registraci stížnosti pod č. 202602199 a uvedl, že obvykle během čtyř týdnů sdělí, zda se jí může zabývat; nejde o pevnou zákonnou lhůtu."
     },
     {
       "id": "case-cz-cnb-raiffeisenbank-aml-2026",
@@ -448,6 +452,36 @@
         "rozklad",
         "§ 11b InfZ"
       ]
+    },
+    {
+      "id": "case-cz-ms-praha-15-ad-14-2026",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "15 Ad 14/2026",
+      "title": "Zásahová žaloba proti SÚKL – eRecept a označení konopí jako vysoce návykové látky",
+      "status": "action_rejected_cassation_available_after_service",
+      "opened_on": "2026-08-31",
+      "decided_on": "2026-10-06",
+      "decision_document_id": "doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13",
+      "latest_state_on": "2026-10-07",
+      "latest_state_document_id": "doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17",
+      "last_filing_on": "2026-08-31",
+      "last_filing_document_id": "doc-cs-dd-2026-08-31-slalom-augsep-043",
+      "topics": [
+        "SÚKL",
+        "eRecept",
+        "zásahová žaloba",
+        "15 Ad 14/2026",
+        "konopí",
+        "vysoce návyková látka"
+      ],
+      "related_document_ids": [
+        "doc-cs-dd-2026-08-31-slalom-augsep-043",
+        "doc-cs-dd-2026-09-16-slalom-augsep-040",
+        "doc-cz-ms-pha-2026-09-22-15-ad-14-2026-12",
+        "doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13",
+        "doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17"
+      ],
+      "process_note": "Usnesení 15 Ad 14/2026-13 ze dne 6. 10. 2026 žalobu odmítlo a připouští kasační stížnost do dvou týdnů od doručení. Datum doručení není doloženo, proto se nevytváří konkrétní kalendářní deadline. Následující přípis 15 Ad 14/2026-17 ze dne 7. 10. 2026 je evidován samostatně."
     }
   ]
 }
