@@ -123,6 +123,9 @@ jobs:
       - name: Ověřit podnět ČNB a společné podání MS Praha ze 6. října
         run: node scripts/validate-october-6-submissions.mjs
 
+      - name: Ověřit dvě důkazní podání z 6. a 8. října v Godotu
+        run: node scripts/validate-godot-filings-2026-10-08.mjs
+
       - name: Ověřit dvě institucionální odpovědi z 1. a 7. října
         run: node scripts/validate-state-responses-2026-10-07.mjs
 

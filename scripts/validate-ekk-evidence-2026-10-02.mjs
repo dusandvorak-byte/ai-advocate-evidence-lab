@@ -40,7 +40,7 @@ if (slalom.rows?.some(r=>r.document_id===mainId)) fail('EKK 2. 10. 2026 se navzd
 const cases = JSON.parse(await readFile('project-memory/cases.json','utf8'));
 for (const id of main.case_ids) {
   const c = cases.cases?.find(x=>x.id===id);
-  if (!c || c.last_filing_on !== '2026-10-02' || c.last_filing_document_id !== mainId || !c.related_document_ids?.includes(annexId)) fail(`případ ${id} není aktualizován o EKK balík`);
+  if (!c || String(c.last_filing_on||'') < '2026-10-02' || !c.related_document_ids?.includes(mainId) || !c.related_document_ids?.includes(annexId)) fail(`případ ${id} nezachovává EKK balík v procesní genealogii`);
 }
 
 const cz = await readFile('web/zpravy/04082026-010.html','utf8');
