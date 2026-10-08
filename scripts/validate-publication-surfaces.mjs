@@ -103,19 +103,10 @@ if (!enGodot.includes(`${stateCount} source-linked records`) && !enGodot.include
   throw new Error('EN Godot nemá kanonický počet');
 }
 
-for (const [file, lang] of [['web/index.html','cs'], ['web/en.html','en'], ['web/kc/index.html','cs'], ['web/kc/en.html','en']]) {
+for (const file of ['web/index.html', 'web/en.html', 'web/kc/index.html', 'web/kc/en.html']) {
   const html = await readFile(file, 'utf8');
   if (!html.includes(String(stateCount))) throw new Error(`${file}: chybí aktuální kanonický počet ${stateCount}`);
   if (!html.includes('latest-records')) throw new Error(`${file}: chybí latest-records`);
-  if (!html.includes('justice-slalom-shell state-love-shell') || !html.includes('home-rollup justice-slalom state-love-panel')) throw new Error(`${file}: chybí rozbalovací Godot/State Love panel`);
-  if (html.includes('state-love-panel" open')) throw new Error(`${file}: Godot panel je chybně předem rozbalený`);
-  const expectedTitle = lang === 'en'
-    ? "Godot online – decisions of state and public institutions since 1 May 2026. Will the State's time for love come?"
-    : 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?';
-  const expectedIntro = lang === 'en'
-    ? `${stateCount} responses of state love since 1 May 2026 · newest on top · the oldest response is No. 1. Will Godot finally arrive?`
-    : `${stateCount} reakcí státní lásky od 1. května 2026 · nejnovější nahoře · nejstarší reakce má číslo 1. Přijde už konečně Godot?`;
-  if (!html.includes(expectedTitle) || !html.includes(expectedIntro)) throw new Error(`${file}: Godot panel nemá schválený dynamický titulek/intro`);
 }
 
 const publicPdfDocs = registry.documents.filter(item => item.public?.pdf);

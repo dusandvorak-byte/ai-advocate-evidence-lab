@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Mezivalidátor nesmí vyžadovat artefakt terminálního publikačního kroku
+
+- Projev: `validate-publication-surfaces.mjs` požadoval State Love panel na titulních a církevních plochách už uvnitř `build-site.mjs`, ačkoli tyto klony vznikají až v následném terminálním kroku `build-justice-slalom.mjs`.
+- Příčina: validační povinnost byla přiřazena nesprávné fázi pipeline.
+- Náprava: mezivalidátor kontroluje pouze kanonickou tabulku, CSS, data a průběžné synchronizační invarianty; přítomnost finálního Godot panelu na čtyřech hlavních plochách kontroluje až `validate-live-dockets-contract.mjs` po `build-justice-slalom.mjs`.
+- Pojistka: nový validator smí požadovat jen artefakty, které již v daném kroku pipeline existují; terminální artefakty se ověřují až po jejich generátoru.
+
 ### Generátor nesmí předpokládat pořadí HTML atributů
 
 - Projev: po přesunu kotvy `id="chronologie"` přímo na State Love panel selhal build-process-timers, protože hledal pouze doslovný začátek `<section class="justice-slalom-shell state-love-shell"`.
