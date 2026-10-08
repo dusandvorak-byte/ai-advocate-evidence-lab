@@ -1,7 +1,7 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 
 const wrongTitle = 'Pavouk český křižák z Branibor již více než 15 let splétá síť na trase Praha–Brno–Praha a zpět. Kdo tu síť rozmotá?';
-const correctTitle = 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?';
+const correctTitle = 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?';
 
 const files = [
   'web/zpravy/04082026-010.html',
@@ -41,7 +41,7 @@ const article = await readFile('web/zpravy/04082026-010.html', 'utf8');
 const liveDockets = await readFile('web/live-dockets.js', 'utf8');
 
 const requiredBars = [
-  'Godot online → každá zpráva má zdroj',
+  'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?',
   'Aktivní soudní řízení od 1. května 2026',
   'justicni-slalom'
 ];

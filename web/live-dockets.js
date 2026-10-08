@@ -65,12 +65,21 @@
   wrapper.className = 'live-dockets home-rollup-stack home-rollup-stack-primary';
   wrapper.setAttribute('aria-label', isEnglish ? 'Primary evidence entries' : 'Hlavní důkazní vstupy');
 
-  const godot = document.createElement('a');
-  godot.className = 'home-rollup home-rollup-link godot';
-  godot.href = godotHref;
-  godot.innerHTML = summaryMarkup(isEnglish ? 'Godot online → every report has a source' : 'Godot online → každá zpráva má zdroj');
-  godot.setAttribute('aria-label', isEnglish ? 'Open the State Love Time chronology – Godot online' : 'Otevřít stránku Státu lásky čas – Godot online');
-  wrapper.append(godot);
+  const godotTitle = isEnglish
+    ? "Godot online – decisions of state and public institutions since 1 May 2026. Will the State's time for love come?"
+    : 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?';
+  const stateLoveShell = document.querySelector('.state-love-shell');
+  const stateLove = stateLoveShell?.querySelector('.state-love-panel');
+  if (stateLove) {
+    const title = stateLove.querySelector('.rollup-title');
+    const prompt = stateLove.querySelector('.rollup-prompt');
+    const action = stateLove.querySelector('.rollup-action');
+    if (title) title.textContent = godotTitle;
+    if (prompt) prompt.textContent = isEnglish ? 'read as an investigation with love' : 'číst jako investigativu s láskou';
+    if (action) action.textContent = isEnglish ? 'Expand ↓' : 'Rozbalit ↓';
+    stateLoveShell.setAttribute('aria-label', isEnglish ? 'Godot online – State Love Time' : 'Godot online – Státu lásky čas');
+    wrapper.append(stateLoveShell);
+  }
 
   const nav = document.querySelector('.nav');
   nav?.querySelector('.nav-courts')?.remove();

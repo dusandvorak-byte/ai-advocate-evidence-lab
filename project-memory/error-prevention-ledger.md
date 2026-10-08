@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### State Love nesmí přetékat mimo page shell a Godot nesmí být jen odkaz
+
+- Projev: sedmisloupcová tabulka Státu lásky čas měla pevné minimum 1280 px, takže na části desktopových šířek vybočovala z 1240px page shellu; první pořadové číslo se mohlo zalomit. Godot online byl na titulní stránce pouze odkaz, zatímco Justiční slalom byl skutečný rozbalovací panel.
+- Příčina: State Love sdílel barvy a základní tabulkovou masku se Slalomem, ale měl vlastní příliš široký `min-width` a nebyl vložen do stejného rozbalovacího lifecycle na hlavních plochách.
+- Náprava: desktopová State Love tabulka je 100% široká v rámci shellu, první sloupec má 5 % a zákaz zalomení čísla, sloupce 4–5 jsou zúženy na 8 % a 21 %, vztahové sloupce mají po 25 %. Pod 1100 px přechází přebytečná šířka pouze do vnitřního horizontálního scrollu. Godot panel se buildem klonuje na hlavní CZ/EN a církevní plochy a runtime jej přesouvá do stejného stacku jako Justiční slalom.
+- Pojistka: validační brány kontrolují přesné šířky 5/6/10/8/21/25/25, záhlaví „Dne“, nowrap prvního sloupce, zákaz `min-width:1280px`, tablet/mobile scroll uvnitř panelu, přítomnost sbaleného State Love panelu na čtyřech hlavních plochách a dynamický počet reakcí bez ručně psané hodnoty.
+
 ### Dostupný binární originál se po ověření musí publikovat jako originál
 
 - Projev: rozhodnutí ministra vnitra MV-134798-4/SO-2026 bylo nejprve zveřejněno jen jako deterministická textová kopie, přestože uživatel dodal kompletní binární PDF.

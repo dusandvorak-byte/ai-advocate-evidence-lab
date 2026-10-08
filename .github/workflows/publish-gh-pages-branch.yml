@@ -125,16 +125,20 @@ jobs:
           test -f web/data/registry-audit.json
           test -f web/data/godot-pdf-audit.json
 
-          grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' web/zpravy/04082026-010.html
+          grep -q 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?' web/zpravy/04082026-010.html
           ! grep -q 'Pavouk český křižák z Branibor' web/zpravy/04082026-010.html
           ! grep -q 'href="web/' web/zpravy/04082026-010.html
-          grep -q 'Godot online → každá zpráva má zdroj' web/live-dockets.js
+          grep -q 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?' web/live-dockets.js
           grep -q 'Aktivní soudní řízení od 1. května 2026' web/live-dockets.js
           grep -q 'justicni-slalom' web/live-dockets.js
           ! grep -q 'Předžalobní řízení on-line od 1. května 2026' web/live-dockets.js
           ! grep -q 'Státní láska online od 1. května 2026' web/live-dockets.js
           grep -q '<script src="live-dockets.js" defer></script>' web/index.html
           grep -q 'state-love-table' web/zpravy/04082026-010.html
+          grep -q '>Dne</th>' web/zpravy/04082026-010.html
+          ! grep -q 'state-love-panel" open' web/zpravy/04082026-010.html
+          grep -q 'justice-slalom-shell state-love-shell' web/index.html
+          grep -q 'home-rollup justice-slalom state-love-panel' web/index.html
           grep -q 'doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936' web/zpravy/04082026-010.html
           grep -q 'grid-auto-columns:minmax(0,1fr)' web/layout-fix.css
           grep -q 'grid-template-columns:260px minmax(0,1fr)' web/live-dockets.css
@@ -152,6 +156,7 @@ jobs:
           test "$state_count" -ge 1
           test "$verified_pdf_count" -ge 1
           grep -q "Stát: ${state_count} evidovaných listin" web/zpravy/04082026-010.html
+          grep -q "${state_count} reakcí státní lásky od 1. května 2026 · nejnovější nahoře · nejstarší reakce má číslo 1. Přijde už konečně Godot?" web/index.html
           grep -q "${state_count} state and public-institution records" web/en.html
           grep -q "${state_count} state and public-institution records" web/kc/en.html
           grep -q "${verified_pdf_count} verified public PDFs" web/en.html
@@ -346,7 +351,13 @@ jobs:
 
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/zpravy/04082026-010.html$stamp" -o /tmp/live-current-article.html
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/news/04082026-010.html$stamp" -o /tmp/live-current-article-en.html
-          grep -q 'Pavouk řízení od 1. května 2026, aneb Kdy přijde Godot?' /tmp/live-current-article.html
+          grep -q 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?' /tmp/live-current-article.html
+          grep -q '>Dne</th>' /tmp/live-current-article.html
+          ! grep -q 'state-love-panel" open' /tmp/live-current-article.html
+          live_state_count="$(jq -r '.counts.state_public_submissions' web/data/build-manifest.json)"
+          grep -q "${live_state_count} reakcí státní lásky od 1. května 2026 · nejnovější nahoře · nejstarší reakce má číslo 1. Přijde už konečně Godot?" /tmp/live-index.html
+          grep -q 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?' /tmp/live-index.html
+          grep -q 'justice-slalom-shell state-love-shell' /tmp/live-index.html
           grep -q 'doc-eu-euda-2026-10-01-access-documents-1049-2001' /tmp/live-current-article.html
           grep -q 'EUDA potvrdila registraci samostatné žádosti o přístup k dokumentům' /tmp/live-current-article.html
           grep -q 'en-doc-eu-euda-2026-10-01-access-documents-1049-2001' /tmp/live-current-article-en.html
@@ -355,6 +366,14 @@ jobs:
           grep -q '1 SPR 338/2026-5' /tmp/live-current-article.html
           grep -q '3 KZN 974/2026-114' /tmp/live-current-article.html
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/styles.css$stamp" -o /tmp/live-styles.css
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/justice-slalom.css$stamp" -o /tmp/live-justice-slalom.css
+          grep -q '.justice-slalom .state-love-table{width:100%;min-width:0}' /tmp/live-justice-slalom.css
+          grep -q '.justice-slalom .state-love-table th:nth-child(1){width:5%}' /tmp/live-justice-slalom.css
+          grep -q '.justice-slalom .state-love-table th:nth-child(4){width:8%}' /tmp/live-justice-slalom.css
+          grep -q '.justice-slalom .state-love-table th:nth-child(5){width:21%}' /tmp/live-justice-slalom.css
+          grep -q '.justice-slalom .state-love-table th:nth-child(6){width:25%}' /tmp/live-justice-slalom.css
+          grep -q '@media(max-width:1100px){.justice-slalom .state-love-table{min-width:1040px}}' /tmp/live-justice-slalom.css
+          ! grep -q '.justice-slalom .state-love-table{min-width:1280px}' /tmp/live-justice-slalom.css
           grep -q 'grid-template-columns:max-content max-content minmax(760px,1fr) max-content' /tmp/live-styles.css
           grep -q '.nav .nav-courts-panel{position:absolute;z-index:120;left:0;right:0;top:100%;width:auto;transform:none;' /tmp/live-styles.css
           grep -q '.nav .nav-court-item>a{white-space:normal;margin:0;padding:0;font-size:16px;line-height:1.45;font-weight:800;text-transform:none}' /tmp/live-styles.css

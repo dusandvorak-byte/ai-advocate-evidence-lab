@@ -59,14 +59,24 @@ const czGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
 const enGodot = await readFile('web/news/04082026-010.html', 'utf8');
 const slalomCss = await readFile('web/justice-slalom.css', 'utf8');
 for (const rule of [
+  '.justice-slalom .state-love-table th:nth-child(1){width:5%}',
   '.justice-slalom .state-love-table th:nth-child(2){width:6%}',
   '.justice-slalom .state-love-table th:nth-child(3){width:10%}',
-  '.justice-slalom .state-love-table th:nth-child(4){width:9%}',
-  '.justice-slalom .state-love-table th:nth-child(5){width:25%}',
-  '.justice-slalom .state-love-table th:nth-child(6){width:23%}',
-  '.justice-slalom .state-love-table th:nth-child(7){width:23%}'
+  '.justice-slalom .state-love-table th:nth-child(4){width:8%}',
+  '.justice-slalom .state-love-table th:nth-child(5){width:21%}',
+  '.justice-slalom .state-love-table th:nth-child(6){width:25%}',
+  '.justice-slalom .state-love-table th:nth-child(7){width:25%}'
 ]) if (!slalomCss.includes(rule)) throw new Error('State Love nemá schválené proporce sloupců: '+rule);
+for (const rule of [
+  '.justice-slalom .state-love-table{width:100%;min-width:0}',
+  '.justice-slalom .state-love-table th:nth-child(1),.justice-slalom .state-love-table td:nth-child(1){white-space:nowrap;overflow-wrap:normal;padding-left:7px;padding-right:7px}',
+  '.justice-slalom .state-love-table th:nth-child(2){white-space:nowrap;overflow-wrap:normal}',
+  '@media(max-width:1100px){.justice-slalom .state-love-table{min-width:1040px}}',
+  '@media(max-width:720px){.justice-slalom .state-love-table{min-width:960px;font-size:.86rem}'
+]) if (!slalomCss.includes(rule)) throw new Error('State Love nemá responsivní pojistku: '+rule);
+if (slalomCss.includes('.justice-slalom .state-love-table{min-width:1280px}')) throw new Error('State Love znovu nutí desktopovou tabulku mimo 1240px page shell');
 if (!slalomCss.includes('.article-layout>.article-body:has(.state-love-shell){grid-column:1/-1;min-width:0}')) throw new Error('State Love je znovu omezen úzkým article-body místo plné šířky Justičního slalomu');
+if (!slalomCss.includes('.state-love-shell,.state-love-shell .justice-slalom,.state-love-shell .justice-slalom-body{min-width:0;max-width:100%;box-sizing:border-box}')) throw new Error('State Love nemá ochranu proti přetečení v desktop/tablet/mobile shellu');
 const renderedCz = (czGodot.match(/<tr id="doc-[^"]+" data-state-love-id=/g) || []).length;
 const renderedEn = (enGodot.match(/<tr id="en-doc-[^"]+" data-document-id="doc-[^"]+"/g) || []).length;
 if (renderedCz !== chronologyCount) throw new Error(`CZ Godot tabulka ${renderedCz}/${chronologyCount}`);
@@ -81,7 +91,8 @@ const czTable = czGodot.slice(czTableStart, czTableEnd + 8);
 const enTable = enGodot.slice(enTableStart, enTableEnd + 8);
 if (!czGodot.includes('justice-slalom-shell state-love-shell') || !czGodot.includes('home-rollup justice-slalom state-love-panel')) throw new Error('CZ Státu lásky čas nepoužívá vizuální wrapper Justičního slalomu');
 if (!enGodot.includes('justice-slalom-shell state-love-shell') || !enGodot.includes('home-rollup justice-slalom state-love-panel')) throw new Error('EN Státu lásky čas nepoužívá vizuální wrapper Justičního slalomu');
-for (const needle of ['Na co orgán reaguje','Námitka / opravný prostředek']) if (!czTable.includes(needle)) throw new Error('CZ tabulce chybí vztahový sloupec: '+needle);
+for (const needle of ['Dne','Na co orgán reaguje','Námitka / opravný prostředek']) if (!czTable.includes(`>${needle}</th>`)) throw new Error('CZ tabulce chybí nebo má chybný sloupec: '+needle);
+if (czTable.includes('>Datum</th>')) throw new Error('CZ State Love stále používá Datum namísto Dne');
 for (const needle of ['What the authority responded to','Objection / remedy']) if (!enTable.includes(needle)) throw new Error('EN tabulce chybí vztahový sloupec: '+needle);
 if (czTable.includes('data-submission-side="outgoing_from_user_or_alliance"') || enTable.includes('data-submission-side="outgoing_from_user_or_alliance"')) throw new Error('Státu lásky čas obsahuje naše vlastní podání jako hlavní řádek');
 const czNumbers=[...czTable.matchAll(/data-row-number="(\d+)"/g)].map(m=>Number(m[1]));
@@ -92,10 +103,19 @@ if (!enGodot.includes(`${stateCount} source-linked records`) && !enGodot.include
   throw new Error('EN Godot nemá kanonický počet');
 }
 
-for (const file of ['web/index.html', 'web/en.html', 'web/kc/index.html', 'web/kc/en.html']) {
+for (const [file, lang] of [['web/index.html','cs'], ['web/en.html','en'], ['web/kc/index.html','cs'], ['web/kc/en.html','en']]) {
   const html = await readFile(file, 'utf8');
   if (!html.includes(String(stateCount))) throw new Error(`${file}: chybí aktuální kanonický počet ${stateCount}`);
   if (!html.includes('latest-records')) throw new Error(`${file}: chybí latest-records`);
+  if (!html.includes('justice-slalom-shell state-love-shell') || !html.includes('home-rollup justice-slalom state-love-panel')) throw new Error(`${file}: chybí rozbalovací Godot/State Love panel`);
+  if (html.includes('state-love-panel" open')) throw new Error(`${file}: Godot panel je chybně předem rozbalený`);
+  const expectedTitle = lang === 'en'
+    ? "Godot online – decisions of state and public institutions since 1 May 2026. Will the State's time for love come?"
+    : 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?';
+  const expectedIntro = lang === 'en'
+    ? `${stateCount} responses of state love since 1 May 2026 · newest on top · the oldest response is No. 1. Will Godot finally arrive?`
+    : `${stateCount} reakcí státní lásky od 1. května 2026 · nejnovější nahoře · nejstarší reakce má číslo 1. Přijde už konečně Godot?`;
+  if (!html.includes(expectedTitle) || !html.includes(expectedIntro)) throw new Error(`${file}: Godot panel nemá schválený dynamický titulek/intro`);
 }
 
 const publicPdfDocs = registry.documents.filter(item => item.public?.pdf);

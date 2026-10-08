@@ -116,6 +116,17 @@ const renderPanel = lang => {
   return `<section class="justice-slalom-shell home-rollup-stack home-rollup-stack-primary" aria-label="${english ? 'Justice Slalom filings' : 'Podání Justičního slalomu'}"><details id="justicni-slalom" class="home-rollup justice-slalom" data-justice-slalom><summary><span class="rollup-title">${english ? 'Justice Slalom since 1 July 2026' : 'Justiční slalom od 1. července 2026'}</span><span class="rollup-prompt">${english ? 'read as an investigation with love' : 'číst jako investigativu s láskou'}</span><span class="rollup-heart" aria-hidden="true">❤️</span><b class="rollup-action">${english ? 'Expand' : 'Rozbalit'} ↓</b></summary><div class="justice-slalom-body"><p class="justice-slalom-intro">${english ? `${entries.length} filings · ${rows.length} numbered addressee entries · since 1 July 2026. Each row has one PDF link; public copies are labeled.` : `${entries.length} podání · ${rows.length} číslovaných řádků podle adresáta · od 1. července 2026. V každém řádku je jeden odkaz na PDF; veřejné kopie jsou označeny.`}</p><div class="justice-slalom-scroll"><table><thead><tr><th scope="col">${english ? 'No.' : 'Č.'}</th><th scope="col">${english ? 'Date' : 'Datum'}</th><th scope="col">${english ? 'Addressee' : 'Adresát'}</th><th scope="col">${english ? 'Ref./case no.' : 'č. j./sp. zn.'}</th><th scope="col">${english ? 'Subject of filing' : 'Předmět podání'}</th></tr></thead><tbody>${rows.map(row => renderRow(row,lang)).join('')}</tbody></table></div></div></details></section>`;
 };
 
+const extractStateLovePanel = (html, lang) => {
+  const match = html.match(/<section\b[^>]*class="justice-slalom-shell state-love-shell"[^>]*>[\s\S]*?<\/section>/);
+  if (!match) throw new Error(`STATE-LOVE-HOME: chybí ${lang} panel Státu lásky čas před vložením na titulní plochy`);
+  return match[0].replace(/\s+id="chronolog(?:ie|y)"/, '');
+};
+const stateLovePanels = new Map([
+  ['cs', extractStateLovePanel(await readFile('web/zpravy/04082026-010.html','utf8'),'CZ')],
+  ['en', extractStateLovePanel(await readFile('web/news/04082026-010.html','utf8'),'EN')]
+]);
+const stateLoveClonePages = new Set(['web/index.html','web/en.html','web/kc/index.html','web/kc/en.html']);
+
 async function walk(dir) {
   const found = [];
   for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -136,9 +147,14 @@ for (const file of await walk('web')) {
   // The release's duplicate cleanup may leave a legacy unmarked block in older sources.
   html = html.replaceAll('#procesni-casovace','#chronologie');
   if (primaryPages.has(file)) {
+    const lang = primaryPages.get(file);
     html = html.replace(/<!-- JUSTICE-SLALOM:BEGIN -->[\s\S]*?<!-- JUSTICE-SLALOM:END -->/g,'');
+    html = html.replace(/<!-- STATE-LOVE-HOME:BEGIN -->[\s\S]*?<!-- STATE-LOVE-HOME:END -->/g,'');
     if (!html.includes('</nav>')) throw new Error(`JUSTICE-SLALOM: stránce ${file} chybí navigace`);
-    html = html.replace('</nav>', `</nav>\n<!-- JUSTICE-SLALOM:BEGIN -->${renderPanel(primaryPages.get(file))}<!-- JUSTICE-SLALOM:END -->`);
+    const stateLoveHome = stateLoveClonePages.has(file)
+      ? `<!-- STATE-LOVE-HOME:BEGIN -->${stateLovePanels.get(lang)}<!-- STATE-LOVE-HOME:END -->\n`
+      : '';
+    html = html.replace('</nav>', `</nav>\n${stateLoveHome}<!-- JUSTICE-SLALOM:BEGIN -->${renderPanel(lang)}<!-- JUSTICE-SLALOM:END -->`);
     if (!html.includes('justice-slalom.css')) html = html.replace('</head>', `<link rel="stylesheet" href="${root}justice-slalom.css">\n</head>`);
     html = html.replace(/\s*<script\s+src="process-timers\.js"\s+defer><\/script>/g,'');
   }
