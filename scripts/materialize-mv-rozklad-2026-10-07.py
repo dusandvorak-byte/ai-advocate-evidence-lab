@@ -35,8 +35,8 @@ def main()->None:
     TARGET.parent.mkdir(parents=True,exist_ok=True)
     TARGET.write_bytes(data)
 
-    registry=json.loads(REGISTRY.read_text("utf-8"))
-    item=next((x for x in registry.get("documents",[]) if x.get("id")==DOC_ID),None)
+    registry_data=json.loads(REGISTRY.read_text("utf-8"))
+    item=next((x for x in registry_data.get("documents",[]) if x.get("id")==DOC_ID),None)
     if not item:
         raise SystemExit("Missing MV canonical record")
     public=item.setdefault("public",{})
@@ -48,7 +48,7 @@ def main()->None:
     public["pdf"]=rel
     public["sha256"]=ORIGINAL_SHA
     public["verification_status"]="source_pdf_received_binary_original; sha256_verified; 6_pages_reviewed"
-    registry.write_text(json.dumps(registry,ensure_ascii=False,indent=2)+"\n","utf-8")
+    REGISTRY.write_text(json.dumps(registry_data,ensure_ascii=False,indent=2)+"\n","utf-8")
     print("MATERIALIZED MV ORIGINAL",rel,ORIGINAL_SHA)
 
 if __name__=="__main__":
