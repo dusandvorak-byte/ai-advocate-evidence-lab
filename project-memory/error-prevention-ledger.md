@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Datumová validační brána nesmí předpokládat, že historický den zůstane nahoře navždy
+
+- Projev: po přidání správně novějších podání z 6. a 8. 10. 2026 selhala produkce na validatoru podání z 4. 10., protože vyžadoval jejich přítomnost mezi prvními 11 řádky celé chronologie.
+- Příčina: historická dávka měla validační podmínku založenou na tehdejší absolutní pozici místo na vlastním datovém bloku; přidání novějších podání proto vytvořilo falešnou chybu.
+- Náprava: validator 4. 10. kontroluje přítomnost tří dokumentů uvnitř bloku data 4. 10. 2026. Celkové sestupné řazení a číslování nadále kontroluje obecný `validate-justice-slalom.mjs`.
+- Pojistka: dávkové validátory nesmějí fixovat absolutní top-N pozici, pokud veřejný registr dovoluje legitimní přidávání novějších položek.
+
 ### Vlastní podání a reakce orgánů nesmějí být zaměněny mezi Godotem a Justičním slalomem
 
 - Projev: podání autora z 6. a 8. 10. 2026 byla po předchozím pokynu publikována pouze vztahově v Godotu a bez položek Justičního slalomu.
