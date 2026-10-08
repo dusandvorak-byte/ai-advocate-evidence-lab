@@ -53,7 +53,7 @@ const caseMap=new Map(cases.cases.map(item=>[item.id,item]));
 must(caseMap.get('case-cz-cnb-raiffeisenbank-aml-2026')?.last_filing_document_id===cnbId, 'ČNB case není napojen');
 for (const cid of ['case-cz-ms-praha-18a17-2026','case-cz-ms-praha-18a23-2026']) {
   const item=caseMap.get(cid);
-  must(item?.last_filing_document_id===msId && item?.last_filing_on==='2026-10-06', cid+' nemá poslední podání 6. 10.');
+  must(String(item?.last_filing_on||'')>='2026-10-06' && item?.related_document_ids?.includes(msId), cid+' nezachovává podání 6. 10. v procesní genealogii');
 }
 const ombCase=caseMap.get('case-eu-omb-euda-thc-comparability-2026');
 must(ombCase?.last_filing_document_id===ombId && ombCase?.last_filing_on==='2026-10-06', 'Ombudsman case není posunut na formulář 59936');
