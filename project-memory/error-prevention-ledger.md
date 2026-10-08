@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Produkční kontrola Justičního slalomu nesmí prohledávat celý Godot/Index
+
+- Projev: produkční workflow #613 označilo živý Justiční slalom za nesynchronizovaný, protože hledalo dokument výslovně vyloučený ze Slalomu v celém `index.html`; tentýž dokument byl přitom legitimně přítomen v Godotu jako vztahová listina.
+- Příčina: live gate nekontroloval hranici komponentu a zaměnil obsah Godota s obsahem Justičního slalomu.
+- Náprava: produkční gate nejprve vyřízne pouze blok mezi `JUSTICE-SLALOM:BEGIN/END` a všechny pozitivní i negativní slalomové invarianty ověřuje jen v něm.
+- Pojistka: dokument smí být současně viditelný v Godotu a vyloučený ze Slalomu; negativní testy komponent se nikdy nesmějí aplikovat na celý sdílený HTML dokument.
+
 ### Klonovaný veřejný komponent musí normalizovat odkazy pro cílový URL kontext
 
 - Projev: po vložení State Love panelu na Konopnou církev obsahoval klon odkazy `href="listiny/..."`, které jsou kvůli odlišnému `<base>` a automatickému překladu na církevní ploše nepřípustné.

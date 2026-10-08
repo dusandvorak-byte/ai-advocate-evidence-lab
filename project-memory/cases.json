@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_on": "2026-10-07",
+  "updated_on": "2026-10-08",
   "cases": [
     {
       "id": "CASE-CZ-NSZ-6NZN1737-2026",
@@ -14,7 +14,13 @@
         "NCOZ",
         "příslušnost",
         "předávání podání"
-      ]
+      ],
+      "related_document_ids": [
+        "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni",
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+      ],
+      "last_filing_on": "2026-10-08",
+      "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
     },
     {
       "id": "CASE-CZ-MSZ-PHA-3KZN197-2026",
@@ -76,6 +82,11 @@
         "dohled",
         "spisová úplnost",
         "rozdělení podání"
+      ],
+      "last_filing_on": "2026-10-06",
+      "last_filing_document_id": "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni",
+      "related_document_ids": [
+        "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni"
       ]
     },
     {
@@ -123,11 +134,12 @@
       "related_case_ids": [
         "case-cz-os-pro-2t65-2011-obnova"
       ],
-      "last_filing_on": "2026-10-02",
-      "last_filing_document_id": "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
+      "last_filing_on": "2026-10-08",
+      "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
       "related_document_ids": [
         "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
-        "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026"
+        "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
       ]
     },
     {
@@ -144,6 +156,11 @@
         "kasační stížnost",
         "6 As 207/2026",
         "Nejvyšší správní soud"
+      ],
+      "last_filing_on": "2026-10-08",
+      "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+      "related_document_ids": [
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
       ]
     },
     {
@@ -219,6 +236,11 @@
         "THC",
         "THCA",
         "analytické metody"
+      ],
+      "last_filing_on": "2026-10-06",
+      "last_filing_document_id": "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni",
+      "related_document_ids": [
+        "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni"
       ]
     },
     {
@@ -256,11 +278,12 @@
       "related_case_ids": [
         "case-cz-os-pro-2t104-2010-obnova"
       ],
-      "last_filing_on": "2026-10-02",
-      "last_filing_document_id": "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
+      "last_filing_on": "2026-10-08",
+      "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
       "related_document_ids": [
         "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
-        "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026"
+        "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
       ]
     },
     {
@@ -277,12 +300,13 @@
         "§ 174a"
       ],
       "latest_state_document_id": "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
-      "last_filing_on": "2026-10-06",
-      "last_filing_document_id": "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
+      "last_filing_on": "2026-10-08",
+      "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
       "related_document_ids": [
         "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
         "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce",
-        "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni"
+        "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
       ]
     },
     {
@@ -299,10 +323,11 @@
         "THC",
         "THCA"
       ],
-      "last_filing_on": "2026-10-06",
-      "last_filing_document_id": "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
+      "last_filing_on": "2026-10-08",
+      "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
       "related_document_ids": [
-        "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni"
+        "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
       ]
     },
     {
@@ -390,6 +415,11 @@
         "THCA",
         "analytické metody",
         "interní přezkum"
+      ],
+      "last_filing_on": "2026-10-08",
+      "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+      "related_document_ids": [
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
       ]
     },
     {

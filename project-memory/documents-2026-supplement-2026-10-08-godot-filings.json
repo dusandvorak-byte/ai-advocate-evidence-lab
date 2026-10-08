@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-08",
+  "purpose": "Dvě uživatelská důkazní podání z 6. a 8. 10. 2026 zveřejněná v Godotu výhradně jako navazující procesní reakce ve vztahových sloupcích Státu lásky čas; nejsou položkami Justičního slalomu ani hlavními řádky reakcí státu.",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni",
+      "user_title": "Mimořádně naléhavé společné důkazní doplnění pro NSZ, VSZ v Praze a VSZ v Olomouci k novým vyrozuměním KSZ a uzavřenému řetězci přezkumu",
+      "issue_date": "2026-10-06",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "6 NZN 1737/2026; 1 VZN 1678/2026; 3 VZN 239/2026",
+      "case_ids": [
+        "CASE-CZ-NSZ-6NZN1737-2026",
+        "CASE-CZ-VSZ-PHA-1VZN1678-2026",
+        "CASE-CZ-VSZ-OLO-3VZN239-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "NSZ",
+        "VSZ Praha",
+        "VSZ Olomouc",
+        "KSZ Ostrava",
+        "KSZ Brno",
+        "MSZ Praha",
+        "THC",
+        "THCA",
+        "dekarboxylace",
+        "reprezentativní odběr",
+        "homogenizace",
+        "nejistota měření",
+        "Unie obhájců ČR",
+        "důkazní doplnění"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/116-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni-verejna-textova-kopie.pdf",
+        "sha256": null,
+        "verification_status": "pending_deterministic_public_text_copy_from_complete_extracted_text",
+        "source_original_sha256": "c831604cc60860d0dee289ea4a39bb61aa5a006f720ad975bcf1ef590fb9c0a7",
+        "source_original_size_bytes": 86287,
+        "source_original_page_count": 5,
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-08-godot-filings.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-msz-pha-2026-10-01-3-kzn-974-2026-114"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-ksz-brn-2026-09-16-1-kzt-475-2026-71"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship_and_user_instruction_to_publish_in_godot_relation_columns",
+      "evidence_note": "Podání ze dne 6. 10. 2026 je adresováno NSZ, VSZ v Praze a VSZ v Olomouci. Výslovně reaguje na nové procesní závěry státních zastupitelství, mimo jiné na vyrozumění MSZ v Praze ze dne 1. 10. 2026 č. j. 3 KZN 974/2026-114, a žádá společné posouzení otázek reprezentativního odběru, homogenizace, THC/THCA, dekarboxylace a nejistoty měření. Datum skutečného doručení jednotlivým adresátům není z nahraného PDF samo o sobě doloženo. Uživatel dne 8. 10. 2026 výslovně určil, že tato listina má být zveřejněna v Godotu, nikoli v Justičním slalomu. Veřejný PDF soubor je deterministická úplná textová kopie z extrahovaného obsahu nahraného PDF; není byte-identická s originálem."
+    },
+    {
+      "id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+      "user_title": "Mimořádně naléhavé důkazní doplnění – důvodné podezření na dvojí legislativní překrytí sporných forenzních praxí při analýzách obsahu THC a pozvánka k veřejnému zasedání 30. 11. 2026",
+      "issue_date": "2026-10-08",
+      "received_date": null,
+      "institution_id": "CZ-EKK",
+      "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 A 44/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+      "case_ids": [
+        "CASE-CZ-NSZ-6NZN1737-2026",
+        "case-cz-ms-praha-18a23-2026",
+        "case-cz-ms-praha-18a17-2026",
+        "case-cz-ms-praha-15a44-2026",
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova",
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "KPR",
+        "NSZ",
+        "Ministerstvo spravedlnosti",
+        "Policejní prezidium",
+        "Ministerstvo vnitra",
+        "Okresní soud v Prostějově",
+        "obnova řízení",
+        "THC",
+        "THCA",
+        "sporné forenzní praxe při analýzách obsahu THC v zabraném konopí",
+        "dvojí legislativní překrytí",
+        "Unie obhájců ČR",
+        "30. listopadu 2026"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": "documents/report-04082026-010/117-ekk-dd-2026-10-08-dukazni-doplneni-verejna-textova-kopie.pdf",
+        "sha256": null,
+        "verification_status": "pending_deterministic_public_text_copy_from_complete_extracted_text",
+        "source_original_sha256": "9490a2cde83d76ec9b9fcf838df622e706725de651ed3b807a46e0f3b57fcda3",
+        "source_original_size_bytes": 156145,
+        "source_original_page_count": 9,
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-08-godot-filings.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-ksz-brn-2026-09-16-1-kzt-475-2026-71"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-msz-pha-2026-10-01-3-kzn-974-2026-114"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-ksz-brn-2026-10-01-1-kzn-1079-2026-41"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-pcr-pp-2026-10-07-ppr-52605-2-cj-2026-990210-pd"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship_and_user_instruction_to_publish_in_godot_relation_columns",
+      "evidence_note": "Podání ze dne 8. 10. 2026 je adresováno Kanceláři prezidenta republiky, Nejvyššímu státnímu zastupitelství, Ministerstvu spravedlnosti, Policejnímu prezidiu, Ministerstvu vnitra a Okresnímu soudu v Prostějově. Soustřeďuje nové úřední listiny a stanovisko Unie obhájců ČR č. 3/2026 a formuluje jako důvodné podezření, nikoli hotový závěr, otázku dvojího legislativního překrytí sporných forenzních praxí při analýzách obsahu THC v zabraném konopí. Současně zve adresáty k veřejným zasedáním o obnově řízení dne 30. 11. 2026. V záhlaví výslovně uvádí také větev Policejního prezidia PPR-52605/ČJ-2026-990210-PD, proto je tato listina vedena jako navazující reakce i k policejnímu sdělení ze 7. 10. 2026. Datum skutečného doručení jednotlivým adresátům není z nahraného PDF samo o sobě doloženo. Uživatel dne 8. 10. 2026 výslovně určil, že tato listina má být zveřejněna v Godotu, nikoli v Justičním slalomu. Veřejný PDF soubor je deterministická úplná textová kopie z extrahovaného obsahu nahraného PDF; není byte-identická s originálem."
+    }
+  ]
+}
