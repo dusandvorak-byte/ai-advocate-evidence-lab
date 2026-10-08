@@ -43,6 +43,11 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Ověřit syntaxi kritických WEB validátorů
+        run: |
+          node --check scripts/validate-live-dockets-contract.mjs
+          node --check scripts/validate-process-chain-contract.mjs
+
       - name: Připravit generátor ověřených veřejných PDF
         shell: bash
         run: |

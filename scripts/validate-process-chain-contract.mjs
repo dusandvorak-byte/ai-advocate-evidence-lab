@@ -21,7 +21,7 @@ for (const label of [
   'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?',
   'Aktivní soudní řízení od 1. května 2026',
   'justicni-slalom',
-  'Godot online – decisions of state and public institutions since 1 May 2026. Will the State's time for love come?',
+  "Godot online – decisions of state and public institutions since 1 May 2026. Will the State's time for love come?",
   'Active court proceedings since 1 May 2026',
   'justicni-slalom'
 ]) if (!script.includes(label)) fail(`chybí hlavní lišta ${label}`);

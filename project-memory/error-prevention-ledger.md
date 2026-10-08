@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Hromadná změna textu nesmí rozbít syntaxi JavaScriptových literálů
+
+- Projev: anglický titul Godota obsahující apostrof ve slově `State's` byl hromadnou náhradou vložen do dvou validátorů jako řetězec uzavřený jednoduchými apostrofy; validační skript proto skončil syntaktickou chybou až po dokončení téměř celého buildu.
+- Příčina: textová náhrada zachovala obsah, ale neověřila syntaktický kontext cílového JavaScriptového literálu.
+- Náprava: anglický titul je v obou kritických validátorech uzavřen dvojitými uvozovkami a všechny související výskyty byly společně zkontrolovány.
+- Pojistka: PR i produkční workflow spouštějí před dražšími materializačními kroky `node --check` nad `validate-live-dockets-contract.mjs` a `validate-process-chain-contract.mjs`; změny uživatelských textů s apostrofy musí projít touto časnou syntaktickou bránou.
+
 ### Mezivalidátor nesmí vyžadovat artefakt terminálního publikačního kroku
 
 - Projev: `validate-publication-surfaces.mjs` požadoval State Love panel na titulních a církevních plochách už uvnitř `build-site.mjs`, ačkoli tyto klony vznikají až v následném terminálním kroku `build-justice-slalom.mjs`.

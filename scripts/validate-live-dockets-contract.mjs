@@ -185,7 +185,7 @@ for (const [label, page] of [['český', churchCzPage], ['anglický', churchEnPa
 if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Further current reports')) throw new Error('Anglická titulní stránka nemá blok dalších aktuálních zpráv');
 if (/href="zpravy\/\d{8}-\d{3}\.html/.test(englishHome)) throw new Error('Anglická titulní stránka stále odkazuje na český článek');
 if (englishHome.includes('class="quick-memory"') || englishHome.includes('href="#memory"')) throw new Error('Anglická titulní stránka stále obsahuje zrušený vedlejší blok Case memory');
-for (const label of ['Godot online – decisions of state and public institutions since 1 May 2026. Will the State's time for love come?', 'Active court proceedings since 1 May 2026', 'justicni-slalom']) {
+for (const label of ["Godot online – decisions of state and public institutions since 1 May 2026. Will the State's time for love come?", 'Active court proceedings since 1 May 2026', 'justicni-slalom']) {
   if (!script.includes(label)) throw new Error(`Chybí anglická hlavní lišta: ${label}`);
 }
 for (const id of ['07082026-011','04082026-010','28072026-009','25072026-007','24072026-006','24072026-005','23072026-004','22072026-002','20072026-001']) {

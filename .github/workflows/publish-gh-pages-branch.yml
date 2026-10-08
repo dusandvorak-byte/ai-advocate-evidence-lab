@@ -32,6 +32,11 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Ověřit syntaxi kritických WEB validátorů
+        run: |
+          node --check scripts/validate-live-dockets-contract.mjs
+          node --check scripts/validate-process-chain-contract.mjs
+
       - name: Připravit Python pro ověřenou veřejnou kopii ÚOOÚ
         run: python3 -m pip install --quiet reportlab
 
