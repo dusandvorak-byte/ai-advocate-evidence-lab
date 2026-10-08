@@ -406,7 +406,7 @@ jobs:
           fetch_pdf_until_sha "documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank.pdf" "web/documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank.pdf" /tmp/live-cnb-1006.pdf
           fetch_pdf_until_sha "documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf" "web/documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf" /tmp/live-ms-1006.pdf
           fetch_pdf_until_sha "documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf" "web/documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf" /tmp/live-eu-ombudsman-1006.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07-verejna-textova-kopie.pdf" "web/documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07-verejna-textova-kopie.pdf" /tmp/live-mv-1007.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07.pdf" "web/documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07.pdf" /tmp/live-mv-1007.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf$stamp" -o /tmp/live-ms186.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/108-ncoz-4346-2-cj-2026-410012-2026-05-20.pdf$stamp" -o /tmp/live-ncoz.pdf
           fetch_pdf_until_sha "documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf" "web/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf" /tmp/live-euda-1001.pdf
@@ -453,7 +453,7 @@ jobs:
           grep -q 'state-love-table' /tmp/live-current-article.html
           grep -q 'doc-cz-mv-2026-10-07-mv-134798-4-so-2026' /tmp/live-current-article.html
           grep -q 'en-doc-cz-mv-2026-10-07-mv-134798-4-so-2026' /tmp/live-current-article-en.html
-          grep -q 'documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07-verejna-textova-kopie.pdf' /tmp/live-current-article.html
+          grep -q 'documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07.pdf' /tmp/live-current-article.html
           python3 - <<'PY'
           from pathlib import Path
           cs=Path('/tmp/live-current-article.html').read_text(encoding='utf-8')

@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Dostupný binární originál se po ověření musí publikovat jako originál
+
+- Projev: rozhodnutí ministra vnitra MV-134798-4/SO-2026 bylo nejprve zveřejněno jen jako deterministická textová kopie, přestože uživatel dodal kompletní binární PDF.
+- Příčina: omezení přímého binárního zápisu přes konektor bylo chybně považováno za konec publikační cesty.
+- Náprava: originál se přenáší přes již používaný kontrolovaný XZ+Base64 binary-transport, při buildu se rekonstruuje a ověřuje přes velikost, PDF hlavičku/EOF a SHA-256.
+- Pojistka: je-li úplný binární originál dostupný, musí se před textovým fallbackem prověřit schválená cesta binary-transport; veřejný soubor musí mít SHA-256 shodné se zdrojem.
+
 ### Live cache-busting musí být unikátní pro každý opakovaný pokus
 
 - Projev: produkční workflow po úspěšném pushi do `gh-pages` opakovaně hlásilo starý `index.html`, přestože samotná větev `gh-pages` už obsahovala nový dokument a správný `.source-commit`.

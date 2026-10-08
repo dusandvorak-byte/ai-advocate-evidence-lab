@@ -28,10 +28,10 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "intended_pdf": "documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07-verejna-textova-kopie.pdf",
-        "sha256": null,
-        "verification_status": "awaiting_deterministic_public_text_copy",
+        "pdf": "documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07.pdf",
+        "intended_pdf": "documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07.pdf",
+        "sha256": "3309bb2da6053045d842ef2d9263dcdeab4fcce2d399264da08a7233f15b9366",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 6_pages_reviewed",
         "source_original_sha256": "3309bb2da6053045d842ef2d9263dcdeab4fcce2d399264da08a7233f15b9366",
         "source_original_size_bytes": 274596,
         "source_original_page_count": 6,
@@ -53,7 +53,7 @@
       ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",
-      "evidence_note": "Ministr vnitra dne 7. 10. 2026 pod č. j. MV-134798-4/SO-2026 vyhověl rozkladu spolku Ganja For All Animals, z.s., zrušil rozhodnutí Ministerstva vnitra ze dne 11. 8. 2026 č. j. MV-127234-2/OBP-2026 a věc vrátil k novému projednání. Přisvědčil námitce nepřezkoumatelnosti: původní rozhodnutí neuvádělo, jak byly informace vyhledávány, které útvary a evidence byly prověřeny, ani zda některé informace nelze získat jednoduchými úkony. Při novém projednání má povinný subjekt žádost znovu posoudit a informace částečně nebo úplně poskytnout, nebo případné odmítnutí přezkoumatelně odůvodnit. Proti rozhodnutí o rozkladu se nelze odvolat. Nahraný binární originál má SHA-256 3309bb2da6053045d842ef2d9263dcdeab4fcce2d399264da08a7233f15b9366; protože aktuální GitHub konektor neumožňuje bezpečný přenos lokálního binárního souboru, veřejný web používá úplnou ověřenou deterministickou textovou kopii a výslovně ji neoznačuje jako originál."
+      "evidence_note": "Ministr vnitra dne 7. 10. 2026 pod č. j. MV-134798-4/SO-2026 vyhověl rozkladu spolku Ganja For All Animals, z.s., zrušil rozhodnutí Ministerstva vnitra ze dne 11. 8. 2026 č. j. MV-127234-2/OBP-2026 a věc vrátil k novému projednání. Přisvědčil námitce nepřezkoumatelnosti: původní rozhodnutí neuvádělo, jak byly informace vyhledávány, které útvary a evidence byly prověřeny, ani zda některé informace nelze získat jednoduchými úkony. Při novém projednání má povinný subjekt žádost znovu posoudit a informace částečně nebo úplně poskytnout, nebo případné odmítnutí přezkoumatelně odůvodnit. Proti rozhodnutí o rozkladu se nelze odvolat. Veřejný PDF soubor je byte-identický s uživatelem nahraným šestistránkovým originálem; SHA-256 originálu i veřejného souboru je 3309bb2da6053045d842ef2d9263dcdeab4fcce2d399264da08a7233f15b9366."
     }
   ]
 }
