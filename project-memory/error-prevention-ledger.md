@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Validátor sdílené stránky musí kontrolovat správný komponent, ne celý dokument
+
+- Projev: kontrola záhlaví State Love odmítla stránku kvůli výskytu „Datum“, přestože State Love správně používal „Dne“; slovo „Datum“ patřilo do samostatné tabulky Justičního slalomu na téže stránce.
+- Příčina: validator hledal záhlaví globálně v celém HTML místo uvnitř tabulky `#chronologie-seznam`.
+- Náprava: CZ i EN kontrola nejprve vyřízne konkrétní State Love tabulku podle stabilního ID a teprve v ní ověřuje její záhlaví.
+- Pojistka: komponentové invarianty na sdílených stránkách se validují uvnitř hranice konkrétního komponentu; text legitimně použitý v sousedním komponentu nesmí způsobit falešný pád.
+
 ### Hromadná změna textu nesmí rozbít syntaxi JavaScriptových literálů
 
 - Projev: anglický titul Godota obsahující apostrof ve slově `State's` byl hromadnou náhradou vložen do dvou validátorů jako řetězec uzavřený jednoduchými apostrofy; validační skript proto skončil syntaktickou chybou až po dokončení téměř celého buildu.

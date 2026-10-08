@@ -153,7 +153,15 @@ for (const [label, page, currentText] of [['CZ archiv', czechArchive, 'Archiv zp
 
 if (newsFeed.includes("latestNav.href") || newsFeed.includes("querySelector('[data-nav-latest-report]')")) throw new Error('Klientský news-feed znovu přepisuje buildem určený odkaz Právě teď');
 const czechGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
-if (czechGodot.includes('>Datum</th>') || !czechGodot.includes('>Dne</th>')) throw new Error('Česká State Love tabulka nemá záhlaví Dne');
+const stateLoveTable = (html, id) => {
+  const start = html.indexOf(`<table id="${id}"`);
+  const end = start < 0 ? -1 : html.indexOf('</table>', start);
+  if (start < 0 || end < 0) throw new Error(`Chybí uzavřená tabulka State Love ${id}`);
+  return html.slice(start, end + 8);
+};
+const czechStateLoveTable = stateLoveTable(czechGodot, 'chronologie-seznam');
+const englishStateLoveTable = stateLoveTable(englishGodot, 'en-chronology-list');
+if (czechStateLoveTable.includes('>Datum</th>') || !czechStateLoveTable.includes('>Dne</th>')) throw new Error('Česká State Love tabulka nemá záhlaví Dne');
 if (czechGodot.includes('state-love-panel" open') || englishGodot.includes('state-love-panel" open')) throw new Error('Godot panel musí být ve výchozím stavu sbalený');
 if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
 for (const [label, page] of [['CZ home',home],['EN home',englishHome]]) {
@@ -283,10 +291,10 @@ for (const id of ['case-cz-ms-praha-45t1-2024','case-cz-ms-praha-18a17-2026','ca
   if (!englishGodot.includes(`id="${id}"`)) throw new Error(`Anglickému Godotu chybí soudní řízení ${id}`);
 }
 for (const header of ['No.','Date','Authority','Ref./case no.','What happened','What the authority responded to','Objection / remedy']) {
-  if (!englishGodot.includes(`>${header}</th>`)) throw new Error(`Anglickému Godotu chybí tabulkový sloupec ${header}`);
+  if (!englishStateLoveTable.includes(`>${header}</th>`)) throw new Error(`Anglickému State Love chybí tabulkový sloupec ${header}`);
 }
 for (const header of ['Č.','Dne','Orgán','č. j./sp. zn.','Co se stalo','Na co orgán reaguje','Námitka / opravný prostředek']) {
-  if (!czechGodot.includes(`>${header}</th>`)) throw new Error(`Českému Godotu chybí tabulkový sloupec ${header}`);
+  if (!czechStateLoveTable.includes(`>${header}</th>`)) throw new Error(`Českému State Love chybí tabulkový sloupec ${header}`);
 }
 
 console.log(`Smlouva titulní stránky: soudní řízení v první navigační liště; ${caseRows.length} větví chronologicky; Podpořit zachováno; Lhůty a Ověřit listinu odstraněny; Justiční slalom zachován.`);
