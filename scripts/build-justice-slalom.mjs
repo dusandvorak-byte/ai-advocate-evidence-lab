@@ -119,7 +119,9 @@ const renderPanel = lang => {
 const extractStateLovePanel = (html, lang) => {
   const match = html.match(/<section\b[^>]*class="justice-slalom-shell state-love-shell"[^>]*>[\s\S]*?<\/section>/);
   if (!match) throw new Error(`STATE-LOVE-HOME: chybí ${lang} panel Státu lásky čas před vložením na titulní plochy`);
-  return match[0].replace(/\s+id="chronolog(?:ie|y)"/, '');
+  return match[0]
+    .replace(/\s+id="chronolog(?:ie|y)"/, '')
+    .replace(/\b(href|src)="(?!https?:|\/|#|mailto:)([^"]+)"/g, `$1="${root}$2"`);
 };
 const stateLovePanels = new Map([
   ['cs', extractStateLovePanel(await readFile('web/zpravy/04082026-010.html','utf8'),'CZ')],

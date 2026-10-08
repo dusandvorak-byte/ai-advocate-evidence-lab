@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Klonovaný veřejný komponent musí normalizovat odkazy pro cílový URL kontext
+
+- Projev: po vložení State Love panelu na Konopnou církev obsahoval klon odkazy `href="listiny/..."`, které jsou kvůli odlišnému `<base>` a automatickému překladu na církevní ploše nepřípustné.
+- Příčina: HTML komponenta byla přenesena z Godota na jiné veřejné plochy byteově, bez normalizace relativních URL.
+- Náprava: terminální renderer při klonování State Love panelu převádí všechny interní relativní `href` a `src` na absolutní kořen `/ai-advocate-evidence-lab/`; externí, kořenové, fragmentové a mailto odkazy ponechává nedotčené.
+- Pojistka: sdílený komponent určený pro stránky s různým `<base>` nesmí přenášet stránkově relativní URL; stávající čtyřplošný validator dál zakazuje relativní `listiny/`, `news/`, `documents/`, `assets/` a `kc/` na církevních plochách.
+
 ### Validátor sdílené stránky musí kontrolovat správný komponent, ne celý dokument
 
 - Projev: kontrola záhlaví State Love odmítla stránku kvůli výskytu „Datum“, přestože State Love správně používal „Dne“; slovo „Datum“ patřilo do samostatné tabulky Justičního slalomu na téže stránce.
