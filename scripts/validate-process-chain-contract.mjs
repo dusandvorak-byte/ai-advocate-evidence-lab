@@ -18,10 +18,10 @@ const [script, styles, home, englishHome, timerBuilder, czechGodot, englishGodot
 const fail = message => { throw new Error(`PROCESS-CHAIN-CONTRACT: ${message}`); };
 
 for (const label of [
-  'Godot online → každá zpráva má zdroj',
+  'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?',
   'Aktivní soudní řízení od 1. května 2026',
   'justicni-slalom',
-  'Godot online → every report has a source',
+  "Godot online – decisions of state and public institutions since 1 May 2026. Will the State's time for love come?",
   'Active court proceedings since 1 May 2026',
   'justicni-slalom'
 ]) if (!script.includes(label)) fail(`chybí hlavní lišta ${label}`);

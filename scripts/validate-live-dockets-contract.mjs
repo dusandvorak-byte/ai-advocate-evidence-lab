@@ -19,6 +19,11 @@ for (const source of sourceManifest.sources || []) {
   }
 }
 const canonicalDocuments = { documents: [...mergedDocuments.values()] };
+const stateLoveCount = canonicalDocuments.documents.filter(item =>
+  item.issue_date >= '2026-05-01'
+  && item.document_type !== 'state_record_attachment'
+  && (item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record')
+).length;
 const automaticTranslation = await readFile('web/auto-translate.js', 'utf8');
 const churchCzPage = await readFile('web/kc/index.html', 'utf8');
 const churchEnPage = await readFile('web/kc/en.html', 'utf8');
@@ -37,14 +42,33 @@ for (const [label, page] of [['CZ home', home], ['EN home', englishHome], ['CZ c
     throw new Error(`${label}: nejnovější listiny nejsou dynamicky synchronizované; očekáváno ${canonicalLatestStateIds.join(', ')}, nalezeno ${ids.join(', ')}`);
   }
 }
+for (const [label, page, lang] of [['CZ home',home,'cs'],['EN home',englishHome,'en'],['CZ church',churchCzPage,'cs'],['EN church',churchEnPage,'en']]) {
+  if (!page.includes('justice-slalom-shell state-love-shell') || !page.includes('home-rollup justice-slalom state-love-panel')) {
+    throw new Error(`${label}: chybí rozbalovací Godot/State Love panel`);
+  }
+  if (page.includes('state-love-panel" open')) throw new Error(`${label}: Godot panel je chybně otevřený bez kliknutí`);
+  const title = lang === 'en'
+    ? "Godot online – decisions of state and public institutions since 1 May 2026. Will the State's time for love come?"
+    : 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?';
+  const intro = lang === 'en'
+    ? `${stateLoveCount} responses of state love since 1 May 2026 · newest on top · the oldest response is No. 1. Will Godot finally arrive?`
+    : `${stateLoveCount} reakcí státní lásky od 1. května 2026 · nejnovější nahoře · nejstarší reakce má číslo 1. Přijde už konečně Godot?`;
+  if (!page.includes(title) || !page.includes(intro)) throw new Error(`${label}: titul nebo dynamický úvod Godota není aktuální`);
+}
 
 const requiredBars = [
-  'Godot online → každá zpráva má zdroj',
+  'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?',
   'Aktivní soudní řízení od 1. května 2026',
   'justicni-slalom'
 ];
 for (const label of requiredBars) {
   if (!script.includes(label)) throw new Error(`Chybí hlavní lišta: ${label}`);
+}
+if (!script.includes("const stateLoveShell = document.querySelector('.state-love-shell')") || !script.includes('wrapper.append(stateLoveShell)')) {
+  throw new Error('Godot online není skutečný rozbalovací State Love panel přesunutý do hlavního stacku');
+}
+if (script.includes("document.createElement('a')") && script.includes("home-rollup-link godot")) {
+  throw new Error('Godot online se vrátil na pouhý odkaz místo rozbalovacího panelu');
 }
 for (const obsolete of ['Předžalobní řízení on-line od 1. května 2026', 'Státní láska online od 1. května 2026']) {
   if (script.includes(obsolete)) throw new Error(`Vrátila se zrušená lišta: ${obsolete}`);
@@ -129,6 +153,16 @@ for (const [label, page, currentText] of [['CZ archiv', czechArchive, 'Archiv zp
 
 if (newsFeed.includes("latestNav.href") || newsFeed.includes("querySelector('[data-nav-latest-report]')")) throw new Error('Klientský news-feed znovu přepisuje buildem určený odkaz Právě teď');
 const czechGodot = await readFile('web/zpravy/04082026-010.html', 'utf8');
+const stateLoveTable = (html, id) => {
+  const start = html.indexOf(`<table id="${id}"`);
+  const end = start < 0 ? -1 : html.indexOf('</table>', start);
+  if (start < 0 || end < 0) throw new Error(`Chybí uzavřená tabulka State Love ${id}`);
+  return html.slice(start, end + 8);
+};
+const czechStateLoveTable = stateLoveTable(czechGodot, 'chronologie-seznam');
+const englishStateLoveTable = stateLoveTable(englishGodot, 'en-chronology-list');
+if (czechStateLoveTable.includes('>Datum</th>') || !czechStateLoveTable.includes('>Dne</th>')) throw new Error('Česká State Love tabulka nemá záhlaví Dne');
+if (czechGodot.includes('state-love-panel" open') || englishGodot.includes('state-love-panel" open')) throw new Error('Godot panel musí být ve výchozím stavu sbalený');
 if (!englishHome.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Anglická titulní stránka nenačítá generátor tří lišt');
 for (const [label, page] of [['CZ home',home],['EN home',englishHome]]) {
   if (!page.includes('id="justicni-slalom"') || page.includes('data-timer-id="')) throw new Error(`${label}: chybí slalom nebo zůstal veřejný časovač`);
@@ -159,7 +193,7 @@ for (const [label, page] of [['český', churchCzPage], ['anglický', churchEnPa
 if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Further current reports')) throw new Error('Anglická titulní stránka nemá blok dalších aktuálních zpráv');
 if (/href="zpravy\/\d{8}-\d{3}\.html/.test(englishHome)) throw new Error('Anglická titulní stránka stále odkazuje na český článek');
 if (englishHome.includes('class="quick-memory"') || englishHome.includes('href="#memory"')) throw new Error('Anglická titulní stránka stále obsahuje zrušený vedlejší blok Case memory');
-for (const label of ['Godot online → every report has a source', 'Active court proceedings since 1 May 2026', 'justicni-slalom']) {
+for (const label of ["Godot online – decisions of state and public institutions since 1 May 2026. Will the State's time for love come?", 'Active court proceedings since 1 May 2026', 'justicni-slalom']) {
   if (!script.includes(label)) throw new Error(`Chybí anglická hlavní lišta: ${label}`);
 }
 for (const id of ['07082026-011','04082026-010','28072026-009','25072026-007','24072026-006','24072026-005','23072026-004','22072026-002','20072026-001']) {
@@ -257,10 +291,10 @@ for (const id of ['case-cz-ms-praha-45t1-2024','case-cz-ms-praha-18a17-2026','ca
   if (!englishGodot.includes(`id="${id}"`)) throw new Error(`Anglickému Godotu chybí soudní řízení ${id}`);
 }
 for (const header of ['No.','Date','Authority','Ref./case no.','What happened','What the authority responded to','Objection / remedy']) {
-  if (!englishGodot.includes(`>${header}</th>`)) throw new Error(`Anglickému Godotu chybí tabulkový sloupec ${header}`);
+  if (!englishStateLoveTable.includes(`>${header}</th>`)) throw new Error(`Anglickému State Love chybí tabulkový sloupec ${header}`);
 }
-for (const header of ['Č.','Datum','Orgán','č. j./sp. zn.','Co se stalo','Na co orgán reaguje','Námitka / opravný prostředek']) {
-  if (!czechGodot.includes(`>${header}</th>`)) throw new Error(`Českému Godotu chybí tabulkový sloupec ${header}`);
+for (const header of ['Č.','Dne','Orgán','č. j./sp. zn.','Co se stalo','Na co orgán reaguje','Námitka / opravný prostředek']) {
+  if (!czechStateLoveTable.includes(`>${header}</th>`)) throw new Error(`Českému State Love chybí tabulkový sloupec ${header}`);
 }
 
 console.log(`Smlouva titulní stránky: soudní řízení v první navigační liště; ${caseRows.length} větví chronologicky; Podpořit zachováno; Lhůty a Ověřit listinu odstraněny; Justiční slalom zachován.`);

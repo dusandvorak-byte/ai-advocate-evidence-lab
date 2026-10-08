@@ -42,18 +42,21 @@
     if (!Number.isInteger(count)) return;
     const isEnglish = sourceLanguage === 'en';
     const titleText = isEnglish
-      ? `Godot online · ${count} state and public-institution records since 1 May 2026 → State Love Time`
-      : `Godot online · ${count} listin státu a veřejných institucí od 1. května 2026 → Státu lásky čas`;
+      ? "Godot online – decisions of state and public institutions since 1 May 2026. Will the State's time for love come?"
+      : 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?';
+    const introText = isEnglish
+      ? `${count} responses of state love since 1 May 2026 · newest on top · the oldest response is No. 1. Will Godot finally arrive?`
+      : `${count} reakcí státní lásky od 1. května 2026 · nejnovější nahoře · nejstarší reakce má číslo 1. Přijde už konečně Godot?`;
 
-    const godotBar = document.querySelector('#live-dockets a.godot');
-    if (godotBar) {
-      if (godotBar.getAttribute('href') !== godotHref) godotBar.href = godotHref;
-      const title = godotBar.querySelector('.rollup-title');
+    const godotPanel = document.querySelector('#live-dockets .state-love-panel') || document.querySelector('.state-love-panel');
+    if (godotPanel) {
+      const title = godotPanel.querySelector('.rollup-title');
+      const intro = godotPanel.querySelector('.justice-slalom-intro');
       if (title && title.textContent !== titleText) title.textContent = titleText;
-      const aria = isEnglish
-        ? `Open State Love Time – ${count} state and public-institution records since 1 May 2026`
-        : `Otevřít Státu lásky čas – ${count} listin státu a veřejných institucí od 1. května 2026`;
-      if (godotBar.getAttribute('aria-label') !== aria) godotBar.setAttribute('aria-label', aria);
+      if (intro && intro.textContent !== introText) intro.textContent = introText;
+      const shell = godotPanel.closest('.state-love-shell');
+      const aria = isEnglish ? 'Godot online – State Love Time' : 'Godot online – Státu lásky čas';
+      if (shell && shell.getAttribute('aria-label') !== aria) shell.setAttribute('aria-label', aria);
     }
 
     document.querySelectorAll('.node-grid article').forEach(article => {

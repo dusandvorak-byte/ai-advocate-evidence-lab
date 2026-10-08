@@ -15,6 +15,48 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Klonovaný veřejný komponent musí normalizovat odkazy pro cílový URL kontext
+
+- Projev: po vložení State Love panelu na Konopnou církev obsahoval klon odkazy `href="listiny/..."`, které jsou kvůli odlišnému `<base>` a automatickému překladu na církevní ploše nepřípustné.
+- Příčina: HTML komponenta byla přenesena z Godota na jiné veřejné plochy byteově, bez normalizace relativních URL.
+- Náprava: terminální renderer při klonování State Love panelu převádí všechny interní relativní `href` a `src` na absolutní kořen `/ai-advocate-evidence-lab/`; externí, kořenové, fragmentové a mailto odkazy ponechává nedotčené.
+- Pojistka: sdílený komponent určený pro stránky s různým `<base>` nesmí přenášet stránkově relativní URL; stávající čtyřplošný validator dál zakazuje relativní `listiny/`, `news/`, `documents/`, `assets/` a `kc/` na církevních plochách.
+
+### Validátor sdílené stránky musí kontrolovat správný komponent, ne celý dokument
+
+- Projev: kontrola záhlaví State Love odmítla stránku kvůli výskytu „Datum“, přestože State Love správně používal „Dne“; slovo „Datum“ patřilo do samostatné tabulky Justičního slalomu na téže stránce.
+- Příčina: validator hledal záhlaví globálně v celém HTML místo uvnitř tabulky `#chronologie-seznam`.
+- Náprava: CZ i EN kontrola nejprve vyřízne konkrétní State Love tabulku podle stabilního ID a teprve v ní ověřuje její záhlaví.
+- Pojistka: komponentové invarianty na sdílených stránkách se validují uvnitř hranice konkrétního komponentu; text legitimně použitý v sousedním komponentu nesmí způsobit falešný pád.
+
+### Hromadná změna textu nesmí rozbít syntaxi JavaScriptových literálů
+
+- Projev: anglický titul Godota obsahující apostrof ve slově `State's` byl hromadnou náhradou vložen do dvou validátorů jako řetězec uzavřený jednoduchými apostrofy; validační skript proto skončil syntaktickou chybou až po dokončení téměř celého buildu.
+- Příčina: textová náhrada zachovala obsah, ale neověřila syntaktický kontext cílového JavaScriptového literálu.
+- Náprava: anglický titul je v obou kritických validátorech uzavřen dvojitými uvozovkami a všechny související výskyty byly společně zkontrolovány.
+- Pojistka: PR i produkční workflow spouštějí před dražšími materializačními kroky `node --check` nad `validate-live-dockets-contract.mjs` a `validate-process-chain-contract.mjs`; změny uživatelských textů s apostrofy musí projít touto časnou syntaktickou bránou.
+
+### Mezivalidátor nesmí vyžadovat artefakt terminálního publikačního kroku
+
+- Projev: `validate-publication-surfaces.mjs` požadoval State Love panel na titulních a církevních plochách už uvnitř `build-site.mjs`, ačkoli tyto klony vznikají až v následném terminálním kroku `build-justice-slalom.mjs`.
+- Příčina: validační povinnost byla přiřazena nesprávné fázi pipeline.
+- Náprava: mezivalidátor kontroluje pouze kanonickou tabulku, CSS, data a průběžné synchronizační invarianty; přítomnost finálního Godot panelu na čtyřech hlavních plochách kontroluje až `validate-live-dockets-contract.mjs` po `build-justice-slalom.mjs`.
+- Pojistka: nový validator smí požadovat jen artefakty, které již v daném kroku pipeline existují; terminální artefakty se ověřují až po jejich generátoru.
+
+### Generátor nesmí předpokládat pořadí HTML atributů
+
+- Projev: po přesunu kotvy `id="chronologie"` přímo na State Love panel selhal build-process-timers, protože hledal pouze doslovný začátek `<section class="justice-slalom-shell state-love-shell"`.
+- Příčina: selektor byl založen na pořadí atributů místo na stabilní třídě a hranici elementu.
+- Náprava: generátor nyní nejprve vyhledá stabilní class marker a následně nejbližší předchozí `<section`; pořadí atributů `id`/ `class` je irelevantní.
+- Pojistka: nové veřejné panely smějí měnit nebo doplňovat atributy bez nutnosti přepisovat interní generátory; build selže pouze tehdy, když skutečně chybí třída nebo počáteční element.
+
+### State Love nesmí přetékat mimo page shell a Godot nesmí být jen odkaz
+
+- Projev: sedmisloupcová tabulka Státu lásky čas měla pevné minimum 1280 px, takže na části desktopových šířek vybočovala z 1240px page shellu; první pořadové číslo se mohlo zalomit. Godot online byl na titulní stránce pouze odkaz, zatímco Justiční slalom byl skutečný rozbalovací panel.
+- Příčina: State Love sdílel barvy a základní tabulkovou masku se Slalomem, ale měl vlastní příliš široký `min-width` a nebyl vložen do stejného rozbalovacího lifecycle na hlavních plochách.
+- Náprava: desktopová State Love tabulka je 100% široká v rámci shellu, první sloupec má 5 % a zákaz zalomení čísla, sloupce 4–5 jsou zúženy na 8 % a 21 %, vztahové sloupce mají po 25 %. Pod 1100 px přechází přebytečná šířka pouze do vnitřního horizontálního scrollu. Godot panel se buildem klonuje na hlavní CZ/EN a církevní plochy a runtime jej přesouvá do stejného stacku jako Justiční slalom.
+- Pojistka: validační brány kontrolují přesné šířky 5/6/10/8/21/25/25, záhlaví „Dne“, nowrap prvního sloupce, zákaz `min-width:1280px`, tablet/mobile scroll uvnitř panelu, přítomnost sbaleného State Love panelu na čtyřech hlavních plochách a dynamický počet reakcí bez ručně psané hodnoty.
+
 ### Dostupný binární originál se po ověření musí publikovat jako originál
 
 - Projev: rozhodnutí ministra vnitra MV-134798-4/SO-2026 bylo nejprve zveřejněno jen jako deterministická textová kopie, přestože uživatel dodal kompletní binární PDF.

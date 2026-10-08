@@ -2,7 +2,7 @@
   "schema_version": "1.1",
   "status": "binding",
   "effective_from": "2026-07-18",
-  "recorded_on": "2026-10-06",
+  "recorded_on": "2026-10-08",
   "purpose": "Trvalá paměť pravidel tvorby CannaInsider.EU a Church of Cannabis a zákaz opakování chyb zjištěných od zahájení tvorby webů 18. 7. 2026.",
   "mandatory_work_algorithm": [
     "1. PŘED JAKOUKOLI PRACÍ načíst a rešeršovat aktuální project-memory/publication-axioms.json, project-memory/web-development-axioms-and-error-memory.json, project-memory/project-goals.json a další registry přímo relevantní k úkolu.",
@@ -112,7 +112,7 @@
     },
     {
       "id": "state-love-table-mirrors-slalom",
-      "text": "Státu lásky čas musí vizuálně používat stejnou tabulkovou masku jako Justiční slalom, ale hlavní řádky obsahují pouze příchozí reakce českých veřejných orgánů a mezinárodních/EU institucí. Naše podání nikdy nejsou samostatným hlavním řádkem; smějí se zobrazit jen vztahově ve sloupci Na co orgán reaguje nebo Námitka / opravný prostředek. Oba vztahové sloupce musí odvozovat aktivní odkazy z kanonických relací, zejména reakce_na a podani_na_ktere_organ_reaguje. Pořadí hlavních reakcí je nejnovější nahoře, nejstarší dole; nejstarší řádek má číslo 1 a nejnovější nejvyšší číslo. Za tabulkou se nesmějí regenerovat Uzly řízení, Lhůty a nečinnost, Anonymizační axiom ani Důkazní hranice."
+      "text": "Státu lásky čas musí vizuálně používat stejnou masku jako Justiční slalom. Hlavní řádky obsahují pouze příchozí reakce českých veřejných orgánů a mezinárodních/EU institucí; naše podání se smějí objevit jen vztahově ve sloupci Na co orgán reaguje nebo Námitka / opravný prostředek. Pořadí je nejnovější nahoře, nejstarší dole; nejstarší řádek má číslo 1. Česká tabulka používá záhlaví Č., Dne, Orgán, č. j./sp. zn., Co se stalo, Na co orgán reaguje, Námitka / opravný prostředek. První sloupec nesmí zalomit pořadové číslo. Desktopová tabulka musí zůstat uvnitř 1240px shellu bez přetečení stránky; tablet a telefon používají pouze vnitřní horizontální scroll tabulky. Godot online je sbalitelný panel shodného typu jako Justiční slalom, s dynamicky odvozeným počtem reakcí a bez ručně udržovaného čísla. Za tabulkou se nesmějí regenerovat Uzly řízení, Lhůty a nečinnost, Anonymizační axiom ani Důkazní hranice."
     }
   ],
   "error_memory_since_2026_07_18": [

@@ -74,7 +74,7 @@ const churchHome = await readFile('web/kc/index.html', 'utf8');
 const churchEn = await readFile('web/kc/en.html', 'utf8');
 const liveDockets = await readFile('web/live-dockets.js', 'utf8');
 const newsFeed = await readFile('web/news-feed.js', 'utf8');
-for (const label of ['Godot online → každá zpráva má zdroj', 'Aktivní soudní řízení od 1. května 2026', 'justicni-slalom']) {
+for (const label of ['Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?', 'Aktivní soudní řízení od 1. května 2026', 'justicni-slalom']) {
   if (!liveDockets.includes(label)) throw new Error(`Finální generátor postrádá lištu: ${label}`);
 }
 if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Finální titulní strana nenačítá generátor tří lišt');
