@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_on": "2026-10-08",
+  "updated_on": "2026-10-09",
   "cases": [
     {
       "id": "CASE-CZ-NSZ-6NZN1737-2026",
@@ -160,8 +160,15 @@
       "last_filing_on": "2026-10-08",
       "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
       "related_document_ids": [
-        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
-      ]
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+        "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43",
+        "doc-cz-nss-2026-09-04-6-as-207-2026-13",
+        "doc-cz-nss-2026-09-22-6-as-207-2026-26"
+      ],
+      "decision_document_id": "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43",
+      "latest_state_on": "2026-09-22",
+      "latest_state_document_id": "doc-cz-nss-2026-09-22-6-as-207-2026-26",
+      "process_note": "MS Praha 25. 8. 2026 odmítl žalobu 15 A 44/2026-43. Kasační stížnost je vedena u NSS pod 6 As 207/2026; NSS dne 22. 9. 2026 usnesením 6 As 207/2026-26 přiznal osvobození od soudního poplatku a ustanovil zástupkyni. Větev je aktivní."
     },
     {
       "id": "CASE-CZ-KSZ-BRN-1KZT475-2026",
@@ -482,6 +489,112 @@
         "doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17"
       ],
       "process_note": "Usnesení 15 Ad 14/2026-13 ze dne 6. 10. 2026 žalobu odmítlo a připouští kasační stížnost do dvou týdnů od doručení. Datum doručení není doloženo, proto se nevytváří konkrétní kalendářní deadline. Následující přípis 15 Ad 14/2026-17 ze dne 7. 10. 2026 je evidován samostatně."
+    },
+    {
+      "id": "case-cz-ks-brno-9to316-2026",
+      "institution_id": "CZ-KS-BRN",
+      "reference": "9 To 316/2026-219 / 15 Nt 3105/2026-54",
+      "title": "Stížnostní větev obnovy / zabrání věci – 9 To 316/2026",
+      "status": "complaint_decided_service_delayed_as_of_2026-10-06",
+      "opened_on": "2026-08-10",
+      "decided_on": "2026-09-03",
+      "topics": [
+        "obnova řízení",
+        "9 To 316/2026",
+        "15 Nt 3105/2026",
+        "2 Nt 1257/2013",
+        "zabrání věci",
+        "úroda 2010"
+      ],
+      "related_document_ids": [
+        "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54",
+        "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54"
+      ],
+      "process_note": "Z podání o průtazích ze dne 6. 10. 2026 a návrhu ústavní stížnosti plyne, že KS Brno rozhodl dne 3. 9. 2026 pod sp. zn. 9 To 316/2026-219; rozhodnutí nebylo k 6. 10. 2026 stěžovateli doručeno. Obsah výroku není v Godotu doložen originálem rozhodnutí, proto se zde neformuluje nad rámec uživatelských podání."
+    },
+    {
+      "id": "case-cz-ms-praha-8ad9-2026",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "8 Ad 9/2026",
+      "title": "Zásahová žaloba proti Ministerstvu zdravotnictví – léčebné konopí a označení vysoce návykové látky",
+      "status": "action_rejected",
+      "opened_on": "2026-05-01",
+      "decided_on": "2026-08-28",
+      "decision_document_id": "doc-cz-ms-pha-2026-08-28-8-ad-9-2026-85",
+      "latest_state_document_id": "doc-cz-ms-pha-2026-08-28-8-ad-9-2026-85",
+      "topics": [
+        "Ministerstvo zdravotnictví",
+        "léčebné konopí",
+        "eRecept",
+        "vysoce návyková látka",
+        "8 Ad 9/2026"
+      ],
+      "related_document_ids": [
+        "doc-cz-ms-pha-2026-08-28-8-ad-9-2026-85"
+      ]
+    },
+    {
+      "id": "case-cz-ms-praha-45t1-2024",
+      "institution_id": "CZ-MS-PHA",
+      "reference": "45 T 1/2024 / VS Praha 11 To 88/2024-2990",
+      "title": "Nové projednání trestní věci po zrušení části rozsudku Vrchním soudem v Praze",
+      "status": "active_after_appellate_remand",
+      "opened_on": "2025-07-29",
+      "latest_state_on": "2025-07-29",
+      "topics": [
+        "45 T 1/2024",
+        "11 To 88/2024-2990",
+        "THC",
+        "THCA",
+        "znalecké dokazování",
+        "vzorkování",
+        "nejistota měření"
+      ],
+      "process_note": "Vrchní soud v Praze usnesením ze dne 29. 7. 2025 č. j. 11 To 88/2024-2990 zrušil relevantní výroky rozsudku MS Praha 45 T 1/2024-2430 a věc vrátil k novému projednání."
+    },
+    {
+      "id": "case-cz-os-praha4-10c69-2026",
+      "institution_id": "CZ-OS-PHA4",
+      "reference": "10 C 69/2026",
+      "title": "Civilní žaloba proti České televizi – ochrana práv a mediální odpovědnost",
+      "status": "active_hearing_scheduled",
+      "opened_on": "2026-06-04",
+      "latest_state_on": "2026-09-16",
+      "latest_state_document_id": "doc-cz-os-pha4-2026-09-16-10-c-69-2026-predvolani",
+      "topics": [
+        "Česká televize",
+        "10 C 69/2026",
+        "mediální spor",
+        "ochrana osobnosti"
+      ],
+      "related_document_ids": [
+        "doc-cz-os-pha4-2026-09-16-10-c-69-2026-predvolani"
+      ],
+      "process_note": "První jednání je předvoláním ze dne 16. 9. 2026 nařízeno na 24. 11. 2026 ve 13:00."
+    },
+    {
+      "id": "case-cz-os-ostrava-15t11-2025",
+      "institution_id": "CZ-KS-OST",
+      "reference": "15 T 11/2025 / 5 To 248/2026",
+      "title": "Ostravská trestní větev – stížnostní řízení a přezkum forenzního stanovení THC",
+      "status": "active_complaint_branch",
+      "opened_on": "2026-07-22",
+      "topics": [
+        "15 T 11/2025",
+        "5 To 248/2026",
+        "THC",
+        "THCA",
+        "OKTE Frýdek-Místek",
+        "vzorkování",
+        "homogenizace",
+        "nejistota měření"
+      ],
+      "related_document_ids": [
+        "doc-cz-ks-ost-2026-08-26-st-82-2026-15-t-11-2025",
+        "doc-cz-gf-jk-2026-10-04-ks-ostrava-5-to-248-sumarizujici-sdeleni"
+      ],
+      "last_filing_on": "2026-10-04",
+      "last_filing_document_id": "doc-cz-gf-jk-2026-10-04-ks-ostrava-5-to-248-sumarizujici-sdeleni"
     }
   ]
 }

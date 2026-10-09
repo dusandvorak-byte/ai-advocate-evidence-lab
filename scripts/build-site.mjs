@@ -12,6 +12,7 @@ const source = {
   goals: 'project-memory/project-goals.json',
   operations: 'project-memory/operations-ledger.json',
   generators: 'project-memory/generators.json',
+  courtDockets: 'project-memory/active-court-dockets.json',
   privacy: 'project-memory/privacy-exempt-entities.json'
 };
 const output = { article: 'web/zpravy/04082026-010.html', home: 'web/index.html', data: 'web/data' };
@@ -65,6 +66,7 @@ const architectureRegistry = await readJson(source.architecture);
 const goalsRegistry = await readJson(source.goals);
 const operationsRegistry = await readJson(source.operations);
 const generatorsRegistry = await readJson(source.generators);
+const courtDocketsRegistry = await readJson(source.courtDockets);
 const privacyRegistry = await readJson(source.privacy);
 const registryAudit = await readJson(`${output.data}/registry-audit.json`);
 if (!Array.isArray(documentsRegistry.documents)) throw new Error('documents-2026.json neobsahuje pole documents');
@@ -76,6 +78,7 @@ if (architectureRegistry.single_build_entrypoint !== 'scripts/build-site.mjs') t
 if (goalsRegistry.status !== 'binding') throw new Error('Cíle projektu nejsou závazné');
 if (!operationsRegistry.clock?.no_parallel_clock_registry) throw new Error('Časový systém není jednotný');
 if (generatorsRegistry.single_public_build_entrypoint !== 'scripts/build-site.mjs') throw new Error('Registr generátorů nemá jediný veřejný build');
+if (courtDocketsRegistry.status !== 'binding' || !Array.isArray(courtDocketsRegistry.rows) || courtDocketsRegistry.rows.length < 10) throw new Error('Registr aktivních soudních řízení není závazný nebo úplný');
 if (privacyRegistry.status !== 'binding' || privacyRegistry.alliance_organizations?.length !== 5) throw new Error('Anonymizační výjimky nejsou úplné');
 if (registryAudit.hard_error_count !== 0) throw new Error('Audit kanonických registrů obsahuje tvrdé chyby');
 
@@ -149,6 +152,7 @@ await copyFile(source.institutions, `${output.data}/institutions.json`);
 await copyFile(source.deadlines, `${output.data}/deadlines-source.json`);
 await copyFile(source.timers, `${output.data}/process-timers-source.json`);
 await copyFile(source.axioms, `${output.data}/publication-axioms.json`);
+await copyFile(source.courtDockets, `${output.data}/active-court-dockets.json`);
 await copyFile('project-memory/pdf-reconciliation-report.json', `${output.data}/pdf-reconciliation-report.json`);
 const publicPdfLinks = [...new Set(documentsRegistry.documents.map(item => item.public?.pdf).filter(Boolean).map(publicPath))];
 const finalTimerRegistry = await readJson(`${output.data}/process-timers.json`);

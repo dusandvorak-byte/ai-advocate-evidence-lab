@@ -3,16 +3,18 @@ import { readFile } from 'node:fs/promises';
 const read = path => readFile(path, 'utf8');
 const json = async path => JSON.parse(await read(path));
 
-const [script, styles, home, englishHome, timerBuilder, czechGodot, englishGodot, timerRegistry, axioms] = await Promise.all([
+const [script, styles, courtStyles, home, englishHome, timerBuilder, czechGodot, englishGodot, timerRegistry, axioms, courtRegistry] = await Promise.all([
   read('web/live-dockets.js'),
   read('web/home-rollups.css'),
+  read('web/live-dockets.css'),
   read('web/index.html'),
   read('web/en.html'),
   read('scripts/build-process-timers.mjs'),
   read('web/zpravy/04082026-010.html'),
   read('web/news/04082026-010.html'),
   json('web/data/process-timers.json'),
-  json('project-memory/publication-axioms.json')
+  json('project-memory/publication-axioms.json'),
+  json('project-memory/active-court-dockets.json')
 ]);
 
 const fail = message => { throw new Error(`PROCESS-CHAIN-CONTRACT: ${message}`); };
@@ -26,19 +28,18 @@ for (const label of [
   'justicni-slalom'
 ]) if (!script.includes(label)) fail(`chybí hlavní lišta ${label}`);
 
-const caseRows = [...script.matchAll(/\['(\d{4}-\d{2}-\d{2})',\s*'([^']+)',\s*'([^']+)',\s*'([^']+)'\]/g)]
-  .map(([,date,cs,en,anchor]) => ({date,cs,en,anchor}));
-if (caseRows.length !== 10) fail(`očekáváno 10 skutečných soudních větví se známou spisovou značkou v první navigaci, nalezeno ${caseRows.length}`);
-for (let i=1;i<caseRows.length;i+=1) if (caseRows[i-1].date > caseRows[i].date) fail(`soudní větve nejsou chronologické: ${caseRows[i-1].cs} → ${caseRows[i].cs}`);
-for (const name of ['Městský soud v Praze','Obvodní soud pro Prahu 4','Okresní soud v Prostějově','Okresní soud v Ostravě','Krajský soud v Ostravě','Krajský soud v Brně','Nejvyšší správní soud']) {
-  if (!caseRows.some(row => row.cs.includes(name))) fail(`v aktivních soudních větvích chybí ${name}`);
+const courtRows = courtRegistry.rows || [];
+if (courtRows.length !== 12) fail(`očekáváno 12 soudních větví v křížovém registru, nalezeno ${courtRows.length}`);
+for (const required of [
+  '2 T 104/2010','15 Nt 3104/2026','2 T 65/2011','15 Nt 3106/2026',
+  '9 To 315/2026','9 To 316/2026','18 A 17/2026','18 A 23/2026',
+  '15 A 44/2026','6 As 207/2026','8 Ad 9/2026','15 Ad 14/2026',
+  '10 C 69/2026','3 Cmo 24/2026-26','1 As 395/2019'
+]) if (!JSON.stringify(courtRegistry).includes(required)) fail(`soudní přehled postrádá ${required}`);
+for (const token of ['position:sticky','.live-dockets .active-courts-table th:nth-child(1){width:42%}','overflow-x:auto']) {
+  if (!courtStyles.includes(token)) fail(`soudní CSS postrádá ${token}`);
 }
-if (!caseRows.some(row => row.cs.includes('5 To 248/2026') && row.cs.includes('15 T 11/2025'))) fail('ostravská větev neukazuje 5 To 248/2026 i původní 15 T 11/2025');
-if (!caseRows.some(row => row.cs.includes('15 Ad 14/2026') && row.cs.includes('SÚKL') && row.cs.includes('8 Ad 9/2026'))) fail('chybí větev 15 Ad 14/2026 proti SÚKL s předchozí 8 Ad 9/2026 proti MZ');
-if (!caseRows.some(row => row.cs.includes('6 As 207/2026') && row.cs.includes('15 A 44/2026'))) fail('kasační větev neobsahuje 6 As 207/2026 a předchozí 15 A 44/2026');
-if (!caseRows.some(row => row.cs.includes('9 To 315/2026') && row.cs.includes('9 To 316/2026') && row.cs.includes('3. 9. 2026'))) fail('chybí rozhodnutá brněnská větev s navazující ústavní stížností');
-if (!caseRows.some(row => row.cs.includes('2 T 65/2011') && row.cs.includes('15 Nt 3106/2026'))) fail('chybí druhá prostějovská obnova 2 T 65/2011 / 15 Nt 3106/2026');
-
+if (!script.includes("const registryUrl = '/ai-advocate-evidence-lab/data/active-court-dockets.json'")) fail('live-dockets.js nečte kanonický soudní registr');
 if (!Array.isArray(timerRegistry.timers)) fail('web/data/process-timers.json nemá timers');
 const expectedTimerCount = timerRegistry.timers.length;
 if (expectedTimerCount < 1) fail('interní procesní registr je prázdný');
@@ -86,4 +87,4 @@ const godotWithoutSeparateArchive = czechGodot.replace(/<!-- JUSTICE-SLALOM:BEGI
 const suspicious = publicLabelCheck(godotWithoutSeparateArchive);
 if (suspicious.length) fail(`nejednotné veřejné popisky dokumentů: ${suspicious.join(' | ')}`);
 
-console.log(`Procesní kontrakt OK: ${expectedTimerCount} interních záznamů, 0 veřejných časovačů, 11 soudních větví v první navigaci; axiomy zachovány.`);
+console.log(`Procesní kontrakt OK: ${expectedTimerCount} interních záznamů, 0 veřejných časovačů, ${courtRows.length} soudních větví křížově hlídaných Godot ↔ Slalom ↔ cases; axiomy zachovány.`);

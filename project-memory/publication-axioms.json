@@ -1,7 +1,7 @@
 {
   "schema_version": "1.7",
   "status": "binding",
-  "updated_on": "2026-10-08",
+  "updated_on": "2026-10-09",
   "axioms": [
     {
       "id": "identity-author-alliance",
@@ -129,15 +129,19 @@
     },
     {
       "id": "cannainsider-primary-navigation",
-      "text": "První navigační lišta CannaInsider.EU obsahuje Právě teď, Archiv zpráv, rozbalovací Aktivní soudní řízení od 1. května 2026 a Podpořit. Právě teď se při každém buildu odvozuje z nejnovějšího skutečně publikovaného článku; nesmí být pevně navázáno na starší článek ani na poslední státní listinu. Lhůty a Ověřit listinu se v první liště nezobrazují, dokud nejsou znovu výslovně schváleny."
+      "text": "CannaInsider.EU zachovává v základní navigaci Právě teď, Archiv zpráv a Podpořit. Tři hlavní důkazní lišty Aktivní soudní řízení od 1. května 2026, Godot online a Justiční slalom tvoří samostatný společný sticky blok pod navigací. Při otevření kterékoli z nich musí všechny tři ovládací lišty zůstat současně viditelné; uživatel nesmí být nucen hledat cestu zpět. Rozbalený obsah se zobrazuje pod sticky blokem a mezi lištami lze okamžitě přepínat."
     },
     {
       "id": "public-sister-site-crosslinks",
-      "text": "CannaInsider.EU CZ/EN a Konopná církev / Church of Cannabis CZ/EN mají viditelné vzájemné odkazy a odkaz na Konopí je lék.cz. U každé položky aktivních soudních řízení je uvedeno, že žaloby na státní orgány a návrhy na obnovu řízení jsou v záhlaví Konopí je lék.cz ke stažení, přičemž název Konopí je lék.cz je vždy zřetelný aktivní odkaz na https://www.konopijelek.cz/. Přehled soudů používá plné názvy a všechny doložené spisové značky aktuální a bezprostředně předchozí fáze."
+      "text": "CannaInsider.EU CZ/EN a Konopná církev / Church of Cannabis CZ/EN mají viditelné vzájemné odkazy. U každé položky Aktivních soudních řízení je poslední sloupec „Vše zveřejněné“ a vede na konkrétní tematickou stránku nebo konkrétní veřejný dokument na Konopí je lék.cz vztahující se k dané kauze; obecný odkaz pouze na https://www.konopijelek.cz/ je v soudní tabulce zakázán. Přehled soudů používá plné názvy a všechny doložené spisové značky aktuální a bezprostředně předchozí fáze."
     },
     {
       "id": "state-love-table-publication",
       "text": "Státu lásky čas se veřejně zobrazuje ve stejném vizuálním systému jako Justiční slalom, ale obsahově jde o jiný registr. Hlavní řádky smějí tvořit pouze příchozí listiny českých veřejných orgánů, soudů, státních zastupitelství, policie, ministerstev, KPR, dalších veřejných institucí a mezinárodních či unijních orgánů a institucí; naše vlastní podání, stížnosti, odvolání, rozklady, žaloby, repliky a důkazní doplnění se nesmějí zobrazovat jako samostatné hlavní řádky. U každé reakce orgánu se naopak mají v samostatných sloupcích uvést dohledatelné souvislosti: na jaké naše podání orgán reaguje a zda a jakým naším navazujícím opravným prostředkem či námitkou byla reakce napadena; tyto vazby mohou obsahovat aktivní odkaz na příslušné PDF. Řazení hlavních řádků vychází z issue_date, nejnovější reakce je nahoře a nejstarší dole; obrací se pouze číslování, takže nejstarší hlavní řádek má číslo 1 a nejnovější nejvyšší číslo. Vizuál tabulky — barvy, typografie, ohraničení, pruhování, padding, chování odkazů a vnitřní horizontální scroll na menších viewportech — musí vycházet z Justičního slalomu. Česká sada sloupců je Č., Dne, Orgán, č. j./sp. zn., Co se stalo, Na co orgán reaguje, Námitka / opravný prostředek. První sloupec musí udržet pořadové číslo na jednom řádku. Na desktopu musí sedmisloupcová tabulka zůstat uvnitř plného 1240px page shellu bez vodorovného přetečení stránky; na tabletu a telefonu smí přetékat pouze uvnitř vlastního scroll kontejneru, nikdy mimo panel nebo viewport. Sloupce č. j./sp. zn. a Co se stalo jsou zúžené ve prospěch vztahových sloupců. Za tabulkou se nezobrazují pomocné bloky Uzly řízení, Lhůty a nečinnost, Anonymizační axiom ani Důkazní hranice. Panel Godot online je skutečné sbalitelné details ve stejné masce jako Justiční slalom; jeho titul je „Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?“ a po rozbalení před tabulkou zůstává pouze dynamický řádek s aktuálním počtem reakcí, údajem „nejnovější nahoře“, „nejstarší reakce má číslo 1“ a otázkou „Přijde už konečně Godot?“."
+    },
+    {
+      "id": "active-court-crosscheck-table",
+      "text": "Aktivní soudní řízení jsou odvozená křížová vrstva nad Godotem, Justičním slalomem a registrem cases.json. Godot je kanonická vrstva příchozích rozhodnutí a soudních listin; Justiční slalom je kanonická vrstva vlastní obrany, žalob, stížností, odvolání, kasačních a dalších podání. Každá změna rozsudku, usnesení, stížnostního/odvolacího/kasačního stavu nebo navazující obrany musí ve stejném release aktualizovat soudní přehled. Tabulka má pět sloupců: (1) „Řízení, meritum a aktuální stav“ jako dominantní nejširší sloupec s názvem soudu, spisovou značkou, skutkovým meritem a důvodem zveřejnění; (2) opravné rozhodnutí / odvolání / kasační větev včetně doloženého data; (3) ústavní / nejvyšší přezkum s historickými spisovými značkami; (4) mediální větev; (5) „Vše zveřejněné“ s konkrétním deep-linkem. Na desktopu musí tabulka zůstat uvnitř 1240px shellu; na tabletu a telefonu smí přetékat pouze uvnitř vlastního horizontálního scrollu. Sporná tvrzení stran se popisují jako tvrzení či námitky; rozhodnutí soudu jako rozhodnutí soudu."
     }
   ]
 }

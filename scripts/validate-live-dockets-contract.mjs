@@ -2,6 +2,8 @@ import { readFile, readdir } from 'node:fs/promises';
 
 const script = await readFile('web/live-dockets.js', 'utf8');
 const styles = await readFile('web/home-rollups.css', 'utf8');
+const courtStyles = await readFile('web/live-dockets.css', 'utf8');
+const courtRegistry = JSON.parse(await readFile('project-memory/active-court-dockets.json', 'utf8'));
 const home = await readFile('web/index.html', 'utf8');
 const englishHome = await readFile('web/en.html', 'utf8');
 const newsFeed = await readFile('web/news-feed.js', 'utf8');
@@ -74,65 +76,36 @@ for (const obsolete of ['Předžalobní řízení on-line od 1. května 2026', '
   if (script.includes(obsolete)) throw new Error(`Vrátila se zrušená lišta: ${obsolete}`);
 }
 
-const caseRows = [...script.matchAll(/\['(\d{4}-\d{2}-\d{2})',\s*'([^']+)',\s*[^\]]+\]/g)]
-  .map(([, date, label]) => ({ date, label }));
-if (caseRows.length !== 10) throw new Error(`Očekáváno deset skutečných soudních větví se známou spisovou značkou, nalezeno ${caseRows.length}`);
-for (const abbreviation of ['MS v Praze', 'OS Praha 4', 'OS Prostějov', 'OS Ostrava', 'vratka VS']) {
-  if (caseRows.some(item => item.label.includes(abbreviation))) throw new Error(`V názvu aktivního soudního řízení zůstala zkratka: ${abbreviation}`);
-}
-for (const fullName of ['Městský soud v Praze', 'Obvodní soud pro Prahu 4', 'Okresní soud v Prostějově', 'Okresní soud v Ostravě', 'Krajský soud v Ostravě', 'Krajský soud v Brně', 'Nejvyšší správní soud', 'Vrchním soudem v Praze']) {
-  if (!caseRows.some(item => item.label.includes(fullName))) throw new Error(`V aktivních soudních řízeních chybí celý název: ${fullName}`);
-}
-for (const fullName of ['Prague Municipal Court', 'Prague 4 District Court', 'Prostějov District Court', 'Ostrava District Court', 'Ostrava Regional Court', 'Brno Regional Court', 'Supreme Administrative Court', 'Prague High Court']) {
-  if (!script.includes(fullName)) throw new Error(`V anglických aktivních soudních řízeních chybí celý název: ${fullName}`);
-}
-for (let index = 1; index < caseRows.length; index += 1) {
-  if (caseRows[index - 1].date > caseRows[index].date) {
-    throw new Error(`Soudní řízení nejsou chronologicky: ${caseRows[index - 1].label} → ${caseRows[index].label}`);
+const courtRows = courtRegistry.rows || [];
+if (courtRows.length !== 12) throw new Error(`Očekáváno 12 soudních větví, nalezeno ${courtRows.length}`);
+if (JSON.stringify(courtRegistry.table_contract?.width_percent) !== '[42,18,18,12,10]') throw new Error('Soudní tabulka nemá šířky 42/18/18/12/10');
+for (const row of courtRows) {
+  if (!row.merit_cs || row.merit_cs.length < 80) throw new Error(`Chybí meritní anotace: ${row.id}`);
+  if (!Array.isArray(row.links) || !row.links.length) throw new Error(`Chybí Vše zveřejněné: ${row.id}`);
+  for (const link of row.links) {
+    const normalized = String(link.href || '').replace(/\/+$/,'');
+    if (normalized === 'https://www.konopijelek.cz') throw new Error(`Obecný odkaz Konopí je lék je zakázán: ${row.id}`);
   }
 }
-if (!script.includes('item.dataset.startDate = startDate')) throw new Error('Soudní položky nemají veřejně kontrolovatelné datum počátku');
-
-for (const declaration of ['background: #285b6f;', 'color: #fff;']) {
-  if (!styles.includes(declaration)) throw new Error(`Chybí barevná smlouva lišt: ${declaration}`);
-}
-if (!await readFile('web/justice-slalom.css', 'utf8').then(css => css.includes('background:#285b6f'))) throw new Error('Rozbalovací lišta nemá tmavě modrý kontrast');
-
-// Mobilní smlouva: lišty nesmějí přesáhnout obrazovku a rozbalené soudní
-// karty se na telefonu skládají do jediného sloupce.
-if (!styles.includes('width: min(100%, var(--page-shell-width, 1240px))')) {
-  throw new Error('Tři hlavní lišty nejsou omezené šířkou obrazovky');
-}
-if (!styles.includes('@media(max-width:720px)')) {
-  throw new Error('Chybí mobilní rozložení záhlaví tří lišt');
-}
-const phoneCourtRule = styles.match(/@media \(max-width: 480px\) \{([\s\S]*?)\n\}/)?.[1] || '';
-if (!phoneCourtRule.includes('grid-template-columns: 1fr')) {
-  throw new Error('Soudní karty se na telefonu neskládají do jednoho sloupce');
-}
-for (const [label, page] of [['CZ home', home], ['EN home', englishHome], ['CZ church', churchCzPage], ['EN church', churchEnPage]]) {
-  if (page.includes('id="evidence-file"') || page.includes('class="desk"') || page.includes('MÍSTNÍ DŮKAZNÍ PŘEPÁŽKA') || page.includes('LOCAL EVIDENCE DESK')) throw new Error(`${label}: zrušená místní důkazní přepážka se vrátila`);
-}
-for (const [label, page] of [['CZ home', home], ['EN home', englishHome]]) {
-  if (page.includes('class="deadline-watch"') || page.includes('id="lhuty"') || page.includes('id="deadlines"') || page.includes('SLEDOVANÁ DATA') || page.includes('TRACKED DATES')) throw new Error(`${label}: zastaralý blok sledovaných dat se vrátil`);
-}
-if (!home.includes('<script src="live-dockets.js" defer></script>')) throw new Error('Titulní stránka nenačítá generátor lišt');
-if (!home.includes('href="#podpora">Podpořit</a>')) throw new Error('Z první lišty zmizela sekce Podpořit');
-if (home.includes('href="#lhuty">Lhůty</a>') || home.includes('href="#semafor">Ověřit listinu</a>')) throw new Error('V první liště zůstaly dočasně odstraněné položky Lhůty/Ověřit listinu');
-if (!script.includes('nav-courts') || !script.includes("source.href = 'https://www.konopijelek.cz/'") || !script.includes("source.textContent = isEnglish ? 'Cannabis is The Cure.cz →' : 'Konopí je lék.cz →'")) throw new Error('Aktivní soudní řízení nemají zřetelný aktivní odkaz na Konopí je lék.cz');
-if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.nav{position:relative;overflow:visible;display:grid;grid-template-columns:max-content max-content minmax(760px,1fr) max-content') && css.includes('.nav .nav-courts{position:static;') && css.includes('.nav .nav-courts-panel{position:absolute;z-index:120;left:0;right:0;top:100%;width:auto;transform:none;'))) throw new Error('Rozbalená Aktivní soudní řízení nejsou na desktopu zarovnána přes celou šířku hlavního rámce');
-if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.nav>a{margin-right:0;padding:11px 14px 10px;background:#eee6bd;color:#16242d;border:1px solid #b9aa63') && css.includes('body:not(.church-site) .nav>a:hover,body:not(.church-site) .nav>a:focus-visible,body:not(.church-site) .nav>a[aria-current="page"]{background:#dfd29a;color:#111820;border-color:#95863e}'))) throw new Error('CannaInsider navigace nemá tlumenou žlutou a tmavé čitelné písmo');
-if (!await readFile('web/styles.css', 'utf8').then(css => css.includes('.church-site .nav>a{background:#f1e8bc;color:#16242d;border-color:#b9aa63;font-weight:900;letter-spacing:.03em;text-shadow:0 0 .2px currentColor}'))) throw new Error('Konopná církev nemá tlumenou žlutou a zesílenou typografii navigace');
-if (!await readFile('web/styles.css', 'utf8').then(css =>
-  css.includes('.nav .nav-court-item{display:grid;gap:7px;padding:15px 0;border-bottom:1px solid #d8d8d8}')
-  && css.includes('.nav .nav-court-item>a{white-space:normal;margin:0;padding:0;font-size:16px;line-height:1.45;font-weight:800;text-transform:none}')
-  && css.includes('.nav .court-download-note{font:14px/1.5 var(--sans);color:#333}')
-  && css.includes('.nav .court-download-note a{display:inline;margin:0;padding:0;text-transform:none;white-space:normal;font-size:14px;font-weight:800;text-decoration:underline;text-underline-offset:2px}')
-)) throw new Error('Rozbalená Aktivní soudní řízení nemají čitelné písmo 16/14 px');
-if (script.includes('preventivní podání k pěstování 2026')) throw new Error('V Aktivních soudních řízeních zůstalo preventivní podání bez soudní spisové značky');
-for (const requiredRef of ['18 A 17/2026','18 A 23/2026','15 Ad 14/2026','8 Ad 9/2026','6 As 207/2026','15 A 44/2026','9 To 315/2026','9 To 316/2026','2 T 104/2010','15 Nt 3104/2026','2 T 65/2011','15 Nt 3106/2026']) {
-  if (!script.includes(requiredRef)) throw new Error(`V první liště Aktivní soudní řízení chybí spisová značka ${requiredRef}`);
-}
+for (const token of [
+  "const registryUrl = '/ai-advocate-evidence-lab/data/active-court-dockets.json'",
+  "className = 'docket-bar-stack'",
+  "className = 'active-courts-table'",
+  'wrapper.append(controls, courtShell)',
+  'if (stateLoveShell) wrapper.append(stateLoveShell)',
+  'if (slalomShell) wrapper.append(slalomShell)'
+]) if (!script.includes(token)) throw new Error(`live-dockets.js postrádá nový soudní kontrakt: ${token}`);
+for (const token of [
+  'position:sticky',
+  '.live-dockets .active-courts-table th:nth-child(1){width:42%}',
+  '.live-dockets .active-courts-table th:nth-child(2){width:18%}',
+  '.live-dockets .active-courts-table th:nth-child(3){width:18%}',
+  '.live-dockets .active-courts-table th:nth-child(4){width:12%}',
+  '.live-dockets .active-courts-table th:nth-child(5){width:10%}',
+  'overflow-x:auto',
+  '@media(max-width:720px)'
+]) if (!courtStyles.includes(token)) throw new Error(`live-dockets.css postrádá ${token}`);
+if (script.includes("source.href = 'https://www.konopijelek.cz/'")) throw new Error('Aktivní soudní řízení se vrátila k obecnému homepage odkazu');
 const reportFiles = (await readdir('web/zpravy')).filter(name => /^\d{8}-\d+\.html$/.test(name));
 const reportDate = name => {
   const match = name.match(/^(\d{2})(\d{2})(\d{4})-(\d+)\.html$/);
@@ -297,4 +270,4 @@ for (const header of ['Č.','Dne','Orgán','č. j./sp. zn.','Co se stalo','Na co
   if (!czechStateLoveTable.includes(`>${header}</th>`)) throw new Error(`Českému State Love chybí tabulkový sloupec ${header}`);
 }
 
-console.log(`Smlouva titulní stránky: soudní řízení v první navigační liště; ${caseRows.length} větví chronologicky; Podpořit zachováno; Lhůty a Ověřit listinu odstraněny; Justiční slalom zachován.`);
+console.log(`Smlouva titulní stránky: ${courtRows.length} soudních větví v živé tabulce; tři sticky důkazní lišty; Podpořit zachováno; Lhůty a Ověřit listinu odstraněny; Justiční slalom zachován.`);

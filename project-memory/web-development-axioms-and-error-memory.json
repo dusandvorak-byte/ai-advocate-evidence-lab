@@ -2,7 +2,7 @@
   "schema_version": "1.1",
   "status": "binding",
   "effective_from": "2026-07-18",
-  "recorded_on": "2026-10-08",
+  "recorded_on": "2026-10-09",
   "purpose": "Trvalá paměť pravidel tvorby CannaInsider.EU a Church of Cannabis a zákaz opakování chyb zjištěných od zahájení tvorby webů 18. 7. 2026.",
   "mandatory_work_algorithm": [
     "1. PŘED JAKOUKOLI PRACÍ načíst a rešeršovat aktuální project-memory/publication-axioms.json, project-memory/web-development-axioms-and-error-memory.json, project-memory/project-goals.json a další registry přímo relevantní k úkolu.",
@@ -108,11 +108,15 @@
     },
     {
       "id": "primary-nav-and-sister-sites",
-      "text": "První navigace CannaInsider.EU: Právě teď → automaticky nejnovější publikovaný článek; Archiv zpráv; Aktivní soudní řízení; Podpořit. Lhůty a Ověřit listinu nejsou v první liště. CannaInsider a Konopná církev se navzájem viditelně odkazují a obě odkazují na Konopí je lék.cz; soudní položky uvádějí plné názvy a známé spisové značky."
+      "text": "První navigace CannaInsider.EU zachovává Právě teď → automaticky nejnovější publikovaný článek, Archiv zpráv a Podpořit. Tři důkazní lišty Aktivní soudní řízení, Godot online a Justiční slalom tvoří samostatný sticky blok pod navigací; při otevření kterékoli z nich musí všechny tři zůstat viditelné. CannaInsider a Konopná církev se navzájem viditelně odkazují. Soudní tabulka používá konkrétní deep-linky „Vše zveřejněné k této kauze“, nikoli obecný homepage odkaz."
     },
     {
       "id": "state-love-table-mirrors-slalom",
       "text": "Státu lásky čas musí vizuálně používat stejnou masku jako Justiční slalom. Hlavní řádky obsahují pouze příchozí reakce českých veřejných orgánů a mezinárodních/EU institucí; naše podání se smějí objevit jen vztahově ve sloupci Na co orgán reaguje nebo Námitka / opravný prostředek. Pořadí je nejnovější nahoře, nejstarší dole; nejstarší řádek má číslo 1. Česká tabulka používá záhlaví Č., Dne, Orgán, č. j./sp. zn., Co se stalo, Na co orgán reaguje, Námitka / opravný prostředek. První sloupec nesmí zalomit pořadové číslo. Desktopová tabulka musí zůstat uvnitř 1240px shellu bez přetečení stránky; tablet a telefon používají pouze vnitřní horizontální scroll tabulky. Godot online je sbalitelný panel shodného typu jako Justiční slalom, s dynamicky odvozeným počtem reakcí a bez ručně udržovaného čísla. Za tabulkou se nesmějí regenerovat Uzly řízení, Lhůty a nečinnost, Anonymizační axiom ani Důkazní hranice."
+    },
+    {
+      "id": "active-court-crosscheck-table",
+      "text": "Aktivní soudní řízení jsou křížově odvozená z Godota (rozhodnutí a listiny orgánů), Justičního slalomu (vlastní obrana) a cases.json. Každý nový rozsudek, usnesení, rozhodnutí o stížnosti/odvolání/kasační stížnosti nebo nové vlastní podání musí ve stejném release aktualizovat soudní tabulku. Dominantní první sloupec nese soud, spisovou značku, meritum a důvod zveřejnění; další sloupce nesou opravnou/kasační větev, ústavní/nejvyšší přezkum, mediální větev a konkrétní „Vše zveřejněné“ deep-link. Tři ovládací lišty zůstávají při rozbalení sticky a současně viditelné."
     }
   ],
   "error_memory_since_2026_07_18": [
