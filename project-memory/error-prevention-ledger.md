@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Produkční gate nesmí hlídat layout, který byl záměrně nahrazen novým kanonickým komponentem
+
+- Projev: nový soudní registr, tabulka i křížová validace prošly, ale produkční workflow se zastavilo před publikací, protože souhrnný shell stále vyžadoval staré CSS `grid-template-columns:260px minmax(0,1fr)` a historické selektory `.nav-courts`.
+- Příčina: při přechodu z původních soudních karet na sticky třílišťový blok nebyly odstraněny všechny redundantní produkční grepy, přestože specializované validátory už kontrolovaly nový kontrakt.
+- Náprava: pre-publish i live gate nyní kontrolují `position:sticky`, tabulkové šířky 42/18/18/12/10, mobilní breakpoint a nový `.docket-control`; historické `.nav-courts` podmínky byly odstraněny.
+- Pojistka: při změně kanonického layoutu se ve stejném release musí vyhledat a nahradit všechny duplicity jeho starého kontraktu v PR i produkčních workflovech.
+
 ### Aktivní soudní řízení nesmějí být ručně oddělená od Godota a Justičního slalomu
 
 - Projev: titulní lišta soudních řízení byla statické pole v `live-dockets.js`; mohla proto dál uvádět starý procesní stav i poté, co do Godota přišlo nové soudní rozhodnutí nebo do Justičního slalomu nový opravný prostředek. Odkazy navíc vedly na obecnou homepage Konopí je lék.cz.
