@@ -270,4 +270,4 @@ for (const header of ['Č.','Dne','Orgán','č. j./sp. zn.','Co se stalo','Na co
   if (!czechStateLoveTable.includes(`>${header}</th>`)) throw new Error(`Českému State Love chybí tabulkový sloupec ${header}`);
 }
 
-console.log(`Smlouva titulní stránky: soudní řízení v první navigační liště; ${caseRows.length} větví chronologicky; Podpořit zachováno; Lhůty a Ověřit listinu odstraněny; Justiční slalom zachován.`);
+console.log(`Smlouva titulní stránky: ${courtRows.length} soudních větví v živé tabulce; tři sticky důkazní lišty; Podpořit zachováno; Lhůty a Ověřit listinu odstraněny; Justiční slalom zachován.`);
