@@ -120,6 +120,8 @@
     "web/data/pdf-reconciliation-report.json",
     "web/data/operations-state.json",
     "web/data/registry-audit.json",
-    "web/documents/report-04082026-010/96-os-praha4-10-c-69-2026-predvolani-2026-09-16.pdf"
-  ]
+    "web/documents/report-04082026-010/96-os-praha4-10-c-69-2026-predvolani-2026-09-16.pdf",
+    "web/data/active-court-dockets.json"
+  ],
+  "updated_on": "2026-10-09"
 }

@@ -47,6 +47,7 @@ jobs:
         run: |
           node --check scripts/validate-live-dockets-contract.mjs
           node --check scripts/validate-process-chain-contract.mjs
+          node --check scripts/validate-active-court-dockets.mjs
 
       - name: Připravit generátor ověřených veřejných PDF
         shell: bash
@@ -135,6 +136,9 @@ jobs:
       - name: Ověřit tři lišty, navigaci a rozbalená soudní řízení
         run: node scripts/validate-live-dockets-contract.mjs
 
+      - name: Křížově ověřit Godot, Slalom, cases a soudní tabulku
+        run: node scripts/validate-active-court-dockets.mjs
+
       - name: Ověřit interní procesní registr a aktivní soudní větve
         run: node scripts/validate-process-chain-contract.mjs
 
@@ -153,6 +157,9 @@ jobs:
           grep -q '"privacy_alliance_organizations_count": 5' web/data/build-manifest.json
           grep -q '"internal_knowledge_not_auto_published": true' web/data/build-manifest.json
           test -f web/data/operations-state.json
+          test -f web/data/active-court-dockets.json
+          test "$(jq -r '.rows | length' web/data/active-court-dockets.json)" = '12'
+          test "$(jq -c '.table_contract.width_percent' web/data/active-court-dockets.json)" = '[42,18,18,12,10]'
           test -f web/data/registry-audit.json
           test -f web/data/godot-pdf-audit.json
           test -f web/data/generated-state-pdf-manifest.json

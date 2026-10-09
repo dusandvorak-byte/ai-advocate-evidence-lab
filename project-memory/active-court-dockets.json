@@ -1,0 +1,411 @@
+{
+  "schema_version": "1.0",
+  "status": "binding",
+  "updated_on": "2026-10-09",
+  "purpose": "Kanonický přehled soudních větví od 1. 5. 2026. Stav se musí křížově ověřovat mezi příchozími soudními listinami v Godotu, vlastními opravnými podáními v Justičním slalomu a project-memory/cases.json.",
+  "table_contract": {
+    "columns_cs": [
+      "Řízení, meritum a aktuální stav",
+      "Opravné rozhodnutí / odvolání / kasační větev",
+      "Ústavní / nejvyšší přezkum",
+      "Mediální větev",
+      "Vše zveřejněné"
+    ],
+    "columns_en": [
+      "Proceeding, merits and current status",
+      "Appellate / complaint / cassation branch",
+      "Constitutional / Supreme Court review",
+      "Media litigation branch",
+      "Everything published"
+    ],
+    "width_percent": [
+      42,
+      18,
+      18,
+      12,
+      10
+    ],
+    "first_column_is_dominant": true,
+    "sticky_three_bar_navigation": true
+  },
+  "rows": [
+    {
+      "id": "court-prostejov-2t104-15nt3104",
+      "court_cs": "Okresní soud v Prostějově",
+      "court_en": "Prostějov District Court",
+      "reference": "2 T 104/2010 / 15 Nt 3104/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova"
+      ],
+      "merit_cs": "Úrody 2008–2009. Obnova původního trestního řízení 2 T 104/2010. Návrh z roku 2026 staví zejména na nových podkladech k reprezentativnímu odběru, homogenizaci, rozlišení THC/THCA, dekarboxylaci, validaci, nejistotě měření a významu práva EU. Veřejné zasedání je podle podání z 8. 10. 2026 přesunuto na 30. 11. 2026 v 9:00.",
+      "merit_en": "2008–2009 crops. Reopening of criminal case 2 T 104/2010. The 2026 motion relies in particular on new records concerning representative sampling, homogenisation, THC/THCA distinction, decarboxylation, validation, measurement uncertainty and EU-law relevance. The 8 October 2026 filing records the rescheduled hearing for 30 November 2026 at 09:00.",
+      "remedy_cs": "Původní odsouzení: KS Brno 3 To 25/2011; NS 8 Tdo 1231/2011. Nynější 15 Nt 3104/2026 dosud bez rozhodnutí o obnově.",
+      "remedy_en": "Original conviction: Brno Regional Court 3 To 25/2011; Supreme Court 8 Tdo 1231/2011. Current reopening case 15 Nt 3104/2026 has not yet been decided.",
+      "supreme_cs": "II. ÚS 664/12. Pozdější obnova / související přezkum: III. ÚS 396/16.",
+      "supreme_en": "II. ÚS 664/12. Later reopening / related review: III. ÚS 396/16.",
+      "media_cs": "—",
+      "media_en": "—",
+      "godot_document_ids": [],
+      "slalom_document_ids": [
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+      ],
+      "links": [
+        {
+          "label_cs": "Vše zveřejněné k této kauze →",
+          "label_en": "Everything published on this case →",
+          "href": "https://www.konopijelek.cz/novinky/prvni-obvineni-a-prvni-konopna-ustavni-stiznost-sp-zn-ii-us-664-12-uroda-konopi-z-roku-2008-a-2009/"
+        }
+      ]
+    },
+    {
+      "id": "court-prostejov-2t65-15nt3106",
+      "court_cs": "Okresní soud v Prostějově",
+      "court_en": "Prostějov District Court",
+      "reference": "2 T 65/2011 / 15 Nt 3106/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "merit_cs": "Úroda 2010. Obnova větve 2 T 65/2011; soud v září 2026 upřesnil, že v původní trestní věci státní zástupce vzal obžalobu zpět a řízení bylo následně zastaveno. Obnova nyní znovu otevírá skutkové a forenzní otázky zabrané úrody. Veřejné zasedání je podle podání z 8. 10. 2026 přesunuto na 30. 11. 2026 ve 13:00.",
+      "merit_en": "2010 crop. Reopening branch 2 T 65/2011; in September 2026 the court clarified that the prosecutor withdrew the indictment in the original criminal case and the proceedings were later discontinued. The reopening motion again raises factual and forensic issues concerning the seized crop. The 8 October filing records the rescheduled hearing for 30 November 2026 at 13:00.",
+      "remedy_cs": "Nynější 15 Nt 3106/2026 dosud bez rozhodnutí o obnově. Historická větev navazuje na 2 Nt 1257/2013.",
+      "remedy_en": "Current reopening case 15 Nt 3106/2026 has not yet been decided. The historical branch continues through 2 Nt 1257/2013.",
+      "supreme_cs": "IV. ÚS 4859/12 (historické předpolí větve 2 T 65/2011 / 2 Nt 1257/2013).",
+      "supreme_en": "IV. ÚS 4859/12 (historical precursor to the 2 T 65/2011 / 2 Nt 1257/2013 branch).",
+      "media_cs": "—",
+      "media_en": "—",
+      "godot_document_ids": [],
+      "slalom_document_ids": [
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+      ],
+      "links": [
+        {
+          "label_cs": "Vše zveřejněné k této kauze →",
+          "label_en": "Everything published on this case →",
+          "href": "https://www.konopijelek.cz/soud-s-dusanem-dvorakem/soud-s-dusanem-dvorakem-archiv/tiskove-zpravy/seznam-chronologie-a-meritum-odmitnutych-ustavnich-stiznosti-mgr-dusana-dvoraka/"
+        }
+      ]
+    },
+    {
+      "id": "court-prostejov-15nt3103-9to315",
+      "court_cs": "Okresní soud v Prostějově / Krajský soud v Brně",
+      "court_en": "Prostějov District Court / Brno Regional Court",
+      "reference": "15 Nt 3103/2026-53 → 9 To 315/2026-140",
+      "case_ids": [
+        "case-cz-ks-brno-9to315-2026"
+      ],
+      "merit_cs": "Úrody 2011–2012 a ochranná opatření zabrání věci. OS Prostějov 7. 8. 2026 zamítl obnovu rozhodnutí 2 Nt 1151/2014-80 a 3 Nt 1151/2014-411; obě větve byly v roce 2016 spojeny. Stížnost namítala, že nové forenzní a metodické důkazy nebyly věcně přezkoumány.",
+      "merit_en": "2011–2012 crops and forfeiture protective measures. On 7 August 2026 the Prostějov District Court rejected reopening of decisions 2 Nt 1151/2014-80 and 3 Nt 1151/2014-411; the two branches had been joined in 2016. The complaint argued that new forensic and methodological evidence had not been reviewed on its merits.",
+      "remedy_cs": "3. 9. 2026 · KS Brno 9 To 315/2026-140 stížnost zamítl. Návrh ústavní stížnosti proti 9 To 315/2026 a 9 To 316/2026 je připraven; z dostupných podkladů není doloženo jeho podání.",
+      "remedy_en": "3 September 2026 · Brno Regional Court 9 To 315/2026-140 dismissed the complaint. A draft constitutional complaint against 9 To 315/2026 and 9 To 316/2026 is prepared; filing is not established by the available record.",
+      "supreme_cs": "II. ÚS 1311/13 · II. ÚS 289/14.",
+      "supreme_en": "II. ÚS 1311/13 · II. ÚS 289/14.",
+      "media_cs": "—",
+      "media_en": "—",
+      "godot_document_ids": [
+        "doc-cz-ks-brn-2026-09-03-9-to-315-2026-140",
+        "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53"
+      ],
+      "slalom_document_ids": [
+        "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53"
+      ],
+      "links": [
+        {
+          "label_cs": "Vše zveřejněné k této kauze →",
+          "label_en": "Everything published on this case →",
+          "href": "https://www.konopijelek.cz/soud-s-dusanem-dvorakem/soud-s-dusanem-dvorakem-archiv/tiskove-zpravy/seznam-chronologie-a-meritum-odmitnutych-ustavnich-stiznosti-mgr-dusana-dvoraka/"
+        }
+      ]
+    },
+    {
+      "id": "court-prostejov-15nt3105-9to316",
+      "court_cs": "Okresní soud v Prostějově / Krajský soud v Brně",
+      "court_en": "Prostějov District Court / Brno Regional Court",
+      "reference": "15 Nt 3105/2026-54 → 9 To 316/2026-219",
+      "case_ids": [
+        "case-cz-ks-brno-9to316-2026"
+      ],
+      "merit_cs": "Úroda 2010; samostatná větev zabrání věci 2 Nt 1257/2013. OS Prostějov 7. 8. 2026 návrh na obnovu zamítl jako nepřípustný; stížnost namítla mimo jiné, že soud nevypořádal celý rozsah společného návrhu na obnovu ze dne 12. 7. 2026.",
+      "merit_en": "2010 crop; separate forfeiture branch 2 Nt 1257/2013. On 7 August 2026 the Prostějov District Court rejected the reopening motion as inadmissible; the complaint argued, among other points, that the court had not dealt with the full scope of the joint reopening motion of 12 July 2026.",
+      "remedy_cs": "3. 9. 2026 · KS Brno vydal usnesení 9 To 316/2026-219. Z návrhu ústavní stížnosti plyne, že stížnost byla zamítnuta podle § 148 odst. 1 písm. b) tr. ř. jako podaná neoprávněnou osobou; originál rozhodnutí zatím není v Godotu doložen. Návrh ústavní stížnosti proti 9 To 315/2026 a 9 To 316/2026 je připraven, ale z dostupných podkladů není doloženo jeho podání.",
+      "remedy_en": "3 September 2026 · Brno Regional Court issued order 9 To 316/2026-219. The draft constitutional complaint states that the complaint was dismissed under Section 148(1)(b) of the Criminal Procedure Code as filed by an unauthorised person; the original court order is not yet evidenced in Godot. A constitutional-complaint draft against 9 To 315/2026 and 9 To 316/2026 is prepared, but its filing is not established by the available record.",
+      "supreme_cs": "IV. ÚS 4859/12 – historická ústavní větev související s linií 2 T 65/2011 / 2 Nt 1257/2013.",
+      "supreme_en": "IV. ÚS 4859/12 – historical constitutional branch related to the 2 T 65/2011 / 2 Nt 1257/2013 line.",
+      "media_cs": "—",
+      "media_en": "—",
+      "godot_document_ids": [
+        "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54"
+      ],
+      "slalom_document_ids": [
+        "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54"
+      ],
+      "links": [
+        {
+          "label_cs": "Vše zveřejněné k této kauze →",
+          "label_en": "Everything published on this case →",
+          "href": "https://www.konopijelek.cz/soud-s-dusanem-dvorakem/soud-s-dusanem-dvorakem-archiv/tiskove-zpravy/seznam-chronologie-a-meritum-odmitnutych-ustavnich-stiznosti-mgr-dusana-dvoraka/"
+        }
+      ]
+    },
+    {
+      "id": "court-ms-praha-18a17",
+      "court_cs": "Městský soud v Praze",
+      "court_en": "Prague Municipal Court",
+      "reference": "18 A 17/2026",
+      "case_ids": [
+        "case-cz-ms-praha-18a17-2026"
+      ],
+      "merit_cs": "Zásahová žaloba proti NCOZ. Žaloba a navazující podání napadají způsob vyřízení a nečinnost při prověřování policejních a znaleckých postupů při stanovení THC; pozdější důkazní doplnění rozvíjejí otázky odběru, homogenizace, THC/THCA, dekarboxylace, validace a nejistoty měření. Řízení je dosud aktivní.",
+      "merit_en": "Intervention action against NCOZ. The action and follow-up filings challenge the handling and alleged inactivity in reviewing police and forensic THC-determination practices; later evidence supplements develop sampling, homogenisation, THC/THCA, decarboxylation, validation and measurement-uncertainty issues. The case remains active.",
+      "remedy_cs": "Dosud bez konečného rozhodnutí ve věci samé; poslední evidovaná soudní listina 2. 10. 2026, č. j. 18 A 17/2026-191.",
+      "remedy_en": "No final merits decision recorded; latest recorded court document is 2 October 2026, ref. 18 A 17/2026-191.",
+      "supreme_cs": "Historická trestní linie uváděná v podáních: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
+      "supreme_en": "Historical criminal-review line cited in the filings: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
+      "media_cs": "—",
+      "media_en": "—",
+      "godot_document_ids": [
+        "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191"
+      ],
+      "slalom_document_ids": [
+        "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+      ],
+      "links": [
+        {
+          "label_cs": "Vše zveřejněné k této kauze →",
+          "label_en": "Everything published on this case →",
+          "href": "https://www.konopijelek.cz/novinky/narodni-centrala-proti-organizovanemu-zlocinu/"
+        }
+      ]
+    },
+    {
+      "id": "court-ms-praha-18a23",
+      "court_cs": "Městský soud v Praze",
+      "court_en": "Prague Municipal Court",
+      "reference": "18 A 23/2026",
+      "case_ids": [
+        "case-cz-ms-praha-18a23-2026"
+      ],
+      "merit_cs": "Zásahová žaloba proti Ministerstvu spravedlnosti. Žaloba napadá postup ministerstva při vyřizování podnětů a dohledu nad znaleckou činností a navazuje na dlouhodobě namítané sporné forenzní praxe při analýzách obsahu THC v zabraném konopí. Řízení je dosud aktivní.",
+      "merit_en": "Intervention action against the Ministry of Justice. The action challenges the Ministry's handling of submissions and oversight of forensic expert activity and follows long-running objections to disputed forensic practices in analysing THC content in seized cannabis. The case remains active.",
+      "remedy_cs": "Dosud bez konečného rozhodnutí ve věci samé; 26. 9. 2026 byla podána replika a 6. 10. 2026 další důkazní doplnění.",
+      "remedy_en": "No final merits decision recorded; a reply was filed on 26 September 2026 and a further evidence supplement on 6 October 2026.",
+      "supreme_cs": "Historická trestní linie uváděná v podáních: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
+      "supreme_en": "Historical criminal-review line cited in the filings: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
+      "media_cs": "—",
+      "media_en": "—",
+      "godot_document_ids": [],
+      "slalom_document_ids": [
+        "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+      ],
+      "links": [
+        {
+          "label_cs": "Vše zveřejněné k této kauze →",
+          "label_en": "Everything published on this case →",
+          "href": "https://www.konopijelek.cz/ministerstvo-spravedlnosti/"
+        }
+      ]
+    },
+    {
+      "id": "court-ms-praha-15a44-nss6as207",
+      "court_cs": "Městský soud v Praze / Nejvyšší správní soud",
+      "court_en": "Prague Municipal Court / Supreme Administrative Court",
+      "reference": "15 A 44/2026 → 6 As 207/2026",
+      "case_ids": [
+        "case-cz-ms-praha-15a44-2026"
+      ],
+      "merit_cs": "Zásahová žaloba proti Ministerstvu vnitra ve věci odpovědnosti za postup policie a metodické otázky stanovení legality konopí. Městský soud žalobu odmítl; větev pokračuje kasační stížností u Nejvyššího správního soudu.",
+      "merit_en": "Intervention action against the Ministry of the Interior concerning responsibility for police conduct and methodological questions in determining cannabis legality. The Municipal Court rejected the action; the branch continues by cassation complaint before the Supreme Administrative Court.",
+      "remedy_cs": "25. 8. 2026 · MS Praha 15 A 44/2026-43 žalobu odmítl. Navazuje kasační řízení NSS 6 As 207/2026.",
+      "remedy_en": "25 August 2026 · Prague Municipal Court 15 A 44/2026-43 rejected the action. Supreme Administrative Court cassation case 6 As 207/2026 follows.",
+      "supreme_cs": "NSS 6 As 207/2026. Historická trestní linie uváděná v podáních: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
+      "supreme_en": "Supreme Administrative Court 6 As 207/2026. Historical criminal-review line cited in the filings: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
+      "media_cs": "—",
+      "media_en": "—",
+      "godot_document_ids": [
+        "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43",
+        "doc-cz-nss-2026-09-04-6-as-207-2026-13",
+        "doc-cz-nss-2026-09-22-6-as-207-2026-26"
+      ],
+      "slalom_document_ids": [
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+      ],
+      "links": [
+        {
+          "label_cs": "Vše zveřejněné k této kauze →",
+          "label_en": "Everything published on this case →",
+          "href": "https://www.konopijelek.cz/ministerstvo-vnitra/"
+        }
+      ]
+    },
+    {
+      "id": "court-ms-praha-health",
+      "court_cs": "Městský soud v Praze",
+      "court_en": "Prague Municipal Court",
+      "reference": "8 Ad 9/2026 (MZ) / 15 Ad 14/2026 (SÚKL)",
+      "case_ids": [
+        "case-cz-ms-praha-8ad9-2026",
+        "case-cz-ms-praha-15-ad-14-2026"
+      ],
+      "merit_cs": "Zdravotnická větev: zásahové žaloby proti Ministerstvu zdravotnictví a SÚKL. Jádrem jsou tvrzení a regulatorní postupy kolem léčebného konopí, eReceptu a označení konopí jako vysoce návykové látky. Obě žaloby byly v prvním stupni odmítnuty; u SÚKL je podle poučení možná kasační stížnost po doručení.",
+      "merit_en": "Health-regulation branch: intervention actions against the Ministry of Health and SÚKL. The core concerns regulatory statements and conduct around medical cannabis, ePrescription and the description of cannabis as a highly addictive substance. Both first-instance actions were rejected; the SÚKL order permits a cassation complaint after service.",
+      "remedy_cs": "28. 8. 2026 · 8 Ad 9/2026-85 (MZ) – žaloba odmítnuta. 6. 10. 2026 · 15 Ad 14/2026-13 (SÚKL) – žaloba odmítnuta; dvoutýdenní kasační lhůta běží až od doručení, jehož datum zatím není doloženo.",
+      "remedy_en": "28 August 2026 · 8 Ad 9/2026-85 (Ministry of Health) – action rejected. 6 October 2026 · 15 Ad 14/2026-13 (SÚKL) – action rejected; the two-week cassation period runs from service, whose date is not yet established.",
+      "supreme_cs": "Historická trestní linie uváděná v podáních: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
+      "supreme_en": "Historical criminal-review line cited in the filings: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
+      "media_cs": "—",
+      "media_en": "—",
+      "godot_document_ids": [
+        "doc-cz-ms-pha-2026-08-28-8-ad-9-2026-85",
+        "doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13",
+        "doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17"
+      ],
+      "slalom_document_ids": [
+        "doc-cs-dd-2026-08-31-slalom-augsep-043"
+      ],
+      "links": [
+        {
+          "label_cs": "Vše zveřejněné k této kauze →",
+          "label_en": "Everything published on this case →",
+          "href": "https://www.konopijelek.cz/ministerstvo-zdravotnictvi/"
+        }
+      ]
+    },
+    {
+      "id": "court-ms-praha-45t1",
+      "court_cs": "Městský soud v Praze",
+      "court_en": "Prague Municipal Court",
+      "reference": "45 T 1/2024 / VS Praha 11 To 88/2024-2990",
+      "case_ids": [
+        "case-cz-ms-praha-45t1-2024"
+      ],
+      "merit_cs": "Trestní věc po zrušení části rozsudku Vrchním soudem v Praze. Pro zveřejnění je klíčové dokazování legality konopí: původ a reprezentativnost vzorku, použitá analytická metoda, rozlišení THC/THCA a nejistota měření. Věc byla vrácena k novému projednání.",
+      "merit_en": "Criminal case after the Prague High Court quashed part of the judgment. Publication focuses on evidentiary questions central to cannabis legality: sample origin and representativeness, analytical method, THC/THCA distinction and measurement uncertainty. The case was returned for a new hearing.",
+      "remedy_cs": "29. 7. 2025 · Vrchní soud v Praze 11 To 88/2024-2990 zrušil příslušné výroky rozsudku MS Praha 45 T 1/2024-2430 a věc vrátil.",
+      "remedy_en": "29 July 2025 · Prague High Court 11 To 88/2024-2990 quashed the relevant parts of Prague Municipal Court judgment 45 T 1/2024-2430 and returned the case.",
+      "supreme_cs": "—",
+      "supreme_en": "—",
+      "media_cs": "—",
+      "media_en": "—",
+      "godot_document_ids": [],
+      "slalom_document_ids": [],
+      "links": [
+        {
+          "label_cs": "Vše zveřejněné k této kauze →",
+          "label_en": "Everything published on this case →",
+          "href": "https://www.konopijelek.cz/novinky/vrchni-soud-v-praze-dne-29-cervence-2025-cj-11-to-88-2024-2990/"
+        }
+      ]
+    },
+    {
+      "id": "court-ostrava-15t11-5to248",
+      "court_cs": "Okresní soud v Ostravě / Krajský soud v Ostravě",
+      "court_en": "Ostrava District Court / Ostrava Regional Court",
+      "reference": "15 T 11/2025 → 5 To 248/2026",
+      "case_ids": [
+        "case-cz-os-ostrava-15t11-2025"
+      ],
+      "merit_cs": "Ostravská trestní větev. Stížnostní řízení zpochybňuje mimo jiné analytický základ zjištěného obsahu THC a žádá přezkum odběru vzorku, homogenizace, rozlišení THC/THCA, dekarboxylace, SOP, validace, akreditace a nejistoty měření. Stížnostní větev u KS Ostrava je podle evidovaných podkladů aktivní.",
+      "merit_en": "Ostrava criminal branch. The complaint proceeding challenges, among other issues, the analytical basis of the reported THC content and seeks review of sampling, homogenisation, THC/THCA distinction, decarboxylation, SOPs, validation, accreditation and measurement uncertainty. The complaint branch before the Ostrava Regional Court remains active in the recorded material.",
+      "remedy_cs": "Stížnost proti usnesení OS Ostrava z 14. 7. 2026 je vedena u KS Ostrava pod 5 To 248/2026; konečné rozhodnutí zatím v Godotu evidováno není.",
+      "remedy_en": "The complaint against the Ostrava District Court order of 14 July 2026 is pending before the Ostrava Regional Court as 5 To 248/2026; no final decision is yet recorded in Godot.",
+      "supreme_cs": "—",
+      "supreme_en": "—",
+      "media_cs": "—",
+      "media_en": "—",
+      "godot_document_ids": [],
+      "slalom_document_ids": [
+        "doc-cz-gf-jk-2026-10-04-ks-ostrava-5-to-248-sumarizujici-sdeleni"
+      ],
+      "links": [
+        {
+          "label_cs": "Vše zveřejněné k této kauze →",
+          "label_en": "Everything published on this case →",
+          "href": "https://www.konopijelek.cz/novinky/stiznost-ministru-spravedlnosti-na-poruseni-zakona-okresnim-soudem-v-ostrave/"
+        }
+      ]
+    },
+    {
+      "id": "court-media-ct",
+      "court_cs": "Obvodní soud pro Prahu 4",
+      "court_en": "Prague 4 District Court",
+      "reference": "10 C 69/2026 – Česká televize",
+      "case_ids": [
+        "case-cz-os-praha4-10c69-2026"
+      ],
+      "merit_cs": "Civilní mediální žaloba proti České televizi navazující na dlouhodobé spory o nečinnost a zveřejnění odpovědi. První jednání je nařízeno na 24. 11. 2026 ve 13:00. Historická správní větev ukázala, že požadovaný zásah proti ČT nelze získat správní žalobou.",
+      "merit_en": "Civil media action against Czech Television following long-running disputes over inactivity and publication of a reply. The first hearing is scheduled for 24 November 2026 at 13:00. The historical administrative branch established that the sought relief against Czech Television could not be obtained through administrative litigation.",
+      "remedy_cs": "Řízení 10 C 69/2026 je aktivní; meritorní rozhodnutí dosud evidováno není.",
+      "remedy_en": "Case 10 C 69/2026 remains active; no merits decision is recorded.",
+      "supreme_cs": "—",
+      "supreme_en": "—",
+      "media_cs": "Nejvyšší správní soud – 1 As 395/2019-181, rozhodnutí 11. 3. 2020 v historické správní větvi proti ČT.",
+      "media_en": "Supreme Administrative Court – 1 As 395/2019-181, decision of 11 March 2020 in the historical administrative branch concerning Czech Television.",
+      "godot_document_ids": [
+        "doc-cz-os-pha4-2026-09-16-10-c-69-2026-predvolani"
+      ],
+      "slalom_document_ids": [],
+      "links": [
+        {
+          "label_cs": "Vše zveřejněné k této kauze →",
+          "label_en": "Everything published on this case →",
+          "href": "https://www.konopijelek.cz/novinky/zaloba-na-ceskou-televizi-za-cenzuru/"
+        }
+      ],
+      "media_links": [
+        {
+          "label_cs": "NSS 1 As 395/2019 →",
+          "label_en": "Supreme Administrative Court 1 As 395/2019 →",
+          "href": "https://www.konopijelek.cz/novinky/zaloba-na-ceskou-televizi-za-cenzuru/"
+        }
+      ]
+    },
+    {
+      "id": "court-media-ftv-prima",
+      "court_cs": "Vrchní soud v Praze → Obvodní soud pro Prahu 10",
+      "court_en": "Prague High Court → Prague 10 District Court",
+      "reference": "3 Cmo 24/2026-26; původní 3 Cm 2/2026",
+      "case_ids": [
+        "CASE-CZ-VS-PHA-3CMO24-2026"
+      ],
+      "merit_cs": "Edukativní konopná klinika proti FTV Prima / CNN Prima NEWS o uveřejnění zákonné odpovědi na tvrzení odvysílaná 1. 1. 2026. Vrchní soud určil, že jde o zvláštní mediálněprávní nárok na odpověď a že v prvním stupni jsou věcně příslušné okresní soudy; věc má pokračovat u OS Praha 10.",
+      "merit_en": "Educational Cannabis Clinic v FTV Prima / CNN Prima NEWS, seeking publication of a statutory reply to statements broadcast on 1 January 2026. The High Court held that this is a specific media-law right-of-reply claim and that district courts have first-instance subject-matter jurisdiction; the case is to continue before Prague 10 District Court.",
+      "remedy_cs": "14. 9. 2026 · Vrchní soud v Praze 3 Cmo 24/2026-26 zrušil usnesení MS Praha 3 Cm 2/2026-19 a nařídil postoupení OS Praha 10 po právní moci. Proti usnesení není dovolání přípustné.",
+      "remedy_en": "14 September 2026 · Prague High Court 3 Cmo 24/2026-26 quashed Prague Municipal Court order 3 Cm 2/2026-19 and ordered transfer to Prague 10 District Court after finality. No appeal on points of law is admissible.",
+      "supreme_cs": "—",
+      "supreme_en": "—",
+      "media_cs": "Historická mediální větev: NSS 1 As 395/2019. Současná větev: VS Praha 3 Cmo 24/2026-26; navazující doplnění žaloby proti FTV/CNN Prima ze dne 2. 10. 2026 je v Justičním slalomu.",
+      "media_en": "Historical media branch: Supreme Administrative Court 1 As 395/2019. Current branch: Prague High Court 3 Cmo 24/2026-26; the 2 October 2026 follow-up filing against FTV/CNN Prima is in Justice Slalom.",
+      "godot_document_ids": [
+        "doc-cz-vs-pha-2026-09-14-3-cmo-24-2026-26"
+      ],
+      "slalom_document_ids": [
+        "doc-cz-ekk-2026-10-02-os-praha10-ftv-prima-doplneni-zaloby"
+      ],
+      "links": [
+        {
+          "label_cs": "Vše zveřejněné k této kauze →",
+          "label_en": "Everything published on this case →",
+          "href": "https://www.konopijelek.cz/novinky/cnn-prima-news/"
+        }
+      ],
+      "media_links": [
+        {
+          "label_cs": "Vrchní soud 3 Cmo 24/2026-26 →",
+          "label_en": "Prague High Court 3 Cmo 24/2026-26 →",
+          "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/103-vs-praha-3-cmo-24-2026-26-2026-09-14.pdf"
+        },
+        {
+          "label_cs": "CNN/FTV Prima – žaloba 19. 1. 2026 →",
+          "label_en": "CNN/FTV Prima – action filed 19 January 2026 →",
+          "href": "https://www.konopijelek.cz/wp-content/uploads/2026/01/Zaloba-na-FTV-Prima-dne-19.ledna-2026-zaslano-rovnez-FTV-Prima-k-navrh-na-smir.pdf-.pdf"
+        },
+        {
+          "label_cs": "Doplnění žaloby 2. 10. 2026 →",
+          "label_en": "Action supplement 2 October 2026 →",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf"
+        }
+      ]
+    }
+  ]
+}

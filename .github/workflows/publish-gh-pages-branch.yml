@@ -36,6 +36,7 @@ jobs:
         run: |
           node --check scripts/validate-live-dockets-contract.mjs
           node --check scripts/validate-process-chain-contract.mjs
+          node --check scripts/validate-active-court-dockets.mjs
 
       - name: Připravit Python pro ověřenou veřejnou kopii ÚOOÚ
         run: python3 -m pip install --quiet reportlab
@@ -118,8 +119,11 @@ jobs:
       - name: Ověřit rozhodnutí ministra vnitra o rozkladu ze 7. října
         run: node scripts/validate-mv-rozklad-2026-10-07.mjs
 
-      - name: Ověřit tři lišty, barvy a chronologii soudních řízení
+      - name: Ověřit tři lišty, barvy a soudní přehled
         run: node scripts/validate-live-dockets-contract.mjs
+
+      - name: Křížově ověřit Godot, Slalom, cases a soudní tabulku
+        run: node scripts/validate-active-court-dockets.mjs
 
       - name: Ověřit Evidence Lab 2.0 před publikací
         shell: bash
@@ -130,6 +134,9 @@ jobs:
           test -f web/data/build-manifest.json
           test -f web/data/pdf-reconciliation-report.json
           test -f web/data/operations-state.json
+          test -f web/data/active-court-dockets.json
+          test "$(jq -r '.rows | length' web/data/active-court-dockets.json)" = '12'
+          test "$(jq -c '.table_contract.width_percent' web/data/active-court-dockets.json)" = '[42,18,18,12,10]'
           test -f web/data/registry-audit.json
           test -f web/data/godot-pdf-audit.json
 
@@ -232,10 +239,12 @@ jobs:
             sed -E -i "s#href=\"/ai-advocate-evidence-lab/justice-slalom\\.css(\\?v=[^\"]*)?\"#href=\"/ai-advocate-evidence-lab/justice-slalom.css?v=${version}\"#g" "$html_file"
           done < <(find /tmp/verified-site -type f -name '*.html' -print0)
           sed -E -i "s#const cssHref = 'home-rollups\\.css(\\?v=[^']*)?'#const cssHref = 'home-rollups.css?v=${version}'#g" /tmp/verified-site/live-dockets.js /tmp/verified-site/web/live-dockets.js
+          sed -E -i "s#const liveDocketsCssHref = 'live-dockets\\.css(\\?v=[^']*)?'#const liveDocketsCssHref = 'live-dockets.css?v=${version}'#g" /tmp/verified-site/live-dockets.js /tmp/verified-site/web/live-dockets.js
           grep -q "live-dockets.js?v=${version}" /tmp/verified-site/index.html
           grep -q "live-dockets.js?v=${version}" /tmp/verified-site/en.html
           grep -q "news-feed.js?v=${version}" /tmp/verified-site/en.html
           grep -q "home-rollups.css?v=${version}" /tmp/verified-site/live-dockets.js
+          grep -q "live-dockets.css?v=${version}" /tmp/verified-site/live-dockets.js
           touch /tmp/verified-site/.nojekyll
           touch /tmp/verified-site/web/.nojekyll
           printf '%s\n' "$GITHUB_SHA" > /tmp/verified-site/.source-commit
@@ -353,9 +362,18 @@ jobs:
           ! grep -q '<span>MINISTRY OF CULTURE</span><h3>MK 49467/2026 SOCNS</h3>' /tmp/live-kc-en.html
 
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/live-dockets.js$stamp" -o /tmp/live-dockets.js
-          for required in "6 As 207/2026" "15 A 44/2026" "15 Ad 14/2026" "8 Ad 9/2026" "9 To 315/2026" "9 To 316/2026" "15 Nt 3104/2026" "2 T 104/2010" "15 Nt 3106/2026" "2 T 65/2011" "https://www.konopijelek.cz/" "Konopí je lék.cz →"; do
-            grep -q "$required" /tmp/live-dockets.js
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/live-dockets.css$stamp" -o /tmp/live-dockets.css
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/data/active-court-dockets.json$stamp" -o /tmp/live-active-court-dockets.json
+          test "$(jq -r '.rows | length' /tmp/live-active-court-dockets.json)" = '12'
+          test "$(jq -c '.table_contract.width_percent' /tmp/live-active-court-dockets.json)" = '[42,18,18,12,10]'
+          for required in "6 As 207/2026" "15 A 44/2026" "15 Ad 14/2026" "8 Ad 9/2026" "9 To 315/2026" "9 To 316/2026" "15 Nt 3104/2026" "2 T 104/2010" "15 Nt 3106/2026" "2 T 65/2011" "1 As 395/2019" "3 Cmo 24/2026-26" "II. ÚS 664/12" "III. ÚS 396/16"; do
+            grep -q "$required" /tmp/live-active-court-dockets.json
           done
+          grep -q "const registryUrl = '/ai-advocate-evidence-lab/data/active-court-dockets.json'" /tmp/live-dockets.js
+          grep -q "className = 'docket-bar-stack'" /tmp/live-dockets.js
+          grep -q 'position:sticky' /tmp/live-dockets.css
+          grep -q '.live-dockets .active-courts-table th:nth-child(1){width:42%}' /tmp/live-dockets.css
+          ! grep -q '"href": "https://www.konopijelek.cz/"' /tmp/live-active-court-dockets.json
 
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/zpravy/index.html$stamp" -o /tmp/live-news-archive-cz.html
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/news/index.html$stamp" -o /tmp/live-news-archive-en.html

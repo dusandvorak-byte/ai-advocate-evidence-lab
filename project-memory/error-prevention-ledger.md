@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Aktivní soudní řízení nesmějí být ručně oddělená od Godota a Justičního slalomu
+
+- Projev: titulní lišta soudních řízení byla statické pole v `live-dockets.js`; mohla proto dál uvádět starý procesní stav i poté, co do Godota přišlo nové soudní rozhodnutí nebo do Justičního slalomu nový opravný prostředek. Odkazy navíc vedly na obecnou homepage Konopí je lék.cz.
+- Příčina: soudní přehled neměl vlastní kanonický registr ani křížovou validační vazbu na dokumenty státu, vlastní obranu a `cases.json`.
+- Náprava: zaveden `project-memory/active-court-dockets.json`, generovaný veřejný `web/data/active-court-dockets.json` a validační kontrakt Godot ↔ Slalom ↔ cases ↔ soudní přehled. Poslední sloupec vyžaduje konkrétní deep-link; obecný homepage odkaz je zakázán.
+- Pojistka: změna rozhodnutí nebo obrany, která není propsána do příslušné soudní větve, musí zastavit build. Tři hlavní lišty jsou samostatný sticky ovládací blok, aby všechny zůstaly viditelné i při rozbalení dlouhé tabulky.
+
 ### Datumová validační brána nesmí předpokládat, že historický den zůstane nahoře navždy
 
 - Projev: po přidání správně novějších podání z 6. a 8. 10. 2026 selhala produkce na validatoru podání z 4. 10., protože vyžadoval jejich přítomnost mezi prvními 11 řádky celé chronologie.
