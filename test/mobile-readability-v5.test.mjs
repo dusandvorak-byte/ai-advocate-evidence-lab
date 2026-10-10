@@ -59,11 +59,14 @@ for (const path of phonePages) {
     /<meta[^>]+name="viewport"[^>]+content="width=device-width,\s*initial-scale=1"/i,
     `${path} must retain a true device-width viewport`,
   );
-  assert.match(
-    html,
-    /<link[^>]+href="(?:\.\.\/|\/ai-advocate-evidence-lab\/)?brand\.css(?:\?[^"]*)?"/i,
-    `${path} must load the shared mobile stylesheet through a valid relative or project-root URL`,
-  );
+  const isRedirectStub = /<meta[^>]+http-equiv="refresh"/i.test(html);
+  if (!isRedirectStub) {
+    assert.match(
+      html,
+      /<link[^>]+href="(?:\.\.\/|\/ai-advocate-evidence-lab\/)?brand\.css(?:\?[^"]*)?"/i,
+      `${path} must load the shared mobile stylesheet through a valid relative or project-root URL`,
+    );
+  }
 }
 
 console.log(`Mobile readability v5: ${phonePages.length} representative pages passed`);
