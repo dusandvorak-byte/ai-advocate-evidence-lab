@@ -100,6 +100,9 @@ jobs:
       - name: Obnovit společnou jazykovou nabídku po všech generátorech
         run: node scripts/build-language-access.mjs
 
+      - name: Ověřit mobilní čitelnost a plnou šířku hlavního článku
+        run: node test/mobile-readability-v5.test.mjs
+
       - name: Ověřit archiv podání, příjemce, PDF a nepřítomnost časovačů
         run: node scripts/validate-justice-slalom.mjs
 

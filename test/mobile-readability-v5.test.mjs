@@ -37,6 +37,21 @@ assert.match(
 );
 assert.match(css, /@media \(max-width: 390px\)/);
 
+const mobileLeadGuard = 'Mobile lead-card regression guard — 10 October 2026';
+const guardIndex = css.lastIndexOf(mobileLeadGuard);
+const desktopLeadIndex = css.lastIndexOf('grid-template-columns: minmax(300px, 1.08fr) minmax(0, 1fr)');
+assert.ok(guardIndex > desktopLeadIndex, 'Mobile lead-card guard must come after the last desktop two-column lead rule');
+assert.match(
+  css.slice(guardIndex),
+  /@media \(max-width: 980px\)[\s\S]*main:not\(\.article-shell\) > \.news-lead > \.lead-card:only-child[\s\S]*grid-template-columns:\s*minmax\(0,\s*1fr\)/,
+  'Phone/tablet lead card must end as a single full-width column',
+);
+assert.match(
+  css.slice(guardIndex),
+  /\.lead-card:only-child > div[\s\S]*width:\s*100%[\s\S]*min-width:\s*0/,
+  'Lead text column must be allowed to occupy the full mobile width',
+);
+
 for (const path of phonePages) {
   const html = await readFile(path, 'utf8');
   assert.match(

@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Pozdější desktopové CSS nesmí znovu rozdělit mobilní hlavní článek na dva sloupce
+
+- Projev: na telefonu byl začátek titulní stránky čitelný, ale hlavní naposledy zveřejněný článek se níže na stránce smrskl do úzkého pravého proužku; text se lámal téměř po písmenech a většina šířky zůstávala nevyužitá.
+- Příčina: starší `@media (max-width: 980px)` správně nastavilo `.lead-card` na jeden sloupec, ale později v témže `brand.css` následovala desktopová vrstva Newsroom v3 s `grid-template-columns: minmax(300px, 1.08fr) minmax(0, 1fr)`. Kvůli pořadí v kaskádě tato pozdější deklarace na telefonu znovu vytvořila dva sloupce; první měl minimálně 300 px a textovému druhému sloupci zbyl jen úzký pravý pruh.
+- Náprava: na úplný konec `brand.css` je přidána finální mobilní pojistka do 980 px, která vynutí `.news-lead` i jeho jediný `.lead-card` na jednu plnou šířku a nastaví obrazovou i textovou část na `width:100%; min-width:0`.
+- Pojistka: `test/mobile-readability-v5.test.mjs` kontroluje nejen existenci pravidla, ale i to, že se nachází až za posledním desktopovým dvousloupcovým pravidlem. PR i produkční build test spouštějí a live gate navíc ověřuje nasazený `brand.css`.
+
 ### Produkční gate nesmí hlídat layout, který byl záměrně nahrazen novým kanonickým komponentem
 
 - Projev: nový soudní registr, tabulka i křížová validace prošly, ale produkční workflow se zastavilo před publikací, protože souhrnný shell stále vyžadoval staré CSS `grid-template-columns:260px minmax(0,1fr)` a historické selektory `.nav-courts`.

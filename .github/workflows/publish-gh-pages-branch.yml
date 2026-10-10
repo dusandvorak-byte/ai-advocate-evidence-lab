@@ -83,6 +83,9 @@ jobs:
       - name: Obnovit společnou jazykovou nabídku po všech generátorech
         run: node scripts/build-language-access.mjs
 
+      - name: Ověřit mobilní čitelnost a plnou šířku hlavního článku
+        run: node test/mobile-readability-v5.test.mjs
+
       - name: Ověřit archiv podání, příjemce, PDF a nepřítomnost časovačů
         run: node scripts/validate-justice-slalom.mjs
 
@@ -416,7 +419,11 @@ jobs:
           grep -q 'documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf' /tmp/live-current-article.html
           grep -q 'documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf' /tmp/live-current-article.html
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/styles.css$stamp" -o /tmp/live-styles.css
+          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/brand.css$stamp" -o /tmp/live-brand.css
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/justice-slalom.css$stamp" -o /tmp/live-justice-slalom.css
+          grep -q 'Mobile lead-card regression guard — 10 October 2026' /tmp/live-brand.css
+          grep -q 'main:not(.article-shell) > .news-lead > .lead-card:only-child' /tmp/live-brand.css
+          grep -q 'grid-template-columns: minmax(0, 1fr)' /tmp/live-brand.css
           grep -q '.justice-slalom .state-love-table{width:100%;min-width:0}' /tmp/live-justice-slalom.css
           grep -q '.justice-slalom .state-love-table th:nth-child(1){width:5%}' /tmp/live-justice-slalom.css
           grep -q '.justice-slalom .state-love-table th:nth-child(4){width:8%}' /tmp/live-justice-slalom.css
