@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Čerstvě publikovaný CSS artefakt se musí v live gate ověřovat s retry na obsah, ne jedním curl
+
+- Projev: produkční workflow #619 správně sestavil a publikoval nový `brand.css` do `gh-pages`, ale live gate skončil chybou několik sekund po pushi, protože CDN ještě vrátila předchozí verzi bez nového mobilního guardu.
+- Příčina: síťový `curl --retry` opakoval pouze transportní chyby; nečekal na obsahovou propagaci nového CSS.
+- Náprava: live gate stahuje `brand.css` až 12krát s cache-busting parametrem a mezi pokusy čeká 5 sekund, dokud soubor neobsahuje všechny tři semantické markery mobilní opravy.
+- Pojistka: nový či změněný statický asset, jehož obsah se ověřuje bezprostředně po Pages pushi, musí mít freshness retry podle očekávaného obsahu nebo hash, stejně jako PDF a dynamické HTML.
+
 ### Mobilní stylesheet se nevyžaduje na čistém redirect stubu
 
 - Projev: mobile-readability test odmítl historickou adresu `web/news/23072026-003.html`, která obsahuje pouze okamžitý meta-refresh na sloučený report a záměrně nenačítá `brand.css`.
