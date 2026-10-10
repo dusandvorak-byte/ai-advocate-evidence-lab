@@ -61,8 +61,8 @@ for (const path of phonePages) {
   );
   assert.match(
     html,
-    /<link[^>]+href="brand\.css"/i,
-    `${path} must load the shared mobile stylesheet`,
+    /<link[^>]+href="(?:\.\.\/|\/ai-advocate-evidence-lab\/)?brand\.css(?:\?[^"]*)?"/i,
+    `${path} must load the shared mobile stylesheet through a valid relative or project-root URL`,
   );
 }
 

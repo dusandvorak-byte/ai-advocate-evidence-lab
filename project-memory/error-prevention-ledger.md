@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Mobilní test musí akceptovat kanonickou absolutní cestu sdíleného stylesheetu
+
+- Projev: nově zapojený mobile-readability test odmítl `web/kc/en.html`, přestože stránka správně načítala `/ai-advocate-evidence-lab/brand.css`.
+- Příčina: starý test připouštěl pouze doslovné `href="brand.css"` a nepočítal s legitimní projektovou absolutní cestou používanou sesterskými plochami.
+- Náprava: test akceptuje relativní, nadřazenou i projektovou absolutní cestu k témuž `brand.css`, včetně cache-busting query.
+- Pojistka: mobilní kontrakt ověřuje skutečné použití sdíleného stylesheetu, nikoli jedinou syntaktickou podobu URL.
+
 ### Pozdější desktopové CSS nesmí znovu rozdělit mobilní hlavní článek na dva sloupce
 
 - Projev: na telefonu byl začátek titulní stránky čitelný, ale hlavní naposledy zveřejněný článek se níže na stránce smrskl do úzkého pravého proužku; text se lámal téměř po písmenech a většina šířky zůstávala nevyužitá.
