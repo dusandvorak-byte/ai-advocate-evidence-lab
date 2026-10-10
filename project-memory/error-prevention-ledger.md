@@ -19,8 +19,8 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 - Projev: mobile-readability test odmítl historickou adresu `web/news/23072026-003.html`, která obsahuje pouze okamžitý meta-refresh na sloučený report a záměrně nenačítá `brand.css`.
 - Příčina: test nerozlišoval obsahové HTML od minimálního přesměrovacího stubu.
-- Náprava: viewport se kontroluje u všech HTML; požadavek na `brand.css` se přeskočí pouze u stránky s explicitním `http-equiv="refresh"`.
-- Pojistka: výjimka je vázána na skutečný redirect marker, ne na název souboru nebo adresář.
+- Náprava: čisté redirect stuby s explicitním `http-equiv="refresh"` se z testu mobilní čitelnosti vyřadí celé; nejde o obsahové stránky. U všech ostatních HTML se nadále povinně kontroluje device-width viewport i sdílený `brand.css`.
+- Pojistka: výjimka je vázána výhradně na skutečný redirect marker, ne na název souboru nebo adresář.
 
 ### Mobilní test musí akceptovat kanonickou absolutní cestu sdíleného stylesheetu
 

@@ -54,19 +54,18 @@ assert.match(
 
 for (const path of phonePages) {
   const html = await readFile(path, 'utf8');
+  const isRedirectStub = /<meta[^>]+http-equiv="refresh"/i.test(html);
+  if (isRedirectStub) continue;
   assert.match(
     html,
     /<meta[^>]+name="viewport"[^>]+content="width=device-width,\s*initial-scale=1"/i,
     `${path} must retain a true device-width viewport`,
   );
-  const isRedirectStub = /<meta[^>]+http-equiv="refresh"/i.test(html);
-  if (!isRedirectStub) {
-    assert.match(
-      html,
-      /<link[^>]+href="(?:\.\.\/|\/ai-advocate-evidence-lab\/)?brand\.css(?:\?[^"]*)?"/i,
-      `${path} must load the shared mobile stylesheet through a valid relative or project-root URL`,
-    );
-  }
+  assert.match(
+    html,
+    /<link[^>]+href="(?:\.\.\/|\/ai-advocate-evidence-lab\/)?brand\.css(?:\?[^"]*)?"/i,
+    `${path} must load the shared mobile stylesheet through a valid relative or project-root URL`,
+  );
 }
 
 console.log(`Mobile readability v5: ${phonePages.length} representative pages passed`);
