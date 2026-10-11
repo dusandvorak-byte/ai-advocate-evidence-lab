@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Příloha vlastního podání nesmí automaticky založit procesní časovač
+
+- Projev: pracovní návrh ústavní stížnosti přiložený k žádosti ČAK byl po zařazení jako `user_submission_attachment` mylně zachycen detektorem slova „stížnost“ a build požadoval samostatný překlad časovače.
+- Příčina: odvození opravných prostředků filtrovalo naše výstupy podle textu, ale nevylučovalo dokumenty klasifikované jako přílohy.
+- Náprava: `build-process-timers.mjs` výslovně vylučuje `user_submission_attachment`; procesní časovač vzniká z vlastního procesního podání, nikoli z jeho důkazní či pracovní přílohy.
+
+
 ### Čerstvě publikovaný CSS artefakt se musí v live gate ověřovat s retry na obsah, ne jedním curl
 
 - Projev: produkční workflow #619 správně sestavil a publikoval nový `brand.css` do `gh-pages`, ale live gate skončil chybou několik sekund po pushi, protože CDN ještě vrátila předchozí verzi bez nového mobilního guardu.

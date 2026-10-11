@@ -104,7 +104,7 @@ const resolvedRemedyDocumentIds = new Set(
       .filter(rel => rel.type === 'resolves' && rel.target_id)
       .map(rel => rel.target_id))
 );
-const outgoing = documents.filter(doc => doc.submission_side === 'outgoing_from_user_or_alliance' && doc.issue_date >= remedySince && !doc.justice_slalom);
+const outgoing = documents.filter(doc => doc.submission_side === 'outgoing_from_user_or_alliance' && doc.issue_date >= remedySince && !doc.justice_slalom && doc.document_type !== 'user_submission_attachment');
 const remedyDocuments = outgoing.filter(doc => {
   if (resolvedRemedyDocumentIds.has(doc.id)) return false;
   const text = [doc.user_title, doc.reference, doc.document_type, ...(doc.topics || [])].filter(Boolean).join(' ');

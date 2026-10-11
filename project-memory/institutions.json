@@ -449,6 +449,20 @@
       "type": "bank_ombudsman",
       "name": "Ombudsman Raiffeisenbank a.s.",
       "short_name": "Ombudsman Raiffeisenbank"
+    },
+    {
+      "id": "CZ-NS",
+      "country": "CZ",
+      "type": "court",
+      "name": "Nejvyšší soud",
+      "short_name": "NS"
+    },
+    {
+      "id": "CZ-CAK",
+      "country": "CZ",
+      "type": "professional_association",
+      "name": "Česká advokátní komora",
+      "short_name": "ČAK"
     }
   ]
 }
