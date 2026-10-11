@@ -66,6 +66,8 @@ for (const doc of entries) {
         'CZ-VSZ-PHA': 'Prague High Public Prosecutor’s Office',
         'CZ-MS-PHA': 'Prague Municipal Court',
         'CZ-NSZ': 'Supreme Public Prosecutor’s Office',
+        'CZ-NS': 'Supreme Court of the Czech Republic',
+        'CZ-CAK': 'Czech Bar Association',
         'CZ-UOOU': 'Office for Personal Data Protection',
         'CZ-OSZ-PV': 'Prostějov District Public Prosecutor’s Office',
         'CZ-OS-PRO': 'Prostějov District Court',

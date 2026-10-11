@@ -1,0 +1,199 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-10",
+  "purpose": "Tři uživatelem doložené PDF ze dne 10. října 2026: společná žádost o informace s trestním podnětem v části pro NSZ a Policii ČR; naléhavá žádost ČAK a Unii obhájců o advokáta pro bono; pracovní návrh ústavní stížnosti jako příloha žádosti, nikoli jako již podaná ústavní stížnost.",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-10-10-ns-nsz-msp-mv-ppr-infz-tp",
+      "user_title": "Žádost o poskytnutí informací spojená pro NSZ a Policii ČR s trestním podnětem",
+      "issue_date": "2026-10-10",
+      "received_date": "2026-10-10",
+      "institution_id": "CZ-DD",
+      "reference": "8 Tdo 1231/2011 až 11 Tdo 674/2020; 6 NZN 1737/2026; 18 A 23/2026; 15 A 44/2026; 18 A 17/2026",
+      "case_ids": [
+        "CASE-CZ-NSZ-6NZN1737-2026",
+        "case-cz-ms-praha-18a23-2026",
+        "case-cz-ms-praha-18a17-2026",
+        "case-cz-ms-praha-15a44-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "InfZ",
+        "trestní podnět",
+        "Nejvyšší soud",
+        "NSZ",
+        "Ministerstvo spravedlnosti",
+        "Ministerstvo vnitra",
+        "Policejní prezidium",
+        "THC",
+        "THCA",
+        "dekarboxylace",
+        "forenzní metodika"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/101-podani-2026-10-10-ns-nsz-msp-mv-pp.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/101-podani-2026-10-10-ns-nsz-msp-mv-pp.pdf",
+        "sha256": "e644097d9eac6d77fcc24ed3bc4ec7a5f6d1fa21a570603f1469ff164bf4a429",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 14_pages",
+        "source_original_sha256": "e644097d9eac6d77fcc24ed3bc4ec7a5f6d1fa21a570603f1469ff164bf4a429",
+        "source_original_size_bytes": 269414,
+        "source_original_page_count": 14,
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-10-justice-slalom.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship_and_user_instruction_to_publish_in_justice_slalom",
+      "evidence_note": "Podání je datováno 10. 10. 2026 a bylo podle titulní strany odesláno datovou schránkou žadatele. Pět adresátů tvoří Nejvyšší soud, Nejvyšší státní zastupitelství, Ministerstvo spravedlnosti, Ministerstvo vnitra a Policejní prezidium. Samotný trestní podnět je v titulku výslovně určen pouze NSZ a Policii ČR; u ostatních adresátů jde o žádost podle zákona č. 106/1999 Sb. Veřejný PDF soubor je byte-identický s nahraným originálem.",
+      "justice_slalom": {
+        "archive_number": 146,
+        "archive_name": "NSZ-MSP- NSS- MV - PP- a NS - žádost o informaci a TP dne 10.října 2026- naléhavé - zdůvodněno.pdf",
+        "source_sha256": "e644097d9eac6d77fcc24ed3bc4ec7a5f6d1fa21a570603f1469ff164bf4a429",
+        "source_kind": "original_pdf_uploaded_by_user",
+        "recipients": [
+          {
+            "institution_id": "CZ-NS",
+            "role": "primary",
+            "reference": "8 Tdo 1231/2011 až 11 Tdo 674/2020; 11 Tdo 181/2015; Zin 38/2016",
+            "subject_cs": "Žádost o poskytnutí informací k rozhodnutím a metodice stanovení THC",
+            "subject_en": "Information request concerning decisions and the methodology for determining THC"
+          },
+          {
+            "institution_id": "CZ-NSZ",
+            "role": "primary",
+            "reference": "6 NZN 1737/2026; 1 NZO 84/2015-11; 1 NZO 84/2015-14",
+            "subject_cs": "Žádost o informace a trestní podnět k metodice stanovení THC, THCA a znalecké praxi",
+            "subject_en": "Information request and criminal complaint concerning THC/THCA methodology and forensic practice"
+          },
+          {
+            "institution_id": "CZ-MSP",
+            "role": "primary",
+            "reference": "18 A 23/2026; MSP-674/2024-ODKA-SPZ; MSP-19/2026-ODKA-ROZ; MSP-162/2026-ODKA-SPZ",
+            "subject_cs": "Žádost o poskytnutí informací k rozhodnutím a metodice stanovení THC",
+            "subject_en": "Information request concerning decisions and the methodology for determining THC"
+          },
+          {
+            "institution_id": "CZ-MV",
+            "role": "primary",
+            "reference": "15 A 44/2026; MV-108890-3/TP-2026; MV-97289/TP-2026; MV-114818/TP-2026",
+            "subject_cs": "Žádost o poskytnutí informací k rozhodnutím a metodice stanovení THC",
+            "subject_en": "Information request concerning decisions and the methodology for determining THC"
+          },
+          {
+            "institution_id": "CZ-PCR-PP",
+            "role": "primary",
+            "reference": "18 A 17/2026; PPR-43826/ČJ-2026-990210-PD; PPR-44020/ČJ-2026-990210-PD; PPR-52605/ČJ-2026-990210-PD",
+            "subject_cs": "Žádost o informace a trestní podnět k metodice stanovení THC, THCA a znalecké praxi",
+            "subject_en": "Information request and criminal complaint concerning THC/THCA methodology and forensic practice"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-dd-2026-10-10-cak-uocr-pro-bono",
+      "user_title": "Naléhavá žádost o určení advokáta k bezplatné právní službě",
+      "issue_date": "2026-10-10",
+      "received_date": "2026-10-10",
+      "institution_id": "CZ-DD",
+      "reference": "§ 18c zákona č. 85/1996 Sb.; 9 To 315/2026-140; 9 To 316/2026-219; 15 Nt 3104/2026; 15 Nt 3106/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "Česká advokátní komora",
+        "Unie obhájců ČR",
+        "pro bono",
+        "ústavní stížnost",
+        "obnova řízení",
+        "30. listopadu 2026",
+        "THC",
+        "THCA"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/102-podani-2026-10-10-cak-uocr-pro-bono.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/102-podani-2026-10-10-cak-uocr-pro-bono.pdf",
+        "sha256": "75745baaf4379b47022b705ff0be93e3da4dff0bc089f0be9dd13a418c5a1c52",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 4_pages",
+        "source_original_sha256": "75745baaf4379b47022b705ff0be93e3da4dff0bc089f0be9dd13a418c5a1c52",
+        "source_original_size_bytes": 163177,
+        "source_original_page_count": 4,
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-10-justice-slalom.json"
+      },
+      "relations": [
+        {
+          "type": "ma_prilohu",
+          "target_id": "doc-cz-dd-2026-10-10-navrh-ustavni-stiznosti-priloha"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship_and_user_instruction_to_publish_in_justice_slalom",
+      "evidence_note": "Žádost ze dne 10. 10. 2026 je adresována České advokátní komoře a na vědomí se žádostí o součinnost Unii obhájců České republiky. Žádá bezplatnou právní službu k dokončení a podání ústavní stížnosti a k zastoupení při avizovaném veřejném zasedání dne 30. 11. 2026. Veřejný PDF soubor je byte-identický s nahraným originálem.",
+      "justice_slalom": {
+        "archive_number": 147,
+        "archive_name": "ČAK a Unii dne 10.října 2026 - žádost o advokáta pro bono.pdf",
+        "source_sha256": "75745baaf4379b47022b705ff0be93e3da4dff0bc089f0be9dd13a418c5a1c52",
+        "source_kind": "original_pdf_uploaded_by_user",
+        "recipients": [
+          {
+            "institution_id": "CZ-CAK",
+            "role": "primary",
+            "reference": "§ 18c zákona č. 85/1996 Sb.; 9 To 315/2026-140; 9 To 316/2026-219",
+            "subject_cs": "Naléhavá žádost o určení advokáta k bezplatné právní službě pro ústavní stížnost a obnovu řízení",
+            "subject_en": "Urgent request for appointment of a lawyer for free legal assistance with a constitutional complaint and reopening proceedings"
+          },
+          {
+            "institution_id": "CZ-UOCR",
+            "role": "copy",
+            "reference": "Stanovisko Unie obhájců ČR č. 3/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+            "subject_cs": "Žádost o součinnost a doporučení advokáta pro ústavní stížnost a obnovu řízení",
+            "subject_en": "Request for cooperation and recommendation of counsel for a constitutional complaint and reopening proceedings"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-dd-2026-10-10-navrh-ustavni-stiznosti-priloha",
+      "user_title": "Návrh ústavní stížnosti proti usnesením 9 To 315/2026 a 9 To 316/2026 – pracovní návrh pro advokáta",
+      "issue_date": "2026-10-10",
+      "received_date": "2026-10-10",
+      "institution_id": "CZ-DD",
+      "reference": "9 To 315/2026-140; 9 To 316/2026-219; 15 Nt 3103/2026-53; 15 Nt 3105/2026-54",
+      "case_ids": [],
+      "document_type": "user_submission_attachment",
+      "topics": [
+        "ústavní stížnost",
+        "pracovní návrh",
+        "příloha žádosti ČAK",
+        "9 To 315/2026",
+        "9 To 316/2026",
+        "čl. 36 Listiny",
+        "předběžná otázka SDEU"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/103-priloha-2026-10-10-navrh-ustavni-stiznosti.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/103-priloha-2026-10-10-navrh-ustavni-stiznosti.pdf",
+        "sha256": "f48580f9a96956223769bfb621f36133d33cda9ac997846302288bcbee6d5b0d",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 4_pages",
+        "source_original_sha256": "f48580f9a96956223769bfb621f36133d33cda9ac997846302288bcbee6d5b0d",
+        "source_original_size_bytes": 166816,
+        "source_original_page_count": 4,
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-10-justice-slalom.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-dd-2026-10-10-cak-uocr-pro-bono"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "attachment_to_user_submission",
+      "evidence_note": "Tento dokument je v žádosti České advokátní komoře výslovně označen jako pracovní návrh pro advokáta. Není evidován jako již podaná ústavní stížnost Ústavnímu soudu a proto nevytváří samostatný řádek Justičního slalomu. Byte-identický originál je veřejně uložen jako příloha k podání ze dne 10. 10. 2026."
+    }
+  ]
+}
