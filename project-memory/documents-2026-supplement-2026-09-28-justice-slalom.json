@@ -1391,19 +1391,22 @@
       "public": {
         "html": null,
         "pdf": "documents/report-25072026-007/02-predzalobni-vyzva-nsz-2026-07-14-original.pdf",
-        "sha256": "4ceee59df22788ebe2296a2dc457cc4b7e5f97c624854b90f2bf6ff769591703",
-        "verification_status": "source_pdf_received_binary_original",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom.json"
+        "sha256": "faba01028bbe37783e907a92741277893e2695d81f50887cc51bd80e7f5776a2",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 24_pages; author_confirmed_sent_via_data_box_2026-10-11",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom.json",
+        "source_original_sha256": "faba01028bbe37783e907a92741277893e2695d81f50887cc51bd80e7f5776a2",
+        "source_original_size_bytes": 974358,
+        "source_original_page_count": 24
       },
       "relations": [],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship",
-      "evidence_note": "Podání č. 35 ze souboru poskytnutého autorem; datum a adresáti ověřeni proti textu PDF. Originální soubor SHA-256 4ceee59df22788ebe2296a2dc457cc4b7e5f97c624854b90f2bf6ff769591703.",
+      "evidence_note": "Podání č. 35 ze dne 14. 7. 2026. Autor dne 11. 10. 2026 výslovně potvrdil, že právě toto 24stránkové PDF je originál skutečně odeslaný Nejvyššímu státnímu zastupitelství datovou schránkou; nahrazuje dříve zveřejněnou variantu. Byte-identický originál má SHA-256 faba01028bbe37783e907a92741277893e2695d81f50887cc51bd80e7f5776a2.",
       "justice_slalom": {
         "archive_number": 35,
         "archive_name": "35-NSZ ze dne 14.července 2026 a doplnění předžalobní výzvy.pdf",
-        "source_sha256": "4ceee59df22788ebe2296a2dc457cc4b7e5f97c624854b90f2bf6ff769591703",
-        "source_kind": "original_pdf_in_user_archive",
+        "source_sha256": "faba01028bbe37783e907a92741277893e2695d81f50887cc51bd80e7f5776a2",
+        "source_kind": "original_pdf_uploaded_by_user",
         "recipients": [
           {
             "institution_id": "CZ-NSZ",
@@ -1412,7 +1415,9 @@
             "subject_cs": "Doplnění předžalobní výzvy NSZ s přiloženým původním podáním",
             "subject_en": "Supplement to the NSZ pre-action demand with the original submission attached"
           }
-        ]
+        ],
+        "delivery_channel": "datova_schranka",
+        "delivery_channel_basis": "explicit_author_confirmation_2026-10-11"
       }
     },
     {
