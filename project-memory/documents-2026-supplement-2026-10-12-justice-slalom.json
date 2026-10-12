@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-12",
+  "purpose": "Žádost podle zákona č. 106/1999 Sb. ze dne 12. října 2026 zaslaná datovou schránkou Okresnímu státnímu zastupitelství v Prostějově a Okresnímu soudu v Prostějově; veřejná kopie chrání jiné fyzické osoby a přímé identifikátory.",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-10-12-osz-os-pro-infz-thc-obnova",
+      "user_title": "Žádost o poskytnutí informací – OSZ a OS Prostějov",
+      "issue_date": "2026-10-12",
+      "received_date": "2026-10-12",
+      "institution_id": "CZ-DD",
+      "reference": "OSZ: 1 ZT 11/2010; 1 ZT 244/2010; 1 ZT 55/2012; ZT 108/2013; ZN 4/2026 | OS: 15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026; 2 T 104/2010; 2 T 65/2011",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "Justiční slalom",
+        "InfZ",
+        "OSZ Prostějov",
+        "OS Prostějov",
+        "THC",
+        "THCA",
+        "dekarboxylace",
+        "forenzní metodika",
+        "obnova řízení"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/104-podani-2026-10-12-osz-os-prostejov-verejna-kopie.pdf",
+        "sha256": "7d30aa7e345d2fc4b7738bffea827c880371867b0d4c27392499c1056d818000",
+        "verification_status": "redacted_public_pdf_copy_assistant_review_completed; deterministic_text_copy; not_byte_identical_original",
+        "source_original_sha256": "ada11ba357a53eac04bc4e599eaf5fade745660181be7029de3f1c932f52f9c9",
+        "source_original_size_bytes": 312136,
+        "source_original_page_count": 6,
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-12-justice-slalom.json",
+        "public_copy_manifest": "project-memory/redaction-manifest-2026-10-12-osz-os.json"
+      },
+      "relations": [],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship_and_user_instruction_to_publish_in_justice_slalom",
+      "evidence_note": "Podání je datováno 12. 10. 2026 a titulní strana uvádí podání datovou schránkou. Adresáty jsou Okresní státní zastupitelství v Prostějově a Okresní soud v Prostějově. Veřejná kopie zachovává úplný extrahovaný věcný text, ale kvůli ochraně soukromých fyzických osob a přímých identifikátorů není byte-identická s originálem.",
+      "justice_slalom": {
+        "archive_number": 148,
+        "archive_name": "Žáodst OSZ a OS dne 12.října 2026.pdf",
+        "source_sha256": "ada11ba357a53eac04bc4e599eaf5fade745660181be7029de3f1c932f52f9c9",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "public_sha256": "7d30aa7e345d2fc4b7738bffea827c880371867b0d4c27392499c1056d818000",
+        "redaction_manifest": "project-memory/redaction-manifest-2026-10-12-osz-os.json",
+        "delivery_channel": "datova_schranka",
+        "recipients": [
+          {
+            "institution_id": "CZ-OSZ-PV",
+            "role": "primary",
+            "reference": "1 ZT 11/2010; 1 ZT 244/2010; 1 ZT 55/2012; ZT 108/2013; ZN 4/2026",
+            "subject_cs": "Žádost o informace k metodice stanovení THC/THCA, trestním podnětům a podkladům řízení",
+            "subject_en": "Information request on THC/THCA testing methodology, criminal submissions and prosecution records"
+          },
+          {
+            "institution_id": "CZ-OS-PRO",
+            "role": "primary",
+            "reference": "15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026; 2 T 104/2010; 2 T 65/2011",
+            "subject_cs": "Žádost o informace k metodice stanovení THC/THCA, soudním podkladům a řízením o obnově",
+            "subject_en": "Information request on THC/THCA testing methodology, court records and reopening proceedings"
+          }
+        ]
+      }
+    }
+  ]
+}
