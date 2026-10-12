@@ -14,7 +14,7 @@ SOURCE=ROOT/"project-memory/user-text-sources-2026-10-12/osz-os-prostejov-infz-r
 REGISTRY=ROOT/"project-memory/documents-2026-supplement-2026-10-12-justice-slalom.json"
 TARGET=WEB/"documents/justice-slalom/2026-10/104-podani-2026-10-12-osz-os-prostejov-verejna-kopie.pdf"
 ORIGINAL_SHA="ada11ba357a53eac04bc4e599eaf5fade745660181be7029de3f1c932f52f9c9"
-EXPECTED_PUBLIC_SHA="c7cb35d491355f333093bd5725f4c5f05a07c3361134f40afd18b81c78e331a9"
+EXPECTED_PUBLIC_SHA="7d30aa7e345d2fc4b7738bffea827c880371867b0d4c27392499c1056d818000"
 PAGES=6
 FONT=Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
 
