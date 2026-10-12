@@ -29,7 +29,7 @@
       "public": {
         "html": null,
         "pdf": "documents/justice-slalom/2026-10/104-podani-2026-10-12-osz-os-prostejov-verejna-kopie.pdf",
-        "sha256": "c7cb35d491355f333093bd5725f4c5f05a07c3361134f40afd18b81c78e331a9",
+        "sha256": "7d30aa7e345d2fc4b7738bffea827c880371867b0d4c27392499c1056d818000",
         "verification_status": "redacted_public_pdf_copy_assistant_review_completed; deterministic_text_copy; not_byte_identical_original",
         "source_original_sha256": "ada11ba357a53eac04bc4e599eaf5fade745660181be7029de3f1c932f52f9c9",
         "source_original_size_bytes": 312136,
@@ -46,7 +46,7 @@
         "archive_name": "Žáodst OSZ a OS dne 12.října 2026.pdf",
         "source_sha256": "ada11ba357a53eac04bc4e599eaf5fade745660181be7029de3f1c932f52f9c9",
         "source_kind": "redacted_public_copy_from_user_original",
-        "public_sha256": "c7cb35d491355f333093bd5725f4c5f05a07c3361134f40afd18b81c78e331a9",
+        "public_sha256": "7d30aa7e345d2fc4b7738bffea827c880371867b0d4c27392499c1056d818000",
         "redaction_manifest": "project-memory/redaction-manifest-2026-10-12-osz-os.json",
         "delivery_channel": "datova_schranka",
         "recipients": [
