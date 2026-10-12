@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "status": "assistant_review_completed",
+  "source_document_id": "doc-cz-dd-2026-10-12-osz-os-pro-infz-thc-obnova",
+  "source_original_sha256": "ada11ba357a53eac04bc4e599eaf5fade745660181be7029de3f1c932f52f9c9",
+  "source_original_pages": 6,
+  "source_original_size_bytes": 312136,
+  "public_pdf_sha256": "c7cb35d491355f333093bd5725f4c5f05a07c3361134f40afd18b81c78e331a9",
+  "public_copy_kind": "verified_redacted_text_public_copy",
+  "byte_identical_original": false,
+  "reviewed_source_pages": 6,
+  "review_scope": "all six extracted source pages",
+  "redactions": [
+    "author birth date, residence address and private data-box identifier",
+    "names and birth dates of four private family members"
+  ],
+  "preserved": [
+    "Mgr. Dušan Dvořák full name under the project privacy exemption",
+    "public institutional names, public institutional addresses and institutional data-box identifiers",
+    "case numbers, reference numbers, legal citations and substantive evidentiary text"
+  ],
+  "unexpected_personal_identifiers_after_review": 0,
+  "note": "The public PDF is a deterministic text copy generated from the complete extracted text after lawful anonymization; it is not the binary original."
+}
