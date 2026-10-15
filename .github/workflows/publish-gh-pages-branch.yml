@@ -357,7 +357,11 @@ jobs:
               && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf' /tmp/live-justice-slalom-panel.html \
               && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf' /tmp/live-justice-slalom-panel.html \
               && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf' /tmp/live-justice-slalom-panel.html \
-              && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava.pdf' /tmp/live-justice-slalom-panel.html; then
+              && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava.pdf' /tmp/live-justice-slalom-panel.html \
+              && grep -q 'doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp' /tmp/live-justice-slalom-panel.html \
+              && grep -q 'doc-cz-dd-2026-10-15-eu-ombudsman-202602199-first-supplement' /tmp/live-justice-slalom-panel.html \
+              && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/105-podani-2026-10-15-police-thc-trestni-podnet-verejna-kopie.pdf' /tmp/live-justice-slalom-panel.html \
+              && grep -q '/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-verejna-kopie.pdf' /tmp/live-justice-slalom-panel.html; then
               break
             fi
             if [ "$attempt" -eq 12 ]; then
@@ -421,6 +425,9 @@ jobs:
           grep -q 'documents/report-04082026-010/116-eu-ombudsman-202602199-2026-10-07.pdf' /tmp/live-current-article.html
           grep -q 'documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf' /tmp/live-current-article.html
           grep -q 'documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf' /tmp/live-current-article.html
+          grep -q 'doc-eu-euda-2026-10-15-access-followup' /tmp/live-current-article.html
+          grep -q 'en-doc-eu-euda-2026-10-15-access-followup' /tmp/live-current-article-en.html
+          grep -q 'documents/report-04082026-010/119-euda-access-followup-2026-10-15-verejna-kopie.pdf' /tmp/live-current-article.html
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/styles.css$stamp" -o /tmp/live-styles.css
           for attempt in {1..12}; do
             rm -f /tmp/live-brand.css
@@ -501,6 +508,9 @@ jobs:
           fetch_pdf_until_sha "documents/report-04082026-010/116-eu-ombudsman-202602199-2026-10-07.pdf" "web/documents/report-04082026-010/116-eu-ombudsman-202602199-2026-10-07.pdf" /tmp/live-omb-1007.pdf
           fetch_pdf_until_sha "documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf" "web/documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf" /tmp/live-ms15ad13.pdf
           fetch_pdf_until_sha "documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf" "web/documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf" /tmp/live-ms15ad17.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/105-podani-2026-10-15-police-thc-trestni-podnet-verejna-kopie.pdf" "web/documents/justice-slalom/2026-10/105-podani-2026-10-15-police-thc-trestni-podnet-verejna-kopie.pdf" /tmp/live-police-1015.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-verejna-kopie.pdf" "web/documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-verejna-kopie.pdf" /tmp/live-omb-supp-1015.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/119-euda-access-followup-2026-10-15-verejna-kopie.pdf" "web/documents/report-04082026-010/119-euda-access-followup-2026-10-15-verejna-kopie.pdf" /tmp/live-euda-1015.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf$stamp" -o /tmp/live-ms186.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/108-ncoz-4346-2-cj-2026-410012-2026-05-20.pdf$stamp" -o /tmp/live-ncoz.pdf
           fetch_pdf_until_sha "documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf" "web/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf" /tmp/live-euda-1001.pdf
@@ -527,6 +537,9 @@ jobs:
           test "$(head -c 5 /tmp/live-omb-1007.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ms15ad13.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ms15ad17.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-police-1015.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-omb-supp-1015.pdf)" = '%PDF-'
+          test "$(head -c 5 /tmp/live-euda-1015.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ms186.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ncoz.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-euda-1001.pdf)" = '%PDF-'
