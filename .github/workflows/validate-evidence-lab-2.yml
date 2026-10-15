@@ -106,6 +106,9 @@ jobs:
       - name: Ověřit archiv podání, příjemce, PDF a nepřítomnost časovačů
         run: node scripts/validate-justice-slalom.mjs
 
+      - name: Ověřit dávku Godot a Justiční slalom z 15. října
+        run: node scripts/validate-2026-10-15-godot-slalom.mjs
+
       - name: Ověřit nové státní listiny a uzavření přezkumu KSZ
         run: node scripts/validate-state-release-2026-09-29.mjs
 
