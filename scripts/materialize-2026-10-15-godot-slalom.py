@@ -42,8 +42,8 @@ SPECS=[
   "source_pages":17,
   "label":"OVĚŘENÁ REDIGOVANÁ VEŘEJNÁ TEXTOVÁ KOPIE – POLICIE 15. 10. 2026",
   "append_scans":[
-    "project-memory/historical-scans/2014/police-protection-request-2014-08-11-page-1.jpg",
-    "project-memory/historical-scans/2014/police-protection-request-2014-08-11-page-2.jpg"
+    ["project-memory/historical-scans/2014/police-protection-request-2014-08-11-page-1.jpg","2154a033269f535d96bc298fb35f62c207fcd18ea26c3d9140dfbd02a0a7b8c8"],
+    ["project-memory/historical-scans/2014/police-protection-request-2014-08-11-page-2.jpg","44c3cf322dec551fe50bd45c0fd9d03b9f23ebff91a66cfb67acc55f17774966"]
   ]
  }
 ]
@@ -163,9 +163,12 @@ def main():
         c.setAuthor("Evidence Lab – verified public copy")
         render_text_pages(c,pages,spec["label"],spec["original_sha"])
         scans=spec["append_scans"]
-        for idx,rel in enumerate(scans,1):
+        for idx,pair in enumerate(scans,1):
+            rel,expected_scan_sha=pair
             p=ROOT/rel
             if not p.exists(): raise SystemExit("Historical scan missing "+rel)
+            if sha(p.read_bytes())!=expected_scan_sha:
+                raise SystemExit("Historical scan SHA mismatch "+rel)
             render_scan_page(c,p,idx,len(scans))
         c.save()
         raw=target.read_bytes()
