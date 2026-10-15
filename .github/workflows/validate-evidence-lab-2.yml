@@ -53,7 +53,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m pip install --disable-pip-version-check reportlab
+          python3 -m pip install --disable-pip-version-check reportlab pillow
 
       - name: Obnovit a kryptograficky ověřit všechna verzovaná PDF z historie
         run: node scripts/recover-historical-binary-blobs.mjs
