@@ -21,7 +21,7 @@ for(const [name,item] of [['EUDA',euda],['ombudsman',omb],['police',police]]) if
 
 if(euda.submission_side!=='incoming_from_state_or_public_institution' || euda.justice_slalom) fail('EUDA 15. 10. musí být příchozí Godot, nikoli Slalom');
 if(!cs.includes(`id="${eudaId}"`) || !en.includes(`id="en-${eudaId}"`)) fail('EUDA 15. 10. chybí v CZ/EN Godotu');
-if(!cs.includes('před použitelnou regulační lhůtou') && !cs.includes('před použitelnou regulační')) fail('CZ anotace EUDA neobsahuje podstatný stav');
+if(!cs.includes('před regulační lhůtou')) fail('CZ anotace EUDA neobsahuje podstatný stav');
 
 for(const item of [omb,police]){
   if(item.submission_side!=='outgoing_from_user_or_alliance' || !item.justice_slalom) fail('vlastní podání musí být v Justičním slalomu');
