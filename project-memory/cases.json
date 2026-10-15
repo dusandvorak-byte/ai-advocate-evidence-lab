@@ -116,6 +116,11 @@
         "THCA",
         "analytické metody",
         "zákon 106/1999 Sb."
+      ],
+      "last_filing_on": "2026-10-15",
+      "last_filing_document_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
+      "related_document_ids": [
+        "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
       ]
     },
     {
@@ -363,7 +368,7 @@
       "institution_id": "EU-OMB",
       "reference": "202602199",
       "title": "Stížnost Evropskému ombudsmanovi k postupu EUDA a srovnatelnosti dat o THC",
-      "status": "complaint_registered_awaiting_admissibility_review",
+      "status": "complaint_registered_supplemented_awaiting_admissibility_review",
       "opened_on": "2026-09-27",
       "topics": [
         "EUDA",
@@ -378,10 +383,11 @@
         "doc-eu-omb-2026-09-28-complaint-form-required",
         "doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936",
         "doc-eu-euda-2026-10-01-access-documents-1049-2001",
-        "doc-eu-omb-2026-10-07-202602199-registration"
+        "doc-eu-omb-2026-10-07-202602199-registration",
+        "doc-cz-dd-2026-10-15-eu-ombudsman-202602199-first-supplement"
       ],
-      "last_filing_on": "2026-10-06",
-      "last_filing_document_id": "doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936",
+      "last_filing_on": "2026-10-15",
+      "last_filing_document_id": "doc-cz-dd-2026-10-15-eu-ombudsman-202602199-first-supplement",
       "latest_state_on": "2026-10-07",
       "latest_state_document_id": "doc-eu-omb-2026-10-07-202602199-registration",
       "process_note": "Evropský ombudsman 7. 10. 2026 potvrdil registraci stížnosti pod č. 202602199 a uvedl, že obvykle během čtyř týdnů sdělí, zda se jí může zabývat; nejde o pevnou zákonnou lhůtu."
@@ -427,10 +433,11 @@
         "analytické metody",
         "interní přezkum"
       ],
-      "last_filing_on": "2026-10-08",
-      "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+      "last_filing_on": "2026-10-15",
+      "last_filing_document_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
       "related_document_ids": [
-        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+        "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
       ]
     },
     {
@@ -595,6 +602,72 @@
       ],
       "last_filing_on": "2026-10-04",
       "last_filing_document_id": "doc-cz-gf-jk-2026-10-04-ks-ostrava-5-to-248-sumarizujici-sdeleni"
+    },
+    {
+      "id": "case-eu-euda-access-documents-thc-2026",
+      "institution_id": "EU-EUDA",
+      "reference": "Regulation (EC) No 1049/2001 – Comparability of THC data",
+      "title": "EUDA – přístup k dokumentům o metodické srovnatelnosti evropských dat THC",
+      "status": "active",
+      "opened_on": "2026-09-27",
+      "topics": [
+        "EUDA",
+        "nařízení (ES) č. 1049/2001",
+        "THC",
+        "THCA",
+        "srovnatelnost dat",
+        "metodologická dohledatelnost"
+      ],
+      "related_document_ids": [
+        "doc-eu-euda-2026-10-01-access-documents-1049-2001",
+        "doc-eu-euda-2026-10-15-access-followup",
+        "doc-cz-dd-2026-10-15-eu-ombudsman-202602199-first-supplement"
+      ],
+      "latest_state_on": "2026-10-15",
+      "latest_state_document_id": "doc-eu-euda-2026-10-15-access-followup",
+      "process_note": "EUDA dne 15. 10. 2026 v 11:25 uvedla, že požadované dokumenty očekává zaslat nejpozději následující den před použitelnou regulační lhůtou. Pozdější tvrzení o odpovědi EUDA v 18:44 je doloženo v doplnění stížnosti Evropskému ombudsmanovi, nikoli samostatně nahranou příchozí listinou."
+    },
+    {
+      "id": "case-cz-pcr-krpo-100092-2026",
+      "institution_id": "CZ-PCR-KRPO",
+      "reference": "KRPM-100092/ČJ-2026-1412UO",
+      "title": "KŘP Olomouckého kraje – informace a spisy k historickým policejním úkonům a metodice THC",
+      "status": "active",
+      "opened_on": "2026-10-15",
+      "topics": [
+        "Policie ČR",
+        "KRPM",
+        "THC",
+        "THCA",
+        "InfZ",
+        "historické trestní spisy",
+        "policejní ochrana"
+      ],
+      "related_document_ids": [
+        "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
+      ],
+      "last_filing_on": "2026-10-15",
+      "last_filing_document_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
+    },
+    {
+      "id": "case-cz-gibs-3794-2026",
+      "institution_id": "CZ-GIBS",
+      "reference": "GI-3794/ČJ-2026-840502-P",
+      "title": "GIBS – návaznost na trestní podněty a žádosti o policejní ochranu",
+      "status": "active",
+      "opened_on": "2026-10-15",
+      "topics": [
+        "GIBS",
+        "trestní podnět",
+        "policejní ochrana",
+        "THC",
+        "THCA"
+      ],
+      "related_document_ids": [
+        "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
+      ],
+      "last_filing_on": "2026-10-15",
+      "last_filing_document_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
     }
   ]
 }
