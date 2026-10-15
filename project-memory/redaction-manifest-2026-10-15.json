@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "status": "human_review_completed_by_assistant",
+  "batch_date": "2026-10-15",
+  "privacy_policy": "project-memory/privacy-exempt-entities.json",
+  "documents": [
+    {
+      "document_id": "doc-eu-euda-2026-10-15-access-followup",
+      "source_original_sha256": "ec91f57eec2d1a34a710cf7c09aecfde9964ad086fa2a935f210dd5507e8b292",
+      "source_pages": 10,
+      "public_copy_kind": "verified_redacted_text_public_copy",
+      "redactions": [
+        "private e-mail of Mgr. Dušan Dvořák",
+        "private residential address of Mgr. Dušan Dvořák",
+        "nonessential organizational contact copied inside quoted correspondence"
+      ],
+      "preserved": [
+        "EUDA institutional and professional contact details",
+        "official names and functions",
+        "substantive correspondence",
+        "dates and legal references"
+      ]
+    },
+    {
+      "document_id": "doc-cz-dd-2026-10-15-eu-ombudsman-202602199-first-supplement",
+      "source_original_sha256": "a4c2a3eb32c34192791d544ca3f47d19b4763631cb556913257d7e253e71d5fb",
+      "source_pages": 13,
+      "public_copy_kind": "verified_redacted_text_public_copy",
+      "redactions": [
+        "private e-mail and residential address of Mgr. Dušan Dvořák",
+        "private e-mail addresses of persons copied on the outgoing message"
+      ],
+      "preserved": [
+        "Mgr. Dušan Dvořák full name under project privacy exemption",
+        "European Ombudsman and EUDA institutional/professional details",
+        "substantive filing text",
+        "legal references"
+      ]
+    },
+    {
+      "document_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
+      "source_original_sha256": "df2a9b2340251c7e01adfd79c25ca273c4606f7259288c1e4bb1daab7d5967d6",
+      "source_pages": 17,
+      "public_copy_kind": "verified_redacted_text_public_copy_with_historical_scan_appendix",
+      "redactions": [
+        "birth date, residential address and private data-box identifier of Mgr. Dušan Dvořák",
+        "birth dates and residential identifiers of private third persons",
+        "full personal identification tables of non-exempt third persons",
+        "selected private third-person names replaced by initials where linked to health or birth data"
+      ],
+      "preserved": [
+        "Mgr. Dušan Dvořák full name under project privacy exemption",
+        "five alliance organizations where applicable",
+        "public institutions, case numbers, official references and substantive legal/forensic text",
+        "public/professional names necessary to source expert or official statements"
+      ],
+      "historical_appendix": {
+        "title": "Žádost o zajištění policejní ochrany a další podněty",
+        "date": "2014-08-11",
+        "pages": 2,
+        "source_page1_sha256": "2154a033269f535d96bc298fb35f62c207fcd18ea26c3d9140dfbd02a0a7b8c8",
+        "source_page2_sha256": "44c3cf322dec551fe50bd45c0fd9d03b9f23ebff91a66cfb67acc55f17774966",
+        "publication_decision": "Scanned historical request is reproduced as an evidentiary appendix because the names/signatures and public-office addressees are intrinsic to the official historical document and no dates of birth or private residential addresses are displayed in the scan."
+      }
+    }
+  ]
+}

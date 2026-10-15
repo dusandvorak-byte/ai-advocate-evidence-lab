@@ -1,0 +1,236 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-15",
+  "purpose": "Dávka 15. října 2026: příchozí sdělení EUDA do Godota; první doplnění stížnosti Evropskému ombudsmanovi a společná žádost KŘP Olomouckého a Moravskoslezského kraje spojená s trestním podnětem do Justičního slalomu. Policejní veřejná kopie obsahuje jako historickou přílohu dvoustránkový sken žádosti o policejní ochranu z 11. srpna 2014.",
+  "documents": [
+    {
+      "id": "doc-eu-euda-2026-10-15-access-followup",
+      "user_title": "EUDA – sdělení k probíhající žádosti o přístup k dokumentům: dokumenty budou zaslány před regulační lhůtou",
+      "issue_date": "2026-10-15",
+      "received_date": "2026-10-15",
+      "institution_id": "EU-EUDA",
+      "reference": "Comparability of THC data - Access to documents request; bez samostatného č. j. v e-mailu",
+      "case_ids": [
+        "case-eu-euda-access-documents-thc-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "EUDA",
+        "nařízení (ES) č. 1049/2001",
+        "přístup k dokumentům",
+        "THC",
+        "srovnatelnost dat",
+        "metodologická dohledatelnost"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/119-euda-access-followup-2026-10-15-verejna-kopie.pdf",
+        "intended_pdf": "documents/report-04082026-010/119-euda-access-followup-2026-10-15-verejna-kopie.pdf",
+        "sha256": null,
+        "verification_status": "pending_verified_redacted_public_copy_from_complete_text",
+        "source_original_sha256": "ec91f57eec2d1a34a710cf7c09aecfde9964ad086fa2a935f210dd5507e8b292",
+        "source_original_size_bytes": 170286,
+        "source_original_page_count": 10,
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-15-godot-slalom.json",
+        "public_copy_manifest": "project-memory/redaction-manifest-2026-10-15.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-eu-euda-2026-10-01-access-documents-1049-2001"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "E-mail EUDA ze dne 15. 10. 2026 v 11:25:25 žádá o potvrzení, zda dorazil e-mail z 1. 10. 2026, a uvádí, že požadované dokumenty očekává zaslat nejpozději následující den, tedy před použitelnou regulační lhůtou. Jde o příchozí listinu EUDA a hlavní řádek Godota."
+    },
+    {
+      "id": "doc-cz-dd-2026-10-15-eu-ombudsman-202602199-first-supplement",
+      "user_title": "Complaint No. 202602199 – First supplement and new evidence dated 15 October 2026",
+      "issue_date": "2026-10-15",
+      "received_date": "2026-10-15",
+      "institution_id": "CZ-DD",
+      "reference": "Complaint No. 202602199",
+      "case_ids": [
+        "case-eu-omb-euda-thc-comparability-2026",
+        "case-eu-euda-access-documents-thc-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "Evropský ombudsman",
+        "EUDA",
+        "202602199",
+        "THC",
+        "THCA",
+        "srovnatelnost dat",
+        "nařízení (ES) č. 1049/2001"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-verejna-kopie.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-verejna-kopie.pdf",
+        "sha256": null,
+        "verification_status": "pending_verified_redacted_public_copy_from_complete_text",
+        "source_original_sha256": "a4c2a3eb32c34192791d544ca3f47d19b4763631cb556913257d7e253e71d5fb",
+        "source_original_size_bytes": 192261,
+        "source_original_page_count": 13,
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-15-godot-slalom.json",
+        "public_copy_manifest": "project-memory/redaction-manifest-2026-10-15.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-eu-omb-2026-10-07-202602199-registration"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-eu-euda-2026-10-01-access-documents-1049-2001"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "První doplnění již registrované stížnosti č. 202602199. Podání uvádí jako nový důkaz výsledek hledání dokumentů EUDA ze dne 15. 10. 2026 a žádá jeho zohlednění při posouzení přípustnosti a případném dalším šetření. Dokument výslovně nerozšiřuje stížnost na přezkum jednotlivých národních trestních řízení.",
+      "justice_slalom": {
+        "archive_number": 150,
+        "archive_name": "Complaint No. 202602199 – First supplement and new evidence dated 15 October 2026.pdf",
+        "source_sha256": "a4c2a3eb32c34192791d544ca3f47d19b4763631cb556913257d7e253e71d5fb",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "public_sha256": null,
+        "redaction_manifest": "project-memory/redaction-manifest-2026-10-15.json",
+        "delivery_channel": "email",
+        "recipients": [
+          {
+            "institution_id": "EU-OMB",
+            "role": "primary",
+            "reference": "Complaint No. 202602199",
+            "subject_cs": "První doplnění stížnosti č. 202602199 – nové důkazy k EUDA a metodické srovnatelnosti údajů THC",
+            "subject_en": "First supplement to complaint No. 202602199 – new evidence on EUDA and methodological comparability of THC data"
+          },
+          {
+            "institution_id": "PT-CANNAREPORTER",
+            "role": "copy",
+            "reference": "kopie e-mailu 15. 10. 2026",
+            "subject_cs": "Na vědomí: první doplnění stížnosti č. 202602199",
+            "subject_en": "Copy: first supplement to complaint No. 202602199"
+          },
+          {
+            "institution_id": "CZ-PODANE-RUCE-VOBO",
+            "role": "copy",
+            "reference": "kopie e-mailu 15. 10. 2026",
+            "subject_cs": "Na vědomí: první doplnění stížnosti č. 202602199",
+            "subject_en": "Copy: first supplement to complaint No. 202602199"
+          },
+          {
+            "institution_id": "CZ-PAVEL-BEM",
+            "role": "copy",
+            "reference": "kopie e-mailu 15. 10. 2026",
+            "subject_cs": "Na vědomí: první doplnění stížnosti č. 202602199",
+            "subject_en": "Copy: first supplement to complaint No. 202602199"
+          },
+          {
+            "institution_id": "CZ-PODANE-RUCE-MRAV",
+            "role": "copy",
+            "reference": "kopie e-mailu 15. 10. 2026",
+            "subject_cs": "Na vědomí: první doplnění stížnosti č. 202602199",
+            "subject_en": "Copy: first supplement to complaint No. 202602199"
+          },
+          {
+            "institution_id": "CZ-PSP-TROJANV",
+            "role": "copy",
+            "reference": "kopie e-mailu 15. 10. 2026",
+            "subject_cs": "Na vědomí: první doplnění stížnosti č. 202602199",
+            "subject_en": "Copy: first supplement to complaint No. 202602199"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
+      "user_title": "Žádost o informace KŘP Olomouckého a Moravskoslezského kraje spojená s trestním podnětem",
+      "issue_date": "2026-10-15",
+      "received_date": "2026-10-15",
+      "institution_id": "CZ-EKK",
+      "reference": "KRPM-100092/ČJ-2026-1412UO; KRPT-203594/ČJ-2026-0700KR; GI-3794/ČJ-2026-840502-P",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum",
+        "CASE-CZ-PCR-KRPT-203594-2026",
+        "case-cz-pcr-krpo-100092-2026",
+        "case-cz-gibs-3794-2026"
+      ],
+      "document_type": "alliance_submission",
+      "topics": [
+        "Policie ČR",
+        "GIBS",
+        "InfZ",
+        "trestní podnět",
+        "THC",
+        "THCA",
+        "OKTE Frýdek-Místek",
+        "SOP",
+        "dekarboxylace",
+        "auditní stopa",
+        "policejní ochrana"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-10/105-podani-2026-10-15-police-thc-trestni-podnet-verejna-kopie.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/105-podani-2026-10-15-police-thc-trestni-podnet-verejna-kopie.pdf",
+        "sha256": null,
+        "verification_status": "pending_verified_redacted_public_copy_from_complete_text_with_2014_historical_scan_appendix",
+        "source_original_sha256": "df2a9b2340251c7e01adfd79c25ca273c4606f7259288c1e4bb1daab7d5967d6",
+        "source_original_size_bytes": 309919,
+        "source_original_page_count": 17,
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-15-godot-slalom.json",
+        "public_copy_manifest": "project-memory/redaction-manifest-2026-10-15.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-pcr-pp-2026-10-07-ppr-52605-2-cj-2026-990210-pd"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Společná žádost podle zákona č. 106/1999 Sb. adresovaná KŘP Olomouckého kraje a KŘP Moravskoslezského kraje, na vědomí GIBS, spojená s trestním podnětem. Žádá zejména metodické a prvotní podklady ke stanovení THC/THCA, SOP, auditní stopu vzorků a historické spisové podklady. Na výslovný publikační pokyn autora je veřejná kopie doplněna dvoustránkovým skenem žádosti o zajištění policejní ochrany a dalších podnětů adresované ministru vnitra a policejnímu prezidentovi dne 11. 8. 2014; scan je označen jako historická příloha a není součástí binárního originálu podání z 15. 10. 2026.",
+      "justice_slalom": {
+        "archive_number": 149,
+        "archive_name": "Žádost policii 15. října 2026 spojená s trestním podnětem.pdf",
+        "source_sha256": "df2a9b2340251c7e01adfd79c25ca273c4606f7259288c1e4bb1daab7d5967d6",
+        "source_kind": "redacted_public_copy_from_user_original",
+        "public_sha256": null,
+        "redaction_manifest": "project-memory/redaction-manifest-2026-10-15.json",
+        "delivery_channel": "datova_schranka",
+        "historical_appendix": {
+          "title": "Žádost o zajištění policejní ochrany a další podněty",
+          "issue_date": "2014-08-11",
+          "recipients": "ministr vnitra ČR a policejní prezident",
+          "page1_source_sha256": "2154a033269f535d96bc298fb35f62c207fcd18ea26c3d9140dfbd02a0a7b8c8",
+          "page2_source_sha256": "44c3cf322dec551fe50bd45c0fd9d03b9f23ebff91a66cfb67acc55f17774966"
+        },
+        "recipients": [
+          {
+            "institution_id": "CZ-PCR-KRPO",
+            "role": "primary",
+            "reference": "KRPM-100092/ČJ-2026-1412UO",
+            "subject_cs": "Žádost o informace a trestní podnět – metodika THC/THCA, policejní spisy a žádosti o ochranu",
+            "subject_en": "Information request and criminal submission – THC/THCA methodology, police files and protection requests"
+          },
+          {
+            "institution_id": "CZ-PCR-KRPT",
+            "role": "primary",
+            "reference": "KRPT-203594/ČJ-2026-0700KR",
+            "subject_cs": "Žádost o informace a trestní podnět – OKTE, SOP, THC/THCA a auditní stopa laboratorních zkoumání",
+            "subject_en": "Information request and criminal submission – OKTE, SOPs, THC/THCA and laboratory audit trail"
+          },
+          {
+            "institution_id": "CZ-GIBS",
+            "role": "copy",
+            "reference": "GI-3794/ČJ-2026-840502-P",
+            "subject_cs": "Na vědomí k nešetřeným trestním podnětům a žádostem o policejní ochranu od roku 2009",
+            "subject_en": "Copy concerning unresolved criminal submissions and requests for police protection since 2009"
+          }
+        ]
+      }
+    }
+  ]
+}

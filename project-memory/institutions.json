@@ -463,6 +463,41 @@
       "type": "professional_association",
       "name": "Česká advokátní komora",
       "short_name": "ČAK"
+    },
+    {
+      "id": "PT-CANNAREPORTER",
+      "country": "PT",
+      "type": "media",
+      "name": "CannaReporter",
+      "short_name": "CannaReporter"
+    },
+    {
+      "id": "CZ-PODANE-RUCE-VOBO",
+      "country": "CZ",
+      "type": "person_contact",
+      "name": "Podané ruce – kontakt Vobořil",
+      "short_name": "Podané ruce / Vobořil"
+    },
+    {
+      "id": "CZ-PODANE-RUCE-MRAV",
+      "country": "CZ",
+      "type": "person_contact",
+      "name": "Podané ruce – kontakt Mravčík",
+      "short_name": "Podané ruce / Mravčík"
+    },
+    {
+      "id": "CZ-PAVEL-BEM",
+      "country": "CZ",
+      "type": "person",
+      "name": "Pavel Bém",
+      "short_name": "Pavel Bém"
+    },
+    {
+      "id": "CZ-PSP-TROJANV",
+      "country": "CZ",
+      "type": "parliamentary_contact",
+      "name": "Poslanecká sněmovna – kontakt trojanv",
+      "short_name": "PSP / trojanv"
     }
   ]
 }

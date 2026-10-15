@@ -56,7 +56,7 @@ for (const cid of ['case-cz-ms-praha-18a17-2026','case-cz-ms-praha-18a23-2026'])
   must(String(item?.last_filing_on||'')>='2026-10-06' && item?.related_document_ids?.includes(msId), cid+' nezachovává podání 6. 10. v procesní genealogii');
 }
 const ombCase=caseMap.get('case-eu-omb-euda-thc-comparability-2026');
-must(ombCase?.last_filing_document_id===ombId && ombCase?.last_filing_on==='2026-10-06', 'Ombudsman case není posunut na formulář 59936');
+must(ombCase?.related_document_ids?.includes(ombId) && String(ombCase?.last_filing_on||'')>='2026-10-06', 'Ombudsman case nezachovává formulář 59936 v procesní genealogii');
 
 must(Boolean(translations.documents[cnbId]) && Boolean(translations.documents[msId]) && Boolean(translations.documents[ombId]), 'chybí CZ/EN parita anotací');
 

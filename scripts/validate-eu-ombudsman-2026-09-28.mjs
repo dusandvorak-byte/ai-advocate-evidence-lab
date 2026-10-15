@@ -27,7 +27,8 @@ for (const complaintId of [enComplaint, csComplaint]) {
   if (!complaint?.case_ids?.includes(caseId)) fail(`stížnost není v procesní větvi: ${complaintId}`);
 }
 const c = cases.find(x => x.id === caseId);
-if (!c || c.institution_id !== 'EU-OMB' || c.opened_on !== '2026-09-27' || c.last_filing_document_id !== 'doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936' || !c.related_document_ids?.includes(id)) fail('procesní větev není úplná po následném formulářovém podání 6. 10.');
+if (!c || c.institution_id !== 'EU-OMB' || c.opened_on !== '2026-09-27' || !c.related_document_ids?.includes(id) || !c.related_document_ids?.includes('doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936')) fail('procesní větev neuchovává odpověď 28. 9. a formulářové podání 6. 10.');
+if (c.last_filing_on < '2026-10-06') fail('procesní větev se vrátila před formulářové podání 6. 10.');
 
 if (!cz.includes(`id="${id}"`) || !cz.includes('Evropský ombudsman')) fail('český Stát lásky čas neobsahuje záznam');
 if (!en.includes(`id="en-${id}"`) || !en.includes('European Ombudsman')) fail('anglický Godot neobsahuje záznam');

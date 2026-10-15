@@ -1,0 +1,505 @@
+ORIGINAL_SHA256: a4c2a3eb32c34192791d544ca3f47d19b4763631cb556913257d7e253e71d5fb
+ORIGINAL_PAGES: 13
+PUBLIC_COPY_POLICY: verified redacted text copy; not byte-identical to uploaded source PDF
+
+<PARSED TEXT FOR PAGE: 1 / 13>
+Komu: eo@ombudsman.europa.eu
+Kopie: [kontaktní údaje osob a organizací v kopii anonymizovány; adresáti jsou evidováni v publikačních metadatech]
+Datum: 15. 10. 2026 20:56:13
+Předmět: Complaint No. 202602199 – First supplement and new evidence dated 15
+October 2026
+
+
+EUROPEAN OMBUDSMAN
+Email: eo@ombudsman.europa.eu
+Complaint No. 202602199 – First supplement and new evidence dated 15 October
+2026
+Complainant: Mgr. Dušan Dvořák, Chairman of the Board, Cannabis is The Cure, z. s.;
+[adresa a soukromý e-mail anonymizovány]
+
+
+15 October 2026
+Subject: Supplement to registered complaint No. 202602199 – EUDA findings in the
+procedure for access to documents under Regulation (EC) No 1049/2001 and the
+methodological comparability of European data on THC content in cannabis
+Dear European Ombudsman,
+I hereby supplement my complaint, receipt of which your Office acknowledged on 7
+October 2026 under No. 202602199. I submit new evidence that was not available to me
+when I lodged the complaint. I do not request that a new complaint be opened or that its
+scope be extended to the review of individual national criminal proceedings. Its subject
+remains possible maladministration by the European Union Drugs Agency (EUDA) in
+ensuring, documenting, interpreting and publishing comparable European data on THC.
+I. New official communication from EUDA dated 15 October 2026
+On 15 October 2026 at 18:44:39, Mr Gonçalo Felgueiras e Sousa, whose responsibilities
+include public access to EUDA documents, sent me the results of a search for documents
+in a separate procedure under Regulation (EC) No 1049/2001. This procedure arose from
+my submission sent on 27 September 2026; EUDA acknowledged its registration on 1
+October 2026.
+EUDA expressly stated that it had searched for documents, methodological materials,
+internal instructions, metadata and correspondence with National Focal Points or the
+laboratory network concerning how the comparability of THC data is ensured and
+documented. The Agency then stated: “the only document identified by the EUDA as
+falling within the scope of your request is: Standard Table 14 – Potency/purity of illicit
+substances”.
+<PARSED TEXT FOR PAGE: 2 / 13>
+In addition to the document thus identified, EUDA sent the templates “Drugs workbook
+2026” and “Drug market and crime workbook 2026”, expressly noting that they contain
+neither specific questions on potency nor any direct reference to THC.
+This result must be interpreted precisely: it establishes the outcome of the search within
+the scope of my request, not the absolute non-existence of other documents or an
+automatic breach of Union law. At the same time, it raises a concrete and serious
+question as to which supporting materials and procedures EUDA actually uses to
+substantiate the analytical comparability of national data employed in its European
+indicators.
+II. What the documents provided establish and what they do not establish
+Standard Table ST14 is a tool for the annual collection of data from the Reitox National
+Focal Points. It includes cannabis potency data and requirements concerning statistical
+reporting, data sources and coverage, sample size and methodological comments. Its
+existence therefore demonstrates standardisation of reporting; I do not deny that it is a
+relevant control and information tool.
+However, the blank template itself does not contain completed national methodological
+documentation and does not establish that, when compiling specific European averages
+and time series, it was verified whether the individual national results represent the same
+analytical measurand. In particular, the documents supplied do not show how
+differences between gas and liquid chromatography, native Δ9-THC versus THC
+determined following decarboxylation of THCA or calculated total THC,
+representativeness of sampling, homogenisation, moisture content, drying, storage and
+measurement uncertainty are checked.
+The two additional templates contain general questions on drug markets, drug use,
+trends, sources and methodology. They do not constitute a specific audit trail for the 2024
+THC results or the 2014–2024 time series. Nevertheless, the absence of such an audit trail
+among the documents supplied does not in itself mean that no underlying data exist in
+other systems; it is precisely this matter that I ask to be independently examined.
+III. Relationship to the existing complaint and EUDA’s obligations
+In its response of 25 September 2026, Ref. EXO/FHP/pd (26) D 106, EUDA acknowledged
+the relevance of methodological differences in determining THC content and described
+the limitations of its systematic overview and comparative assessment of Member States’
+laboratory methods. In my fundamental objection dated 26 September and sent on 27
+September 2026, I therefore requested evidence of the specific mechanism by which
+EUDA ensures the comparability of its own published European indicators. The present
+search results further clarify this still unanswered question.
+Regulation (EU) 2023/1322 sets out the Agency’s tasks concerning the provision of
+objective, reliable and comparable information; Article 6(1)(f) concerns improving the
+comparability, objectivity and reliability of data, while Article 15 concerns the network of
+forensic and toxicological laboratories. I do not claim that the Regulation necessarily
+<PARSED TEXT FOR PAGE: 3 / 13>
+prescribes a single chromatographic method or that EUDA directs national police
+laboratories. I do, however, request an examination of whether, within its remit, the
+Agency sufficiently documents and explains the methodological limitations of the data
+that it itself publishes and interprets.
+The amount of public funding allocated to the Agency for the 2026 financial year may
+provide relevant context for institutional accountability, but it is not, in itself, evidence of
+a breach of a legal obligation. What matters is the substantiation of actual control
+procedures and the adequacy of the explanation of their limitations.
+IV. Proposed specific questions for examination
+1. What specific, documented procedure does EUDA use to assess whether national THC
+values are analytically comparable before aggregating them into European averages and
+time series?
+2. How does EUDA distinguish native Δ9-THC, THC determined following thermal
+conversion of THCA, and calculated total THC, and what relevant information does it
+request or retain in metadata?
+3. How are differences in sampling, homogenisation, moisture content, drying, storage,
+chromatographic method and measurement uncertainty taken into account in reporting
+and publication?
+4. Do completed national returns, methodological notes, validation documents or
+internal quality-control records exist for the published 2024 data and the 2014–2024
+series? If so, how do they relate to the search reported on 15 October 2026?
+5. How does EUDA disclose any limitations on comparability, particularly where the
+methodological equivalence of national inputs has not been demonstrated?
+6. Were the materials submitted by the complainant, including documents from the
+European Commission and the Danish Ministry of Justice, forwarded to the specialist unit
+responsible for cannabis potency indicators or to the laboratory network under Article 15
+of Regulation (EU) 2023/1322, and how were they assessed from a scientific perspective?
+V. Procedural request
+I request that the European Ombudsman add this supplement and its four annexes to the
+already registered complaint No. 202602199 and take them into account when assessing
+its admissibility and any subsequent inquiry. Within her remit, I ask the Ombudsman to
+assess whether EUDA’s conduct meets the requirements of good administration,
+transparency, due diligence and adequate reasoning in the performance of its statutory
+tasks. I do not ask the Ombudsman to predetermine a scientific outcome or to determine
+guilt or innocence in any national proceedings.
+I expressly distinguish this supplement from the separate procedure for access to
+documents under Regulation (EC) No 1049/2001. Any procedural rights and time limits in
+that procedure remain unaffected. I also acknowledge that EUDA’s response of 25
+<PARSED TEXT FOR PAGE: 4 / 13>
+September 2026 constitutes its position on the earlier call to act under Article 265 TFEU;
+I therefore do not claim that the original procedural failure to act under that Article
+continued after that date.
+VI. Annexes
+1. EUDA email of 15 October 2026, 18:44:39 – response to the application for access to
+documents.
+2. ST14_PPP_2026_FP.xlsx – Standard Table 14: Potency/purity of illicit substances.
+3. Drugs Workbook 2026.docx – national reporting template.
+4. Drug Market and Crime Workbook 2026.docx – national reporting template.
+
+
+I refer to EUDA’s earlier response of 25 September 2026 and my objection dated 26
+September 2026 as part of the existing correspondence; I do not enclose them again
+insofar as they are already on file.
+
+
+Yours sincerely,
+Mgr. Dušan Dvořák
+Chairman of the Board, Cannabis is The Cure, z. s.
+
+
+Od: Gonçalo FELGUEIRAS E SOUSA <Goncalo.Felgueiras@euda.europa.eu>
+Komu: [soukromý e-mail anonymizován] <[soukromý e-mail anonymizován]>
+Kopie: Paula SENRA <Paula.Senra@euda.europa.eu>
+Datum: 15. 10. 2026 11:25:25
+Předmět: RE: Comparability of THC data - Access to documents request
+
+
+Dear Mr Dvořák,
+Please let me know if you got my email of 1 October (below). Just to make sure that my
+emails are reaching you.
+I expect to be able to send you the requested documents by tomorrow, i.e. before the
+applicable regulatory deadline.
+Yours sincerely,
+  Gonçalo FELGUEIRAS E SOUSA
+
+  Data protection officer; Principal administrator for antifraud, diplomatic relations
+  and public access to documents
+
+  Directorate, Resources management & administrative services unit
+<PARSED TEXT FOR PAGE: 5 / 13>
+  This message and any attachment contain information which may be sensitive or
+  otherwise protected from disclosure. It is intended for the addressee(s) only and
+  should not be relied upon as legal advice unless otherwise stated. If you are not the
+  intended recipient, access to this e-mail, or any disclosure or copying of its
+  contents, or any action taken (or not taken) in reliance on it is unauthorised and
+  may be unlawful. If you have received this e-mail in error, please inform the sender
+  immediately.
+
+
+  Please consider the impact on the environment before printing this email.
+
+  +351 211 210 231 | Goncalo.Felgueiras@euda.europa.eu
+
+  European Union Drugs Agency (EUDA)
+
+  Praça Europa 1, Cais do Sodré | 1249-289 Lisbon, Portugal | euda.europa.eu
+From: Gonçalo FELGUEIRAS E SOUSA
+Sent: Thursday 1 October 2026 11:04
+To: [soukromý e-mail anonymizován]
+Cc: Dante STORTI <Dante.Storti@euda.europa.eu>; Fabian PEREYRA
+<Fabian.Pereyra@euda.europa.eu>; DRO-EXO Assistants <DRO-
+EXO_assistants@euda.europa.eu>; Paula SENRA <Paula.Senra@euda.europa.eu>
+Subject: Comparability of THC data - Access to documents request
+Dear Mr Dvořák,
+ I refer to your email of 27 September last, “Fundamental objection to the EUDA response
+of 25 September 2026 concerning the performance of EUDA’s duties under Regulation
+(EU) 2023/1322, the comparability of published data on THC content in cannabis, and the
+methodological traceability of those data”,
+ Given that it contains a separate request for access to documents pursuant to Regulation
+(EC) No 1049/2001, the present email serves to acknowledge receipt of that request by
+the European Union Drugs Agency (EUDA) and to inform you that it has been registered.
+Its processing has already commenced as a separate procedure, i.e. distinct from the call
+to act, including the identification of any of the documents requested by you, that may be
+held by the relevant EUDA services.
+ The EUDA will revert to you as soon as possible and, in any event, within the time limits
+laid down in the applicable legislation.
+<PARSED TEXT FOR PAGE: 6 / 13>
+Yours sincerely,
+
+
+
+
+      This message and any attachment contain information which may be sensitive or
+      otherwise protected from disclosure. It is intended for the addressee(s) only and
+      should not be relied upon as legal advice unless otherwise stated. If you are not the
+      intended recipient, access to this e-mail, or any disclosure or copying of its
+      contents, or any action taken (or not taken) in reliance on it is unauthorised and
+      may be unlawful. If you have received this e-mail in error, please inform the sender
+      immediately.
+
+      Please consider the impact on the environment before printing this email.
+      Gonçalo FELGUEIRAS E SOUSA
+
+      Data protection officer; Principal administrator for antifraud, diplomatic relations
+      and public access to documents
+
+      Directorate, Resources management & administrative services unit
+
+      +351 211 210 231 | Goncalo.Felgueiras@euda.europa.eu
+
+      European Union Drugs Agency (EUDA)
+
+      Praça Europa 1, Cais do Sodré | 1249-289 Lisbon, Portugal | euda.europa.eu
+
+
+ From: Dušan Dvořák <[soukromý e-mail anonymizován]>
+Sent: 27 September 2026 16:20
+To: EUDA Executive Director <ExecutiveDirector@euda.europa.eu>
+Cc: Lorraine NOLAN <Lorraine.Nolan@euda.europa.eu>; Fabian PEREYRA
+<Fabian.Pereyra@euda.europa.eu>; Dante STORTI <Dante.Storti@euda.europa.eu>;
+Jane MOUNTENEY <Jane.Mounteney@euda.europa.eu>; [organizační e-mail anonymizován]
+Subject: FUNDAMENTAL OBJECTION TO THE EUDA RESPONSE OF 25 SEPTEMBER 2026
+<PARSED TEXT FOR PAGE: 7 / 13>
+Some people who received this message don't                  often   get   email   from
+[soukromý e-mail anonymizován]. Learn why this is important
+
+FUNDAMENTAL OBJECTION TO THE EUDA RESPONSE OF 25 SEPTEMBER 2026
+concerning the performance of EUDA’s duties under Regulation (EU) 2023/1322, the
+comparability of published data on THC content in cannabis, and the methodological
+traceability of those data
+
+
+Mgr. Dušan Dvořák
+Chairman of the Board, Cannabis is The Cure, z. s.
+Head of the “Cannabis is The Cure” research programme
+Educational Cannabis Clinic
+[adresa anonymizována]
+Czech Republic
+
+
+Dr Lorraine Nolan
+Executive Director
+European Union Drugs Agency – EUDA
+Praça Europa 1, Cais do Sodré
+1249-289 Lisbon
+Portugal
+Ospělov, 26 September 2026
+Subject: Fundamental objection to EUDA response Ref. EXO/FHP/pd (26) D 106 of 25
+September 2026 – comparability, objectivity and reliability of data on THC content in
+cannabis
+Dear Dr Nolan,
+Thank you for EUDA’s extensive response of 25 September 2026 to my formal call to act
+of 7 August 2026 and its subsequent supplements.
+ Your response constitutes EUDA’s position on my call to act under Article 265 TFEU. I
+therefore do not claim in this submission that procedural inaction within the meaning of
+that provision continued after 25 September 2026. I do, however, raise a fundamental
+objection to the reasons set out in your response and, in particular, to the evidently
+unresolved problem of the governance, control, interpretation and publication of
+European data on THC content in cannabis.
+<PARSED TEXT FOR PAGE: 8 / 13>
+I. EUDA’s duties under Regulation (EU) 2023/1322
+ The starting point cannot be whether EUDA is a superior authority over national forensic
+laboratories. I have never claimed that it is.
+The starting point must be EUDA’s own statutory duties.
+ Regulation (EU) 2023/1322 of the European Parliament and of the Council requires EUDA
+to provide the Union and the Member States with factual, objective, reliable and
+comparable information on drugs and drug-related issues.
+Article 6(1)(f) further requires the Agency to ensure improved comparability, objectivity
+and reliability of information and data at Union level, inter alia through indicators and non-
+binding common standards, with the aim of achieving greater uniformity of the
+measurement methods used by Member States and the Union.
+ Article 15 establishes a network of forensic and toxicological laboratories whose purpose
+includes supporting quality-assurance systems and the further harmonisation of data-
+collection and analytical methods.
+My question is therefore not: “Why does EUDA not control the Czech police?”
+ My question is: “How does EUDA fulfil its own statutory duty to ensure the objectivity,
+reliability and comparability of data at Union level if it does not know and does not
+systematically compare the analytical procedures by which the national values entering
+European indicators were produced?”
+II. EUDA’s response confirms the very core of the problem
+ In its response, EUDA expressly acknowledges that methodological differences may be
+relevant to the results of THC determination. This concerns, in particular, differences
+between gas and liquid chromatography, the analytical treatment of THC and THCA,
+sample preparation, homogenisation, drying and storage, representativeness of
+sampling, and the determination and reporting of measurement uncertainty.
+
+
+At the same time, EUDA expressly stated that it does not maintain a systematic inventory
+of the analytical methods used by individual forensic laboratories in the Member States
+for determining THC in cannabis.
+ According to its own response, EUDA therefore does not hold comprehensive information
+enabling it to compare the use of GC, GC-FID, LC or HPLC, approaches to THC and THCA
+determination, sampling and storage procedures, or approaches to determining and
+reporting measurement uncertainty.
+The Agency also stated that it has not undertaken a systematic comparative assessment
+of the THC determination methods used in the Member States.
+ Furthermore, since its formal launch at the end of 2025, EUDA’s Network of Forensic and
+Toxicological Laboratories has not undertaken dedicated work on methods for
+<PARSED TEXT FOR PAGE: 9 / 13>
+determining THC concentrations in cannabis, THC/THCA determination, or the
+harmonisation of those analytical approaches.
+ Finally, EUDA stated that it has not carried out the comparative assessment of the issues
+I raised, has not decided to conduct or commission such work, and that no such activity
+is currently included in the Agency’s planning.
+ This is precisely where the fundamental contradiction arises that your response does not
+resolve.
+III. This is not only about national forensic laboratories. It is about data published by
+EUDA itself
+ EUDA publishes European indicators, averages and time series concerning THC content
+in seized cannabis.
+If such figures are to be used as European indicators and are intended to enable
+monitoring over time or comparison of data, it must be clear what the individual national
+values actually mean and whether they measure a sufficiently comparable quantity.
+Accreditation of a laboratory under ISO/IEC 17025 does not in itself resolve this issue.
+EUDA itself acknowledged that the information on accreditation and proficiency testing
+was not collected for the purpose of assessing the comparability of THC/THCA methods
+and therefore does not permit a conclusion on that specific question.
+ A laboratory may be technically competent to perform its own validated method without
+this proving that its result is analytically comparable, without further qualification, to the
+result of another laboratory using a different definition of the analyte, different sample
+preparation or a different chromatographic procedure.
+This is precisely the problem to which I am drawing attention.
+IV. THC and THCA are not the same analytical question under different procedures
+During gas chromatography, high temperature may cause decarboxylation of THCA to
+THC. Liquid chromatography, by contrast, makes it possible to determine THC and THCA
+separately.
+The result therefore depends not only on the plant itself, but also on what was sampled,
+how the sample was prepared, whether it was dried, how it was homogenised, how it was
+stored, which analytical method was used, and whether the reported value is THC, THCA
+or calculated “total THC”.
+
+
+If individual Member States or their laboratories proceed differently, comparability of the
+resulting figures cannot simply be assumed. It must either be methodologically
+demonstrated or the limitations on comparability must be stated clearly and visibly when
+the data are published.
+V. This is not a theoretical issue
+<PARSED TEXT FOR PAGE: 10 / 13>
+ Professor Lumír Ondřej Hanuš, an internationally recognised Czech chemist and
+cannabinoid researcher who has long worked at the Hebrew University of Jerusalem, drew
+attention in his expert statement of 13 March 2015 to the fundamental importance of the
+manner in which cannabinoids are determined and to the distinction between THC and
+its acidic precursor THCA.
+In the Czech Republic, the determination of active substances in cannabis was also
+addressed by doc. RNDr. Peter Ondra, Ph.D., Head of the Institute of Forensic Medicine
+and Medical Law at University Hospital Olomouc, who in communications of 29 April
+2013 and 24 September 2014 confirmed measurements of active substances in cannabis
+within our “Cannabis is Medicine” research programme. The submitted results also show
+how markedly results may differ according to the analysed material and the procedure
+selected.
+ The expert institute of Palacký University Olomouc also concluded in its expert opinion
+of 10 August 2015 that the submitted cannabis was not a precursor within the meaning of
+the relevant legislation.
+I did not submit these materials to EUDA so that it would decide guilt or innocence in my
+criminal proceedings. I submitted them as concrete evidence that the definition of the
+measured quantity and the analytical method may have fundamental practical and legal
+consequences.
+ The same is demonstrated by examples from other countries, including the materials
+from Denmark.
+VI. The Danish material shows why it is not enough to say that this is a national
+competence
+An official document of the Danish Ministry of Justice dated 28 June 2024 was also
+submitted to EUDA.
+Its significance is not that EUDA should review a specific Danish criminal case.
+Its significance is that the document shows that the method of laboratory determination
+of THC may have a direct bearing on legal classification and criminal-law consequences.
+ If the same European terms such as “THC content”, “cannabis potency” or similar
+indicators may be based on analytically different values, this is relevant not only to
+national criminal law but also to the quality and interpretation of European data.
+VII. Historical and EU-law context
+The Czech Republic joined the European Union on 1 May 2004 and assumed the
+obligation to apply the Union acquis.
+Council Framework Decision 2004/757/JHA was adopted on 25 October 2004.
+I do not claim that the Treaty of Accession or Article 83 TFEU themselves prescribed a
+specific chromatographic method for measuring THC. Such a claim would be inaccurate.
+<PARSED TEXT FOR PAGE: 11 / 13>
+ I do, however, draw attention to a broader problem: European harmonisation of drug
+policy and the criminal-law framework proceeded without simultaneously ensuring
+unequivocal European comparability of the analytical basis on which some cannabis-
+related data may rest.
+
+
+This is precisely why EUDA’s duty under Regulation (EU) 2023/1322 to improve the
+comparability, objectivity and reliability of information and to support greater uniformity
+of measurement methods is of particular importance today.
+VIII. The fundamental question remains unanswered
+I respect EUDA’s position that neither Article 6(1)(f) nor Article 15 of Regulation (EU)
+2023/1322 requires the Agency, at the request of an individual, to carry out the particular
+study proposed by that individual.
+That, however, does not answer the essential question.
+EUDA has scientific discretion in selecting specific scientific tools and priorities. In my
+view, however, that discretion cannot mean that the Agency need not be able to
+demonstrate how it fulfils the statutory duty itself to ensure improved comparability,
+objectivity and reliability of the data that it processes and publishes at European level.
+I therefore ask you to answer the following question:
+ By what concrete and verifiable mechanism does EUDA ensure the comparability of
+published data on THC content in cannabis between Member States and across time
+series when EUDA simultaneously confirms that it has no systematic inventory of the THC
+determination methods used by individual forensic laboratories, no comprehensive
+information on differences between GC/GC-FID/LC/HPLC, THC/THCA, sampling, storage
+and measurement uncertainty, and has not carried out a systematic comparative
+assessment of those methods?
+IX. Specific requests to EUDA
+I therefore request that EUDA:
+1. describe the concrete mechanism by which it verifies the comparability of national
+data on THC content before using them in European averages, indicators and time series;
+2. state what definition of THC is used for individual national inputs – in particular
+whether it is native Δ9-THC, THC after thermal conversion of THCA, or “total THC” – and
+how this is recorded in the metadata;
+3. explain how, in European comparisons, it takes account of differences in sampling,
+homogenisation, drying, storage, analytical method and measurement uncertainty;
+4. explain how EUDA alerts users, when publishing European data, to limitations on their
+comparability where the methodological comparability of national inputs has not been
+verified;
+<PARSED TEXT FOR PAGE: 12 / 13>
+5. state whether the two attached documents and the expert materials I submitted have
+been forwarded to the expert team responsible for cannabis potency indicators and to the
+Network of Forensic and Toxicological Laboratories under Article 15 of Regulation (EU)
+2023/1322; if not, I request that they be forwarded and that the further course of action
+be substantively reasoned;
+
+
+6. provide a methodological audit trail at least for the selected 2024 figure and the 2014–
+2024 time series: the original national datum, the definition of measured THC, the form of
+material analysed, the aggregation method, the analytical method used, available
+information on measurement uncertainty and recorded methodological changes; at the
+same time, I request information on who verified the methodological comparability of the
+Czech and Danish inputs and when; if it was not verified, I request that EUDA expressly
+state this alongside the relevant indicator;
+7. state whether EUDA will review the wording of its public outputs and add an express
+warning that, without distinguishing native THC, THCA and total THC and without
+knowledge of sampling and analytical method, some national data may not be directly
+comparable. If EUDA refuses such a revision, I request identification of the responsible
+person or unit, the scientific basis for that decision and its written reasons.
+I request a substantive position on these questions within 30 days.
+X. The request for access to documents is separate
+ If EUDA holds documents, methodological materials, internal instructions, metadata,
+correspondence with National Focal Points or the laboratory network showing how the
+comparability of THC data is controlled, I also request access to them under Regulation
+(EC) No 1049/2001.
+This request for access to documents is separate and does not alter the nature of this
+objection.
+XI. Further course of action
+I regard your response of 25 September 2026 as EUDA’s position on the formal call to act
+under Article 265 TFEU. This submission therefore does not suggest that the original
+procedural inaction continued after that position was adopted.
+The objection now concerns the content and reasoning of EUDA’s position, the
+governance of European data, transparency about methodological limitations, and the
+manner in which the Agency fulfils its own duties concerning comparability, objectivity
+and reliability of data.
+In view of the seriousness of the findings contained in EUDA’s response of 25 September
+2026, I have submitted the matter for assessment to the European Ombudsman, from the
+perspective of possible maladministration in the governance, control, interpretation and
+<PARSED TEXT FOR PAGE: 13 / 13>
+publication of EUDA data and in the performance of the Agency’s duties concerning their
+comparability, objectivity and reliability.
+I do not ask for the outcome of the scientific assessment to be predetermined.
+I ask that EUDA be able to demonstrate the methodological basis of the data it publishes,
+explain the limits of their comparability, and transparently state what it knows and does
+not know about their comparability.
+Yours sincerely,
+Mgr. Dušan Dvořák
+Chairman of the Board, Cannabis is The Cure, z. s.
+Head of the “Cannabis is The Cure” research programme
+Educational Cannabis Clinic
+[adresa anonymizována]
+Czech Republic
+XII. Evidence and internet links
+
+
+As key evidentiary materials for this objection, I identify in particular the following
+documents and publicly available sources. The documents under points 1 and 2 were
+sent to EUDA separately; points 3 to 5 enable direct verification of the expert opinions and
+ongoing national proceedings demonstrating the practical consequences of the
+methodological problem.
+1. Position of the European Commission
+European Commission, Directorate-General for Agriculture and Rural Development (DG
+AGRI), 31 March 2026, Ref. Ares(2026)3399259. The document was sent to EUDA
+separately as key evidence concerning the distinction between the agricultural
+methodology for determining THC and the forensic use of analytical methods.
+2. Position of the Danish Ministry of Justice
+Danish Ministry of Justice, Strafferetskontoret, 28 June 2024, Sagsnr. 2023-03729, Dok.
+3320589; Folketinget, Retsudvalget 2023–24, REU Alm. del – Bilag 276, document No
+2888350: “Orientering om opfølgning på Vestre Landsrets dom af 9. marts 2023 om
+grænseværdien på højst 0,2 pct. THC i bekendtgørelse om euforiserende stoffer”. The
+document was sent to EUDA separately as key evidentiary material.
+3. Opinions of the cited experts and expert institutes
+Publicly available collection of expert opinions, including opinions by Prof. Lumír Ondřej
+Hanuš, DrSc., doc. RNDr. Peter Ondra, CSc., and the expert institute of Palacký University
+Olomouc: https://www.konopijelek.cz/novinky/znalci-a-znalecke-ustavy/

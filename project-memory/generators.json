@@ -110,6 +110,11 @@
       "path": "scripts/materialize-godot-filings-2026-10-08.py",
       "role": "deterministic_sha256_verified_binary_pdf_materialization",
       "allowed_caller": "scripts/build-site.mjs"
+    },
+    {
+      "path": "scripts/materialize-2026-10-15-godot-slalom.py",
+      "role": "deterministic_verified_public_copy_materialization_for_godot_and_justice_slalom",
+      "allowed_caller": "scripts/build-site.mjs"
     }
   ],
   "canonical_generated_outputs": [
@@ -123,5 +128,5 @@
     "web/documents/report-04082026-010/96-os-praha4-10-c-69-2026-predvolani-2026-09-16.pdf",
     "web/data/active-court-dockets.json"
   ],
-  "updated_on": "2026-10-09"
+  "updated_on": "2026-10-15"
 }
