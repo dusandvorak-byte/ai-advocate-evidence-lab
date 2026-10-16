@@ -38,8 +38,11 @@ jobs:
           node --check scripts/validate-process-chain-contract.mjs
           node --check scripts/validate-active-court-dockets.mjs
 
-      - name: Připravit Python pro ověřenou veřejnou kopii ÚOOÚ
-        run: python3 -m pip install --quiet reportlab pillow pymupdf
+      - name: Připravit Python a PDF kontrolní nástroje
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python3 -m pip install --quiet reportlab pillow pymupdf
 
       - name: Obnovit přesné PDF z historických binárních zdrojů
         run: node scripts/recover-historical-binary-blobs.mjs
