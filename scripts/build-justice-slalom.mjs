@@ -86,7 +86,11 @@ for (const doc of entries) {
         'CZ-OS-PHA4': 'Prague 4 District Court',
         'CZ-UOCR': 'Czech Defence Lawyers’ Union',
         'CZ-CNB': 'Czech National Bank',
-        'CZ-RB-OMB': 'Raiffeisenbank Ombudsman'
+        'CZ-RB-OMB': 'Raiffeisenbank Ombudsman',
+        'CZ-PODANE-RUCE-VOBO': 'Mgr. Jindřich Vobořil, Ph.D.\nNational drug policy coordinator, 10 years in total, twice, most recently in 2024',
+        'CZ-PAVEL-BEM': 'MUDr. Pavel Bém\nNational drug policy coordinator, 5 years in total, twice, most recently in 2026',
+        'CZ-PODANE-RUCE-MRAV': 'Doc. MUDr. Viktor Mravčík, Ph.D.\nNational Monitoring Centre, head of the NMC for a total of 20 years until 2021',
+        'CZ-PSP-TROJANV': 'Chamber of Deputies – MVDr. Ing. Václav Trojan, Ph.D.\nAccess to medical cannabis and a shift away from its criminalisation, head of the MU/FNUSA cannabis cultivation facility'
       })[recipient.institution_id] || names.get(recipient.institution_id),
       role: recipient.role, reference: recipient.reference,
       subject_cs: recipient.subject_cs, subject_en: recipient.subject_en,

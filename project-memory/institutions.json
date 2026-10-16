@@ -475,29 +475,29 @@
       "id": "CZ-PODANE-RUCE-VOBO",
       "country": "CZ",
       "type": "person_contact",
-      "name": "Podané ruce – kontakt Vobořil",
-      "short_name": "Podané ruce / Vobořil"
+      "name": "Mgr. Jindřich Vobořil, Ph.D.\nNárodní protidrogový koordinátor, celkem 10 let, 2x, naposledy 2024",
+      "short_name": "Mgr. Jindřich Vobořil, Ph.D."
     },
     {
       "id": "CZ-PODANE-RUCE-MRAV",
       "country": "CZ",
       "type": "person_contact",
-      "name": "Podané ruce – kontakt Mravčík",
-      "short_name": "Podané ruce / Mravčík"
+      "name": "Doc. MUDr. Viktor Mravčík, Ph.D.\nNárodní monitorovací středisko, celkem 20 let byl vedoucím NMS do roku 2021",
+      "short_name": "Doc. MUDr. Viktor Mravčík, Ph.D."
     },
     {
       "id": "CZ-PAVEL-BEM",
       "country": "CZ",
       "type": "person",
-      "name": "Pavel Bém",
-      "short_name": "Pavel Bém"
+      "name": "MUDr. Pavel Bém\nNárodní protidrogový koordinátor, celkem 5 let, 2x, naposledy 2026",
+      "short_name": "MUDr. Pavel Bém"
     },
     {
       "id": "CZ-PSP-TROJANV",
       "country": "CZ",
       "type": "parliamentary_contact",
-      "name": "Poslanecká sněmovna – kontakt trojanv",
-      "short_name": "PSP / trojanv"
+      "name": "Poslanecká sněmovna – MVDr. Ing. Václav Trojan, Ph.D.\nDostupnost léčebného konopí a odklon od jeho kriminalizace, vedoucí pěstírny konopí MU/FNUSA",
+      "short_name": "PSP – MVDr. Ing. Václav Trojan, Ph.D."
     }
   ]
 }

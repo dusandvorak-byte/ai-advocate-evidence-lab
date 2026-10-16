@@ -35,6 +35,17 @@ const policeRows=slalom.rows.filter(r=>r.document_id===policeId);
 if(ombRows.length!==6 || policeRows.length!==3) fail('Justiční slalom neobsahuje všechny adresátské řádky');
 for(const row of [...ombRows,...policeRows]) if(row.date!=='2026-10-15' || row.pdf_kind!=='redacted_original') fail('nový řádek má chybný datum nebo typ PDF');
 
+const recipientExpectations=[
+  [240,'CZ-PODANE-RUCE-VOBO','Mgr. Jindřich Vobořil, Ph.D.\nNárodní protidrogový koordinátor, celkem 10 let, 2x, naposledy 2024'],
+  [239,'CZ-PAVEL-BEM','MUDr. Pavel Bém\nNárodní protidrogový koordinátor, celkem 5 let, 2x, naposledy 2026'],
+  [238,'CZ-PODANE-RUCE-MRAV','Doc. MUDr. Viktor Mravčík, Ph.D.\nNárodní monitorovací středisko, celkem 20 let byl vedoucím NMS do roku 2021'],
+  [237,'CZ-PSP-TROJANV','Poslanecká sněmovna – MVDr. Ing. Václav Trojan, Ph.D.\nDostupnost léčebného konopí a odklon od jeho kriminalizace, vedoucí pěstírny konopí MU/FNUSA']
+];
+for(const [number,id,label] of recipientExpectations){
+  const row=slalom.rows.find(r=>r.number===number);
+  if(!row || row.recipient_id!==id || row.recipient_cs!==label || row.role!=='copy') fail('nesprávný adresát/popisek řádku '+number);
+}
+
 for(const item of [euda,omb,police]){
   const rel=item.public?.pdf;
   if(!rel) fail('chybí veřejná PDF cesta '+item.id);
