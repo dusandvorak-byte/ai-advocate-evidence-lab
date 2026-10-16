@@ -5,20 +5,23 @@
   "source_original_sha256": "ada11ba357a53eac04bc4e599eaf5fade745660181be7029de3f1c932f52f9c9",
   "source_original_pages": 6,
   "source_original_size_bytes": 312136,
-  "public_pdf_sha256": "7d30aa7e345d2fc4b7738bffea827c880371867b0d4c27392499c1056d818000",
-  "public_copy_kind": "verified_redacted_text_public_copy",
+  "public_copy_kind": "redacted_original_from_user_binary",
   "byte_identical_original": false,
   "reviewed_source_pages": 6,
-  "review_scope": "all six extracted source pages",
+  "review_scope": "all six original PDF pages; layout-preserving redaction review",
   "redactions": [
-    "author birth date, residence address and private data-box identifier",
-    "names and birth dates of four private family members"
+    "Mgr. Dušan Dvořák: full name retained; date of birth reduced to year 1962; private address reduced to municipality Ospělov; private data-box identifier removed",
+    "Mgr. Vanda D.: surname reduced to initial and date of birth reduced to year 1987",
+    "birth dates of statutory/supervisory persons reduced to birth year only"
   ],
   "preserved": [
-    "Mgr. Dušan Dvořák full name under the project privacy exemption",
-    "public institutional names, public institutional addresses and institutional data-box identifiers",
-    "case numbers, reference numbers, legal citations and substantive evidentiary text"
+    "Mgr. Dušan Dvořák full name and title",
+    "full titles and full names of identified statutory representatives and supervisory-board members, including Mgr. Radomíra Dvořáková, Ing. František Dvořák and Jana Dvořáková",
+    "public institutional names, institutional addresses and institutional data-box identifiers",
+    "case numbers, references, legal citations and substantive evidentiary text",
+    "original page layout, typography and document structure except at redacted fields"
   ],
   "unexpected_personal_identifiers_after_review": 0,
-  "note": "The public PDF is a deterministic text copy generated from the complete extracted text after lawful anonymization; it is not the binary original."
+  "note": "The public artifact is a layout-preserving redacted original derived from the uploaded binary PDF. It is not byte-identical to the source original because specified personal fields were reduced according to the user-approved criminal-submission privacy rule.",
+  "redacted_original_source_sha256": "6a667a74a4485ab5ab84cc37733c37289f83cbc056afa1d91f09bf1aef3133c3"
 }
