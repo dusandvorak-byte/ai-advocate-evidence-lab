@@ -39,7 +39,7 @@ jobs:
           node --check scripts/validate-active-court-dockets.mjs
 
       - name: Připravit Python pro ověřenou veřejnou kopii ÚOOÚ
-        run: python3 -m pip install --quiet reportlab pillow
+        run: python3 -m pip install --quiet reportlab pillow pymupdf
 
       - name: Obnovit přesné PDF z historických binárních zdrojů
         run: node scripts/recover-historical-binary-blobs.mjs
