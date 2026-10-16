@@ -151,6 +151,9 @@ def main():
     registry=json.loads(REGISTRY.read_text("utf-8"))
     by_id={x["id"]:x for x in registry.get("documents",[])}
     for spec in SPECS:
+        if (item.get("justice_slalom") or {}).get("source_kind")=="redacted_original_from_user_binary":
+            print("SKIP LEGACY PUBLIC COPY",spec["id"],"redacted original is canonical")
+            continue
         source=(ROOT/spec["source"])
         text=source.read_text("utf-8")
         if f"ORIGINAL_SHA256: {spec['original_sha']}" not in text:
