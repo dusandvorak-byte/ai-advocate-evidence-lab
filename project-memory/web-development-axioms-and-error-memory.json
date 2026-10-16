@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "status": "binding",
   "effective_from": "2026-07-18",
-  "recorded_on": "2026-10-09",
+  "recorded_on": "2026-10-16",
   "purpose": "Trvalá paměť pravidel tvorby CannaInsider.EU a Church of Cannabis a zákaz opakování chyb zjištěných od zahájení tvorby webů 18. 7. 2026.",
   "mandatory_work_algorithm": [
     "1. PŘED JAKOUKOLI PRACÍ načíst a rešeršovat aktuální project-memory/publication-axioms.json, project-memory/web-development-axioms-and-error-memory.json, project-memory/project-goals.json a další registry přímo relevantní k úkolu.",
@@ -117,6 +117,10 @@
     {
       "id": "active-court-crosscheck-table",
       "text": "Aktivní soudní řízení jsou křížově odvozená z Godota (rozhodnutí a listiny orgánů), Justičního slalomu (vlastní obrana) a cases.json. Každý nový rozsudek, usnesení, rozhodnutí o stížnosti/odvolání/kasační stížnosti nebo nové vlastní podání musí ve stejném release aktualizovat soudní tabulku. Dominantní první sloupec nese soud, spisovou značku, meritum a důvod zveřejnění; další sloupce nesou opravnou/kasační větev, ústavní/nejvyšší přezkum, mediální větev a konkrétní „Vše zveřejněné“ deep-link. Tři ovládací lišty zůstávají při rozbalení sticky a současně viditelné."
+    },
+    {
+      "id": "criminal-submission-redacted-originals",
+      "text": "U trestních podnětů se při nutné anonymizaci nepřevádí uživatelem dodané PDF automaticky do nově vysázené textové kopie. Přednost má redigovaný originál se zachovaným vzhledem. Statutární zástupci a členové dozorčích rad zůstávají s titulem, celým jménem a příjmením, funkcí a organizací; narození/úmrtí jen rok, bydliště jen obec/město. Ostatní soukromé třetí osoby: titul + celé křestní jméno/jména + iniciála příjmení, rok narození/úmrtí, obec/město. Soukromé přímé identifikátory se odstraní."
     }
   ],
   "error_memory_since_2026_07_18": [
@@ -183,6 +187,10 @@
     {
       "id": "error-late-receipt-misorders-chronology",
       "lesson": "Pozdě doručená listina nesmí být ve veřejné chronologii zařazena podle dne, kdy byla získána. Kanonické řazení používá doložené datum dokumentu issue_date; received_date zůstává samostatným procesním údajem. Automatická brána musí umět ověřit případ, kdy received_date > issue_date."
+    },
+    {
+      "id": "error-reconstructed-copy-replaced-source-layout",
+      "lesson": "U podání z 12. a 15. října 2026 byly místo původně vysázených PDF zveřejněny nově vytvořené textové veřejné kopie. Pokud je zdrojový binární PDF dostupný a je třeba pouze anonymizovat vybrané osobní údaje, má se redigovat přímo zdrojové PDF, zachovat jeho vzhled a veřejně jej označit jako redigovaný originál. Přesná data narození se v trestních podnětech redukují na rok; statutární a dozorčí osoby si zachovávají celé jméno, tituly a funkci."
     }
   ],
   "definition_of_done": [
