@@ -19,6 +19,7 @@ html[lang="en"] .justice-slalom-shell .justice-slalom[open] .rollup-action:after
 .justice-slalom th,.justice-slalom td{border:1px solid #c6d4da;padding:10px 12px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
 .justice-slalom th{background:#dce9ee;color:#18384a;font-weight:800}
 .justice-slalom th:nth-child(1){width:5%}.justice-slalom th:nth-child(2){width:11%}.justice-slalom th:nth-child(3){width:24%}.justice-slalom th:nth-child(4){width:18%}.justice-slalom th:nth-child(5){width:42%}
+.justice-slalom td:nth-child(3){white-space:pre-line}
 .justice-slalom .slalom-number{font-weight:800;text-align:center;color:#18384a}
 .justice-slalom tbody tr:nth-child(even){background:#ebf2f5}
 .justice-slalom tbody tr:hover{background:#e3edf1}
