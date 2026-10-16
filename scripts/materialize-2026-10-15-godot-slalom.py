@@ -151,6 +151,8 @@ def main():
     registry=json.loads(REGISTRY.read_text("utf-8"))
     by_id={x["id"]:x for x in registry.get("documents",[])}
     for spec in SPECS:
+        item=by_id.get(spec["id"])
+        if not item: raise SystemExit("Registry item missing "+spec["id"])
         if (item.get("justice_slalom") or {}).get("source_kind")=="redacted_original_from_user_binary":
             print("SKIP LEGACY PUBLIC COPY",spec["id"],"redacted original is canonical")
             continue
