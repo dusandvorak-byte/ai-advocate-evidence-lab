@@ -25,34 +25,36 @@
       "document_id": "doc-cz-dd-2026-10-15-eu-ombudsman-202602199-first-supplement",
       "source_original_sha256": "a4c2a3eb32c34192791d544ca3f47d19b4763631cb556913257d7e253e71d5fb",
       "source_pages": 13,
-      "public_copy_kind": "verified_redacted_text_public_copy",
+      "public_copy_kind": "redacted_original_from_user_binary",
       "redactions": [
-        "private e-mail and residential address of Mgr. Dušan Dvořák",
-        "private e-mail addresses of persons copied on the outgoing message"
+        "Mgr. Dušan Dvořák: full name and title retained; residential address reduced to municipality Ospělov; private e-mail removed",
+        "private e-mail addresses in the copied-recipient header replaced by names or neutral recipient labels"
       ],
       "preserved": [
-        "Mgr. Dušan Dvořák full name under project privacy exemption",
+        "original PDF layout and pagination except at redacted contact fields",
+        "Mgr. Dušan Dvořák full name, title and organizational role",
         "European Ombudsman and EUDA institutional/professional details",
-        "substantive filing text",
-        "legal references"
-      ]
+        "substantive filing text and legal references"
+      ],
+      "redacted_original_source_sha256": "d7886932f27f4c50f0970be472765c7a9db666ca354b8d66dd72e49009e821f2"
     },
     {
       "document_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
       "source_original_sha256": "df2a9b2340251c7e01adfd79c25ca273c4606f7259288c1e4bb1daab7d5967d6",
       "source_pages": 17,
-      "public_copy_kind": "verified_redacted_text_public_copy_with_historical_scan_appendix",
+      "public_copy_kind": "redacted_original_from_user_binary_with_historical_scan_appendix",
       "redactions": [
-        "birth date, residential address and private data-box identifier of Mgr. Dušan Dvořák",
-        "birth dates and residential identifiers of private third persons",
-        "full personal identification tables of non-exempt third persons",
-        "selected private third-person names replaced by initials where linked to health or birth data"
+        "Mgr. Dušan Dvořák: full name retained; date of birth reduced to year 1962; private address reduced to municipality Ospělov; private data-box identifier removed",
+        "non-statutory/non-supervisory private third persons: titles and given names retained, surname reduced to initial, birth/death date reduced to year, address reduced to municipality",
+        "all exact birth dates in statutory and supervisory tables reduced to birth year only",
+        "private direct identifiers such as street/house number, private e-mail, phone or private data-box identifier removed where present"
       ],
       "preserved": [
-        "Mgr. Dušan Dvořák full name under project privacy exemption",
-        "five alliance organizations where applicable",
-        "public institutions, case numbers, official references and substantive legal/forensic text",
-        "public/professional names necessary to source expert or official statements"
+        "original 17-page PDF layout, typography, tables, legal text and pagination except at redacted fields",
+        "full titles, full first names and full surnames of all statutory representatives and supervisory-board members, together with their functions/organizational context",
+        "for statutory representatives and supervisory-board members: birth year, death year where stated, and municipality/city only",
+        "Mgr. Dušan Dvořák full name and five alliance organizations",
+        "public institutions, case numbers, official references and substantive legal/forensic text"
       ],
       "historical_appendix": {
         "title": "Žádost o zajištění policejní ochrany a další podněty",
@@ -60,8 +62,9 @@
         "pages": 2,
         "source_page1_sha256": "2154a033269f535d96bc298fb35f62c207fcd18ea26c3d9140dfbd02a0a7b8c8",
         "source_page2_sha256": "44c3cf322dec551fe50bd45c0fd9d03b9f23ebff91a66cfb67acc55f17774966",
-        "publication_decision": "Scanned historical request is reproduced as an evidentiary appendix because the names/signatures and public-office addressees are intrinsic to the official historical document and no dates of birth or private residential addresses are displayed in the scan."
-      }
+        "publication_decision": "The two scanned pages of the request for police protection dated 11 August 2014 are appended unchanged as evidentiary historical pages. They are separately provenance-bound by SHA-256 and are not part of the original 17-page binary filing dated 15 October 2026."
+      },
+      "redacted_original_source_sha256": "41431277c4d28f46ea10bebe9e36899222fbd8b529444e3d78799691f24fab27"
     }
   ]
 }
