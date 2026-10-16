@@ -18,6 +18,12 @@ EXPECTED_PUBLIC_SHA="7d30aa7e345d2fc4b7738bffea827c880371867b0d4c27392499c1056d8
 PAGES=6
 FONT=Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
 
+_registry_pre=json.loads(REGISTRY.read_text("utf-8"))
+_doc_pre=next((x for x in _registry_pre.get("documents",[]) if x.get("id")=="doc-cz-dd-2026-10-12-osz-os-pro-infz-thc-obnova"),None)
+if _doc_pre and (_doc_pre.get("justice_slalom") or {}).get("source_kind")=="redacted_original_from_user_binary":
+    print("SKIP LEGACY PUBLIC COPY 2026-10-12: redacted original is canonical")
+    raise SystemExit(0)
+
 def sha256(data:bytes)->str:
     return hashlib.sha256(data).hexdigest()
 
