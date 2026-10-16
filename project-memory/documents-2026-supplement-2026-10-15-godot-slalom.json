@@ -67,15 +67,16 @@
       ],
       "public": {
         "html": null,
-        "pdf": "documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-verejna-kopie.pdf",
-        "intended_pdf": "documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-verejna-kopie.pdf",
-        "sha256": null,
-        "verification_status": "pending_verified_redacted_public_copy_from_complete_text",
+        "pdf": "documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-redigovany-original.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-redigovany-original.pdf",
+        "sha256": "d7886932f27f4c50f0970be472765c7a9db666ca354b8d66dd72e49009e821f2",
+        "verification_status": "redacted_original_from_uploaded_binary; original_layout_preserved; private_contact_coordinates_reduced; not_byte_identical_source_original",
         "source_original_sha256": "a4c2a3eb32c34192791d544ca3f47d19b4763631cb556913257d7e253e71d5fb",
         "source_original_size_bytes": 192261,
         "source_original_page_count": 13,
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-15-godot-slalom.json",
-        "public_copy_manifest": "project-memory/redaction-manifest-2026-10-15.json"
+        "public_copy_manifest": "project-memory/redaction-manifest-2026-10-15.json",
+        "redacted_original_sha256": "d7886932f27f4c50f0970be472765c7a9db666ca354b8d66dd72e49009e821f2"
       },
       "relations": [
         {
@@ -89,13 +90,13 @@
       ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship",
-      "evidence_note": "První doplnění již registrované stížnosti č. 202602199. Podání uvádí jako nový důkaz výsledek hledání dokumentů EUDA ze dne 15. 10. 2026 a žádá jeho zohlednění při posouzení přípustnosti a případném dalším šetření. Dokument výslovně nerozšiřuje stížnost na přezkum jednotlivých národních trestních řízení.",
+      "evidence_note": "První doplnění již registrované stížnosti č. 202602199. Veřejný soubor je redigovaný originál přímo z dodaného PDF se zachovaným vzhledem; soukromé kontaktní údaje byly omezeny, věcný text a procesní obsah zůstaly zachovány.",
       "justice_slalom": {
         "archive_number": 150,
         "archive_name": "Complaint No. 202602199 – First supplement and new evidence dated 15 October 2026.pdf",
         "source_sha256": "a4c2a3eb32c34192791d544ca3f47d19b4763631cb556913257d7e253e71d5fb",
-        "source_kind": "redacted_public_copy_from_user_original",
-        "public_sha256": null,
+        "source_kind": "redacted_original_from_user_binary",
+        "public_sha256": "d7886932f27f4c50f0970be472765c7a9db666ca354b8d66dd72e49009e821f2",
         "redaction_manifest": "project-memory/redaction-manifest-2026-10-15.json",
         "delivery_channel": "email",
         "recipients": [
@@ -141,7 +142,8 @@
             "subject_cs": "Na vědomí: první doplnění stížnosti č. 202602199",
             "subject_en": "Copy: first supplement to complaint No. 202602199"
           }
-        ]
+        ],
+        "redacted_original_sha256": "d7886932f27f4c50f0970be472765c7a9db666ca354b8d66dd72e49009e821f2"
       }
     },
     {
@@ -173,15 +175,16 @@
       ],
       "public": {
         "html": null,
-        "pdf": "documents/justice-slalom/2026-10/105-podani-2026-10-15-police-thc-trestni-podnet-verejna-kopie.pdf",
-        "intended_pdf": "documents/justice-slalom/2026-10/105-podani-2026-10-15-police-thc-trestni-podnet-verejna-kopie.pdf",
+        "pdf": "documents/justice-slalom/2026-10/105-podani-2026-10-15-police-thc-trestni-podnet-redigovany-original.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-10/105-podani-2026-10-15-police-thc-trestni-podnet-redigovany-original.pdf",
         "sha256": null,
-        "verification_status": "pending_verified_redacted_public_copy_from_complete_text_with_2014_historical_scan_appendix",
+        "verification_status": "redacted_original_from_uploaded_binary; original_layout_preserved; birth_dates_reduced_to_year; statutory_and_supervisory_full_names_preserved; historical_2014_scan_appendix_2_pages",
         "source_original_sha256": "df2a9b2340251c7e01adfd79c25ca273c4606f7259288c1e4bb1daab7d5967d6",
         "source_original_size_bytes": 309919,
         "source_original_page_count": 17,
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-15-godot-slalom.json",
-        "public_copy_manifest": "project-memory/redaction-manifest-2026-10-15.json"
+        "public_copy_manifest": "project-memory/redaction-manifest-2026-10-15.json",
+        "redacted_original_sha256": "41431277c4d28f46ea10bebe9e36899222fbd8b529444e3d78799691f24fab27"
       },
       "relations": [
         {
@@ -191,12 +194,12 @@
       ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship",
-      "evidence_note": "Společná žádost podle zákona č. 106/1999 Sb. adresovaná KŘP Olomouckého kraje a KŘP Moravskoslezského kraje, na vědomí GIBS, spojená s trestním podnětem. Žádá zejména metodické a prvotní podklady ke stanovení THC/THCA, SOP, auditní stopu vzorků a historické spisové podklady. Na výslovný publikační pokyn autora je veřejná kopie doplněna dvoustránkovým skenem žádosti o zajištění policejní ochrany a dalších podnětů adresované ministru vnitra a policejnímu prezidentovi dne 11. 8. 2014; scan je označen jako historická příloha a není součástí binárního originálu podání z 15. 10. 2026.",
+      "evidence_note": "Společná žádost podle zákona č. 106/1999 Sb. spojená s trestním podnětem. Veřejně se publikuje redigovaný originál přímo z dodaného 17stránkového PDF, nikoli nově vysázená textová kopie. Statutární zástupci a členové dozorčích rad zůstávají s plnými tituly, jmény, příjmeními a funkcemi; data narození/úmrtí jsou omezena na rok a bydliště na obec/město. Ostatní neveřejné třetí osoby mají příjmení redukované na iniciálu. Na konec jsou připojeny dva skeny žádosti o policejní ochranu z 11. 8. 2014.",
       "justice_slalom": {
         "archive_number": 149,
         "archive_name": "Žádost policii 15. října 2026 spojená s trestním podnětem.pdf",
         "source_sha256": "df2a9b2340251c7e01adfd79c25ca273c4606f7259288c1e4bb1daab7d5967d6",
-        "source_kind": "redacted_public_copy_from_user_original",
+        "source_kind": "redacted_original_from_user_binary",
         "public_sha256": null,
         "redaction_manifest": "project-memory/redaction-manifest-2026-10-15.json",
         "delivery_channel": "datova_schranka",
@@ -229,7 +232,8 @@
             "subject_cs": "Na vědomí k nešetřeným trestním podnětům a žádostem o policejní ochranu od roku 2009",
             "subject_en": "Copy concerning unresolved criminal submissions and requests for police protection since 2009"
           }
-        ]
+        ],
+        "redacted_original_sha256": "41431277c4d28f46ea10bebe9e36899222fbd8b529444e3d78799691f24fab27"
       }
     }
   ]
