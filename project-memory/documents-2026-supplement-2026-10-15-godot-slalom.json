@@ -119,28 +119,44 @@
             "role": "copy",
             "reference": "kopie e-mailu 15. 10. 2026",
             "subject_cs": "Na vědomí: první doplnění stížnosti č. 202602199",
-            "subject_en": "Copy: first supplement to complaint No. 202602199"
+            "subject_en": "Copy: first supplement to complaint No. 202602199",
+            "display_cs": "Mgr. Jindřich Vobořil, Ph.D.",
+            "display_en": "Mgr. Jindřich Vobořil, Ph.D.",
+            "note_cs": "Národní protidrogový koordinátor, celkem 10 let, 2x, naposledy 2024",
+            "note_en": "National drug policy coordinator, 10 years in total, twice, most recently in 2024"
           },
           {
             "institution_id": "CZ-PAVEL-BEM",
             "role": "copy",
             "reference": "kopie e-mailu 15. 10. 2026",
             "subject_cs": "Na vědomí: první doplnění stížnosti č. 202602199",
-            "subject_en": "Copy: first supplement to complaint No. 202602199"
+            "subject_en": "Copy: first supplement to complaint No. 202602199",
+            "display_cs": "MUDr. Pavel Bém",
+            "display_en": "MUDr. Pavel Bém",
+            "note_cs": "Národní protidrogový koordinátor, celkem 5 let, 2x, naposledy 2026",
+            "note_en": "National drug policy coordinator, 5 years in total, twice, most recently in 2026"
           },
           {
             "institution_id": "CZ-PODANE-RUCE-MRAV",
             "role": "copy",
             "reference": "kopie e-mailu 15. 10. 2026",
             "subject_cs": "Na vědomí: první doplnění stížnosti č. 202602199",
-            "subject_en": "Copy: first supplement to complaint No. 202602199"
+            "subject_en": "Copy: first supplement to complaint No. 202602199",
+            "display_cs": "Doc. MUDr. Viktor Mravčík, Ph.D.",
+            "display_en": "Doc. MUDr. Viktor Mravčík, Ph.D.",
+            "note_cs": "Národní monitorovací středisko, celkem 20 let byl vedoucím NMS do roku 2021",
+            "note_en": "National Monitoring Centre, head of the NMC for a total of 20 years until 2021"
           },
           {
             "institution_id": "CZ-PSP-TROJANV",
             "role": "copy",
             "reference": "kopie e-mailu 15. 10. 2026",
             "subject_cs": "Na vědomí: první doplnění stížnosti č. 202602199",
-            "subject_en": "Copy: first supplement to complaint No. 202602199"
+            "subject_en": "Copy: first supplement to complaint No. 202602199",
+            "display_cs": "Poslanecká sněmovna – MVDr. Ing. Václav Trojan, Ph.D.",
+            "display_en": "Chamber of Deputies – MVDr. Ing. Václav Trojan, Ph.D.",
+            "note_cs": "Dostupnost léčebného konopí a odklon od jeho kriminalizace, vedoucí pěstírny konopí MU/FNUSA",
+            "note_en": "Access to medical cannabis and a shift away from its criminalisation, head of the MU/FNUSA cannabis cultivation facility"
           }
         ],
         "redacted_original_sha256": "d7886932f27f4c50f0970be472765c7a9db666ca354b8d66dd72e49009e821f2"
