@@ -24,7 +24,10 @@ const esc = value => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<'
   .replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const publicCopyKinds = new Set(['redacted_public_copy_from_user_original', 'verified_public_copy_from_user_original']);
-const originalPdf = item => !publicCopyKinds.has(item.justice_slalom.source_kind);
+const redactedOriginalKind = 'redacted_original_from_user_binary';
+const pdfKind = item => item.justice_slalom.source_kind === redactedOriginalKind
+  ? 'redacted_original'
+  : publicCopyKinds.has(item.justice_slalom.source_kind) ? 'redacted_public_copy' : 'original';
 const root = '/ai-advocate-evidence-lab/';
 const rows = [];
 for (const doc of entries) {
@@ -37,8 +40,14 @@ for (const doc of entries) {
   if (bytes.subarray(0, 5).toString() !== '%PDF-' || !bytes.subarray(-2048).toString('latin1').includes('%%EOF') || bytes.length < 1024) {
     throw new Error(`JUSTICE-SLALOM: neplatné PDF ${doc.public.pdf}`);
   }
-  const copyManifest = meta.source_kind === 'redacted_public_copy_from_user_original' ? meta.redaction_manifest : meta.public_copy_manifest;
-  if (sha(bytes) !== doc.public.sha256 || (originalPdf(doc) ? sha(bytes) !== meta.source_sha256 : sha(bytes) !== meta.public_sha256 || !copyManifest)) {
+  const kind = pdfKind(doc);
+  const copyManifest = meta.source_kind === 'redacted_public_copy_from_user_original' || meta.source_kind === redactedOriginalKind
+    ? meta.redaction_manifest : meta.public_copy_manifest;
+  const digest = sha(bytes);
+  const provenanceOk = kind === 'original'
+    ? digest === meta.source_sha256
+    : digest === meta.public_sha256 && Boolean(copyManifest);
+  if (digest !== doc.public.sha256 || !provenanceOk) {
     throw new Error(`JUSTICE-SLALOM: veřejné PDF neodpovídá deklarovanému zdroji a typu kopie ${doc.id}`);
   }
   for (const [index, recipient] of meta.recipients.entries()) {
@@ -82,7 +91,7 @@ for (const doc of entries) {
       role: recipient.role, reference: recipient.reference,
       subject_cs: recipient.subject_cs, subject_en: recipient.subject_en,
       pdf: doc.public.pdf, pdf_sha256: doc.public.sha256,
-      pdf_kind: originalPdf(doc) ? 'original' : 'redacted_public_copy'
+      pdf_kind: pdfKind(doc)
     });
   }
 }
@@ -110,7 +119,11 @@ const renderRow = (row, lang) => {
   const label = english ? row.subject_en : row.subject_cs;
   const recipient = english ? row.recipient_en : row.recipient_cs;
   const role = row.role === 'copy' ? (english ? 'Copy' : 'Na vědomí') : row.role === 'simultaneous' ? (english ? 'Also addressed' : 'Současně') : row.role === 'through' ? (english ? 'Via' : 'Prostřednictvím') : '';
-  const pdfLabel = row.pdf_kind === 'original' ? (english ? 'Original PDF' : 'Původní PDF') : (english ? 'Public PDF copy' : 'Veřejná kopie PDF');
+  const pdfLabel = row.pdf_kind === 'original'
+    ? (english ? 'Original PDF' : 'Původní PDF')
+    : row.pdf_kind === 'redacted_original'
+      ? (english ? 'Redacted original PDF' : 'Redigovaný originál PDF')
+      : (english ? 'Public PDF copy' : 'Veřejná kopie PDF');
   return `<tr data-slalom-id="${esc(row.id)}" data-row-number="${row.number}" data-document-id="${esc(row.document_id)}" data-recipient-id="${esc(row.recipient_id)}" data-filing-date="${esc(row.date)}"><td class="slalom-number">${row.number}</td><td><time datetime="${esc(row.date)}">${esc(dateText(row.date,lang))}</time></td><td>${esc(recipient)}${role ? `<small class="slalom-role">${esc(role)}</small>` : ''}</td><td>${esc(row.reference)}</td><td>${esc(label)} <a href="${root}${esc(row.pdf)}" target="_blank" rel="noopener" aria-label="${esc(`${pdfLabel}: ${label}`)}">${pdfLabel}</a></td></tr>`;
 };
 const renderPanel = lang => {

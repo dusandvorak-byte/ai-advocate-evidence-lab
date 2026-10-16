@@ -28,25 +28,27 @@
       ],
       "public": {
         "html": null,
-        "pdf": "documents/justice-slalom/2026-10/104-podani-2026-10-12-osz-os-prostejov-verejna-kopie.pdf",
-        "sha256": "7d30aa7e345d2fc4b7738bffea827c880371867b0d4c27392499c1056d818000",
-        "verification_status": "redacted_public_pdf_copy_assistant_review_completed; deterministic_text_copy; not_byte_identical_original",
+        "pdf": "documents/justice-slalom/2026-10/104-podani-2026-10-12-osz-os-prostejov-redigovany-original.pdf",
+        "sha256": "6a667a74a4485ab5ab84cc37733c37289f83cbc056afa1d91f09bf1aef3133c3",
+        "verification_status": "redacted_original_from_uploaded_binary; original_layout_preserved; birth_dates_reduced_to_year; private_address_reduced_to_municipality; not_byte_identical_source_original",
         "source_original_sha256": "ada11ba357a53eac04bc4e599eaf5fade745660181be7029de3f1c932f52f9c9",
         "source_original_size_bytes": 312136,
         "source_original_page_count": 6,
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-12-justice-slalom.json",
-        "public_copy_manifest": "project-memory/redaction-manifest-2026-10-12-osz-os.json"
+        "public_copy_manifest": "project-memory/redaction-manifest-2026-10-12-osz-os.json",
+        "intended_pdf": "documents/justice-slalom/2026-10/104-podani-2026-10-12-osz-os-prostejov-redigovany-original.pdf",
+        "redacted_original_sha256": "6a667a74a4485ab5ab84cc37733c37289f83cbc056afa1d91f09bf1aef3133c3"
       },
       "relations": [],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship_and_user_instruction_to_publish_in_justice_slalom",
-      "evidence_note": "Podání je datováno 12. 10. 2026 a titulní strana uvádí podání datovou schránkou. Adresáty jsou Okresní státní zastupitelství v Prostějově a Okresní soud v Prostějově. Veřejná kopie zachovává úplný extrahovaný věcný text, ale kvůli ochraně soukromých fyzických osob a přímých identifikátorů není byte-identická s originálem.",
+      "evidence_note": "Podání je datováno 12. 10. 2026 a titulní strana uvádí podání datovou schránkou. Veřejný soubor je redigovaný originál vytvořený přímo z uživatelem dodaného PDF při zachování původního vzhledu; přesná data narození byla podle schváleného pravidla omezena na rok, soukromá adresa na obec a jiné přímé identifikátory byly odstraněny. U statutárních a dozorčích osob se zachovávají plné tituly a jména.",
       "justice_slalom": {
         "archive_number": 148,
         "archive_name": "Žáodst OSZ a OS dne 12.října 2026.pdf",
         "source_sha256": "ada11ba357a53eac04bc4e599eaf5fade745660181be7029de3f1c932f52f9c9",
-        "source_kind": "redacted_public_copy_from_user_original",
-        "public_sha256": "7d30aa7e345d2fc4b7738bffea827c880371867b0d4c27392499c1056d818000",
+        "source_kind": "redacted_original_from_user_binary",
+        "public_sha256": "6a667a74a4485ab5ab84cc37733c37289f83cbc056afa1d91f09bf1aef3133c3",
         "redaction_manifest": "project-memory/redaction-manifest-2026-10-12-osz-os.json",
         "delivery_channel": "datova_schranka",
         "recipients": [
@@ -64,7 +66,8 @@
             "subject_cs": "Žádost o informace k metodice stanovení THC/THCA, soudním podkladům a řízením o obnově",
             "subject_en": "Information request on THC/THCA testing methodology, court records and reopening proceedings"
           }
-        ]
+        ],
+        "redacted_original_sha256": "6a667a74a4485ab5ab84cc37733c37289f83cbc056afa1d91f09bf1aef3133c3"
       }
     }
   ]

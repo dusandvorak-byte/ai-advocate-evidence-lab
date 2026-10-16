@@ -33,7 +33,7 @@ if(police.justice_slalom.archive_number!==149 || police.justice_slalom.recipient
 const ombRows=slalom.rows.filter(r=>r.document_id===ombId);
 const policeRows=slalom.rows.filter(r=>r.document_id===policeId);
 if(ombRows.length!==6 || policeRows.length!==3) fail('Justiční slalom neobsahuje všechny adresátské řádky');
-for(const row of [...ombRows,...policeRows]) if(row.date!=='2026-10-15' || row.pdf_kind!=='redacted_public_copy') fail('nový řádek má chybný datum nebo typ PDF');
+for(const row of [...ombRows,...policeRows]) if(row.date!=='2026-10-15' || row.pdf_kind!=='redacted_original') fail('nový řádek má chybný datum nebo typ PDF');
 
 for(const item of [euda,omb,police]){
   const rel=item.public?.pdf;
@@ -44,7 +44,7 @@ for(const item of [euda,omb,police]){
 }
 const policeBytes=await readFile('web/'+police.public.pdf);
 const images=(policeBytes.toString('latin1').match(/\/Subtype\s*\/Image/g)||[]).length;
-if(images<2) fail('policejní veřejná kopie neobsahuje dvě obrazové historické přílohy');
+if(images<2) fail('policejní redigovaný originál neobsahuje dvě obrazové historické přílohy');
 
 const scan1=await readFile('project-memory/historical-scans/2014/police-protection-request-2014-08-11-page-1.jpg');
 const scan2=await readFile('project-memory/historical-scans/2014/police-protection-request-2014-08-11-page-2.jpg');
@@ -57,4 +57,4 @@ const krpoCase=cases.find(x=>x.id==='case-cz-pcr-krpo-100092-2026');
 const gibsCase=cases.find(x=>x.id==='case-cz-gibs-3794-2026');
 if(ombCase?.last_filing_document_id!==ombId || eudaCase?.latest_state_document_id!==eudaId || !krpoCase || !gibsCase) fail('procesní větve nejsou aktualizované');
 
-console.log('Dávka 15. 10. 2026 OK: EUDA v Godotu, 9 adresátských řádků ve Slalomu, policejní kopie obsahuje 2stránkovou historickou žádost z 11. 8. 2014.');
+console.log('Dávka 15. 10. 2026 OK: EUDA v Godotu, 9 adresátských řádků ve Slalomu, policejní redigovaný originál obsahuje 2stránkovou historickou žádost z 11. 8. 2014.');

@@ -55,6 +55,8 @@ await runPython('scripts/materialize-mv-rozklad-2026-10-07.py');
 await runPython('scripts/materialize-godot-filings-2026-10-08.py');
 await runPython('scripts/materialize-justice-slalom-2026-10-12.py');
 await runPython('scripts/materialize-2026-10-15-godot-slalom.py');
+await runPython('scripts/materialize-redacted-originals-2026-10-16.py');
+await runPython('scripts/validate-redacted-originals-2026-10-16.py');
 await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');
 await run('scripts/reconcile-public-pdfs.mjs');

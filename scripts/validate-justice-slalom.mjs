@@ -58,7 +58,11 @@ for (const [file,lang] of pages) {
     if ((rendered.match(/<td(?:\s|>)/g) || []).length !== 5) fail(`${file}: řádek ${row.number} obsahuje neočekávanou poznámku či sloupec`);
     const pdfLinks = [...rendered.matchAll(/<a\s+href="([^"]+\.pdf)"/g)];
     if (pdfLinks.length !== 1 || pdfLinks[0][1] !== href) fail(`${file}: řádek ${row.number} nemá právě jedno správné PDF`);
-    const label = row.pdf_kind === 'redacted_public_copy' ? (lang === 'cs' ? 'Veřejná kopie PDF' : 'Public PDF copy') : (lang === 'cs' ? 'Původní PDF' : 'Original PDF');
+    const label = row.pdf_kind === 'redacted_public_copy'
+      ? (lang === 'cs' ? 'Veřejná kopie PDF' : 'Public PDF copy')
+      : row.pdf_kind === 'redacted_original'
+        ? (lang === 'cs' ? 'Redigovaný originál PDF' : 'Redacted original PDF')
+        : (lang === 'cs' ? 'Původní PDF' : 'Original PDF');
     if (!rendered.includes(`>${label}</a>`)) fail(`${file}: řádek ${row.number} zkresluje provenienci PDF`);
   }
 }
@@ -71,10 +75,18 @@ for (const item of items) {
   const sourceKind = item.justice_slalom.source_kind;
   const redacted = sourceKind === 'redacted_public_copy_from_user_original';
   const verifiedPublicCopy = sourceKind === 'verified_public_copy_from_user_original';
+  const redactedOriginal = sourceKind === 'redacted_original_from_user_binary';
   const publicCopy = redacted || verifiedPublicCopy;
-  const copyManifest = redacted ? item.justice_slalom.redaction_manifest : item.justice_slalom.public_copy_manifest;
-  if (hash !== item.public.sha256 || (publicCopy ? hash !== item.justice_slalom.public_sha256 || !copyManifest : hash !== item.justice_slalom.source_sha256) || !bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF')) fail(`poškozené nebo chybně popsané PDF ${item.id}`);
-  if (publicCopy && !published.rows.filter(row => row.document_id === item.id).every(row => row.pdf_kind === 'redacted_public_copy')) fail(`veřejná kopie je klamně označena jako originál ${item.id}`);
+  const copyManifest = (redacted || redactedOriginal) ? item.justice_slalom.redaction_manifest : item.justice_slalom.public_copy_manifest;
+  const kindOk = redactedOriginal
+    ? hash === item.justice_slalom.public_sha256 && Boolean(copyManifest)
+    : publicCopy
+      ? hash === item.justice_slalom.public_sha256 && Boolean(copyManifest)
+      : hash === item.justice_slalom.source_sha256;
+  if (hash !== item.public.sha256 || !kindOk || !bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF')) fail(`poškozené nebo chybně popsané PDF ${item.id}`);
+  const rowsForItem = published.rows.filter(row => row.document_id === item.id);
+  if (publicCopy && !rowsForItem.every(row => row.pdf_kind === 'redacted_public_copy')) fail(`veřejná kopie je klamně označena jako originál ${item.id}`);
+  if (redactedOriginal && !rowsForItem.every(row => row.pdf_kind === 'redacted_original')) fail(`redigovaný originál je chybně označen ${item.id}`);
   if (!published.rows.filter(row => row.document_id === item.id).every(row => row.pdf_sha256 === hash)) fail(`hash adresátů nesouhlasí ${item.id}`);
 }
 async function walk(dir) {

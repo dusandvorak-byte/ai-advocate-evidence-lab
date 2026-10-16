@@ -53,7 +53,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m pip install --disable-pip-version-check reportlab pillow
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python3 -m pip install --disable-pip-version-check reportlab pillow pymupdf
 
       - name: Obnovit a kryptograficky ověřit všechna verzovaná PDF z historie
         run: node scripts/recover-historical-binary-blobs.mjs
