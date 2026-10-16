@@ -120,6 +120,11 @@
       "path": "scripts/materialize-redacted-originals-2026-10-16.py",
       "role": "sha256_verified_redacted_original_materialization_and_historical_appendix_merge",
       "allowed_caller": "scripts/build-site.mjs"
+    },
+    {
+      "path": "scripts/validate-redacted-originals-2026-10-16.py",
+      "role": "privacy_and_provenance_validation_for_redacted_originals",
+      "allowed_caller": "scripts/build-site.mjs"
     }
   ],
   "canonical_generated_outputs": [
