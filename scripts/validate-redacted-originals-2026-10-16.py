@@ -45,15 +45,17 @@ for did in ids:
 # 12 Oct - preserve full names of statutory/supervisory persons, reduce other private identity.
 d=docs[ids[0]]
 txt,pages,images=text_of(WEB/d["public"]["pdf"])
+flat=" ".join(txt.split())
 if pages!=6: fail("12 Oct page count")
 for forbidden in ["12. ledna 1962","798 55 Ospělov 6","r8u3nhx","Mgr. Vandy Dvořákové","8.6.1987","18.5.1963","10.4.1936","20.3.1939"]:
-    if forbidden in txt: fail("12 Oct sensitive value remains: "+forbidden)
-for required in ["Mgr. Dušan Dvořák","Mgr. Radomíry Dvořákové","Mgr. Vandy D.","Ing. Františka Dvořáka","Jany Dvořákové","nar. 1963","nar. 1987","nar. 1936","nar.  1939"]:
-    if required not in txt: fail("12 Oct required redacted form missing: "+required)
+    if forbidden in flat: fail("12 Oct sensitive value remains: "+forbidden)
+for required in ["Mgr. Dušan Dvořák","Mgr. Radomíry Dvořákové","Mgr. Vandy D.","Ing. Františka Dvořáka","Jany Dvořákové","nar. 1963","nar. 1987","nar. 1936","nar. 1939"]:
+    if required not in flat: fail("12 Oct required redacted form missing: "+required)
 
 # 15 Oct police - all statutory/supervisory full names; dates reduced to years; private nonstat surnames initials.
 d=docs[ids[1]]
 txt,pages,images=text_of(WEB/d["public"]["pdf"])
+flat=" ".join(txt.split())
 if pages!=19: fail(f"police page count {pages}, expected 19")
 if images<2: fail("police historical scans missing")
 for forbidden in [
@@ -61,22 +63,23 @@ for forbidden in [
  "Mgr. Petr Ladislav Kodym","Olga Novotná","Jarmila Honkýšová",
  "7. 11. 1963","18. 5. 1963","2. 8. 1968","7. 2. 1952","25. 3. 1979","12. 2. 1972","3. 7. 1982","26. 5. 1962","5. 1. 1965","23.3.1957","29. 4. 1979","20. 9. 1956","27. 3. 1981","31. 10. 1957","21. 5. 1954","10. 4. 1943","10. 4. 1936","20. 3. 1939"
 ]:
-    if forbidden in txt: fail("police sensitive value remains: "+forbidden)
+    if forbidden in flat: fail("police sensitive value remains: "+forbidden)
 for required in [
  "Ing. Oto Kaděrka","Mgr. Radomíra Dvořáková","Mgr. Robert Nováček","Mgr. Luboš Smékal","MUDr. Jana Budařová",
  "MUDr. Radek Matlach","Ing. Juraj Kořínek","MUDr. Irina Hubeňáková","MUDr. Aleš Skřivánek, Ph.D.","Miloslav Tetour",
  "Bc. Jakub Balabán","Mgr. Zbyněk Kopřiva","Bc. Jan Marie Bém","Hana Barešová","Mgr. Jaroslav Kabilka","JUDr. Ludvík Antonů","Ing. František Dvořák",
  "Mgr. Petr Ladislav K.","Olga N.","Jarmila H.","1962","1963","1954","1943","1936"
 ]:
-    if required not in txt: fail("police required form missing: "+required)
+    if required not in flat: fail("police required form missing: "+required)
 
 # Ombudsman - preserve original filing text/layout while removing private contact coordinates.
 d=docs[ids[2]]
 txt,pages,images=text_of(WEB/d["public"]["pdf"])
+flat=" ".join(txt.split())
 if pages!=13: fail("ombudsman page count")
 for forbidden in ["Ospělov 6, 798 55","DusanDvorak@seznam.cz","pavel.bem@gmail.com","voboril@podaneruce.cz","mravcik@podaneruce.cz","trojanv@psp.cz"]:
-    if forbidden in txt: fail("ombudsman private contact remains: "+forbidden)
+    if forbidden in flat: fail("ombudsman private contact remains: "+forbidden)
 for required in ["Mgr. Dušan Dvořák","Ospělov, Czech Republic","Complaint No. 202602199","Pavel B."]:
-    if required not in txt: fail("ombudsman required form missing: "+required)
+    if required not in flat: fail("ombudsman required form missing: "+required)
 
 print("Redigované originály 12./15. 10. 2026 OK: roky narození, statutární/dozorčí osoby, obec/město, původní vzhled a historická příloha 2014.")
