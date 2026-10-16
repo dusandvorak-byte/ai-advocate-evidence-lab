@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import hashlib, json
+import hashlib, json, subprocess
 from pathlib import Path
 import fitz
 
@@ -15,10 +15,14 @@ def sha(data:bytes)->str:
 
 def text_of(path:Path):
     doc=fitz.open(path)
-    text="\n".join(page.get_text("text") for page in doc)
     pages=doc.page_count
     images=sum(len(page.get_images(full=True)) for page in doc)
     doc.close()
+    try:
+        proc=subprocess.run(["pdftotext","-layout",str(path),"-"],check=True,capture_output=True,text=True)
+        text=proc.stdout
+    except (FileNotFoundError, subprocess.CalledProcessError) as exc:
+        fail("pdftotext unavailable for visible-text verification: "+str(exc))
     return text,pages,images
 
 supp12=json.loads((ROOT/"project-memory/documents-2026-supplement-2026-10-12-justice-slalom.json").read_text("utf-8"))
