@@ -207,3 +207,19 @@
 .live-dockets .active-nsz-group a{font-weight:750;text-decoration:underline;text-underline-offset:2px}
 .live-dockets .active-nsz-group small{font-weight:500;color:#536875}
 .live-dockets .active-nsz-provenance{margin:0;padding:12px 14px;color:#536875;font-size:.77rem;line-height:1.45}
+
+/* Jednotná dvoustranná evidence Godot/Slalom pod externím archivním odkazem. */
+.live-dockets .active-case-publications-toggle{display:block;width:100%;margin-top:10px;padding:9px 6px;border:1px solid #8ea8b6;border-radius:4px;background:#edf4f7;color:#174e68;text-align:center;cursor:pointer;font:inherit;font-size:.79rem;font-weight:800;white-space:normal}
+.live-dockets .active-case-publications-toggle:hover,.live-dockets .active-case-publications-toggle:focus-visible{background:#dcebf2;outline-offset:2px}
+.live-dockets .active-case-publications-row[hidden]{display:none}
+.live-dockets .active-case-publications-row>td{padding:0!important}
+.live-dockets .active-case-publications-panel{margin:0;padding:16px 18px 19px;background:#f7fafb;border-top:2px solid #acc2ce}
+.live-dockets .active-case-external-source{margin:0 0 14px!important;font-size:.9rem;line-height:1.6}
+.live-dockets .active-case-external-source a,.live-dockets .active-case-publication-groups a{color:#17526a;text-decoration:underline;text-underline-offset:2px}
+.live-dockets .active-case-publication-groups{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}
+.live-dockets .active-case-publication-groups section{min-width:0}
+.live-dockets .active-case-publication-groups h4{font-size:.96rem;color:#173f50;margin:0 0 10px}
+.live-dockets .active-case-publication-groups ol{margin:0;padding-left:26px;display:grid;gap:7px}
+.live-dockets .active-case-publication-groups li{font-size:.82rem;line-height:1.5;overflow-wrap:anywhere}
+.live-dockets .active-case-publication-groups section>p{font-size:.82rem;color:#5f7280}
+@media(max-width:720px){.live-dockets .active-case-publication-groups{grid-template-columns:minmax(0,1fr)}}
