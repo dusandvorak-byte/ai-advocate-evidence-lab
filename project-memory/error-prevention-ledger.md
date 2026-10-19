@@ -15,6 +15,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Specifická mediální kauza musí mít přesný hluboký odkaz na Konopí je lék.cz
+
+- Projev: řádek aktivního řízení ČT (10 C 69/2026, jednání 24. 11. 2026 ve 13:00) odkazoval ve sloupci „Vše zveřejněné“ i ve větvi NSS 1 As 395/2019 na starší stránku namísto výslovně určené stránky `https://www.konopijelek.cz/ceska-televize/`.
+- Náprava: oba odkazy ČT vedou na `/ceska-televize/`; žaloba na CNN/FTV Prima odkazuje na `https://www.konopijelek.cz/novinky/cnn-prima-news/`.
+- Pojistka: `scripts/validate-active-court-dockets.mjs` hlídá obě přesné adresy ČT, hlavní odkaz Prima i nepřítomnost zastaralé cílové adresy ČT; pro každou budoucí změnu hlubokého odkazu se udržuje kanonický datový registr, nikoli ručně generované HTML.
+
 ### Příloha vlastního podání nesmí automaticky založit procesní časovač
 
 - Projev: pracovní návrh ústavní stížnosti přiložený k žádosti ČAK byl po zařazení jako `user_submission_attachment` mylně zachycen detektorem slova „stížnost“ a build požadoval samostatný překlad časovače.

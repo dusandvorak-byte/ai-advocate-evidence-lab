@@ -97,6 +97,12 @@ must((ftv.slalom_document_ids||[]).includes('doc-cz-ekk-2026-10-02-os-praha10-ft
 
 const ct=registry.rows.find(x=>x.id==='court-media-ct');
 must(ct?.media_cs.includes('1 As 395/2019'),'ČT mediální větev neobsahuje NSS 1 As 395/2019');
+const expectedCt='https://www.konopijelek.cz/ceska-televize/';
+const expectedPrima='https://www.konopijelek.cz/novinky/cnn-prima-news/';
+must(ct.links?.[0]?.href===expectedCt,'ČT: Vše zveřejněné nevede na konkrétní stránku /ceska-televize/');
+must(ct.media_links?.[0]?.href===expectedCt,'ČT: mediální odkaz NSS 1 As 395/2019 nevede na stránku /ceska-televize/');
+must(ftv.links?.[0]?.href===expectedPrima,'FTV/CNN Prima: Vše zveřejněné nevede na konkrétní stránku /novinky/cnn-prima-news/');
+must(!JSON.stringify(ct).includes('novinky/zaloba-na-ceskou-televizi-za-cenzuru/'),'ČT: zůstal neaktuální odkaz na starou stránku');
 
 for(const token of [
   "const registryUrl = '/ai-advocate-evidence-lab/data/active-court-dockets.json'",
