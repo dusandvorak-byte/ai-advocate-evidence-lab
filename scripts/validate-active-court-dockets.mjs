@@ -43,12 +43,23 @@ must(nszRow.timeline_asset==='data/nsz-prelitigation-timeline.json','NSZ nemá d
 const nszCase=caseMap.get('CASE-CZ-NSZ-6NZN1737-2026');
 must(nszCase?.pre_litigation_milestone_on==='2026-07-14'&&nszCase?.court_case_status==='court_filing_not_evidenced','NSZ case chybně představuje předžalobní krok jako podanou žalobu');
 const nszTimeline=await readJson('web/data/nsz-prelitigation-timeline.json');
+const archivalSources=await readJson('project-memory/nsz-prelitigation-archive-2026.json');
 must(nszTimeline.case_id==='CASE-CZ-NSZ-6NZN1737-2026'&&nszTimeline.milestone==='2026-07-14','NSZ timeline má nesprávný case nebo datum');
 must(nszTimeline.period_start==='2026-04-20'&&nszTimeline.official_from==='2026-05-01','NSZ timeline chybně zahrnuje období');
 const official=nszTimeline.groups?.find(g=>g.id==='incoming_nsz')?.items||[];
 const own=nszTimeline.groups?.find(g=>g.id==='outgoing_to_nsz')?.items||[];
+const archival=nszTimeline.groups?.find(g=>g.id==='historical_archive')?.items||[];
 must(official.length>0&&own.length>0,'NSZ timeline nemá obě procesní strany');
-must(nszTimeline.counts.incoming===official.length&&nszTimeline.counts.outgoing===own.length&&nszTimeline.counts.total===official.length+own.length,'NSZ timeline počty nejsou odvozené ze záznamů');
+must(nszTimeline.counts.incoming===official.length&&nszTimeline.counts.outgoing===own.length&&nszTimeline.counts.archival===archival.length&&nszTimeline.counts.total===official.length+own.length+archival.length,'NSZ timeline počty nejsou odvozené ze záznamů');
+must(archival.length===4,'NSZ timeline postrádá čtyři historická podání duben–květen');
+must(JSON.stringify(archival.map(x=>x.date))===JSON.stringify(['2026-05-12','2026-05-08','2026-04-25','2026-04-20']),'Historické podklady NSZ nemají přesná data a sestupné řazení');
+for(const item of archival){
+  const source=archivalSources.items.find(x=>x.archive_reference_id===item.archive_reference_id);
+  must(source&&JSON.stringify(source)===JSON.stringify(item),'Archivní záznam NSZ není odvozen z kanonického archivního registru');
+  must(item.link_kind==='archive'&&item.record_status==='cited_in_public_archive_not_separately_verified_pdf'&&item.standalone_pdf_verified===false,'Archivní záznam se vydává za primární PDF dokument');
+  must(item.href===archivalSources.source_url,'Historické NSZ nemá ověřený odkaz na archivní článek');
+}
+must(nszTimeline.first_evidenced_date==='2026-04-20','NSZ timeline nezačíná první doloženou archivní zmínkou 20. 4. 2026');
 const refsFromRecipients=d=>[...(d.justice_slalom?.recipients||[]).map(x=>x.institution_id),...(d.recipients||[]).map(x=>typeof x==='string'?x:x.institution_id||x.id)].filter(Boolean);
 const isOwnToNsz=d=>d.issue_date>='2026-04-20'
   &&(d.submission_side==='outgoing_from_user_or_alliance'||d.document_type==='user_submission')
@@ -69,7 +80,7 @@ for(const [kind,arr,selector] of [['příchozí NSZ',official,isOfficialNsz],['v
   }
 }
 must(own.some(x=>x.date==='2026-07-14'&&x.document_id==='doc-cz-dd-2026-07-14-slalom-34'),'NSZ timeline neobsahuje hlavní předžalobní výzvu ze 14. 7. 2026');
-must(nszTimeline.provenance_note_cs.includes('nikoli nedoložené'),'NSZ timeline neodlišuje doložený soupis od tvrzení o úplnosti');
+must(nszTimeline.provenance_note_cs.includes('není samostatným PDF')&&nszTimeline.provenance_note_cs.includes('není ověřena'),'NSZ timeline nerozlišuje archivní odkazy, primární soubory a úplnost');
 
 
 const requiredRefs=[

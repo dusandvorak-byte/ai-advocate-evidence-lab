@@ -133,8 +133,8 @@
       const summary = document.createElement('summary');
       const count = nszTimeline?.counts?.total;
       summary.textContent = isEnglish
-        ? `Show all recorded NSZ documents and my filings${Number.isInteger(count) ? ` (${count})` : ''} ↓`
-        : `Rozbalit všechny evidované listiny NSZ a moje podání${Number.isInteger(count) ? ` (${count})` : ''} ↓`;
+        ? `Show recorded NSZ documents, my filings and archival references${Number.isInteger(count) ? ` (${count})` : ''} ↓`
+        : `Rozbalit listiny NSZ, moje podání a archivní záznamy${Number.isInteger(count) ? ` (${count})` : ''} ↓`;
       disclosure.append(summary);
       if (nszTimeline && nszTimeline.case_id === 'CASE-CZ-NSZ-6NZN1737-2026') {
         for (const group of nszTimeline.groups || []) {
@@ -158,7 +158,9 @@
               const format = document.createElement('small');
               format.textContent = item.link_kind === 'pdf'
                 ? (isEnglish ? ' · PDF document' : ' · Dokument v PDF')
-                : (isEnglish ? ' · Evidence page' : ' · Evidenční stránka');
+                : item.link_kind === 'archive'
+                  ? (isEnglish ? ' · Archive report (not a standalone filing PDF)' : ' · Archivní článek (nikoli samostatné PDF podání)')
+                  : (isEnglish ? ' · Evidence page' : ' · Evidenční stránka');
               li.append(format);
             } else {
               li.append(document.createTextNode(title));
