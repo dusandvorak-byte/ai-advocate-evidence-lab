@@ -195,3 +195,15 @@
   .live-dockets .docket-control .rollup-prompt{font-size:.66rem}
   .live-dockets .active-courts-table{min-width:980px}
 }
+
+/* Předžalobní větev NSZ – vnořený přehled všech kanonicky evidovaných listin. */
+.live-dockets .active-nsz-timeline{margin:14px 0 2px;border:1px solid #a8bac5;background:#f7fafb;max-width:100%;min-width:0}
+.live-dockets .active-nsz-timeline>summary{cursor:pointer;list-style:revert;padding:11px 13px;color:#164a61;font-weight:850;font-size:.86rem;line-height:1.35}
+.live-dockets .active-nsz-timeline[open]>summary{border-bottom:1px solid #b7c6ce;background:#e9f1f5}
+.live-dockets .active-nsz-group{margin:0;padding:12px 14px 3px;border-bottom:1px solid #d7e0e5}
+.live-dockets .active-nsz-group h4{font-size:.91rem;margin:0 0 8px;color:#173f50}
+.live-dockets .active-nsz-group ol{margin:0 0 9px;padding:0 0 0 21px;display:grid;gap:8px}
+.live-dockets .active-nsz-group li{padding-left:2px;font-size:.83rem;line-height:1.42;overflow-wrap:anywhere}
+.live-dockets .active-nsz-group a{font-weight:750;text-decoration:underline;text-underline-offset:2px}
+.live-dockets .active-nsz-group small{font-weight:500;color:#536875}
+.live-dockets .active-nsz-provenance{margin:0;padding:12px 14px;color:#536875;font-size:.77rem;line-height:1.45}

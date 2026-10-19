@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "status": "binding",
   "updated_on": "2026-10-19",
-  "purpose": "Kanonický přehled soudních větví od 1. 5. 2026. Stav se musí křížově ověřovat mezi příchozími soudními listinami v Godotu, vlastními opravnými podáními v Justičním slalomu a project-memory/cases.json.",
+  "purpose": "Kanonický přehled soudních větví od 1. 5. 2026. Stav se musí křížově ověřovat mezi příchozími soudními listinami v Godotu, vlastními opravnými podáními v Justičním slalomu a project-memory/cases.json. Součástí přehledu je výslovně označená předžalobní větev NSZ; neprezentuje se jako již zahájené soudní řízení.",
   "table_contract": {
     "columns_cs": [
       "Řízení, meritum a aktuální stav",
@@ -411,6 +411,44 @@
           "label_cs": "Doplnění žaloby 2. 10. 2026 →",
           "label_en": "Action supplement 2 October 2026 →",
           "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf"
+        }
+      ]
+    },
+    {
+      "id": "court-nsz-prelitigation-6nzn1737",
+      "phase": "prelitigation_not_a_court_case",
+      "court_cs": "Nejvyšší státní zastupitelství – předžalobní větev (nejde o soudní řízení)",
+      "court_en": "Supreme Public Prosecutor's Office – pre-litigation branch (not a court case)",
+      "reference": "Předžalobní výzva NSZ · 6 NZN 1737/2026 · 14. 7. 2026",
+      "case_ids": [
+        "CASE-CZ-NSZ-6NZN1737-2026"
+      ],
+      "merit_cs": "Předžalobní výzva Nejvyššímu státnímu zastupitelství, sp. zn. 6 NZN 1737/2026, byla podána na svátek dobytí Bastily dne 14. července 2026. Zahrnuje podněty a důkazní doplnění zasílané od 20. dubna 2026 a navazující reakce NSZ evidované od května. Předmětem je tvrzená nečinnost a způsob prověřování oznámení týkajících se konopného výzkumu a sporných forenzních praxí při analýzách obsahu THC v zabraném konopí. Předžalobní fáze může vyústit v žalobu na ochranu před nezákonným zásahem, její skutečné podání však v tomto přehledu doloženo není. Níže lze rozbalit jednotlivé dostupné listiny NSZ a vlastní podání adresovaná NSZ.",
+      "merit_en": "The pre-litigation demand addressed to the Supreme Public Prosecutor's Office, ref. 6 NZN 1737/2026, was filed on Bastille Day, 14 July 2026. The file concerns submissions and evidentiary supplements said to date from 20 April 2026 and subsequent NSZ responses recorded from May. It raises allegations of inaction and the handling of reports concerning cannabis research and disputed forensic practices for THC analysis in seized cannabis. An intervention action may follow, but no such court filing is established in this docket. The recorded NSZ documents and the author's submissions can be expanded below.",
+      "remedy_cs": "14. 7. 2026 – předžalobní výzva. Doložené úkony NSZ zahrnují 6. 5. 2026 č. j. 6 NZN 1737/2026-15, 13. 5. 2026 č. j. 6 NZN 1737/2026-32 a 13. 8. 2026 č. j. 6 NZN 1737/2026-73. Celý aktualizovaný sled dostupných listin NSZ i vlastních podání se rozbaluje v prvním sloupci. Nejde o odvolací ani kasační rozhodnutí soudu.",
+      "remedy_en": "14 July 2026 – pre-litigation demand. Recorded NSZ documents include 6 May 2026, ref. 6 NZN 1737/2026-15; 13 May 2026, ref. 6 NZN 1737/2026-32; and 13 August 2026, ref. 6 NZN 1737/2026-73. The current sequence of recorded NSZ documents and the author's submissions expands in the first column. These are not appellate or cassation court rulings.",
+      "supreme_cs": "Případná budoucí správní/ústavní soudní ochrana je pouze zamýšlenou návazností. K této konkrétní předžalobní výzvě dosud není v evidenci doložena podaná žaloba ani ústavní stížnost.",
+      "supreme_en": "Any future administrative or constitutional judicial protection remains only a possible follow-up. No filed court action or constitutional complaint concerning this particular pre-litigation demand is evidenced in the registry.",
+      "media_cs": "—",
+      "media_en": "—",
+      "godot_document_ids": [
+        "doc-cz-nsz-2026-05-06-6-nzn-1737-2026-15",
+        "doc-cz-nsz-2026-05-13-6-nzn-1737-2026-32",
+        "doc-cz-nsz-2026-08-13-6-nzn-1737-2026-73"
+      ],
+      "slalom_document_ids": [
+        "doc-cz-dd-2026-07-14-slalom-34",
+        "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni",
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+      ],
+      "timeline_asset": "data/nsz-prelitigation-timeline.json",
+      "timeline_start": "2026-04-20",
+      "timeline_incoming_from": "2026-05-01",
+      "links": [
+        {
+          "label_cs": "Vše zveřejněné k této kauze →",
+          "label_en": "Everything published on this case →",
+          "href": "https://www.konopijelek.cz/nejvyssi-statni-zastupitelstvi-on-line/"
         }
       ]
     }

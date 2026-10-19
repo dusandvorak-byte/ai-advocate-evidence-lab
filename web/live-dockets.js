@@ -30,6 +30,16 @@
     return;
   }
   if (!Array.isArray(courtRegistry.rows) || courtRegistry.rows.length === 0) return;
+  let nszTimeline = null;
+  if (courtRegistry.rows.some(item => item.timeline_asset)) {
+    try {
+      const timelineResponse = await fetch('/ai-advocate-evidence-lab/data/nsz-prelitigation-timeline.json', {cache:'no-store'});
+      if (!timelineResponse.ok) throw new Error(`HTTP ${timelineResponse.status}`);
+      nszTimeline = await timelineResponse.json();
+    } catch (error) {
+      console.error('NSZ_PRELITIGATION_TIMELINE_FAILED',error);
+    }
+  }
 
   document.getElementById('live-dockets')?.remove();
   document.querySelector('.nav .nav-courts')?.remove();
@@ -66,8 +76,8 @@
   const intro = document.createElement('p');
   intro.className = 'justice-slalom-intro';
   intro.textContent = isEnglish
-    ? `${courtRegistry.rows.length} court branches · status cross-checked between Godot decisions, Justice Slalom defence filings and the case registry.`
-    : `${courtRegistry.rows.length} soudních větví · stav se křížově hlídá mezi rozhodnutími v Godotu, obranou v Justičním slalomu a registrem kauz.`;
+    ? `${courtRegistry.rows.length} court and explicitly identified pre-litigation branches · cross-checked between Godot, Justice Slalom and the case registry.`
+    : `${courtRegistry.rows.length} soudních a výslovně označených předžalobních větví · stav se křížově hlídá mezi Godotem, Justičním slalomem a registrem kauz.`;
   courtBody.append(intro);
 
   const scroll = document.createElement('div');
@@ -116,6 +126,64 @@
     const annotation = document.createElement('p');
     annotation.textContent = isEnglish ? row.merit_en : row.merit_cs;
     merit.append(heading, annotation);
+
+    if (row.timeline_asset) {
+      const disclosure = document.createElement('details');
+      disclosure.className = 'active-nsz-timeline';
+      const summary = document.createElement('summary');
+      const count = nszTimeline?.counts?.total;
+      summary.textContent = isEnglish
+        ? `Show all recorded NSZ documents and my filings${Number.isInteger(count) ? ` (${count})` : ''} ↓`
+        : `Rozbalit všechny evidované listiny NSZ a moje podání${Number.isInteger(count) ? ` (${count})` : ''} ↓`;
+      disclosure.append(summary);
+      if (nszTimeline && nszTimeline.case_id === 'CASE-CZ-NSZ-6NZN1737-2026') {
+        for (const group of nszTimeline.groups || []) {
+          const section = document.createElement('section');
+          section.className = 'active-nsz-group';
+          const heading = document.createElement('h4');
+          heading.textContent = `${isEnglish ? group.title_en : group.title_cs} · ${group.items.length}`;
+          section.append(heading);
+          const list = document.createElement('ol');
+          for (const item of group.items) {
+            const li = document.createElement('li');
+            const stamp = document.createElement('strong');
+            stamp.textContent = `${item.date} · ${item.reference || '–'} · `;
+            li.append(stamp);
+            const title = isEnglish ? (item.description_en || item.title_cs) : item.title_cs;
+            if (item.href) {
+              const link = document.createElement('a');
+              link.href = item.href;
+              link.textContent = title;
+              li.append(link);
+              const format = document.createElement('small');
+              format.textContent = item.link_kind === 'pdf'
+                ? (isEnglish ? ' · PDF document' : ' · Dokument v PDF')
+                : (isEnglish ? ' · Evidence page' : ' · Evidenční stránka');
+              li.append(format);
+            } else {
+              li.append(document.createTextNode(title));
+              const missing = document.createElement('small');
+              missing.textContent = isEnglish ? ' · No public file on record' : ' · Veřejný soubor není doložen';
+              li.append(missing);
+            }
+            list.append(li);
+          }
+          section.append(list);
+          disclosure.append(section);
+        }
+        const provenance = document.createElement('p');
+        provenance.className = 'active-nsz-provenance';
+        provenance.textContent = isEnglish ? nszTimeline.provenance_note_en : nszTimeline.provenance_note_cs;
+        disclosure.append(provenance);
+      } else {
+        const missing = document.createElement('p');
+        missing.textContent = isEnglish
+          ? 'The document chronology could not be loaded; use the NSZ case archive link.'
+          : 'Chronologii se nepodařilo načíst; použijte odkaz na archiv kauzy NSZ.';
+        disclosure.append(missing);
+      }
+      merit.append(disclosure);
+    }
 
     const remedy = document.createElement('td');
     remedy.textContent = isEnglish ? row.remedy_en : row.remedy_cs;

@@ -77,7 +77,7 @@ for (const obsolete of ['Předžalobní řízení on-line od 1. května 2026', '
 }
 
 const courtRows = courtRegistry.rows || [];
-if (courtRows.length !== 12) throw new Error(`Očekáváno 12 soudních větví, nalezeno ${courtRows.length}`);
+if (courtRows.length < 13 || !courtRows.some(r=>r.id==='court-nsz-prelitigation-6nzn1737'&&r.phase==='prelitigation_not_a_court_case')) throw new Error(`Očekáváno nejméně 13 větví včetně samostatně označené předžalobní NSZ, nalezeno ${courtRows.length}`);
 if (JSON.stringify(courtRegistry.table_contract?.width_percent) !== '[42,18,18,12,10]') throw new Error('Soudní tabulka nemá šířky 42/18/18/12/10');
 for (const row of courtRows) {
   if (!row.merit_cs || row.merit_cs.length < 80) throw new Error(`Chybí meritní anotace: ${row.id}`);
@@ -270,4 +270,4 @@ for (const header of ['Č.','Dne','Orgán','č. j./sp. zn.','Co se stalo','Na co
   if (!czechStateLoveTable.includes(`>${header}</th>`)) throw new Error(`Českému State Love chybí tabulkový sloupec ${header}`);
 }
 
-console.log(`Smlouva titulní stránky: ${courtRows.length} soudních větví v živé tabulce; tři sticky důkazní lišty; Podpořit zachováno; Lhůty a Ověřit listinu odstraněny; Justiční slalom zachován.`);
+console.log(`Smlouva titulní stránky: ${courtRows.length} soudních a předžalobních větví v živé tabulce; tři sticky důkazní lišty; Podpořit zachováno; Lhůty a Ověřit listinu odstraněny; Justiční slalom zachován.`);

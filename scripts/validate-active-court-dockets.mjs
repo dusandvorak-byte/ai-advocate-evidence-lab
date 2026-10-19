@@ -17,7 +17,7 @@ const [registry, publicRegistry, cases, sourceManifest, slalom, liveScript, cour
 
 must(registry.status==='binding','kanonický registr není binding');
 must(JSON.stringify(registry)===JSON.stringify(publicRegistry),'veřejný soudní registr není přesná build kopie kanonického registru');
-must(Array.isArray(registry.rows)&&registry.rows.length===12,`očekáváno 12 soudních větví, nalezeno ${registry.rows?.length}`);
+must(Array.isArray(registry.rows)&&registry.rows.length>=13,`očekáváno nejméně 13 soudních a předžalobních větví, nalezeno ${registry.rows?.length}`);
 must(JSON.stringify(registry.table_contract.width_percent)==='[42,18,18,12,10]','šířky sloupců nejsou 42/18/18/12/10');
 must(registry.table_contract.first_column_is_dominant===true,'první sloupec není označen jako dominantní');
 must(registry.table_contract.sticky_three_bar_navigation===true,'sticky třílišťová navigace není závazná');
@@ -33,6 +33,44 @@ for(const source of sourceManifest.sources||[]){
 }
 const slalomIds=new Set((slalom.rows||[]).map(r=>r.document_id));
 const rootLinks=new Set(['https://www.konopijelek.cz','https://www.konopijelek.cz/']);
+const nszRow=registry.rows.find(row=>row.id==='court-nsz-prelitigation-6nzn1737');
+must(nszRow,'NSZ nemá samostatný řádek předžalobní větve');
+must(nszRow.phase==='prelitigation_not_a_court_case','NSZ nesmí být prezentováno jako již zahájené soudní řízení');
+must(nszRow.reference.includes('6 NZN 1737/2026')&&nszRow.reference.includes('14. 7. 2026'),'NSZ nemá přesný milník předžalobní výzvy');
+must(nszRow.merit_cs.includes('svátek dobytí Bastily')&&nszRow.merit_cs.includes('20. dubna 2026'),'NSZ postrádá svátek Bastily nebo počátek uživatelské evidence');
+must(nszRow.links?.[0]?.href==='https://www.konopijelek.cz/nejvyssi-statni-zastupitelstvi-on-line/','NSZ nemá schválený tematický deep-link');
+must(nszRow.timeline_asset==='data/nsz-prelitigation-timeline.json','NSZ nemá dynamický soupis zdrojových listin');
+const nszCase=caseMap.get('CASE-CZ-NSZ-6NZN1737-2026');
+must(nszCase?.pre_litigation_milestone_on==='2026-07-14'&&nszCase?.court_case_status==='court_filing_not_evidenced','NSZ case chybně představuje předžalobní krok jako podanou žalobu');
+const nszTimeline=await readJson('web/data/nsz-prelitigation-timeline.json');
+must(nszTimeline.case_id==='CASE-CZ-NSZ-6NZN1737-2026'&&nszTimeline.milestone==='2026-07-14','NSZ timeline má nesprávný case nebo datum');
+must(nszTimeline.period_start==='2026-04-20'&&nszTimeline.official_from==='2026-05-01','NSZ timeline chybně zahrnuje období');
+const official=nszTimeline.groups?.find(g=>g.id==='incoming_nsz')?.items||[];
+const own=nszTimeline.groups?.find(g=>g.id==='outgoing_to_nsz')?.items||[];
+must(official.length>0&&own.length>0,'NSZ timeline nemá obě procesní strany');
+must(nszTimeline.counts.incoming===official.length&&nszTimeline.counts.outgoing===own.length&&nszTimeline.counts.total===official.length+own.length,'NSZ timeline počty nejsou odvozené ze záznamů');
+const refsFromRecipients=d=>[...(d.justice_slalom?.recipients||[]).map(x=>x.institution_id),...(d.recipients||[]).map(x=>typeof x==='string'?x:x.institution_id||x.id)].filter(Boolean);
+const isOwnToNsz=d=>d.issue_date>='2026-04-20'
+  &&(d.submission_side==='outgoing_from_user_or_alliance'||d.document_type==='user_submission')
+  &&(refsFromRecipients(d).includes('CZ-NSZ')||(refsFromRecipients(d).length===0&&/6\s*NZN\s*1737\s*\/\s*2026/.test(String(d.reference||''))&&/NSZ|státnímu zastupitelství/i.test(String(d.user_title||''))));
+const isOfficialNsz=d=>d.issue_date>='2026-05-01'&&d.institution_id==='CZ-NSZ'
+  &&(d.submission_side==='incoming_from_state_or_public_institution'||d.document_type==='state_record');
+const sorted=items=>items.every((item,i)=>i===0||items[i-1].date>=item.date);
+for(const [kind,arr,selector] of [['příchozí NSZ',official,isOfficialNsz],['vlastní podání NSZ',own,isOwnToNsz]]){
+  must(sorted(arr),'NSZ timeline není chronologicky sestupná: '+kind);
+  const expected=[...documents.values()].filter(selector).map(x=>x.id).sort();
+  const actual=arr.map(x=>x.document_id).sort();
+  must(JSON.stringify(expected)===JSON.stringify(actual),'NSZ timeline není úplným odrazem kanonicky evidovaných dokumentů: '+kind);
+  for(const item of arr){
+    const doc=documents.get(item.document_id);
+    must(doc&&selector(doc),'NSZ timeline obsahuje cizí či neověřený dokument: '+item.document_id);
+    const target=doc.public?.pdf||doc.public?.html;
+    if(target)must(item.href&&item.href.includes(String(target).replace(/^\/?web\//,'')),'NSZ má nesprávný odkaz na originální evidovaný zdroj: '+item.document_id);
+  }
+}
+must(own.some(x=>x.date==='2026-07-14'&&x.document_id==='doc-cz-dd-2026-07-14-slalom-34'),'NSZ timeline neobsahuje hlavní předžalobní výzvu ze 14. 7. 2026');
+must(nszTimeline.provenance_note_cs.includes('nikoli nedoložené'),'NSZ timeline neodlišuje doložený soupis od tvrzení o úplnosti');
+
 
 const requiredRefs=[
   '2 T 104/2010','15 Nt 3104/2026','2 T 65/2011','15 Nt 3106/2026',
@@ -137,6 +175,9 @@ for(const id of ['case-cz-ms-praha-8ad9-2026','case-cz-ms-praha-15-ad-14-2026'])
 
 for(const token of [
   "const registryUrl = '/ai-advocate-evidence-lab/data/active-court-dockets.json'",
+  "data/nsz-prelitigation-timeline.json",
+  "className = 'active-nsz-timeline'",
+  "for (const group of nszTimeline.groups || [])",
   "className = 'docket-bar-stack'",
   "className = 'active-courts-table'",
   "wrapper.append(controls, courtShell)",
@@ -152,7 +193,8 @@ for(const token of [
   '.live-dockets .active-courts-table th:nth-child(4){width:12%}',
   '.live-dockets .active-courts-table th:nth-child(5){width:10%}',
   '@media(max-width:1100px)',
-  'overflow-x:auto'
+  'overflow-x:auto',
+  '.live-dockets .active-nsz-timeline'
 ]) must(courtCss.includes(token),'live-dockets.css postrádá: '+token);
 
 must(!liveScript.includes("source.href = 'https://www.konopijelek.cz/'"),'vrátil se obecný odkaz Konopí je lék místo deep-linků');
