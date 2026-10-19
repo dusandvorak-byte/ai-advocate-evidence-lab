@@ -33,6 +33,14 @@ for(const source of sourceManifest.sources||[]){
 const slalomIds=new Set((slalom.rows||[]).map(r=>r.document_id));
 const rootLinks=new Set(['https://www.konopijelek.cz','https://www.konopijelek.cz/']);
 
+const prostEndpoint='https://www.konopijelek.cz/okresni-soud-v-prostejove/';
+const prostRows=registry.rows.filter(row=>row.id.startsWith('court-prostejov-'));
+must(prostRows.length===4,'Prostějov musí mít čtyři samostatné procesní větve');
+for(const row of prostRows){
+  must(row.links.length===1&&row.links[0].href===prostEndpoint,
+    'Vše zveřejněné pro '+row.id+' nevede na souhrnnou stránku Okresního soudu v Prostějově');
+}
+
 const requiredRefs=[
   '2 T 104/2010','15 Nt 3104/2026','2 T 65/2011','15 Nt 3106/2026',
   '15 Nt 3103/2026-53','9 To 315/2026-140','15 Nt 3105/2026-54','9 To 316/2026-219',

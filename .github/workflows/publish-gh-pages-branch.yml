@@ -385,6 +385,10 @@ jobs:
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/data/active-court-dockets.json$stamp" -o /tmp/live-active-court-dockets.json
           test "$(jq -r '.rows | length' /tmp/live-active-court-dockets.json)" = '12'
           test "$(jq -c '.table_contract.width_percent' /tmp/live-active-court-dockets.json)" = '[42,18,18,12,10]'
+          jq -e --arg expected 'https://www.konopijelek.cz/okresni-soud-v-prostejove/' \
+            '[.rows[] | select(.id | startswith("court-prostejov-")) | .links[0].href] |
+             (length == 4) and all(.[]; . == $expected)' \
+            /tmp/live-active-court-dockets.json >/dev/null
           for required in "6 As 207/2026" "15 A 44/2026" "15 Ad 14/2026" "8 Ad 9/2026" "9 To 315/2026" "9 To 316/2026" "15 Nt 3104/2026" "2 T 104/2010" "15 Nt 3106/2026" "2 T 65/2011" "1 As 395/2019" "3 Cmo 24/2026-26" "II. ÚS 664/12" "III. ÚS 396/16"; do
             grep -q "$required" /tmp/live-active-court-dockets.json
           done

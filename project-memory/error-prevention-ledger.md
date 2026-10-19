@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Prostějovské větve musejí odkazovat na společnou specializovanou stránku soudu
+
+- Projev: čtyři procesní větve OS Prostějov (včetně navazujících stížností KS Brno) ve sloupci „Vše zveřejněné“ ukazovaly na různé historické články a ústavní archiv místo úplného veřejného souboru podání k OS Prostějov.
+- Příčina: původní deep-linky byly vybrány podle tematické podobnosti, ale nebyla zohledněna uživatelem výslovně určená souhrnná stránka soudu.
+- Náprava: všechny čtyři řádky nyní ukazují na `https://www.konopijelek.cz/okresni-soud-v-prostejove/`; procesní spisové značky, anotace a vazby Godot/Slalom zůstávají samostatné.
+- Pojistka: pre-merge validator i produkční live gate kontrolují přesně čtyři prostějovské řádky a jejich totožný konkrétní cíl.
+
 ### Příloha vlastního podání nesmí automaticky založit procesní časovač
 
 - Projev: pracovní návrh ústavní stížnosti přiložený k žádosti ČAK byl po zařazení jako `user_submission_attachment` mylně zachycen detektorem slova „stížnost“ a build požadoval samostatný překlad časovače.
