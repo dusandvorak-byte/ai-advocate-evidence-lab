@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "status": "binding",
-  "updated_on": "2026-10-09",
+  "updated_on": "2026-10-19",
   "purpose": "Kanonický přehled soudních větví od 1. 5. 2026. Stav se musí křížově ověřovat mezi příchozími soudními listinami v Godotu, vlastními opravnými podáními v Justičním slalomu a project-memory/cases.json.",
   "table_contract": {
     "columns_cs": [
@@ -173,7 +173,7 @@
         {
           "label_cs": "Vše zveřejněné k této kauze →",
           "label_en": "Everything published on this case →",
-          "href": "https://www.konopijelek.cz/novinky/narodni-centrala-proti-organizovanemu-zlocinu/"
+          "href": "https://www.konopijelek.cz/policie/"
         }
       ]
     },
@@ -247,10 +247,10 @@
         "case-cz-ms-praha-8ad9-2026",
         "case-cz-ms-praha-15-ad-14-2026"
       ],
-      "merit_cs": "Zdravotnická větev: zásahové žaloby proti Ministerstvu zdravotnictví a SÚKL. Jádrem jsou tvrzení a regulatorní postupy kolem léčebného konopí, eReceptu a označení konopí jako vysoce návykové látky. Obě žaloby byly v prvním stupni odmítnuty; u SÚKL je podle poučení možná kasační stížnost po doručení.",
-      "merit_en": "Health-regulation branch: intervention actions against the Ministry of Health and SÚKL. The core concerns regulatory statements and conduct around medical cannabis, ePrescription and the description of cannabis as a highly addictive substance. Both first-instance actions were rejected; the SÚKL order permits a cassation complaint after service.",
-      "remedy_cs": "28. 8. 2026 · 8 Ad 9/2026-85 (MZ) – žaloba odmítnuta. 6. 10. 2026 · 15 Ad 14/2026-13 (SÚKL) – žaloba odmítnuta; dvoutýdenní kasační lhůta běží až od doručení, jehož datum zatím není doloženo.",
-      "remedy_en": "28 August 2026 · 8 Ad 9/2026-85 (Ministry of Health) – action rejected. 6 October 2026 · 15 Ad 14/2026-13 (SÚKL) – action rejected; the two-week cassation period runs from service, whose date is not yet established.",
+      "merit_cs": "Zdravotnická větev: zásahové žaloby proti Ministerstvu zdravotnictví a SÚKL týkající se přístupu k léčebnému konopí, eReceptu a označení konopí jako vysoce návykové látky. O obou dosavadních žalobách Městský soud v Praze rozhodl jejich odmítnutím. Žalobce tuto procesní etapu označuje za uzavřenou a připravuje novou antidiskriminační žalobu na ochranu práv nemocných, lékařů a lékárníků; tato zamýšlená žaloba dosud není doložena jako podaná.",
+      "merit_en": "Health-regulation branch: intervention actions against the Ministry of Health and SÚKL concerning access to medical cannabis, ePrescription and the description of cannabis as a highly addictive substance. Prague Municipal Court rejected both existing actions. The claimant considers this procedural stage concluded and is preparing a new anti-discrimination action to protect the rights of ill people, physicians and pharmacists; the intended new action is not evidenced as filed.",
+      "remedy_cs": "28. 8. 2026 · MS Praha 8 Ad 9/2026-85 (MZ) – žaloba odmítnuta. 6. 10. 2026 · MS Praha 15 Ad 14/2026-13 (SÚKL) – žaloba odmítnuta. Případná kasační stížnost proti rozhodnutí o SÚKL se dle poučení odvíjí od doručení (datum doručení není v evidenci doloženo); její podání rovněž není doloženo. Samostatná antidiskriminační žaloba je teprve připravována.",
+      "remedy_en": "28 August 2026 · Prague Municipal Court 8 Ad 9/2026-85 (Ministry of Health) – action rejected. 6 October 2026 · Prague Municipal Court 15 Ad 14/2026-13 (SÚKL) – action rejected. Any cassation complaint against the SÚKL order runs from service (the service date is not established in the record); no filing of that remedy is established either. A separate anti-discrimination action is still being prepared.",
       "supreme_cs": "Historická trestní linie uváděná v podáních: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
       "supreme_en": "Historical criminal-review line cited in the filings: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
       "media_cs": "—",
@@ -269,7 +269,14 @@
           "label_en": "Everything published on this case →",
           "href": "https://www.konopijelek.cz/ministerstvo-zdravotnictvi/"
         }
-      ]
+      ],
+      "follow_up": {
+        "kind": "planned_not_filed",
+        "type_cs": "Antidiskriminační žaloba na ochranu práv nemocných, lékařů a lékárníků",
+        "type_en": "Anti-discrimination action to protect the rights of ill people, physicians and pharmacists",
+        "status": "preparing",
+        "source": "user_instruction_2026-10-19"
+      }
     },
     {
       "id": "court-ms-praha-45t1",

@@ -385,6 +385,29 @@ jobs:
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/data/active-court-dockets.json$stamp" -o /tmp/live-active-court-dockets.json
           test "$(jq -r '.rows | length' /tmp/live-active-court-dockets.json)" = '12'
           test "$(jq -c '.table_contract.width_percent' /tmp/live-active-court-dockets.json)" = '[42,18,18,12,10]'
+          # Ověřit po nasazení věcné deep-linky a rozlišení rozhodnutých žalob od připravované nové žaloby.
+          python - <<'PY'
+          import json
+          with open('/tmp/live-active-court-dockets.json',encoding='utf-8') as source:
+              registry=json.load(source)
+          rows={row['id']:row for row in registry['rows']}
+          targets={
+              'court-media-ct':'https://www.konopijelek.cz/ceska-televize/',
+              'court-media-ftv-prima':'https://www.konopijelek.cz/novinky/cnn-prima-news/',
+              'court-ms-praha-18a17':'https://www.konopijelek.cz/policie/',
+              'court-ms-praha-18a23':'https://www.konopijelek.cz/ministerstvo-spravedlnosti/',
+              'court-ms-praha-15a44-nss6as207':'https://www.konopijelek.cz/ministerstvo-vnitra/',
+              'court-ms-praha-health':'https://www.konopijelek.cz/ministerstvo-zdravotnictvi/',
+          }
+          for key,url in targets.items():
+              assert rows[key]['links'][0]['href']==url,(key,url)
+          health=rows['court-ms-praha-health']
+          assert health['follow_up']['status']=='preparing'
+          assert health['follow_up']['kind']=='planned_not_filed'
+          assert 'nemocných, lékařů a lékárníků' in health['merit_cs']
+          assert 'not evidenced as filed' in health['merit_en']
+          print('LIVE_COURT_DEEPLINKS_AND_HEALTH_STATUS_OK')
+          PY
           for required in "6 As 207/2026" "15 A 44/2026" "15 Ad 14/2026" "8 Ad 9/2026" "9 To 315/2026" "9 To 316/2026" "15 Nt 3104/2026" "2 T 104/2010" "15 Nt 3106/2026" "2 T 65/2011" "1 As 395/2019" "3 Cmo 24/2026-26" "II. ÚS 664/12" "III. ÚS 396/16"; do
             grep -q "$required" /tmp/live-active-court-dockets.json
           done
