@@ -58,9 +58,12 @@ for(const court of dockets.rows) {
 const script=await readFile('web/live-dockets.js','utf8');
 const css=await readFile('web/live-dockets.css','utf8');
 for(const token of ['court-publication-index.json','publicationRows.get(row.id)','active-case-publications-toggle','active-case-publication-groups','publication.external_archive_url','item.institution'])must(script.includes(token),'missing live display token '+token);
-for(const token of ['active-case-publications{','active-case-publications-toggle','active-case-publication-groups','grid-template-columns:minmax(0,1fr)'])must(css.includes(token),'missing responsive style '+token);
-must(script.includes("const details = document.createElement('details')"),'court documents must remain inside a native disclosure');
-must(script.includes('merit.append(details)'), 'court documents not in first cell of the parent docket');
-must(!script.includes("const extendedRow = document.createElement('tr')"),'regression: extra wide table rows wreck court layout');
-must(!script.includes("tbody.append(extendedRow)"),'regression: publication rows leaking into parent table');
+for(const token of ['active-court-selected-documents','active-case-publications-toggle','active-case-publication-groups','grid-template-columns:repeat(2,minmax(0,1fr))'])must(css.includes(token),'missing responsive style '+token);
+must(script.includes("className = 'active-court-selected-documents'"),'missing full-width evidence reader inside courts');
+must(script.includes('courtBody.append(scroll, selectedDocuments)'), 'evidence reader not inside top-level court panel');
+must(script.includes('published.append(button)'), 'document buttons not placed in fifth column');
+must(script.includes('nszDetail = disclosure'), 'NSZ 29 chronology is missing');
+must(script.includes('disclosure.open = true'), 'NSZ chronology must open in the shared full-width reader');
+must(!script.includes("const extendedRow = document.createElement('tr')"),'regression: extra table rows wreck layout');
+must(!script.includes("tbody.append(extendedRow)"),'regression: publication rows leak into parent table');
 console.log('COURT_PUBLICATION_INDEX OK:',index.rows.length,'dockets; published direct entries',index.rows.reduce((a,x)=>a+x.counts.total,0));
