@@ -49,6 +49,7 @@ jobs:
           node --check scripts/validate-process-chain-contract.mjs
           node --check scripts/build-nsz-prelitigation-timeline.mjs
           node --check scripts/build-court-publication-index.mjs
+          node --check scripts/validate-court-publication-index.mjs
           node --check scripts/validate-active-court-dockets.mjs
 
       - name: Připravit generátor ověřených veřejných PDF
@@ -148,6 +149,9 @@ jobs:
 
       - name: Křížově ověřit Godot, Slalom, cases a soudní tabulku
         run: node scripts/validate-active-court-dockets.mjs
+
+      - name: Ověřit úplnou dvojstrannou evidenci všech soudů a orgánů
+        run: node scripts/validate-court-publication-index.mjs
 
       - name: Ověřit interní procesní registr a aktivní soudní větve
         run: node scripts/validate-process-chain-contract.mjs
