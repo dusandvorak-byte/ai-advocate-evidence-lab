@@ -37,6 +37,7 @@ jobs:
           node --check scripts/validate-live-dockets-contract.mjs
           node --check scripts/validate-process-chain-contract.mjs
           node --check scripts/build-nsz-prelitigation-timeline.mjs
+          node --check scripts/build-court-publication-index.mjs
           node --check scripts/validate-active-court-dockets.mjs
 
       - name: Připravit Python a PDF kontrolní nástroje
@@ -146,6 +147,8 @@ jobs:
           test -f web/data/operations-state.json
           test -f web/data/active-court-dockets.json
           test -f web/data/nsz-prelitigation-timeline.json
+          test -f web/data/court-publication-index.json
+          test "$(jq -r '.rows | length' web/data/court-publication-index.json)" -ge 13
           test "$(jq -r '.counts.incoming' web/data/nsz-prelitigation-timeline.json)" -gt 0
           test "$(jq -r '.counts.outgoing' web/data/nsz-prelitigation-timeline.json)" -gt 0
           test "$(jq -r '.rows | length' web/data/active-court-dockets.json)" -ge 13
