@@ -47,6 +47,7 @@ jobs:
         run: |
           node --check scripts/validate-live-dockets-contract.mjs
           node --check scripts/validate-process-chain-contract.mjs
+          node --check scripts/build-nsz-prelitigation-timeline.mjs
           node --check scripts/validate-active-court-dockets.mjs
 
       - name: Připravit generátor ověřených veřejných PDF
@@ -166,7 +167,10 @@ jobs:
           grep -q '"internal_knowledge_not_auto_published": true' web/data/build-manifest.json
           test -f web/data/operations-state.json
           test -f web/data/active-court-dockets.json
-          test "$(jq -r '.rows | length' web/data/active-court-dockets.json)" = '12'
+          test -f web/data/nsz-prelitigation-timeline.json
+          test "$(jq -r '.counts.incoming' web/data/nsz-prelitigation-timeline.json)" -gt 0
+          test "$(jq -r '.counts.outgoing' web/data/nsz-prelitigation-timeline.json)" -gt 0
+          test "$(jq -r '.rows | length' web/data/active-court-dockets.json)" -ge 13
           test "$(jq -c '.table_contract.width_percent' web/data/active-court-dockets.json)" = '[42,18,18,12,10]'
           test -f web/data/registry-audit.json
           test -f web/data/godot-pdf-audit.json

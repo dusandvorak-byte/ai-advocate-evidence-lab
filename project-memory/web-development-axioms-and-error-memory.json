@@ -116,7 +116,7 @@
     },
     {
       "id": "active-court-crosscheck-table",
-      "text": "Aktivní soudní řízení jsou křížově odvozená z Godota (rozhodnutí a listiny orgánů), Justičního slalomu (vlastní obrana) a cases.json. Každý nový rozsudek, usnesení, rozhodnutí o stížnosti/odvolání/kasační stížnosti nebo nové vlastní podání musí ve stejném release aktualizovat soudní tabulku. Dominantní první sloupec nese soud, spisovou značku, meritum a důvod zveřejnění; další sloupce nesou opravnou/kasační větev, ústavní/nejvyšší přezkum, mediální větev a konkrétní „Vše zveřejněné“ deep-link. Tři ovládací lišty zůstávají při rozbalení sticky a současně viditelné."
+      "text": "Aktivní soudní řízení jsou křížově odvozená z Godota (rozhodnutí a listiny orgánů), Justičního slalomu (vlastní obrana) a cases.json. Každý nový rozsudek, usnesení, rozhodnutí o stížnosti/odvolání/kasační stížnosti nebo nové vlastní podání musí ve stejném release aktualizovat soudní tabulku. Dominantní první sloupec nese soud, spisovou značku, meritum a důvod zveřejnění; další sloupce nesou opravnou/kasační větev, ústavní/nejvyšší přezkum, mediální větev a konkrétní „Vše zveřejněné“ deep-link. Tři ovládací lišty zůstávají při rozbalení sticky a současně viditelné. Předžalobní větev NSZ musí být od soudních řízení výslovně odlišena. Samostatná chronologie NSZ a uživatelských podání se generuje dynamicky z document-sources.json (příchozí NSZ od 1. 5. 2026, vlastní adresovaná NSZ od 20. 4. 2026), řadí se sestupně, propojuje veřejné PDF a nikdy nepředstírá úplnost nedoložených listin. NSZ URL: https://www.konopijelek.cz/nejvyssi-statni-zastupitelstvi-on-line/."
     },
     {
       "id": "criminal-submission-redacted-originals",

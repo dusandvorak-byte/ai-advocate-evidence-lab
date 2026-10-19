@@ -17,10 +17,21 @@
       ],
       "related_document_ids": [
         "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni",
-        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+        "doc-cz-dd-2026-07-14-slalom-34",
+        "doc-cz-nsz-2026-05-06-6-nzn-1737-2026-15",
+        "doc-cz-nsz-2026-05-13-6-nzn-1737-2026-32",
+        "doc-cz-nsz-2026-08-13-6-nzn-1737-2026-73"
       ],
       "last_filing_on": "2026-10-08",
-      "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+      "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+      "pre_litigation_milestone_on": "2026-07-14",
+      "pre_litigation_reference": "6 NZN 1737/2026",
+      "requested_document_coverage_from": "2026-04-20",
+      "incoming_document_coverage_from": "2026-05-01",
+      "court_case_status": "court_filing_not_evidenced",
+      "timeline_asset": "data/nsz-prelitigation-timeline.json",
+      "process_note": "Předžalobní výzva ze 14. 7. 2026 (svátek dobytí Bastily). Křížový přehled veškerých doložených dokumentů NSZ od 1. 5. 2026 a doložených vlastních podání adresovaných NSZ od 20. 4. 2026 je odvozen ze zdrojových registrů. Úplnost externího archivu se netvrdí a žaloba se nepovažuje za podanou, dokud neexistuje důkaz."
     },
     {
       "id": "CASE-CZ-MSZ-PHA-3KZN197-2026",

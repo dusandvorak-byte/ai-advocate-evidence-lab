@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Předžalobní podání NSZ musí být od soudního řízení odlišeno, avšak procesně propojeno
+
+- Projev: soupis aktivních soudních větví neměl předžalobní výzvu NSZ 6 NZN 1737/2026 ze dne 14. 7. 2026 ani společný chronologický pohled na doručené reakce NSZ a vlastní podání adresovaná NSZ.
+- Příčina: modul byl odvozen převážně z již soudních věcí; procesní fáze před žalobou neměla strukturovanou externí dvojstrannou časovou osu.
+- Náprava: jedna výslovně označená předžalobní větev s dynamickým výstupem `data/nsz-prelitigation-timeline.json`; dva seskupené chronologické soupisy z kanonického `document-sources.json` a konkrétní odkaz na stránku NSZ na Konopí je lék.cz. Výslovně se netvrdí, že žaloba byla podána, ani že jsou doloženy všechny externí historické dokumenty od 20. dubna.
+- Pojistka: validační brána porovnává všechny ID obou soupisů s kanonickým registrem, filtr příchozí/odchozí strany, chronologii, přímé odkazy, milník 14. 7. a přesný NSZ deep-link; produkce ověřuje SHA binárně generovaného JSON samostatně.
+
 ### GitHub Pages může po push vrátit starší soudní JSON i s úspěšnou HTTP odpovědí
 
 - Incident: produkční běh #628, 19. 10. 2026. `gh-pages/.source-commit` již odpovídal SHA `8ff509b541806582ec4e639b936ac92e9b5493b3` a soubor `data/active-court-dockets.json` ve větvi gh-pages obsahoval nové `/policie/`, avšak první veřejný HTTP požadavek v live gate vrátil starší obsah a vyvolal sémantickou chybu odkazu.

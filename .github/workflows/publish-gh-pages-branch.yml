@@ -36,6 +36,7 @@ jobs:
         run: |
           node --check scripts/validate-live-dockets-contract.mjs
           node --check scripts/validate-process-chain-contract.mjs
+          node --check scripts/build-nsz-prelitigation-timeline.mjs
           node --check scripts/validate-active-court-dockets.mjs
 
       - name: Připravit Python a PDF kontrolní nástroje
@@ -144,7 +145,10 @@ jobs:
           test -f web/data/pdf-reconciliation-report.json
           test -f web/data/operations-state.json
           test -f web/data/active-court-dockets.json
-          test "$(jq -r '.rows | length' web/data/active-court-dockets.json)" = '12'
+          test -f web/data/nsz-prelitigation-timeline.json
+          test "$(jq -r '.counts.incoming' web/data/nsz-prelitigation-timeline.json)" -gt 0
+          test "$(jq -r '.counts.outgoing' web/data/nsz-prelitigation-timeline.json)" -gt 0
+          test "$(jq -r '.rows | length' web/data/active-court-dockets.json)" -ge 13
           test "$(jq -c '.table_contract.width_percent' web/data/active-court-dockets.json)" = '[42,18,18,12,10]'
           test -f web/data/registry-audit.json
           test -f web/data/godot-pdf-audit.json
@@ -405,8 +409,29 @@ jobs:
             fi
             exit 1
           fi
-          test "$(jq -r '.rows | length' /tmp/live-active-court-dockets.json)" = '12'
+          test "$(jq -r '.rows | length' /tmp/live-active-court-dockets.json)" -ge 13
           test "$(jq -c '.table_contract.width_percent' /tmp/live-active-court-dockets.json)" = '[42,18,18,12,10]'
+          # Chronologie NSZ je samostatný deterministický asset; živá SHA musí odpovídat buildu.
+          expected_nsz_sha="$(sha256sum web/data/nsz-prelitigation-timeline.json | cut -d' ' -f1)"
+          nsz_sha_ok=0
+          for attempt in {1..12}; do
+            rm -f /tmp/live-nsz-prelitigation-timeline.json
+            if curl -fsSL --connect-timeout 10 --max-time 30 "$base/data/nsz-prelitigation-timeline.json$stamp&nsz_try=$attempt" -o /tmp/live-nsz-prelitigation-timeline.json; then
+              observed_nsz_sha="$(sha256sum /tmp/live-nsz-prelitigation-timeline.json | cut -d' ' -f1)"
+              if [ "$observed_nsz_sha" = "$expected_nsz_sha" ]; then nsz_sha_ok=1; break; fi
+            fi
+            if [ "$attempt" -lt 12 ]; then sleep 5; fi
+          done
+          if [ "$nsz_sha_ok" -ne 1 ]; then
+            echo "Živá chronologie NSZ neodpovídá buildu." >&2
+            exit 1
+          fi
+          test "$(jq -r '.case_id' /tmp/live-nsz-prelitigation-timeline.json)" = 'CASE-CZ-NSZ-6NZN1737-2026'
+          test "$(jq -r '.counts.incoming' /tmp/live-nsz-prelitigation-timeline.json)" -gt 0
+          test "$(jq -r '.counts.outgoing' /tmp/live-nsz-prelitigation-timeline.json)" -gt 0
+          grep -q 'active-nsz-timeline' /tmp/live-dockets.js
+          grep -q 'court-nsz-prelitigation-6nzn1737' /tmp/live-active-court-dockets.json
+          grep -q 'https://www.konopijelek.cz/nejvyssi-statni-zastupitelstvi-on-line/' /tmp/live-active-court-dockets.json
           # Ověřit po nasazení věcné deep-linky a rozlišení rozhodnutých žalob od připravované nové žaloby.
           python - <<'PY'
           import json
@@ -423,6 +448,9 @@ jobs:
           }
           for key,url in targets.items():
               assert rows[key]['links'][0]['href']==url,(key,url)
+          nsz=rows['court-nsz-prelitigation-6nzn1737']
+          assert nsz['phase']=='prelitigation_not_a_court_case'
+          assert nsz['links'][0]['href']=='https://www.konopijelek.cz/nejvyssi-statni-zastupitelstvi-on-line/'
           health=rows['court-ms-praha-health']
           assert health['follow_up']['status']=='preparing'
           assert health['follow_up']['kind']=='planned_not_filed'
