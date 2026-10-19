@@ -212,79 +212,73 @@
     const published = document.createElement('td');
     appendLinks(published, row.links);
 
-    tr.append(merit, remedy, supreme, media, published);
-    tbody.append(tr);
-
     const publication = publicationRows.get(row.id);
     if (publication) {
-      const toggle = document.createElement('button');
-      toggle.type = 'button';
-      toggle.className = 'active-case-publications-toggle';
-      toggle.textContent = isEnglish
-        ? `Direct document lists (${publication.counts.total}) ↓`
-        : `Přímé odkazy na listiny (${publication.counts.total}) ↓`;
-      toggle.setAttribute('aria-expanded','false');
-      published.append(toggle);
+      // A compact disclosure stays inside the first cell of this court row,
+      // itself inside the existing Active Courts top-level roll-up.  Never
+      // create additional table rows for a long list of submissions.
+      const details = document.createElement('details');
+      details.className = 'active-case-publications';
+      const summary = document.createElement('summary');
+      summary.className = 'active-case-publications-toggle';
+      summary.textContent = isEnglish
+        ? `All documents in this case (${publication.counts.total}) ↓`
+        : `Vše v této kauze (${publication.counts.total}) ↓`;
+      details.append(summary);
 
-      const extendedRow = document.createElement('tr');
-      extendedRow.className = 'active-case-publications-row';
-      extendedRow.dataset.courtDocketDocuments = row.id;
-      extendedRow.hidden = true;
-      const wideCell = document.createElement('td');
-      wideCell.colSpan = 5;
       const panel = document.createElement('div');
       panel.className = 'active-case-publications-panel';
       const externalLabel = document.createElement('p');
       externalLabel.className = 'active-case-external-source';
       externalLabel.append(document.createTextNode(isEnglish
-        ? 'Related external archive: ' : 'Související archiv na jiném webu – Konopí je lék.cz (Cannabis is The Cure.cz): '));
-      if(publication.external_archive_url){
+        ? 'External case archive on Konopí je lék.cz (Cannabis is The Cure.cz): '
+        : 'Externí archiv kauzy na Konopí je lék.cz (Cannabis is The Cure.cz): '));
+      if (publication.external_archive_url) {
         const external = document.createElement('a');
         external.href = publication.external_archive_url;
-        external.textContent = isEnglish ? 'Konopí je lék.cz ↗' : 'Konopí je lék.cz ↗';
+        external.textContent = 'Konopí je lék.cz ↗';
         external.target = '_blank';
         external.rel = 'noopener';
         externalLabel.append(external);
       }
       panel.append(externalLabel);
+
       const groups = document.createElement('div');
       groups.className = 'active-case-publication-groups';
-      for(const group of publication.groups||[]){
+      for (const group of publication.groups || []) {
         const section = document.createElement('section');
         const heading = document.createElement('h4');
         heading.textContent = `${isEnglish ? group.label_en : group.label_cs} (${group.items.length})`;
         section.append(heading);
         const list = document.createElement('ol');
-        for(const item of group.items||[]){
+        for (const item of group.items || []) {
           const li = document.createElement('li');
           const link = document.createElement('a');
           link.href = item.href;
           link.textContent = `${item.date} · ${item.institution} · ${item.reference}`;
-          if(/^https:\/\//i.test(item.href)){link.target='_blank';link.rel='noopener';}
+          if (/^https:\\/\\//i.test(item.href)) {
+            link.target = '_blank';
+            link.rel = 'noopener';
+          }
           li.append(link);
           list.append(li);
         }
-        if(!group.items?.length) {
-          const empty=document.createElement('p');
-          empty.textContent=isEnglish?'No directly published documents are recorded.':'Nejsou evidovány přímo zveřejněné dokumenty.';
+        if (!group.items?.length) {
+          const empty = document.createElement('p');
+          empty.textContent = isEnglish
+            ? 'No directly published documents are recorded.'
+            : 'Nejsou evidovány přímo zveřejněné dokumenty.';
           section.append(empty);
         }
         section.append(list);
         groups.append(section);
       }
       panel.append(groups);
-      wideCell.append(panel);
-      extendedRow.append(wideCell);
-      tbody.append(extendedRow);
-      toggle.addEventListener('click',()=>{
-        extendedRow.hidden = !extendedRow.hidden;
-        const opened = !extendedRow.hidden;
-        toggle.setAttribute('aria-expanded',String(opened));
-        toggle.textContent = isEnglish
-          ? `Direct document lists (${publication.counts.total}) ${opened?'↑':'↓'}`
-          : `Přímé odkazy na listiny (${publication.counts.total}) ${opened?'↑':'↓'}`;
-      });
+      details.append(panel);
+      merit.append(details);
     }
+    tr.append(merit, remedy, supreme, media, published);
+    tbody.append(tr);
   });
   table.append(tbody);
   scroll.append(table);
