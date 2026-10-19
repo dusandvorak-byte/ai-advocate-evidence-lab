@@ -130,6 +130,11 @@
       "path": "scripts/build-nsz-prelitigation-timeline.mjs",
       "role": "deterministic_crosslinked_pre_litigation_document_timeline",
       "allowed_caller": "scripts/build-site.mjs"
+    },
+    {
+      "path": "scripts/build-court-publication-index.mjs",
+      "role": "deterministic_two_way_document_index_for_each_court_and_agency",
+      "allowed_caller": "scripts/build-site.mjs"
     }
   ],
   "canonical_generated_outputs": [
@@ -142,7 +147,8 @@
     "web/data/registry-audit.json",
     "web/documents/report-04082026-010/96-os-praha4-10-c-69-2026-predvolani-2026-09-16.pdf",
     "web/data/active-court-dockets.json",
-    "web/data/nsz-prelitigation-timeline.json"
+    "web/data/nsz-prelitigation-timeline.json",
+    "web/data/court-publication-index.json"
   ],
-  "updated_on": "2026-10-16"
+  "updated_on": "2026-10-19"
 }

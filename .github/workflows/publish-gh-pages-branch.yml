@@ -37,6 +37,8 @@ jobs:
           node --check scripts/validate-live-dockets-contract.mjs
           node --check scripts/validate-process-chain-contract.mjs
           node --check scripts/build-nsz-prelitigation-timeline.mjs
+          node --check scripts/build-court-publication-index.mjs
+          node --check scripts/validate-court-publication-index.mjs
           node --check scripts/validate-active-court-dockets.mjs
 
       - name: Připravit Python a PDF kontrolní nástroje
@@ -135,6 +137,9 @@ jobs:
       - name: Křížově ověřit Godot, Slalom, cases a soudní tabulku
         run: node scripts/validate-active-court-dockets.mjs
 
+      - name: Ověřit úplnou dvojstrannou evidenci všech soudů a orgánů
+        run: node scripts/validate-court-publication-index.mjs
+
       - name: Ověřit Evidence Lab 2.0 před publikací
         shell: bash
         run: |
@@ -146,6 +151,8 @@ jobs:
           test -f web/data/operations-state.json
           test -f web/data/active-court-dockets.json
           test -f web/data/nsz-prelitigation-timeline.json
+          test -f web/data/court-publication-index.json
+          test "$(jq -r '.rows | length' web/data/court-publication-index.json)" -ge 13
           test "$(jq -r '.counts.incoming' web/data/nsz-prelitigation-timeline.json)" -gt 0
           test "$(jq -r '.counts.outgoing' web/data/nsz-prelitigation-timeline.json)" -gt 0
           test "$(jq -r '.rows | length' web/data/active-court-dockets.json)" -ge 13
@@ -429,6 +436,24 @@ jobs:
           test "$(jq -r '.case_id' /tmp/live-nsz-prelitigation-timeline.json)" = 'CASE-CZ-NSZ-6NZN1737-2026'
           test "$(jq -r '.counts.incoming' /tmp/live-nsz-prelitigation-timeline.json)" -gt 0
           test "$(jq -r '.counts.outgoing' /tmp/live-nsz-prelitigation-timeline.json)" -gt 0
+          # Živý dvojstranný rejstřík všech soudů/orgánů se ověřuje podle přesného SHA.
+          expected_court_docs_sha="$(sha256sum web/data/court-publication-index.json | cut -d' ' -f1)"
+          court_docs_sha_ok=0
+          for attempt in {1..12}; do
+            rm -f /tmp/live-court-publication-index.json
+            if curl -fsSL --connect-timeout 10 --max-time 30 "$base/data/court-publication-index.json$stamp&court_docs_try=$attempt" -o /tmp/live-court-publication-index.json; then
+              observed_court_docs_sha="$(sha256sum /tmp/live-court-publication-index.json | cut -d' ' -f1)"
+              if [ "$observed_court_docs_sha" = "$expected_court_docs_sha" ]; then court_docs_sha_ok=1; break; fi
+            fi
+            if [ "$attempt" -lt 12 ]; then sleep 5; fi
+          done
+          if [ "$court_docs_sha_ok" -ne 1 ]; then
+            echo "Živé seznamy podání soudů a orgánů neodpovídají ověřenému buildu." >&2
+            exit 1
+          fi
+          test "$(jq -r '.rows | length' /tmp/live-court-publication-index.json)" -ge 13
+          test "$(jq -r '[.rows[] | select(.groups | length != 2)] | length' /tmp/live-court-publication-index.json)" = '0'
+          grep -q 'active-case-publications-toggle' /tmp/live-dockets.js
           grep -q 'active-nsz-timeline' /tmp/live-dockets.js
           grep -q 'court-nsz-prelitigation-6nzn1737' /tmp/live-active-court-dockets.json
           grep -q 'https://www.konopijelek.cz/nejvyssi-statni-zastupitelstvi-on-line/' /tmp/live-active-court-dockets.json
