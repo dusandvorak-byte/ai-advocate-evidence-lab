@@ -256,7 +256,7 @@
           const link = document.createElement('a');
           link.href = item.href;
           link.textContent = `${item.date} · ${item.institution} · ${item.reference}`;
-          if (/^https:\\/\\//i.test(item.href)) {
+          if (/^https:\/\//i.test(item.href)) {
             link.target = '_blank';
             link.rel = 'noopener';
           }
