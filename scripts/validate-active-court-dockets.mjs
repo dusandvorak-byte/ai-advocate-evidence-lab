@@ -104,6 +104,36 @@ must(ct.media_links?.[0]?.href===expectedCt,'ČT: mediální odkaz NSS 1 As 395/
 must(ftv.links?.[0]?.href===expectedPrima,'FTV/CNN Prima: Vše zveřejněné nevede na konkrétní stránku /novinky/cnn-prima-news/');
 must(!JSON.stringify(ct).includes('novinky/zaloba-na-ceskou-televizi-za-cenzuru/'),'ČT: zůstal neaktuální odkaz na starou stránku');
 
+// Výslovně schválené deep-linky – u každé kauzy odkaz na věcnou stránku.
+const userApprovedLinks={
+  'court-media-ct':'https://www.konopijelek.cz/ceska-televize/',
+  'court-media-ftv-prima':'https://www.konopijelek.cz/novinky/cnn-prima-news/',
+  'court-ms-praha-18a17':'https://www.konopijelek.cz/policie/',
+  'court-ms-praha-18a23':'https://www.konopijelek.cz/ministerstvo-spravedlnosti/',
+  'court-ms-praha-15a44-nss6as207':'https://www.konopijelek.cz/ministerstvo-vnitra/',
+  'court-ms-praha-health':'https://www.konopijelek.cz/ministerstvo-zdravotnictvi/'
+};
+for(const [id,href] of Object.entries(userApprovedLinks)){
+  const row=registry.rows.find(x=>x.id===id);
+  must(row?.links?.[0]?.href===href,`Chybný deep-link pro ${id}: očekáváno ${href}`);
+}
+const health=registry.rows.find(x=>x.id==='court-ms-praha-health');
+must(health?.follow_up?.status==='preparing'&&health.follow_up.kind==='planned_not_filed',
+  'Antidiskriminační žaloba nesmí být označena jako podaná');
+for(const phrase of ['nemocných','lékařů','lékárníků','teprve připravována']){
+  must(String(health.merit_cs+' '+health.remedy_cs).includes(phrase),
+    'Zdravotnická anotace neobsahuje připravovanou žalobu: '+phrase);
+}
+must(health.merit_en.includes('not evidenced as filed')&&health.remedy_en.includes('still being prepared'),
+  'EN parita nesprávně prezentuje připravovanou antidiskriminační žalobu');
+for(const id of ['case-cz-ms-praha-8ad9-2026','case-cz-ms-praha-15-ad-14-2026']){
+  const c=caseMap.get(id);
+  must(c?.planned_follow_up?.status==='preparing_not_filed'&&c.planned_follow_up.kind==='antidiscrimination_action',
+    'Cases nesynchronizují plánovanou antidiskriminační žalobu: '+id);
+  must(Boolean(c.decided_on)&&Boolean(c.decision_document_id),
+    'Ukončená soudní větev MZ/SÚKL postrádá rozhodnutí: '+id);
+}
+
 for(const token of [
   "const registryUrl = '/ai-advocate-evidence-lab/data/active-court-dockets.json'",
   "className = 'docket-bar-stack'",

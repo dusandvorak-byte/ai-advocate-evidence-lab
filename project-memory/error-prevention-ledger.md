@@ -15,6 +15,12 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Tematický deep-link soudní kauzy se aktualizuje podle výslovně určené stránky
+
+- Projev: větev 18 A 17/2026 (NCOZ) odkazovala v Aktivních soudních řízeních na starší jednotlivý článek namísto tematické stránky `https://www.konopijelek.cz/policie/`; u MZ/SÚKL navíc chybělo rozlišení již rozhodnutých zásahových žalob a nově připravované antidiskriminační žaloby.
+- Náprava: všech šest uživatelem určených cílových URL je závazně spárováno s ID větví ČT, FTV/CNN Prima, NCOZ, MSp, MV a MZ/SÚKL. Vztah plánované antidiskriminační žaloby je uložen odděleně jako `preparing_not_filed`, nikoli jako skutečně podané řízení.
+- Pojistka: `validate-active-court-dockets.mjs` kontroluje všech šest přesných deep-linků a CZ/EN rozlišení připravovaného návrhu; produkční live gate ověřuje stejný kontrakt na veřejném kanonickém JSON souboru. Změny soudních rozhodnutí z Godota nesmějí tiše zrušit významově správné tematické odkazy.
+
 ### Specifická mediální kauza musí mít přesný hluboký odkaz na Konopí je lék.cz
 
 - Projev: řádek aktivního řízení ČT (10 C 69/2026, jednání 24. 11. 2026 ve 13:00) odkazoval ve sloupci „Vše zveřejněné“ i ve větvi NSS 1 As 395/2019 na starší stránku namísto výslovně určené stránky `https://www.konopijelek.cz/ceska-televize/`.

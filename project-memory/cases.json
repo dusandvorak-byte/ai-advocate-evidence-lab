@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_on": "2026-10-09",
+  "updated_on": "2026-10-19",
   "cases": [
     {
       "id": "CASE-CZ-NSZ-6NZN1737-2026",
@@ -495,7 +495,14 @@
         "doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13",
         "doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17"
       ],
-      "process_note": "Usnesení 15 Ad 14/2026-13 ze dne 6. 10. 2026 žalobu odmítlo a připouští kasační stížnost do dvou týdnů od doručení. Datum doručení není doloženo, proto se nevytváří konkrétní kalendářní deadline. Následující přípis 15 Ad 14/2026-17 ze dne 7. 10. 2026 je evidován samostatně."
+      "process_note": "Usnesení 15 Ad 14/2026-13 ze dne 6. 10. 2026 žalobu odmítlo a připouští kasační stížnost do dvou týdnů od doručení. Datum doručení není doloženo, proto se nevytváří konkrétní kalendářní deadline. Následující přípis 15 Ad 14/2026-17 ze dne 7. 10. 2026 je evidován samostatně. Žalobce dne 19. 10. 2026 označil dosavadní žalobní etapu MZ/SÚKL za uzavřenou a oznámil přípravu samostatné antidiskriminační žaloby na ochranu nemocných, lékařů a lékárníků. Podání této nové žaloby není doloženo.",
+      "planned_follow_up": {
+        "kind": "antidiscrimination_action",
+        "description_cs": "Připravovaná antidiskriminační žaloba na ochranu práv nemocných, lékařů a lékárníků.",
+        "description_en": "Planned anti-discrimination action to protect the rights of ill people, physicians and pharmacists.",
+        "status": "preparing_not_filed",
+        "source": "user_instruction_2026-10-19"
+      }
     },
     {
       "id": "case-cz-ks-brno-9to316-2026",
@@ -538,7 +545,15 @@
       ],
       "related_document_ids": [
         "doc-cz-ms-pha-2026-08-28-8-ad-9-2026-85"
-      ]
+      ],
+      "planned_follow_up": {
+        "kind": "antidiscrimination_action",
+        "description_cs": "Připravovaná antidiskriminační žaloba na ochranu práv nemocných, lékařů a lékárníků.",
+        "description_en": "Planned anti-discrimination action to protect the rights of ill people, physicians and pharmacists.",
+        "status": "preparing_not_filed",
+        "source": "user_instruction_2026-10-19"
+      },
+      "process_note": "Žalobce dne 19. 10. 2026 označil dosavadní žalobní etapu MZ/SÚKL za uzavřenou a oznámil přípravu samostatné antidiskriminační žaloby na ochranu nemocných, lékařů a lékárníků. Podání této nové žaloby není doloženo."
     },
     {
       "id": "case-cz-ms-praha-45t1-2024",
