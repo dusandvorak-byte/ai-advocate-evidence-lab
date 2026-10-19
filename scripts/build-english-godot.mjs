@@ -52,7 +52,7 @@ if (!stateDocuments.length) throw new Error('English Godot contains no state/pub
 
 const usedInstitutionIds = new Set([...stateDocuments, ...outgoingDocuments].map(item => item.institution_id));
 for (const id of usedInstitutionIds) if (!translations.institutions?.[id]) throw new Error(`Missing English institution name: ${id}`);
-for (const item of stateDocuments) if (!translations.documents?.[item.id]) throw new Error(`Missing English document description: ${item.id}`);
+for (const item of stateDocuments) if (!translations.documents?.[item.id] && !item.english_summary) throw new Error(`Missing English document description: ${item.id}`);
 
 const sourceLink = item => {
   const published = item.public || {};
@@ -87,7 +87,7 @@ const remediesForState = state => uniqueById(outgoingDocuments.filter(item => (i
 const renderRelated = items => {
   if (!items.length) return '<span class="state-love-empty">—</span>';
   return items.map(item => {
-    const title = translations.documents?.[item.id] || item.user_title;
+    const title = translations.documents?.[item.id] || item.english_summary || item.user_title;
     return `<span class="state-love-related" data-related-document-id="${escapeHtml(item.id)}"><b>${escapeHtml(formatDate(item.issue_date))}</b> · ${escapeHtml(title)} · ${sourceLink(item)}</span>`;
   }).join('<br>');
 };
@@ -96,7 +96,7 @@ const chronologyDocuments = stateDocuments;
 const chronologyRow = (item, index) => {
   const institution = translations.institutions[item.institution_id] || item.institution_id;
   const number = chronologyDocuments.length - index;
-  return `<tr id="en-${escapeHtml(item.id)}" data-document-id="${escapeHtml(item.id)}" data-row-number="${number}" data-issue-date="${escapeHtml(item.issue_date)}" data-submission-side="incoming_from_state_or_public_institution"><td class="slalom-number">${number}</td><td><time datetime="${escapeHtml(item.issue_date)}">${escapeHtml(formatDate(item.issue_date))}</time></td><td>${escapeHtml(institution)}</td><td>${escapeHtml(englishReferenceText(item))}</td><td>${escapeHtml(translations.documents[item.id])} · ${sourceLink(item)}</td><td class="state-love-relation-cell">${renderRelated(filingsForState(item))}</td><td class="state-love-relation-cell">${renderRelated(remediesForState(item))}</td></tr>`;
+  return `<tr id="en-${escapeHtml(item.id)}" data-document-id="${escapeHtml(item.id)}" data-row-number="${number}" data-issue-date="${escapeHtml(item.issue_date)}" data-submission-side="incoming_from_state_or_public_institution"><td class="slalom-number">${number}</td><td><time datetime="${escapeHtml(item.issue_date)}">${escapeHtml(formatDate(item.issue_date))}</time></td><td>${escapeHtml(institution)}</td><td>${escapeHtml(englishReferenceText(item))}</td><td>${escapeHtml(translations.documents?.[item.id] || item.english_summary)} · ${sourceLink(item)}</td><td class="state-love-relation-cell">${renderRelated(filingsForState(item))}</td><td class="state-love-relation-cell">${renderRelated(remediesForState(item))}</td></tr>`;
 };
 
 const hiddenOutgoingAnchors = outgoingDocuments
