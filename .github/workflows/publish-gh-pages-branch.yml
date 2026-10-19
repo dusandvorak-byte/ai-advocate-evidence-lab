@@ -382,7 +382,29 @@ jobs:
 
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/live-dockets.js$stamp" -o /tmp/live-dockets.js
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/live-dockets.css$stamp" -o /tmp/live-dockets.css
-          curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/data/active-court-dockets.json$stamp" -o /tmp/live-active-court-dockets.json
+          # GitHub Pages může krátce po push ještě servírovat předchozí JSON.
+          # Ověř skutečnou byte-identitu artefaktu před sémantickou živou kontrolou.
+          expected_courts_sha="$(sha256sum web/data/active-court-dockets.json | cut -d' ' -f1)"
+          courts_sha_ok=0
+          for attempt in {1..12}; do
+            rm -f /tmp/live-active-court-dockets.json
+            if curl -fsSL --connect-timeout 10 --max-time 30 "$base/data/active-court-dockets.json$stamp&court_try=$attempt" -o /tmp/live-active-court-dockets.json; then
+              observed_courts_sha="$(sha256sum /tmp/live-active-court-dockets.json | cut -d' ' -f1)"
+              if [ "$observed_courts_sha" = "$expected_courts_sha" ]; then
+                courts_sha_ok=1
+                break
+              fi
+            fi
+            if [ "$attempt" -lt 12 ]; then sleep 5; fi
+          done
+          if [ "$courts_sha_ok" -ne 1 ]; then
+            echo "Živý soudní registr není po publikaci shodný s buildem ani po 12 pokusech." >&2
+            echo "Očekáváno SHA-256: $expected_courts_sha" >&2
+            if [ -f /tmp/live-active-court-dockets.json ]; then
+              echo "Zjištěno SHA-256: $(sha256sum /tmp/live-active-court-dockets.json | cut -d' ' -f1)" >&2
+            fi
+            exit 1
+          fi
           test "$(jq -r '.rows | length' /tmp/live-active-court-dockets.json)" = '12'
           test "$(jq -c '.table_contract.width_percent' /tmp/live-active-court-dockets.json)" = '[42,18,18,12,10]'
           # Ověřit po nasazení věcné deep-linky a rozlišení rozhodnutých žalob od připravované nové žaloby.

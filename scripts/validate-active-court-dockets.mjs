@@ -4,6 +4,7 @@ const readJson = async path => JSON.parse(await readFile(path,'utf8'));
 const fail = message => { throw new Error('ACTIVE-COURT-DOCKETS: '+message); };
 const must = (condition,message) => { if(!condition) fail(message); };
 
+const productionWorkflow = await readFile('.github/workflows/publish-gh-pages-branch.yml','utf8');
 const [registry, publicRegistry, cases, sourceManifest, slalom, liveScript, courtCss] = await Promise.all([
   readJson('project-memory/active-court-dockets.json'),
   readJson('web/data/active-court-dockets.json'),
@@ -155,5 +156,12 @@ for(const token of [
 ]) must(courtCss.includes(token),'live-dockets.css postrádá: '+token);
 
 must(!liveScript.includes("source.href = 'https://www.konopijelek.cz/'"),'vrátil se obecný odkaz Konopí je lék místo deep-linků');
+for(const token of [
+  'expected_courts_sha=',
+  'court_try=$attempt',
+  'courts_sha_ok=1',
+  'Živý soudní registr není po publikaci shodný s buildem'
+]) must(productionWorkflow.includes(token),'Produkční live gate nemá retry-safe kontrolu SHA-256: '+token);
+
 
 console.log(`ACTIVE COURT DOCKETS OK: ${registry.rows.length} větví, meritum 42 %, sticky 3 lišty, Godot ↔ Slalom ↔ cases křížově ověřeno.`);
