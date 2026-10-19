@@ -21,6 +21,7 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - Příčina: modul byl odvozen převážně z již soudních věcí; procesní fáze před žalobou neměla strukturovanou externí dvojstrannou časovou osu.
 - Náprava: jedna výslovně označená předžalobní větev s dynamickým výstupem `data/nsz-prelitigation-timeline.json`; dva seskupené chronologické soupisy z kanonického `document-sources.json` a konkrétní odkaz na stránku NSZ na Konopí je lék.cz. Výslovně se netvrdí, že žaloba byla podána, ani že jsou doloženy všechny externí historické dokumenty od 20. dubna.
 - Pojistka: validační brána porovnává všechny ID obou soupisů s kanonickým registrem, filtr příchozí/odchozí strany, chronologii, přímé odkazy, milník 14. 7. a přesný NSZ deep-link; produkce ověřuje SHA binárně generovaného JSON samostatně.
+- Doplňující kořenová pojistka: při rozšíření počtu větví se musí v jednom release aktualizovat všechny souběžné kontrakty (validate-live-dockets, validate-process-chain i validate-active-court-dockets); žádný nesmí zachovávat pevnou historickou hodnotu 12.
 
 ### GitHub Pages může po push vrátit starší soudní JSON i s úspěšnou HTTP odpovědí
 
