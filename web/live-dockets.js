@@ -107,6 +107,40 @@
   thead.append(headerRow);
   table.append(thead);
   const tbody = document.createElement('tbody');
+  // One full-width document reader below the table, inside Active Courts.
+  // Evidence buttons remain in each court's final column.
+  const selectedDocuments = document.createElement('section');
+  selectedDocuments.className = 'active-court-selected-documents';
+  selectedDocuments.hidden = true;
+  let activeEvidenceButton = null;
+  const showEvidence = (button, content, title) => {
+    if (activeEvidenceButton === button && !selectedDocuments.hidden) {
+      selectedDocuments.hidden = true;
+      selectedDocuments.replaceChildren();
+      button.setAttribute('aria-expanded', 'false');
+      activeEvidenceButton = null;
+      return;
+    }
+    if (activeEvidenceButton) activeEvidenceButton.setAttribute('aria-expanded', 'false');
+    const heading = document.createElement('h3');
+    heading.className = 'active-court-evidence-heading';
+    heading.textContent = title;
+    const close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'active-court-evidence-close';
+    close.textContent = isEnglish ? 'Close document lists ↑' : 'Zavřít seznamy listin ↑';
+    close.addEventListener('click', () => {
+      selectedDocuments.hidden = true;
+      selectedDocuments.replaceChildren();
+      button.setAttribute('aria-expanded', 'false');
+      activeEvidenceButton = null;
+    });
+    selectedDocuments.replaceChildren(heading, close, content);
+    selectedDocuments.hidden = false;
+    activeEvidenceButton = button;
+    button.setAttribute('aria-expanded', 'true');
+    selectedDocuments.scrollIntoView({block:'nearest',behavior:'auto'});
+  };
 
   const appendLinks = (cell, links, extraClass = '') => {
     if (!Array.isArray(links) || !links.length) return;
@@ -126,6 +160,7 @@
   };
 
   courtRegistry.rows.forEach(row => {
+    let nszDetail = null;
     const tr = document.createElement('tr');
     tr.dataset.courtDocketId = row.id;
 
@@ -194,7 +229,10 @@
           : 'Chronologii se nepodařilo načíst; použijte odkaz na archiv kauzy NSZ.';
         disclosure.append(missing);
       }
-      merit.append(disclosure);
+      nszDetail = disclosure;
+      // All 29 NSZ entries are preserved; the full-width reader shows them.
+      disclosure.open = true;
+      summary.hidden = true;
     }
 
     const remedy = document.createElement('td');
@@ -211,16 +249,32 @@
 
     const published = document.createElement('td');
     appendLinks(published, row.links);
+    if (nszDetail) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'active-case-publications-toggle';
+      const count = nszTimeline?.counts?.total;
+      button.textContent = isEnglish
+        ? `NSZ documents, submissions and archive (${count ?? 29}) ↓`
+        : `Listiny NSZ, podání a archiv (${count ?? 29}) ↓`;
+      button.setAttribute('aria-expanded','false');
+      published.append(button);
+      button.addEventListener('click', () => showEvidence(
+        button, nszDetail,
+        isEnglish ? 'NSZ: all 29 preserved records' : 'NSZ: všech 29 zachovaných záznamů'
+      ));
+    }
 
     const publication = publicationRows.get(row.id);
-    if (publication) {
-      // A compact disclosure stays inside the first cell of this court row,
+    if (publication && !nszDetail) {
+      // Lists are opened in the full-width reader, never extra table rows.
       // itself inside the existing Active Courts top-level roll-up.  Never
       // create additional table rows for a long list of submissions.
       const details = document.createElement('details');
       details.className = 'active-case-publications';
       const summary = document.createElement('summary');
       summary.className = 'active-case-publications-toggle';
+      summary.hidden = true;
       summary.textContent = isEnglish
         ? `All documents in this case (${publication.counts.total}) ↓`
         : `Vše v této kauze (${publication.counts.total}) ↓`;
@@ -275,14 +329,26 @@
       }
       panel.append(groups);
       details.append(panel);
-      merit.append(details);
+      details.open = true;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'active-case-publications-toggle';
+      button.textContent = isEnglish
+        ? `Document lists (${publication.counts.total}) ↓`
+        : `Seznamy listin (${publication.counts.total}) ↓`;
+      button.setAttribute('aria-expanded', 'false');
+      published.append(button);
+      button.addEventListener('click', () => showEvidence(
+        button, details,
+        `${isEnglish ? row.court_en : row.court_cs} · ${row.reference}`
+      ));
     }
     tr.append(merit, remedy, supreme, media, published);
     tbody.append(tr);
   });
   table.append(tbody);
   scroll.append(table);
-  courtBody.append(scroll);
+  courtBody.append(scroll, selectedDocuments);
   courtDetails.append(courtBody);
   courtShell.append(courtDetails);
 
