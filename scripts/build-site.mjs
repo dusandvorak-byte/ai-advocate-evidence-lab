@@ -159,6 +159,7 @@ await copyFile(source.timers, `${output.data}/process-timers-source.json`);
 await copyFile(source.axioms, `${output.data}/publication-axioms.json`);
 await copyFile(source.courtDockets, `${output.data}/active-court-dockets.json`);
 await run('scripts/build-nsz-prelitigation-timeline.mjs');
+await run('scripts/build-court-publication-index.mjs');
 await copyFile('project-memory/pdf-reconciliation-report.json', `${output.data}/pdf-reconciliation-report.json`);
 const publicPdfLinks = [...new Set(documentsRegistry.documents.map(item => item.public?.pdf).filter(Boolean).map(publicPath))];
 const finalTimerRegistry = await readJson(`${output.data}/process-timers.json`);
