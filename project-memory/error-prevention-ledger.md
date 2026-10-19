@@ -15,6 +15,13 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### GitHub Pages může po push vrátit starší soudní JSON i s úspěšnou HTTP odpovědí
+
+- Incident: produkční běh #628, 19. 10. 2026. `gh-pages/.source-commit` již odpovídal SHA `8ff509b541806582ec4e639b936ac92e9b5493b3` a soubor `data/active-court-dockets.json` ve větvi gh-pages obsahoval nové `/policie/`, avšak první veřejný HTTP požadavek v live gate vrátil starší obsah a vyvolal sémantickou chybu odkazu.
+- Kořenová příčina: `curl --retry` opakuje selhání přenosu/HTTP, ale nemá důvod opakovat úspěšnou odpověď se zastaralým JSON; před porovnáním odkazů nebyla zkontrolována verze artefaktu.
+- Náprava: live gate načítá veřejný soudní JSON opakovaně s jedinečným `court_try`, dokud jeho SHA-256 není byte-identické s `web/data/active-court-dockets.json` z ověřeného produkčního buildu; až pak provádí sémantické aserce všech šesti deep-linků a plánované antidiskriminační žaloby.
+- Pojistka: po 12 neúspěšných pokusech vypíše očekávaný a nalezený hash a skončí skutečným selháním; neprohlašuje zastaralý veřejný obsah za úspěšnou publikaci.
+
 ### Tematický deep-link soudní kauzy se aktualizuje podle výslovně určené stránky
 
 - Projev: větev 18 A 17/2026 (NCOZ) odkazovala v Aktivních soudních řízeních na starší jednotlivý článek namísto tematické stránky `https://www.konopijelek.cz/policie/`; u MZ/SÚKL navíc chybělo rozlišení již rozhodnutých zásahových žalob a nově připravované antidiskriminační žaloby.
