@@ -326,6 +326,11 @@
       "path": "project-memory/documents-2026-supplement-2026-10-20-ms-praha-two-dismissals.json",
       "role": "batch",
       "batch_date": "2026-10-20"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-20-six-pending-originals.json",
+      "role": "batch",
+      "batch_date": "2026-10-20"
     }
   ]
 }

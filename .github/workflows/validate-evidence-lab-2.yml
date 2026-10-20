@@ -53,6 +53,7 @@ jobs:
           node --check scripts/validate-euda-2026-10-19.mjs
           node --check scripts/validate-five-originals-2026-10-20.mjs
           node --check scripts/validate-prague-a17-a23-2026-10-20.mjs
+          node --check scripts/validate-six-pending-originals-2026-10-20.mjs
           node --check scripts/validate-active-court-dockets.mjs
 
       - name: Připravit generátor ověřených veřejných PDF
@@ -164,6 +165,9 @@ jobs:
 
       - name: Verify two original Prague orders, their CZ/EN Godot and court links
         run: node scripts/validate-prague-a17-a23-2026-10-20.mjs
+
+      - name: Verify remaining official original PDFs, 20 October rulings and 9 November police deadline
+        run: node scripts/validate-six-pending-originals-2026-10-20.mjs
 
       - name: Ověřit interní procesní registr a aktivní soudní větve
         run: node scripts/validate-process-chain-contract.mjs

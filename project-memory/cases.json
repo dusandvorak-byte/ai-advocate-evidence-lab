@@ -131,8 +131,12 @@
       "last_filing_on": "2026-10-15",
       "last_filing_document_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
       "related_document_ids": [
-        "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
-      ]
+        "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
+        "doc-cz-pcr-krpt-2026-10-20-krpt-276756-2-cj-2026-0700kr"
+      ],
+      "latest_state_document_id": "doc-cz-pcr-krpt-2026-10-20-krpt-276756-2-cj-2026-0700kr",
+      "latest_state_document_on": "2026-10-20",
+      "latest_infz_response_due_date": "2026-11-09"
     },
     {
       "id": "case-cz-os-pro-2t104-2010-obnova",
@@ -155,8 +159,11 @@
       "related_document_ids": [
         "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
         "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",
-        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
-      ]
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+        "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238"
+      ],
+      "latest_state_document_id": "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238",
+      "latest_state_document_on": "2026-10-20"
     },
     {
       "id": "case-cz-ms-praha-15a44-2026",
@@ -306,8 +313,11 @@
       "related_document_ids": [
         "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
         "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",
-        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
-      ]
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+        "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235"
+      ],
+      "latest_state_document_id": "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235",
+      "latest_state_document_on": "2026-10-20"
     },
     {
       "id": "case-cz-ms-praha-18a17-2026",
@@ -467,12 +477,13 @@
       "opened_on": "2026-08-04",
       "decided_on": "2026-10-07",
       "decision_document_id": "doc-cz-mv-2026-10-07-mv-134798-4-so-2026",
-      "latest_state_document_id": "doc-cz-mv-2026-10-07-mv-134798-4-so-2026",
+      "latest_state_document_id": "doc-cz-uoou-2026-10-20-uoou-06760-26-4",
       "last_remedy_document_id": "doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026",
       "related_document_ids": [
         "doc-cz-mv-2026-08-11-mv-127234-2-obp-2026",
         "doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026",
-        "doc-cz-mv-2026-10-07-mv-134798-4-so-2026"
+        "doc-cz-mv-2026-10-07-mv-134798-4-so-2026",
+        "doc-cz-uoou-2026-10-20-uoou-06760-26-4"
       ],
       "topics": [
         "zákon č. 106/1999 Sb.",
@@ -483,7 +494,8 @@
         "toxikologie",
         "rozklad",
         "§ 11b InfZ"
-      ]
+      ],
+      "latest_state_document_on": "2026-10-20"
     },
     {
       "id": "case-cz-ms-praha-15-ad-14-2026",
