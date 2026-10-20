@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-20",
+  "status": "binding",
+  "documents": [
+    {
+      "id": "doc-cz-ms-pha-2026-10-12-18-a-17-2026-215",
+      "user_title": "Městský soud v Praze odmítl zásahovou žalobu proti NCOZ a Policejnímu prezidiu – 18 A 17/2026-215; připravuje se kasační stížnost",
+      "issue_date": "2026-10-12",
+      "received_date": null,
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 17/2026-215",
+      "case_ids": [
+        "case-cz-ms-praha-18a17-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "zásahová žaloba",
+        "NCOZ",
+        "Policejní prezidium ČR",
+        "odmítnutí žaloby",
+        "správní soudnictví",
+        "kasační stížnost v přípravě",
+        "§ 46 s. ř. s."
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/129-ms-praha-18-a-17-2026-215-2026-10-12-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/129-ms-praha-18-a-17-2026-215-2026-10-12-original.pdf",
+        "sha256": "33d054fc5c5286b43e4beccd27edb8978dd263ed9c3577e8f9c3f737879e0a83",
+        "source_original_sha256": "33d054fc5c5286b43e4beccd27edb8978dd263ed9c3577e8f9c3f737879e0a83",
+        "source_original_size_bytes": 284880,
+        "source_original_page_count": 13,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 13_pages_reviewed; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-20-ms-praha-two-dismissals.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Městský soud v Praze usnesením ze dne 12. října 2026, č. j. 18 A 17/2026-215, odmítl zásahovou žalobu proti Národní centrále proti organizovanému zločinu a Policejnímu prezidiu ČR. Soud spatřoval překážky zejména v hranici pravomoci správního soudnictví nad úkony v trestním řízení, v ochraně práv odlišných právnických osob a v závěru o zneužití procesního práva. Uložil vrácení soudního poplatku 2 000 Kč a výzvu ke sdělení účtu. Připravuje se kasační stížnost k Nejvyššímu správnímu soudu; její podání dosud není doloženo.",
+      "closes_timer_ids": [
+        "timer-court-18a17-2026"
+      ]
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209",
+      "user_title": "Městský soud v Praze odmítl zásahovou i nečinnostní žalobu proti Ministerstvu spravedlnosti – 18 A 23/2026-209; připravuje se kasační stížnost",
+      "issue_date": "2026-10-12",
+      "received_date": null,
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 23/2026-209",
+      "case_ids": [
+        "case-cz-ms-praha-18a23-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "zásahová žaloba",
+        "nečinnostní žaloba",
+        "Ministerstvo spravedlnosti",
+        "odmítnutí žaloby",
+        "správní soudnictví",
+        "kasační stížnost v přípravě",
+        "§ 46 s. ř. s."
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/130-ms-praha-18-a-23-2026-209-2026-10-12-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/130-ms-praha-18-a-23-2026-209-2026-10-12-original.pdf",
+        "sha256": "5b5527a005536b0150e0cfb701d07376bae41b6da7b4cfd934e6c702181aef1f",
+        "source_original_sha256": "5b5527a005536b0150e0cfb701d07376bae41b6da7b4cfd934e6c702181aef1f",
+        "source_original_size_bytes": 280981,
+        "source_original_page_count": 11,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 11_pages_reviewed; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-20-ms-praha-two-dismissals.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Městský soud v Praze usnesením ze dne 12. října 2026, č. j. 18 A 23/2026-209, odmítl zásahovou žalobu a eventuální nečinnostní žalobu proti Ministerstvu spravedlnosti. Odůvodnil to zejména omezením pravomoci správních soudů, nepřípustností nebo opožděností části návrhů, nedostatkem oprávnění žalobce bránit práva odlišných právnických osob a závěrem o zneužití procesního práva. Uložil vrácení soudního poplatku 2 000 Kč a výzvu ke sdělení účtu. Připravuje se kasační stížnost k Nejvyššímu správnímu soudu; její podání dosud není doloženo.",
+      "closes_timer_ids": [
+        "timer-court-18a23-2026"
+      ]
+    }
+  ]
+}
