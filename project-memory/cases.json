@@ -314,7 +314,7 @@
       "institution_id": "CZ-MS-PHA",
       "reference": "18 A 17/2026",
       "title": "Městský soud v Praze – zásahová žaloba proti NCOZ",
-      "status": "active",
+      "status": "action_rejected_cassation_in_preparation_not_filed",
       "opened_on": "2026-05-01",
       "topics": [
         "zásahová žaloba",
@@ -322,22 +322,25 @@
         "§ 82 s. ř. s.",
         "§ 174a"
       ],
-      "latest_state_document_id": "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
+      "latest_state_document_id": "doc-cz-ms-pha-2026-10-12-18-a-17-2026-215",
       "last_filing_on": "2026-10-08",
       "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
       "related_document_ids": [
         "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
         "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce",
         "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
-        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
-      ]
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+        "doc-cz-ms-pha-2026-10-12-18-a-17-2026-215"
+      ],
+      "last_state_document_on": "2026-10-12",
+      "cassation_status": "in_preparation_not_filed"
     },
     {
       "id": "case-cz-ms-praha-18a23-2026",
       "institution_id": "CZ-MS-PHA",
       "reference": "18 A 23/2026",
       "title": "Městský soud v Praze – zásahová žaloba proti Ministerstvu spravedlnosti",
-      "status": "active",
+      "status": "action_rejected_cassation_in_preparation_not_filed",
       "opened_on": "2026-06-15",
       "topics": [
         "zásahová žaloba",
@@ -350,8 +353,12 @@
       "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
       "related_document_ids": [
         "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
-        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
-      ]
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+        "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209"
+      ],
+      "latest_state_document_id": "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209",
+      "last_state_document_on": "2026-10-12",
+      "cassation_status": "in_preparation_not_filed"
     },
     {
       "id": "case-cz-ks-brno-9to315-2026",
