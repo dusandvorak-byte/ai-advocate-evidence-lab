@@ -46,7 +46,10 @@
       ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_document_authorship",
-      "evidence_note": "Městský soud v Praze usnesením ze dne 12. října 2026, č. j. 18 A 17/2026-215, odmítl zásahovou žalobu proti Národní centrále proti organizovanému zločinu a Policejnímu prezidiu ČR. Soud spatřoval překážky zejména v hranici pravomoci správního soudnictví nad úkony v trestním řízení, v ochraně práv odlišných právnických osob a v závěru o zneužití procesního práva. Uložil vrácení soudního poplatku 2 000 Kč a výzvu ke sdělení účtu. Připravuje se kasační stížnost k Nejvyššímu správnímu soudu; její podání dosud není doloženo."
+      "evidence_note": "Městský soud v Praze usnesením ze dne 12. října 2026, č. j. 18 A 17/2026-215, odmítl zásahovou žalobu proti Národní centrále proti organizovanému zločinu a Policejnímu prezidiu ČR. Soud spatřoval překážky zejména v hranici pravomoci správního soudnictví nad úkony v trestním řízení, v ochraně práv odlišných právnických osob a v závěru o zneužití procesního práva. Uložil vrácení soudního poplatku 2 000 Kč a výzvu ke sdělení účtu. Připravuje se kasační stížnost k Nejvyššímu správnímu soudu; její podání dosud není doloženo.",
+      "closes_timer_ids": [
+        "timer-court-18a17-2026"
+      ]
     },
     {
       "id": "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209",
@@ -87,7 +90,10 @@
       ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_document_authorship",
-      "evidence_note": "Městský soud v Praze usnesením ze dne 12. října 2026, č. j. 18 A 23/2026-209, odmítl zásahovou žalobu a eventuální nečinnostní žalobu proti Ministerstvu spravedlnosti. Odůvodnil to zejména omezením pravomoci správních soudů, nepřípustností nebo opožděností části návrhů, nedostatkem oprávnění žalobce bránit práva odlišných právnických osob a závěrem o zneužití procesního práva. Uložil vrácení soudního poplatku 2 000 Kč a výzvu ke sdělení účtu. Připravuje se kasační stížnost k Nejvyššímu správnímu soudu; její podání dosud není doloženo."
+      "evidence_note": "Městský soud v Praze usnesením ze dne 12. října 2026, č. j. 18 A 23/2026-209, odmítl zásahovou žalobu a eventuální nečinnostní žalobu proti Ministerstvu spravedlnosti. Odůvodnil to zejména omezením pravomoci správních soudů, nepřípustností nebo opožděností části návrhů, nedostatkem oprávnění žalobce bránit práva odlišných právnických osob a závěrem o zneužití procesního práva. Uložil vrácení soudního poplatku 2 000 Kč a výzvu ke sdělení účtu. Připravuje se kasační stížnost k Nejvyššímu správnímu soudu; její podání dosud není doloženo.",
+      "closes_timer_ids": [
+        "timer-court-18a23-2026"
+      ]
     }
   ]
 }
