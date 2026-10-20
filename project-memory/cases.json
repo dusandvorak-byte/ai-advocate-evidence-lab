@@ -520,7 +520,7 @@
       "institution_id": "CZ-KS-BRN",
       "reference": "9 To 316/2026-219 / 15 Nt 3105/2026-54",
       "title": "Stížnostní větev obnovy / zabrání věci – 9 To 316/2026",
-      "status": "complaint_decided_service_delayed_as_of_2026-10-06",
+      "status": "complaint_decided_service_confirmed_2026-10-07",
       "opened_on": "2026-08-10",
       "decided_on": "2026-09-03",
       "topics": [
@@ -533,9 +533,10 @@
       ],
       "related_document_ids": [
         "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54",
-        "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54"
+        "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54",
+        "doc-cz-os-pro-2026-10-13-st-7-2026"
       ],
-      "process_note": "Z podání o průtazích ze dne 6. 10. 2026 a návrhu ústavní stížnosti plyne, že KS Brno rozhodl dne 3. 9. 2026 pod sp. zn. 9 To 316/2026-219; rozhodnutí nebylo k 6. 10. 2026 stěžovateli doručeno. Obsah výroku není v Godotu doložen originálem rozhodnutí, proto se zde neformuluje nad rámec uživatelských podání."
+      "process_note": "Podle vyrozumění OS Prostějov St 7/2026 ze dne 13. 10. 2026 byl spis 15 Nt 3105/2026 vrácen KS Brno dne 29. 9. 2026, usnesení KS Brno ze 3. 9. 2026 č. j. 9 To 316/2026-219 bylo odesláno do datové schránky 6. 10. a doručeno 7. 10. 2026. Tato skutečnost je doložena sdělením soudu, nikoli samostatně zveřejněným originálem rozhodnutí KS Brno; ten dosud není doložen. Návrh ústavní stížnosti je připraven, nikoli potvrzen jako podaný."
     },
     {
       "id": "case-cz-ms-praha-8ad9-2026",
