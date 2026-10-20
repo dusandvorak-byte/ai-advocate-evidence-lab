@@ -24,6 +24,7 @@ for(const q of specs){
  must(d.reference===q.ref&&d.institution_id==='CZ-MS-PHA','invalid issuer/reference');
  must(d.document_type==='state_record'&&d.submission_side==='incoming_from_state_or_public_institution','wrong Godot side');
  must(d.case_ids.length===1&&d.case_ids[0]===q.case,'wrong case association');
+ must(d.closes_timer_ids?.length===1&&d.closes_timer_ids[0]==='timer-court-'+(q.row.endsWith('18a17')?'18a17':'18a23')+'-2026','previous waiting timer not closed by the order');
  must(d.public.pdf==='documents/report-04082026-010/'+q.file,'source PDF URL mismatch');
  must(d.public.sha256===q.hash&&d.public.source_original_sha256===q.hash,'source/public SHA metadata mismatch');
  must(d.public.verification_status.includes('git_blob_byte_identical'),'original integrity not declared');
@@ -47,4 +48,9 @@ for(const q of specs){
 }
 const nsz=JSON.parse(await readFile('web/data/nsz-prelitigation-timeline.json','utf8'));
 must(nsz.counts.total===30&&nsz.counts.incoming===5&&nsz.counts.outgoing===21&&nsz.counts.archival===4,'NSZ 30-record archive must remain untouched');
+const timers=JSON.parse(await readFile('web/data/process-timers.json','utf8'));
+for (const id of ['timer-court-18a17-2026','timer-court-18a23-2026']) {
+ must(!(timers.timers||[]).some(x=>x.id===id),'decided case still active as an old waiting timer '+id);
+ must((timers.resolved_process_steps||[]).some(x=>x.id===id&&x.status==='resolved_by_document'&&x.decision_date==='2026-10-12'),'decided case is missing from the completed process genealogy '+id);
+}
 console.log('PRAGUE TWO ORIGINAL COURT PDFS / CZ-EN GODOT / CASE LINK / CASSATION PREPARATION / NO DELIVERY DATE: OK');
