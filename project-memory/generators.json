@@ -135,11 +135,6 @@
       "path": "scripts/build-court-publication-index.mjs",
       "role": "deterministic_two_way_document_index_for_each_court_and_agency",
       "allowed_caller": "scripts/build-site.mjs"
-    },
-    {
-      "path": "scripts/materialize-euda-2026-10-19.py",
-      "role": "deterministic_two_page_public_text_pdf_for_euda_19_october",
-      "allowed_caller": "scripts/build-site.mjs"
     }
   ],
   "canonical_generated_outputs": [
@@ -155,5 +150,5 @@
     "web/data/nsz-prelitigation-timeline.json",
     "web/data/court-publication-index.json"
   ],
-  "updated_on": "2026-10-19"
+  "updated_on": "2026-10-20"
 }

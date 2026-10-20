@@ -51,7 +51,7 @@ jobs:
           node --check scripts/build-court-publication-index.mjs
           node --check scripts/validate-court-publication-index.mjs
           node --check scripts/validate-euda-2026-10-19.mjs
-          python3 -m py_compile scripts/materialize-euda-2026-10-19.py
+          node --check scripts/validate-five-originals-2026-10-20.mjs
           node --check scripts/validate-active-court-dockets.mjs
 
       - name: Připravit generátor ověřených veřejných PDF
@@ -157,6 +157,9 @@ jobs:
 
       - name: Verify 19 October EUDA reply (PDF and CZ/EN Godot)
         run: node scripts/validate-euda-2026-10-19.mjs
+
+      - name: Verify all five byte-identical original PDFs and updated court service
+        run: node scripts/validate-five-originals-2026-10-20.mjs
 
       - name: Ověřit interní procesní registr a aktivní soudní větve
         run: node scripts/validate-process-chain-contract.mjs

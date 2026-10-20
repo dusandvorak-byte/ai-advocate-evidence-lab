@@ -26,15 +26,14 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "intended_pdf": "documents/report-04082026-010/120-euda-exo-fhp-pd-26-d-110-2026-10-19-verejna-textova-kopie.pdf",
-        "sha256": null,
-        "verification_status": "awaiting_deterministic_complete_operative_text_copy; not_byte_identical_original; private_postal_and_email_coordinates_removed; digital_signature_not_embedded",
+        "pdf": "documents/report-04082026-010/120-euda-exo-fhp-pd-26-d-110-2026-10-19-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/120-euda-exo-fhp-pd-26-d-110-2026-10-19-original.pdf",
+        "sha256": "b2ea6fb0b56a73ee2fccae2ff4b595094551b91a49ff3ceee0a9d11bd885d9c2",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 2_pages_reviewed; git_blob_byte_identical",
         "source_original_sha256": "b2ea6fb0b56a73ee2fccae2ff4b595094551b91a49ff3ceee0a9d11bd885d9c2",
         "source_original_size_bytes": 298146,
         "source_original_page_count": 2,
-        "source_manifest": "project-memory/documents-2026-supplement-2026-10-19-euda-reply.json",
-        "public_text_source": "project-memory/euda-letter-2026-10-19-complete-public-text.txt"
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-19-euda-reply.json"
       },
       "relations": [
         {
@@ -48,7 +47,7 @@
       ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "explicit_document_authorship",
-      "evidence_note": "EUDA v odpovědi č. EXO/FHP/pd (26) D 110 ze dne 19. 10. 2026 na korespondenci z 27. 9. 2026 zachovává právní stanovisko z 25. 9. 2026. Výslovně uvádí, že národní údaje o potenci konopí jsou metodicky omezené a laboratoře mohou používat rozdílné analytické standardy; zveřejnění národních statistik nepředstavuje ověření metod forenzních laboratoří ani potvrzení totožnosti analytických postupů všech států. Čl. 6 odst. 1 písm. f) a čl. 15 nařízení (EU) 2023/1322 podle EUDA nepřikazují individuálně vyžádanou srovnávací studii delta-9-THC. Žádost podle nařízení (ES) č. 1049/2001 je vyřizována samostatně. Originál PDF (2 strany, SHA-256 b2ea6fb0…) byl předložen uživatelem, avšak veřejná rekonstrukce z úplného věcného textu není binárně totožným originálem a neobsahuje ověřitelný digitální podpis; kontaktní soukromé údaje nejsou zveřejněny."
+      "evidence_note": "EUDA v odpovědi č. EXO/FHP/pd (26) D 110 ze dne 19. 10. 2026 na korespondenci z 27. 9. 2026 zachovává právní stanovisko z 25. 9. 2026. Výslovně uvádí, že národní údaje o potenci konopí jsou metodicky omezené a laboratoře mohou používat rozdílné analytické standardy; zveřejnění národních statistik nepředstavuje ověření metod forenzních laboratoří ani potvrzení totožnosti analytických postupů všech států. Čl. 6 odst. 1 písm. f) a čl. 15 nařízení (EU) 2023/1322 podle EUDA nepřikazují individuálně vyžádanou srovnávací studii delta-9-THC. Žádost podle nařízení (ES) č. 1049/2001 je vyřizována samostatně. Veřejně zveřejněn binárně totožný dvoustránkový originál PDF s digitálním podpisem; kontrolní otisk SHA-256 b2ea6fb0b56a73ee2fccae2ff4b595094551b91a49ff3ceee0a9d11bd885d9c2."
     }
   ]
 }
