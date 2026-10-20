@@ -52,7 +52,12 @@ assert(os.issue_date==='2026-10-13'&&os.case_ids.includes('case-cz-ks-brno-9to31
 const cases=JSON.parse(await readFile('project-memory/cases.json','utf8'));
 assert(cases.cases.find(c=>c.id==='case-cz-ks-brno-9to316-2026')?.status==='complaint_decided_service_confirmed_2026-10-07','missing certified 7 Oct court service');
 const nszTimeline=JSON.parse(await readFile('web/data/nsz-prelitigation-timeline.json','utf8'));
-assert(nszTimeline.counts.total===29&&nszTimeline.groups.reduce((n,g)=>n+g.items.length,0)===29,'NSZ 29 document archive was modified');
+assert(nszTimeline.counts.total===30&&nszTimeline.groups.reduce((n,g)=>n+g.items.length,0)===30,'NSZ timeline must contain 29 previously published records plus the October 15 SIN 72 reply');
+const official=nszTimeline.groups.find(x=>x.id==='incoming_nsz')?.items||[];
+const own=nszTimeline.groups.find(x=>x.id==='outgoing_to_nsz')?.items||[];
+const archive=nszTimeline.groups.find(x=>x.id==='historical_archive')?.items||[];
+assert(official.length===5&&own.length===21&&archive.length===4,'original 29 entries must remain unchanged, with just one new official NSZ item');
+assert(official.some(x=>x.document_id==='doc-cz-nsz-2026-10-15-sin-72-2026-16'&&x.href?.includes('121-nsz-sin-72-2026-16-2026-10-15-original.pdf')),'October NSZ SIN 72 original not in its proper evidence group');
 const act=JSON.parse(await readFile('project-memory/active-court-dockets.json','utf8'));
 assert(act.rows.length===13,'unexpected court row count');
-console.log('ALL FIVE BYTE-IDENTICAL PDF ORIGINALS, CHRONOLOGY CZ/EN, AND NSZ 29 UNCHANGED: OK');
+console.log('ALL FIVE ORIGINAL PDFs, CZ/EN GODOT, AND NSZ: 29 PRESERVED + 1 NEW = 30: OK');
