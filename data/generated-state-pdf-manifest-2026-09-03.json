@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "notice": "Generated public PDF copies from verified text; not byte-identical originals.",
+  "count": 2,
+  "records": [
+    {
+      "path": "documents/report-04082026-010/kpr-5080-2026-vyrizeni-stiznosti-2026-09-02-verejna-kopie.pdf",
+      "sha256": "553feb677e1b0d1bb6f4c057413ecc1a7da556e8e95db28da0cad13622314d2b",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "source": "project-memory/state-text-sources-2026-09-03/kpr-5080-2026-2026-09-02.txt"
+    },
+    {
+      "path": "documents/report-04082026-010/osz-fm-1-zn-7061-2026-79-2026-09-03-verejna-kopie.pdf",
+      "sha256": "0ef583b7c561d4d56bf3677bf4b17ea35fb93699d2f2fac62814132b0cd186f5",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "source": "project-memory/state-text-sources-2026-09-03/osz-fm-1-zn-7061-2026-79-2026-09-03.txt"
+    }
+  ]
+}

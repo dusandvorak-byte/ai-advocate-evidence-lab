@@ -1,0 +1,3984 @@
+{
+  "schema_version": "1.0",
+  "source": "project-memory/document-sources.json",
+  "scope": "documentary_index_for_every_court_and_related_agency",
+  "generated_from_source": true,
+  "rows": [
+    {
+      "docket_id": "court-prostejov-2t104-15nt3104",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova"
+      ],
+      "institution_ids": [
+        "CZ-OS-PRO"
+      ],
+      "external_archive_url": "https://www.konopijelek.cz/novinky/prvni-obvineni-a-prvni-konopna-ustavni-stiznost-sp-zn-ii-us-664-12-uroda-konopi-z-roku-2008-a-2009/",
+      "groups": [
+        {
+          "id": "incoming",
+          "label_cs": "Listiny státních a dalších orgánů",
+          "label_en": "Documents from courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-cak-2026-10-15-10-32-000925-26-0002",
+              "date": "2026-10-15",
+              "reference": "10.32-000925/26-0002",
+              "institution": "ČAK",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/123-cak-10-32-000925-26-0002-2026-10-15-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238",
+              "date": "2026-10-15",
+              "reference": "15 Nt 3104/2026-238",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/125-os-prostejov-15-nt-3104-2026-238-2026-10-15-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235",
+              "date": "2026-10-15",
+              "reference": "15 Nt 3106/2026-235",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/126-os-prostejov-15-nt-3106-2026-235-2026-10-15-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-10-13-st-7-2026",
+              "date": "2026-10-13",
+              "reference": "St 7/2026; 15 Nt 3105/2026; 9 To 316/2026-219",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/124-os-prostejov-st-7-2026-2026-10-13-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-09-14-15-nt-3104-2026",
+              "date": "2026-09-14",
+              "reference": "15 Nt 3104/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/90-os-prostejov-15-nt-3104-2026-2026-09-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-09-14-15-nt-3106-2026",
+              "date": "2026-09-14",
+              "reference": "15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/91-os-prostejov-15-nt-3106-2026-2026-09-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-neslouceni",
+              "date": "2026-08-25",
+              "reference": "15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/76-os-prostejov-15-nt-3106-2026-neslouceni-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-predvolani",
+              "date": "2026-08-25",
+              "reference": "15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/75-os-prostejov-15-nt-3106-2026-predvolani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-18-15-nt-3104-2026-56",
+              "date": "2026-08-18",
+              "reference": "15 Nt 3104/2026-56; souvisí s 2 T 104/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/63-os-prostejov-15-nt-3104-2026-56-2026-08-18.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54",
+              "date": "2026-08-07",
+              "reference": "15 Nt 3105/2026-54",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/16-os-prostejov-15-nt-3105-2026-54-2026-08-07.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        },
+        {
+          "id": "outgoing",
+          "label_cs": "Podání soudu a dalším orgánům",
+          "label_en": "Filings addressed to courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-dd-2026-10-12-osz-os-pro-infz-thc-obnova",
+              "date": "2026-10-12",
+              "reference": "OSZ: 1 ZT 11/2010; 1 ZT 244/2010; 1 ZT 55/2012; ZT 108/2013; ZN 4/2026 | OS: 15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026; 2 T 104/2010; 2 T 65/2011",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/104-podani-2026-10-12-osz-os-prostejov-redigovany-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-10-cak-uocr-pro-bono",
+              "date": "2026-10-10",
+              "reference": "§ 18c zákona č. 85/1996 Sb.; 9 To 315/2026-140; 9 To 316/2026-219; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "ČAK, Unie obhájců ČR",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/102-podani-2026-10-10-cak-uocr-pro-bono.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+              "date": "2026-10-08",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 A 44/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-04-dukazni-chronologie-kjl-2008-2026",
+              "date": "2026-10-04",
+              "reference": "Příloha k podání ze dne 4. 10. 2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy",
+              "date": "2026-10-04",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",
+              "date": "2026-10-02",
+              "reference": "Příloha k 15 Nt 3104/2026 a 15 Nt 3106/2026",
+              "institution": "Okresní soud v Prostějově",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/091-priloha-dukazni-chronologie-2008-2026-verejna-textova-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
+              "date": "2026-10-02",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "Okresní soud v Prostějově",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/090-podani-2026-10-02-verejna-textova-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106",
+              "date": "2026-10-01",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-uocr-pro-bono",
+              "date": "2026-10-01",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "Unie obhájců ČR",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/086-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-005",
+              "date": "2026-09-21",
+              "reference": "KPR 5080/2026; KPR 4093/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/005-podani-2026-09-21.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-17-slalom-augsep-017",
+              "date": "2026-09-17",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/017-podani-2026-09-17-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-16-os-ks-brno-predzasedaci-doplneni",
+              "date": "2026-09-16",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 9 To 315/2026; 9 To 316/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/018-podani-2026-09-16-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-13-os-osz-pro-doplneni-obnova",
+              "date": "2026-09-13",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 2 T 104/2010; 1 ZT 11/2010; ZN 4/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/054-podani-2026-09-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-07-os-osz-pro-procesni-pouceni",
+              "date": "2026-09-07",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 2 T 104/2010; 1 ZT 11/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/055-podani-2026-09-07.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-22-slalom-augsep-060",
+              "date": "2026-08-22",
+              "reference": "2 T 104/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/060-podani-2026-08-22.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-13-slalom-augsep-056",
+              "date": "2026-08-13",
+              "reference": "2 T 104/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/056-podani-2026-08-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-13-slalom-augsep-057",
+              "date": "2026-08-13",
+              "reference": "9 To 315/2026; 9 To 316/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/057-podani-2026-08-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+              "date": "2026-08-11",
+              "reference": "proti 15 Nt 3103/2026-53",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/059-podani-2026-08-11.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54",
+              "date": "2026-08-10",
+              "reference": "proti 15 Nt 3105/2026-54",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/058-podani-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-39",
+              "date": "2026-07-12",
+              "reference": "2 T 104/2010; 2 Nt 1257/2013; 2 Nt 1151/2014; 3 Nt 1151/2014",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/39-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-41",
+              "date": "2026-07-12",
+              "reference": "2 T 104/2010; 2 Nt 1257/2013; 2 Nt 1151/2014; 3 Nt 1151/2014",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/41-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "incoming": 10,
+        "outgoing": 21,
+        "total": 31
+      }
+    },
+    {
+      "docket_id": "court-prostejov-2t65-15nt3106",
+      "case_ids": [
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "institution_ids": [
+        "CZ-OS-PRO"
+      ],
+      "external_archive_url": "https://www.konopijelek.cz/soud-s-dusanem-dvorakem/soud-s-dusanem-dvorakem-archiv/tiskove-zpravy/seznam-chronologie-a-meritum-odmitnutych-ustavnich-stiznosti-mgr-dusana-dvoraka/",
+      "groups": [
+        {
+          "id": "incoming",
+          "label_cs": "Listiny státních a dalších orgánů",
+          "label_en": "Documents from courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-cak-2026-10-15-10-32-000925-26-0002",
+              "date": "2026-10-15",
+              "reference": "10.32-000925/26-0002",
+              "institution": "ČAK",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/123-cak-10-32-000925-26-0002-2026-10-15-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238",
+              "date": "2026-10-15",
+              "reference": "15 Nt 3104/2026-238",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/125-os-prostejov-15-nt-3104-2026-238-2026-10-15-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235",
+              "date": "2026-10-15",
+              "reference": "15 Nt 3106/2026-235",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/126-os-prostejov-15-nt-3106-2026-235-2026-10-15-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-10-13-st-7-2026",
+              "date": "2026-10-13",
+              "reference": "St 7/2026; 15 Nt 3105/2026; 9 To 316/2026-219",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/124-os-prostejov-st-7-2026-2026-10-13-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-09-14-15-nt-3104-2026",
+              "date": "2026-09-14",
+              "reference": "15 Nt 3104/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/90-os-prostejov-15-nt-3104-2026-2026-09-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-09-14-15-nt-3106-2026",
+              "date": "2026-09-14",
+              "reference": "15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/91-os-prostejov-15-nt-3106-2026-2026-09-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-neslouceni",
+              "date": "2026-08-25",
+              "reference": "15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/76-os-prostejov-15-nt-3106-2026-neslouceni-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-predvolani",
+              "date": "2026-08-25",
+              "reference": "15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/75-os-prostejov-15-nt-3106-2026-predvolani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-18-15-nt-3104-2026-56",
+              "date": "2026-08-18",
+              "reference": "15 Nt 3104/2026-56; souvisí s 2 T 104/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/63-os-prostejov-15-nt-3104-2026-56-2026-08-18.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54",
+              "date": "2026-08-07",
+              "reference": "15 Nt 3105/2026-54",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/16-os-prostejov-15-nt-3105-2026-54-2026-08-07.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        },
+        {
+          "id": "outgoing",
+          "label_cs": "Podání soudu a dalším orgánům",
+          "label_en": "Filings addressed to courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-dd-2026-10-12-osz-os-pro-infz-thc-obnova",
+              "date": "2026-10-12",
+              "reference": "OSZ: 1 ZT 11/2010; 1 ZT 244/2010; 1 ZT 55/2012; ZT 108/2013; ZN 4/2026 | OS: 15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026; 2 T 104/2010; 2 T 65/2011",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/104-podani-2026-10-12-osz-os-prostejov-redigovany-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-10-cak-uocr-pro-bono",
+              "date": "2026-10-10",
+              "reference": "§ 18c zákona č. 85/1996 Sb.; 9 To 315/2026-140; 9 To 316/2026-219; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "ČAK, Unie obhájců ČR",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/102-podani-2026-10-10-cak-uocr-pro-bono.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+              "date": "2026-10-08",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 A 44/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-04-dukazni-chronologie-kjl-2008-2026",
+              "date": "2026-10-04",
+              "reference": "Příloha k podání ze dne 4. 10. 2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy",
+              "date": "2026-10-04",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",
+              "date": "2026-10-02",
+              "reference": "Příloha k 15 Nt 3104/2026 a 15 Nt 3106/2026",
+              "institution": "Okresní soud v Prostějově",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/091-priloha-dukazni-chronologie-2008-2026-verejna-textova-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
+              "date": "2026-10-02",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "Okresní soud v Prostějově",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/090-podani-2026-10-02-verejna-textova-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106",
+              "date": "2026-10-01",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-uocr-pro-bono",
+              "date": "2026-10-01",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "Unie obhájců ČR",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/086-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-005",
+              "date": "2026-09-21",
+              "reference": "KPR 5080/2026; KPR 4093/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/005-podani-2026-09-21.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-17-slalom-augsep-017",
+              "date": "2026-09-17",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/017-podani-2026-09-17-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-16-os-ks-brno-predzasedaci-doplneni",
+              "date": "2026-09-16",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 9 To 315/2026; 9 To 316/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/018-podani-2026-09-16-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-13-os-osz-pro-doplneni-obnova",
+              "date": "2026-09-13",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 2 T 104/2010; 1 ZT 11/2010; ZN 4/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/054-podani-2026-09-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-07-os-osz-pro-procesni-pouceni",
+              "date": "2026-09-07",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 2 T 104/2010; 1 ZT 11/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/055-podani-2026-09-07.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-22-slalom-augsep-060",
+              "date": "2026-08-22",
+              "reference": "2 T 104/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/060-podani-2026-08-22.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-13-slalom-augsep-056",
+              "date": "2026-08-13",
+              "reference": "2 T 104/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/056-podani-2026-08-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-13-slalom-augsep-057",
+              "date": "2026-08-13",
+              "reference": "9 To 315/2026; 9 To 316/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/057-podani-2026-08-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+              "date": "2026-08-11",
+              "reference": "proti 15 Nt 3103/2026-53",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/059-podani-2026-08-11.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54",
+              "date": "2026-08-10",
+              "reference": "proti 15 Nt 3105/2026-54",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/058-podani-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-39",
+              "date": "2026-07-12",
+              "reference": "2 T 104/2010; 2 Nt 1257/2013; 2 Nt 1151/2014; 3 Nt 1151/2014",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/39-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-41",
+              "date": "2026-07-12",
+              "reference": "2 T 104/2010; 2 Nt 1257/2013; 2 Nt 1151/2014; 3 Nt 1151/2014",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/41-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "incoming": 10,
+        "outgoing": 21,
+        "total": 31
+      }
+    },
+    {
+      "docket_id": "court-prostejov-15nt3103-9to315",
+      "case_ids": [
+        "case-cz-ks-brno-9to315-2026"
+      ],
+      "institution_ids": [
+        "CZ-OS-PRO",
+        "CZ-KS-BRN"
+      ],
+      "external_archive_url": "https://www.konopijelek.cz/soud-s-dusanem-dvorakem/soud-s-dusanem-dvorakem-archiv/tiskove-zpravy/seznam-chronologie-a-meritum-odmitnutych-ustavnich-stiznosti-mgr-dusana-dvoraka/",
+      "groups": [
+        {
+          "id": "incoming",
+          "label_cs": "Listiny státních a dalších orgánů",
+          "label_en": "Documents from courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238",
+              "date": "2026-10-15",
+              "reference": "15 Nt 3104/2026-238",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/125-os-prostejov-15-nt-3104-2026-238-2026-10-15-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235",
+              "date": "2026-10-15",
+              "reference": "15 Nt 3106/2026-235",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/126-os-prostejov-15-nt-3106-2026-235-2026-10-15-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-10-13-st-7-2026",
+              "date": "2026-10-13",
+              "reference": "St 7/2026; 15 Nt 3105/2026; 9 To 316/2026-219",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/124-os-prostejov-st-7-2026-2026-10-13-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-09-14-15-nt-3104-2026",
+              "date": "2026-09-14",
+              "reference": "15 Nt 3104/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/90-os-prostejov-15-nt-3104-2026-2026-09-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-09-14-15-nt-3106-2026",
+              "date": "2026-09-14",
+              "reference": "15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/91-os-prostejov-15-nt-3106-2026-2026-09-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ks-brn-2026-09-03-9-to-315-2026-140",
+              "date": "2026-09-03",
+              "reference": "9 To 315/2026-140",
+              "institution": "KS Brno",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-neslouceni",
+              "date": "2026-08-25",
+              "reference": "15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/76-os-prostejov-15-nt-3106-2026-neslouceni-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-predvolani",
+              "date": "2026-08-25",
+              "reference": "15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/75-os-prostejov-15-nt-3106-2026-predvolani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-18-15-nt-3104-2026-56",
+              "date": "2026-08-18",
+              "reference": "15 Nt 3104/2026-56; souvisí s 2 T 104/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/63-os-prostejov-15-nt-3104-2026-56-2026-08-18.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54",
+              "date": "2026-08-07",
+              "reference": "15 Nt 3105/2026-54",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/16-os-prostejov-15-nt-3105-2026-54-2026-08-07.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        },
+        {
+          "id": "outgoing",
+          "label_cs": "Podání soudu a dalším orgánům",
+          "label_en": "Filings addressed to courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-dd-2026-10-12-osz-os-pro-infz-thc-obnova",
+              "date": "2026-10-12",
+              "reference": "OSZ: 1 ZT 11/2010; 1 ZT 244/2010; 1 ZT 55/2012; ZT 108/2013; ZN 4/2026 | OS: 15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026; 2 T 104/2010; 2 T 65/2011",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/104-podani-2026-10-12-osz-os-prostejov-redigovany-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-10-cak-uocr-pro-bono",
+              "date": "2026-10-10",
+              "reference": "§ 18c zákona č. 85/1996 Sb.; 9 To 315/2026-140; 9 To 316/2026-219; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "ČAK, Unie obhájců ČR",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/102-podani-2026-10-10-cak-uocr-pro-bono.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-10-navrh-ustavni-stiznosti-priloha",
+              "date": "2026-10-10",
+              "reference": "9 To 315/2026-140; 9 To 316/2026-219; 15 Nt 3103/2026-53; 15 Nt 3105/2026-54",
+              "institution": "Okresní soud v Prostějově / Krajský soud v Brně",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/103-priloha-2026-10-10-navrh-ustavni-stiznosti.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+              "date": "2026-10-08",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 A 44/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-04-dukazni-chronologie-kjl-2008-2026",
+              "date": "2026-10-04",
+              "reference": "Příloha k podání ze dne 4. 10. 2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy",
+              "date": "2026-10-04",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106",
+              "date": "2026-10-01",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-005",
+              "date": "2026-09-21",
+              "reference": "KPR 5080/2026; KPR 4093/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/005-podani-2026-09-21.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-17-slalom-augsep-017",
+              "date": "2026-09-17",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov, KS Brno",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/017-podani-2026-09-17-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-16-os-ks-brno-predzasedaci-doplneni",
+              "date": "2026-09-16",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 9 To 315/2026; 9 To 316/2026",
+              "institution": "OS Prostějov, KS Brno",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/018-podani-2026-09-16-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-13-ks-ksz-vsz-doplneni-stiznosti",
+              "date": "2026-09-13",
+              "reference": "9 To 315/2026; 9 To 316/2026; 3 VZN 239/2026; 1 KZT 475/2026; 1 KZN 1079/2026",
+              "institution": "KS Brno",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/019-podani-2026-09-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-13-os-osz-pro-doplneni-obnova",
+              "date": "2026-09-13",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 2 T 104/2010; 1 ZT 11/2010; ZN 4/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/054-podani-2026-09-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-07-os-osz-pro-procesni-pouceni",
+              "date": "2026-09-07",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 2 T 104/2010; 1 ZT 11/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/055-podani-2026-09-07.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-03-slalom-augsep-016",
+              "date": "2026-09-03",
+              "reference": "9 To 315/2026; 9 To 316/2026",
+              "institution": "KS Brno",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/016-podani-2026-09-03.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-22-slalom-augsep-013",
+              "date": "2026-08-22",
+              "reference": "9 To 315/2026; 9 To 316/2026",
+              "institution": "KS Brno",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/013-podani-2026-08-22.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-22-slalom-augsep-060",
+              "date": "2026-08-22",
+              "reference": "2 T 104/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/060-podani-2026-08-22.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-13-slalom-augsep-056",
+              "date": "2026-08-13",
+              "reference": "2 T 104/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/056-podani-2026-08-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-13-slalom-augsep-057",
+              "date": "2026-08-13",
+              "reference": "9 To 315/2026; 9 To 316/2026",
+              "institution": "KS Brno, OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/057-podani-2026-08-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+              "date": "2026-08-11",
+              "reference": "proti 15 Nt 3103/2026-53",
+              "institution": "KS Brno, OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/059-podani-2026-08-11.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54",
+              "date": "2026-08-10",
+              "reference": "proti 15 Nt 3105/2026-54",
+              "institution": "KS Brno, OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/058-podani-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-39",
+              "date": "2026-07-12",
+              "reference": "2 T 104/2010; 2 Nt 1257/2013; 2 Nt 1151/2014; 3 Nt 1151/2014",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/39-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-41",
+              "date": "2026-07-12",
+              "reference": "2 T 104/2010; 2 Nt 1257/2013; 2 Nt 1151/2014; 3 Nt 1151/2014",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/41-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "incoming": 10,
+        "outgoing": 22,
+        "total": 32
+      }
+    },
+    {
+      "docket_id": "court-prostejov-15nt3105-9to316",
+      "case_ids": [
+        "case-cz-ks-brno-9to316-2026"
+      ],
+      "institution_ids": [
+        "CZ-OS-PRO",
+        "CZ-KS-BRN"
+      ],
+      "external_archive_url": "https://www.konopijelek.cz/soud-s-dusanem-dvorakem/soud-s-dusanem-dvorakem-archiv/tiskove-zpravy/seznam-chronologie-a-meritum-odmitnutych-ustavnich-stiznosti-mgr-dusana-dvoraka/",
+      "groups": [
+        {
+          "id": "incoming",
+          "label_cs": "Listiny státních a dalších orgánů",
+          "label_en": "Documents from courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238",
+              "date": "2026-10-15",
+              "reference": "15 Nt 3104/2026-238",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/125-os-prostejov-15-nt-3104-2026-238-2026-10-15-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235",
+              "date": "2026-10-15",
+              "reference": "15 Nt 3106/2026-235",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/126-os-prostejov-15-nt-3106-2026-235-2026-10-15-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-10-13-st-7-2026",
+              "date": "2026-10-13",
+              "reference": "St 7/2026; 15 Nt 3105/2026; 9 To 316/2026-219",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/124-os-prostejov-st-7-2026-2026-10-13-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-09-14-15-nt-3104-2026",
+              "date": "2026-09-14",
+              "reference": "15 Nt 3104/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/90-os-prostejov-15-nt-3104-2026-2026-09-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-09-14-15-nt-3106-2026",
+              "date": "2026-09-14",
+              "reference": "15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/91-os-prostejov-15-nt-3106-2026-2026-09-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ks-brn-2026-09-03-9-to-315-2026-140",
+              "date": "2026-09-03",
+              "reference": "9 To 315/2026-140",
+              "institution": "KS Brno",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-neslouceni",
+              "date": "2026-08-25",
+              "reference": "15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/76-os-prostejov-15-nt-3106-2026-neslouceni-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-predvolani",
+              "date": "2026-08-25",
+              "reference": "15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/75-os-prostejov-15-nt-3106-2026-predvolani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-18-15-nt-3104-2026-56",
+              "date": "2026-08-18",
+              "reference": "15 Nt 3104/2026-56; souvisí s 2 T 104/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/63-os-prostejov-15-nt-3104-2026-56-2026-08-18.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54",
+              "date": "2026-08-07",
+              "reference": "15 Nt 3105/2026-54",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/16-os-prostejov-15-nt-3105-2026-54-2026-08-07.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        },
+        {
+          "id": "outgoing",
+          "label_cs": "Podání soudu a dalším orgánům",
+          "label_en": "Filings addressed to courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-dd-2026-10-12-osz-os-pro-infz-thc-obnova",
+              "date": "2026-10-12",
+              "reference": "OSZ: 1 ZT 11/2010; 1 ZT 244/2010; 1 ZT 55/2012; ZT 108/2013; ZN 4/2026 | OS: 15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026; 2 T 104/2010; 2 T 65/2011",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/104-podani-2026-10-12-osz-os-prostejov-redigovany-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-10-cak-uocr-pro-bono",
+              "date": "2026-10-10",
+              "reference": "§ 18c zákona č. 85/1996 Sb.; 9 To 315/2026-140; 9 To 316/2026-219; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "ČAK, Unie obhájců ČR",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/102-podani-2026-10-10-cak-uocr-pro-bono.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-10-navrh-ustavni-stiznosti-priloha",
+              "date": "2026-10-10",
+              "reference": "9 To 315/2026-140; 9 To 316/2026-219; 15 Nt 3103/2026-53; 15 Nt 3105/2026-54",
+              "institution": "Okresní soud v Prostějově / Krajský soud v Brně",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/103-priloha-2026-10-10-navrh-ustavni-stiznosti.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+              "date": "2026-10-08",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 A 44/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-04-dukazni-chronologie-kjl-2008-2026",
+              "date": "2026-10-04",
+              "reference": "Příloha k podání ze dne 4. 10. 2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy",
+              "date": "2026-10-04",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106",
+              "date": "2026-10-01",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-005",
+              "date": "2026-09-21",
+              "reference": "KPR 5080/2026; KPR 4093/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/005-podani-2026-09-21.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-17-slalom-augsep-017",
+              "date": "2026-09-17",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "OS Prostějov, KS Brno",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/017-podani-2026-09-17-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-16-os-ks-brno-predzasedaci-doplneni",
+              "date": "2026-09-16",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 9 To 315/2026; 9 To 316/2026",
+              "institution": "OS Prostějov, KS Brno",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/018-podani-2026-09-16-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-13-ks-ksz-vsz-doplneni-stiznosti",
+              "date": "2026-09-13",
+              "reference": "9 To 315/2026; 9 To 316/2026; 3 VZN 239/2026; 1 KZT 475/2026; 1 KZN 1079/2026",
+              "institution": "KS Brno",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/019-podani-2026-09-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-13-os-osz-pro-doplneni-obnova",
+              "date": "2026-09-13",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 2 T 104/2010; 1 ZT 11/2010; ZN 4/2026",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/054-podani-2026-09-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-07-os-osz-pro-procesni-pouceni",
+              "date": "2026-09-07",
+              "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 2 T 104/2010; 1 ZT 11/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/055-podani-2026-09-07.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-03-slalom-augsep-016",
+              "date": "2026-09-03",
+              "reference": "9 To 315/2026; 9 To 316/2026",
+              "institution": "KS Brno",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/016-podani-2026-09-03.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-22-slalom-augsep-013",
+              "date": "2026-08-22",
+              "reference": "9 To 315/2026; 9 To 316/2026",
+              "institution": "KS Brno",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/013-podani-2026-08-22.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-22-slalom-augsep-060",
+              "date": "2026-08-22",
+              "reference": "2 T 104/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/060-podani-2026-08-22.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-13-slalom-augsep-056",
+              "date": "2026-08-13",
+              "reference": "2 T 104/2010",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/056-podani-2026-08-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-13-slalom-augsep-057",
+              "date": "2026-08-13",
+              "reference": "9 To 315/2026; 9 To 316/2026",
+              "institution": "KS Brno, OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/057-podani-2026-08-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+              "date": "2026-08-11",
+              "reference": "proti 15 Nt 3103/2026-53",
+              "institution": "KS Brno, OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/059-podani-2026-08-11.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54",
+              "date": "2026-08-10",
+              "reference": "proti 15 Nt 3105/2026-54",
+              "institution": "KS Brno, OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/058-podani-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-39",
+              "date": "2026-07-12",
+              "reference": "2 T 104/2010; 2 Nt 1257/2013; 2 Nt 1151/2014; 3 Nt 1151/2014",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/39-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-41",
+              "date": "2026-07-12",
+              "reference": "2 T 104/2010; 2 Nt 1257/2013; 2 Nt 1151/2014; 3 Nt 1151/2014",
+              "institution": "OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/41-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "incoming": 10,
+        "outgoing": 22,
+        "total": 32
+      }
+    },
+    {
+      "docket_id": "court-ms-praha-18a17",
+      "case_ids": [
+        "case-cz-ms-praha-18a17-2026"
+      ],
+      "institution_ids": [
+        "CZ-MS-PHA",
+        "CZ-NCOZ"
+      ],
+      "external_archive_url": "https://www.konopijelek.cz/policie/",
+      "groups": [
+        {
+          "id": "incoming",
+          "label_cs": "Listiny státních a dalších orgánů",
+          "label_en": "Documents from courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-12-18-a-17-2026-215",
+              "date": "2026-10-12",
+              "reference": "18 A 17/2026-215",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/129-ms-praha-18-a-17-2026-215-2026-10-12-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209",
+              "date": "2026-10-12",
+              "reference": "18 A 23/2026-209",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/130-ms-praha-18-a-23-2026-209-2026-10-12-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17",
+              "date": "2026-10-07",
+              "reference": "15 Ad 14/2026-17",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13",
+              "date": "2026-10-06",
+              "reference": "15 Ad 14/2026-13",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
+              "date": "2026-10-02",
+              "reference": "18 A 17/2026-191",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-30-18-a-17-2026-186",
+              "date": "2026-09-30",
+              "reference": "18 A 17/2026-186",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-23-18-a-17-2026-182",
+              "date": "2026-09-23",
+              "reference": "18 A 17/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-23-18-a-23-2026-182",
+              "date": "2026-09-23",
+              "reference": "18 A 23/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-22-15-ad-14-2026-12",
+              "date": "2026-09-22",
+              "reference": "15 Ad 14/2026-12",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-09-8-ad-9-2026-89",
+              "date": "2026-09-09",
+              "reference": "8 Ad 9/2026-89",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-28-8-ad-9-2026-85",
+              "date": "2026-08-28",
+              "reference": "8 Ad 9/2026-85",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43",
+              "date": "2026-08-25",
+              "reference": "15 A 44/2026-43",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/74-ms-praha-15-a-44-2026-43-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-19-8-ad-9-2026-80",
+              "date": "2026-08-19",
+              "reference": "8 Ad 9/2026-80",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/listiny/doc-cz-ms-pha-2026-08-19-8-ad-9-2026-80.html",
+              "link_kind": "evidence"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-130",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026-130",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/19-ms-praha-18-a-23-2026-130-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-131",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026-131",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/20-ms-praha-18-a-23-2026-131-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ncoz-2026-05-20-ncoz-4346-2-cj-2026-410012",
+              "date": "2026-05-20",
+              "reference": "NCOZ-4346-2/ČJ-2026-410012",
+              "institution": "NCOZ",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/108-ncoz-4346-2-cj-2026-410012-2026-05-20.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        },
+        {
+          "id": "outgoing",
+          "label_cs": "Podání soudu a dalším orgánům",
+          "label_en": "Filings addressed to courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-dd-2026-10-10-ns-nsz-msp-mv-ppr-infz-tp",
+              "date": "2026-10-10",
+              "reference": "8 Tdo 1231/2011 až 11 Tdo 674/2020; 6 NZN 1737/2026; 18 A 23/2026; 15 A 44/2026; 18 A 17/2026",
+              "institution": "NS, NSZ, MSp, MV, Policejní prezidium",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/101-podani-2026-10-10-ns-nsz-msp-mv-pp.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+              "date": "2026-10-08",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 A 44/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "KPR, NSZ, MSp, Policejní prezidium, MV, OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
+              "date": "2026-10-06",
+              "reference": "18 A 17/2026; 18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce",
+              "date": "2026-10-04",
+              "reference": "18 A 17/2026",
+              "institution": "NCOZ, MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy",
+              "date": "2026-10-04",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "KPR, NSZ, MSp, Policejní prezidium, OS Prostějov",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-ms-pha-18-a-17-procesni-vyjadreni",
+              "date": "2026-10-01",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/087-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-ms-pha-msp-18-a-23-uocr-dukaz",
+              "date": "2026-10-01",
+              "reference": "18 A 23/2026; MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/088-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-26-slalom-augsep-030",
+              "date": "2026-09-26",
+              "reference": "18 A 23/2026; 18 A 23/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/030-podani-2026-09-26.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-24-slalom-augsep-038",
+              "date": "2026-09-24",
+              "reference": "18 A 17/2026; 18 A 17/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/038-podani-2026-09-24.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-032",
+              "date": "2026-09-21",
+              "reference": "18 A 17/2026; § 174a",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/032-podani-2026-09-21.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-18-slalom-augsep-045",
+              "date": "2026-09-18",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/045-podani-2026-09-18.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-16-slalom-augsep-040",
+              "date": "2026-09-16",
+              "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/040-podani-2026-09-16.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-042",
+              "date": "2026-09-08",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/042-podani-2026-09-08.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-044",
+              "date": "2026-09-08",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/044-podani-2026-09-08.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-02-slalom-augsep-037",
+              "date": "2026-09-02",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/037-podani-2026-09-02.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-31-slalom-augsep-043",
+              "date": "2026-08-31",
+              "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/043-podani-2026-08-31.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-25-slalom-augsep-025",
+              "date": "2026-08-25",
+              "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/025-podani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-25-slalom-augsep-035",
+              "date": "2026-08-25",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/035-podani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-039",
+              "date": "2026-08-24",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/039-podani-2026-08-24.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-20-replika-8-ad-9-2026",
+              "date": "2026-08-20",
+              "reference": "8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/031-podani-2026-08-20.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-19-doplneni-18-a-23-2026",
+              "date": "2026-08-19",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/029-podani-2026-08-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-15-doplneni-zaloby-15-a-44-2026",
+              "date": "2026-08-15",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/028-podani-2026-08-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-10-slalom-augsep-041",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/041-podani-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-02-slalom-augsep-036",
+              "date": "2026-08-02",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/036-podani-2026-08-02.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-29-slalom-19",
+              "date": "2026-07-29",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/19-podani-2026-07-29.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-23-slalom-26",
+              "date": "2026-07-23",
+              "reference": "MV-114818-2/TP-2026; později 15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/26-podani-2026-07-23.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-07-22-slalom-augsep-046",
+              "date": "2026-07-22",
+              "reference": "45 T 1/2024",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/046-podani-2026-07-22-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-19-slalom-24",
+              "date": "2026-07-19",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/24-podani-2026-07-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-19-slalom-25",
+              "date": "2026-07-19",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/25-podani-2026-07-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-15-slalom-22",
+              "date": "2026-07-15",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/22-podani-2026-07-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-15-slalom-23",
+              "date": "2026-07-15",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/23-podani-2026-07-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-20",
+              "date": "2026-07-14",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/20-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-21",
+              "date": "2026-07-14",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/21-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-28",
+              "date": "2026-07-12",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/28-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-29",
+              "date": "2026-07-12",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/29-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-08-slalom-27",
+              "date": "2026-07-08",
+              "reference": "8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/27-podani-2026-07-08.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "incoming": 16,
+        "outgoing": 36,
+        "total": 52
+      }
+    },
+    {
+      "docket_id": "court-ms-praha-18a23",
+      "case_ids": [
+        "case-cz-ms-praha-18a23-2026"
+      ],
+      "institution_ids": [
+        "CZ-MS-PHA",
+        "CZ-MSP"
+      ],
+      "external_archive_url": "https://www.konopijelek.cz/ministerstvo-spravedlnosti/",
+      "groups": [
+        {
+          "id": "incoming",
+          "label_cs": "Listiny státních a dalších orgánů",
+          "label_en": "Documents from courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-12-18-a-17-2026-215",
+              "date": "2026-10-12",
+              "reference": "18 A 17/2026-215",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/129-ms-praha-18-a-17-2026-215-2026-10-12-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209",
+              "date": "2026-10-12",
+              "reference": "18 A 23/2026-209",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/130-ms-praha-18-a-23-2026-209-2026-10-12-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17",
+              "date": "2026-10-07",
+              "reference": "15 Ad 14/2026-17",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13",
+              "date": "2026-10-06",
+              "reference": "15 Ad 14/2026-13",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
+              "date": "2026-10-02",
+              "reference": "18 A 17/2026-191",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-30-18-a-17-2026-186",
+              "date": "2026-09-30",
+              "reference": "18 A 17/2026-186",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-23-18-a-17-2026-182",
+              "date": "2026-09-23",
+              "reference": "18 A 17/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-23-18-a-23-2026-182",
+              "date": "2026-09-23",
+              "reference": "18 A 23/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-22-15-ad-14-2026-12",
+              "date": "2026-09-22",
+              "reference": "15 Ad 14/2026-12",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-09-8-ad-9-2026-89",
+              "date": "2026-09-09",
+              "reference": "8 Ad 9/2026-89",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-msp-2026-09-08-msp-19-2026-odka-roz-27",
+              "date": "2026-09-08",
+              "reference": "MSP-19/2026-ODKA-ROZ/27",
+              "institution": "MSp",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/msp-19-2026-odka-roz-27-2026-09-08-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-28-8-ad-9-2026-85",
+              "date": "2026-08-28",
+              "reference": "8 Ad 9/2026-85",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-msp-2026-08-27-msp-19-2026-odka-roz-26",
+              "date": "2026-08-27",
+              "reference": "MSP-19/2026-ODKA-ROZ/26",
+              "institution": "MSp",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/100-msp-19-2026-odka-roz-26-2026-08-27-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43",
+              "date": "2026-08-25",
+              "reference": "15 A 44/2026-43",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/74-ms-praha-15-a-44-2026-43-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-19-8-ad-9-2026-80",
+              "date": "2026-08-19",
+              "reference": "8 Ad 9/2026-80",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/listiny/doc-cz-ms-pha-2026-08-19-8-ad-9-2026-80.html",
+              "link_kind": "evidence"
+            },
+            {
+              "document_id": "doc-cz-nsz-2026-08-13-6-nzn-1737-2026-73",
+              "date": "2026-08-13",
+              "reference": "6 NZN 1737/2026-73",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/60-nsz-6-nzn-1737-2026-73-2026-08-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-130",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026-130",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/19-ms-praha-18-a-23-2026-130-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-131",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026-131",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/20-ms-praha-18-a-23-2026-131-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-msp-2026-06-03-msp-19-2026-odka-roz-7",
+              "date": "2026-06-03",
+              "reference": "MSP-19/2026-ODKA-ROZ/7",
+              "institution": "MSp",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/05-msp-19-2026-odka-roz-7-2026-06-03.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        },
+        {
+          "id": "outgoing",
+          "label_cs": "Podání soudu a dalším orgánům",
+          "label_en": "Filings addressed to courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-dd-2026-10-10-ns-nsz-msp-mv-ppr-infz-tp",
+              "date": "2026-10-10",
+              "reference": "8 Tdo 1231/2011 až 11 Tdo 674/2020; 6 NZN 1737/2026; 18 A 23/2026; 15 A 44/2026; 18 A 17/2026",
+              "institution": "MSp",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/101-podani-2026-10-10-ns-nsz-msp-mv-pp.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+              "date": "2026-10-08",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 A 44/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "MSp",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
+              "date": "2026-10-06",
+              "reference": "18 A 17/2026; 18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce",
+              "date": "2026-10-04",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-04-dukazni-chronologie-kjl-2008-2026",
+              "date": "2026-10-04",
+              "reference": "Příloha k podání ze dne 4. 10. 2026",
+              "institution": "MSp",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy",
+              "date": "2026-10-04",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "MSp",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-ms-pha-18-a-17-procesni-vyjadreni",
+              "date": "2026-10-01",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/087-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-ms-pha-msp-18-a-23-uocr-dukaz",
+              "date": "2026-10-01",
+              "reference": "18 A 23/2026; MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+              "institution": "MS Praha, MSp",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/088-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-26-slalom-augsep-030",
+              "date": "2026-09-26",
+              "reference": "18 A 23/2026; 18 A 23/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/030-podani-2026-09-26.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-24-slalom-augsep-038",
+              "date": "2026-09-24",
+              "reference": "18 A 17/2026; 18 A 17/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/038-podani-2026-09-24.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-005",
+              "date": "2026-09-21",
+              "reference": "KPR 5080/2026; KPR 4093/2026",
+              "institution": "MSp",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/005-podani-2026-09-21.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-032",
+              "date": "2026-09-21",
+              "reference": "18 A 17/2026; § 174a",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/032-podani-2026-09-21.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-18-slalom-augsep-045",
+              "date": "2026-09-18",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/045-podani-2026-09-18.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-16-slalom-augsep-040",
+              "date": "2026-09-16",
+              "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/040-podani-2026-09-16.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-09-11-msp-cia-thc-dohled-akreditace",
+              "date": "2026-09-11",
+              "reference": "MSP-162/2026-ODKA-SPZ; podnět MSp / ČIA 11. 9. 2026",
+              "institution": "MSp",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/021-podani-2026-09-11-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-042",
+              "date": "2026-09-08",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/042-podani-2026-09-08.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-044",
+              "date": "2026-09-08",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/044-podani-2026-09-08.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-02-slalom-augsep-037",
+              "date": "2026-09-02",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/037-podani-2026-09-02.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-31-slalom-augsep-043",
+              "date": "2026-08-31",
+              "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/043-podani-2026-08-31.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-25-slalom-augsep-025",
+              "date": "2026-08-25",
+              "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+              "institution": "MSp, MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/025-podani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-25-slalom-augsep-035",
+              "date": "2026-08-25",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/035-podani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-039",
+              "date": "2026-08-24",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/039-podani-2026-08-24.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-20-replika-8-ad-9-2026",
+              "date": "2026-08-20",
+              "reference": "8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/031-podani-2026-08-20.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-19-doplneni-18-a-23-2026",
+              "date": "2026-08-19",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/029-podani-2026-08-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-15-doplneni-zaloby-15-a-44-2026",
+              "date": "2026-08-15",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/028-podani-2026-08-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-10-slalom-augsep-041",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/041-podani-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-10-reakce-18-a-23-2026",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026",
+              "institution": "Městský soud v Praze",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/21-dvorak-reakce-ms-praha-18-a-23-2026-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-10-stiznost-necinnost-msp",
+              "date": "2026-08-10",
+              "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ; 18 A 23/2026",
+              "institution": "MSp",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/024-podani-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-02-slalom-augsep-036",
+              "date": "2026-08-02",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/036-podani-2026-08-02.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-29-slalom-19",
+              "date": "2026-07-29",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/19-podani-2026-07-29.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-23-slalom-26",
+              "date": "2026-07-23",
+              "reference": "MV-114818-2/TP-2026; později 15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/26-podani-2026-07-23.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-07-22-slalom-augsep-046",
+              "date": "2026-07-22",
+              "reference": "45 T 1/2024",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/046-podani-2026-07-22-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-19-slalom-24",
+              "date": "2026-07-19",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha, MSp",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/24-podani-2026-07-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-19-slalom-25",
+              "date": "2026-07-19",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/25-podani-2026-07-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-15-slalom-14",
+              "date": "2026-07-15",
+              "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+              "institution": "MSp",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/14-podani-2026-07-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-15-slalom-22",
+              "date": "2026-07-15",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/22-podani-2026-07-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-15-slalom-23",
+              "date": "2026-07-15",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/23-podani-2026-07-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-20",
+              "date": "2026-07-14",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/20-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-21",
+              "date": "2026-07-14",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/21-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-10",
+              "date": "2026-07-12",
+              "reference": "18 A 23/2026",
+              "institution": "MSp",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/10-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-28",
+              "date": "2026-07-12",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/28-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-29",
+              "date": "2026-07-12",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/29-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-08-slalom-27",
+              "date": "2026-07-08",
+              "reference": "8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/27-podani-2026-07-08.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "incoming": 19,
+        "outgoing": 43,
+        "total": 62
+      }
+    },
+    {
+      "docket_id": "court-ms-praha-15a44-nss6as207",
+      "case_ids": [
+        "case-cz-ms-praha-15a44-2026"
+      ],
+      "institution_ids": [
+        "CZ-MS-PHA",
+        "CZ-NSS",
+        "CZ-MV"
+      ],
+      "external_archive_url": "https://www.konopijelek.cz/ministerstvo-vnitra/",
+      "groups": [
+        {
+          "id": "incoming",
+          "label_cs": "Listiny státních a dalších orgánů",
+          "label_en": "Documents from courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-12-18-a-17-2026-215",
+              "date": "2026-10-12",
+              "reference": "18 A 17/2026-215",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/129-ms-praha-18-a-17-2026-215-2026-10-12-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209",
+              "date": "2026-10-12",
+              "reference": "18 A 23/2026-209",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/130-ms-praha-18-a-23-2026-209-2026-10-12-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17",
+              "date": "2026-10-07",
+              "reference": "15 Ad 14/2026-17",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-mv-2026-10-07-mv-134798-4-so-2026",
+              "date": "2026-10-07",
+              "reference": "MV-134798-4/SO-2026",
+              "institution": "MV",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13",
+              "date": "2026-10-06",
+              "reference": "15 Ad 14/2026-13",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
+              "date": "2026-10-02",
+              "reference": "18 A 17/2026-191",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-30-18-a-17-2026-186",
+              "date": "2026-09-30",
+              "reference": "18 A 17/2026-186",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-23-18-a-17-2026-182",
+              "date": "2026-09-23",
+              "reference": "18 A 17/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-23-18-a-23-2026-182",
+              "date": "2026-09-23",
+              "reference": "18 A 23/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-22-15-ad-14-2026-12",
+              "date": "2026-09-22",
+              "reference": "15 Ad 14/2026-12",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-09-8-ad-9-2026-89",
+              "date": "2026-09-09",
+              "reference": "8 Ad 9/2026-89",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-28-8-ad-9-2026-85",
+              "date": "2026-08-28",
+              "reference": "8 Ad 9/2026-85",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43",
+              "date": "2026-08-25",
+              "reference": "15 A 44/2026-43",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/74-ms-praha-15-a-44-2026-43-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-19-8-ad-9-2026-80",
+              "date": "2026-08-19",
+              "reference": "8 Ad 9/2026-80",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/listiny/doc-cz-ms-pha-2026-08-19-8-ad-9-2026-80.html",
+              "link_kind": "evidence"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-130",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026-130",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/19-ms-praha-18-a-23-2026-130-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-131",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026-131",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/20-ms-praha-18-a-23-2026-131-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-mv-2026-07-21-mv-114818-2-tp-2026",
+              "date": "2026-07-21",
+              "reference": "MV-114818-2/TP-2026",
+              "institution": "MV",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/09-mv-114818-2-tp-2026-2026-07-21.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-mv-2026-07-16-mv-97289-3-tp-2026",
+              "date": "2026-07-16",
+              "reference": "MV-97289-3/TP-2026",
+              "institution": "MV",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/08-mv-97289-3-tp-2026-2026-07-16.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-mv-2026-07-15-mv-108890-3-tp-2026",
+              "date": "2026-07-15",
+              "reference": "MV-108890-3/TP-2026",
+              "institution": "MV",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/podnet-uoou-prezkum-mv-ku-2026-07-15.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        },
+        {
+          "id": "outgoing",
+          "label_cs": "Podání soudu a dalším orgánům",
+          "label_en": "Filings addressed to courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-dd-2026-10-10-ns-nsz-msp-mv-ppr-infz-tp",
+              "date": "2026-10-10",
+              "reference": "8 Tdo 1231/2011 až 11 Tdo 674/2020; 6 NZN 1737/2026; 18 A 23/2026; 15 A 44/2026; 18 A 17/2026",
+              "institution": "MV",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/101-podani-2026-10-10-ns-nsz-msp-mv-pp.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+              "date": "2026-10-08",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 A 44/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "MV",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
+              "date": "2026-10-06",
+              "reference": "18 A 17/2026; 18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce",
+              "date": "2026-10-04",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-ms-pha-18-a-17-procesni-vyjadreni",
+              "date": "2026-10-01",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/087-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-ms-pha-msp-18-a-23-uocr-dukaz",
+              "date": "2026-10-01",
+              "reference": "18 A 23/2026; MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/088-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-26-slalom-augsep-030",
+              "date": "2026-09-26",
+              "reference": "18 A 23/2026; 18 A 23/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/030-podani-2026-09-26.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-24-slalom-augsep-038",
+              "date": "2026-09-24",
+              "reference": "18 A 17/2026; 18 A 17/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/038-podani-2026-09-24.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-032",
+              "date": "2026-09-21",
+              "reference": "18 A 17/2026; § 174a",
+              "institution": "NSS, MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/032-podani-2026-09-21.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-18-slalom-augsep-045",
+              "date": "2026-09-18",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/045-podani-2026-09-18.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-16-slalom-augsep-040",
+              "date": "2026-09-16",
+              "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/040-podani-2026-09-16.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-020",
+              "date": "2026-09-08",
+              "reference": "MV-108890-3/TP-2026; MV-97289-3/TP-2026; MV-114818-2/TP-2026",
+              "institution": "MV",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/020-podani-2026-09-08.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-042",
+              "date": "2026-09-08",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/042-podani-2026-09-08.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-044",
+              "date": "2026-09-08",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/044-podani-2026-09-08.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-02-slalom-augsep-037",
+              "date": "2026-09-02",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/037-podani-2026-09-02.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-01-slalom-augsep-047",
+              "date": "2026-09-01",
+              "reference": "15 A 44/2026-43",
+              "institution": "NSS",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/047-podani-2026-09-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-31-slalom-augsep-043",
+              "date": "2026-08-31",
+              "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/043-podani-2026-08-31.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-25-slalom-augsep-025",
+              "date": "2026-08-25",
+              "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/025-podani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-25-slalom-augsep-035",
+              "date": "2026-08-25",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/035-podani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-023",
+              "date": "2026-08-24",
+              "reference": "KRPT-203594-8/ČJ-2026-0700KR",
+              "institution": "MV",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/023-podani-2026-08-24.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-027",
+              "date": "2026-08-24",
+              "reference": "MV-108890-3/TP-2026; MV-97289-3/TP-2026; MV-114818-2/TP-2026",
+              "institution": "MV",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/027-podani-2026-08-24.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-039",
+              "date": "2026-08-24",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/039-podani-2026-08-24.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-20-replika-8-ad-9-2026",
+              "date": "2026-08-20",
+              "reference": "8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/031-podani-2026-08-20.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-19-doplneni-18-a-23-2026",
+              "date": "2026-08-19",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/029-podani-2026-08-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-15-doplneni-stiznosti-ministr-vnitra",
+              "date": "2026-08-15",
+              "reference": "bez samostatného č. j./sp. zn. v podání",
+              "institution": "MV",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/026-podani-2026-08-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-15-doplneni-zaloby-15-a-44-2026",
+              "date": "2026-08-15",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/028-podani-2026-08-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-10-slalom-augsep-041",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/041-podani-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-02-slalom-augsep-036",
+              "date": "2026-08-02",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/036-podani-2026-08-02.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-29-slalom-19",
+              "date": "2026-07-29",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/19-podani-2026-07-29.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-23-slalom-26",
+              "date": "2026-07-23",
+              "reference": "MV-114818-2/TP-2026; později 15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/26-podani-2026-07-23.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-07-22-slalom-augsep-046",
+              "date": "2026-07-22",
+              "reference": "45 T 1/2024",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/046-podani-2026-07-22-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-19-slalom-24",
+              "date": "2026-07-19",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/24-podani-2026-07-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-19-slalom-25",
+              "date": "2026-07-19",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/25-podani-2026-07-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-17-slalom-13",
+              "date": "2026-07-17",
+              "reference": "MV-97289-3/TP-2026",
+              "institution": "MV",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/13-podani-2026-07-17.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-15-slalom-12",
+              "date": "2026-07-15",
+              "reference": "MV-108890-3/TP-2026",
+              "institution": "MV",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/12-podani-2026-07-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-15-slalom-22",
+              "date": "2026-07-15",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/22-podani-2026-07-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-15-slalom-23",
+              "date": "2026-07-15",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/23-podani-2026-07-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-11",
+              "date": "2026-07-14",
+              "reference": "KU-4139-5/ČJ-2026-2305KM",
+              "institution": "MV",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/11-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-20",
+              "date": "2026-07-14",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/20-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-21",
+              "date": "2026-07-14",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/21-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-28",
+              "date": "2026-07-12",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/28-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-29",
+              "date": "2026-07-12",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/29-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-08-slalom-27",
+              "date": "2026-07-08",
+              "reference": "8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/27-podani-2026-07-08.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "incoming": 19,
+        "outgoing": 43,
+        "total": 62
+      }
+    },
+    {
+      "docket_id": "court-ms-praha-health",
+      "case_ids": [
+        "case-cz-ms-praha-8ad9-2026",
+        "case-cz-ms-praha-15-ad-14-2026"
+      ],
+      "institution_ids": [
+        "CZ-MS-PHA",
+        "CZ-MZ"
+      ],
+      "external_archive_url": "https://www.konopijelek.cz/ministerstvo-zdravotnictvi/",
+      "groups": [
+        {
+          "id": "incoming",
+          "label_cs": "Listiny státních a dalších orgánů",
+          "label_en": "Documents from courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-12-18-a-17-2026-215",
+              "date": "2026-10-12",
+              "reference": "18 A 17/2026-215",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/129-ms-praha-18-a-17-2026-215-2026-10-12-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209",
+              "date": "2026-10-12",
+              "reference": "18 A 23/2026-209",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/130-ms-praha-18-a-23-2026-209-2026-10-12-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17",
+              "date": "2026-10-07",
+              "reference": "15 Ad 14/2026-17",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13",
+              "date": "2026-10-06",
+              "reference": "15 Ad 14/2026-13",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
+              "date": "2026-10-02",
+              "reference": "18 A 17/2026-191",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-30-18-a-17-2026-186",
+              "date": "2026-09-30",
+              "reference": "18 A 17/2026-186",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-23-18-a-17-2026-182",
+              "date": "2026-09-23",
+              "reference": "18 A 17/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-23-18-a-23-2026-182",
+              "date": "2026-09-23",
+              "reference": "18 A 23/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-22-15-ad-14-2026-12",
+              "date": "2026-09-22",
+              "reference": "15 Ad 14/2026-12",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-09-8-ad-9-2026-89",
+              "date": "2026-09-09",
+              "reference": "8 Ad 9/2026-89",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-mz-2026-09-01-mzdr-21970-2026-3-min-kan",
+              "date": "2026-09-01",
+              "reference": "MZDR 21970/2026-3/MIN/KAN",
+              "institution": "MZ",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/86-mzdr-21970-2026-3-min-kan-2026-09-01-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-28-8-ad-9-2026-85",
+              "date": "2026-08-28",
+              "reference": "8 Ad 9/2026-85",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43",
+              "date": "2026-08-25",
+              "reference": "15 A 44/2026-43",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/74-ms-praha-15-a-44-2026-43-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-19-8-ad-9-2026-80",
+              "date": "2026-08-19",
+              "reference": "8 Ad 9/2026-80",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/listiny/doc-cz-ms-pha-2026-08-19-8-ad-9-2026-80.html",
+              "link_kind": "evidence"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-130",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026-130",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/19-ms-praha-18-a-23-2026-130-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-131",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026-131",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/20-ms-praha-18-a-23-2026-131-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-mz-2026-05-29-mzdr-13429-2026-3-olzp",
+              "date": "2026-05-29",
+              "reference": "MZDR 13429/2026-3/OLZP",
+              "institution": "MZ",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/34-mzdr-13429-2026-3-olzp-2026-05-29.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        },
+        {
+          "id": "outgoing",
+          "label_cs": "Podání soudu a dalším orgánům",
+          "label_en": "Filings addressed to courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
+              "date": "2026-10-06",
+              "reference": "18 A 17/2026; 18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce",
+              "date": "2026-10-04",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-ms-pha-18-a-17-procesni-vyjadreni",
+              "date": "2026-10-01",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/087-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-ms-pha-msp-18-a-23-uocr-dukaz",
+              "date": "2026-10-01",
+              "reference": "18 A 23/2026; MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/088-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-26-slalom-augsep-030",
+              "date": "2026-09-26",
+              "reference": "18 A 23/2026; 18 A 23/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/030-podani-2026-09-26.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-24-slalom-augsep-038",
+              "date": "2026-09-24",
+              "reference": "18 A 17/2026; 18 A 17/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/038-podani-2026-09-24.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-032",
+              "date": "2026-09-21",
+              "reference": "18 A 17/2026; § 174a",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/032-podani-2026-09-21.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-18-slalom-augsep-045",
+              "date": "2026-09-18",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/045-podani-2026-09-18.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-16-slalom-augsep-040",
+              "date": "2026-09-16",
+              "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/040-podani-2026-09-16.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-042",
+              "date": "2026-09-08",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/042-podani-2026-09-08.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-044",
+              "date": "2026-09-08",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/044-podani-2026-09-08.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-02-slalom-augsep-037",
+              "date": "2026-09-02",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/037-podani-2026-09-02.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-31-slalom-augsep-043",
+              "date": "2026-08-31",
+              "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/043-podani-2026-08-31.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-25-slalom-augsep-025",
+              "date": "2026-08-25",
+              "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/025-podani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-25-slalom-augsep-035",
+              "date": "2026-08-25",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/035-podani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-039",
+              "date": "2026-08-24",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/039-podani-2026-08-24.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-20-replika-8-ad-9-2026",
+              "date": "2026-08-20",
+              "reference": "8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/031-podani-2026-08-20.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-19-doplneni-18-a-23-2026",
+              "date": "2026-08-19",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/029-podani-2026-08-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-15-doplneni-zaloby-15-a-44-2026",
+              "date": "2026-08-15",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/028-podani-2026-08-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-10-slalom-augsep-041",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/041-podani-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-02-slalom-augsep-036",
+              "date": "2026-08-02",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/036-podani-2026-08-02.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-29-slalom-19",
+              "date": "2026-07-29",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/19-podani-2026-07-29.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-23-slalom-26",
+              "date": "2026-07-23",
+              "reference": "MV-114818-2/TP-2026; později 15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/26-podani-2026-07-23.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-07-22-slalom-augsep-046",
+              "date": "2026-07-22",
+              "reference": "45 T 1/2024",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/046-podani-2026-07-22-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-19-slalom-24",
+              "date": "2026-07-19",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/24-podani-2026-07-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-19-slalom-25",
+              "date": "2026-07-19",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/25-podani-2026-07-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-15-slalom-22",
+              "date": "2026-07-15",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/22-podani-2026-07-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-15-slalom-23",
+              "date": "2026-07-15",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/23-podani-2026-07-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-20",
+              "date": "2026-07-14",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/20-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-21",
+              "date": "2026-07-14",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/21-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-28",
+              "date": "2026-07-12",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/28-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-29",
+              "date": "2026-07-12",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/29-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-08-slalom-27",
+              "date": "2026-07-08",
+              "reference": "8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/27-podani-2026-07-08.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "incoming": 17,
+        "outgoing": 33,
+        "total": 50
+      }
+    },
+    {
+      "docket_id": "court-ms-praha-45t1",
+      "case_ids": [
+        "case-cz-ms-praha-45t1-2024"
+      ],
+      "institution_ids": [
+        "CZ-MS-PHA",
+        "CZ-VS-PHA"
+      ],
+      "external_archive_url": "https://www.konopijelek.cz/novinky/vrchni-soud-v-praze-dne-29-cervence-2025-cj-11-to-88-2024-2990/",
+      "groups": [
+        {
+          "id": "incoming",
+          "label_cs": "Listiny státních a dalších orgánů",
+          "label_en": "Documents from courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-12-18-a-17-2026-215",
+              "date": "2026-10-12",
+              "reference": "18 A 17/2026-215",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/129-ms-praha-18-a-17-2026-215-2026-10-12-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209",
+              "date": "2026-10-12",
+              "reference": "18 A 23/2026-209",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/130-ms-praha-18-a-23-2026-209-2026-10-12-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17",
+              "date": "2026-10-07",
+              "reference": "15 Ad 14/2026-17",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13",
+              "date": "2026-10-06",
+              "reference": "15 Ad 14/2026-13",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
+              "date": "2026-10-02",
+              "reference": "18 A 17/2026-191",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-30-18-a-17-2026-186",
+              "date": "2026-09-30",
+              "reference": "18 A 17/2026-186",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-23-18-a-17-2026-182",
+              "date": "2026-09-23",
+              "reference": "18 A 17/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-23-18-a-23-2026-182",
+              "date": "2026-09-23",
+              "reference": "18 A 23/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-22-15-ad-14-2026-12",
+              "date": "2026-09-22",
+              "reference": "15 Ad 14/2026-12",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-vs-pha-2026-09-14-3-cmo-24-2026-26",
+              "date": "2026-09-14",
+              "reference": "3 Cmo 24/2026-26",
+              "institution": "VS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/103-vs-praha-3-cmo-24-2026-26-2026-09-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-09-09-8-ad-9-2026-89",
+              "date": "2026-09-09",
+              "reference": "8 Ad 9/2026-89",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-28-8-ad-9-2026-85",
+              "date": "2026-08-28",
+              "reference": "8 Ad 9/2026-85",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43",
+              "date": "2026-08-25",
+              "reference": "15 A 44/2026-43",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/74-ms-praha-15-a-44-2026-43-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-19-8-ad-9-2026-80",
+              "date": "2026-08-19",
+              "reference": "8 Ad 9/2026-80",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/listiny/doc-cz-ms-pha-2026-08-19-8-ad-9-2026-80.html",
+              "link_kind": "evidence"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-130",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026-130",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/19-ms-praha-18-a-23-2026-130-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-131",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026-131",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/20-ms-praha-18-a-23-2026-131-2026-08-10.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        },
+        {
+          "id": "outgoing",
+          "label_cs": "Podání soudu a dalším orgánům",
+          "label_en": "Filings addressed to courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
+              "date": "2026-10-06",
+              "reference": "18 A 17/2026; 18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce",
+              "date": "2026-10-04",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-ms-pha-18-a-17-procesni-vyjadreni",
+              "date": "2026-10-01",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/087-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-01-ms-pha-msp-18-a-23-uocr-dukaz",
+              "date": "2026-10-01",
+              "reference": "18 A 23/2026; MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/088-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-26-slalom-augsep-030",
+              "date": "2026-09-26",
+              "reference": "18 A 23/2026; 18 A 23/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/030-podani-2026-09-26.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-24-slalom-augsep-038",
+              "date": "2026-09-24",
+              "reference": "18 A 17/2026; 18 A 17/2026-182",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/038-podani-2026-09-24.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-032",
+              "date": "2026-09-21",
+              "reference": "18 A 17/2026; § 174a",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/032-podani-2026-09-21.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-18-slalom-augsep-045",
+              "date": "2026-09-18",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/045-podani-2026-09-18.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-16-slalom-augsep-040",
+              "date": "2026-09-16",
+              "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/040-podani-2026-09-16.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-042",
+              "date": "2026-09-08",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/042-podani-2026-09-08.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-044",
+              "date": "2026-09-08",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/044-podani-2026-09-08.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-02-slalom-augsep-037",
+              "date": "2026-09-02",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/037-podani-2026-09-02.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-31-slalom-augsep-043",
+              "date": "2026-08-31",
+              "reference": "15 Ad 14/2026; 8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/043-podani-2026-08-31.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-25-slalom-augsep-025",
+              "date": "2026-08-25",
+              "reference": "MSP-162/2026-ODKA-SPZ; MSP-19/2026-ODKA-ROZ",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/025-podani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-25-slalom-augsep-035",
+              "date": "2026-08-25",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/035-podani-2026-08-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-039",
+              "date": "2026-08-24",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/039-podani-2026-08-24.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-20-replika-8-ad-9-2026",
+              "date": "2026-08-20",
+              "reference": "8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/031-podani-2026-08-20.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-19-doplneni-18-a-23-2026",
+              "date": "2026-08-19",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/029-podani-2026-08-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-15-doplneni-zaloby-15-a-44-2026",
+              "date": "2026-08-15",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/028-podani-2026-08-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-10-slalom-augsep-041",
+              "date": "2026-08-10",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/041-podani-2026-08-10.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-02-slalom-augsep-036",
+              "date": "2026-08-02",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/036-podani-2026-08-02.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-29-slalom-19",
+              "date": "2026-07-29",
+              "reference": "15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/19-podani-2026-07-29.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-23-slalom-26",
+              "date": "2026-07-23",
+              "reference": "MV-114818-2/TP-2026; později 15 A 44/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/26-podani-2026-07-23.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-07-22-slalom-augsep-046",
+              "date": "2026-07-22",
+              "reference": "45 T 1/2024",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/046-podani-2026-07-22-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-19-slalom-24",
+              "date": "2026-07-19",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/24-podani-2026-07-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-19-slalom-25",
+              "date": "2026-07-19",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/25-podani-2026-07-19.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-15-slalom-22",
+              "date": "2026-07-15",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/22-podani-2026-07-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-15-slalom-23",
+              "date": "2026-07-15",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/23-podani-2026-07-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-20",
+              "date": "2026-07-14",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/20-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-21",
+              "date": "2026-07-14",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/21-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-28",
+              "date": "2026-07-12",
+              "reference": "18 A 17/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/28-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-12-slalom-29",
+              "date": "2026-07-12",
+              "reference": "18 A 23/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/29-podani-2026-07-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-08-slalom-27",
+              "date": "2026-07-08",
+              "reference": "8 Ad 9/2026",
+              "institution": "MS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/27-podani-2026-07-08.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "incoming": 16,
+        "outgoing": 33,
+        "total": 49
+      }
+    },
+    {
+      "docket_id": "court-ostrava-15t11-5to248",
+      "case_ids": [
+        "case-cz-os-ostrava-15t11-2025"
+      ],
+      "institution_ids": [
+        "CZ-OS-OST",
+        "CZ-KS-OST"
+      ],
+      "external_archive_url": "https://www.konopijelek.cz/novinky/stiznost-ministru-spravedlnosti-na-poruseni-zakona-okresnim-soudem-v-ostrave/",
+      "groups": [
+        {
+          "id": "incoming",
+          "label_cs": "Listiny státních a dalších orgánů",
+          "label_en": "Documents from courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-ks-ost-2026-08-26-st-82-2026-15-t-11-2025",
+              "date": "2026-08-26",
+              "reference": "St 82/2026; souvisí s 15 T 11/2025",
+              "institution": "KS Ostrava",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/78-ks-ostrava-st-82-2026-15-t-11-2025-2026-08-26.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        },
+        {
+          "id": "outgoing",
+          "label_cs": "Podání soudu a dalším orgánům",
+          "label_en": "Filings addressed to courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-gf-jk-2026-10-04-ks-ostrava-5-to-248-sumarizujici-sdeleni",
+              "date": "2026-10-04",
+              "reference": "5 To 248/2026; 15 T 11/2025",
+              "institution": "KS Ostrava",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-24-slalom-augsep-015",
+              "date": "2026-08-24",
+              "reference": "15 T 11/2025",
+              "institution": "OS Ostrava",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/015-podani-2026-08-24-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "incoming": 1,
+        "outgoing": 2,
+        "total": 3
+      }
+    },
+    {
+      "docket_id": "court-media-ct",
+      "case_ids": [
+        "case-cz-os-praha4-10c69-2026"
+      ],
+      "institution_ids": [
+        "CZ-OS-PHA4",
+        "CZ-CT",
+        "CZ-RADA-CT"
+      ],
+      "external_archive_url": "https://www.konopijelek.cz/ceska-televize/",
+      "groups": [
+        {
+          "id": "incoming",
+          "label_cs": "Listiny státních a dalších orgánů",
+          "label_en": "Documents from courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-os-pha4-2026-09-16-10-c-69-2026-predvolani",
+              "date": "2026-09-16",
+              "reference": "10 C 69/2026",
+              "institution": "OS Praha 4",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/96-os-praha4-10-c-69-2026-predvolani-2026-09-16.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ct-2026-06-01-ct-338889-2025-38",
+              "date": "2026-06-01",
+              "reference": "CT 338889/2025-38",
+              "institution": "ČT",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/50-ct-338889-2025-38-odmitnuti-smiru-2026-06-01.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        },
+        {
+          "id": "outgoing",
+          "label_cs": "Podání soudu a dalším orgánům",
+          "label_en": "Filings addressed to courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cs-dd-2026-09-25-slalom-augsep-077",
+              "date": "2026-09-25",
+              "reference": "CT 338889/2025",
+              "institution": "ČT, Rada ČT",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/077-podani-2026-09-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-18-slalom-augsep-079",
+              "date": "2026-09-18",
+              "reference": "10 C 69/2026",
+              "institution": "OS Praha 4",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/079-podani-2026-09-18.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-13-nsz-ct-zaverecne-sdeleni",
+              "date": "2026-09-13",
+              "reference": "6 NZN 1737/2026; CT 338889/2025",
+              "institution": "ČT, Rada ČT",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/048-podani-2026-09-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-28-slalom-augsep-076",
+              "date": "2026-08-28",
+              "reference": "CT 338889/2025",
+              "institution": "ČT, Rada ČT",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/076-podani-2026-08-28.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
+              "date": "2026-08-15",
+              "reference": "CT 338889/2025; 10 C 69/2026",
+              "institution": "ČT, Rada ČT",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/078-podani-2026-08-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-12-slalom-augsep-080",
+              "date": "2026-08-12",
+              "reference": "10 C 69/2026",
+              "institution": "OS Praha 4, Rada ČT, ČT",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/080-podani-2026-08-12.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-42",
+              "date": "2026-07-14",
+              "reference": "souvisí s 10 C 69/2026",
+              "institution": "ČT, Rada ČT",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/42-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-43",
+              "date": "2026-07-14",
+              "reference": "souvisí s 10 C 69/2026",
+              "institution": "ČT, Rada ČT",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/43-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-46",
+              "date": "2026-07-14",
+              "reference": "10 C 69/2026",
+              "institution": "OS Praha 4, ČT, Rada ČT",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/46-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-11-slalom-48",
+              "date": "2026-07-11",
+              "reference": "10 C 69/2026-14",
+              "institution": "OS Praha 4, ČT, Rada ČT",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/48-podani-2026-07-11.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-07-slalom-47",
+              "date": "2026-07-07",
+              "reference": "10 C 69/2026",
+              "institution": "OS Praha 4, ČT, Rada ČT",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/47-podani-2026-07-07.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "incoming": 2,
+        "outgoing": 11,
+        "total": 13
+      }
+    },
+    {
+      "docket_id": "court-media-ftv-prima",
+      "case_ids": [
+        "CASE-CZ-VS-PHA-3CMO24-2026"
+      ],
+      "institution_ids": [
+        "CZ-OS-PHA10",
+        "CZ-VS-PHA"
+      ],
+      "external_archive_url": "https://www.konopijelek.cz/novinky/cnn-prima-news/",
+      "groups": [
+        {
+          "id": "incoming",
+          "label_cs": "Listiny státních a dalších orgánů",
+          "label_en": "Documents from courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-vs-pha-2026-09-14-3-cmo-24-2026-26",
+              "date": "2026-09-14",
+              "reference": "3 Cmo 24/2026-26",
+              "institution": "VS Praha",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/103-vs-praha-3-cmo-24-2026-26-2026-09-14.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        },
+        {
+          "id": "outgoing",
+          "label_cs": "Podání soudu a dalším orgánům",
+          "label_en": "Filings addressed to courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-ekk-2026-10-02-os-praha10-ftv-prima-doplneni-zaloby",
+              "date": "2026-10-02",
+              "reference": "3 Cm 2/2026; 3 Cmo 24/2026-26; nová sp. zn. OS Praha 10 dosud nesdělena",
+              "institution": "OS Praha 10",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "incoming": 1,
+        "outgoing": 1,
+        "total": 2
+      }
+    },
+    {
+      "docket_id": "court-nsz-prelitigation-6nzn1737",
+      "case_ids": [
+        "CASE-CZ-NSZ-6NZN1737-2026"
+      ],
+      "institution_ids": [
+        "CZ-NSZ"
+      ],
+      "external_archive_url": "https://www.konopijelek.cz/nejvyssi-statni-zastupitelstvi-on-line/",
+      "groups": [
+        {
+          "id": "incoming",
+          "label_cs": "Listiny státních a dalších orgánů",
+          "label_en": "Documents from courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-nsz-2026-10-15-sin-72-2026-16",
+              "date": "2026-10-15",
+              "reference": "SIN 72/2026-16",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/121-nsz-sin-72-2026-16-2026-10-15-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-nsz-2026-08-13-6-nzn-1737-2026-73",
+              "date": "2026-08-13",
+              "reference": "6 NZN 1737/2026-73",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/60-nsz-6-nzn-1737-2026-73-2026-08-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-nsz-2026-07-30-sin-55-2026-19",
+              "date": "2026-07-30",
+              "reference": "SIN 55/2026-19",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/13-nsz-sin-55-2026-19-2026-07-30.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-nsz-2026-05-13-6-nzn-1737-2026-32",
+              "date": "2026-05-13",
+              "reference": "6 NZN 1737/2026-32",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/report-25072026-007/03-nsz-6-nzn-1737-2026-32-2026-05-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-nsz-2026-05-06-6-nzn-1737-2026-15",
+              "date": "2026-05-06",
+              "reference": "6 NZN 1737/2026-15",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        },
+        {
+          "id": "outgoing",
+          "label_cs": "Podání soudu a dalším orgánům",
+          "label_en": "Filings addressed to courts and public bodies",
+          "items": [
+            {
+              "document_id": "doc-cz-dd-2026-10-10-ns-nsz-msp-mv-ppr-infz-tp",
+              "date": "2026-10-10",
+              "reference": "8 Tdo 1231/2011 až 11 Tdo 674/2020; 6 NZN 1737/2026; 18 A 23/2026; 15 A 44/2026; 18 A 17/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/101-podani-2026-10-10-ns-nsz-msp-mv-pp.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+              "date": "2026-10-08",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 A 44/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni",
+              "date": "2026-10-06",
+              "reference": "6 NZN 1737/2026; 1 VZN 1678/2026; 3 VZN 239/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-04-dukazni-chronologie-kjl-2008-2026",
+              "date": "2026-10-04",
+              "reference": "Příloha k podání ze dne 4. 10. 2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy",
+              "date": "2026-10-04",
+              "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-10-01-spolecne-doplneni-nsz-vsz-uzavreny-retezec",
+              "date": "2026-10-01",
+              "reference": "6 NZN 1737/2026; 1 VZN 1678/2026; 3 VZN 239/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-005",
+              "date": "2026-09-21",
+              "reference": "KPR 5080/2026; KPR 4093/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/005-podani-2026-09-21.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-09-13-nsz-ct-zaverecne-sdeleni",
+              "date": "2026-09-13",
+              "reference": "6 NZN 1737/2026; CT 338889/2025",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/048-podani-2026-09-13.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-049",
+              "date": "2026-09-08",
+              "reference": "6 NZN 1737/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/049-podani-2026-09-08.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-09-02-slalom-augsep-050",
+              "date": "2026-09-02",
+              "reference": "6 NZN 1737/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/050-podani-2026-09-02-verejna-kopie.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-28-slalom-augsep-051",
+              "date": "2026-08-28",
+              "reference": "6 NZN 1737/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/051-podani-2026-08-28.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-22-slalom-augsep-052",
+              "date": "2026-08-22",
+              "reference": "6 NZN 1737/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/052-podani-2026-08-22.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-08-15-seste-doplneni-predzalobni-vyzvy-nsz",
+              "date": "2026-08-15",
+              "reference": "6 NZN 1737/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/053-podani-2026-08-15.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cs-dd-2026-08-01-slalom-augsep-067",
+              "date": "2026-08-01",
+              "reference": "1 ZN 157/2026-33; 3 KZN 197/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/067-podani-2026-08-01.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-29-slalom-30",
+              "date": "2026-07-29",
+              "reference": "6 NZN 1737/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/30-podani-2026-07-29.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-27-slalom-31",
+              "date": "2026-07-27",
+              "reference": "6 NZN 1737/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/31-podani-2026-07-27.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-26-slalom-37",
+              "date": "2026-07-26",
+              "reference": "6 NZN 1737/2026-32",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/37-podani-2026-07-26.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-25-slalom-32",
+              "date": "2026-07-25",
+              "reference": "6 NZN 1737/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/32-podani-2026-07-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-25-slalom-33",
+              "date": "2026-07-25",
+              "reference": "návaznost: 1 SIN 95/2024-7",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/33-podani-2026-07-25.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-34",
+              "date": "2026-07-14",
+              "reference": "6 NZN 1737/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/34-podani-2026-07-14.pdf",
+              "link_kind": "pdf"
+            },
+            {
+              "document_id": "doc-cz-dd-2026-07-14-slalom-35",
+              "date": "2026-07-14",
+              "reference": "6 NZN 1737/2026",
+              "institution": "NSZ",
+              "href": "/ai-advocate-evidence-lab/documents/report-25072026-007/02-predzalobni-vyzva-nsz-2026-07-14-original.pdf",
+              "link_kind": "pdf"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "incoming": 5,
+        "outgoing": 21,
+        "total": 26
+      }
+    }
+  ]
+}
