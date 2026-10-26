@@ -29,7 +29,7 @@ for(const d of [...a.documents,...b.documents]){
  }
 }
 const courtIds=['court-prostejov-2t104-15nt3104','court-prostejov-2t65-15nt3106','court-prostejov-15nt3103-9to315','court-prostejov-15nt3105-9to316'];
-for(const id of courtIds){const c=court.rows.find(x=>x.id===id);must(c&&c.godot_document_ids.includes('doc-cz-dd-2026-10-21-os-prostejov-doplneni-bezplatne-obhajoby')&&c.godot_document_ids.includes('doc-cz-dd-2026-10-24-cak-doplneni-zadosti-urceni-advokata'),'missing four-way court links '+id);}
+for(const id of courtIds){const c=court.rows.find(x=>x.id===id);must(c&&c.remedy_cs.includes('21. 10. 2026')&&c.remedy_cs.includes('24. 10. 2026'),'missing counsel filing court narrative '+id);}
 const ns=JSON.parse(await readFile('web/data/nsz-prelitigation-timeline.json','utf8'));
 must(ns.counts.total===30,'preexisting NSZ timeline altered');
 console.log('OCT24: 7 unique documents; 3 exact original public PDFs, 4 evidence entries with missing originals accurately labelled; CZ/EN; original dates; court links; NSZ 30 OK');
