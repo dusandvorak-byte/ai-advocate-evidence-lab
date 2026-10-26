@@ -44,6 +44,7 @@ jobs:
           node --check scripts/validate-prague-a17-a23-2026-10-20.mjs
           node --check scripts/validate-six-pending-originals-2026-10-20.mjs
           node --check scripts/validate-october-24-seven-pending-records.mjs
+          node --check scripts/validate-2026-10-26-uoou-pcr.mjs
           node --check scripts/validate-active-court-dockets.mjs
 
       - name: Připravit Python a PDF kontrolní nástroje
@@ -159,6 +160,9 @@ jobs:
 
       - name: Verify new 24 October records and original PDF provenance
         run: node scripts/validate-october-24-seven-pending-records.mjs
+
+      - name: Verify 26 October original PDFs
+        run: node scripts/validate-2026-10-26-uoou-pcr.mjs
 
       - name: Ověřit Evidence Lab 2.0 před publikací
         shell: bash
