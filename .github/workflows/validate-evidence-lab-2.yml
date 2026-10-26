@@ -55,6 +55,7 @@ jobs:
           node --check scripts/validate-prague-a17-a23-2026-10-20.mjs
           node --check scripts/validate-six-pending-originals-2026-10-20.mjs
           node --check scripts/validate-october-24-seven-pending-records.mjs
+          node --check scripts/validate-2026-10-26-uoou-pcr.mjs
           node --check scripts/validate-active-court-dockets.mjs
 
       - name: Připravit generátor ověřených veřejných PDF
@@ -172,6 +173,9 @@ jobs:
 
       - name: Verify 24 October seven document entries and original-PDF provenance
         run: node scripts/validate-october-24-seven-pending-records.mjs
+
+      - name: Verify 26 October state originals and legal outcomes
+        run: node scripts/validate-2026-10-26-uoou-pcr.mjs
 
       - name: Ověřit interní procesní registr a aktivní soudní větve
         run: node scripts/validate-process-chain-contract.mjs
