@@ -76,13 +76,13 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "intended_pdf": null,
-        "sha256": null,
+        "pdf": "documents/report-04082026-010/137-uoou-05032-26-6-2026-10-23-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/137-uoou-05032-26-6-2026-10-23-original.pdf",
+        "sha256": "7e8ac9741e7ac33ca673b0300a3aa0157942998df3545dee82e1dcf4b2116a60",
         "source_original_sha256": "7e8ac9741e7ac33ca673b0300a3aa0157942998df3545dee82e1dcf4b2116a60",
         "source_original_size_bytes": 145690,
         "source_original_page_count": 4,
-        "verification_status": "uploaded_source_file_verified_locally; public_pdf_pending; evidence_only",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-24-four-additional-records.json"
       },
       "relations": [
@@ -110,13 +110,13 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "intended_pdf": null,
-        "sha256": null,
+        "pdf": "documents/report-04082026-010/138-ns-zin-208-2026-2026-10-23-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/138-ns-zin-208-2026-2026-10-23-original.pdf",
+        "sha256": "7f4a7260fea3991e3838fe52f05c867faeb3f30fb97740c9fef36ffe103efe2b",
         "source_original_sha256": "7f4a7260fea3991e3838fe52f05c867faeb3f30fb97740c9fef36ffe103efe2b",
         "source_original_size_bytes": 262202,
         "source_original_page_count": 3,
-        "verification_status": "uploaded_source_file_verified_locally; public_pdf_pending; evidence_only",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-24-four-additional-records.json"
       },
       "relations": [
