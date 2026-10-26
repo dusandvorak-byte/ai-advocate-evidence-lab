@@ -14,14 +14,15 @@ for(const d of [...a.documents,...b.documents]){
  must(d.received_date===null,'delivery date cannot be invented '+d.id);
  must(d.public.source_original_sha256?.length===64,'missing uploaded original provenance '+d.id);
  const outgoing=d.submission_side==='outgoing_from_user_or_alliance';
- if(outgoing)must(!cs.includes('<tr id="'+d.id+'"')&&!en.includes('<tr id="en-'+d.id+'"'),'own filing in incoming authorities table');
+ const attachment=d.document_type==='state_record_attachment';
+ if(outgoing||attachment)must(!cs.includes('<tr id="'+d.id+'"')&&!en.includes('<tr id="en-'+d.id+'"'),'own filing in incoming authorities table');
  else must(cs.includes('<tr id="'+d.id+'"')&&en.includes('<tr id="en-'+d.id+'"'),'CZ/EN timeline row missing '+d.id);
  if(d.public.pdf){
   const p='web/'+d.public.pdf;const buffer=await readFile(p);
   must(buffer.subarray(0,5).toString()==='%PDF-'&&buffer.length===d.public.source_original_size_bytes,'PDF header/bytes '+d.id);
   must(createHash('sha256').update(buffer).digest('hex')===d.public.source_original_sha256,'not exact original '+d.id);
   const info=execFileSync('pdfinfo',[p],{encoding:'utf8'});must(new RegExp('Pages:\\s+'+d.public.source_original_page_count+'\\b').test(info),'pages changed '+d.id);
-  must(cs.includes(d.public.pdf)&&en.includes(d.public.pdf),'CZ/EN original links missing '+d.id);
+  if(!attachment)must(cs.includes(d.public.pdf)&&en.includes(d.public.pdf),'CZ/EN original links missing '+d.id);
  } else {
   must(d.public.verification_status.includes('public_pdf_pending'),'missing public PDF cannot be represented as original '+d.id);
   must(!cs.includes('href="undefined"')&&!en.includes('href="undefined"'),'unsafe missing file link');
