@@ -23,13 +23,13 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "intended_pdf": null,
-        "sha256": null,
+        "pdf": "documents/report-04082026-010/140-uoou-05841-26-4-2026-10-26-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/140-uoou-05841-26-4-2026-10-26-original.pdf",
+        "sha256": "1a5c4355a0c41ccadd3774f712e46e7c2ca93ed8f1b05d56921f5cefb1dbff1e",
         "source_original_sha256": "1a5c4355a0c41ccadd3774f712e46e7c2ca93ed8f1b05d56921f5cefb1dbff1e",
         "source_original_size_bytes": 312777,
         "source_original_page_count": 9,
-        "verification_status": "original_pdf_verified_locally; upload_to_public_repo_pending; evidence_page_only",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-26-two-new-state-records.json"
       },
       "relations": [
@@ -65,13 +65,13 @@
       ],
       "public": {
         "html": null,
-        "pdf": null,
-        "intended_pdf": null,
-        "sha256": null,
+        "pdf": "documents/report-04082026-010/141-pcr-pp-ppr-53675-8-cj-2026-990810-2026-10-26-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/141-pcr-pp-ppr-53675-8-cj-2026-990810-2026-10-26-original.pdf",
+        "sha256": "749ec4d8a8fa15598380f0481ba6caad38b20f43b82d2a6d64c4bd0f3b432728",
         "source_original_sha256": "749ec4d8a8fa15598380f0481ba6caad38b20f43b82d2a6d64c4bd0f3b432728",
         "source_original_size_bytes": 417213,
         "source_original_page_count": 5,
-        "verification_status": "original_pdf_verified_locally; git_blob_created; publish_public_repo_pending; evidence_page_only",
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-26-two-new-state-records.json"
       },
       "relations": [
