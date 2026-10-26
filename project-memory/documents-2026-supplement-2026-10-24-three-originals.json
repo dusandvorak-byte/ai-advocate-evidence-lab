@@ -11,7 +11,7 @@
       "reference": "11 Tdo 181/2015-121",
       "user_title": "Nejvyšší soud – historické usnesení ze dne 20. května 2015, odmítnutí dovolání ve věci zabrání konopí",
       "case_ids": [],
-      "document_type": "state_record",
+      "document_type": "state_record_attachment",
       "topics": [
         "státní orgány",
         "soudní a správní evidence"
@@ -27,9 +27,13 @@
         "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
         "source_manifest": "project-memory/documents-2026-supplement-2026-10-24-three-originals.json"
       },
-      "submission_side": "incoming_from_state_or_public_institution",
-      "submission_side_basis": "explicit_original_authorship",
-      "relations": [],
+      "submission_side_basis": "historic_2015_supreme_court_annex",
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-ns-2026-10-23-zin-208-2026"
+        }
+      ],
       "evidence_note": "Nejvyšší soud odmítl dovolání podle § 265i odst. 1 písm. e) trestního řádu ve věci zabrání věci, navazující na OS Prostějov 2 Nt 1151/2014 a KS Brno 8 To 198/2014. Odůvodnění se věnuje stanovení THC, notifikaci předpisů, předběžným otázkám SDEU a podmínkám zabrání věci."
     },
     {
