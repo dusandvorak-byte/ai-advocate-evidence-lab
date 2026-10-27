@@ -160,7 +160,9 @@
         "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
         "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",
         "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
-        "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238"
+        "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238",
+        "doc-cz-dd-2026-10-21-os-prostejov-doplneni-bezplatne-obhajoby",
+        "doc-cz-dd-2026-10-24-cak-doplneni-zadosti-urceni-advokata"
       ],
       "latest_state_document_id": "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238",
       "latest_state_document_on": "2026-10-20"
@@ -314,7 +316,9 @@
         "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
         "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",
         "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
-        "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235"
+        "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235",
+        "doc-cz-dd-2026-10-21-os-prostejov-doplneni-bezplatne-obhajoby",
+        "doc-cz-dd-2026-10-24-cak-doplneni-zadosti-urceni-advokata"
       ],
       "latest_state_document_id": "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235",
       "latest_state_document_on": "2026-10-20"
@@ -388,7 +392,9 @@
       ],
       "related_document_ids": [
         "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
-        "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53"
+        "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+        "doc-cz-dd-2026-10-21-os-prostejov-doplneni-bezplatne-obhajoby",
+        "doc-cz-dd-2026-10-24-cak-doplneni-zadosti-urceni-advokata"
       ]
     },
     {
@@ -553,7 +559,9 @@
       "related_document_ids": [
         "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54",
         "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54",
-        "doc-cz-os-pro-2026-10-13-st-7-2026"
+        "doc-cz-os-pro-2026-10-13-st-7-2026",
+        "doc-cz-dd-2026-10-21-os-prostejov-doplneni-bezplatne-obhajoby",
+        "doc-cz-dd-2026-10-24-cak-doplneni-zadosti-urceni-advokata"
       ],
       "process_note": "Podle vyrozumění OS Prostějov St 7/2026 ze dne 13. 10. 2026 byl spis 15 Nt 3105/2026 vrácen KS Brno dne 29. 9. 2026, usnesení KS Brno ze 3. 9. 2026 č. j. 9 To 316/2026-219 bylo odesláno do datové schránky 6. 10. a doručeno 7. 10. 2026. Tato skutečnost je doložena sdělením soudu, nikoli samostatně zveřejněným originálem rozhodnutí KS Brno; ten dosud není doložen. Návrh ústavní stížnosti je připraven, nikoli potvrzen jako podaný."
     },
@@ -621,7 +629,8 @@
         "ochrana osobnosti"
       ],
       "related_document_ids": [
-        "doc-cz-os-pha4-2026-09-16-10-c-69-2026-predvolani"
+        "doc-cz-os-pha4-2026-09-16-10-c-69-2026-predvolani",
+        "doc-cz-uoou-2026-10-23-uoou-05032-26-6"
       ],
       "process_note": "První jednání je předvoláním ze dne 16. 9. 2026 nařízeno na 24. 11. 2026 ve 13:00."
     },

@@ -331,6 +331,22 @@
       "path": "project-memory/documents-2026-supplement-2026-10-20-six-pending-originals.json",
       "role": "batch",
       "batch_date": "2026-10-20"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-24-three-originals.json",
+      "role": "batch",
+      "batch_date": "2026-10-24"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-24-four-additional-records.json",
+      "role": "batch",
+      "batch_date": "2026-10-24",
+      "public_status": "verified text copies undergoing publication gate"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-26-two-new-state-records.json",
+      "role": "batch",
+      "batch_date": "2026-10-26"
     }
   ]
 }

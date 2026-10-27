@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-24",
+  "status": "binding",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-10-21-os-prostejov-doplneni-bezplatne-obhajoby",
+      "issue_date": "2026-10-21",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026",
+      "user_title": "Doplnění žádostí o bezplatnou obhajobu a právní pomoc k ústavní stížnosti pro OS Prostějov",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova",
+        "case-cz-ks-brno-9to315-2026",
+        "case-cz-ks-brno-9to316-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "dokument přijat do evidence",
+        "originál dosud nelze technicky vložit do veřejného repozitáře"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": null,
+        "sha256": null,
+        "source_original_sha256": "3b8d244a8ab9718aad4e163d15974ab11b23c499db543734adbc4255ae409280",
+        "source_original_size_bytes": 124929,
+        "source_original_page_count": 2,
+        "verification_status": "uploaded_source_file_verified_locally; public_pdf_pending; evidence_only",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-24-four-additional-records.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "uploaded_document_authorship",
+      "evidence_note": "Žadatel podáním ze dne 21. 10. 2026 reaguje na výzvy OS Prostějov ze dne 15. 10. 2026, č. j. 15 Nt 3104/2026-238 a 15 Nt 3106/2026-235, a deklaruje čtyři samostatná prohlášení o majetkových poměrech ke čtyřem souvisejícím spisům. Žádá o právní pomoc v ústavní stížnosti a obhajobu pro zasedání 30. 11. 2026 v 9:00 a 13:00. Přílohy k tomuto dvoustránkovému průvodnímu podání nebyly v této dávce nahrány."
+    },
+    {
+      "id": "doc-cz-uoou-2026-10-23-uoou-05032-26-6",
+      "issue_date": "2026-10-23",
+      "received_date": null,
+      "institution_id": "CZ-UOOU",
+      "reference": "UOOU-05032/26-6",
+      "user_title": "ÚOOÚ – sdělení ke stížnosti proti České televizi a RRTV: omluva za prodlení a požadavek konkretizace údajů",
+      "case_ids": [
+        "case-cz-os-praha4-10c69-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "dokument přijat do evidence",
+        "originál dosud nelze technicky vložit do veřejného repozitáře"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/137-uoou-05032-26-6-2026-10-23-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/137-uoou-05032-26-6-2026-10-23-original.pdf",
+        "sha256": "7e8ac9741e7ac33ca673b0300a3aa0157942998df3545dee82e1dcf4b2116a60",
+        "source_original_sha256": "7e8ac9741e7ac33ca673b0300a3aa0157942998df3545dee82e1dcf4b2116a60",
+        "source_original_size_bytes": 145690,
+        "source_original_page_count": 4,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-24-four-additional-records.json"
+      },
+      "relations": [
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-uoou-2026-10-19-uoou-05841-26-7"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "uploaded_document_authorship",
+      "evidence_note": "ÚOOÚ sdělením ze dne 23. 10. 2026 potvrdil, že v tříměsíční lhůtě podle GDPR nebyla poskytnuta zpráva o postupu šetření stížnosti týkající se České televize a RRTV, a omluvil se. Žádá označení konkrétních nepřesných osobních údajů, místa jejich zpracování a dokladů o požadavku na jejich opravu. Konečné vyřízení stížnosti zatím neoznámil."
+    },
+    {
+      "id": "doc-cz-ns-2026-10-23-zin-208-2026",
+      "issue_date": "2026-10-23",
+      "received_date": null,
+      "institution_id": "CZ-NS",
+      "reference": "Zin 208/2026",
+      "user_title": "Nejvyšší soud – poskytnutí informace Zin 208/2026 s přílohou 11 Tdo 181/2015 a poučením o stížnosti",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "dokument přijat do evidence",
+        "originál dosud nelze technicky vložit do veřejného repozitáře"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/138-ns-zin-208-2026-2026-10-23-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/138-ns-zin-208-2026-2026-10-23-original.pdf",
+        "sha256": "7f4a7260fea3991e3838fe52f05c867faeb3f30fb97740c9fef36ffe103efe2b",
+        "source_original_sha256": "7f4a7260fea3991e3838fe52f05c867faeb3f30fb97740c9fef36ffe103efe2b",
+        "source_original_size_bytes": 262202,
+        "source_original_page_count": 3,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-24-four-additional-records.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-10-ns-nsz-msp-mv-ppr-infz-tp"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-ns-2015-05-20-11-tdo-181-2015-121"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "uploaded_document_authorship",
+      "evidence_note": "Nejvyšší soud dne 23. 10. 2026 odpověděl na informační žádost přijatou 11. 10. 2026. Odkázal na databázi soudních rozhodnutí, sdělil, že nelze mimosoudně domýšlet jejich odůvodnění, a v příloze poskytl usnesení 11 Tdo 181/2015. Zmínil dosud nerozhodnuté odvolání Zin 182/2024 vedené u ÚOOÚ. Upozornil na stížnost podle § 16a InfZ do 30 dnů od doručení, jehož datum není doloženo."
+    },
+    {
+      "id": "doc-cz-dd-2026-10-24-cak-doplneni-zadosti-urceni-advokata",
+      "issue_date": "2026-10-24",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "10.32-000925/26-0002",
+      "user_title": "České advokátní komoře – doplnění žádosti o určení advokáta pro ústavní stížnost a obnovy řízení",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova",
+        "case-cz-ks-brno-9to315-2026",
+        "case-cz-ks-brno-9to316-2026"
+      ],
+      "document_type": "user_submission",
+      "topics": [
+        "dokument přijat do evidence",
+        "originál dosud nelze technicky vložit do veřejného repozitáře"
+      ],
+      "public": {
+        "html": null,
+        "pdf": null,
+        "intended_pdf": null,
+        "sha256": null,
+        "source_original_sha256": "e69b46ee789456200377a2472f4c5901e5bcc74b45859ee84bd104c023dd73a5",
+        "source_original_size_bytes": 155014,
+        "source_original_page_count": 2,
+        "verification_status": "uploaded_source_file_verified_locally; public_pdf_pending; evidence_only",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-24-four-additional-records.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-cak-2026-10-15-10-32-000925-26-0002"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "uploaded_document_authorship",
+      "evidence_note": "Doplnění žádosti datované 24. 10. 2026 podle § 18c zákona o advokacii. Požaduje odborné zastoupení před Ústavním soudem ve věcech 9 To 315/2026 a 9 To 316/2026 i v řízeních o obnově 15 Nt 3104/2026 a 15 Nt 3106/2026 před zasedáními 30. 11. 2026. Jde o průvodní dopis k finančním a procesním přílohám, nikoli rozhodnutí ČAK."
+    }
+  ]
+}

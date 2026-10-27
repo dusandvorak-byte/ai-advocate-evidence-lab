@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-26",
+  "status": "binding",
+  "documents": [
+    {
+      "id": "doc-cz-uoou-2026-10-26-uoou-05841-26-4",
+      "user_title": "ÚOOÚ – rozhodnutí UOOU-05841/26-4: zrušeno odmítnutí žádostí NSZ SIN 55/2026-19, věc vrácena k novému projednání",
+      "issue_date": "2026-10-26",
+      "received_date": null,
+      "institution_id": "CZ-UOOU",
+      "reference": "UOOU-05841/26-4; SIN 55/2026-19",
+      "case_ids": [
+        "CASE-CZ-NSZ-6NZN1737-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "InfZ",
+        "NSZ",
+        "úspěšné odvolání",
+        "zrušení rozhodnutí a vrácení",
+        "nedostatečné odůvodnění informační výluky"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/140-uoou-05841-26-4-2026-10-26-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/140-uoou-05841-26-4-2026-10-26-original.pdf",
+        "sha256": "1a5c4355a0c41ccadd3774f712e46e7c2ca93ed8f1b05d56921f5cefb1dbff1e",
+        "source_original_sha256": "1a5c4355a0c41ccadd3774f712e46e7c2ca93ed8f1b05d56921f5cefb1dbff1e",
+        "source_original_size_bytes": 312777,
+        "source_original_page_count": 9,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-26-two-new-state-records.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-uoou-2026-10-19-uoou-05841-26-7"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-nsz-2026-10-15-sin-72-2026-16"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_signed_state_decision",
+      "evidence_note": "Rozhodnutím ÚOOÚ UOOU-05841/26-4 ze dne 26. 10. 2026 bylo k odvolání žadatele zrušeno rozhodnutí NSZ ze dne 30. 7. 2026 č. j. SIN 55/2026-19 o odmítnutí informačních žádostí z 25. a 26. 7. 2026; věc byla vrácena NSZ k novému projednání. ÚOOÚ shledal odvolání důvodným a odmítnutí nepřezkoumatelným: ochrana podle § 11 odst. 6 písm. a) InfZ byla odůvodněna vágně, spekulativně a nebylo prověřeno částečné poskytnutí podle § 12 InfZ. NSZ je při novém rozhodování vázáno právním názorem ÚOOÚ; ÚOOÚ nevydal informační příkaz dle § 16 odst. 5 InfZ a nenařídil bezpodmínečně vydat všechny požadované informace. Není doloženo datum doručení. Proti rozhodnutí nelze podat odvolání."
+    },
+    {
+      "id": "doc-cz-pcr-pp-2026-10-26-ppr-53675-8-cj-2026-990810",
+      "user_title": "Policejní prezidium – prodloužení lhůty pro vyřízení informační žádosti o 10 dnů, PPR-53675-8/ČJ-2026-990810",
+      "issue_date": "2026-10-26",
+      "received_date": null,
+      "institution_id": "CZ-PCR-PP",
+      "reference": "PPR-53675-8/ČJ-2026-990810",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "InfZ",
+        "Policie ČR",
+        "metodika THC/THCA",
+        "prodloužení lhůty o 10 dní"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/141-pcr-pp-ppr-53675-8-cj-2026-990810-2026-10-26-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/141-pcr-pp-ppr-53675-8-cj-2026-990810-2026-10-26-original.pdf",
+        "sha256": "749ec4d8a8fa15598380f0481ba6caad38b20f43b82d2a6d64c4bd0f3b432728",
+        "source_original_sha256": "749ec4d8a8fa15598380f0481ba6caad38b20f43b82d2a6d64c4bd0f3b432728",
+        "source_original_size_bytes": 417213,
+        "source_original_page_count": 5,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-26-two-new-state-records.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-10-ns-nsz-msp-mv-ppr-infz-tp"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-pcr-pp-2026-10-16-ppr-54525-1-cj-2026-990340"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_signed_state_notice",
+      "evidence_note": "Policejní prezidium České republiky dne 26. 10. 2026 vydalo vyrozumění č. j. PPR-53675-8/ČJ-2026-990810 o prodloužení lhůty k poskytnutí informací podle zákona č. 106/1999 Sb. o 10 dnů podle § 14 odst. 6 písm. c), neboť vyřízení vyžaduje konzultace mezi více složkami Policie ČR. Policie potvrzuje přijetí žádosti 11. 10. 2026. Dopis obsahuje obsáhlou rekapitulaci žadatelových otázek k THC/THCA a forenzním metodikám, ale neposkytuje dosud věcnou odpověď. Nejde o policejní vyrozumění KRPT-276756-2/ČJ-2026-0700KR z 20. 10. 2026; jedná se o jiný útvar a jinou informační věc. Datum doručení tohoto vyrozumění žadateli nebylo doloženo."
+    }
+  ]
+}
