@@ -1,0 +1,347 @@
+{
+  "schema_version": "1.0",
+  "source": "project-memory/document-sources.json",
+  "case_id": "CASE-CZ-NSZ-6NZN1737-2026",
+  "status": "evidenced_publications_plus_explicit_archival_context",
+  "period_start": "2026-04-20",
+  "official_from": "2026-05-01",
+  "milestone": "2026-07-14",
+  "reference": "6 NZN 1737/2026",
+  "groups": [
+    {
+      "id": "incoming_nsz",
+      "title_cs": "Listiny a reakce NSZ",
+      "title_en": "Documents and responses from the Supreme Public Prosecutor’s Office",
+      "items": [
+        {
+          "document_id": "doc-cz-nsz-2026-10-15-sin-72-2026-16",
+          "date": "2026-10-15",
+          "received_date": null,
+          "reference": "SIN 72/2026-16",
+          "title_cs": "NSZ – výzva k upřesnění žádosti ze dne 10. října 2026 podle informačního zákona; 30 dnů od doručení výzvy",
+          "description_en": "On 15 October 2026 the Supreme Public Prosecutor's Office, reference SIN 72/2026-16, asked the applicant to identify precisely which recorded information or documents he seeks specifically from that office under the Freedom of Information Act. It regarded the collective 14-page r",
+          "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/121-nsz-sin-72-2026-16-2026-10-15-original.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-nsz-2026-08-13-6-nzn-1737-2026-73",
+          "date": "2026-08-13",
+          "received_date": "2026-08-18",
+          "reference": "6 NZN 1737/2026-73",
+          "title_cs": "Sdělení k podáním ze dne 14., 25., 27. a 29. července a 1. srpna 2026 — doručeno dne 18. 8. 2026",
+          "description_en": "The Supreme Public Prosecutor’s Office stated that the requests concerning the Ministry of Justice, the court proceedings and the settlement proposal fell outside its remit, and transferred the part seeking review of the Prostějov District Public Prosecutor’s Office to the Brno R",
+          "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/60-nsz-6-nzn-1737-2026-73-2026-08-13.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-nsz-2026-07-30-sin-55-2026-19",
+          "date": "2026-07-30",
+          "received_date": null,
+          "reference": "SIN 55/2026-19",
+          "title_cs": "Rozhodnutí o odmítnutí žádosti o informace",
+          "description_en": "Decision refusing the freedom-of-information request",
+          "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/13-nsz-sin-55-2026-19-2026-07-30.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-nsz-2026-05-13-6-nzn-1737-2026-32",
+          "date": "2026-05-13",
+          "received_date": null,
+          "reference": "6 NZN 1737/2026-32",
+          "title_cs": "Postoupení podání MSZ v Praze",
+          "description_en": "Transfer of the filing to the Prague Municipal Public Prosecutor’s Office",
+          "href": "/ai-advocate-evidence-lab/documents/report-25072026-007/03-nsz-6-nzn-1737-2026-32-2026-05-13.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-nsz-2026-05-06-6-nzn-1737-2026-15",
+          "date": "2026-05-06",
+          "received_date": null,
+          "reference": "6 NZN 1737/2026-15",
+          "title_cs": "Výzva k upřesnění a doplnění podání",
+          "description_en": "Request to clarify and supplement the filing",
+          "href": "/ai-advocate-evidence-lab/documents/report-04082026-010/01-nsz-6-nzn-1737-2026-15-2026-05-06.pdf",
+          "link_kind": "pdf"
+        }
+      ]
+    },
+    {
+      "id": "outgoing_to_nsz",
+      "title_cs": "Moje podání adresovaná NSZ",
+      "title_en": "My filings addressed to the Supreme Public Prosecutor’s Office",
+      "items": [
+        {
+          "document_id": "doc-cz-dd-2026-10-10-ns-nsz-msp-mv-ppr-infz-tp",
+          "date": "2026-10-10",
+          "received_date": "2026-10-10",
+          "reference": "8 Tdo 1231/2011 až 11 Tdo 674/2020; 6 NZN 1737/2026; 18 A 23/2026; 15 A 44/2026; 18 A 17/2026",
+          "title_cs": "Žádost o poskytnutí informací spojená pro NSZ a Policii ČR s trestním podnětem",
+          "description_en": null,
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/101-podani-2026-10-10-ns-nsz-msp-mv-pp.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+          "date": "2026-10-08",
+          "received_date": null,
+          "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 A 44/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+          "title_cs": "Mimořádně naléhavé důkazní doplnění – důvodné podezření na dvojí legislativní překrytí sporných forenzních praxí při analýzách obsahu THC a pozvánka k veřejnému zasedání 30. 11. 2026",
+          "description_en": "Urgent evidentiary supplement dated 8 October 2026 addressed to the Office of the President, Supreme Public Prosecutor’s Office, Ministry of Justice, Police Presidium, Ministry of the Interior and Prostějov District Court. It frames a possible double legislative overlay of disput",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni",
+          "date": "2026-10-06",
+          "received_date": null,
+          "reference": "6 NZN 1737/2026; 1 VZN 1678/2026; 3 VZN 239/2026",
+          "title_cs": "Mimořádně naléhavé společné důkazní doplnění pro NSZ, VSZ v Praze a VSZ v Olomouci k novým vyrozuměním KSZ a uzavřenému řetězci přezkumu",
+          "description_en": "Urgent joint evidentiary supplement dated 6 October 2026 addressed to the Supreme Public Prosecutor’s Office and the Prague and Olomouc High Public Prosecutor’s Offices. It asks the authorities to assess together new prosecutorial notices concerning sampling, homogenisation, THC/",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-ekk-2026-10-04-dukazni-chronologie-kjl-2008-2026",
+          "date": "2026-10-04",
+          "received_date": "2026-10-04",
+          "reference": "Příloha k podání ze dne 4. 10. 2026",
+          "title_cs": "Důkazní chronologie Konopí je lék 2008–2026 – stav k 28. září 2026, odeslána 4. října 2026",
+          "description_en": "A 55-page evidence chronology of the Cannabis is The Cure programme for 2008–2026, current to 28 September 2026 and sent on 4 October 2026 as an annex to the filing concerning the Prostějov reopening proceedings and related authorities. The public PDF is the byte-identical origin",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-ekk-2026-10-04-klicove-dukazy-obnovy",
+          "date": "2026-10-04",
+          "received_date": "2026-10-04",
+          "reference": "KPR 5080/2026; 6 NZN 1737/2026; 18 A 23/2026; 18 A 17/2026; 15 Nt 3104/2026; 15 Nt 3106/2026",
+          "title_cs": "Potvrzení klíčových důkazů pro obnovu řízení 2 T 104/2010 a 2 T 65/2011",
+          "description_en": "A filing dated 4 October 2026 by the Educational Cannabis Clinic and the Cannabis is The Cure alliance to the Office of the President, Supreme Public Prosecutor’s Office, Ministry of Justice, Police Presidium and Prostějov District Court. It highlights new evidence concerning THC",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cs-dd-2026-10-01-spolecne-doplneni-nsz-vsz-uzavreny-retezec",
+          "date": "2026-10-01",
+          "received_date": "2026-10-01",
+          "reference": "6 NZN 1737/2026; 1 VZN 1678/2026; 3 VZN 239/2026",
+          "title_cs": "Mimořádně naléhavé společné důkazní doplnění – uzavřený řetězec odpovědnosti potvrzený MSZ v Praze",
+          "description_en": "Urgent joint evidentiary supplement addressed to the Supreme Public Prosecutor’s Office, the Prague High Public Prosecutor’s Office and the Olomouc High Public Prosecutor’s Office. The filing relies on the Prague Municipal Public Prosecutor’s Office notice of 1 October 2026, ref.",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cs-dd-2026-09-21-slalom-augsep-005",
+          "date": "2026-09-21",
+          "received_date": "2026-09-21",
+          "reference": "KPR 5080/2026; KPR 4093/2026",
+          "title_cs": "Třetí naléhavé doplnění žádosti o milost, pozvání k veřejným zasedáním a důkazní návrhy",
+          "description_en": "Third urgent pardon supplement, invitation to public hearings and evidentiary motions",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/005-podani-2026-09-21.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-dd-2026-09-13-nsz-ct-zaverecne-sdeleni",
+          "date": "2026-09-13",
+          "received_date": null,
+          "reference": "6 NZN 1737/2026; CT 338889/2025",
+          "title_cs": "Závěrečné sdělení k předžalobní výzvě NSZ a trvající stížnosti České televizi a Radě ČT",
+          "description_en": "The 13 September 2026 closing communication followed the pre-action demand to the Supreme Public Prosecutor’s Office and the continuing complaint to Czech Television and its Council; it identified the 11 September article and the Ministry/Accreditation filing as new records.",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/048-podani-2026-09-13.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cs-dd-2026-09-08-slalom-augsep-049",
+          "date": "2026-09-08",
+          "received_date": "2026-09-08",
+          "reference": "6 NZN 1737/2026",
+          "title_cs": "Desáté doplnění předžalobní výzvy o listiny GIBS a ministra spravedlnosti",
+          "description_en": "Tenth supplement to the pre-action demand with GIBS and Justice Minister records",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/049-podani-2026-09-08.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cs-dd-2026-09-02-slalom-augsep-050",
+          "date": "2026-09-02",
+          "received_date": "2026-09-02",
+          "reference": "6 NZN 1737/2026",
+          "title_cs": "Deváté doplnění předžalobní výzvy o nové důkazy",
+          "description_en": "Ninth supplement to the pre-action demand with new evidence",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-09/050-podani-2026-09-02-verejna-kopie.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cs-dd-2026-08-28-slalom-augsep-051",
+          "date": "2026-08-28",
+          "received_date": "2026-08-28",
+          "reference": "6 NZN 1737/2026",
+          "title_cs": "Osmé doplnění předžalobní výzvy o nové listiny státního zastupitelství",
+          "description_en": "Eighth supplement to the pre-action demand with new prosecution records",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/051-podani-2026-08-28.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cs-dd-2026-08-22-slalom-augsep-052",
+          "date": "2026-08-22",
+          "received_date": "2026-08-22",
+          "reference": "6 NZN 1737/2026",
+          "title_cs": "Sedmé doplnění předžalobní výzvy a kárný podnět",
+          "description_en": "Seventh supplement to the pre-action demand and disciplinary request",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/052-podani-2026-08-22.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-dd-2026-08-15-seste-doplneni-predzalobni-vyzvy-nsz",
+          "date": "2026-08-15",
+          "received_date": "2026-08-15",
+          "reference": "6 NZN 1737/2026",
+          "title_cs": "Šesté doplnění předžalobní výzvy Nejvyššímu státnímu zastupitelství ve věci sp. zn. 6 NZN 1737/2026",
+          "description_en": "A sixth supplement to the pre-action demand in file 6 NZN 1737/2026 requested a single independent, reviewable resolution of the connected branches",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/053-podani-2026-08-15.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cs-dd-2026-08-01-slalom-augsep-067",
+          "date": "2026-08-01",
+          "received_date": "2026-08-01",
+          "reference": "1 ZN 157/2026-33; 3 KZN 197/2026",
+          "title_cs": "Společný podnět k přezkumu vyřízení OSZ pro Prahu 2",
+          "description_en": "Joint request for review of the Prague 2 prosecutor’s response",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-08/067-podani-2026-08-01.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-dd-2026-07-29-slalom-30",
+          "date": "2026-07-29",
+          "received_date": "2026-07-29",
+          "reference": "6 NZN 1737/2026",
+          "title_cs": "Další naléhavé doplnění předžalobní výzvy NSZ",
+          "description_en": "Further urgent supplement to the pre-action demand to NSZ",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/30-podani-2026-07-29.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-dd-2026-07-27-slalom-31",
+          "date": "2026-07-27",
+          "received_date": "2026-07-27",
+          "reference": "6 NZN 1737/2026",
+          "title_cs": "Třetí doplnění předžalobní výzvy NSZ",
+          "description_en": "Third supplement to the pre-action demand to NSZ",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/31-podani-2026-07-27.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-dd-2026-07-26-slalom-37",
+          "date": "2026-07-26",
+          "received_date": "2026-07-26",
+          "reference": "6 NZN 1737/2026-32",
+          "title_cs": "Informační žádost o obsah a doklady elektronického předání věci z NSZ do MSZ Praha",
+          "description_en": "Information request for records of electronic transfer from NSZ to the Prague prosecutor",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/37-podani-2026-07-26.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-dd-2026-07-25-slalom-32",
+          "date": "2026-07-25",
+          "received_date": "2026-07-25",
+          "reference": "6 NZN 1737/2026",
+          "title_cs": "Podnět k dohledu nad postupem VSZ Praha a VSZ Olomouc",
+          "description_en": "Supervisory request concerning the Prague and Olomouc high prosecution offices",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/32-podani-2026-07-25.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-dd-2026-07-25-slalom-33",
+          "date": "2026-07-25",
+          "received_date": "2026-07-25",
+          "reference": "návaznost: 1 SIN 95/2024-7",
+          "title_cs": "Informační žádost o souhrnný počet jedinečných spisových značek",
+          "description_en": "Information request for the aggregate number of unique case references",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/33-podani-2026-07-25.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-dd-2026-07-14-slalom-34",
+          "date": "2026-07-14",
+          "received_date": "2026-07-14",
+          "reference": "6 NZN 1737/2026",
+          "title_cs": "Předžalobní výzva NSZ k prověření postupu orgánů",
+          "description_en": "Pre-action demand to NSZ concerning the conduct of public authorities",
+          "href": "/ai-advocate-evidence-lab/documents/justice-slalom/2026-07/34-podani-2026-07-14.pdf",
+          "link_kind": "pdf"
+        },
+        {
+          "document_id": "doc-cz-dd-2026-07-14-slalom-35",
+          "date": "2026-07-14",
+          "received_date": "2026-07-14",
+          "reference": "6 NZN 1737/2026",
+          "title_cs": "Doplnění předžalobní výzvy NSZ s přiloženým původním podáním",
+          "description_en": "Supplement to the NSZ pre-action demand with the original submission attached",
+          "href": "/ai-advocate-evidence-lab/documents/report-25072026-007/02-predzalobni-vyzva-nsz-2026-07-14-original.pdf",
+          "link_kind": "pdf"
+        }
+      ]
+    },
+    {
+      "id": "historical_archive",
+      "title_cs": "Starší podání od 20. dubna 2026 doložená archivním článkem (nikoli jednotlivými PDF)",
+      "title_en": "Earlier filings from 20 April 2026 cited in the archive (not standalone PDFs)",
+      "items": [
+        {
+          "archive_reference_id": "nsz-archival-2026-05-12",
+          "date": "2026-05-12",
+          "reference": "bez doloženého samostatného č. j. / sp. zn.",
+          "title_cs": "Doplnění podání ve větvi NSZ/NCOZ ze dne 12. května 2026",
+          "description_en": "Supplement to the NSZ/NCOZ submission dated 12 May 2026",
+          "href": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/zpravy/25072026-007.html",
+          "link_kind": "archive",
+          "record_status": "cited_in_public_archive_not_separately_verified_pdf",
+          "standalone_pdf_verified": false
+        },
+        {
+          "archive_reference_id": "nsz-archival-2026-05-08",
+          "date": "2026-05-08",
+          "reference": "bez doloženého samostatného č. j. / sp. zn.",
+          "title_cs": "Doplnění podání ve větvi NSZ/NCOZ ze dne 8. května 2026",
+          "description_en": "Supplement to the NSZ/NCOZ submission dated 8 May 2026",
+          "href": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/zpravy/25072026-007.html",
+          "link_kind": "archive",
+          "record_status": "cited_in_public_archive_not_separately_verified_pdf",
+          "standalone_pdf_verified": false
+        },
+        {
+          "archive_reference_id": "nsz-archival-2026-04-25",
+          "date": "2026-04-25",
+          "reference": "bez doloženého samostatného č. j. / sp. zn.",
+          "title_cs": "Stížnost NSZ/NCOZ ze dne 25. dubna 2026, zahrnující podání z 20. dubna",
+          "description_en": "Complaint concerning NSZ/NCOZ dated 25 April 2026, incorporating the 20 April filing",
+          "href": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/zpravy/25072026-007.html",
+          "link_kind": "archive",
+          "record_status": "cited_in_public_archive_not_separately_verified_pdf",
+          "standalone_pdf_verified": false
+        },
+        {
+          "archive_reference_id": "nsz-archival-2026-04-20",
+          "date": "2026-04-20",
+          "reference": "bez doloženého samostatného č. j. / sp. zn.",
+          "title_cs": "Stížnost NSZ/NCOZ ze dne 20. dubna 2026, zahrnutá do pozdější stížnosti z 25. dubna",
+          "description_en": "Complaint concerning NSZ/NCOZ dated 20 April 2026, incorporated in the later complaint of 25 April",
+          "href": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/zpravy/25072026-007.html",
+          "link_kind": "archive",
+          "record_status": "cited_in_public_archive_not_separately_verified_pdf",
+          "standalone_pdf_verified": false
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "incoming": 5,
+    "outgoing": 21,
+    "archival": 4,
+    "total": 30
+  },
+  "first_evidenced_date": "2026-04-20",
+  "last_evidenced_date": "2026-10-15",
+  "provenance_note_cs": "Soupis odděluje samostatně evidované listiny od čtyř historických podání z 20. a 25. dubna a 8. a 12. května 2026, jejichž existenci uvádí vlastní archivní článek z 25. července. Archivní odkaz není samostatným PDF těchto podání. Úřední datace 27. dubna a autorská datace 25. dubna nejsou bez primárního pramene sjednocovány. Úplnost dalších externích archivů není ověřena.",
+  "provenance_note_en": "The list separates individually recorded documents from four historical filings of 20/25 April and 8/12 May 2026 cited in the project’s 25 July archive. That archive link is not a standalone PDF of those filings. The reported official date of 27 April is not silently reconciled with the author’s 25 April date. Completeness of other external archives is not verified."
+}
