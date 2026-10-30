@@ -437,8 +437,8 @@
       "remedy_en": "14 July 2026 – pre-litigation demand. Recorded NSZ documents include 6 May 2026, ref. 6 NZN 1737/2026-15; 13 May 2026, ref. 6 NZN 1737/2026-32; and 13 August 2026, ref. 6 NZN 1737/2026-73. The current sequence of recorded NSZ documents and the author's submissions expands in the first column. These are not appellate or cassation court rulings.",
       "supreme_cs": "Případná budoucí správní/ústavní soudní ochrana je pouze zamýšlenou návazností. K této konkrétní předžalobní výzvě dosud není v evidenci doložena podaná žaloba ani ústavní stížnost.",
       "supreme_en": "Any future administrative or constitutional judicial protection remains only a possible follow-up. No filed court action or constitutional complaint concerning this particular pre-litigation demand is evidenced in the registry.",
-      "media_cs": "—",
-      "media_en": "—",
+      "media_cs": "Podání ze dne 28. 10. 2026 – stížnosti a upřesnění žádosti o informace a trestního podnětu z 10. 10. 2026. Podle sdělení autora je původní úplné podání zveřejněno na webu Konopí je lék.cz; přímý odkaz je uveden níže.",
+      "media_en": "Filing dated 28 October 2026 – complaints and clarification of the information request and criminal report of 10 October 2026. According to the author, the complete original filing is published on Konopí je lék.cz; a direct link appears below.",
       "godot_document_ids": [
         "doc-cz-nsz-2026-05-06-6-nzn-1737-2026-15",
         "doc-cz-nsz-2026-05-13-6-nzn-1737-2026-32",
@@ -457,6 +457,13 @@
           "label_cs": "Vše zveřejněné k této kauze →",
           "label_en": "Everything published on this case →",
           "href": "https://www.konopijelek.cz/nejvyssi-statni-zastupitelstvi-on-line/"
+        }
+      ],
+      "media_links": [
+        {
+          "label_cs": "28. 10. 2026 – originál podání na Konopí je lék.cz",
+          "label_en": "28 October 2026 – original filing on Konopí je lék.cz",
+          "href": "https://www.konopijelek.cz/novinky/trestni-podnet-a-zadost-ze-dne-28-rijna-2026/"
         }
       ]
     }
