@@ -352,6 +352,12 @@
       "path": "project-memory/documents-2026-supplement-2026-10-30-vsz-praha-mk-appeal.json",
       "role": "batch",
       "batch_date": "2026-10-30"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-30-kasace-msp.json",
+      "role": "batch",
+      "batch_date": "2026-10-30",
+      "public_status": "verified eight-page complete text transcription, original PDF binary pending"
     }
   ]
 }
