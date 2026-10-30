@@ -347,6 +347,11 @@
       "path": "project-memory/documents-2026-supplement-2026-10-26-two-new-state-records.json",
       "role": "batch",
       "batch_date": "2026-10-26"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-30-vsz-praha-mk-appeal.json",
+      "role": "batch",
+      "batch_date": "2026-10-30"
     }
   ]
 }

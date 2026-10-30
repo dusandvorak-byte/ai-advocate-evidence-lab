@@ -97,8 +97,12 @@
       "last_filing_on": "2026-10-06",
       "last_filing_document_id": "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni",
       "related_document_ids": [
-        "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni"
-      ]
+        "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni",
+        "doc-cz-vsz-pha-2026-10-27-1-vzn-1678-2026-173"
+      ],
+      "latest_state_document_id": "doc-cz-vsz-pha-2026-10-27-1-vzn-1678-2026-173",
+      "last_state_document_on": "2026-10-27",
+      "latest_state_outcome": "review_no_substantive_defect_but_one_late_notice_acknowledged; other supervisory objections_referred_back"
     },
     {
       "id": "CASE-CZ-KPR-4093-2026",
