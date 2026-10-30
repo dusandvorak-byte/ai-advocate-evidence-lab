@@ -358,7 +358,7 @@
       "institution_id": "CZ-MS-PHA",
       "reference": "18 A 23/2026",
       "title": "Městský soud v Praze – zásahová žaloba proti Ministerstvu spravedlnosti",
-      "status": "action_rejected_cassation_in_preparation_not_filed",
+      "status": "action_rejected_cassation_complaint_dated_filing_unverified",
       "opened_on": "2026-06-15",
       "topics": [
         "zásahová žaloba",
@@ -367,16 +367,18 @@
         "THC",
         "THCA"
       ],
-      "last_filing_on": "2026-10-08",
-      "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+      "last_filing_on": "2026-10-30",
+      "last_filing_document_id": "doc-cz-dd-2026-10-30-kasacni-msp-18a23",
       "related_document_ids": [
         "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
         "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
-        "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209"
+        "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209",
+        "doc-cz-dd-2026-10-30-kasacni-msp-18a23"
       ],
       "latest_state_document_id": "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209",
       "last_state_document_on": "2026-10-12",
-      "cassation_status": "in_preparation_not_filed"
+      "cassation_status": "dated_2026-10-30_original_uploaded_filing_unverified",
+      "process_note": "Kasační stížnost datovaná 30. 10. 2026 proti usnesení 18 A 23/2026-209 byla předložena v osmi stranách. V registru není doloženo datum doručení soudu ani přidělená spisová značka NSS; zveřejněna byla úplná textová kopie, nikoli binárně totožný původní PDF."
     },
     {
       "id": "case-cz-ks-brno-9to315-2026",
