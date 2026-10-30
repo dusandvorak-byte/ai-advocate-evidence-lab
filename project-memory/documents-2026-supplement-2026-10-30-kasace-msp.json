@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "status": "binding",
+  "batch_date": "2026-10-30",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-10-30-kasacni-msp-18a23",
+      "issue_date": "2026-10-30",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "18 A 23/2026; 18 A 23/2026-209",
+      "user_title": "Nejvyššímu správnímu soudu – kasační stížnost proti odmítnutí zásahové a eventuální nečinnostní žaloby ve věci 18 A 23/2026",
+      "case_ids": [
+        "case-cz-ms-praha-18a23-2026"
+      ],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "original_eight_page_pdf_uploaded_by_user; filing_delivery_not_documented",
+      "topics": [
+        "kasační stížnost",
+        "Ministerstvo spravedlnosti",
+        "18 A 23/2026",
+        "§ 103 odst. 1 písm. e) s. ř. s.",
+        "zjevné zneužití práva",
+        "procesní legitimace"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-dd-2026-10-30-kasacni-msp.html",
+        "pdf": null,
+        "intended_pdf": null,
+        "sha256": null,
+        "source_original_sha256": "bd8581ba20f0d2a671338e9c331bd5c684c957aafe5a01389b342743f04930f1",
+        "source_original_size_bytes": 189021,
+        "source_original_page_count": 8,
+        "verification_status": "user_supplied_original_pdf_locally_verified; complete_text_transcription_public; original_binary_pdf_not_yet_public",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-30-kasace-msp.json"
+      },
+      "recipients": [
+        {
+          "institution_id": "CZ-NSS",
+          "reference": "18 A 23/2026; 18 A 23/2026-209",
+          "role": "primary"
+        }
+      ],
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209"
+        }
+      ],
+      "evidence_note": "Podání datované 30. 10. 2026 adresované Nejvyššímu správnímu soudu prostřednictvím datové schránky, proti usnesení MS Praha č. j. 18 A 23/2026-209 ze dne 12. 10. 2026. Napadá výroky I a II a závislý výrok III; výroky IV a V nenapadá. Uplatňuje § 103 odst. 1 písm. e) s. ř. s., rozebírá vytýkané rozpory v odmítnutí obou žalob a navrhuje zrušení napadených výroků a vrácení věci. Není doložena doručenka ani nová sp. zn. NSS. Veřejně dostupný je plný automatický textový přepis osmi stran, nikoli binární originál PDF."
+    }
+  ]
+}

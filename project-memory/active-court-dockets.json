@@ -193,8 +193,8 @@
       ],
       "merit_cs": "Zásahová žaloba proti Ministerstvu spravedlnosti. Žaloba napadá postup ministerstva při vyřizování podnětů a dohledu nad znaleckou činností a navazuje na dlouhodobě namítané sporné forenzní praxe při analýzách obsahu THC v zabraném konopí.",
       "merit_en": "Intervention action against the Ministry of Justice. The action challenges the Ministry's handling of submissions and oversight of forensic expert activity and follows long-running objections to disputed forensic practices in analysing THC content in seized cannabis.",
-      "remedy_cs": "Soud dne 12. 10. 2026 usnesením č. j. 18 A 23/2026-209 odmítl zásahovou i eventuální nečinnostní žalobu proti Ministerstvu spravedlnosti. Připravuje se kasační stížnost k Nejvyššímu správnímu soudu; její podání dosud není doloženo.",
-      "remedy_en": "On 12 October 2026, by order 18 A 23/2026-209, the court rejected both the intervention and alternative inactivity actions against the Ministry of Justice. A cassation complaint to the Supreme Administrative Court is being prepared; no filing is evidenced.",
+      "remedy_cs": "Městský soud v Praze dne 12. 10. 2026 usnesením č. j. 18 A 23/2026-209 odmítl zásahovou i eventuální nečinnostní žalobu. Kasační stížnost je datována 30. 10. 2026 a napadá výroky I–III; doručení soudu a nová spisová značka NSS nejsou doloženy. Veřejně je dostupný její úplný textový přepis na samostatné evidenční stránce; do archivu PDF Justičního slalomu zatím nepatří, protože originální PDF není ve veřejném úložišti.",
+      "remedy_en": "On 12 October 2026, by order 18 A 23/2026-209, Prague Municipal Court rejected the intervention and alternative inactivity actions. A cassation complaint dated 30 October 2026 challenges operative parts I–III; court receipt and a new Supreme Administrative Court reference are unverified. The complete Czech text transcript is available on a separate evidence page; the original PDF has not been uploaded to the public archive.",
       "supreme_cs": "Historická trestní linie uváděná v podáních: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
       "supreme_en": "Historical criminal-review line cited in the filings: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
       "media_cs": "—",
@@ -211,6 +211,13 @@
           "label_cs": "Vše zveřejněné k této kauze →",
           "label_en": "Everything published on this case →",
           "href": "https://www.konopijelek.cz/ministerstvo-spravedlnosti/"
+        }
+      ],
+      "media_links": [
+        {
+          "label_cs": "30. 10. 2026 – úplný text kasační stížnosti (8 stran)",
+          "label_en": "30 October 2026 – full cassation complaint text (8 pages, Czech)",
+          "href": "/ai-advocate-evidence-lab/listiny/doc-cz-dd-2026-10-30-kasacni-msp.html"
         }
       ]
     },

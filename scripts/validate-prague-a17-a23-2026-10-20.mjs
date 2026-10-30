@@ -36,11 +36,19 @@ for(const q of specs){
  const txt=execFileSync('pdftotext',['web/'+d.public.pdf,'-'],{encoding:'utf8'}).replace(/\s+/g,' ');
  must(txt.includes(q.ref.replace('-', ''))||txt.includes(q.ref.split('-')[0]),'original does not contain docket reference '+q.id);
  const c=cases.cases.find(x=>x.id===q.case);
- must(c&&c.latest_state_document_id===q.id&&c.cassation_status==='in_preparation_not_filed','wrong case remedy status');
+ must(c&&c.latest_state_document_id===q.id,'wrong case original decision link');
  const row=courts.rows.find(x=>x.id===q.row);
  must(row&&row.godot_document_ids.includes(q.id),'no court section cross-link '+q.id);
- must(row.remedy_cs.includes('Připravuje se kasační stížnost')&&!row.remedy_cs.includes('kasační stížnost byla podána'),'cassation status wrongly published');
- must(row.remedy_en.includes('being prepared')&&row.remedy_cs.includes(q.ref),'missing CZ/EN court state');
+ if(q.row==='court-ms-praha-18a23'){
+   must(c.cassation_status==='dated_2026-10-30_original_uploaded_filing_unverified'&&c.latest_prepared_pleading_document_id==='doc-cz-dd-2026-10-30-kasacni-msp-18a23','newly documented cassation must remain dated, not filed');
+   must(row.remedy_cs.includes('30. 10. 2026')&&row.remedy_cs.includes('nejsou doloženy'),'CZ court annotation must identify dated complaint without inventing service');
+   must(row.remedy_en.includes('30 October 2026')&&row.remedy_en.includes('unverified'),'EN court annotation must identify dated complaint without inventing service');
+ }else{
+   must(c.cassation_status==='in_preparation_not_filed','wrong A17 remedy status');
+   must(row.remedy_cs.includes('Připravuje se kasační stížnost')&&!row.remedy_cs.includes('kasační stížnost byla podána'),'A17 cassation status wrongly published');
+   must(row.remedy_en.includes('being prepared'),'missing A17 EN court state');
+ }
+ must(row.remedy_cs.includes(q.ref),'missing case reference in CZ remedy');
  must(t.documents[q.id]?.includes('being prepared'),'missing English Godot translation');
  must(cz.includes('id="'+q.id+'"')&&en.includes('id="en-'+q.id+'"'),'CZ/EN Godot missing original entry '+q.id);
  must(cz.includes(q.file)&&en.includes(q.file),'CZ/EN Godot links not to original '+q.id);
