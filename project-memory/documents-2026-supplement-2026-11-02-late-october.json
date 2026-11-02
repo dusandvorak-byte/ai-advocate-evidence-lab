@@ -23,12 +23,13 @@
       ],
       "public": {
         "html": "listiny/2026-11-02-evidence-ncoz.html",
-        "pdf": null,
+        "pdf": "documents/originaly-2026-11-02/2026-10-30-kasacni-stiznost-ncoz-18a17.pdf",
         "source_original_sha256": "6d37a3b27fa121dad5bbb3b417a4695cc6e8a09890bd7e7ef6a6c4a193d317f3",
         "source_original_size_bytes": 186838,
         "source_original_page_count": 9,
-        "verification_status": "original_pdf_verified_in_user_upload; binary_not_yet_public; source_text_or_evidence_abstract_public",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
+        "sha256": "6d37a3b27fa121dad5bbb3b417a4695cc6e8a09890bd7e7ef6a6c4a193d317f3"
       },
       "relations": [
         {
@@ -66,12 +67,13 @@
       ],
       "public": {
         "html": "listiny/2026-11-02-evidence-ospro-nov1.html",
-        "pdf": null,
+        "pdf": "documents/originaly-2026-11-02/2026-11-01-os-prostejov-nalehave-doplneni.pdf",
         "source_original_sha256": "c78f057e467e6cde9d03ea05d1d7780d905bb4ee9c22cd408b0a28c739c67806",
         "source_original_size_bytes": 627881,
         "source_original_page_count": 9,
-        "verification_status": "original_pdf_verified_in_user_upload; binary_not_yet_public; source_text_or_evidence_abstract_public",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
+        "sha256": "c78f057e467e6cde9d03ea05d1d7780d905bb4ee9c22cd408b0a28c739c67806"
       },
       "relations": [
         {
@@ -90,7 +92,7 @@
           "reference": "15 Nt 3104/2026; 15 Nt 3106/2026"
         }
       ],
-      "evidence_note": "Devítistránkové podání z 1. 11. 2026 navrhuje předběžné šetření podle § 282 odst. 1 trestního řádu, ověření starších důkazů, výslech svědkyně a vyřízení obhajoby ve věcech 15 Nt 3104 a 3106/2026. Rozlišuje od pravomocně skončených věcí 15 Nt 3103 a 3105/2026. Doručení tohoto podání soudu není doloženo. Veřejná stránka obsahuje redakční anotaci; původní PDF zatím není nahráno."
+      "evidence_note": "Devítistránkové podání z 1. 11. 2026 navrhuje předběžné šetření podle § 282 odst. 1 trestního řádu, ověření starších důkazů, výslech svědkyně a vyřízení obhajoby ve věcech 15 Nt 3104 a 3106/2026. Rozlišuje od pravomocně skončených věcí 15 Nt 3103 a 3105/2026. Doručení tohoto podání soudu není doloženo. Původní PDF je veřejně přístupné v původní podobě."
     },
     {
       "id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
@@ -113,16 +115,17 @@
       ],
       "public": {
         "html": "listiny/2026-11-02-evidence-krpm.html",
-        "pdf": null,
+        "pdf": "documents/originaly-2026-11-02/2026-10-30-krpm-145410.pdf",
         "source_original_sha256": "11a49092de3eece2ad19b8c1ac30f830c64068857d9b6f3c36f5fb6f07f12fcd",
         "source_original_size_bytes": 326595,
         "source_original_page_count": 2,
-        "verification_status": "original_pdf_verified_in_user_upload; binary_not_yet_public; source_text_or_evidence_abstract_public",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
+        "sha256": "11a49092de3eece2ad19b8c1ac30f830c64068857d9b6f3c36f5fb6f07f12fcd"
       },
       "relations": [],
       "recipients": [],
-      "evidence_note": "Policie 30. 10. 2026 uvádí sazbu 417 Kč/h a očekávanou úhradu nad žadatelův limit 500 Kč. Pět spisů 2009–2014 mělo být skartováno, pět spisů 2015–2019 vedeno elektronicky. Přípis označuje deset souborů znaleckých zkoumání jako přílohy; tyto samostatné soubory nebyly s tímto PDF poskytnuty. Trestní podnět předán ÚO Prostějov. Zveřejněn plný textový přepis, nikoli původní PDF."
+      "evidence_note": "Policie 30. 10. 2026 uvádí sazbu 417 Kč/h a očekávanou úhradu nad žadatelův limit 500 Kč. Pět spisů 2009–2014 mělo být skartováno, pět spisů 2015–2019 vedeno elektronicky. Přípis označuje deset souborů znaleckých zkoumání jako přílohy; tyto samostatné soubory nebyly s tímto PDF poskytnuty. Trestní podnět předán ÚO Prostějov. Původní PDF je veřejně přístupné a jeho SHA-256 souhlasí s dodaným originálem."
     },
     {
       "id": "doc-cz-dd-2026-10-28-nsz-kratke-shrnuti-trestniho-podnetu",
@@ -144,12 +147,13 @@
       ],
       "public": {
         "html": "listiny/2026-11-02-evidence-nsz-short.html",
-        "pdf": null,
+        "pdf": "documents/originaly-2026-11-02/2026-10-28-nsz-trestni-podnet-2-strany.pdf",
         "source_original_sha256": "d1c6ffb7cdc1caf20027a19664ce328ecc9c99195ad94e14b18c8dc3bdaf86c1",
         "source_original_size_bytes": 72962,
         "source_original_page_count": 2,
-        "verification_status": "original_pdf_verified_in_user_upload; binary_not_yet_public; source_text_or_evidence_abstract_public",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
+        "sha256": "d1c6ffb7cdc1caf20027a19664ce328ecc9c99195ad94e14b18c8dc3bdaf86c1"
       },
       "relations": [],
       "recipients": [
@@ -164,7 +168,7 @@
           "reference": "PPR-54525-1/ČJ-2026-990340"
         }
       ],
-      "evidence_note": "Dvoustránková shrnující listina datovaná 28. 10. 2026 eviduje reakce NS, NSZ, MSP, MV a Policejního prezidia a vazbu na výzvu NSZ sp. zn. 6 NZN 1737/2026 z 14. 7. 2026. Sama uvádí, že celý podklad je na Konopí je lék.cz. Toto není 53stránkový originál. Na veřejném webu Evidence Lab je jen tato evidenční anotace, nikoli nově nahraný originál."
+      "evidence_note": "Dvoustránková shrnující listina datovaná 28. 10. 2026 eviduje reakce NS, NSZ, MSP, MV a Policejního prezidia a vazbu na výzvu NSZ sp. zn. 6 NZN 1737/2026 z 14. 7. 2026. Sama uvádí, že celý podklad je na Konopí je lék.cz. Zveřejněno je pouze toto dvoustránkové shrnutí v původním PDF. Samostatný 53stránkový originál zatím na Evidence Lab není zveřejněn."
     },
     {
       "id": "doc-cz-os-pro-2026-10-30-15-nt-3105-vyrozumeni",
@@ -186,16 +190,17 @@
       ],
       "public": {
         "html": "listiny/2026-11-02-evidence-ospro-3105.html",
-        "pdf": null,
+        "pdf": "documents/originaly-2026-11-02/2026-10-30-os-prostejov-15-nt-3105.pdf",
         "source_original_sha256": "096b444ba31486a845f2d87a48c39c76aa86e8ca3226189aa37cdaeb8c6b30ed",
         "source_original_size_bytes": 172565,
         "source_original_page_count": 1,
-        "verification_status": "original_pdf_verified_in_user_upload; binary_not_yet_public; source_text_or_evidence_abstract_public",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
+        "sha256": "096b444ba31486a845f2d87a48c39c76aa86e8ca3226189aa37cdaeb8c6b30ed"
       },
       "relations": [],
       "recipients": [],
-      "evidence_note": "Sdělení samosoudce Mgr. Lukáše Horňáka ze dne 30. 10. 2026 reaguje na podání z 21. 10. 2026, uvádí pravomocné skončení věci 15 Nt 3105/2026 a že v ní soud bezplatnou obhajobu neřeší. Nejedná se o rozhodnutí ve věci 15 Nt 3106/2026, kde je plánováno veřejné zasedání 30. 11. 2026. V evidenci je anotace, původní PDF není zveřejněno."
+      "evidence_note": "Sdělení samosoudce Mgr. Lukáše Horňáka ze dne 30. 10. 2026 reaguje na podání z 21. 10. 2026, uvádí pravomocné skončení věci 15 Nt 3105/2026 a že v ní soud bezplatnou obhajobu neřeší. Nejedná se o rozhodnutí ve věci 15 Nt 3106/2026, kde je plánováno veřejné zasedání 30. 11. 2026. Původní PDF je veřejně přístupné."
     },
     {
       "id": "doc-cz-os-pro-2026-10-30-15-nt-3103-vyrozumeni",
@@ -217,16 +222,17 @@
       ],
       "public": {
         "html": "listiny/2026-11-02-evidence-ospro-3103.html",
-        "pdf": null,
+        "pdf": "documents/originaly-2026-11-02/2026-10-30-os-prostejov-15-nt-3103.pdf",
         "source_original_sha256": "e70e70a2f644ea2151281c4d9fa7c06f542f17d5b1544a8912d69f55d948f413",
         "source_original_size_bytes": 172694,
         "source_original_page_count": 1,
-        "verification_status": "original_pdf_verified_in_user_upload; binary_not_yet_public; source_text_or_evidence_abstract_public",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
+        "sha256": "e70e70a2f644ea2151281c4d9fa7c06f542f17d5b1544a8912d69f55d948f413"
       },
       "relations": [],
       "recipients": [],
-      "evidence_note": "Sdělení Okresního soudu v Prostějově ze dne 30. 10. 2026 reaguje na podání z 21. 10. 2026 a uvádí pravomocné skončení věci 15 Nt 3103/2026 a že v této věci bezplatná obhajoba nebude řešena. Není rozhodnutím o věci 15 Nt 3104/2026. Zveřejněn je plný textový přepis, nikoli původní PDF."
+      "evidence_note": "Sdělení Okresního soudu v Prostějově ze dne 30. 10. 2026 reaguje na podání z 21. 10. 2026 a uvádí pravomocné skončení věci 15 Nt 3103/2026 a že v této věci bezplatná obhajoba nebude řešena. Není rozhodnutím o věci 15 Nt 3104/2026. Původní PDF je veřejně přístupné a jeho SHA-256 souhlasí s dodaným originálem."
     }
   ]
 }
