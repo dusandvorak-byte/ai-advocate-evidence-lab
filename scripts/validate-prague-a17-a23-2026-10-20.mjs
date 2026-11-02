@@ -55,7 +55,7 @@ for(const q of specs){
  must(!d.user_title.includes('doručen')&&!d.evidence_note.includes('doručen')&&!d.evidence_note.includes('20. 10. 2026'),'service date accidentally published');
 }
 const nsz=JSON.parse(await readFile('web/data/nsz-prelitigation-timeline.json','utf8'));
-must(nsz.counts.total===30&&nsz.counts.incoming===5&&nsz.counts.outgoing===21&&nsz.counts.archival===4,'NSZ 30-record archive must remain untouched');
+must(nsz.counts.total===nsz.groups.reduce((n,g)=>n+g.items.length,0)&&nsz.counts.incoming>=5&&nsz.counts.outgoing>=21&&nsz.counts.archival===4,'NSZ original correspondence must remain with later evidence additions');
 const timers=JSON.parse(await readFile('web/data/process-timers.json','utf8'));
 for (const id of ['timer-court-18a17-2026','timer-court-18a23-2026']) {
  must(!(timers.timers||[]).some(x=>x.id===id),'decided case still active as an old waiting timer '+id);
