@@ -57,6 +57,13 @@
           "label_en": "Everything published on this case →",
           "href": "https://www.konopijelek.cz/novinky/prvni-obvineni-a-prvni-konopna-ustavni-stiznost-sp-zn-ii-us-664-12-uroda-konopi-z-roku-2008-a-2009/"
         }
+      ],
+      "media_links": [
+        {
+          "label_cs": "1. 11. 2026 – důkazní doplnění k obnovám (anotace)",
+          "label_en": "1 November 2026 – evidence supplement (abstract)",
+          "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-ospro-nov1.html"
+        }
       ]
     },
     {
@@ -87,6 +94,13 @@
           "label_en": "Everything published on this case →",
           "href": "https://www.konopijelek.cz/soud-s-dusanem-dvorakem/soud-s-dusanem-dvorakem-archiv/tiskove-zpravy/seznam-chronologie-a-meritum-odmitnutych-ustavnich-stiznosti-mgr-dusana-dvoraka/"
         }
+      ],
+      "media_links": [
+        {
+          "label_cs": "1. 11. 2026 – důkazní doplnění k obnovám (anotace)",
+          "label_en": "1 November 2026 – evidence supplement (abstract)",
+          "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-ospro-nov1.html"
+        }
       ]
     },
     {
@@ -107,7 +121,8 @@
       "media_en": "—",
       "godot_document_ids": [
         "doc-cz-ks-brn-2026-09-03-9-to-315-2026-140",
-        "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53"
+        "doc-cz-os-pro-2026-08-07-15-nt-3103-2026-53",
+        "doc-cz-os-pro-2026-10-30-15-nt-3103-vyrozumeni"
       ],
       "slalom_document_ids": [
         "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53"
@@ -117,6 +132,13 @@
           "label_cs": "Vše zveřejněné k této kauze →",
           "label_en": "Everything published on this case →",
           "href": "https://www.konopijelek.cz/soud-s-dusanem-dvorakem/soud-s-dusanem-dvorakem-archiv/tiskove-zpravy/seznam-chronologie-a-meritum-odmitnutych-ustavnich-stiznosti-mgr-dusana-dvoraka/"
+        }
+      ],
+      "media_links": [
+        {
+          "label_cs": "30. 10. 2026 – vyrozumění 15 Nt 3103 (přepis)",
+          "label_en": "30 October 2026 – notice 15 Nt 3103 (text)",
+          "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-ospro-3103.html"
         }
       ]
     },
@@ -138,7 +160,8 @@
       "media_en": "—",
       "godot_document_ids": [
         "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54",
-        "doc-cz-os-pro-2026-10-13-st-7-2026"
+        "doc-cz-os-pro-2026-10-13-st-7-2026",
+        "doc-cz-os-pro-2026-10-30-15-nt-3105-vyrozumeni"
       ],
       "slalom_document_ids": [
         "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54"
@@ -148,6 +171,13 @@
           "label_cs": "Vše zveřejněné k této kauze →",
           "label_en": "Everything published on this case →",
           "href": "https://www.konopijelek.cz/soud-s-dusanem-dvorakem/soud-s-dusanem-dvorakem-archiv/tiskove-zpravy/seznam-chronologie-a-meritum-odmitnutych-ustavnich-stiznosti-mgr-dusana-dvoraka/"
+        }
+      ],
+      "media_links": [
+        {
+          "label_cs": "30. 10. 2026 – vyrozumění 15 Nt 3105 (anotace)",
+          "label_en": "30 October 2026 – notice 15 Nt 3105 (abstract)",
+          "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-ospro-3105.html"
         }
       ]
     },
@@ -161,8 +191,8 @@
       ],
       "merit_cs": "Zásahová žaloba proti NCOZ. Žaloba a navazující podání napadají způsob vyřízení a nečinnost při prověřování policejních a znaleckých postupů při stanovení THC; pozdější důkazní doplnění rozvíjejí otázky odběru, homogenizace, THC/THCA, dekarboxylace, validace a nejistoty měření.",
       "merit_en": "Intervention action against NCOZ. The action and follow-up filings challenge the handling and alleged inactivity in reviewing police and forensic THC-determination practices; later evidence supplements develop sampling, homogenisation, THC/THCA, decarboxylation, validation and measurement-uncertainty issues.",
-      "remedy_cs": "Soud dne 12. 10. 2026 usnesením č. j. 18 A 17/2026-215 zásahovou žalobu proti NCOZ a Policejnímu prezidiu ČR odmítl. Připravuje se kasační stížnost k Nejvyššímu správnímu soudu; její podání dosud není doloženo.",
-      "remedy_en": "On 12 October 2026, by order 18 A 17/2026-215, the court rejected the intervention action against NCOZ and the Police Presidium. A cassation complaint to the Supreme Administrative Court is being prepared; no filing is evidenced.",
+      "remedy_cs": "Městský soud v Praze dne 12. 10. 2026 usnesením č. j. 18 A 17/2026-215 odmítl zásahovou žalobu proti NCOZ a Policejnímu prezidiu. Kasační stížnost je datována 30. 10. 2026 a napadá výroky I–II; doručení NSS a nová spisová značka nejsou doloženy. Zveřejněn je úplný textový přepis, nikoliv originální PDF.",
+      "remedy_en": "On 12 October 2026, by order 18 A 17/2026-215, Prague Municipal Court rejected the action against NCOZ and the Police Presidium. A cassation complaint dated 30 October 2026 challenges operative parts I–II. Receipt by the Supreme Administrative Court and a new case number are unverified. The complete text transcription is public, not the original PDF.",
       "supreme_cs": "Historická trestní linie uváděná v podáních: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
       "supreme_en": "Historical criminal-review line cited in the filings: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
       "media_cs": "—",
@@ -180,6 +210,18 @@
           "label_cs": "Vše zveřejněné k této kauze →",
           "label_en": "Everything published on this case →",
           "href": "https://www.konopijelek.cz/policie/"
+        }
+      ],
+      "media_links": [
+        {
+          "label_cs": "30. 10. 2026 – kasační stížnost NCOZ (úplný text)",
+          "label_en": "30 October 2026 – NCOZ cassation complaint (full Czech text)",
+          "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-ncoz.html"
+        },
+        {
+          "label_cs": "30. 10. 2026 – Policie Olomouc, KRPM-145410 (přepis)",
+          "label_en": "30 October 2026 – Olomouc Regional Police response (text)",
+          "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-krpm.html"
         }
       ]
     },
@@ -471,6 +513,11 @@
           "label_cs": "28. 10. 2026 – originál podání na Konopí je lék.cz",
           "label_en": "28 October 2026 – original filing on Konopí je lék.cz",
           "href": "https://www.konopijelek.cz/novinky/trestni-podnet-a-zadost-ze-dne-28-rijna-2026/"
+        },
+        {
+          "label_cs": "28. 10. 2026 – dvoustránkové shrnutí podání (anotace)",
+          "label_en": "28 October 2026 – two-page submission summary (abstract)",
+          "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-nsz-short.html"
         }
       ]
     }
