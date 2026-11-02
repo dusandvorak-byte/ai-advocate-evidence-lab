@@ -57,7 +57,7 @@ const official=nszTimeline.groups.find(x=>x.id==='incoming_nsz')?.items||[];
 const own=nszTimeline.groups.find(x=>x.id==='outgoing_to_nsz')?.items||[];
 const archive=nszTimeline.groups.find(x=>x.id==='historical_archive')?.items||[];
 assert(official.length>=5&&own.length>=21&&archive.length===4,'original 29 NSZ entries must remain while canonical later filings are appended');
-assert(new Set([...official,...own,...archive].map(x=>x.document_id||x.id)).size===official.length+own.length+archive.length,'NSZ timeline contains duplicate identifiers');
+assert(new Set([...official,...own,...archive].map(x=>x.document_id||x.id||x.archive_reference_id)).size===official.length+own.length+archive.length,'NSZ timeline contains duplicate identifiers');
 assert(own.some(x=>x.document_id==='doc-cz-dd-2026-10-28-nsz-kratke-shrnuti-trestniho-podnetu'),'Missing 28 October NSZ follow-up');
 assert(official.some(x=>x.document_id==='doc-cz-nsz-2026-10-15-sin-72-2026-16'&&x.href?.includes('121-nsz-sin-72-2026-16-2026-10-15-original.pdf')),'October NSZ SIN 72 original not in its proper evidence group');
 const act=JSON.parse(await readFile('project-memory/active-court-dockets.json','utf8'));
