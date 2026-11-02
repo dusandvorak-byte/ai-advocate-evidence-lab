@@ -44,9 +44,9 @@ for(const q of specs){
    must(row.remedy_cs.includes('30. 10. 2026')&&row.remedy_cs.includes('nejsou doloženy'),'CZ court annotation must identify dated complaint without inventing service');
    must(row.remedy_en.includes('30 October 2026')&&row.remedy_en.includes('unverified'),'EN court annotation must identify dated complaint without inventing service');
  }else{
-   must(c.cassation_status==='in_preparation_not_filed','wrong A17 remedy status');
-   must(row.remedy_cs.includes('Připravuje se kasační stížnost')&&!row.remedy_cs.includes('kasační stížnost byla podána'),'A17 cassation status wrongly published');
-   must(row.remedy_en.includes('being prepared'),'missing A17 EN court state');
+   must(c.cassation_status==='dated_2026-10-30_original_uploaded_filing_unverified'&&c.latest_prepared_pleading_document_id==='doc-cz-dd-2026-10-30-kasacni-ncoz-pp-18a17','A17 newly documented cassation must remain dated, not filed');
+   must(row.remedy_cs.includes('30. 10. 2026')&&row.remedy_cs.includes('nejsou doloženy'),'A17 CZ annotation must identify dated complaint without inventing service');
+   must(row.remedy_en.includes('30 October 2026')&&row.remedy_en.includes('unverified'),'A17 EN annotation must identify dated complaint without inventing service');
  }
  must(row.remedy_cs.includes(q.ref),'missing case reference in CZ remedy');
  must(t.documents[q.id]?.includes('being prepared'),'missing English Godot translation');
