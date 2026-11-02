@@ -5,7 +5,7 @@ const fail=(msg)=>{throw Error('ORIGINAL-PDF-BATCH-2026-11-02: '+msg)};
 const main=JSON.parse(await readFile('project-memory/documents-2026-supplement-2026-11-02-late-october.json','utf8')).documents;
 const msp=JSON.parse(await readFile('project-memory/documents-2026-supplement-2026-10-30-kasace-msp.json','utf8')).documents;
 const docs=[...main,...msp];
-if(docs.length!==7||new Set(docs.map(x=>x.id)).size!==7)fail('seven unique source records required');
+if(docs.length!==9||new Set(docs.map(x=>x.id)).size!==9)fail('seven unique source records required');
 for(const d of docs){
  const p=d.public?.pdf;
  if(!p||!p.startsWith('documents/originaly-2026-11-02/'))fail('missing direct original PDF path: '+d.id);
@@ -27,5 +27,5 @@ for(const name of pageSet){
  for(const d of docs)if(!page.includes(d.id))fail('missing source in multilingual context: '+name+' '+d.id);
 }
 const packet=JSON.parse(await readFile('web/data/evidence-late-october-2026.json','utf8'));
-if(packet.documents.length!==6||packet.documents.some(x=>!x.pdf_byte_identical||!x.pdf_url))fail('incomplete evidence PDF index');
-console.log('ORIGINAL PDF BATCH: verified 7/7 user-uploaded byte-identical original PDFs, page counts, source links, six index records, CZ/EN and Church pages');
+if(packet.documents.length!==8||packet.documents.some(x=>!x.pdf_byte_identical||!x.pdf_url))fail('incomplete evidence PDF index');
+console.log('ORIGINAL PDF BATCH: verified 9/9 user-uploaded byte-identical original PDFs, page counts, source links, eight index records, CZ/EN and Church pages');

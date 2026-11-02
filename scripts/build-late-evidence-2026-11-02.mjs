@@ -6,6 +6,8 @@ const esc=x=>String(x??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replac
 const root='/ai-advocate-evidence-lab/';
 const external='https://www.konopijelek.cz/novinky/trestni-podnet-a-zadost-ze-dne-28-rijna-2026/';
 const short={
+ nsz53:'Complete original 53-page complaints and specified criminal report, 28 October 2026. Delivery not established by publication.',
+ nsz22:'Final original 22-page conditional NSZ intervention complaint dated 28 October 2026; court filing for 17 November is conditional, not yet evidenced.',
  ncoz:'Cassation complaint, case 18 A 17/2026, dated 30 October 2026. Full Czech-language text transcription, not the original PDF. Court receipt is unverified.',
  'ospro-nov1':'Urgent evidence supplement in criminal-reopening matters 15 Nt 3104/2026 and 15 Nt 3106/2026 dated 1 November 2026. Evidence annotation only, not a full original document.',
  krpm:'Olomouc Regional Police information response, dated 30 October 2026, listing destroyed or electronic case files and ten referenced expert-study attachments. Full text transcription, not the original PDF; attachments were not included in the upload.',
