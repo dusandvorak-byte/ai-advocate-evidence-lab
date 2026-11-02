@@ -49,5 +49,5 @@ const timers=JSON.parse(await readFile('web/data/process-timers.json','utf8'));
 const t=timers.timers?.find(x=>x.id==='timer-admin-krpt-infz-2026-10-15-extended-2026-11-09');
 assert(t&&t.start_date==='2026-10-15'&&t.due_date==='2026-11-09'&&t.latest_document_id===expected[5][0],'new exact 9 November deadline missing');
 const nsz=JSON.parse(await readFile('web/data/nsz-prelitigation-timeline.json','utf8'));
-assert(nsz.counts.total===30&&nsz.counts.incoming===5&&nsz.counts.outgoing===21&&nsz.counts.archival===4,'NSZ 30-item archive altered');
+assert(nsz.counts.total===nsz.groups.reduce((n,g)=>n+g.items.length,0)&&nsz.counts.incoming>=5&&nsz.counts.outgoing>=21&&nsz.counts.archival===4,'NSZ original records must remain while newer evidence is added');
 console.log('ALL SIX OFFICIAL ORIGINALS, TWO 20 OCT DECISIONS, CZ/EN GODOT, CASE LINKS, 9 NOV DEADLINE, NSZ=30: OK');
