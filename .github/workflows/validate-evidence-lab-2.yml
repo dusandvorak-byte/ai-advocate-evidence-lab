@@ -178,6 +178,9 @@ jobs:
       - name: Verify 26 October state originals and legal outcomes
         run: node scripts/validate-2026-10-26-uoou-pcr.mjs
 
+      - name: Verify 7 byte-identical source PDFs for late October and 1 November 2026
+        run: node scripts/validate-originals-2026-11-02.mjs
+
       - name: Verify 27 Oct VSZ Prague and 28 Oct Church addendum originals, chronology, CZ/EN and case links
         run: node scripts/validate-vsz-praha-mk-church-2026-10-30.mjs
 
