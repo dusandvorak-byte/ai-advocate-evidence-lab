@@ -1,0 +1,232 @@
+{
+  "schema_version": "1.0",
+  "status": "binding",
+  "batch_date": "2026-11-02",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-10-30-kasacni-ncoz-pp-18a17",
+      "issue_date": "2026-10-30",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "18 A 17/2026; 18 A 17/2026-215",
+      "user_title": "Kasační stížnost proti odmítnutí zásahové žaloby proti NCOZ a Policejnímu prezidiu",
+      "case_ids": [
+        "case-cz-ms-praha-18a17-2026"
+      ],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "original PDF supplied by user and inspected; court delivery only if explicitly evidenced in document",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/2026-11-02-evidence-ncoz.html",
+        "pdf": null,
+        "source_original_sha256": "6d37a3b27fa121dad5bbb3b417a4695cc6e8a09890bd7e7ef6a6c4a193d317f3",
+        "source_original_size_bytes": 186838,
+        "source_original_page_count": 9,
+        "verification_status": "original_pdf_verified_in_user_upload; binary_not_yet_public; source_text_or_evidence_abstract_public",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-ms-pha-2026-10-12-18-a-17-2026-215"
+        }
+      ],
+      "recipients": [
+        {
+          "institution_id": "CZ-NSS",
+          "role": "primary",
+          "reference": "18 A 17/2026"
+        }
+      ],
+      "evidence_note": "Devítistránková kasační stížnost datovaná 30. 10. 2026 proti usnesení MS Praha 18 A 17/2026-215 ze 12. 10. 2026. Napadá výrok I a závislý výrok II; soustředí se na právní režim podání, pasivní legitimaci NCOZ a Policejního prezidia, kontradiktornost, zneužití práva a unijní právo. Doručení soudu a přidělená spisová značka NSS nejsou doloženy. Zveřejněn je plný textový přepis, nikoliv původní PDF."
+    },
+    {
+      "id": "doc-cz-dd-2026-11-01-os-prostejov-dukazni-doplneni",
+      "issue_date": "2026-11-01",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 15 Nt 3103/2026; 15 Nt 3105/2026",
+      "user_title": "OS Prostějov – naléhavé důkazní doplnění, předběžné šetření a návrh svědků před jednáními 30. 11. 2026",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "original PDF supplied by user and inspected; court delivery only if explicitly evidenced in document",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/2026-11-02-evidence-ospro-nov1.html",
+        "pdf": null,
+        "source_original_sha256": "c78f057e467e6cde9d03ea05d1d7780d905bb4ee9c22cd408b0a28c739c67806",
+        "source_original_size_bytes": 627881,
+        "source_original_page_count": 9,
+        "verification_status": "original_pdf_verified_in_user_upload; binary_not_yet_public; source_text_or_evidence_abstract_public",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
+      },
+      "relations": [
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-os-pro-2026-10-30-15-nt-3103-vyrozumeni"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-os-pro-2026-10-30-15-nt-3105-vyrozumeni"
+        }
+      ],
+      "recipients": [
+        {
+          "institution_id": "CZ-OS-PRO",
+          "role": "primary",
+          "reference": "15 Nt 3104/2026; 15 Nt 3106/2026"
+        }
+      ],
+      "evidence_note": "Devítistránkové podání z 1. 11. 2026 navrhuje předběžné šetření podle § 282 odst. 1 trestního řádu, ověření starších důkazů, výslech svědkyně a vyřízení obhajoby ve věcech 15 Nt 3104 a 3106/2026. Rozlišuje od pravomocně skončených věcí 15 Nt 3103 a 3105/2026. Doručení tohoto podání soudu není doloženo. Veřejná stránka obsahuje redakční anotaci; původní PDF zatím není nahráno."
+    },
+    {
+      "id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+      "issue_date": "2026-10-30",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPO",
+      "reference": "KRPM-145410-2/ČJ-2026-1400AP-106",
+      "user_title": "KŘP Olomouckého kraje – vyrozumění k žádosti z 15. 10. 2026: zničené spisy, elektronické spisy a znalecká zkoumání",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original PDF supplied by user and inspected; court delivery only if explicitly evidenced in document",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/2026-11-02-evidence-krpm.html",
+        "pdf": null,
+        "source_original_sha256": "11a49092de3eece2ad19b8c1ac30f830c64068857d9b6f3c36f5fb6f07f12fcd",
+        "source_original_size_bytes": 326595,
+        "source_original_page_count": 2,
+        "verification_status": "original_pdf_verified_in_user_upload; binary_not_yet_public; source_text_or_evidence_abstract_public",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
+      },
+      "relations": [],
+      "recipients": [],
+      "evidence_note": "Policie 30. 10. 2026 uvádí sazbu 417 Kč/h a očekávanou úhradu nad žadatelův limit 500 Kč. Pět spisů 2009–2014 mělo být skartováno, pět spisů 2015–2019 vedeno elektronicky. Přípis označuje deset souborů znaleckých zkoumání jako přílohy; tyto samostatné soubory nebyly s tímto PDF poskytnuty. Trestní podnět předán ÚO Prostějov. Zveřejněn plný textový přepis, nikoli původní PDF."
+    },
+    {
+      "id": "doc-cz-dd-2026-10-28-nsz-kratke-shrnuti-trestniho-podnetu",
+      "issue_date": "2026-10-28",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "6 NZN 1737/2026; Zin 208/2026; SIN 72/2026-16; MSP-898/2026-OP-OSV/2",
+      "user_title": "NSZ – dvoustránkové shrnutí podání a reakce na výzvy k trestnímu podnětu ze dne 10. 10. 2026",
+      "case_ids": [
+        "CASE-CZ-NSZ-6NZN1737-2026"
+      ],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "original PDF supplied by user and inspected; court delivery only if explicitly evidenced in document",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/2026-11-02-evidence-nsz-short.html",
+        "pdf": null,
+        "source_original_sha256": "d1c6ffb7cdc1caf20027a19664ce328ecc9c99195ad94e14b18c8dc3bdaf86c1",
+        "source_original_size_bytes": 72962,
+        "source_original_page_count": 2,
+        "verification_status": "original_pdf_verified_in_user_upload; binary_not_yet_public; source_text_or_evidence_abstract_public",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
+      },
+      "relations": [],
+      "recipients": [
+        {
+          "institution_id": "CZ-NSZ",
+          "role": "primary",
+          "reference": "6 NZN 1737/2026"
+        },
+        {
+          "institution_id": "CZ-PCR-PP",
+          "role": "copy",
+          "reference": "PPR-54525-1/ČJ-2026-990340"
+        }
+      ],
+      "evidence_note": "Dvoustránková shrnující listina datovaná 28. 10. 2026 eviduje reakce NS, NSZ, MSP, MV a Policejního prezidia a vazbu na výzvu NSZ sp. zn. 6 NZN 1737/2026 z 14. 7. 2026. Sama uvádí, že celý podklad je na Konopí je lék.cz. Toto není 53stránkový originál. Na veřejném webu Evidence Lab je jen tato evidenční anotace, nikoli nově nahraný originál."
+    },
+    {
+      "id": "doc-cz-os-pro-2026-10-30-15-nt-3105-vyrozumeni",
+      "issue_date": "2026-10-30",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3105/2026",
+      "user_title": "Okresní soud v Prostějově – sdělení o pravomocném skončení věci 15 Nt 3105/2026 a neřešení bezplatné obhajoby",
+      "case_ids": [
+        "case-cz-ks-brno-9to316-2026"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original PDF supplied by user and inspected; court delivery only if explicitly evidenced in document",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/2026-11-02-evidence-ospro-3105.html",
+        "pdf": null,
+        "source_original_sha256": "096b444ba31486a845f2d87a48c39c76aa86e8ca3226189aa37cdaeb8c6b30ed",
+        "source_original_size_bytes": 172565,
+        "source_original_page_count": 1,
+        "verification_status": "original_pdf_verified_in_user_upload; binary_not_yet_public; source_text_or_evidence_abstract_public",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
+      },
+      "relations": [],
+      "recipients": [],
+      "evidence_note": "Sdělení samosoudce Mgr. Lukáše Horňáka ze dne 30. 10. 2026 reaguje na podání z 21. 10. 2026, uvádí pravomocné skončení věci 15 Nt 3105/2026 a že v ní soud bezplatnou obhajobu neřeší. Nejedná se o rozhodnutí ve věci 15 Nt 3106/2026, kde je plánováno veřejné zasedání 30. 11. 2026. V evidenci je anotace, původní PDF není zveřejněno."
+    },
+    {
+      "id": "doc-cz-os-pro-2026-10-30-15-nt-3103-vyrozumeni",
+      "issue_date": "2026-10-30",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3103/2026",
+      "user_title": "Okresní soud v Prostějově – sdělení o pravomocném skončení věci 15 Nt 3103/2026 a neřešení bezplatné obhajoby",
+      "case_ids": [
+        "case-cz-ks-brno-9to315-2026"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original PDF supplied by user and inspected; court delivery only if explicitly evidenced in document",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/2026-11-02-evidence-ospro-3103.html",
+        "pdf": null,
+        "source_original_sha256": "e70e70a2f644ea2151281c4d9fa7c06f542f17d5b1544a8912d69f55d948f413",
+        "source_original_size_bytes": 172694,
+        "source_original_page_count": 1,
+        "verification_status": "original_pdf_verified_in_user_upload; binary_not_yet_public; source_text_or_evidence_abstract_public",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
+      },
+      "relations": [],
+      "recipients": [],
+      "evidence_note": "Sdělení Okresního soudu v Prostějově ze dne 30. 10. 2026 reaguje na podání z 21. 10. 2026 a uvádí pravomocné skončení věci 15 Nt 3103/2026 a že v této věci bezplatná obhajoba nebude řešena. Není rozhodnutím o věci 15 Nt 3104/2026. Zveřejněn je plný textový přepis, nikoli původní PDF."
+    }
+  ]
+}
