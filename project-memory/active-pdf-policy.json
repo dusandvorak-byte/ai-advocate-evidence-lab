@@ -65,10 +65,6 @@
     {
       "id": "doc-cz-dd-2026-09-13-nsz-ct-zaverecne-sdeleni",
       "reason": "Zdrojové PDF závěrečného sdělení NSZ a ČT ze dne 13. 9. 2026 bylo obsahově ověřeno ve zdrojové knihovně, ale binární soubor není v tomto publikačním běhu fyzicky dostupný pro bezpečné vložení do repozitáře. Veřejná evidenční stránka se zveřejní bez falešného PDF odkazu; výjimka zaniká po materializaci originálu."
-    },
-    {
-      "id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
-      "reason": "Dočasná výjimka: originální PDF policie č. j. KRPM-145410-2/ČJ-2026-1400AP-106 bylo poskytnuto a ověřeno, ale jeho binární přenos do veřejného repozitáře zablokoval připojený nástroj. Úplný textový přepis je dostupný na evidenční stránce, není označován jako originál; výjimka se odstraní ihned po schválené materializaci originálu."
     }
   ],
   "exception_rule": "Výjimka znamená pouze to, že nepřítomnost PDF není vadou úplnosti. Existující a ověřené PDF se ani u výjimky nesmí odstranit.",
