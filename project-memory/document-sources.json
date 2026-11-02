@@ -358,6 +358,12 @@
       "role": "batch",
       "batch_date": "2026-10-30",
       "public_status": "verified eight-page complete text transcription, original PDF binary pending"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
+      "role": "batch",
+      "batch_date": "2026-11-02",
+      "public_status": "verified public evidence and text transcriptions; original PDFs not uploaded to public repository"
     }
   ]
 }

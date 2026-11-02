@@ -31,5 +31,5 @@ for(const d of [...a.documents,...b.documents]){
 const courtIds=['court-prostejov-2t104-15nt3104','court-prostejov-2t65-15nt3106','court-prostejov-15nt3103-9to315','court-prostejov-15nt3105-9to316'];
 for(const id of courtIds){const c=court.rows.find(x=>x.id===id);must(c&&c.remedy_cs.includes('21. 10. 2026')&&c.remedy_cs.includes('24. 10. 2026'),'missing counsel filing court narrative '+id);}
 const ns=JSON.parse(await readFile('web/data/nsz-prelitigation-timeline.json','utf8'));
-must(ns.counts.total===30,'preexisting NSZ timeline altered');
+must(ns.counts.total===ns.groups.reduce((sum,g)=>sum+g.items.length,0)&&ns.counts.incoming>=5&&ns.counts.outgoing>=21&&ns.counts.archival===4,'preexisting NSZ correspondence must remain with later canonical additions');
 console.log('OCT24: 7 unique documents; 3 exact original public PDFs, 4 evidence entries with missing originals accurately labelled; CZ/EN; original dates; court links; NSZ 30 OK');

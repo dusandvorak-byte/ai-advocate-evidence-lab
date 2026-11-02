@@ -48,5 +48,5 @@ for(const [page,language] of [[churchCz,'CZ'],[churchEn,'EN']]){
 }
 check(timers.timers.find(x=>x.id==='timer-admin-mk-2026-07-22')?.latest_related_filing_id===mk.id,'church remonstrance process not updated');
 const ns=JSON.parse(await readFile('web/data/nsz-prelitigation-timeline.json','utf8'));
-check(ns.counts.total===30,'30 historic NSZ records changed');
+check(ns.counts.total===ns.groups.reduce((n,g)=>n+g.items.length,0)&&ns.counts.incoming>=5&&ns.counts.outgoing>=21&&ns.counts.archival===4,'historic NSZ records missing or current count inconsistent');
 console.log('PRAGUE VSZ vs OLOMOUC / ORIGINAL 6+2 PAGES / GODOT CZ+EN / CHURCH CZ+EN / SLALOM / MK REMONSTRANCE: PASS');

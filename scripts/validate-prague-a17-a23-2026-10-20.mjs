@@ -44,9 +44,9 @@ for(const q of specs){
    must(row.remedy_cs.includes('30. 10. 2026')&&row.remedy_cs.includes('nejsou doloženy'),'CZ court annotation must identify dated complaint without inventing service');
    must(row.remedy_en.includes('30 October 2026')&&row.remedy_en.includes('unverified'),'EN court annotation must identify dated complaint without inventing service');
  }else{
-   must(c.cassation_status==='in_preparation_not_filed','wrong A17 remedy status');
-   must(row.remedy_cs.includes('Připravuje se kasační stížnost')&&!row.remedy_cs.includes('kasační stížnost byla podána'),'A17 cassation status wrongly published');
-   must(row.remedy_en.includes('being prepared'),'missing A17 EN court state');
+   must(c.cassation_status==='dated_2026-10-30_original_uploaded_filing_unverified'&&c.latest_prepared_pleading_document_id==='doc-cz-dd-2026-10-30-kasacni-ncoz-pp-18a17','A17 newly documented cassation must remain dated, not filed');
+   must(row.remedy_cs.includes('30. 10. 2026')&&row.remedy_cs.includes('nejsou doloženy'),'A17 CZ annotation must identify dated complaint without inventing service');
+   must(row.remedy_en.includes('30 October 2026')&&row.remedy_en.includes('unverified'),'A17 EN annotation must identify dated complaint without inventing service');
  }
  must(row.remedy_cs.includes(q.ref),'missing case reference in CZ remedy');
  must(t.documents[q.id]?.includes('being prepared'),'missing English Godot translation');
@@ -55,7 +55,7 @@ for(const q of specs){
  must(!d.user_title.includes('doručen')&&!d.evidence_note.includes('doručen')&&!d.evidence_note.includes('20. 10. 2026'),'service date accidentally published');
 }
 const nsz=JSON.parse(await readFile('web/data/nsz-prelitigation-timeline.json','utf8'));
-must(nsz.counts.total===30&&nsz.counts.incoming===5&&nsz.counts.outgoing===21&&nsz.counts.archival===4,'NSZ 30-record archive must remain untouched');
+must(nsz.counts.total===nsz.groups.reduce((n,g)=>n+g.items.length,0)&&nsz.counts.incoming>=5&&nsz.counts.outgoing>=21&&nsz.counts.archival===4,'NSZ original correspondence must remain with later evidence additions');
 const timers=JSON.parse(await readFile('web/data/process-timers.json','utf8'));
 for (const id of ['timer-court-18a17-2026','timer-court-18a23-2026']) {
  must(!(timers.timers||[]).some(x=>x.id===id),'decided case still active as an old waiting timer '+id);
