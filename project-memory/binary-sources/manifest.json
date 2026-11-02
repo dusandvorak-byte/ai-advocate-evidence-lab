@@ -1,0 +1,19 @@
+{
+  "files": [
+    {
+      "target": "web/documents/originaly-2026-11-02/2026-10-28-nsz-specifikace-trestnich-podnetu-53-stran.pdf",
+      "sha256": "7d3fad3785d027fb5c5194e43a9d8f2b373891a76b342a5012548aa5b5ebde44",
+      "size_bytes": 10143373,
+      "page_count": 53,
+      "chunks": [
+        "project-memory/binary-sources/nsz-2026-10-28-53-pages/chunk-00.b64",
+        "project-memory/binary-sources/nsz-2026-10-28-53-pages/chunk-01.b64",
+        "project-memory/binary-sources/nsz-2026-10-28-53-pages/chunk-02.b64",
+        "project-memory/binary-sources/nsz-2026-10-28-53-pages/chunk-03.b64",
+        "project-memory/binary-sources/nsz-2026-10-28-53-pages/chunk-04.b64",
+        "project-memory/binary-sources/nsz-2026-10-28-53-pages/chunk-05.b64",
+        "project-memory/binary-sources/nsz-2026-10-28-53-pages/chunk-06.b64"
+      ]
+    }
+  ]
+}

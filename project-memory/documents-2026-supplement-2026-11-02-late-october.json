@@ -168,7 +168,7 @@
           "reference": "PPR-54525-1/ČJ-2026-990340"
         }
       ],
-      "evidence_note": "Dvoustránková shrnující listina datovaná 28. 10. 2026 eviduje reakce NS, NSZ, MSP, MV a Policejního prezidia a vazbu na výzvu NSZ sp. zn. 6 NZN 1737/2026 z 14. 7. 2026. Sama uvádí, že celý podklad je na Konopí je lék.cz. Zveřejněno je pouze toto dvoustránkové shrnutí v původním PDF. Samostatný 53stránkový originál zatím na Evidence Lab není zveřejněn."
+      "evidence_note": "Dvoustránkové shrnutí podání k NSZ datované 28. 10. 2026. Nejde o úplný podklad; v této evidenci je zvlášť připojen původní 53stránkový originál a samostatná 22stránková podmíněná zásahová žaloba."
     },
     {
       "id": "doc-cz-os-pro-2026-10-30-15-nt-3105-vyrozumeni",
@@ -233,6 +233,134 @@
       "relations": [],
       "recipients": [],
       "evidence_note": "Sdělení Okresního soudu v Prostějově ze dne 30. 10. 2026 reaguje na podání z 21. 10. 2026 a uvádí pravomocné skončení věci 15 Nt 3103/2026 a že v této věci bezplatná obhajoba nebude řešena. Není rozhodnutím o věci 15 Nt 3104/2026. Původní PDF je veřejně přístupné a jeho SHA-256 souhlasí s dodaným originálem."
+    },
+    {
+      "id": "doc-cz-dd-2026-10-28-nsz-53str-specifikace-a-reakce",
+      "issue_date": "2026-10-28",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "NSZ 6 NZN 1737/2026; SIN 72/2026-16; Zin 208/2026",
+      "user_title": "NSZ – úplné 53stránkové stížnosti, reakce na výzvy a specifikace trestního podnětu ze dne 28. října 2026",
+      "case_ids": [
+        "CASE-CZ-NSZ-6NZN1737-2026"
+      ],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "complete 53-page byte-identical original supplied by user; proof of delivery not inferred",
+      "topics": [
+        "NSZ",
+        "trestní podnět",
+        "žádosti o informace",
+        "metodika měření THC",
+        "6 NZN 1737/2026"
+      ],
+      "public": {
+        "html": "listiny/2026-11-02-evidence-nsz53.html",
+        "pdf": "documents/originaly-2026-11-02/2026-10-28-nsz-specifikace-trestnich-podnetu-53-stran.pdf",
+        "source_original_sha256": "7d3fad3785d027fb5c5194e43a9d8f2b373891a76b342a5012548aa5b5ebde44",
+        "source_original_size_bytes": 10143373,
+        "source_original_page_count": 53,
+        "verification_status": "binary_original_verified_by_sha256_on_materialization",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
+        "sha256": "7d3fad3785d027fb5c5194e43a9d8f2b373891a76b342a5012548aa5b5ebde44"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-nsz-2026-08-13-6-nzn-1737-2026-73"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-10-28-nsz-kratke-shrnuti-trestniho-podnetu"
+        }
+      ],
+      "recipients": [
+        {
+          "institution_id": "CZ-NSZ",
+          "role": "primary",
+          "reference": "6 NZN 1737/2026"
+        }
+      ],
+      "evidence_note": "Úplný původní 53stránkový PDF dokument datovaný 28. října 2026. Reaguje na výzvy NSZ, Nejvyššího soudu, Ministerstva spravedlnosti, Ministerstva vnitra a Policie ČR; rozlišuje žádosti podle InfZ a trestní podněty, obsahuje deset informačních otázek a obrazové přílohy. Doručení jednotlivým orgánům není tímto zveřejněním prokázáno. PDF je sestaveno z kontrolovaných binárních částí do bitově shodného originálu.",
+      "justice_slalom": {
+        "archive_number": 131,
+        "archive_name": "NSZ -NS-MSP-MV-PP- et. dne 28.2026- specifikace TZ a žádosti.pdf",
+        "source_sha256": "7d3fad3785d027fb5c5194e43a9d8f2b373891a76b342a5012548aa5b5ebde44",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "primary",
+            "subject_cs": "Úplné stížnosti a upřesnění trestního podnětu a informačních žádostí ze dne 28. října 2026 – 53 stran",
+            "subject_en": "Complete complaints and clarification of criminal reports and information requests of 28 October 2026 – 53 pages"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-dd-2026-10-28-nsz-zasahova-zaloba-podminena",
+      "issue_date": "2026-10-28",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "6 NZN 1737/2026; podmíněné soudní podání 17. 11. 2026",
+      "user_title": "NSZ – 22stránkový schválený originál zásahové žaloby, předložený NSZ dne 31. října 2026 s podmíněným podáním soudu 17. listopadu",
+      "case_ids": [
+        "CASE-CZ-NSZ-6NZN1737-2026"
+      ],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "22-page final original supplied by user, document states dispatched 31 October 2026; court filing is conditional",
+      "topics": [
+        "NSZ",
+        "zásahová žaloba",
+        "podmíněné podání",
+        "6 NZN 1737/2026",
+        "§ 66 odst. 2 s. ř. s."
+      ],
+      "public": {
+        "html": "listiny/2026-11-02-evidence-nsz22.html",
+        "pdf": "documents/originaly-2026-11-02/2026-10-28-nsz-zasahova-zaloba-22-stran.pdf",
+        "source_original_sha256": "fcb792708b8e6f2a24b1a68f45a51696cf2a5c0c84c78100789546b296d72797",
+        "source_original_size_bytes": 2586973,
+        "source_original_page_count": 22,
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
+        "sha256": "fcb792708b8e6f2a24b1a68f45a51696cf2a5c0c84c78100789546b296d72797"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-nsz-2026-08-13-6-nzn-1737-2026-73"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-10-28-nsz-53str-specifikace-a-reakce"
+        }
+      ],
+      "recipients": [
+        {
+          "institution_id": "CZ-NSZ",
+          "role": "primary",
+          "reference": "6 NZN 1737/2026"
+        }
+      ],
+      "evidence_note": "Schválený 22stránkový původní PDF zásahové žaloby na NSZ. Dokument je datován 28. 10. 2026 a uvádí vypravení NSZ dne 31. 10. 2026. Podání ke Krajskému soudu v Brně je výslovně podmíněno nereagováním NSZ a plánováno na 17. 11. 2026; zveřejnění není důkazem soudního podání. Název souboru uváděl rok 2028, ale v listině je správně uveden 2026; obsah není měněn.",
+      "justice_slalom": {
+        "archive_number": 132,
+        "archive_name": "NSZ-žaloba - verze 28.října 2028 po schválení SR a DR- 31.10.2026(1).pdf",
+        "source_sha256": "fcb792708b8e6f2a24b1a68f45a51696cf2a5c0c84c78100789546b296d72797",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-NSZ",
+            "reference": "6 NZN 1737/2026",
+            "role": "primary",
+            "subject_cs": "Předložení schváleného návrhu zásahové žaloby NSZ k vyjádření; podání soudu zatím podmíněné",
+            "subject_en": "Final draft action submitted to the Supreme Public Prosecutor’s Office for comment; court filing remains conditional"
+          }
+        ]
+      }
     }
   ]
 }

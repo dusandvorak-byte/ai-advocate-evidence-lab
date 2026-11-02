@@ -41,6 +41,7 @@ for (const file of ['web/index.html','web/en.html','web/kc/index.html','web/kc/e
 }
 
 await run('scripts/validate-architecture.mjs');
+await run('scripts/materialize-binary-sources.mjs');
 await run('scripts/apply-justice-slalom-2026-10-12-case-links.mjs');
 await runPython('scripts/materialize-pdf-release-2026-09-29.py');
 await runPython('scripts/materialize-state-pdfs-2026-09-03.py');
