@@ -15,6 +15,25 @@ const short={
  'ospro-3105':'District Court of Prostějov notice on case 15 Nt 3105/2026 dated 30 October 2026. Evidence annotation only; this is not a ruling in pending case 15 Nt 3106/2026.',
  'ospro-3103':'District Court of Prostějov notice on case 15 Nt 3103/2026 dated 30 October 2026. Full text transcription, not the original PDF; this is not a ruling in pending case 15 Nt 3104/2026.'
 };
+// Restore only the user's exact 53-page binary original, never a recreated PDF.
+const nsz53Target='web/documents/originaly-2026-11-02/2026-10-28-nsz-specifikace-trestnich-podnetu-53-stran.pdf';
+const nsz53Chunks=[
+  'project-memory/binary-transport/nsz-2026-10-28-53-original/part-001.bin',
+  'project-memory/binary-transport/nsz-2026-10-28-53-original/part-002.bin',
+  'project-memory/binary-transport/nsz-2026-10-28-53-original/part-003.bin',
+  'project-memory/binary-transport/nsz-2026-10-28-53-original/part-004.bin'
+];
+const nsz53ExpectedSha256='7d3fad3785d027fb5c5194e43a9d8f2b373891a76b342a5012548aa5b5ebde44';
+const nsz53Parts=await Promise.all(nsz53Chunks.map(p=>readFile(p)));
+const nsz53Bytes=Buffer.concat(nsz53Parts);
+if(nsz53Bytes.length!==10143373||createHash('sha256').update(nsz53Bytes).digest('hex')!==nsz53ExpectedSha256||nsz53Bytes.subarray(0,5).toString()!=='%PDF-'||!nsz53Bytes.subarray(-4096).includes(Buffer.from('%%EOF'))) {
+  throw Error('The original NSZ 53-page PDF failed byte-integrity validation');
+}
+await mkdir(dirname(nsz53Target),{recursive:true});
+let nsz53Existing=null;
+try {nsz53Existing=await readFile(nsz53Target)}catch(e){if(e.code!=='ENOENT')throw e}
+if(nsz53Existing&&!nsz53Existing.equals(nsz53Bytes))throw Error('Existing NSZ PDF differs from the source original');
+if(!nsz53Existing)await writeFile(nsz53Target,nsz53Bytes);
 const all=[];
 for (const doc of data.documents) {
  const key=basename(doc.public.html).replace('2026-11-02-evidence-','').replace('.html','');
