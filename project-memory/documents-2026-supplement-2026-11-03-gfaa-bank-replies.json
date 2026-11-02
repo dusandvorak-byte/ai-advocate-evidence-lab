@@ -1,0 +1,211 @@
+{
+  "schema_version": "1.0",
+  "status": "binding",
+  "batch_date": "2026-11-03",
+  "description": "Three GFAA police/prosecutor records (2 redacted TT public copies), PPR original replacement, original ČNB and Raiffeisenbank letters; KRPM-145410-2 already public and not duplicated.",
+  "documents": [
+    {
+      "id": "doc-cz-pcr-krpo-2026-10-23-krpm-135431-21",
+      "user_title": "Policie ČR – žádost a námitky Ganja For All Animals postoupeny na OSZ Olomouc dne 23. 10. 2026",
+      "issue_date": "2026-10-23",
+      "received_date": "2026-11-02",
+      "institution_id": "CZ-PCR-KRPO",
+      "reference": "KRPM-135431-21/TČ-2026-140506",
+      "case_ids": [
+        "case-cz-pcr-krpm-135431-2026-gfaa"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original official record supplied and inspected; received date only where evidenced",
+      "topics": [
+        "Ganja For All Animals",
+        "postoupení",
+        "Policie ČR"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-pcr-krpo-2026-10-23-krpm-135431-21.html",
+        "pdf": "documents/originaly-2026-11-03/2026-10-23-pcr-krpm-135431-21-original.pdf",
+        "sha256": "f3d1bd887abe5537e9fa0cdf6726c91da25c5bde878c722dc2eb0e306aaecf2d",
+        "source_original_sha256": "f3d1bd887abe5537e9fa0cdf6726c91da25c5bde878c722dc2eb0e306aaecf2d",
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 197520,
+        "source_original_size_bytes": 197520,
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-03-gfaa-bank-replies.json",
+        "public_copy_note": "Binární originál PDF zachován bez změn."
+      },
+      "relations": [],
+      "evidence_note": "Policie informovala o postoupení žádosti a námitek 23. října. Nejednalo se o rozhodnutí o důvodnosti námitek."
+    },
+    {
+      "id": "doc-cz-osz-olo-2026-10-29-3-zn-699-2026-11",
+      "user_title": "OSZ Olomouc – přezkum postupu policie a námitek TT proti otázkám toxikologickému znalci; anonymizovaná veřejná kopie PDF",
+      "issue_date": "2026-10-29",
+      "received_date": "2026-11-02",
+      "institution_id": "CZ-OSZ-OLO",
+      "reference": "3 ZN 699/2026-11",
+      "case_ids": [
+        "case-cz-pcr-krpm-135431-2026-gfaa"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original official record supplied and inspected; received date only where evidenced",
+      "topics": [
+        "Ganja For All Animals",
+        "§ 157a trestního řádu",
+        "toxikologie",
+        "TT"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-osz-olo-2026-10-29-3-zn-699-2026-11.html",
+        "pdf": "documents/originaly-2026-11-03/2026-10-29-osz-olomouc-3-zn-699-2026-11-TT-anonymizovana-verejna-kopie.pdf",
+        "sha256": "7b02b318b7f0be0640f78b5eaa5352da27681f142af45fd0d2f8beea6e659c89",
+        "source_original_sha256": "766089376044a4e06bf5c472b7cc8c88898aab3241aaf750628390e8343617c2",
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 274073,
+        "verification_status": "public_anonymized_pdf_TT_sha256_verified__source_original_not_public",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-03-gfaa-bank-replies.json",
+        "public_copy_note": "Anonymizovaná veřejná kopie PDF. Jméno a soukromé adresy TT byly odstraněny na výslovný pokyn; digitální podpis na upraveném PDF není původním ověřitelným podpisem."
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-pcr-krpo-2026-10-23-krpm-135431-21"
+        }
+      ],
+      "evidence_note": "Státní zástupce uvedl, že nezjistil vady policejního postupu ani důvodnost námitek. Toto je stanovisko orgánu. Veřejné PDF je na výslovný pokyn anonymizováno na TT."
+    },
+    {
+      "id": "doc-cz-pcr-krpo-2026-10-30-krpm-135431-28",
+      "user_title": "Policie ČR – vyrozumění TT o výsledku dozorového přezkumu námitek podle § 157a; anonymizovaná veřejná kopie PDF",
+      "issue_date": "2026-10-30",
+      "received_date": "2026-11-02",
+      "institution_id": "CZ-PCR-KRPO",
+      "reference": "KRPM-135431-28/TČ-2026-140506",
+      "case_ids": [
+        "case-cz-pcr-krpm-135431-2026-gfaa"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original official record supplied and inspected; received date only where evidenced",
+      "topics": [
+        "Ganja For All Animals",
+        "§ 157a trestního řádu",
+        "TT"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-pcr-krpo-2026-10-30-krpm-135431-28.html",
+        "pdf": "documents/originaly-2026-11-03/2026-10-30-pcr-krpm-135431-28-TT-anonymizovana-verejna-kopie.pdf",
+        "sha256": "c9dcd88f0af9c3e652cd8a83b9dafa65f43049db27c59c6db50f5a43fe2f8ea7",
+        "source_original_sha256": "9cb752ccc593c74f96f0736eedd827e8ac9c900befd74c1433c6929dd61a1ad8",
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 202445,
+        "verification_status": "public_anonymized_pdf_TT_sha256_verified__source_original_not_public",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-03-gfaa-bank-replies.json",
+        "public_copy_note": "Anonymizovaná veřejná kopie PDF. Jméno a soukromé adresy TT byly odstraněny na výslovný pokyn; digitální podpis na upraveném PDF není původním ověřitelným podpisem."
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-osz-olo-2026-10-29-3-zn-699-2026-11"
+        }
+      ],
+      "evidence_note": "Policie sděluje závěr dozorového státního zástupce, podle něhož nebyly shledány vady policejního postupu. Veřejné PDF je anonymizováno na TT."
+    },
+    {
+      "id": "doc-cz-pcr-pp-2026-08-24-ppr-44020-2-cj-2026-990210-pd",
+      "public": {
+        "html": "listiny/doc-cz-pcr-pp-2026-08-24-ppr-44020-2-cj-2026-990210-pd.html",
+        "pdf": "documents/originaly-2026-11-03/2026-08-24-ppr-44020-2-original.pdf",
+        "sha256": "dcab5d6b1bbe6cc285ac9f7933363c8e59178c89d48e1ebd7247b4a89c546540",
+        "source_original_sha256": "dcab5d6b1bbe6cc285ac9f7933363c8e59178c89d48e1ebd7247b4a89c546540",
+        "source_original_page_count": 2,
+        "source_public_size_bytes": 337204,
+        "source_original_size_bytes": 337204,
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-03-gfaa-bank-replies.json",
+        "public_copy_note": "Binární originál PDF zachován bez změn."
+      },
+      "evidence_note": "Bajtově totožný dvoustránkový originál PPR-44020-2 ze dne 24. 8. 2026 nahrazuje v kanonické evidenci dosavadní textově generovanou kopii. Historická kopie v repozitáři zůstává, nedochází k duplicitě evidenční položky."
+    },
+    {
+      "id": "doc-cz-cnb-2026-10-16-2026-167900-cnb-110",
+      "user_title": "ČNB – odpověď na podnět EKK ke krokům Raiffeisenbank: dohled a povinnosti AML; řízení z moci úřední nezahájeno",
+      "issue_date": "2026-10-16",
+      "received_date": null,
+      "institution_id": "CZ-CNB",
+      "reference": "2026/167900/CNB/110",
+      "case_ids": [
+        "case-cz-cnb-raiffeisenbank-aml-2026"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original official record supplied and inspected; received date only where evidenced",
+      "topics": [
+        "ČNB",
+        "Raiffeisenbank",
+        "EKK",
+        "AML"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-cnb-2026-10-16-2026-167900-cnb-110.html",
+        "pdf": "documents/originaly-2026-11-03/2026-10-16-cnb-2026-167900-cnb-110-original.pdf",
+        "sha256": "fb4362ac7c376edb43aae06f617b0815bf2111623c09e1ae0723f2578e7ab651",
+        "source_original_sha256": "fb4362ac7c376edb43aae06f617b0815bf2111623c09e1ae0723f2578e7ab651",
+        "source_original_page_count": 2,
+        "source_public_size_bytes": 106063,
+        "source_original_size_bytes": 106063,
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-03-gfaa-bank-replies.json",
+        "public_copy_note": "Binární originál PDF zachován bez změn."
+      },
+      "relations": [
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-rb-omb-2026-10-29-vyjadreni-ekk-aml"
+        }
+      ],
+      "evidence_note": "Listina je datována 16. 10. 2026, ačkoliv uživatelský název souboru uvádí 18. října. ČNB uvedla, že nemá pravomoc rozhodovat jednotlivé soukromé bankovní spory a nezahájila řízení z moci úřední."
+    },
+    {
+      "id": "doc-cz-rb-omb-2026-10-29-vyjadreni-ekk-aml",
+      "user_title": "Ombudsman Raiffeisenbank – vyjádření k reklamaci EKK ze dne 29. 10. 2026: stanovisko banky k AML informacím a možnosti výpovědi běžného účtu",
+      "issue_date": "2026-10-29",
+      "received_date": "2026-11-02",
+      "institution_id": "CZ-RB-OMB",
+      "reference": "Odpověď ombudsmana Raiffeisenbank ze dne 29. 10. 2026, bez samostatného č. j.",
+      "case_ids": [
+        "case-cz-cnb-raiffeisenbank-aml-2026"
+      ],
+      "document_type": "private_institution_reply",
+      "submission_side": "incoming_from_private_institution",
+      "submission_side_basis": "odpověď soukromé banky, ne státního orgánu",
+      "topics": [
+        "Raiffeisenbank",
+        "EKK",
+        "AML",
+        "reklamace",
+        "bankovní účet"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-rb-omb-2026-10-29-vyjadreni-ekk-aml.html",
+        "pdf": "documents/originaly-2026-11-03/2026-10-29-raiffeisenbank-ombudsman-ekk-original.pdf",
+        "sha256": "61c59db2f2d02b99f5fac8bc61c5822e0f54ddf65b533480c129661a015a926c",
+        "source_original_sha256": "61c59db2f2d02b99f5fac8bc61c5822e0f54ddf65b533480c129661a015a926c",
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 183298,
+        "source_original_size_bytes": 183298,
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-03-gfaa-bank-replies.json",
+        "public_copy_note": "Binární originál PDF zachován bez změn."
+      },
+      "relations": [
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-cnb-2026-10-16-2026-167900-cnb-110"
+        }
+      ],
+      "evidence_note": "Ombudsman banky vyjádřil stanovisko, že požadavek na údaje klienta je v souladu s AML zákonem a VOP umožňují vypovědět běžný účet bez udání důvodu. Není to soudní ani dohledové rozhodnutí."
+    }
+  ]
+}
