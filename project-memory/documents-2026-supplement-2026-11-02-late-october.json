@@ -283,7 +283,7 @@
       ],
       "evidence_note": "Úplný původní 53stránkový PDF dokument datovaný 28. října 2026. Reaguje na výzvy NSZ, Nejvyššího soudu, Ministerstva spravedlnosti, Ministerstva vnitra a Policie ČR; rozlišuje žádosti podle InfZ a trestní podněty, obsahuje deset informačních otázek a obrazové přílohy. Doručení jednotlivým orgánům není tímto zveřejněním prokázáno. PDF je sestaveno z kontrolovaných binárních částí do bitově shodného originálu.",
       "justice_slalom": {
-        "archive_number": 131,
+        "archive_number": 152,
         "archive_name": "NSZ -NS-MSP-MV-PP- et. dne 28.2026- specifikace TZ a žádosti.pdf",
         "source_sha256": "7d3fad3785d027fb5c5194e43a9d8f2b373891a76b342a5012548aa5b5ebde44",
         "source_kind": "original_pdf_in_user_archive",
@@ -347,7 +347,7 @@
       ],
       "evidence_note": "Schválený 22stránkový původní PDF zásahové žaloby na NSZ. Dokument je datován 28. 10. 2026 a uvádí vypravení NSZ dne 31. 10. 2026. Podání ke Krajskému soudu v Brně je výslovně podmíněno nereagováním NSZ a plánováno na 17. 11. 2026; zveřejnění není důkazem soudního podání. Název souboru uváděl rok 2028, ale v listině je správně uveden 2026; obsah není měněn.",
       "justice_slalom": {
-        "archive_number": 132,
+        "archive_number": 153,
         "archive_name": "NSZ-žaloba - verze 28.října 2028 po schválení SR a DR- 31.10.2026(1).pdf",
         "source_sha256": "fcb792708b8e6f2a24b1a68f45a51696cf2a5c0c84c78100789546b296d72797",
         "source_kind": "original_pdf_in_user_archive",
