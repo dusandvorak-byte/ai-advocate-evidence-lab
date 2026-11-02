@@ -58,7 +58,8 @@ const cases=JSON.parse(await readFile('project-memory/cases.json','utf8'));
 const a17=cases.cases?.find(c=>c.id==='case-cz-ms-praha-18a17-2026');
 // Historical validator: the 4 Oct filing must remain linked, but newer filings may legitimately become last_filing.
 if(!a17?.related_document_ids?.includes(ms.id) || !a17?.related_document_ids?.includes(reaction.id) || !a17?.last_filing_document_id || String(a17?.last_filing_on||'')<'2026-10-04') fail('18 A 17/2026 ztratilo historický přípis 2. 10. nebo reakci 4. 10.');
-if(a17.latest_state_document_id!=='doc-cz-ms-pha-2026-10-12-18-a-17-2026-215' || a17.cassation_status!=='in_preparation_not_filed') fail('18 A 17/2026: po usnesení 12. 10. musí být doložen soudní výsledek a jen příprava kasace');
+if(a17.latest_state_document_id!=='doc-cz-ms-pha-2026-10-12-18-a-17-2026-215') fail('18 A 17/2026: ztraceno soudní rozhodnutí 12. 10.');
+if(a17.cassation_status!=='dated_2026-10-30_original_uploaded_filing_unverified' || a17.latest_prepared_pleading_document_id!=='doc-cz-dd-2026-10-30-kasacni-ncoz-pp-18a17') fail('18 A 17/2026: nová listina 30. 10. musí být evidována jako kasační stížnost bez nedoloženého doručení NSS');
 const c315=cases.cases?.find(c=>c.id==='case-cz-ks-brno-9to315-2026');
 if(c315?.decision_document_id!==ks.id || c315?.status!=='complaint_dismissed_no_ordinary_remedy') fail('9 To 315/2026 nemá rozhodnutí v grafu řízení');
 
