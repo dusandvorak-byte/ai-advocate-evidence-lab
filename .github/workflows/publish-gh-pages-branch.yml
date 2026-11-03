@@ -652,7 +652,7 @@ jobs:
           fi
           # A successful publish may temporarily coexist with stale CDN PDF responses.
           # Fail closed on persistent mismatch; never weaken the expected SHA-256.
-          node scripts/verify-live-pdf.mjs "$base/$pdf_rel" "$pdf_local" "$GITHUB_SHA"
+          node scripts/verify-live-pdf.mjs "$base/$pdf_rel" "$pdf_local" "$GITHUB_SHA" "" /tmp/live-police-1015.pdf
           fetch_pdf_until_sha "documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-redigovany-original.pdf" "web/documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-redigovany-original.pdf" /tmp/live-omb-supp-1015.pdf
           fetch_pdf_until_sha "documents/report-04082026-010/119-euda-access-followup-2026-10-15-verejna-kopie.pdf" "web/documents/report-04082026-010/119-euda-access-followup-2026-10-15-verejna-kopie.pdf" /tmp/live-euda-1015.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf$stamp" -o /tmp/live-ms186.pdf
