@@ -1,7 +1,7 @@
 import { createServer } from 'node:http';
 import { randomUUID, timingSafeEqual } from 'node:crypto';
-import { inspectPdfForQuarantine } from '../pdf-gate.mjs';
-import { advanceReview } from '../review-workflow.mjs';
+import { inspectPdfForQuarantine } from './pdf-gate.mjs';
+import { advanceReview } from './review-workflow.mjs';
 
 // A LOCAL-ONLY, SYNTHETIC-DATA demonstration API. Not an upload service.
 // The caller must explicitly listen on 127.0.0.1. No default tokens or persistence.
