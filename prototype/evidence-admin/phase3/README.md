@@ -66,6 +66,17 @@ Dedicated workflow validates Node syntax, role / OIDC boundary, unsafe file reje
 private object options, trusted scanner receipt, independent review actors, transactional audit
 and compensating cleanup with synthetic mocks. It never executes SQL migrations or deploys.
 
+
+## Isolated integration expansion (same Draft PR)
+
+- `oidc-jwks.mjs` verifies RS256 JWS using Node's public-key crypto and an injected, pretrusted JWKS; it rejects forged signatures, wrong audience, expired tokens, unsupported algorithms and key-selection ambiguity. The JWKS discovery/HTTPS pinning, cache, rotation, revocation, token type policy and issuer tenant onboarding are **not** implemented.
+- `scanner-receipt.mjs` verifies an HMAC-protected receipt including object key, digest, verdict and a five-minute maximum validity. Tests use a synthetic key; production should use independent scanner identity, KMS/rotated keys, and a persisted replay ledger.
+- `s3-adapter.mjs` creates AWS SDK v3-compatible PutObject/DeleteObject commands with private-only quarantine paths, KMS envelope encryption options and no public ACL. The SDK and real network adapter are not bundled, no real bucket is accessed, and no bucket policy/retention claim is made.
+- `migrations/002_postgres_ci_checks.sql` runs against an ephemeral PostgreSQL 16 CI service, proving schema migration, savepoint rollback of both intake state and audit record, no-update audit trigger and object-key constraints. It does **not** execute the Node repository through a real `pg` Pool; that end-to-end verification remains a future gate.
+- `integrations.test.mjs` tests a real RSA signature, tampering, MFA identity integration, scanner MAC and private S3 SDK command mapping without any external services.
+
+**Non-negotiable deployment gate:** Real sensitive documents, production identities, real AWS credentials, and migrations of an existing database remain prohibited pending separate review and approval.
+
 ## Future deployment approval gates
 
 1. Owner authorizes hosting and data location/retention. Need DPA/processor inventory for personal data.
