@@ -20,6 +20,18 @@ jobs:
   synthetic-phase3:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: synthetic-ci-only
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -31,6 +43,11 @@ jobs:
       - name: Run synthetic Phase 3 security and integration suite
         run: |
           node --test prototype/evidence-admin/phase3/phase3.test.mjs
+          node --test prototype/evidence-admin/phase3/integrations.test.mjs
+      - name: Verify migration and transactional rollback on disposable PostgreSQL 16
+        run: |
+          docker exec -i "${{ job.services.postgres.id }}" psql -v ON_ERROR_STOP=1 -U postgres -d postgres < prototype/evidence-admin/phase3/migrations/001_secure_intake.sql
+          docker exec -i "${{ job.services.postgres.id }}" psql -v ON_ERROR_STOP=1 -U postgres -d postgres < prototype/evidence-admin/phase3/migrations/002_postgres_ci_checks.sql
       - name: Existing backend invariants
         run: |
           node --test prototype/evidence-admin/backend/backend.test.mjs
