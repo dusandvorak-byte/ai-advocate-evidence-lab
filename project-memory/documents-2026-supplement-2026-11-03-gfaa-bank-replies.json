@@ -114,18 +114,38 @@
     },
     {
       "id": "doc-cz-pcr-pp-2026-08-24-ppr-44020-2-cj-2026-990210-pd",
+      "user_title": "Úřad vnitřní kontroly Policejního prezidia odmítl přezkum podle § 97 odst. 3 zákona o Policii ČR s odůvodněním, že předtím neproběhlo obligatorní prošetření podle § 97 u věcně příslušného Kriminalistického ústavu; podání ze dne 15. 8. 2026 založil bez dalších opatření",
+      "issue_date": "2026-08-24",
+      "received_date": "2026-08-24",
+      "institution_id": "CZ-PCR-PP",
+      "reference": "PPR-44020-2/ČJ-2026-990210-PD",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "Policejní prezidium",
+        "Úřad vnitřní kontroly",
+        "§ 97 zákona o Policii ČR",
+        "přezkum",
+        "Kriminalistický ústav"
+      ],
       "public": {
         "html": "listiny/doc-cz-pcr-pp-2026-08-24-ppr-44020-2-cj-2026-990210-pd.html",
         "pdf": "documents/originaly-2026-11-03/2026-08-24-ppr-44020-2-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/71-ppr-44020-2-cj-2026-990210-pd-2026-08-24.pdf",
         "sha256": "dcab5d6b1bbe6cc285ac9f7933363c8e59178c89d48e1ebd7247b4a89c546540",
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
         "source_original_sha256": "dcab5d6b1bbe6cc285ac9f7933363c8e59178c89d48e1ebd7247b4a89c546540",
         "source_original_page_count": 2,
         "source_public_size_bytes": 337204,
         "source_original_size_bytes": 337204,
-        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
         "source_manifest": "project-memory/documents-2026-supplement-2026-11-03-gfaa-bank-replies.json",
         "public_copy_note": "Binární originál PDF zachován bez změn."
       },
+      "relations": [],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_batch_classification",
       "evidence_note": "Bajtově totožný dvoustránkový originál PPR-44020-2 ze dne 24. 8. 2026 nahrazuje v kanonické evidenci dosavadní textově generovanou kopii. Historická kopie v repozitáři zůstává, nedochází k duplicitě evidenční položky."
     },
     {
