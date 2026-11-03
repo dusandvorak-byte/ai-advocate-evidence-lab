@@ -59,6 +59,12 @@ jobs:
           node --check scripts/validate-vsz-praha-mk-church-2026-10-30.mjs
           node --check scripts/validate-active-court-dockets.mjs
 
+      - name: Ověřit bezpečný prototyp Evidence Lab admin (syntetická data)
+        run: |
+          node --check prototype/evidence-admin/validate.mjs
+          node --check prototype/evidence-admin/validate.test.mjs
+          node --test prototype/evidence-admin/validate.test.mjs
+
       - name: Připravit generátor ověřených veřejných PDF
         shell: bash
         run: |

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Evidence Lab — neveřejný prototyp příjmu dokumentů</title>
+<style>
+:root{font-family:system-ui,sans-serif;color-scheme:light}body{margin:0;background:#f4f6f8;color:#1d2632}.wrap{max-width:740px;margin:2rem auto;padding:1.5rem;background:white;border-radius:14px;box-shadow:0 3px 20px #18233114}label{display:block;font-weight:600;margin-top:1rem}input,select,textarea{box-sizing:border-box;display:block;width:100%;padding:.7rem;border:1px solid #aab6c4;border-radius:7px;margin-top:.3rem;font:inherit}button{margin-top:1.3rem;padding:.8rem 1rem;background:#183b67;color:white;border:0;border-radius:7px;font-weight:600;cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #a9d9ff}.note{background:#fff3d1;border-left:4px solid #c48412;padding:.8rem}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#eff3f7;padding:1rem;border-radius:8px}small{color:#4d6175}
+</style></head>
+<body><main class="wrap"><h1>Evidence Lab: příjem listiny</h1>
+<p class="note"><strong>DEMO bez serveru.</strong> Nezadávejte citlivé informace ani nenahrávejte skutečné dokumenty. Formulář vytvoří pouze lokální JSON náhled; nic nikam neodesílá.</p>
+<form id="intake">
+<label for="title">Název dokumentu</label><input id="title" required minlength="3" maxlength="240" value="Usnesení soudu – listopad 2026">
+<label for="institution">Identifikátor instituce z registru</label><input id="institution" required maxlength="100" placeholder="Nutno ověřit v institutions.json">
+<label for="date">Datum vydání</label><input id="date" required type="date">
+<label for="ref">Číslo jednací / spisová značka</label><input id="ref" required maxlength="160">
+<label for="type">Typ dokumentu</label><select id="type"><option value="usneseni">Usnesení</option><option value="rozsudek">Rozsudek</option><option value="vyrozumeni">Vyrozumění</option><option value="jiny">Jiný</option></select>
+<label for="privacy">Posouzení soukromí</label><select id="privacy"><option value="pending">Zatím neposouzeno</option><option value="redaction_required">Nutná anonymizace</option><option value="reviewed">Předběžně zkontrolováno</option></select>
+<label for="notes">Poznámka pro revizi</label><textarea id="notes" maxlength="2000"></textarea>
+<p><small>Nahrávání PDF bude doplněno až po implementaci autentizovaného backendu, karantény, kontroly souborů a souhlasu s publikačním workflow.</small></p>
+<button type="submit">Vytvořit lokální náhled</button></form>
+<h2>Výsledek (pouze v prohlížeči)</h2><p id="status" role="status" aria-live="polite"></p><pre id="preview">Zatím žádná data.</pre>
+</main><script type="module">
+import {validateIntake} from './validate.mjs';
+const byId=id=>document.getElementById(id);
+byId('intake').addEventListener('submit', event=>{
+  event.preventDefault();
+  const record={
+    schema_version:'intake-v1',
+    submission_id:crypto.randomUUID(),
+    user_title:byId('title').value.trim(),
+    institution_id:byId('institution').value.trim(),
+    document_type:byId('type').value,
+    issue_date:byId('date').value,
+    received_date:null,
+    reference:byId('ref').value.trim(),
+    case_ids:[],
+    requested_state:'review',
+    privacy_status:byId('privacy').value,
+    source:{origin:'internal_upload',original_sha256:null,malware_scan:'pending'},
+    notes:byId('notes').value
+  };
+  const errors=validateIntake(record);
+  byId('status').textContent=errors.length ? 'Chyby: '+errors.join('; ') : 'Náhled vytvořen. Dokument nebyl uložen ani odeslán.';
+  byId('preview').textContent=errors.length?'—':JSON.stringify(record,null,2);
+});
+</script></body></html>
