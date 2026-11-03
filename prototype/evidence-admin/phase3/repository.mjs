@@ -1,6 +1,7 @@
 import { randomUUID, createHash } from 'node:crypto';
 import { requireRole } from './identity.mjs';
 import { advanceReview } from '../backend/review-workflow.mjs';
+import { inspectPdfForQuarantine } from '../backend/pdf-gate.mjs';
 
 const sha256 = bytes=>createHash('sha256').update(bytes).digest('hex');
 const uuid = x=>typeof x==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(x);
@@ -32,7 +33,8 @@ export function createIntakeRepository({pool,verifyScanReceipt}) {
     if (!uuid(id)||!syntheticTitle(title)||!syntheticRef(reference)||
         typeof objectKey!=='string'||!/^quarantine\/[0-9a-f-]{36}$/.test(objectKey)||
         !Buffer.isBuffer(bytes)||bytes.length<16||bytes.length>20*1024*1024||
-        !bytes.includes(Buffer.from('\n%EVIDENCE-LAB-TEST-ONLY\n')))
+        !bytes.includes(Buffer.from('\n%EVIDENCE-LAB-TEST-ONLY\n')) ||
+        !inspectPdfForQuarantine(bytes).accepted)
       throw new Error('Only synthetic untrusted documents allowed in Phase 3');
     const digest=sha256(bytes);
     await inTransaction(async c=>{
@@ -69,7 +71,8 @@ export function createIntakeRepository({pool,verifyScanReceipt}) {
       requireRole(identity,roleForTransition);
       if (action.startsWith('scan_')) {
         if (!scanReceipt?.verified || !(await verifyScanReceipt(scanReceipt)) || scanReceipt.intakeId!==id ||
-            scanReceipt.objectSha256!==row.sha256 || !/^[a-f0-9]{64}$/.test(scanReceipt.receiptSha256) ||
+            scanReceipt.objectSha256!==row.sha256 || scanReceipt.objectKey!==row.object_key ||
+            !/^[a-f0-9]{64}$/.test(scanReceipt.receiptSha256) ||
             (action==='scan_clean'&&scanReceipt.verdict!=='clean') ||
             (action==='scan_reject'&&scanReceipt.verdict!=='malicious'))
           throw new Error('Trusted scanner receipt required');
