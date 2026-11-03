@@ -1,11 +1,11 @@
 import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 
 export const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-export async function verifyLivePdf({url, expectedFile, expectedSourceCommit, markerUrl,
+export async function verifyLivePdf({url, expectedFile, expectedSourceCommit, markerUrl, outputFile,
   attempts=36, delayMs=10000, timeoutMs=30000, fetchImpl=fetch, sleepImpl=sleep, log=console.error}) {
   const allowed = value => /^https:\/\//.test(value) || /^http:\/\/127\.0\.0\.1(?::\d+)?\//.test(value);
   if (!allowed(url) || (markerUrl && !allowed(markerUrl))) throw new Error('HTTPS URL required');
@@ -34,8 +34,10 @@ export async function verifyLivePdf({url, expectedFile, expectedSourceCommit, ma
         pdfReq.searchParams.set('attempt', String(i));
         const response = await fetchImpl(pdfReq.toString(), {cache:'no-store', signal:AbortSignal.timeout(timeoutMs)});
         if (!response.ok) throw new Error('PDF HTTP '+response.status);
-        const observed = digest(Buffer.from(await response.arrayBuffer()));
+        const downloaded = Buffer.from(await response.arrayBuffer());
+        const observed = digest(downloaded);
         if (observed === expected) {
+          if (outputFile) await writeFile(outputFile, downloaded, {flag:'w',mode:0o600});
           log('LIVE_PDF_SHA256_OK attempt='+i+' hash='+expected);
           return {ok:true,attempt:i,sha256:expected};
         }
@@ -51,12 +53,12 @@ export async function verifyLivePdf({url, expectedFile, expectedSourceCommit, ma
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const [url, expectedFile, commit, markerUrl] = process.argv.slice(2);
+  const [url, expectedFile, commit, markerUrl, outputFile] = process.argv.slice(2);
   if (!url || !expectedFile || !commit) {
-    console.error('Usage: node verify-live-pdf.mjs <public-pdf-url> <local-file> <commit-sha> [public-marker-url]');
+    console.error('Usage: node verify-live-pdf.mjs <public-pdf-url> <local-file> <commit-sha> [public-marker-url] [verified-output-file]');
     process.exitCode=2;
   } else {
-    verifyLivePdf({url,expectedFile,expectedSourceCommit:commit,markerUrl}).catch(e=>{
+    verifyLivePdf({url,expectedFile,expectedSourceCommit:commit,markerUrl,outputFile}).catch(e=>{
       console.error(e.message); process.exitCode=1;
     });
   }
