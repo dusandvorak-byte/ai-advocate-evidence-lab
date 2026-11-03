@@ -364,6 +364,12 @@
       "role": "batch",
       "batch_date": "2026-11-02",
       "public_status": "verified public evidence and text transcriptions; original PDFs not uploaded to public repository"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-11-03-gfaa-bank-replies.json",
+      "role": "batch",
+      "batch_date": "2026-11-03",
+      "public_status": "six SHA-256 verified binary PDFs; two user-authorized TT anonymized copies"
     }
   ]
 }

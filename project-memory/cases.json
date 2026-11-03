@@ -467,8 +467,13 @@
       "last_filing_on": "2026-10-06",
       "last_filing_document_id": "doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet",
       "related_document_ids": [
-        "doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet"
-      ]
+        "doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet",
+        "doc-cz-cnb-2026-10-16-2026-167900-cnb-110",
+        "doc-cz-rb-omb-2026-10-29-vyjadreni-ekk-aml"
+      ],
+      "latest_state_document_id": "doc-cz-cnb-2026-10-16-2026-167900-cnb-110",
+      "latest_state_document_on": "2026-10-16",
+      "process_note": "ČNB 16. října 2026 sdělila, že k podnětu EKK na Raiffeisenbank nezahájila řízení z moci úřední; ombudsman Raiffeisenbank 29. října sdělil stanovisko banky k AML kontrole a možnosti výpovědi běžného účtu. Nejde o závěr soudu."
     },
     {
       "id": "case-cz-pcr-ku-interni-prezkum",
@@ -747,6 +752,28 @@
       ],
       "last_filing_on": "2026-10-15",
       "last_filing_document_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
+    },
+    {
+      "id": "case-cz-pcr-krpm-135431-2026-gfaa",
+      "institution_id": "CZ-PCR-KRPO",
+      "reference": "KRPM-135431/TČ-2026-140506; 3 ZN 699/2026-11",
+      "title": "Ganja For All Animals / TT – žádost a námitky, policejní postoupení a přezkum OSZ Olomouc",
+      "status": "review_completed_no_procedural_errors_found_according_to_prosecutor",
+      "opened_on": "2026-10-19",
+      "topics": [
+        "§ 157a trestního řádu",
+        "policejní přezkum",
+        "toxikologické otázky",
+        "Ganja For All Animals"
+      ],
+      "related_document_ids": [
+        "doc-cz-pcr-krpo-2026-10-23-krpm-135431-21",
+        "doc-cz-osz-olo-2026-10-29-3-zn-699-2026-11",
+        "doc-cz-pcr-krpo-2026-10-30-krpm-135431-28"
+      ],
+      "latest_state_document_id": "doc-cz-pcr-krpo-2026-10-30-krpm-135431-28",
+      "latest_state_document_on": "2026-10-30",
+      "process_note": "Policie oznámila postoupení námitek 23. října, OSZ vydalo sdělení 29. října a policie vyrozumění 30. října. Soukromé údaje TT v anonymizovaných veřejných kopiích nejsou zveřejněny; uvedený závěr přezkumu je stanoviskem státního zástupce."
     }
   ]
 }
