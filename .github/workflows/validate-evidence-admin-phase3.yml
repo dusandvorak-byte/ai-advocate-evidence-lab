@@ -1,0 +1,45 @@
+name: Validate Evidence Admin Phase 3 (synthetic, no deployment)
+on:
+  push:
+    branches:
+      - 'feature/evidence-admin-phase3-*'
+    paths:
+      - 'prototype/evidence-admin/phase3/**'
+      - '.github/workflows/validate-evidence-admin-phase3.yml'
+  pull_request:
+    paths:
+      - 'prototype/evidence-admin/phase3/**'
+      - '.github/workflows/validate-evidence-admin-phase3.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: evidence-phase3-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  synthetic-phase3:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check syntax
+        run: |
+          for file in prototype/evidence-admin/phase3/*.mjs; do node --check "$file"; done
+      - name: Run synthetic Phase 3 security and integration suite
+        run: |
+          node --test prototype/evidence-admin/phase3/phase3.test.mjs
+      - name: Existing backend invariants
+        run: |
+          node --test prototype/evidence-admin/backend/backend.test.mjs
+          node --test prototype/evidence-admin/backend/local-demo-api.test.mjs
+      - name: Assert no deployment or real-file inputs
+        run: |
+          test ! -e prototype/evidence-admin/phase3/.env
+          test ! -e prototype/evidence-admin/phase3/Dockerfile
+          test ! -e prototype/evidence-admin/phase3/package.json
+          grep -q 'EVIDENCE-LAB-TEST-ONLY' prototype/evidence-admin/phase3/repository.mjs
+          grep -q 'private' prototype/evidence-admin/phase3/quarantine.mjs
+          grep -q 'CREATE TRIGGER evidence_audit_no_mutation' prototype/evidence-admin/phase3/migrations/001_secure_intake.sql
