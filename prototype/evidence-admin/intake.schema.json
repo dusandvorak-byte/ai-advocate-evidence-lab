@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evidence Lab Phase 1 non-public intake prototype",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "submission_id",
+    "user_title",
+    "institution_id",
+    "document_type",
+    "issue_date",
+    "reference",
+    "requested_state",
+    "privacy_status",
+    "source"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "intake-v1"
+    },
+    "submission_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "user_title": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 240
+    },
+    "institution_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "document_type": {
+      "enum": [
+        "usneseni",
+        "rozsudek",
+        "vyrozumeni",
+        "jiny"
+      ]
+    },
+    "issue_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "received_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "reference": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "case_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "maxLength": 160
+      },
+      "maxItems": 100
+    },
+    "requested_state": {
+      "const": "review"
+    },
+    "privacy_status": {
+      "enum": [
+        "pending",
+        "redaction_required",
+        "reviewed"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "origin",
+        "original_sha256",
+        "malware_scan"
+      ],
+      "properties": {
+        "origin": {
+          "const": "internal_upload"
+        },
+        "original_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "malware_scan": {
+          "const": "pending"
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "maxLength": 2000
+    }
+  }
+}
