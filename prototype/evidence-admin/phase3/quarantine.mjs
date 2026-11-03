@@ -70,6 +70,9 @@ export function createSyntheticIntakeService({repository,storage}) {
           identity,title,reference,bytes,objectKey:stored.key
         });
       } catch (e) {
+        if(stored?.key && !/^quarantine\/[0-9a-f-]{36}$/.test(stored.key)) {
+          throw new AggregateError([e], 'Storage returned unsafe object key; manual reconciliation required');
+        }
         if(stored?.key) {
           try { await storage.removeOrphan(stored.key); }
           catch { throw new AggregateError([e,new Error('Quarantine orphan cleanup failed: reconcile before proceeding')],'Quarantine reconciliation required'); }
