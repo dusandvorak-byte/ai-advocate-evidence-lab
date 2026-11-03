@@ -113,7 +113,7 @@ test('transactional review enforces 4-person separation, CAS versions and audit'
   assert.equal(db.row.version,4);
   assert.equal(db.events.length,5);
   assert.equal(db.commits,5);
-  assert.ok(db.rollbacks>=4);
+  assert.equal(db.rollbacks,2); // only failures after BEGIN cause a DB rollback; preflight RBAC failures never enter a transaction
 });
 test('repository reject/approval cannot be performed by uploader in another role',async()=>{
   const {pool}=memoryPg();const repo=createIntakeRepository({pool,verifyScanReceipt:async()=>true});
