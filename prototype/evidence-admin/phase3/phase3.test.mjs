@@ -76,7 +76,7 @@ test('private synthetic PDF uploads request KMS encryption and no public ACL',as
 });
 test('scanner receipt must be validated externally and bound to object digest',async()=>{
   const id=randomUUID(), objectKey='quarantine/'+randomUUID(), sha256=digest(document);
-  const good={id:'scan-1',intakeId:id,objectSha256:sha256,verdict:'clean',receiptSha256:'a'.repeat(64)};
+  const good={id:'scan-1',intakeId:id,objectKey,objectSha256:sha256,verdict:'clean',receiptSha256:'a'.repeat(64)};
   const boundary=createScannerBoundary({scanner:{scanPrivateObject:async()=>good},verifyReceipt:async r=>r===good});
   assert.equal((await boundary.inspect({intakeId:id,objectKey,sha256})).verdict,'clean');
   const bad=createScannerBoundary({scanner:{scanPrivateObject:async()=>good},verifyReceipt:async()=>false});
@@ -92,7 +92,7 @@ test('transactional review enforces 4-person separation, CAS versions and audit'
   await repo.create({identity:editor,title:'DEMO: Trial',reference:'DEMO-X',objectKey,bytes:document,id});
   assert.equal(db.row.version,0);
   const receipt={verified:true,id:'trusted-scan',intakeId:id,objectSha256:digest(document),
-    receiptSha256:'a'.repeat(64),verdict:'clean'};
+    receiptSha256:'a'.repeat(64),verdict:'clean',objectKey};
   await assert.rejects(repo.transition({identity:scanner,id,action:'scan_clean',expectedVersion:0,
     scanReceipt:{...receipt,id:'forged'}}),/Trusted scanner receipt required/);
   assert.equal(db.row.version,0);
@@ -118,10 +118,11 @@ test('transactional review enforces 4-person separation, CAS versions and audit'
 test('repository reject/approval cannot be performed by uploader in another role',async()=>{
   const {pool}=memoryPg();const repo=createIntakeRepository({pool,verifyScanReceipt:async()=>true});
   const id=randomUUID(), actor=identity('same',['editor','scanner','reviewer','privacy_reviewer','publisher']);
-  await repo.create({identity:actor,title:'DEMO: One',reference:'DEMO-X',objectKey:'quarantine/'+randomUUID(),bytes:document,id});
+  const objectKey='quarantine/'+randomUUID();
+  await repo.create({identity:actor,title:'DEMO: One',reference:'DEMO-X',objectKey,bytes:document,id});
   await repo.transition({identity:actor,id,action:'scan_clean',expectedVersion:0,scanReceipt:{
     verified:true,id:'receipt',intakeId:id,objectSha256:digest(document),
-    receiptSha256:'b'.repeat(64),verdict:'clean'}});
+    receiptSha256:'b'.repeat(64),verdict:'clean',objectKey}});
   await assert.rejects(repo.transition({identity:actor,id,action:'metadata_accept',expectedVersion:1,
     flags:{metadata_complete:true}}),/Creator cannot approve/);
 });
@@ -135,4 +136,33 @@ test('synthetic intake compensates failed database writes by removing quarantine
   const failedService=createSyntheticIntakeService({storage:{...storage,removeOrphan:async()=>{throw Error('storage offline');}},
     repository:{create:async()=>{throw Error('db offline');}}});
   await assert.rejects(failedService.submit({identity:identity('e',['editor']),title:'DEMO: x',reference:'DEMO-X',bytes:document}),/Quarantine reconciliation required/);
+});
+
+test('cross-object scan receipt replay and malformed marked bytes fail closed',async()=>{
+  const {pool,db}=memoryPg();
+  const repo=createIntakeRepository({pool,verifyScanReceipt:async()=>true});
+  const id=randomUUID(), objectKey='quarantine/'+randomUUID();
+  const editor=identity('creator',['editor']),scanner=identity('scanner',['scanner']);
+  await assert.rejects(repo.create({identity:editor,title:'DEMO: no PDF',
+    reference:'DEMO-X',objectKey,bytes:Buffer.from('BAD\\n%EVIDENCE-LAB-TEST-ONLY\\n%%EOF')}),/Only synthetic/);
+  assert.equal(db.row,null);
+  await repo.create({identity:editor,title:'DEMO: OK',reference:'DEMO-X',objectKey,bytes:document,id});
+  await assert.rejects(repo.transition({identity:scanner,id,action:'scan_clean',expectedVersion:0,
+    scanReceipt:{id:'replay',verified:true,intakeId:id,objectKey:'quarantine/'+randomUUID(),
+      objectSha256:digest(document),receiptSha256:'a'.repeat(64),verdict:'clean'}}),/Trusted scanner receipt required/);
+  assert.equal(db.row.state,'scanning');
+  assert.equal(db.events.length,1);
+});
+test('invalid identity never writes to storage, invalid returned object key never deleted',async()=>{
+  let uploads=0,deletions=0;
+  const storage={putSynthetic:async()=>{uploads++;return {key:'quarantine/../../victim',sha256:digest(document)};},
+    removeOrphan:async()=>{deletions++;}};
+  const svc=createSyntheticIntakeService({storage,repository:{create:async()=>{throw Error('should not write');}}});
+  await assert.rejects(svc.submit({identity:identity('viewer',['viewer']),
+    title:'DEMO: no',reference:'DEMO-X',bytes:document}),/Synthetic editor intake required/);
+  assert.equal(uploads,0);
+  await assert.rejects(svc.submit({identity:identity('editor',['editor']),
+    title:'DEMO: bad key',reference:'DEMO-X',bytes:document}),/Storage digest mismatch/);
+  assert.equal(uploads,1);
+  assert.equal(deletions,0);
 });
