@@ -9,8 +9,9 @@ const syntheticRef = x=>typeof x==='string' && /^DEMO-[A-Z0-9-]{1,40}$/.test(x);
 
 // Db contract: pool.connect() -> client.query(sql, params), client.release().
 // Transactions and row locking MUST execute on the SAME client.
-export function createIntakeRepository({pool}) {
-  if (!pool || typeof pool.connect !== 'function') throw new Error('PostgreSQL adapter required');
+export function createIntakeRepository({pool,verifyScanReceipt}) {
+  if (!pool || typeof pool.connect !== 'function' || typeof verifyScanReceipt!=='function')
+    throw new Error('PostgreSQL adapter and trusted scan verifier required');
   async function inTransaction(work) {
     const c=await pool.connect();
     let began=false;
@@ -67,7 +68,7 @@ export function createIntakeRepository({pool}) {
         :role;
       requireRole(identity,roleForTransition);
       if (action.startsWith('scan_')) {
-        if (!scanReceipt?.verified || scanReceipt.intakeId!==id ||
+        if (!scanReceipt?.verified || !(await verifyScanReceipt(scanReceipt)) || scanReceipt.intakeId!==id ||
             scanReceipt.objectSha256!==row.sha256 || !/^[a-f0-9]{64}$/.test(scanReceipt.receiptSha256) ||
             (action==='scan_clean'&&scanReceipt.verdict!=='clean') ||
             (action==='scan_reject'&&scanReceipt.verdict!=='malicious'))
