@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtemp, writeFile, rm} from 'node:fs/promises';
+import {mkdtemp, writeFile, readFile, stat, rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {verifyLivePdf} from './verify-live-pdf.mjs';
@@ -48,4 +48,22 @@ test('rejects untrusted URL schemes and bad commit',async()=>withFixture(async f
     expectedSourceCommit:SHA}),/HTTPS URL required/);
   await assert.rejects(verifyLivePdf({url,expectedFile:file,
     expectedSourceCommit:'invalid'}),/source commit/);
+}));
+
+test('writes downstream output only when SHA-256 matches',async()=>withFixture(async file=>{
+  const output=file+'.verified';
+  let attempt=0;
+  const fetchImpl=async()=>makeResponse(++attempt===1?'stale-bytes':good);
+  const result=await verifyLivePdf({url,expectedFile:file,expectedSourceCommit:SHA,
+    outputFile:output,attempts:2,delayMs:0,fetchImpl,sleepImpl:async()=>{},log:quiet});
+  assert.equal(result.ok,true);
+  assert.equal(await readFile(output,'utf8'),good);
+  await rm(output);
+}));
+test('permanent mismatch never writes a supposedly verified output',async()=>withFixture(async file=>{
+  const output=file+'.unverified';
+  await assert.rejects(verifyLivePdf({url,expectedFile:file,expectedSourceCommit:SHA,
+    outputFile:output,attempts:1,delayMs:0,fetchImpl:async()=>makeResponse('bad-bytes'),
+    sleepImpl:async()=>{},log:quiet}),/LIVE_PDF_VERIFICATION_FAILED/);
+  await assert.rejects(stat(output),{code:'ENOENT'});
 }));
