@@ -65,6 +65,13 @@ jobs:
           node --check prototype/evidence-admin/validate.test.mjs
           node --test prototype/evidence-admin/validate.test.mjs
 
+      - name: Ověřit Phase 2 backend foundation (syntetické soubory)
+        run: |
+          node --check prototype/evidence-admin/backend/pdf-gate.mjs
+          node --check prototype/evidence-admin/backend/review-workflow.mjs
+          node --check prototype/evidence-admin/backend/backend.test.mjs
+          node --test prototype/evidence-admin/backend/backend.test.mjs
+
       - name: Připravit generátor ověřených veřejných PDF
         shell: bash
         run: |
