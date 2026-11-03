@@ -78,6 +78,12 @@ jobs:
           node --check prototype/evidence-admin/backend/local-demo-api.test.mjs
           node --test prototype/evidence-admin/backend/local-demo-api.test.mjs
 
+      - name: Test live PDF SHA-256 propagation guard (synthetic fixtures only)
+        run: |
+          node --check scripts/verify-live-pdf.mjs
+          node --check scripts/verify-live-pdf.test.mjs
+          node --test scripts/verify-live-pdf.test.mjs
+
       - name: Připravit generátor ověřených veřejných PDF
         shell: bash
         run: |
