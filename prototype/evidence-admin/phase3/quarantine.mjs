@@ -41,6 +41,7 @@ export function createScannerBoundary({scanner,verifyReceipt}) {
       const receipt=await scanner.scanPrivateObject({intakeId,objectKey,sha256});
       if(!receipt||!(await verifyReceipt(receipt))||
           receipt.intakeId!==intakeId||receipt.objectSha256!==sha256||
+          receipt.objectKey!==objectKey||
           !['clean','malicious','error'].includes(receipt.verdict)||
           typeof receipt.id!=='string' || !receipt.id ||
           !/^[a-f0-9]{64}$/.test(receipt.receiptSha256))
@@ -55,10 +56,15 @@ export function createSyntheticIntakeService({repository,storage}) {
     throw new Error('Missing repository or private storage');
   return Object.freeze({
     async submit({identity,title,reference,bytes}) {
+      // Validate the caller and payload before any external storage side-effect.
+      if(!identity?.roles?.includes('editor') || !identity.actor || !Buffer.isBuffer(bytes) ||
+          !bytes.includes(marker) || !inspectPdfForQuarantine(bytes).accepted)
+        throw new Error('Synthetic editor intake required');
       let stored;
       try {
         stored=await storage.putSynthetic(bytes);
-        if(!stored || stored.sha256!==createHash('sha256').update(bytes).digest('hex'))
+        if(!stored || !/^quarantine\/[0-9a-f-]{36}$/.test(stored.key) ||
+            stored.sha256!==createHash('sha256').update(bytes).digest('hex'))
           throw new Error('Storage digest mismatch');
         return await repository.create({
           identity,title,reference,bytes,objectKey:stored.key
