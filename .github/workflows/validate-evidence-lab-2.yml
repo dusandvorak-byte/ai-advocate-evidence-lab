@@ -72,6 +72,12 @@ jobs:
           node --check prototype/evidence-admin/backend/backend.test.mjs
           node --test prototype/evidence-admin/backend/backend.test.mjs
 
+      - name: Ověřit izolované Phase 2 API a bezpečnostní testy
+        run: |
+          node --check prototype/evidence-admin/backend/local-demo-api.mjs
+          node --check prototype/evidence-admin/backend/local-demo-api.test.mjs
+          node --test prototype/evidence-admin/backend/local-demo-api.test.mjs
+
       - name: Připravit generátor ověřených veřejných PDF
         shell: bash
         run: |
