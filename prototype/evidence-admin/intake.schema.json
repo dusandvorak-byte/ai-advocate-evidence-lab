@@ -89,14 +89,12 @@
           "const": "internal_upload"
         },
         "original_sha256": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "pattern": "^[a-f0-9]{64}$"
+          "type": "null",
+          "description": "Phase 1 demo stores no file; actual SHA-256 only in later authenticated backend"
         },
         "malware_scan": {
-          "const": "pending"
+          "const": "pending",
+          "description": "A placeholder, not evidence that any scanning occurred"
         }
       }
     },
