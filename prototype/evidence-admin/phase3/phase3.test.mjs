@@ -162,7 +162,7 @@ test('invalid identity never writes to storage, invalid returned object key neve
     title:'DEMO: no',reference:'DEMO-X',bytes:document}),/Synthetic editor intake required/);
   assert.equal(uploads,0);
   await assert.rejects(svc.submit({identity:identity('editor',['editor']),
-    title:'DEMO: bad key',reference:'DEMO-X',bytes:document}),/Storage digest mismatch/);
+    title:'DEMO: bad key',reference:'DEMO-X',bytes:document}),/manual reconciliation required/);
   assert.equal(uploads,1);
   assert.equal(deletions,0);
 });
