@@ -18,6 +18,13 @@ export function createLeasedOutbox({pool,dispatch,leaseSeconds=30,maxAttempts=5,
     throw new Error('Explicit synthetic outbox dependencies and bounded policy required');
 
   async function claim() {
+    // A crashed worker may never NACK. Once its lease expires and its
+    // attempt budget is exhausted, quarantine the event before claiming more.
+    await pool.query(`UPDATE evidence_outbox SET dead_letter_at=now(),
+      last_failure_class='unknown',lease_token=NULL,leased_until=NULL
+      WHERE processed_at IS NULL AND dead_letter_at IS NULL
+        AND attempt_count >= $1
+        AND (leased_until IS NULL OR leased_until<=now())`,[maxAttempts]);
     const token=randomUUID();
     // One atomic statement: SKIP LOCKED avoids worker contention; expired
     // leases can be reclaimed; attempt count increments with the claim.
@@ -25,6 +32,7 @@ export function createLeasedOutbox({pool,dispatch,leaseSeconds=30,maxAttempts=5,
       SELECT id FROM evidence_outbox
       WHERE processed_at IS NULL AND dead_letter_at IS NULL
         AND next_attempt_at<=now()
+        AND attempt_count < $3
         AND (leased_until IS NULL OR leased_until<=now())
       ORDER BY id FOR UPDATE SKIP LOCKED LIMIT 1
     ) UPDATE evidence_outbox o
@@ -33,7 +41,7 @@ export function createLeasedOutbox({pool,dispatch,leaseSeconds=30,maxAttempts=5,
           attempt_count=o.attempt_count+1
       FROM candidate WHERE o.id=candidate.id
       RETURNING o.id,o.intake_id,o.event_kind,o.event_version,o.payload,
-        o.attempt_count,o.lease_token`,[token,leaseSeconds]);
+        o.attempt_count,o.lease_token`,[token,leaseSeconds,maxAttempts]);
     return result.rows?.[0]??null;
   }
   async function ack(id,token) {
