@@ -1,0 +1,57 @@
+name: Validate Evidence Admin Phase 5 (isolated)
+on:
+  push:
+    branches:
+      - 'feature/evidence-admin-phase5-*'
+    paths:
+      - 'prototype/evidence-admin/phase5/**'
+      - '.github/workflows/validate-evidence-admin-phase5.yml'
+  pull_request:
+    paths:
+      - 'prototype/evidence-admin/phase5/**'
+      - '.github/workflows/validate-evidence-admin-phase5.yml'
+permissions:
+  contents: read
+concurrency:
+  group: phase5-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  synthetic-phase5:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: synthetic-ci-only
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Node syntax, lease recovery and previous-phase regressions
+        run: |
+          for f in prototype/evidence-admin/phase5/*.mjs; do node --check "$f"; done
+          node --test prototype/evidence-admin/phase5/leased-outbox.test.mjs
+          node --test prototype/evidence-admin/phase4/phase4.test.mjs
+          node --test prototype/evidence-admin/phase3/phase3.test.mjs
+      - name: Verify PostgreSQL 16 schema and lease-fencing invariants
+        run: |
+          c="${{ job.services.postgres.id }}"
+          docker exec -i "$c" psql -v ON_ERROR_STOP=1 -U postgres -d postgres < prototype/evidence-admin/phase3/migrations/001_secure_intake.sql
+          docker exec -i "$c" psql -v ON_ERROR_STOP=1 -U postgres -d postgres < prototype/evidence-admin/phase4/migrations/003_receipts_outbox.sql
+          docker exec -i "$c" psql -v ON_ERROR_STOP=1 -U postgres -d postgres < prototype/evidence-admin/phase5/migrations/005_leases.sql
+          docker exec -i "$c" psql -v ON_ERROR_STOP=1 -U postgres -d postgres < prototype/evidence-admin/phase5/migrations/006_phase5_ci_checks.sql
+      - name: Fail closed if deploy or live document artifacts appear
+        run: |
+          test ! -e prototype/evidence-admin/phase5/.env
+          test ! -e prototype/evidence-admin/phase5/Dockerfile
+          test ! -e prototype/evidence-admin/phase5/package.json
+          test ! -d prototype/evidence-admin/phase5/public
