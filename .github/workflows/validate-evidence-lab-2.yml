@@ -220,6 +220,9 @@ jobs:
       - name: Verify reviewed 4 November batch, deduplication, privacy, cases and CZ/EN
         run: node scripts/validate-evidence-release-2026-11-04.mjs
 
+      - name: Verify 10 original OKTE annexes of the 30 October Olomouc Police reply
+        run: node scripts/validate-okte-originals-2026-11-05.mjs
+
       - name: Ověřit manifest Evidence Lab 2.0 bez ručních počtů
         shell: bash
         run: |
