@@ -96,7 +96,8 @@ const chronologyDocuments = stateDocuments;
 const chronologyRow = (item, index) => {
   const institution = translations.institutions[item.institution_id] || item.institution_id;
   const number = chronologyDocuments.length - index;
-  return `<tr id="en-${escapeHtml(item.id)}" data-document-id="${escapeHtml(item.id)}" data-row-number="${number}" data-issue-date="${escapeHtml(item.issue_date)}" data-submission-side="incoming_from_state_or_public_institution"><td class="slalom-number">${number}</td><td><time datetime="${escapeHtml(item.issue_date)}">${escapeHtml(formatDate(item.issue_date))}</time></td><td>${escapeHtml(institution)}</td><td>${escapeHtml(englishReferenceText(item))}</td><td>${escapeHtml(translations.documents[item.id])} · ${sourceLink(item)}</td><td class="state-love-relation-cell">${renderRelated(filingsForState(item))}</td><td class="state-love-relation-cell">${renderRelated(remediesForState(item))}</td></tr>`;
+  const okteAnnexLink = item.id === 'doc-cz-pcr-krpo-2026-10-30-krpm-145410-2' ? ' · <a href="listiny/2026-11-02-evidence-krpm.html#okte-originaly">10 original OKTE annexes</a>' : '';
+  return `<tr id="en-${escapeHtml(item.id)}" data-document-id="${escapeHtml(item.id)}" data-row-number="${number}" data-issue-date="${escapeHtml(item.issue_date)}" data-submission-side="incoming_from_state_or_public_institution"><td class="slalom-number">${number}</td><td><time datetime="${escapeHtml(item.issue_date)}">${escapeHtml(formatDate(item.issue_date))}</time></td><td>${escapeHtml(institution)}</td><td>${escapeHtml(englishReferenceText(item))}</td><td>${escapeHtml(translations.documents[item.id])} · ${sourceLink(item)}${okteAnnexLink}</td><td class="state-love-relation-cell"${renderRelated(filingsForState(item))}</td><td class="state-love-relation-cell">${renderRelated(remediesForState(item))}</td></tr>`;
 };
 
 const hiddenOutgoingAnchors = outgoingDocuments
