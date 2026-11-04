@@ -1,0 +1,469 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-11-05",
+  "status": "binding",
+  "description": "Ten byte-identical official OKTE expert-report PDFs delivered together as ten file attachments to one 30 October 2026 Olomouc Regional Police response. No duplicate incoming 2026 Godot rows.",
+  "parent_document_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+  "documents": [
+    {
+      "id": "doc-cz-pcr-okte-2009-11-02-krpt-6172-1-kt-2009",
+      "issue_date": "2009-11-02",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPT",
+      "reference": "KRPT-6172-1/KT-2009",
+      "user_title": "OKTE Frýdek-Místek – odborné vyjádření č. j. KRPT-6172-1/KT-2009 (úroda 2008-2009), původní policejní příloha",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original_expert_report_included_as_file_annex_to_2026-10-30_olomouc_police_response_not_a_separate_2026_response",
+      "topics": [
+        "forenzní analýzy THC/THCA",
+        "OKTE Frýdek-Místek",
+        "příloha odpovědi KRPM-145410-2/ČJ-2026-1400AP-106",
+        "úroda 2008-2009"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/okte-originaly-2026-10-30/2008-2009-OKTE-KRPT-6172-1-KT-2009.pdf",
+        "intended_pdf": "documents/okte-originaly-2026-10-30/2008-2009-OKTE-KRPT-6172-1-KT-2009.pdf",
+        "sha256": "8f0766a10ab324a4c57f659b51fda172967ae08164b7827ebb2a44f3e21c7642",
+        "source_original_sha256": "8f0766a10ab324a4c57f659b51fda172967ae08164b7827ebb2a44f3e21c7642",
+        "source_original_size_bytes": 3473598,
+        "source_original_page_count": 4,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified; restored_from_git_chunks",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
+        }
+      ],
+      "evidence_note": "Originální 4stránkové odborné vyjádření OKTE Frýdek-Místek č. j. KRPT-6172-1/KT-2009, datované 2009-11-02. Samostatná souborová příloha odpovědi KŘP Olomouckého kraje ze dne 30. 10. 2026, č. j. KRPM-145410-2/ČJ-2026-1400AP-106 (celkem deset takových příloh). Nejde o samostatnou odpověď policie z roku 2026 ani o autorskou srovnávací analýzu. Zveřejněná kopie se binárně shoduje se souborem dodaným v odpovědi policie.",
+      "parent_document_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+      "annex_index": 1,
+      "harvest_label": "2008-2009"
+    },
+    {
+      "id": "doc-cz-pcr-okte-2010-10-22-krpt-5906-1-kt-2010",
+      "issue_date": "2010-10-22",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPT",
+      "reference": "KRPT-5906-1/KT-2010",
+      "user_title": "OKTE Frýdek-Místek – odborné vyjádření č. j. KRPT-5906-1/KT-2010 (úroda 2010), původní policejní příloha",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original_expert_report_included_as_file_annex_to_2026-10-30_olomouc_police_response_not_a_separate_2026_response",
+      "topics": [
+        "forenzní analýzy THC/THCA",
+        "OKTE Frýdek-Místek",
+        "příloha odpovědi KRPM-145410-2/ČJ-2026-1400AP-106",
+        "úroda 2010"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/okte-originaly-2026-10-30/2010-OKTE-KRPT-5906-1-KT-2010.pdf",
+        "intended_pdf": "documents/okte-originaly-2026-10-30/2010-OKTE-KRPT-5906-1-KT-2010.pdf",
+        "sha256": "1df5823da968915d541d26ce9412483edee64ebb9776c9cae246277b3a997c39",
+        "source_original_sha256": "1df5823da968915d541d26ce9412483edee64ebb9776c9cae246277b3a997c39",
+        "source_original_size_bytes": 290225,
+        "source_original_page_count": 8,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified; restored_from_git_chunks",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
+        }
+      ],
+      "evidence_note": "Originální 8stránkové odborné vyjádření OKTE Frýdek-Místek č. j. KRPT-5906-1/KT-2010, datované 2010-10-22. Samostatná souborová příloha odpovědi KŘP Olomouckého kraje ze dne 30. 10. 2026, č. j. KRPM-145410-2/ČJ-2026-1400AP-106 (celkem deset takových příloh). Nejde o samostatnou odpověď policie z roku 2026 ani o autorskou srovnávací analýzu. Zveřejněná kopie se binárně shoduje se souborem dodaným v odpovědi policie.",
+      "parent_document_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+      "annex_index": 2,
+      "harvest_label": "2010"
+    },
+    {
+      "id": "doc-cz-pcr-okte-2012-02-22-krpt-5088-2-kt-2011",
+      "issue_date": "2012-02-22",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPT",
+      "reference": "KRPT-5088-2/KT-2011",
+      "user_title": "OKTE Frýdek-Místek – odborné vyjádření č. j. KRPT-5088-2/KT-2011 (úroda 2011), původní policejní příloha",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original_expert_report_included_as_file_annex_to_2026-10-30_olomouc_police_response_not_a_separate_2026_response",
+      "topics": [
+        "forenzní analýzy THC/THCA",
+        "OKTE Frýdek-Místek",
+        "příloha odpovědi KRPM-145410-2/ČJ-2026-1400AP-106",
+        "úroda 2011"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/okte-originaly-2026-10-30/2011-OKTE-KRPT-5088-2-KT-2011.pdf",
+        "intended_pdf": "documents/okte-originaly-2026-10-30/2011-OKTE-KRPT-5088-2-KT-2011.pdf",
+        "sha256": "c2d18c08a1e10b3cbdd55c1b40284513173d35ffeedcce7bf39ed90284846d97",
+        "source_original_sha256": "c2d18c08a1e10b3cbdd55c1b40284513173d35ffeedcce7bf39ed90284846d97",
+        "source_original_size_bytes": 442537,
+        "source_original_page_count": 9,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified; restored_from_git_chunks",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
+        }
+      ],
+      "evidence_note": "Originální 9stránkové odborné vyjádření OKTE Frýdek-Místek č. j. KRPT-5088-2/KT-2011, datované 2012-02-22. Samostatná souborová příloha odpovědi KŘP Olomouckého kraje ze dne 30. 10. 2026, č. j. KRPM-145410-2/ČJ-2026-1400AP-106 (celkem deset takových příloh). Nejde o samostatnou odpověď policie z roku 2026 ani o autorskou srovnávací analýzu. Zveřejněná kopie se binárně shoduje se souborem dodaným v odpovědi policie.",
+      "parent_document_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+      "annex_index": 3,
+      "harvest_label": "2011"
+    },
+    {
+      "id": "doc-cz-pcr-okte-2013-02-25-krpt-5223-1-kt-2012",
+      "issue_date": "2013-02-25",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPT",
+      "reference": "KRPT-5223-1/KT-2012",
+      "user_title": "OKTE Frýdek-Místek – odborné vyjádření č. j. KRPT-5223-1/KT-2012 (úroda 2012), původní policejní příloha",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original_expert_report_included_as_file_annex_to_2026-10-30_olomouc_police_response_not_a_separate_2026_response",
+      "topics": [
+        "forenzní analýzy THC/THCA",
+        "OKTE Frýdek-Místek",
+        "příloha odpovědi KRPM-145410-2/ČJ-2026-1400AP-106",
+        "úroda 2012"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/okte-originaly-2026-10-30/2012-OKTE-KRPT-5223-1-KT-2012.pdf",
+        "intended_pdf": "documents/okte-originaly-2026-10-30/2012-OKTE-KRPT-5223-1-KT-2012.pdf",
+        "sha256": "e6846ea3aff067bc8c2dff7d81fdfa13a77b31ad0d0b22ce1d627b5428fc5c4d",
+        "source_original_sha256": "e6846ea3aff067bc8c2dff7d81fdfa13a77b31ad0d0b22ce1d627b5428fc5c4d",
+        "source_original_size_bytes": 163217,
+        "source_original_page_count": 3,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified; restored_from_git_chunks",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
+        }
+      ],
+      "evidence_note": "Originální 3stránkové odborné vyjádření OKTE Frýdek-Místek č. j. KRPT-5223-1/KT-2012, datované 2013-02-25. Samostatná souborová příloha odpovědi KŘP Olomouckého kraje ze dne 30. 10. 2026, č. j. KRPM-145410-2/ČJ-2026-1400AP-106 (celkem deset takových příloh). Nejde o samostatnou odpověď policie z roku 2026 ani o autorskou srovnávací analýzu. Zveřejněná kopie se binárně shoduje se souborem dodaným v odpovědi policie.",
+      "parent_document_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+      "annex_index": 4,
+      "harvest_label": "2012"
+    },
+    {
+      "id": "doc-cz-pcr-okte-2015-01-22-krpt-5666-1-kt-2014",
+      "issue_date": "2015-01-22",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPT",
+      "reference": "KRPT-5666-1/KT-2014",
+      "user_title": "OKTE Frýdek-Místek – odborné vyjádření č. j. KRPT-5666-1/KT-2014 (úroda 2014), původní policejní příloha",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original_expert_report_included_as_file_annex_to_2026-10-30_olomouc_police_response_not_a_separate_2026_response",
+      "topics": [
+        "forenzní analýzy THC/THCA",
+        "OKTE Frýdek-Místek",
+        "příloha odpovědi KRPM-145410-2/ČJ-2026-1400AP-106",
+        "úroda 2014"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/okte-originaly-2026-10-30/2014-OKTE-KRPT-5666-1-KT-2014.pdf",
+        "intended_pdf": "documents/okte-originaly-2026-10-30/2014-OKTE-KRPT-5666-1-KT-2014.pdf",
+        "sha256": "92a88cbd00057cfba85ad737c1b94b44da7f069d0eb064a123ebab40229da2be",
+        "source_original_sha256": "92a88cbd00057cfba85ad737c1b94b44da7f069d0eb064a123ebab40229da2be",
+        "source_original_size_bytes": 208172,
+        "source_original_page_count": 4,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified; restored_from_git_chunks",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
+        }
+      ],
+      "evidence_note": "Originální 4stránkové odborné vyjádření OKTE Frýdek-Místek č. j. KRPT-5666-1/KT-2014, datované 2015-01-22. Samostatná souborová příloha odpovědi KŘP Olomouckého kraje ze dne 30. 10. 2026, č. j. KRPM-145410-2/ČJ-2026-1400AP-106 (celkem deset takových příloh). Nejde o samostatnou odpověď policie z roku 2026 ani o autorskou srovnávací analýzu. Zveřejněná kopie se binárně shoduje se souborem dodaným v odpovědi policie.",
+      "parent_document_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+      "annex_index": 5,
+      "harvest_label": "2014"
+    },
+    {
+      "id": "doc-cz-pcr-okte-2015-10-14-krpt-4455-1-kt-2015",
+      "issue_date": "2015-10-14",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPT",
+      "reference": "KRPT-4455-1/KT-2015",
+      "user_title": "OKTE Frýdek-Místek – odborné vyjádření č. j. KRPT-4455-1/KT-2015 (úroda 2015), původní policejní příloha",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original_expert_report_included_as_file_annex_to_2026-10-30_olomouc_police_response_not_a_separate_2026_response",
+      "topics": [
+        "forenzní analýzy THC/THCA",
+        "OKTE Frýdek-Místek",
+        "příloha odpovědi KRPM-145410-2/ČJ-2026-1400AP-106",
+        "úroda 2015"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/okte-originaly-2026-10-30/2015-OKTE-KRPT-4455-1-KT-2015.pdf",
+        "intended_pdf": "documents/okte-originaly-2026-10-30/2015-OKTE-KRPT-4455-1-KT-2015.pdf",
+        "sha256": "851d60178b8d9f2e1fe875f46fc234c8a50d8e2f81228d4d419311455eb6cf0c",
+        "source_original_sha256": "851d60178b8d9f2e1fe875f46fc234c8a50d8e2f81228d4d419311455eb6cf0c",
+        "source_original_size_bytes": 257932,
+        "source_original_page_count": 4,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified; restored_from_git_chunks",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
+        }
+      ],
+      "evidence_note": "Originální 4stránkové odborné vyjádření OKTE Frýdek-Místek č. j. KRPT-4455-1/KT-2015, datované 2015-10-14. Samostatná souborová příloha odpovědi KŘP Olomouckého kraje ze dne 30. 10. 2026, č. j. KRPM-145410-2/ČJ-2026-1400AP-106 (celkem deset takových příloh). Nejde o samostatnou odpověď policie z roku 2026 ani o autorskou srovnávací analýzu. Zveřejněná kopie se binárně shoduje se souborem dodaným v odpovědi policie.",
+      "parent_document_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+      "annex_index": 6,
+      "harvest_label": "2015"
+    },
+    {
+      "id": "doc-cz-pcr-okte-2017-04-05-krpt-4344-3-kt-2016",
+      "issue_date": "2017-04-05",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPT",
+      "reference": "KRPT-4344-3/KT-2016",
+      "user_title": "OKTE Frýdek-Místek – odborné vyjádření č. j. KRPT-4344-3/KT-2016 (úroda 2016), původní policejní příloha",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original_expert_report_included_as_file_annex_to_2026-10-30_olomouc_police_response_not_a_separate_2026_response",
+      "topics": [
+        "forenzní analýzy THC/THCA",
+        "OKTE Frýdek-Místek",
+        "příloha odpovědi KRPM-145410-2/ČJ-2026-1400AP-106",
+        "úroda 2016"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/okte-originaly-2026-10-30/2016-OKTE-KRPT-4344-3-KT-2016.pdf",
+        "intended_pdf": "documents/okte-originaly-2026-10-30/2016-OKTE-KRPT-4344-3-KT-2016.pdf",
+        "sha256": "be63c7bb15d80dd7b4567116775dd711e270d62a02abb5d7e8d13ed7fe4b600b",
+        "source_original_sha256": "be63c7bb15d80dd7b4567116775dd711e270d62a02abb5d7e8d13ed7fe4b600b",
+        "source_original_size_bytes": 1575936,
+        "source_original_page_count": 4,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified; restored_from_git_chunks",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
+        }
+      ],
+      "evidence_note": "Originální 4stránkové odborné vyjádření OKTE Frýdek-Místek č. j. KRPT-4344-3/KT-2016, datované 2017-04-05. Samostatná souborová příloha odpovědi KŘP Olomouckého kraje ze dne 30. 10. 2026, č. j. KRPM-145410-2/ČJ-2026-1400AP-106 (celkem deset takových příloh). Nejde o samostatnou odpověď policie z roku 2026 ani o autorskou srovnávací analýzu. Zveřejněná kopie se binárně shoduje se souborem dodaným v odpovědi policie.",
+      "parent_document_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+      "annex_index": 7,
+      "harvest_label": "2016"
+    },
+    {
+      "id": "doc-cz-pcr-okte-2018-03-26-krpt-4572-1-kt-2017",
+      "issue_date": "2018-03-26",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPT",
+      "reference": "KRPT-4572-1/KT-2017",
+      "user_title": "OKTE Frýdek-Místek – odborné vyjádření č. j. KRPT-4572-1/KT-2017 (úroda 2017), původní policejní příloha",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original_expert_report_included_as_file_annex_to_2026-10-30_olomouc_police_response_not_a_separate_2026_response",
+      "topics": [
+        "forenzní analýzy THC/THCA",
+        "OKTE Frýdek-Místek",
+        "příloha odpovědi KRPM-145410-2/ČJ-2026-1400AP-106",
+        "úroda 2017"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/okte-originaly-2026-10-30/2017-OKTE-KRPT-4572-1-KT-2017.pdf",
+        "intended_pdf": "documents/okte-originaly-2026-10-30/2017-OKTE-KRPT-4572-1-KT-2017.pdf",
+        "sha256": "6561f89fb8d2bd550f9bdcadd5af90e09e393338bd32ec1fcf7fe5764a3d692d",
+        "source_original_sha256": "6561f89fb8d2bd550f9bdcadd5af90e09e393338bd32ec1fcf7fe5764a3d692d",
+        "source_original_size_bytes": 525136,
+        "source_original_page_count": 3,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified; restored_from_git_chunks",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
+        }
+      ],
+      "evidence_note": "Originální 3stránkové odborné vyjádření OKTE Frýdek-Místek č. j. KRPT-4572-1/KT-2017, datované 2018-03-26. Samostatná souborová příloha odpovědi KŘP Olomouckého kraje ze dne 30. 10. 2026, č. j. KRPM-145410-2/ČJ-2026-1400AP-106 (celkem deset takových příloh). Nejde o samostatnou odpověď policie z roku 2026 ani o autorskou srovnávací analýzu. Zveřejněná kopie se binárně shoduje se souborem dodaným v odpovědi policie.",
+      "parent_document_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+      "annex_index": 8,
+      "harvest_label": "2017"
+    },
+    {
+      "id": "doc-cz-pcr-okte-2019-01-15-krpt-3050-2-kt-2018",
+      "issue_date": "2019-01-15",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPT",
+      "reference": "KRPT-3050-2/KT-2018",
+      "user_title": "OKTE Frýdek-Místek – odborné vyjádření č. j. KRPT-3050-2/KT-2018 (úroda 2018), původní policejní příloha",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original_expert_report_included_as_file_annex_to_2026-10-30_olomouc_police_response_not_a_separate_2026_response",
+      "topics": [
+        "forenzní analýzy THC/THCA",
+        "OKTE Frýdek-Místek",
+        "příloha odpovědi KRPM-145410-2/ČJ-2026-1400AP-106",
+        "úroda 2018"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/okte-originaly-2026-10-30/2018-OKTE-KRPT-3050-2-KT-2018.pdf",
+        "intended_pdf": "documents/okte-originaly-2026-10-30/2018-OKTE-KRPT-3050-2-KT-2018.pdf",
+        "sha256": "8c0e1a33f8e4e72887924909c39936ce8c5045950e04d01fd4c1808b9a68fc66",
+        "source_original_sha256": "8c0e1a33f8e4e72887924909c39936ce8c5045950e04d01fd4c1808b9a68fc66",
+        "source_original_size_bytes": 1175929,
+        "source_original_page_count": 4,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified; restored_from_git_chunks",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
+        }
+      ],
+      "evidence_note": "Originální 4stránkové odborné vyjádření OKTE Frýdek-Místek č. j. KRPT-3050-2/KT-2018, datované 2019-01-15. Samostatná souborová příloha odpovědi KŘP Olomouckého kraje ze dne 30. 10. 2026, č. j. KRPM-145410-2/ČJ-2026-1400AP-106 (celkem deset takových příloh). Nejde o samostatnou odpověď policie z roku 2026 ani o autorskou srovnávací analýzu. Zveřejněná kopie se binárně shoduje se souborem dodaným v odpovědi policie.",
+      "parent_document_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+      "annex_index": 9,
+      "harvest_label": "2018"
+    },
+    {
+      "id": "doc-cz-pcr-okte-2020-01-03-krpt-3350-1-kt-2019",
+      "issue_date": "2020-01-03",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPT",
+      "reference": "KRPT-3350-1/KT-2019",
+      "user_title": "OKTE Frýdek-Místek – odborné vyjádření č. j. KRPT-3350-1/KT-2019 (úroda 2019), původní policejní příloha",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original_expert_report_included_as_file_annex_to_2026-10-30_olomouc_police_response_not_a_separate_2026_response",
+      "topics": [
+        "forenzní analýzy THC/THCA",
+        "OKTE Frýdek-Místek",
+        "příloha odpovědi KRPM-145410-2/ČJ-2026-1400AP-106",
+        "úroda 2019"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/okte-originaly-2026-10-30/2019-OKTE-KRPT-3350-1-KT-2019.pdf",
+        "intended_pdf": "documents/okte-originaly-2026-10-30/2019-OKTE-KRPT-3350-1-KT-2019.pdf",
+        "sha256": "ed80b1301c3ecad48902cdf6e89c14ddcd7b07bbd8c844f410671b1ea8b7016e",
+        "source_original_sha256": "ed80b1301c3ecad48902cdf6e89c14ddcd7b07bbd8c844f410671b1ea8b7016e",
+        "source_original_size_bytes": 502538,
+        "source_original_page_count": 4,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified; restored_from_git_chunks",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
+        }
+      ],
+      "evidence_note": "Originální 4stránkové odborné vyjádření OKTE Frýdek-Místek č. j. KRPT-3350-1/KT-2019, datované 2020-01-03. Samostatná souborová příloha odpovědi KŘP Olomouckého kraje ze dne 30. 10. 2026, č. j. KRPM-145410-2/ČJ-2026-1400AP-106 (celkem deset takových příloh). Nejde o samostatnou odpověď policie z roku 2026 ani o autorskou srovnávací analýzu. Zveřejněná kopie se binárně shoduje se souborem dodaným v odpovědi policie.",
+      "parent_document_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+      "annex_index": 10,
+      "harvest_label": "2019"
+    }
+  ]
+}
