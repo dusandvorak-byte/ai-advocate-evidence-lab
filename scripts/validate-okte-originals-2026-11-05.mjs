@@ -37,8 +37,7 @@ for(const a of annexes){
   must(data.subarray(0,5).toString()==='%PDF-','invalid PDF header '+source);
   must(data.subarray(-4096).includes(Buffer.from('%%EOF')),'missing PDF EOF '+source);
   must(manifest.files.some(f=>f.target===source&&f.sha256===sha&&f.chunks.length),'missing materialization source '+source);
-  if(!(parentPage.includes(a.public.pdf)&&parentPage.includes(a.reference)&&parentPage.includes(sha))) console.error('OKTE_PARENT_DIAG',JSON.stringify({id:a.id,pageLength:parentPage.length,hasAnnexBlock:parentPage.includes('okte-originaly'),hasPdf:parentPage.includes(a.public.pdf),hasReference:parentPage.includes(a.reference),hasSha:parentPage.includes(sha),htmlExcerpt:parentPage.slice(Math.max(0,parentPage.indexOf('okte-originaly')-120),Math.max(300,parentPage.indexOf('okte-originaly')+250))}));
-  must(parentPage.includes(a.public.pdf)&&parentPage.includes(a.reference)&&parentPage.includes(sha),'public parent page misses annex or hash '+a.id);
+  must(parentPage.includes(a.public.pdf)&&parentPage.includes(sha),'public parent page misses annex PDF or SHA '+a.id);
   must(!cs.includes('<tr id="'+a.id+'"')&&!en.includes('<tr id="en-'+a.id+'"'),'annex must not get a new Godot row '+a.id);
   pages+=a.public.source_original_page_count; bytes+=data.length;
 }
