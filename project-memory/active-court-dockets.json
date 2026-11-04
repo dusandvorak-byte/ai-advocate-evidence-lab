@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "status": "binding",
-  "updated_on": "2026-10-19",
+  "updated_on": "2026-11-04",
   "purpose": "Kanonický přehled soudních větví od 1. 5. 2026. Stav se musí křížově ověřovat mezi příchozími soudními listinami v Godotu, vlastními opravnými podáními v Justičním slalomu a project-memory/cases.json. Součástí přehledu je výslovně označená předžalobní větev NSZ; neprezentuje se jako již zahájené soudní řízení.",
   "table_contract": {
     "columns_cs": [
@@ -39,17 +39,24 @@
       ],
       "merit_cs": "Úrody 2008–2009. Obnova původního trestního řízení 2 T 104/2010. Návrh z roku 2026 staví zejména na nových podkladech k reprezentativnímu odběru, homogenizaci, rozlišení THC/THCA, dekarboxylaci, validaci, nejistotě měření a významu práva EU. Veřejné zasedání je podle podání z 8. 10. 2026 přesunuto na 30. 11. 2026 v 9:00.",
       "merit_en": "2008–2009 crops. Reopening of criminal case 2 T 104/2010. The 2026 motion relies in particular on new records concerning representative sampling, homogenisation, THC/THCA distinction, decarboxylation, validation, measurement uncertainty and EU-law relevance. The 8 October 2026 filing records the rescheduled hearing for 30 November 2026 at 09:00.",
-      "remedy_cs": "Původní odsouzení: KS Brno 3 To 25/2011; NS 8 Tdo 1231/2011. Nynější 15 Nt 3104/2026 dosud bez rozhodnutí o obnově. Dne 15. 10. 2026 vydal OS Prostějov výzvu č. j. 15 Nt 3104/2026-238 k doplnění majetkových podkladů pro bezplatnou obhajobu do 14 dnů od doručení; nejde o rozhodnutí o obnově ani o nároku na obhajobu. Dne 21. 10. 2026 bylo doplněno podání k právní pomoci a dne 24. 10. 2026 podání České advokátní komoře k určení advokáta; samo jejich podání neznamená, že advokát byl již ustanoven.",
-      "remedy_en": "Original conviction: Brno Regional Court 3 To 25/2011; Supreme Court 8 Tdo 1231/2011. Current reopening case 15 Nt 3104/2026 has not yet been decided. On 15 October 2026, Prostějov District Court issued a request 15 Nt 3104/2026-238 for financial documentation to support an application for free legal defence within 14 days of service; this is not a decision on reopening or eligibility. Legal aid filings were supplemented on 21 October and a further application was addressed to the Czech Bar Association on 24 October; counsel has not been confirmed as appointed by these filings.",
+      "remedy_cs": "OS Prostějov dne 2. 11. 2026 usnesením č. j. 15 Nt 3104/2026-341 nepřiznal nárok na bezplatnou obhajobu ani obhajobu za sníženou odměnu. Usnesení nerozhoduje o samotné obnově. Společné podání datované 4. 11. 2026 obsahuje dvě stížnosti a procesní žádosti; odeslání, včasnost ani rozhodnutí stížnostního soudu nejsou doloženy. Navazuje urgence určení advokáta ČAK datovaná 4. 11. 2026. Historie právní pomoci zahrnuje doplnění z 21. 10. 2026 a podání České advokátní komoře z 24. 10. 2026; tyto dřívější kroky zůstávají v evidenci. Původní odsouzení: KS Brno 3 To 25/2011; NS 8 Tdo 1231/2011.",
+      "remedy_en": "By order 15 Nt 3104/2026-341 dated 2 November 2026, Prostějov District Court denied entitlement to free or reduced-fee defence. The order does not decide reopening. A combined submission dated 4 November contains two complaints and procedural requests; dispatch, timeliness and an appellate ruling are unverified. A Bar Association reminder dated 4 November follows. The legal-aid history retains the supplement dated 21 October 2026 and the application to the Czech Bar Association dated 24 October 2026. Original conviction: Brno Regional Court 3 To 25/2011; Supreme Court 8 Tdo 1231/2011.",
       "supreme_cs": "II. ÚS 664/12. Pozdější obnova / související přezkum: III. ÚS 396/16.",
       "supreme_en": "II. ÚS 664/12. Later reopening / related review: III. ÚS 396/16.",
       "media_cs": "—",
       "media_en": "—",
       "godot_document_ids": [
-        "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238"
+        "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238",
+        "doc-cz-os-pro-2026-11-02-15-nt-3104-2026-341"
       ],
       "slalom_document_ids": [
-        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+        "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+        "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+        "doc-cz-ekk-2026-11-03-stiznost-krpm-145410",
+        "doc-cz-dd-2026-11-04-cak-urgence-advokata",
+        "doc-cz-dd-2026-10-12-osz-os-pro-infz-thc-obnova"
       ],
       "links": [
         {
@@ -76,17 +83,24 @@
       ],
       "merit_cs": "Úroda 2010. Obnova větve 2 T 65/2011; soud v září 2026 upřesnil, že v původní trestní věci státní zástupce vzal obžalobu zpět a řízení bylo následně zastaveno. Obnova nyní znovu otevírá skutkové a forenzní otázky zabrané úrody. Veřejné zasedání je podle podání z 8. 10. 2026 přesunuto na 30. 11. 2026 ve 13:00.",
       "merit_en": "2010 crop. Reopening branch 2 T 65/2011; in September 2026 the court clarified that the prosecutor withdrew the indictment in the original criminal case and the proceedings were later discontinued. The reopening motion again raises factual and forensic issues concerning the seized crop. The 8 October filing records the rescheduled hearing for 30 November 2026 at 13:00.",
-      "remedy_cs": "Nynější 15 Nt 3106/2026 dosud bez rozhodnutí o obnově. Historická větev navazuje na 2 Nt 1257/2013. Dne 15. 10. 2026 vydal OS Prostějov výzvu č. j. 15 Nt 3106/2026-235 k doplnění majetkových podkladů pro bezplatnou obhajobu do 14 dnů od doručení; nejde o rozhodnutí o obnově ani o nároku na obhajobu. Dne 21. 10. 2026 bylo doplněno podání k právní pomoci a dne 24. 10. 2026 podání České advokátní komoře k určení advokáta; samo jejich podání neznamená, že advokát byl již ustanoven.",
-      "remedy_en": "Current reopening case 15 Nt 3106/2026 has not yet been decided. The historical branch continues through 2 Nt 1257/2013. On 15 October 2026, Prostějov District Court issued a request 15 Nt 3106/2026-235 for evidence of financial circumstances within 14 days of service; it does not decide reopening or entitlement to funded defence. Legal aid filings were supplemented on 21 October and a further application was addressed to the Czech Bar Association on 24 October; counsel has not been confirmed as appointed by these filings.",
+      "remedy_cs": "OS Prostějov dne 2. 11. 2026 usnesením č. j. 15 Nt 3106/2026-337 nepřiznal nárok na bezplatnou obhajobu ani obhajobu za sníženou odměnu. Usnesení nerozhoduje o samotné obnově. Společné podání datované 4. 11. 2026 obsahuje dvě stížnosti a procesní žádosti; odeslání, včasnost ani rozhodnutí stížnostního soudu nejsou doloženy. Navazuje urgence určení advokáta ČAK datovaná 4. 11. 2026. Historie právní pomoci zahrnuje doplnění z 21. 10. 2026 a podání České advokátní komoře z 24. 10. 2026; tyto dřívější kroky zůstávají v evidenci. Historická větev navazuje na 2 Nt 1257/2013.",
+      "remedy_en": "By order 15 Nt 3106/2026-337 dated 2 November 2026, Prostějov District Court denied entitlement to free or reduced-fee defence. The order does not decide reopening. A combined submission dated 4 November contains two complaints and procedural requests; dispatch, timeliness and an appellate ruling are unverified. A Bar Association reminder dated 4 November follows. The legal-aid history retains the supplement dated 21 October 2026 and the application to the Czech Bar Association dated 24 October 2026. The historical branch continues through 2 Nt 1257/2013.",
       "supreme_cs": "IV. ÚS 4859/12 (historické předpolí větve 2 T 65/2011 / 2 Nt 1257/2013).",
       "supreme_en": "IV. ÚS 4859/12 (historical precursor to the 2 T 65/2011 / 2 Nt 1257/2013 branch).",
       "media_cs": "—",
       "media_en": "—",
       "godot_document_ids": [
-        "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235"
+        "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235",
+        "doc-cz-os-pro-2026-11-02-15-nt-3106-2026-337"
       ],
       "slalom_document_ids": [
-        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+        "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+        "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+        "doc-cz-ekk-2026-11-03-stiznost-krpm-145410",
+        "doc-cz-dd-2026-11-04-cak-urgence-advokata",
+        "doc-cz-dd-2026-10-12-osz-os-pro-infz-thc-obnova"
       ],
       "links": [
         {
@@ -125,7 +139,12 @@
         "doc-cz-os-pro-2026-10-30-15-nt-3103-vyrozumeni"
       ],
       "slalom_document_ids": [
-        "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53"
+        "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
+        "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+        "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+        "doc-cz-ekk-2026-11-03-stiznost-krpm-145410",
+        "doc-cz-dd-2026-11-04-cak-urgence-advokata"
       ],
       "links": [
         {
@@ -164,7 +183,12 @@
         "doc-cz-os-pro-2026-10-30-15-nt-3105-vyrozumeni"
       ],
       "slalom_document_ids": [
-        "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54"
+        "doc-cz-dd-2026-08-10-stiznost-15-nt-3105-2026-54",
+        "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+        "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+        "doc-cz-ekk-2026-11-03-stiznost-krpm-145410",
+        "doc-cz-dd-2026-11-04-cak-urgence-advokata"
       ],
       "links": [
         {
@@ -191,8 +215,8 @@
       ],
       "merit_cs": "Zásahová žaloba proti NCOZ. Žaloba a navazující podání napadají způsob vyřízení a nečinnost při prověřování policejních a znaleckých postupů při stanovení THC; pozdější důkazní doplnění rozvíjejí otázky odběru, homogenizace, THC/THCA, dekarboxylace, validace a nejistoty měření.",
       "merit_en": "Intervention action against NCOZ. The action and follow-up filings challenge the handling and alleged inactivity in reviewing police and forensic THC-determination practices; later evidence supplements develop sampling, homogenisation, THC/THCA, decarboxylation, validation and measurement-uncertainty issues.",
-      "remedy_cs": "Městský soud v Praze dne 12. 10. 2026 usnesením č. j. 18 A 17/2026-215 odmítl zásahovou žalobu proti NCOZ a Policejnímu prezidiu. Kasační stížnost je datována 30. 10. 2026 a napadá výroky I–II; doručení NSS a nová spisová značka nejsou doloženy. Zveřejněn je úplný textový přepis, nikoliv originální PDF.",
-      "remedy_en": "On 12 October 2026, by order 18 A 17/2026-215, Prague Municipal Court rejected the action against NCOZ and the Police Presidium. A cassation complaint dated 30 October 2026 challenges operative parts I–II. Receipt by the Supreme Administrative Court and a new case number are unverified. The complete text transcription is public, not the original PDF.",
+      "remedy_cs": "Městský soud v Praze dne 12. 10. 2026 usnesením č. j. 18 A 17/2026-215 odmítl zásahovou žalobu proti NCOZ a Policejnímu prezidiu. Kasační stížnost je datována 30. 10. 2026 a napadá výroky I–II; doručení NSS a nová spisová značka nejsou doloženy. Původní PDF kasační stížnosti je dostupné; datace sama nepotvrzuje podání soudu.",
+      "remedy_en": "On 12 October 2026, by order 18 A 17/2026-215, Prague Municipal Court rejected the action against NCOZ and the Police Presidium. A cassation complaint dated 30 October 2026 challenges operative parts I–II. Receipt by the Supreme Administrative Court and a new case number are unverified. The original cassation PDF is available; its date alone does not establish court filing.",
       "supreme_cs": "Historická trestní linie uváděná v podáních: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
       "supreme_en": "Historical criminal-review line cited in the filings: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
       "media_cs": "—",
@@ -203,7 +227,8 @@
       ],
       "slalom_document_ids": [
         "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
-        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
       ],
       "links": [
         {
@@ -235,8 +260,8 @@
       ],
       "merit_cs": "Zásahová žaloba proti Ministerstvu spravedlnosti. Žaloba napadá postup ministerstva při vyřizování podnětů a dohledu nad znaleckou činností a navazuje na dlouhodobě namítané sporné forenzní praxe při analýzách obsahu THC v zabraném konopí.",
       "merit_en": "Intervention action against the Ministry of Justice. The action challenges the Ministry's handling of submissions and oversight of forensic expert activity and follows long-running objections to disputed forensic practices in analysing THC content in seized cannabis.",
-      "remedy_cs": "Městský soud v Praze dne 12. 10. 2026 usnesením č. j. 18 A 23/2026-209 odmítl zásahovou i eventuální nečinnostní žalobu. Kasační stížnost je datována 30. 10. 2026 a napadá výroky I–III; doručení soudu a nová spisová značka NSS nejsou doloženy. Veřejně je dostupný její úplný textový přepis na samostatné evidenční stránce; do archivu PDF Justičního slalomu zatím nepatří, protože originální PDF není ve veřejném úložišti.",
-      "remedy_en": "On 12 October 2026, by order 18 A 23/2026-209, Prague Municipal Court rejected the intervention and alternative inactivity actions. A cassation complaint dated 30 October 2026 challenges operative parts I–III; court receipt and a new Supreme Administrative Court reference are unverified. The complete Czech text transcript is available on a separate evidence page; the original PDF has not been uploaded to the public archive.",
+      "remedy_cs": "Městský soud v Praze dne 12. 10. 2026 usnesením č. j. 18 A 23/2026-209 odmítl zásahovou i eventuální nečinnostní žalobu. Kasační stížnost je datována 30. 10. 2026 a napadá výroky I–III; doručení soudu a nová spisová značka NSS nejsou doloženy. Původní PDF kasační stížnosti je dostupné; datace sama nepotvrzuje podání soudu.",
+      "remedy_en": "On 12 October 2026, by order 18 A 23/2026-209, Prague Municipal Court rejected the intervention and alternative inactivity actions. A cassation complaint dated 30 October 2026 challenges operative parts I–III; court receipt and a new Supreme Administrative Court reference are unverified. The original cassation PDF is available; its date alone does not establish court filing.",
       "supreme_cs": "Historická trestní linie uváděná v podáních: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
       "supreme_en": "Historical criminal-review line cited in the filings: 3 Tz 1/2012 · 8 Tdo 1231/2011 · 6 Tdo 1493/2014 · 11 Tdo 181/2015 · 6 Tdo 323/2016 · 11 Tdo 61/2018 · 11 Tdo 426/2018 · 11 Tdo 1455/2018 · 11 Tdo 1332/2019 · 11 Tdo 1478/2019 · 11 Tdo 674/2020.",
       "media_cs": "—",
@@ -246,7 +271,8 @@
       ],
       "slalom_document_ids": [
         "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
-        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
       ],
       "links": [
         {
@@ -285,7 +311,8 @@
         "doc-cz-nss-2026-09-22-6-as-207-2026-26"
       ],
       "slalom_document_ids": [
-        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
       ],
       "links": [
         {
@@ -482,8 +509,8 @@
       ],
       "merit_cs": "Předžalobní výzva Nejvyššímu státnímu zastupitelství, sp. zn. 6 NZN 1737/2026, byla podána na svátek dobytí Bastily dne 14. července 2026. Zahrnuje podněty a důkazní doplnění zasílané od 20. dubna 2026 a navazující reakce NSZ evidované od května. Předmětem je tvrzená nečinnost a způsob prověřování oznámení týkajících se konopného výzkumu a sporných forenzních praxí při analýzách obsahu THC v zabraném konopí. Předžalobní fáze může vyústit v žalobu na ochranu před nezákonným zásahem, její skutečné podání však v tomto přehledu doloženo není. Níže lze rozbalit jednotlivé dostupné listiny NSZ a vlastní podání adresovaná NSZ.",
       "merit_en": "The pre-litigation demand addressed to the Supreme Public Prosecutor's Office, ref. 6 NZN 1737/2026, was filed on Bastille Day, 14 July 2026. The file concerns submissions and evidentiary supplements said to date from 20 April 2026 and subsequent NSZ responses recorded from May. It raises allegations of inaction and the handling of reports concerning cannabis research and disputed forensic practices for THC analysis in seized cannabis. An intervention action may follow, but no such court filing is established in this docket. The recorded NSZ documents and the author's submissions can be expanded below.",
-      "remedy_cs": "14. 7. 2026 – předžalobní výzva. Doložené úkony NSZ zahrnují 6. 5. 2026 č. j. 6 NZN 1737/2026-15, 13. 5. 2026 č. j. 6 NZN 1737/2026-32 a 13. 8. 2026 č. j. 6 NZN 1737/2026-73. Celý aktualizovaný sled dostupných listin NSZ i vlastních podání se rozbaluje v prvním sloupci. Nejde o odvolací ani kasační rozhodnutí soudu.",
-      "remedy_en": "14 July 2026 – pre-litigation demand. Recorded NSZ documents include 6 May 2026, ref. 6 NZN 1737/2026-15; 13 May 2026, ref. 6 NZN 1737/2026-32; and 13 August 2026, ref. 6 NZN 1737/2026-73. The current sequence of recorded NSZ documents and the author's submissions expands in the first column. These are not appellate or cassation court rulings.",
+      "remedy_cs": "14. 7. 2026 – předžalobní výzva. Doložené úkony NSZ zahrnují 6. 5. 2026 č. j. 6 NZN 1737/2026-15, 13. 5. 2026 č. j. 6 NZN 1737/2026-32 a 13. 8. 2026 č. j. 6 NZN 1737/2026-73. Celý aktualizovaný sled dostupných listin NSZ i vlastních podání se rozbaluje v prvním sloupci. Nejde o odvolací ani kasační rozhodnutí soudu. Důkazní doplnění datované 3. 11. 2026 a autorská analýza jsou navazujícími podklady; neprokazují podání žaloby soudu. Informační SIN 55/2026 se vede samostatně: NSZ 2. 11. prodloužilo nové vyřízení o deset dní, bez doloženého konečného dne.",
+      "remedy_en": "14 July 2026 – pre-litigation demand. Recorded NSZ documents include 6 May 2026, ref. 6 NZN 1737/2026-15; 13 May 2026, ref. 6 NZN 1737/2026-32; and 13 August 2026, ref. 6 NZN 1737/2026-73. The current sequence of recorded NSZ documents and the author's submissions expands in the first column. These are not appellate or cassation court rulings. An evidentiary supplement and authorial analysis dated 3 November are follow-up materials, not proof of court filing. Information branch SIN 55/2026 is separate: on 2 November NSZ extended reconsideration by ten days, without an established final date.",
       "supreme_cs": "Případná budoucí správní/ústavní soudní ochrana je pouze zamýšlenou návazností. K této konkrétní předžalobní výzvě dosud není v evidenci doložena podaná žaloba ani ústavní stížnost.",
       "supreme_en": "Any future administrative or constitutional judicial protection remains only a possible follow-up. No filed court action or constitutional complaint concerning this particular pre-litigation demand is evidenced in the registry.",
       "media_cs": "Podání ze dne 28. 10. 2026 – stížnosti a upřesnění žádosti o informace a trestního podnětu z 10. 10. 2026. Podle sdělení autora je původní úplné podání zveřejněno na webu Konopí je lék.cz; přímý odkaz je uveden níže.",
@@ -496,7 +523,10 @@
       "slalom_document_ids": [
         "doc-cz-dd-2026-07-14-slalom-34",
         "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni",
-        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni"
+        "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+        "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+        "doc-cz-ekk-2026-11-03-stiznost-krpm-145410"
       ],
       "timeline_asset": "data/nsz-prelitigation-timeline.json",
       "timeline_start": "2026-04-20",

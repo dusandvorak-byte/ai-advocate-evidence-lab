@@ -552,3 +552,21 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - **Náprava:** `.article-body` obsahující `.state-love-shell` musí přes `grid-column:1/-1` zabrat celou šířku mřížky; samotný panel pak může bezpečně zůstat na `width:100%` a geometricky odpovídá Justičnímu slalomu.
 - **Pojistka:** publikační validátor musí ověřit existenci full-width grid pravidla a nesmí připustit návrat Státu lásky čas do 760px sloupce.
 
+
+
+### 4. 11. 2026 – obsahové duplicity, oddělené právní větve a soukromí
+
+- Příjem: 16 PDF. Pět již evidovaných binárních originálů; č. 10 je obsahově a obrazově shodné s již evidovaným KRPT-276756-2, č. 5 a 6 tvoří jednu obsahovou identitu přes rozdílná metadata. Nových kanonických dokumentů je devět, nikoli jedenáct.
+- Pojistka: dávkový manifest zachovává všech 16 vstupních hashů, patnáct cílových identit, dva explicitní obsahové aliasy a oddělené původní/veřejné hashe. Validator odmítá nové duplicitní ID i neredigované původní bajty v publikovaném stromu.
+- Finanční a zdravotní obsah se řídí aktuálním upřesněním autora: v úředních soudních listinách zůstává, ve vlastním podání je minimalizován. Přímé identifikátory a soukromé třetí osoby se nadále redigují. Původní stránkové rozložení a počty stran jsou zachovány; mimo redakční obdélníky bylo naměřeno nula změněných pixelů.
+- Usnesení z 2. 11. o financování obhajoby nejsou rozhodnutím o obnově. Společné podání ze 4. 11. je datovanou listinou, bez nezávislého potvrzení včasnosti nebo odeslání. Informační NS Zin 208 a NSZ SIN 55 mají samostatné případové větve; soudní žaloba na NSZ zůstává podmíněná.
+- Čtyřicetistránková autorská analýza je obousměrně spojena s doplněním NSZ, které na str. 5 zpřesňuje její výrok o SOP. Chybějící samostatné přílohy se nevyrábějí ani nezaměňují za jiné dokumenty.
+- Automatická brána scripts/validate-evidence-release-2026-11-04.mjs běží v PR i produkci za finálními generátory; kontroluje identitu, bajty, původ, CZ/EN, Godot/Slalom, adresáty, případy i historii. Produkční živé ověření se provede až po schváleném merge.
+
+- Lokální regresní kontrola zachytila ztrátu slovní historie právní pomoci z 21. a 24. října při doplnění posledního rozhodnutí z 2. listopadu. Historické odkazy byly vráceny do CZ/EN soudních přehledů; původní test zůstává zachován. Dávková brána je v PR i produkci vložena až za finální generátory.
+
+- Nezávislé zdrojové kontroly před PR doplnily do anotací dvou podání výslovnou absenci samostatného čtyřstránkového přípisu z 3. listopadu a zachovaly historické spisové značky. Podání ke KRPM-145410 má navíc samostatný řádek pro Ministerstvo vnitra jako autorem uvedeného adresáta petitu; jeho příslušnost ani doručení se netvrdí. Nových adresátských řádků je 17.
+
+- Nezávislá kontrola redigovaných vlastních kopií navíc zachytila krátký zbývající údaj o majetku a dluhovém stavu na straně 2 podání ze 4. listopadu. Byl odstraněn z textu i obrazu; doplněn regresní zákaz zbytkových výrazů. Veřejný hash této kopie a dávkový manifest byly přepočteny.
+
+- Kontrola Git diff zjistila, že jedno PDF může Git heuristicky považovat za text a hlásit mezery v binárních datech. Složka této dávky proto výslovně označuje PDF jako binary; brána ověřuje skutečné bajty všech devíti PDF i ve staging indexu a zakazuje textovou normalizaci.

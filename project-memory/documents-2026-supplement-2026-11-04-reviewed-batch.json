@@ -1,0 +1,1021 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-11-04",
+  "status": "binding",
+  "description": "Nine new reviewed source documents; two semantic duplicate inputs kept as provenance aliases; six earlier canonical documents preserved.",
+  "documents": [
+    {
+      "id": "doc-cz-ns-2026-11-03-zin-208-2026-postoupeni",
+      "user_title": "Nejvyšší soud – stížnost k informační odpovědi předložena ÚOOÚ",
+      "issue_date": "2026-11-03",
+      "received_date": null,
+      "institution_id": "CZ-NS",
+      "reference": "Zin 208/2026",
+      "case_ids": [
+        "case-cz-ns-zin208-2026-infz"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "inspected source PDF; issue date does not certify dispatch, service or timeliness",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-ns-2026-10-23-zin-208-2026"
+        }
+      ],
+      "public": {
+        "html": "listiny/doc-cz-ns-2026-11-03-zin-208-2026-postoupeni.html",
+        "pdf": "documents/2026-11-04/2026-11-03-ns-zin-208-postoupeni-redigovana-kopie.pdf",
+        "intended_pdf": "documents/2026-11-04/2026-11-03-ns-zin-208-postoupeni-redigovana-kopie.pdf",
+        "sha256": "00eeb7917dcb1ff38a26ab4089bb4b89df761d96cb80718ff5a3172b4ea41205",
+        "source_original_sha256": "d95cd0e8dcd18f3081784afe8b84e47d7a268438e880aebd9455fa57f85fab80",
+        "source_original_size_bytes": 1821813,
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 179931,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json",
+        "public_copy_note": "Redigovaná veřejná kopie dodaného úředního PDF; původní vzhled zachován, nejde o byte-identický originál."
+      },
+      "evidence_note": "Nejvyšší soud v přípisu ze dne 3. 11. 2026 sděluje, že téhož dne předložil ÚOOÚ stížnost přijatou 30. 10. 2026 proti odpovědi z 23. 10. 2026. Nejde o rozhodnutí nadřízeného orgánu o stížnosti. Datum doručení tohoto přípisu žadateli není doloženo."
+    },
+    {
+      "id": "doc-cz-nsz-2026-11-02-sin-55-2026-35",
+      "user_title": "NSZ – prodloužení lhůty pro nové vyřízení informačních žádostí o deset dní",
+      "issue_date": "2026-11-02",
+      "received_date": null,
+      "institution_id": "CZ-NSZ",
+      "reference": "SIN 55/2026-35",
+      "case_ids": [
+        "case-cz-nsz-sin55-2026-infz"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "inspected source PDF; issue date does not certify dispatch, service or timeliness",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-uoou-2026-10-26-uoou-05841-26-4"
+        }
+      ],
+      "public": {
+        "html": "listiny/doc-cz-nsz-2026-11-02-sin-55-2026-35.html",
+        "pdf": "documents/2026-11-04/2026-11-02-nsz-sin-55-35-redigovana-kopie.pdf",
+        "intended_pdf": "documents/2026-11-04/2026-11-02-nsz-sin-55-35-redigovana-kopie.pdf",
+        "sha256": "3724fb0d0ac046c9100b3cda3ae40635532d92127f2a072704be3a840e54621a",
+        "source_original_sha256": "fe183b688ecf487a661509667fcb579d91ea9a6d46f183fd2906a580b6aba5dd",
+        "source_original_size_bytes": 274344,
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 240150,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json",
+        "public_copy_note": "Redigovaná veřejná kopie dodaného úředního PDF; původní vzhled zachován, nejde o byte-identický originál."
+      },
+      "evidence_note": "NSZ dne 2. 11. 2026 oznámilo prodloužení lhůty pro vyřízení žádostí z 25. a 26. 7. 2026 o deset dní z důvodu konzultací mezi útvary. Navazuje na rozhodnutí ÚOOÚ UOOU-05841/26-4 z 26. 10. 2026, kterým byla věc vrácena k novému projednání. Přípis neurčuje konečný kalendářní den a neposkytuje věcnou odpověď. Datum jeho doručení není doloženo."
+    },
+    {
+      "id": "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+      "user_title": "Důkazní doplnění NSZ k předžalobní výzvě a oddělenému vyřízení podnětů",
+      "issue_date": "2026-11-03",
+      "received_date": null,
+      "institution_id": "CZ-EKK",
+      "reference": "6 NZN 1737/2026; SIN 55/2026; SIN 72/2026",
+      "case_ids": [
+        "CASE-CZ-NSZ-6NZN1737-2026",
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova",
+        "case-cz-ks-brno-9to315-2026",
+        "case-cz-ks-brno-9to316-2026"
+      ],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "inspected source PDF; issue date does not certify dispatch, service or timeliness",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-dd-2026-10-28-nsz-53str-specifikace-a-reakce"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-ekk-2026-11-03-stiznost-krpm-145410"
+        }
+      ],
+      "public": {
+        "html": "listiny/doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni.html",
+        "pdf": "documents/2026-11-04/2026-11-03-ekk-nsz-dukazni-doplneni-redigovany-original.pdf",
+        "intended_pdf": "documents/2026-11-04/2026-11-03-ekk-nsz-dukazni-doplneni-redigovany-original.pdf",
+        "sha256": "4ed93e9d9f21ed4f5d40f6fcb50656d6bac1d90448edbd65c2b8d597fcf518f9",
+        "source_original_sha256": "a099e70110189810abbeefc675b61e787ed97b0b8e41b37279474f2c14ff5f49",
+        "source_original_size_bytes": 287176,
+        "source_original_page_count": 6,
+        "source_public_size_bytes": 314159,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json",
+        "public_copy_note": "Redigovaný originál PDF z dodaného souboru; původní vzhled zachován, nejde o byte-identický originál."
+      },
+      "evidence_note": "Podání EKK datované 3. 11. 2026 předkládá navazující dokumentovou analýzu a stížnost na částečné vyřízení policejní informační žádosti. Žádá oddělit předžalobní, trestní, dohledové a informační větve. Na straně 5 zpřesňuje, že existence, použitá verze a obsah pracovních listů a interních SOP nejsou doloženy předloženými vyjádřeními; jejich neexistence tím není prokázána. Podmíněně avizované podání žaloby dne 17. 11. 2026 se nemění. Odeslání a doručení jednotlivým adresátům není v této dávce prokázáno. Odkázané samostatné čtyřstránkové upozornění KŘP Moravskoslezského kraje z 3. 11. 2026 není součástí této dávky.",
+      "author_cs": "Edukativní konopná klinika, z. s., zastoupená Mgr. Dušanem Dvořákem",
+      "author_en": "Educational Cannabis Clinic, represented by Mgr. Dušan Dvořák",
+      "recipients": [
+        {
+          "institution_id": "CZ-NSZ",
+          "role": "primary",
+          "reference": "6 NZN 1737/2026; SIN 55/2026; SIN 72/2026"
+        },
+        {
+          "institution_id": "CZ-OS-PRO",
+          "role": "copy",
+          "reference": "15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026"
+        }
+      ],
+      "justice_slalom": {
+        "archive_number": 154,
+        "archive_name": "NSZ dne 3.11. 2026- KOMPLEXNÍ DUKAZY K OKTE A KÚ(1).pdf",
+        "source_sha256": "a099e70110189810abbeefc675b61e787ed97b0b8e41b37279474f2c14ff5f49",
+        "public_sha256": "4ed93e9d9f21ed4f5d40f6fcb50656d6bac1d90448edbd65c2b8d597fcf518f9",
+        "source_kind": "redacted_original_from_user_binary",
+        "redaction_manifest": "project-memory/evidence-release-2026-11-04.json",
+        "recipients": [
+          {
+            "institution_id": "CZ-NSZ",
+            "role": "primary",
+            "reference": "6 NZN 1737/2026; SIN 55/2026; SIN 72/2026",
+            "subject_cs": "Důkazní doplnění NSZ datované 3. 11. 2026; oddělení právních větví",
+            "subject_en": "Evidentiary supplement to NSZ dated 3 November 2026; separate procedural branches"
+          },
+          {
+            "institution_id": "CZ-OS-PRO",
+            "role": "copy",
+            "reference": "15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026",
+            "subject_cs": "Důkazní doplnění NSZ – stejnopis na vědomí ke čtyřem trestním spisům",
+            "subject_en": "Copy of the NSZ evidentiary supplement for four criminal files"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+      "user_title": "Společné podání ke čtyřem trestním spisům – dvě stížnosti a žádosti o zajištění obhájce",
+      "issue_date": "2026-11-04",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026; 15 Nt 3104/2026-341; 15 Nt 3106/2026-337",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova",
+        "case-cz-ks-brno-9to315-2026",
+        "case-cz-ks-brno-9to316-2026"
+      ],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "inspected source PDF; issue date does not certify dispatch, service or timeliness",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-os-pro-2026-11-02-15-nt-3104-2026-341"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-os-pro-2026-11-02-15-nt-3106-2026-337"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-os-pro-2026-10-30-15-nt-3103-vyrozumeni"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-os-pro-2026-10-30-15-nt-3105-vyrozumeni"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-ekk-2026-11-03-stiznost-krpm-145410"
+        }
+      ],
+      "public": {
+        "html": "listiny/doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba.html",
+        "pdf": "documents/2026-11-04/2026-11-04-os-pro-stiznosti-obhajoba-redigovany-original.pdf",
+        "intended_pdf": "documents/2026-11-04/2026-11-04-os-pro-stiznosti-obhajoba-redigovany-original.pdf",
+        "sha256": "c5f9d2b47686d4bbf45fedb38d33773835cd10a703f77f9bf6857941bbd072db",
+        "source_original_sha256": "3d620bd0908b792c6751b340a0b7c2f87c6948cdad1ce0c142d81bd9de83460a",
+        "source_original_size_bytes": 89482,
+        "source_original_page_count": 5,
+        "source_public_size_bytes": 99846,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json",
+        "public_copy_note": "Redigovaný originál PDF z dodaného souboru; původní vzhled zachován, nejde o byte-identický originál."
+      },
+      "evidence_note": "Osobní podání datované 4. 11. 2026 obsahuje dvě stížnosti proti usnesením o nároku na bezplatnou obhajobu či obhajobu za sníženou odměnu v 15 Nt 3104/2026 a 15 Nt 3106/2026. U sdělení v 15 Nt 3103/2026 a 15 Nt 3105/2026 žádá procesní vyjasnění. Jde o obsah datované listiny; doručení napadených usnesení, včasnost a odeslání tohoto podání nejsou nezávisle doloženy. Nejde o rozhodnutí stížnostního soudu. Odkázané samostatné čtyřstránkové upozornění KŘP Moravskoslezského kraje z 3. 11. 2026 není součástí této dávky.",
+      "author_cs": "Mgr. Dušan Dvořák",
+      "author_en": "Mgr. Dušan Dvořák",
+      "recipients": [
+        {
+          "institution_id": "CZ-OS-PRO",
+          "role": "through",
+          "reference": "15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026"
+        },
+        {
+          "institution_id": "CZ-KS-BRN",
+          "role": "primary",
+          "reference": "15 Nt 3104/2026-341; 15 Nt 3106/2026-337"
+        }
+      ],
+      "justice_slalom": {
+        "archive_number": 157,
+        "archive_name": "OS Prostějovu dne 4. 11. 2026 - Stížnost a důkazy důvodnosti.pdf",
+        "source_sha256": "3d620bd0908b792c6751b340a0b7c2f87c6948cdad1ce0c142d81bd9de83460a",
+        "public_sha256": "c5f9d2b47686d4bbf45fedb38d33773835cd10a703f77f9bf6857941bbd072db",
+        "source_kind": "redacted_original_from_user_binary",
+        "redaction_manifest": "project-memory/evidence-release-2026-11-04.json",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PRO",
+            "role": "through",
+            "reference": "15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026",
+            "subject_cs": "Dvě stížnosti a procesní žádosti datované 4. 11. 2026 ke čtyřem trestním spisům",
+            "subject_en": "Two complaints and procedural requests dated 4 November 2026 in four criminal files"
+          },
+          {
+            "institution_id": "CZ-KS-BRN",
+            "role": "primary",
+            "reference": "15 Nt 3104/2026-341; 15 Nt 3106/2026-337",
+            "subject_cs": "Stížnosti proti dvěma usnesením o obhajobě; prostřednictvím OS Prostějov",
+            "subject_en": "Complaints against two defence-funding orders, via Prostějov District Court"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-os-pro-2026-11-02-15-nt-3104-2026-341",
+      "user_title": "OS Prostějov – nepřiznán nárok na bezplatnou obhajobu či obhajobu za sníženou odměnu, 15 Nt 3104/2026-341",
+      "issue_date": "2026-11-02",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3104/2026-341",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "inspected source PDF; issue date does not certify dispatch, service or timeliness",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba"
+        }
+      ],
+      "public": {
+        "html": "listiny/doc-cz-os-pro-2026-11-02-15-nt-3104-2026-341.html",
+        "pdf": "documents/2026-11-04/2026-11-02-os-pro-15-nt-3104-341-redigovana-kopie.pdf",
+        "intended_pdf": "documents/2026-11-04/2026-11-02-os-pro-15-nt-3104-341-redigovana-kopie.pdf",
+        "sha256": "ed74f8cb1745310005d751071c69b339458a708018027dbb66288c8cf7130245",
+        "source_original_sha256": "b957704a88874f123d66ccab08e56b13192a9f086f40bd5d9f7173aa45f8d2a5",
+        "source_original_size_bytes": 232710,
+        "source_original_page_count": 5,
+        "source_public_size_bytes": 196541,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json",
+        "public_copy_note": "Redigovaná veřejná kopie dodaného úředního PDF; původní vzhled zachován, nejde o byte-identický originál."
+      },
+      "evidence_note": "Okresní soud v Prostějově usnesením ze dne 2. 11. 2026 nepřiznal nárok na bezplatnou obhajobu ani obhajobu za sníženou odměnu v řízení 15 Nt 3104/2026. Nejde o rozhodnutí o samotné obnově věci 2 T 104/2010 ani o obecné vyloučení ustanovení obhájce. Poučení uvádí stížnost do tří dnů od oznámení; samostatný doklad o doručení není v této dávce. Navazuje datované společné podání ze 4. 11. 2026."
+    },
+    {
+      "id": "doc-cz-os-pro-2026-11-02-15-nt-3106-2026-337",
+      "user_title": "OS Prostějov – nepřiznán nárok na bezplatnou obhajobu či obhajobu za sníženou odměnu, 15 Nt 3106/2026-337",
+      "issue_date": "2026-11-02",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3106/2026-337",
+      "case_ids": [
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "inspected source PDF; issue date does not certify dispatch, service or timeliness",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba"
+        }
+      ],
+      "public": {
+        "html": "listiny/doc-cz-os-pro-2026-11-02-15-nt-3106-2026-337.html",
+        "pdf": "documents/2026-11-04/2026-11-02-os-pro-15-nt-3106-337-redigovana-kopie.pdf",
+        "intended_pdf": "documents/2026-11-04/2026-11-02-os-pro-15-nt-3106-337-redigovana-kopie.pdf",
+        "sha256": "d8d4ca6e0ef28ea1055e523dd09c4143653cb0070f56c8a27c4856baa7f0dbc3",
+        "source_original_sha256": "67ca6fac6f09b83c178d7733960edd96372978ca147382d763e637dab6829951",
+        "source_original_size_bytes": 231892,
+        "source_original_page_count": 5,
+        "source_public_size_bytes": 195733,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json",
+        "public_copy_note": "Redigovaná veřejná kopie dodaného úředního PDF; původní vzhled zachován, nejde o byte-identický originál."
+      },
+      "evidence_note": "Samostatným usnesením ze dne 2. 11. 2026 soud nepřiznal nárok na bezplatnou obhajobu ani obhajobu za sníženou odměnu v 15 Nt 3106/2026. Větev navazuje na původní 2 T 65/2011; usnesení nerozhoduje o samotné obnově. Datum podpisové doložky není datem vydání. Doručení a konec stížnostní lhůty nejsou samostatně prokázány. Navazuje společné podání datované 4. 11. 2026."
+    },
+    {
+      "id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+      "user_title": "Autorská srovnávací dokumentová analýza deseti odborných vyjádření OKTE Frýdek-Místek",
+      "issue_date": "2026-11-03",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026; 18 A 17/2026; 18 A 23/2026; 15 A 44/2026; 6 NZN 1737/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova",
+        "case-cz-ks-brno-9to315-2026",
+        "case-cz-ks-brno-9to316-2026",
+        "case-cz-ms-praha-18a17-2026",
+        "case-cz-ms-praha-18a23-2026",
+        "case-cz-ms-praha-15a44-2026",
+        "CASE-CZ-NSZ-6NZN1737-2026",
+        "case-cz-pcr-ku-interni-prezkum",
+        "CASE-CZ-PCR-KRPT-203594-2026",
+        "case-cz-gibs-3794-2026"
+      ],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "inspected source PDF; issue date does not certify dispatch, service or timeliness",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "relations": [
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-ekk-2026-11-03-stiznost-krpm-145410"
+        }
+      ],
+      "public": {
+        "html": "listiny/doc-cz-dd-2026-11-03-okte-srovnavaci-analyza.html",
+        "pdf": "documents/2026-11-04/2026-11-03-okte-srovnavaci-analyza-redigovany-original.pdf",
+        "intended_pdf": "documents/2026-11-04/2026-11-03-okte-srovnavaci-analyza-redigovany-original.pdf",
+        "sha256": "b432ff18690cd7a0e0b7f7778e7013d4cf13410b30328df8189507b352e22009",
+        "source_original_sha256": "c0e19bbb85b323b0f2d11bb3a24f4376ba224597210b57ed95724d8524222007",
+        "source_original_size_bytes": 853382,
+        "source_original_page_count": 40,
+        "source_public_size_bytes": 1393747,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json",
+        "public_copy_note": "Redigovaný originál PDF z dodaného souboru; původní vzhled zachován, nejde o byte-identický originál."
+      },
+      "evidence_note": "Čtyřicetistránková autorská analýza datovaná 3. 11. 2026 se zabývá spornými forenzními praxemi při analýzách obsahu THC v zabraném konopí a vyjádřeními k úrodám 2009–2019, vydanými do roku 2020. Jde o jeden vlastní dokument, nikoli deset nových úředních originálů. Dokládá rozsah předložených vyjádření, nikoli úplnost laboratorních spisů. Kategorickou větu na straně 39 o neexistenci pracovních listů a SOP autor výslovně zpřesňuje na straně 5 souvisejícího doplnění NSZ: předložené listiny jejich existenci, verzi a obsah nedokládají. Odeslání osmi uvedeným institucím není samostatně doloženo.",
+      "author_cs": "Mgr. Dušan Dvořák",
+      "author_en": "Mgr. Dušan Dvořák",
+      "recipients": [
+        {
+          "institution_id": "CZ-OS-PRO",
+          "role": "primary",
+          "reference": "15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026"
+        },
+        {
+          "institution_id": "CZ-MS-PHA",
+          "role": "simultaneous",
+          "reference": "18 A 17/2026; 18 A 23/2026; 15 A 44/2026"
+        },
+        {
+          "institution_id": "CZ-NSZ",
+          "role": "simultaneous",
+          "reference": "6 NZN 1737/2026; SIN 55/2026; SIN 72/2026"
+        },
+        {
+          "institution_id": "CZ-MSP",
+          "role": "simultaneous",
+          "reference": "MSP-19/2026-ODKA-ROZ; MSP-898/2026-OP-OSV"
+        },
+        {
+          "institution_id": "CZ-MV",
+          "role": "simultaneous",
+          "reference": "MV-108890-3/TP-2026; MV-97289/TP-2026; MV-114818/TP-2026; MV-139593/TP-2026"
+        },
+        {
+          "institution_id": "CZ-PCR-PP",
+          "role": "simultaneous",
+          "reference": "PPR-44020/ČJ-2026-990210-PD; PPR-52605/ČJ-2026-990210-PD; PPR-54525/ČJ-2026-990340"
+        },
+        {
+          "institution_id": "CZ-GIBS",
+          "role": "simultaneous",
+          "reference": "GI-3794/ČJ-2026-840502-P"
+        },
+        {
+          "institution_id": "CZ-PCR-KRPT",
+          "role": "simultaneous",
+          "reference": "KRPT-203594/ČJ-2026-0700KR; KRPT-276756/ČJ-2026-0700KR"
+        }
+      ],
+      "justice_slalom": {
+        "archive_number": 155,
+        "archive_name": "Policii MS-PP - GIBS- MSP- NSZ-MSp-MV- OS v Prostějově dne 3. 11.2026 SROVNÁVACÍ TABULKA-OKTE 2009-2020.pdf",
+        "source_sha256": "c0e19bbb85b323b0f2d11bb3a24f4376ba224597210b57ed95724d8524222007",
+        "public_sha256": "b432ff18690cd7a0e0b7f7778e7013d4cf13410b30328df8189507b352e22009",
+        "source_kind": "redacted_original_from_user_binary",
+        "redaction_manifest": "project-memory/evidence-release-2026-11-04.json",
+        "recipients": [
+          {
+            "institution_id": "CZ-OS-PRO",
+            "role": "primary",
+            "reference": "15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026",
+            "subject_cs": "Autorská dokumentová analýza deseti vyjádření OKTE, datovaná 3. 11. 2026",
+            "subject_en": "Author's documentary analysis of ten OKTE reports, dated 3 November 2026"
+          },
+          {
+            "institution_id": "CZ-MS-PHA",
+            "role": "simultaneous",
+            "reference": "18 A 17/2026; 18 A 23/2026; 15 A 44/2026",
+            "subject_cs": "Autorská dokumentová analýza deseti vyjádření OKTE, datovaná 3. 11. 2026",
+            "subject_en": "Author's documentary analysis of ten OKTE reports, dated 3 November 2026"
+          },
+          {
+            "institution_id": "CZ-NSZ",
+            "role": "simultaneous",
+            "reference": "6 NZN 1737/2026; SIN 55/2026; SIN 72/2026",
+            "subject_cs": "Autorská dokumentová analýza deseti vyjádření OKTE, datovaná 3. 11. 2026",
+            "subject_en": "Author's documentary analysis of ten OKTE reports, dated 3 November 2026"
+          },
+          {
+            "institution_id": "CZ-MSP",
+            "role": "simultaneous",
+            "reference": "MSP-19/2026-ODKA-ROZ; MSP-898/2026-OP-OSV",
+            "subject_cs": "Autorská dokumentová analýza deseti vyjádření OKTE, datovaná 3. 11. 2026",
+            "subject_en": "Author's documentary analysis of ten OKTE reports, dated 3 November 2026"
+          },
+          {
+            "institution_id": "CZ-MV",
+            "role": "simultaneous",
+            "reference": "MV-108890-3/TP-2026; MV-97289/TP-2026; MV-114818/TP-2026; MV-139593/TP-2026",
+            "subject_cs": "Autorská dokumentová analýza deseti vyjádření OKTE, datovaná 3. 11. 2026",
+            "subject_en": "Author's documentary analysis of ten OKTE reports, dated 3 November 2026"
+          },
+          {
+            "institution_id": "CZ-PCR-PP",
+            "role": "simultaneous",
+            "reference": "PPR-44020/ČJ-2026-990210-PD; PPR-52605/ČJ-2026-990210-PD; PPR-54525/ČJ-2026-990340",
+            "subject_cs": "Autorská dokumentová analýza deseti vyjádření OKTE, datovaná 3. 11. 2026",
+            "subject_en": "Author's documentary analysis of ten OKTE reports, dated 3 November 2026"
+          },
+          {
+            "institution_id": "CZ-GIBS",
+            "role": "simultaneous",
+            "reference": "GI-3794/ČJ-2026-840502-P",
+            "subject_cs": "Autorská dokumentová analýza deseti vyjádření OKTE, datovaná 3. 11. 2026",
+            "subject_en": "Author's documentary analysis of ten OKTE reports, dated 3 November 2026"
+          },
+          {
+            "institution_id": "CZ-PCR-KRPT",
+            "role": "simultaneous",
+            "reference": "KRPT-203594/ČJ-2026-0700KR; KRPT-276756/ČJ-2026-0700KR",
+            "subject_cs": "Autorská dokumentová analýza deseti vyjádření OKTE, datovaná 3. 11. 2026",
+            "subject_en": "Author's documentary analysis of ten OKTE reports, dated 3 November 2026"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-ekk-2026-11-03-stiznost-krpm-145410",
+      "user_title": "Stížnost EKK proti částečnému vyřízení policejní informační žádosti z 15. října",
+      "issue_date": "2026-11-03",
+      "received_date": null,
+      "institution_id": "CZ-EKK",
+      "reference": "KRPM-145410-2/ČJ-2026-1400AP-106",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova",
+        "case-cz-ks-brno-9to315-2026",
+        "case-cz-ks-brno-9to316-2026",
+        "case-cz-pcr-krpo-100092-2026",
+        "CASE-CZ-NSZ-6NZN1737-2026"
+      ],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "inspected source PDF; issue date does not certify dispatch, service or timeliness",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
+        }
+      ],
+      "public": {
+        "html": "listiny/doc-cz-ekk-2026-11-03-stiznost-krpm-145410.html",
+        "pdf": "documents/2026-11-04/2026-11-03-ekk-stiznost-krpm-145410-redigovany-original.pdf",
+        "intended_pdf": "documents/2026-11-04/2026-11-03-ekk-stiznost-krpm-145410-redigovany-original.pdf",
+        "sha256": "5cd467d59f1f9a026d891c2548ce94ba8516e53cdf3fb8b84fecc24c2fcb1700",
+        "source_original_sha256": "67853c66ea2c2be51543d992153a5ba52002ccae4df3ec2df8acd3e6fc009a57",
+        "source_original_size_bytes": 163053,
+        "source_original_page_count": 4,
+        "source_public_size_bytes": 188685,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json",
+        "public_copy_note": "Redigovaný originál PDF z dodaného souboru; původní vzhled zachován, nejde o byte-identický originál."
+      },
+      "evidence_note": "Stížnost EKK datovaná 3. 11. 2026 směřuje proti částečnému vyřízení informační žádosti přípisem KŘP Olomouckého kraje KRPM-145410-2/ČJ-2026-1400AP-106 ze dne 30. 10. 2026. Podává se prostřednictvím KŘP příslušnému nadřízenému orgánu; na vědomí jsou uvedeny NSZ a OS Prostějov. Nejde o rozhodnutí o odborné správnosti znaleckých závěrů. Samostatné potvrzení odeslání není v této dávce. V petitu autor označuje za nadřízený orgán Ministerstvo vnitra; tato evidence popisuje zamýšleného adresáta a nepotvrzuje jeho příslušnost ani doručení.",
+      "author_cs": "Edukativní konopná klinika, z. s., zastoupená Mgr. Dušanem Dvořákem",
+      "author_en": "Educational Cannabis Clinic, represented by Mgr. Dušan Dvořák",
+      "recipients": [
+        {
+          "institution_id": "CZ-PCR-KRPO",
+          "role": "through",
+          "reference": "KRPM-145410-2/ČJ-2026-1400AP-106"
+        },
+        {
+          "institution_id": "CZ-MV",
+          "role": "primary",
+          "reference": "KRPM-145410-2/ČJ-2026-1400AP-106"
+        },
+        {
+          "institution_id": "CZ-NSZ",
+          "role": "copy",
+          "reference": "6 NZN 1737/2026"
+        },
+        {
+          "institution_id": "CZ-OS-PRO",
+          "role": "copy",
+          "reference": "15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026"
+        }
+      ],
+      "justice_slalom": {
+        "archive_number": 156,
+        "archive_name": "Policii OK - NSZ - OS v Prostějově dne 3. 11.2026.pdf",
+        "source_sha256": "67853c66ea2c2be51543d992153a5ba52002ccae4df3ec2df8acd3e6fc009a57",
+        "public_sha256": "5cd467d59f1f9a026d891c2548ce94ba8516e53cdf3fb8b84fecc24c2fcb1700",
+        "source_kind": "redacted_original_from_user_binary",
+        "redaction_manifest": "project-memory/evidence-release-2026-11-04.json",
+        "recipients": [
+          {
+            "institution_id": "CZ-PCR-KRPO",
+            "role": "through",
+            "reference": "KRPM-145410-2/ČJ-2026-1400AP-106",
+            "subject_cs": "Stížnost proti částečnému vyřízení žádosti podle InfZ; prostřednictvím KŘP nadřízenému orgánu",
+            "subject_en": "Complaint about partial handling of an FOI request, via the regional police to the superior authority"
+          },
+          {
+            "institution_id": "CZ-MV",
+            "role": "primary",
+            "reference": "KRPM-145410-2/ČJ-2026-1400AP-106",
+            "subject_cs": "Ministerstvo vnitra označené autorem v petitu; stížnost prostřednictvím KŘP, odeslání nedoloženo",
+            "subject_en": "Ministry of the Interior named by the author in the request for relief; complaint via regional police, dispatch unverified"
+          },
+          {
+            "institution_id": "CZ-NSZ",
+            "role": "copy",
+            "reference": "6 NZN 1737/2026",
+            "subject_cs": "Stejnopis stížnosti na částečné vyřízení policejní informační žádosti",
+            "subject_en": "Copy of the complaint about partial handling of the police information request"
+          },
+          {
+            "institution_id": "CZ-OS-PRO",
+            "role": "copy",
+            "reference": "15 Nt 3103/2026; 15 Nt 3104/2026; 15 Nt 3105/2026; 15 Nt 3106/2026",
+            "subject_cs": "Stejnopis informační stížnosti jako důkazní podklad do čtyř spisů",
+            "subject_en": "Copy of the information complaint as evidence in four files"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-dd-2026-11-04-cak-urgence-advokata",
+      "user_title": "Naléhavá urgence ČAK k určení advokáta",
+      "issue_date": "2026-11-04",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "10.32-000925/26-0002",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova",
+        "case-cz-ks-brno-9to315-2026",
+        "case-cz-ks-brno-9to316-2026"
+      ],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "inspected source PDF; issue date does not certify dispatch, service or timeliness",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-dd-2026-10-24-cak-doplneni-zadosti-urceni-advokata"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-os-pro-2026-11-02-15-nt-3104-2026-341"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-os-pro-2026-11-02-15-nt-3106-2026-337"
+        }
+      ],
+      "public": {
+        "html": "listiny/doc-cz-dd-2026-11-04-cak-urgence-advokata.html",
+        "pdf": "documents/2026-11-04/2026-11-04-cak-urgence-advokata-redigovany-original.pdf",
+        "intended_pdf": "documents/2026-11-04/2026-11-04-cak-urgence-advokata-redigovany-original.pdf",
+        "sha256": "d9c4d2282897f585aa25d59696f7d5bf4c4ce463e1d44aacfd7274c1add40093",
+        "source_original_sha256": "404fa8c586f572f5e31297af9db735434e08da1e91122353a56a8e07bb265b50",
+        "source_original_size_bytes": 147498,
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 146795,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json",
+        "public_copy_note": "Redigovaný originál PDF z dodaného souboru; původní vzhled zachován, nejde o byte-identický originál."
+      },
+      "evidence_note": "Dopis datovaný 4. 11. 2026 urguje u České advokátní komory určení advokáta zejména k posouzení a přípravě ústavních stížností. Odkazuje na dvě usnesení z 2. 11. a dvě sdělení z 30. 10. 2026 ve čtyřech prostějovských spisech. Dopis uvádí, že tyto listiny znovu nepřikládá. Nejde o rozhodnutí ČAK, doložené ustanovení advokáta ani o již podanou ústavní stížnost. Doručení této urgence není doloženo.",
+      "author_cs": "Mgr. Dušan Dvořák",
+      "author_en": "Mgr. Dušan Dvořák",
+      "recipients": [
+        {
+          "institution_id": "CZ-CAK",
+          "role": "primary",
+          "reference": "10.32-000925/26-0002"
+        }
+      ],
+      "justice_slalom": {
+        "archive_number": 158,
+        "archive_name": "ČAKu dne 4.11.2026- naléhavost.pdf",
+        "source_sha256": "404fa8c586f572f5e31297af9db735434e08da1e91122353a56a8e07bb265b50",
+        "public_sha256": "d9c4d2282897f585aa25d59696f7d5bf4c4ce463e1d44aacfd7274c1add40093",
+        "source_kind": "redacted_original_from_user_binary",
+        "redaction_manifest": "project-memory/evidence-release-2026-11-04.json",
+        "recipients": [
+          {
+            "institution_id": "CZ-CAK",
+            "role": "primary",
+            "reference": "10.32-000925/26-0002",
+            "subject_cs": "Urgence určení advokáta datovaná 4. 11. 2026; posouzení ústavní ochrany",
+            "subject_en": "Reminder dated 4 November 2026 to designate a lawyer and assess constitutional remedies"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-ns-2026-10-23-zin-208-2026",
+      "issue_date": "2026-10-23",
+      "received_date": null,
+      "institution_id": "CZ-NS",
+      "reference": "Zin 208/2026",
+      "user_title": "Nejvyšší soud – poskytnutí informace Zin 208/2026 s přílohou 11 Tdo 181/2015 a poučením o stížnosti",
+      "case_ids": [
+        "case-cz-ns-zin208-2026-infz"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "dokument přijat do evidence",
+        "originál dosud nelze technicky vložit do veřejného repozitáře"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/138-ns-zin-208-2026-2026-10-23-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/138-ns-zin-208-2026-2026-10-23-original.pdf",
+        "sha256": "7f4a7260fea3991e3838fe52f05c867faeb3f30fb97740c9fef36ffe103efe2b",
+        "source_original_sha256": "7f4a7260fea3991e3838fe52f05c867faeb3f30fb97740c9fef36ffe103efe2b",
+        "source_original_size_bytes": 262202,
+        "source_original_page_count": 3,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-24-four-additional-records.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-10-ns-nsz-msp-mv-ppr-infz-tp"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-ns-2015-05-20-11-tdo-181-2015-121"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-ns-2026-11-03-zin-208-2026-postoupeni"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "uploaded_document_authorship",
+      "evidence_note": "Nejvyšší soud dne 23. 10. 2026 odpověděl na informační žádost přijatou 11. 10. 2026. Odkázal na databázi soudních rozhodnutí, sdělil, že nelze mimosoudně domýšlet jejich odůvodnění, a v příloze poskytl usnesení 11 Tdo 181/2015. Zmínil dosud nerozhodnuté odvolání Zin 182/2024 vedené u ÚOOÚ. Upozornil na stížnost podle § 16a InfZ do 30 dnů od doručení, jehož datum není doloženo."
+    },
+    {
+      "id": "doc-cz-nsz-2026-07-30-sin-55-2026-19",
+      "user_title": "Rozhodnutí o odmítnutí žádosti o informace",
+      "issue_date": "2026-07-30",
+      "received_date": null,
+      "institution_id": "CZ-NSZ",
+      "reference": "SIN 55/2026-19",
+      "case_ids": [
+        "case-cz-nsz-sin55-2026-infz"
+      ],
+      "document_type": "state_record",
+      "topics": [],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/13-nsz-sin-55-2026-19-2026-07-30.pdf",
+        "sha256": null,
+        "verification_status": "published",
+        "source_manifest": "filename-reference-date-reconciliation"
+      },
+      "relations": [
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-nsz-2026-11-02-sin-55-2026-35"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "deterministic_document_type"
+    },
+    {
+      "id": "doc-cz-dd-2026-08-01-odvolani-nsz-sin-55-2026-19",
+      "user_title": "Odvolání proti rozhodnutí Nejvyššího státního zastupitelství ze dne 30. 7. 2026, č. j. SIN 55/2026-19",
+      "issue_date": "2026-08-01",
+      "received_date": "2026-08-01",
+      "institution_id": "CZ-DD",
+      "reference": "odvolání proti SIN 55/2026-19",
+      "case_ids": [
+        "case-cz-nsz-sin55-2026-infz"
+      ],
+      "document_type": "appeal",
+      "topics": [
+        "odvolání",
+        "InfZ",
+        "NSZ",
+        "ÚOOÚ",
+        "SIN 55/2026-19"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/justice-slalom/2026-07/36-podani-2026-08-01.pdf",
+        "intended_pdf": "documents/justice-slalom/2026-07/36-podani-2026-08-01.pdf",
+        "sha256": "6eb95fe403b377abb4d8be601e8485ce9d3e280e253a8f14a100adf5c6e29890",
+        "verification_status": "source_pdf_received_binary_original",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-28-justice-slalom.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-nsz-2026-07-30-sin-55-2026-19"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-nsz-2026-11-02-sin-55-2026-35"
+        }
+      ],
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Odvolatel Mgr. Dušan Dvořák podal dne 1. 8. 2026 odvolání v celém rozsahu proti rozhodnutí NSZ SIN 55/2026-19; odvolacím orgánem je ÚOOÚ prostřednictvím NSZ. Datum listiny je současně evidováno jako datum podání/doručení.",
+      "justice_slalom": {
+        "archive_number": 36,
+        "archive_name": "36-NSZ čj, SIN_55_2026-19 dne 1.srpna 2026 - odvolání.pdf",
+        "source_sha256": "6eb95fe403b377abb4d8be601e8485ce9d3e280e253a8f14a100adf5c6e29890",
+        "source_kind": "original_pdf_in_user_archive",
+        "recipients": [
+          {
+            "institution_id": "CZ-UOOU",
+            "role": "primary",
+            "reference": "SIN 55/2026-19",
+            "subject_cs": "Odvolání proti rozhodnutí NSZ o informační žádosti",
+            "subject_en": "Appeal against the NSZ decision on an information request"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doc-cz-uoou-2026-10-26-uoou-05841-26-4",
+      "user_title": "ÚOOÚ – rozhodnutí UOOU-05841/26-4: zrušeno odmítnutí žádostí NSZ SIN 55/2026-19, věc vrácena k novému projednání",
+      "issue_date": "2026-10-26",
+      "received_date": null,
+      "institution_id": "CZ-UOOU",
+      "reference": "UOOU-05841/26-4; SIN 55/2026-19",
+      "case_ids": [
+        "CASE-CZ-NSZ-6NZN1737-2026",
+        "case-cz-nsz-sin55-2026-infz"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "InfZ",
+        "NSZ",
+        "úspěšné odvolání",
+        "zrušení rozhodnutí a vrácení",
+        "nedostatečné odůvodnění informační výluky"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/140-uoou-05841-26-4-2026-10-26-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/140-uoou-05841-26-4-2026-10-26-original.pdf",
+        "sha256": "1a5c4355a0c41ccadd3774f712e46e7c2ca93ed8f1b05d56921f5cefb1dbff1e",
+        "source_original_sha256": "1a5c4355a0c41ccadd3774f712e46e7c2ca93ed8f1b05d56921f5cefb1dbff1e",
+        "source_original_size_bytes": 312777,
+        "source_original_page_count": 9,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-26-two-new-state-records.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-uoou-2026-10-19-uoou-05841-26-7"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-nsz-2026-10-15-sin-72-2026-16"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-nsz-2026-11-02-sin-55-2026-35"
+        },
+        {
+          "type": "resolves",
+          "target_id": "doc-cz-dd-2026-08-01-odvolani-nsz-sin-55-2026-19"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_signed_state_decision",
+      "evidence_note": "Rozhodnutím ÚOOÚ UOOU-05841/26-4 ze dne 26. 10. 2026 bylo k odvolání žadatele zrušeno rozhodnutí NSZ ze dne 30. 7. 2026 č. j. SIN 55/2026-19 o odmítnutí informačních žádostí z 25. a 26. 7. 2026; věc byla vrácena NSZ k novému projednání. ÚOOÚ shledal odvolání důvodným a odmítnutí nepřezkoumatelným: ochrana podle § 11 odst. 6 písm. a) InfZ byla odůvodněna vágně, spekulativně a nebylo prověřeno částečné poskytnutí podle § 12 InfZ. NSZ je při novém rozhodování vázáno právním názorem ÚOOÚ; ÚOOÚ nevydal informační příkaz dle § 16 odst. 5 InfZ a nenařídil bezpodmínečně vydat všechny požadované informace. Není doloženo datum doručení. Proti rozhodnutí nelze podat odvolání."
+    },
+    {
+      "id": "doc-cz-os-pro-2026-10-30-15-nt-3103-vyrozumeni",
+      "issue_date": "2026-10-30",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3103/2026",
+      "user_title": "Okresní soud v Prostějově – sdělení o pravomocném skončení věci 15 Nt 3103/2026 a neřešení bezplatné obhajoby",
+      "case_ids": [
+        "case-cz-ks-brno-9to315-2026"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original PDF supplied by user and inspected; court delivery only if explicitly evidenced in document",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/2026-11-02-evidence-ospro-3103.html",
+        "pdf": "documents/originaly-2026-11-02/2026-10-30-os-prostejov-15-nt-3103.pdf",
+        "source_original_sha256": "e70e70a2f644ea2151281c4d9fa7c06f542f17d5b1544a8912d69f55d948f413",
+        "source_original_size_bytes": 172694,
+        "source_original_page_count": 1,
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
+        "sha256": "e70e70a2f644ea2151281c4d9fa7c06f542f17d5b1544a8912d69f55d948f413"
+      },
+      "relations": [
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba"
+        }
+      ],
+      "recipients": [],
+      "evidence_note": "Sdělení Okresního soudu v Prostějově ze dne 30. 10. 2026 reaguje na podání z 21. 10. 2026 a uvádí pravomocné skončení věci 15 Nt 3103/2026 a že v této věci bezplatná obhajoba nebude řešena. Není rozhodnutím o věci 15 Nt 3104/2026. Původní PDF je veřejně přístupné a jeho SHA-256 souhlasí s dodaným originálem."
+    },
+    {
+      "id": "doc-cz-os-pro-2026-10-30-15-nt-3105-vyrozumeni",
+      "issue_date": "2026-10-30",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3105/2026",
+      "user_title": "Okresní soud v Prostějově – sdělení o pravomocném skončení věci 15 Nt 3105/2026 a neřešení bezplatné obhajoby",
+      "case_ids": [
+        "case-cz-ks-brno-9to316-2026"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original PDF supplied by user and inspected; court delivery only if explicitly evidenced in document",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/2026-11-02-evidence-ospro-3105.html",
+        "pdf": "documents/originaly-2026-11-02/2026-10-30-os-prostejov-15-nt-3105.pdf",
+        "source_original_sha256": "096b444ba31486a845f2d87a48c39c76aa86e8ca3226189aa37cdaeb8c6b30ed",
+        "source_original_size_bytes": 172565,
+        "source_original_page_count": 1,
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
+        "sha256": "096b444ba31486a845f2d87a48c39c76aa86e8ca3226189aa37cdaeb8c6b30ed"
+      },
+      "relations": [
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba"
+        }
+      ],
+      "recipients": [],
+      "evidence_note": "Sdělení samosoudce Mgr. Lukáše Horňáka ze dne 30. 10. 2026 reaguje na podání z 21. 10. 2026, uvádí pravomocné skončení věci 15 Nt 3105/2026 a že v ní soud bezplatnou obhajobu neřeší. Nejedná se o rozhodnutí ve věci 15 Nt 3106/2026, kde je plánováno veřejné zasedání 30. 11. 2026. Původní PDF je veřejně přístupné."
+    },
+    {
+      "id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+      "issue_date": "2026-10-30",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPO",
+      "reference": "KRPM-145410-2/ČJ-2026-1400AP-106",
+      "user_title": "KŘP Olomouckého kraje – vyrozumění k žádosti z 15. 10. 2026: zničené spisy, elektronické spisy a znalecká zkoumání",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original PDF supplied by user and inspected; court delivery only if explicitly evidenced in document",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/2026-11-02-evidence-krpm.html",
+        "pdf": "documents/originaly-2026-11-02/2026-10-30-krpm-145410.pdf",
+        "source_original_sha256": "11a49092de3eece2ad19b8c1ac30f830c64068857d9b6f3c36f5fb6f07f12fcd",
+        "source_original_size_bytes": 326595,
+        "source_original_page_count": 2,
+        "verification_status": "public_original_git_blob_byte_identical_source_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
+        "sha256": "11a49092de3eece2ad19b8c1ac30f830c64068857d9b6f3c36f5fb6f07f12fcd"
+      },
+      "relations": [
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-ekk-2026-11-03-stiznost-krpm-145410"
+        }
+      ],
+      "recipients": [],
+      "evidence_note": "Policie 30. 10. 2026 uvádí sazbu 417 Kč/h a očekávanou úhradu nad žadatelův limit 500 Kč. Pět spisů 2009–2014 mělo být skartováno, pět spisů 2015–2019 vedeno elektronicky. Přípis označuje deset souborů znaleckých zkoumání jako přílohy; tyto samostatné soubory nebyly s tímto PDF poskytnuty. Trestní podnět předán ÚO Prostějov. Původní PDF je veřejně přístupné a jeho SHA-256 souhlasí s dodaným originálem."
+    }
+  ]
+}
