@@ -22,7 +22,10 @@
         "doc-cz-nsz-2026-05-06-6-nzn-1737-2026-15",
         "doc-cz-nsz-2026-05-13-6-nzn-1737-2026-32",
         "doc-cz-nsz-2026-08-13-6-nzn-1737-2026-73",
-        "doc-cz-dd-2026-10-28-nsz-kratke-shrnuti-trestniho-podnetu"
+        "doc-cz-dd-2026-10-28-nsz-kratke-shrnuti-trestniho-podnetu",
+        "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+        "doc-cz-ekk-2026-11-03-stiznost-krpm-145410"
       ],
       "last_filing_on": "2026-10-08",
       "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
@@ -32,7 +35,9 @@
       "incoming_document_coverage_from": "2026-05-01",
       "court_case_status": "court_filing_not_evidenced",
       "timeline_asset": "data/nsz-prelitigation-timeline.json",
-      "process_note": "Předžalobní výzva ze 14. 7. 2026 (svátek dobytí Bastily). Křížový přehled veškerých doložených dokumentů NSZ od 1. 5. 2026 a doložených vlastních podání adresovaných NSZ od 20. 4. 2026 je odvozen ze zdrojových registrů. Úplnost externího archivu se netvrdí a žaloba se nepovažuje za podanou, dokud neexistuje důkaz."
+      "process_note": "Předžalobní výzva ze 14. 7. 2026 (svátek dobytí Bastily). Křížový přehled veškerých doložených dokumentů NSZ od 1. 5. 2026 a doložených vlastních podání adresovaných NSZ od 20. 4. 2026 je odvozen ze zdrojových registrů. Úplnost externího archivu se netvrdí a žaloba se nepovažuje za podanou, dokud neexistuje důkaz. Důkazní doplnění datované 3. 11. 2026 zachovává oddělené právní větve a podmíněnou soudní žalobu; nové podání soudu není doloženo.",
+      "latest_prepared_pleading_on": "2026-11-03",
+      "latest_prepared_pleading_document_id": "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni"
     },
     {
       "id": "CASE-CZ-MSZ-PHA-3KZN197-2026",
@@ -137,7 +142,8 @@
       "last_filing_document_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
       "related_document_ids": [
         "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
-        "doc-cz-pcr-krpt-2026-10-20-krpt-276756-2-cj-2026-0700kr"
+        "doc-cz-pcr-krpt-2026-10-20-krpt-276756-2-cj-2026-0700kr",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
       ],
       "latest_state_document_id": "doc-cz-pcr-krpt-2026-10-20-krpt-276756-2-cj-2026-0700kr",
       "latest_state_document_on": "2026-10-20",
@@ -159,8 +165,8 @@
       "related_case_ids": [
         "case-cz-os-pro-2t65-2011-obnova"
       ],
-      "last_filing_on": "2026-10-08",
-      "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+      "last_filing_on": "2026-10-12",
+      "last_filing_document_id": "doc-cz-dd-2026-10-12-osz-os-pro-infz-thc-obnova",
       "related_document_ids": [
         "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
         "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",
@@ -168,13 +174,27 @@
         "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238",
         "doc-cz-dd-2026-10-21-os-prostejov-doplneni-bezplatne-obhajoby",
         "doc-cz-dd-2026-10-24-cak-doplneni-zadosti-urceni-advokata",
-        "doc-cz-dd-2026-11-01-os-prostejov-dukazni-doplneni"
+        "doc-cz-dd-2026-11-01-os-prostejov-dukazni-doplneni",
+        "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+        "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+        "doc-cz-os-pro-2026-11-02-15-nt-3104-2026-341",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+        "doc-cz-ekk-2026-11-03-stiznost-krpm-145410",
+        "doc-cz-dd-2026-11-04-cak-urgence-advokata",
+        "doc-cz-dd-2026-10-12-osz-os-pro-infz-thc-obnova"
       ],
-      "latest_state_document_id": "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238",
-      "latest_state_document_on": "2026-10-20",
-      "latest_prepared_pleading_on": "2026-11-01",
-      "latest_prepared_pleading_document_id": "doc-cz-dd-2026-11-01-os-prostejov-dukazni-doplneni",
-      "process_note": "Důkazní doplnění datované 1. 11. 2026 doloženo jako 9stránková listina, bez prokázaného data doručení soudu."
+      "latest_state_document_id": "doc-cz-os-pro-2026-11-02-15-nt-3104-2026-341",
+      "latest_state_document_on": "2026-11-02",
+      "latest_prepared_pleading_on": "2026-11-04",
+      "latest_prepared_pleading_document_id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+      "process_note": "Dne 2. 11. 2026 soud nepřiznal nárok na bezplatnou obhajobu či obhajobu za sníženou odměnu. Nejde o rozhodnutí o obnově. Navazuje společné podání datované 4. 11. 2026; jeho odeslání, včasnost a oznámení usnesení nejsou samostatně ověřeny.",
+      "legal_aid": {
+        "status": "denied_by_district_court_complaint_dated_dispatch_unverified",
+        "decision_document_id": "doc-cz-os-pro-2026-11-02-15-nt-3104-2026-341",
+        "decision_on": "2026-11-02",
+        "prepared_complaint_document_id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+        "prepared_complaint_on": "2026-11-04"
+      }
     },
     {
       "id": "case-cz-ms-praha-15a44-2026",
@@ -197,7 +217,8 @@
         "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
         "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43",
         "doc-cz-nss-2026-09-04-6-as-207-2026-13",
-        "doc-cz-nss-2026-09-22-6-as-207-2026-26"
+        "doc-cz-nss-2026-09-22-6-as-207-2026-26",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
       ],
       "decision_document_id": "doc-cz-ms-pha-2026-08-25-15-a-44-2026-43",
       "latest_state_on": "2026-09-22",
@@ -319,8 +340,8 @@
       "related_case_ids": [
         "case-cz-os-pro-2t104-2010-obnova"
       ],
-      "last_filing_on": "2026-10-08",
-      "last_filing_document_id": "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
+      "last_filing_on": "2026-10-12",
+      "last_filing_document_id": "doc-cz-dd-2026-10-12-osz-os-pro-infz-thc-obnova",
       "related_document_ids": [
         "doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh",
         "doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026",
@@ -328,13 +349,27 @@
         "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235",
         "doc-cz-dd-2026-10-21-os-prostejov-doplneni-bezplatne-obhajoby",
         "doc-cz-dd-2026-10-24-cak-doplneni-zadosti-urceni-advokata",
-        "doc-cz-dd-2026-11-01-os-prostejov-dukazni-doplneni"
+        "doc-cz-dd-2026-11-01-os-prostejov-dukazni-doplneni",
+        "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+        "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+        "doc-cz-os-pro-2026-11-02-15-nt-3106-2026-337",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+        "doc-cz-ekk-2026-11-03-stiznost-krpm-145410",
+        "doc-cz-dd-2026-11-04-cak-urgence-advokata",
+        "doc-cz-dd-2026-10-12-osz-os-pro-infz-thc-obnova"
       ],
-      "latest_state_document_id": "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235",
-      "latest_state_document_on": "2026-10-20",
-      "latest_prepared_pleading_on": "2026-11-01",
-      "latest_prepared_pleading_document_id": "doc-cz-dd-2026-11-01-os-prostejov-dukazni-doplneni",
-      "process_note": "Důkazní doplnění datované 1. 11. 2026 doloženo jako 9stránková listina, bez prokázaného data doručení soudu."
+      "latest_state_document_id": "doc-cz-os-pro-2026-11-02-15-nt-3106-2026-337",
+      "latest_state_document_on": "2026-11-02",
+      "latest_prepared_pleading_on": "2026-11-04",
+      "latest_prepared_pleading_document_id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+      "process_note": "Dne 2. 11. 2026 soud nepřiznal nárok na bezplatnou obhajobu či obhajobu za sníženou odměnu. Nejde o rozhodnutí o obnově. Navazuje společné podání datované 4. 11. 2026; jeho odeslání, včasnost a oznámení usnesení nejsou samostatně ověřeny.",
+      "legal_aid": {
+        "status": "denied_by_district_court_complaint_dated_dispatch_unverified",
+        "decision_document_id": "doc-cz-os-pro-2026-11-02-15-nt-3106-2026-337",
+        "decision_on": "2026-11-02",
+        "prepared_complaint_document_id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+        "prepared_complaint_on": "2026-11-04"
+      }
     },
     {
       "id": "case-cz-ms-praha-18a17-2026",
@@ -359,7 +394,8 @@
         "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
         "doc-cz-ms-pha-2026-10-12-18-a-17-2026-215",
         "doc-cz-dd-2026-10-30-kasacni-ncoz-pp-18a17",
-        "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2"
+        "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
       ],
       "last_state_document_on": "2026-10-12",
       "cassation_status": "dated_2026-10-30_original_uploaded_filing_unverified",
@@ -387,7 +423,8 @@
         "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni",
         "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
         "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209",
-        "doc-cz-dd-2026-10-30-kasacni-msp-18a23"
+        "doc-cz-dd-2026-10-30-kasacni-msp-18a23",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
       ],
       "latest_state_document_id": "doc-cz-ms-pha-2026-10-12-18-a-23-2026-209",
       "last_state_document_on": "2026-10-12",
@@ -417,8 +454,15 @@
         "doc-cz-dd-2026-08-11-stiznost-15-nt-3103-2026-53",
         "doc-cz-dd-2026-10-21-os-prostejov-doplneni-bezplatne-obhajoby",
         "doc-cz-dd-2026-10-24-cak-doplneni-zadosti-urceni-advokata",
-        "doc-cz-os-pro-2026-10-30-15-nt-3103-vyrozumeni"
-      ]
+        "doc-cz-os-pro-2026-10-30-15-nt-3103-vyrozumeni",
+        "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+        "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+        "doc-cz-ekk-2026-11-03-stiznost-krpm-145410",
+        "doc-cz-dd-2026-11-04-cak-urgence-advokata"
+      ],
+      "latest_prepared_pleading_on": "2026-11-04",
+      "latest_prepared_pleading_document_id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba"
     },
     {
       "id": "case-eu-omb-euda-thc-comparability-2026",
@@ -499,7 +543,8 @@
       "last_filing_document_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
       "related_document_ids": [
         "doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni",
-        "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
+        "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
       ]
     },
     {
@@ -590,9 +635,16 @@
         "doc-cz-os-pro-2026-10-13-st-7-2026",
         "doc-cz-dd-2026-10-21-os-prostejov-doplneni-bezplatne-obhajoby",
         "doc-cz-dd-2026-10-24-cak-doplneni-zadosti-urceni-advokata",
-        "doc-cz-os-pro-2026-10-30-15-nt-3105-vyrozumeni"
+        "doc-cz-os-pro-2026-10-30-15-nt-3105-vyrozumeni",
+        "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+        "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+        "doc-cz-ekk-2026-11-03-stiznost-krpm-145410",
+        "doc-cz-dd-2026-11-04-cak-urgence-advokata"
       ],
-      "process_note": "Podle vyrozumění OS Prostějov St 7/2026 ze dne 13. 10. 2026 byl spis 15 Nt 3105/2026 vrácen KS Brno dne 29. 9. 2026, usnesení KS Brno ze 3. 9. 2026 č. j. 9 To 316/2026-219 bylo odesláno do datové schránky 6. 10. a doručeno 7. 10. 2026. Tato skutečnost je doložena sdělením soudu, nikoli samostatně zveřejněným originálem rozhodnutí KS Brno; ten dosud není doložen. Návrh ústavní stížnosti je připraven, nikoli potvrzen jako podaný."
+      "process_note": "Podle vyrozumění OS Prostějov St 7/2026 ze dne 13. 10. 2026 byl spis 15 Nt 3105/2026 vrácen KS Brno dne 29. 9. 2026, usnesení KS Brno ze 3. 9. 2026 č. j. 9 To 316/2026-219 bylo odesláno do datové schránky 6. 10. a doručeno 7. 10. 2026. Tato skutečnost je doložena sdělením soudu, nikoli samostatně zveřejněným originálem rozhodnutí KS Brno; ten dosud není doložen. Návrh ústavní stížnosti je připraven, nikoli potvrzen jako podaný.",
+      "latest_prepared_pleading_on": "2026-11-04",
+      "latest_prepared_pleading_document_id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba"
     },
     {
       "id": "case-cz-ms-praha-8ad9-2026",
@@ -728,7 +780,8 @@
         "policejní ochrana"
       ],
       "related_document_ids": [
-        "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
+        "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
+        "doc-cz-ekk-2026-11-03-stiznost-krpm-145410"
       ],
       "last_filing_on": "2026-10-15",
       "last_filing_document_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
@@ -748,7 +801,8 @@
         "THCA"
       ],
       "related_document_ids": [
-        "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
+        "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
+        "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
       ],
       "last_filing_on": "2026-10-15",
       "last_filing_document_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
@@ -774,6 +828,49 @@
       "latest_state_document_id": "doc-cz-pcr-krpo-2026-10-30-krpm-135431-28",
       "latest_state_document_on": "2026-10-30",
       "process_note": "Policie oznámila postoupení námitek 23. října, OSZ vydalo sdělení 29. října a policie vyrozumění 30. října. Soukromé údaje TT v anonymizovaných veřejných kopiích nejsou zveřejněny; uvedený závěr přezkumu je stanoviskem státního zástupce."
+    },
+    {
+      "id": "case-cz-ns-zin208-2026-infz",
+      "institution_id": "CZ-NS",
+      "reference": "Zin 208/2026",
+      "title": "Nejvyšší soud – informační žádost a navazující stížnost předložená ÚOOÚ",
+      "status": "complaint_forwarded",
+      "opened_on": "2026-10-11",
+      "topics": [
+        "InfZ",
+        "Nejvyšší soud",
+        "ÚOOÚ"
+      ],
+      "related_document_ids": [
+        "doc-cz-ns-2026-10-23-zin-208-2026",
+        "doc-cz-ns-2026-11-03-zin-208-2026-postoupeni"
+      ],
+      "latest_state_document_id": "doc-cz-ns-2026-11-03-zin-208-2026-postoupeni",
+      "latest_state_document_on": "2026-11-03",
+      "process_note": "NS v přípisu z 3. 11. 2026 potvrzuje přijetí původní žádosti 11. 10. a stížnosti 30. 10.; stížnost předložil ÚOOÚ. Rozhodnutí ÚOOÚ ani doručení tohoto přípisu nejsou doloženy."
+    },
+    {
+      "id": "case-cz-nsz-sin55-2026-infz",
+      "institution_id": "CZ-NSZ",
+      "reference": "SIN 55/2026; UOOU-05841/26",
+      "title": "NSZ – informační žádosti z 25. a 26. července po zrušení odmítnutí ÚOOÚ",
+      "status": "awaiting_reconsideration",
+      "opened_on": "2026-07-25",
+      "topics": [
+        "InfZ",
+        "NSZ",
+        "ÚOOÚ",
+        "nové projednání"
+      ],
+      "related_document_ids": [
+        "doc-cz-nsz-2026-07-30-sin-55-2026-19",
+        "doc-cz-dd-2026-08-01-odvolani-nsz-sin-55-2026-19",
+        "doc-cz-uoou-2026-10-26-uoou-05841-26-4",
+        "doc-cz-nsz-2026-11-02-sin-55-2026-35"
+      ],
+      "latest_state_document_id": "doc-cz-nsz-2026-11-02-sin-55-2026-35",
+      "latest_state_document_on": "2026-11-02",
+      "process_note": "Informační větev je oddělena od trestních a předžalobních podnětů 6 NZN 1737/2026. Po vrácení věci ÚOOÚ NSZ oznámilo prodloužení o deset dní; konkrétní konečný den a doručení nejsou doloženy."
     }
   ]
 }

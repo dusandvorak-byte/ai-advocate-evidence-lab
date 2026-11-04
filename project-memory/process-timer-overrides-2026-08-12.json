@@ -73,13 +73,17 @@
       "start_date": "2026-08-17",
       "count_from_date": "2026-08-18",
       "start_date_basis": "ÚOOÚ sdělením č. j. UOOU-05841/26-3 ze dne 26. 8. 2026 potvrdil, že NSZ odeslalo odvolání se spisem dne 12. 8. 2026, avšak ÚOOÚ je obdržel až 17. 8. 2026. Teprve od tohoto doručení běží lhůta pro rozhodnutí o odvolání.",
-      "status": "active",
-      "limit_kind": "infz_appeal_decision",
-      "limit_label": "15 dnů podle § 16 odst. 3 InfZ · konec 1. 9. 2026",
-      "legal_basis": "§ 16 odst. 3 InfZ; podle sdělení ÚOOÚ UOOU-05841/26-3 připadá poslední den lhůty na 1. 9. 2026",
-      "due_date": "2026-09-01",
+      "status": "closed_by_remand",
+      "limit_kind": "appeal_decided_remanded",
+      "limit_label": "Odvolací fáze skončila zrušením a vrácením; nové projednání bez ověřeného konečného dne",
+      "legal_basis": "Rozhodnutí ÚOOÚ UOOU-05841/26-4 ze dne 26. 10. 2026; navazující vyrozumění NSZ SIN 55/2026-35 ze dne 2. 11. 2026 prodlužuje nové vyřízení o deset dní. Počátek pro výpočet konečného dne není doložen.",
+      "due_date": null,
       "href": "zpravy/04082026-010.html#doc-cz-uoou-2026-08-26-uoou-05841-26-3",
-      "source_document_id": "doc-cz-dd-2026-08-01-odvolani-nsz-sin-55-2026-19"
+      "source_document_id": "doc-cz-dd-2026-08-01-odvolani-nsz-sin-55-2026-19",
+      "end_date": "2026-10-26",
+      "process_history": " / 26. 10. 2026 ÚOOÚ zrušilo odmítnutí a vrátilo věc / 2. 11. 2026 NSZ prodloužilo nové vyřízení o deset dní.",
+      "latest_document_id": "doc-cz-nsz-2026-11-02-sin-55-2026-35",
+      "next_event": "Nové vyřízení informačních žádostí NSZ; nepočítat starou odvolací lhůtu jako aktivní."
     },
     {
       "id": "timer-admin-msz-odvolani-sin48-2026",

@@ -168,6 +168,9 @@ jobs:
       - name: Verify 27 Oct VSZ Prague and 28 Oct Church addendum originals, chronology, CZ/EN and case links
         run: node scripts/validate-vsz-praha-mk-church-2026-10-30.mjs
 
+      - name: Verify reviewed 4 November batch, deduplication, privacy, cases and CZ/EN
+        run: node scripts/validate-evidence-release-2026-11-04.mjs
+
       - name: Ověřit Evidence Lab 2.0 před publikací
         shell: bash
         run: |
