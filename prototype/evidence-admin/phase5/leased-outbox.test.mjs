@@ -8,9 +8,19 @@ function fakePool(events=[{id:1,intake_id:uuid,event_kind:'review_state_changed'
     dead_letter_at:null,lease_token:null,leased_until:null,next_attempt_at:0}));
   let failAck=false;
   const pool={async query(sql,args=[]) {
+    if(sql.startsWith('UPDATE evidence_outbox SET dead_letter_at=now()')) {
+      let count=0;
+      for(const e of rows){
+        if(!e.processed_at&&!e.dead_letter_at&&e.attempt_count>=args[0]&&
+          (e.leased_until===null||e.leased_until<=now)){
+          e.dead_letter_at=now;e.lease_token=null;e.leased_until=null;count++;
+        }
+      }
+      return {rowCount:count};
+    }
     if(sql.startsWith('WITH candidate')) {
       const e=rows.find(e=>!e.processed_at&&!e.dead_letter_at&&
-        e.next_attempt_at<=now&&(e.leased_until===null||e.leased_until<=now));
+        e.next_attempt_at<=now&&e.attempt_count<args[2]&&(e.leased_until===null||e.leased_until<=now));
       if(!e)return {rows:[]};
       e.lease_token=args[0];e.leased_until=now+args[1];e.attempt_count++;
       return {rows:[structuredClone(e)]};
@@ -82,4 +92,14 @@ test('invalid event never reaches dispatcher and enters dead letter',async()=>{
  const w=createLeasedOutbox({pool,dispatch:async()=>{called=true;}});
  await assert.rejects(w.processOne(),/Invalid synthetic outbox event/);
  assert.equal(called,false);assert.ok(rows[0].dead_letter_at!==null);
+});
+
+test('crashed worker with expired final lease is dead-lettered without a NACK',async()=>{
+ const {pool,rows,advance}=fakePool();
+ const w=createLeasedOutbox({pool,leaseSeconds:5,maxAttempts:1,dispatch:async()=>{}});
+ const claimed=await w.claim();assert.ok(claimed);
+ advance(6);
+ assert.equal(await w.claim(),null);
+ assert.ok(rows[0].dead_letter_at!==null);
+ await assert.rejects(w.ack(claimed.id,claimed.lease_token),/Lease expired/);
 });
