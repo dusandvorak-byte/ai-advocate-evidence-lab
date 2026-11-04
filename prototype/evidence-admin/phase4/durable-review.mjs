@@ -2,7 +2,7 @@
 // durable review events. This wraps the Phase 3 repository without modifying it.
 // Do not wire to HTTP or real files; injected pg-like pool only.
 import { requireRole } from '../phase3/identity.mjs';
-import { advanceReview } from '../../backend/review-workflow.mjs';
+import { advanceReview } from '../backend/review-workflow.mjs';
 
 const uuid = s => typeof s==='string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(s);
 const sha = s => typeof s==='string' && /^[a-f0-9]{64}$/.test(s);
