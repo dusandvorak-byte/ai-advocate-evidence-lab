@@ -123,9 +123,50 @@
         "source_manifest": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
         "sha256": "11a49092de3eece2ad19b8c1ac30f830c64068857d9b6f3c36f5fb6f07f12fcd"
       },
-      "relations": [],
+      "relations": [
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-pcr-okte-2009-11-02-krpt-6172-1-kt-2009"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-pcr-okte-2010-10-22-krpt-5906-1-kt-2010"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-pcr-okte-2012-02-22-krpt-5088-2-kt-2011"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-pcr-okte-2013-02-25-krpt-5223-1-kt-2012"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-pcr-okte-2015-01-22-krpt-5666-1-kt-2014"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-pcr-okte-2015-10-14-krpt-4455-1-kt-2015"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-pcr-okte-2017-04-05-krpt-4344-3-kt-2016"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-pcr-okte-2018-03-26-krpt-4572-1-kt-2017"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-pcr-okte-2019-01-15-krpt-3050-2-kt-2018"
+        },
+        {
+          "type": "priloha",
+          "target_id": "doc-cz-pcr-okte-2020-01-03-krpt-3350-1-kt-2019"
+        }
+      ],
       "recipients": [],
-      "evidence_note": "Policie 30. 10. 2026 uvádí sazbu 417 Kč/h a očekávanou úhradu nad žadatelův limit 500 Kč. Pět spisů 2009–2014 mělo být skartováno, pět spisů 2015–2019 vedeno elektronicky. Přípis označuje deset souborů znaleckých zkoumání jako přílohy; tyto samostatné soubory nebyly s tímto PDF poskytnuty. Trestní podnět předán ÚO Prostějov. Původní PDF je veřejně přístupné a jeho SHA-256 souhlasí s dodaným originálem."
+      "evidence_note": "KŘP Olomouckého kraje odpovědělo 30. 10. 2026 na informační žádost z 15. 10. 2026. Uvádí cenu vyhledání 417 Kč za hodinu a očekávanou úhradu nad žadatelův limit 500 Kč; pět spisů z let 2009–2014 označuje za skartované, pět spisů 2015–2019 za vedené pouze elektronicky. Součástí odpovědi bylo deset samostatných souborových příloh: původních odborných vyjádření OKTE Frýdek-Místek, datovaných 2009–2020. Každý z deseti originálů je samostatně registrován a veřejně dostupný v binárně shodné podobě; odkazuje na něj evidenční stránka odpovědi. Trestní podnět byl podle policie předán ÚO Prostějov. Datum doručení není doloženo."
     },
     {
       "id": "doc-cz-dd-2026-10-28-nsz-kratke-shrnuti-trestniho-podnetu",
