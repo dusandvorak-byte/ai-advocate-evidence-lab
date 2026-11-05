@@ -36,6 +36,7 @@ try{
   assert.equal(await page.locator('.archive-row').count(),2);
   await page.locator('#status').selectOption('all');
   await page.locator('.archive-row a').first().click();
+  await page.waitForFunction(()=>!document.querySelector('#page-detail').hidden); // hashchange is asynchronous
   assert.equal(await page.locator('#page-detail').isVisible(),true);
   assert.match(await page.locator('#detail-title').textContent(),/Ukázkové usnesení/);
   assert.match(await page.locator('#detail-meta').textContent(),/Není k dispozici/);
