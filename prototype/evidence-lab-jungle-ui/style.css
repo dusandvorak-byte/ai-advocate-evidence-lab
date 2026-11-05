@@ -12,3 +12,7 @@ footer{border-top:1px solid var(--line);max-width:1400px;margin:auto;padding:25p
 @media(max-width:760px){.topbar{flex-wrap:wrap}.nav{order:3;width:100%;justify-content:space-between;gap:9px}.nav a{font-size:.88rem}.hero{grid-template-columns:1fr}.hero-copy{padding:34px 0 0}.justice-visual{height:220px}.justice-visual svg{height:185px}.values,.metrics{grid-template-columns:repeat(2,1fr)}.featured-grid,.split,.detail-grid{grid-template-columns:1fr}.archive-row{grid-template-columns:1fr auto}.archive-row .row-institution,.archive-row time,.archive-row .row-ref{display:none}.steps{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.theme-copy{display:none}.brand b{font-size:1.05rem}.values,.metrics{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr}.page-intro{padding-top:35px}.detail-header{flex-direction:column;align-items:start}.paper-preview{padding:24px;min-height:340px}.section-head h2{font-size:1.5rem}.metric b{font-size:1.5rem}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+/* Language switch: no network, same navigation and theme across locales. */
+.language-switch{border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:.77rem;font-weight:800;color:var(--green);text-decoration:none;white-space:nowrap;background:var(--surface)}
+.language-switch:hover{background:var(--surface2)}
+@media(max-width:480px){.header-actions{gap:7px}.language-switch{padding:7px 9px}}
