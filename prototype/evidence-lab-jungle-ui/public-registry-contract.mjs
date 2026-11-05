@@ -11,10 +11,11 @@ const checksum=/^[a-f0-9]{64}$/;
 export function validatePublicRegistryEntry(raw){
   if(!raw || typeof raw!=='object' || Array.isArray(raw))throw new Error('Invalid registry entry');
   const {id,title,institution,kind,issuedAt,publicStatus,publicUrl,publicSha256,privacyReviewed,releaseApproved}=raw;
-  if(!idPattern.test(id) || typeof title!=='string' || title.length<1 || title.length>240 ||
+  if(typeof id!=='string' || !idPattern.test(id) || typeof title!=='string' || title.length<1 || title.length>240 ||
      typeof institution!=='string' || institution.length<1 || institution.length>160 ||
      !allowedKinds.has(kind) || !/^\d{4}-\d{2}-\d{2}$/.test(issuedAt) ||
      Number.isNaN(Date.parse(issuedAt+'T00:00:00Z')) ||
+     new Date(issuedAt+'T00:00:00Z').toISOString().slice(0,10)!==issuedAt ||
      !allowedStatuses.has(publicStatus) || privacyReviewed!==true || releaseApproved!==true ||
      typeof publicUrl!=='string' || !publicUrl.startsWith('/') ||
      publicUrl.startsWith('//') || publicUrl.includes('\\') ||
