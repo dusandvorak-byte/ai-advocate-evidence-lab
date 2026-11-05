@@ -17,6 +17,8 @@ try{
   await page.locator('#hero-title').waitFor();
   assert.equal(await page.locator('html').getAttribute('data-theme'),'light');
   assert.equal(await page.locator('#page-prehled').isVisible(),true);
+  await mkdir('/tmp/evidence-browser-shots',{recursive:true});
+  await page.screenshot({path:'/tmp/evidence-browser-shots/home-light-'+width+'.png',fullPage:true,animations:'disabled'});
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth > window.innerWidth+1);
   assert.equal(overflow,false,'horizontal overflow at '+width);
   await page.locator('#theme-toggle').click();
@@ -43,11 +45,10 @@ try{
   await page.goto(path+'#detail/%ZZ');
   assert.equal(await page.locator('#page-prehled').isVisible(),true);
   assert.deepEqual(errors,[],'JS errors at '+width);
-  await mkdir('/tmp/evidence-browser-shots',{recursive:true});
   await page.goto(path);
-  await page.screenshot({path:'/tmp/evidence-browser-shots/home-'+width+'.png',fullPage:true});
+  await page.screenshot({path:'/tmp/evidence-browser-shots/home-dark-'+width+'.png',fullPage:true,animations:'disabled'});
   await page.goto(path+'#dokumenty');
-  await page.screenshot({path:'/tmp/evidence-browser-shots/archive-'+width+'.png',fullPage:true});
+  await page.screenshot({path:'/tmp/evidence-browser-shots/archive-dark-'+width+'.png',fullPage:true,animations:'disabled'});
   console.log('BROWSER_QA_OK',width,'theme/search/filter/detail/overflow/javascript');
   await ctx.close();
  }
