@@ -83,6 +83,24 @@ try{
   assert.deepEqual(errors,[],'CZ/EN page errors at '+width);
   await page.goto(path.replace('/index.html','/en.html'));
   await page.screenshot({path:'/tmp/evidence-browser-shots/home-en-dark-'+width+'.png',fullPage:true,animations:'disabled'});
+  // Keyboard-only operation, visible focus and zoom/reflow regression.
+  await page.goto(path);
+  await page.keyboard.press('Tab');
+  const focused=await page.evaluate(()=>{
+    const el=document.activeElement;
+    return {className:el.className,outline:getComputedStyle(el).outlineStyle};
+  });
+  assert.ok(String(focused.className).includes('skip'),'Skip link must be keyboard-first');
+  assert.notEqual(focused.outline,'none','Keyboard focus must be visible');
+  await page.locator('#theme-toggle').focus();
+  await page.keyboard.press('Enter');
+  assert.equal(await page.locator('html').getAttribute('data-theme'),'light','Keyboard toggle should work');
+  if(width>=1024){
+    await page.evaluate(()=>{document.documentElement.style.zoom='2';});
+    const zoomOverflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+2);
+    assert.equal(zoomOverflow,false,'200% zoom should not overflow at '+width);
+    await page.evaluate(()=>{document.documentElement.style.zoom='';});
+  }
   console.log('BROWSER_QA_OK',width,'theme/search/filter/detail/overflow/javascript');
   await ctx.close();
  }
