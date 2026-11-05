@@ -16,3 +16,30 @@ footer{border-top:1px solid var(--line);max-width:1400px;margin:auto;padding:25p
 .language-switch{border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:.77rem;font-weight:800;color:var(--green);text-decoration:none;white-space:nowrap;background:var(--surface)}
 .language-switch:hover{background:var(--surface2)}
 @media(max-width:480px){.header-actions{gap:7px}.language-switch{padding:7px 9px}}
+
+/* Five original art positions: explicit states until license-approved pixels exist. */
+.editorial-art-section{margin-top:54px;padding-top:18px;border-top:1px solid var(--line)}
+.editorial-art-section .section-head{align-items:center;margin-top:10px}
+.asset-state{font-size:.72rem;border:1px solid var(--line);border-radius:100px;padding:7px 10px;color:var(--muted)}
+.editorial-intro{color:var(--muted);max-width:780px;margin:0 0 25px}
+.editorial-art-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.art-story{grid-column:span 4;min-width:0;border-radius:18px;border:1px solid var(--line);overflow:hidden;background:var(--surface)}
+.art-story--botanical{grid-column:span 7}.art-story--police{grid-column:span 5}
+.art-story--poster{grid-column:span 7}.art-story--heart{grid-column:span 5}
+.art-story--campaign{grid-column:span 12}
+.art-figure{margin:0}.art-placeholder{background:linear-gradient(125deg,var(--surface2),var(--surface));color:var(--muted);display:grid;place-content:center;justify-items:center;gap:18px;position:relative;overflow:hidden;min-height:155px;border-bottom:1px solid var(--line)}
+.art-story--botanical .art-placeholder{aspect-ratio:720/450}
+.art-story--police .art-placeholder{aspect-ratio:720/810}
+.art-story--heart .art-placeholder{aspect-ratio:310/193}
+.art-story--poster .art-placeholder{aspect-ratio:1086/1448}
+.art-story--campaign .art-placeholder{aspect-ratio:720/511;max-height:380px}
+.art-placeholder-lines{width:75px;height:70px;position:relative;opacity:.45}
+.art-placeholder-lines span{position:absolute;display:block;border:2px solid var(--green);border-radius:60% 10% 60% 10%;width:38px;height:65px;transform:rotate(48deg)}
+.art-placeholder-lines span:last-child{left:30px;transform:rotate(-38deg)}
+.art-story--poster .art-placeholder-lines{transform:scale(1.6)}
+.art-pending{font-size:.63rem;font-weight:850;letter-spacing:.13em;text-transform:uppercase;text-align:center;padding:0 12px}
+.art-figure figcaption{padding:20px 22px 23px}.art-figure h3{font-size:1.2rem;line-height:1.2;margin:0 0 8px}
+.art-figure p{color:var(--muted);font-size:.87rem;margin:0 0 12px}
+.art-figure small{color:var(--green);font-weight:750;font-size:.72rem;overflow-wrap:anywhere}
+@media(max-width:760px){.editorial-art-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.art-story,.art-story--botanical,.art-story--police,.art-story--poster,.art-story--heart,.art-story--campaign{grid-column:span 2}.asset-state{display:none}.art-story--poster .art-placeholder{max-height:none}}
+@media(max-width:480px){.editorial-art-section{margin-top:38px}.art-figure figcaption{padding:17px}.art-pending{font-size:.59rem}}
