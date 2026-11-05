@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="cs" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Evidence Lab · Designový prototyp</title>
+  <meta name="description" content="Neveřejný designový prototyp Evidence Lab – pouze ukázková data.">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">Přeskočit na obsah</a>
+  <header class="topbar">
+    <a class="brand" href="#prehled" aria-label="Evidence Lab – přehled"><span class="brandmark" aria-hidden="true">///</span><span><b>Evidence Lab</b><small>AI Advocate · design preview</small></span></a>
+    <nav aria-label="Hlavní navigace" class="nav">
+      <a data-nav="prehled" href="#prehled">Přehled</a><a data-nav="dokumenty" href="#dokumenty">Dokumenty</a><a data-nav="workflow" href="#workflow">Workflow</a>
+    </nav>
+    <div class="header-actions">
+      <span class="preview-tag">UKÁZKA · bez skutečných dokumentů</span>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Přepnout na tmavý režim" aria-pressed="false"><span aria-hidden="true">☀</span><span class="theme-copy">Světlý</span></button>
+    </div>
+  </header>
+  <main id="content" tabindex="-1">
+    <section class="page" id="page-prehled" aria-labelledby="hero-title">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">VEŘEJNÝ DŮKAZNÍ PORTÁL · KONCEPČNÍ PROTOTYP</div>
+          <h1 id="hero-title">Veřejná evidence <em>s podporou AI</em></h1>
+          <p>Dokumenty, souvislosti a ověřitelná historie práce s důkazy. Původ, integrita a schvalování jsou zřetelně oddělené od veřejné publikace.</p>
+          <div class="hero-actions"><a href="#dokumenty" class="btn primary">Prozkoumat dokumenty <span aria-hidden="true">↗</span></a><a href="#workflow" class="btn outline">Jak to funguje</a></div>
+          <div class="principles"><span>◇ Ověřitelný původ</span><span>▱ Transparentní workflow</span><span>◎ Ochrana soukromí</span></div>
+        </div>
+        <div class="justice-visual" aria-label="Abstraktní grafika vah spravedlnosti">
+          <div class="light-leaf leaf-a" aria-hidden="true"></div><div class="light-leaf leaf-b" aria-hidden="true"></div>
+          <svg viewBox="0 0 420 345" role="img" aria-label="Stylizované váhy spravedlnosti" xmlns="http://www.w3.org/2000/svg"><path d="M210 26V302M145 305H275M104 100H316M210 62L316 100 210 100 104 100 210 62" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M104 100L55 217M104 100L153 217M316 100L267 217M316 100L365 217" fill="none" stroke="currentColor" stroke-width="3"/><path d="M30 217Q105 282 178 217ZM242 217Q315 282 390 217Z" fill="currentColor" opacity=".58"/><path d="M188 42a22 22 0 1 1 44 0a22 22 0 0 1-44 0" fill="currentColor"/></svg>
+          <span class="visual-label">SPRAVEDLNOST · DŮKAZY · KONTROLA</span>
+        </div>
+      </div>
+      <div class="values"><div><b>01 / Původ</b><span>Zaznamenaná provenience</span></div><div><b>02 / Integrita</b><span>SHA-256 a auditní stopa</span></div><div><b>03 / Soukromí</b><span>Kontrola veřejné kopie</span></div><div><b>04 / Dostupnost</b><span>Srozumitelný veřejný přístup</span></div></div>
+      <div class="section-head"><div><div class="eyebrow">UKÁZKA ROZHRANÍ</div><h2>Poslední záznamy</h2></div><a class="textlink" href="#dokumenty">Otevřít archiv →</a></div>
+      <div id="featured-cards" class="featured-grid"></div>
+      <div class="split"><article class="panel"><div class="eyebrow">PROVENIENCE</div><h2>Každý záznam má příběh</h2><p>Oddělujeme zdrojovou listinu, schvalování a zveřejněnou kopii. UI nesmí vydávat návrh nebo syntetický stav za skutečné ověření.</p><div class="mini-chain"><span>Zdroj</span><i>→</i><span>Kontrola</span><i>→</i><span>Review</span><i>→</i><span>Publikace</span></div></article><article class="panel botanical"><div class="eyebrow">DESIGN PRINCIPLES</div><h2>Vážná data. Čitelný design.</h2><p>Světlý Jungle/Jazz motiv s jemnými botanickými linkami a kontrastní typografií. Tmavý režim zachovává stejné informace i ovládání.</p></article></div>
+    </section>
+    <section class="page" id="page-dokumenty" aria-labelledby="archive-title" hidden>
+      <div class="page-intro"><div><div class="eyebrow">DŮKAZNÍ ARCHIV · DEMO DATA</div><h1 id="archive-title">Seznam dokumentů</h1><p>Vyhledávání a filtrování funguje pouze nad demonstračními záznamy.</p></div><div class="header-art" aria-hidden="true">⌁</div></div>
+      <div class="metrics"><div class="metric"><b id="metric-total">0</b><span>Ukázkové dokumenty</span></div><div class="metric"><b id="metric-public">0</b><span>Veřejné kopie v demo</span></div><div class="metric"><b id="metric-review">0</b><span>Ve stavu review</span></div></div>
+      <form id="filters" role="search" class="filters"><label for="search">Hledat v demo archivu</label><input id="search" name="search" type="search" placeholder="Název, instituce, reference…" autocomplete="off"><label for="status">Stav</label><select id="status" name="status"><option value="all">Všechny stavy</option><option value="published">Publikováno</option><option value="review">Review</option><option value="redacted">Redakce</option></select><button type="reset" class="btn outline small">Vymazat filtry</button></form>
+      <p id="archive-count" role="status" aria-live="polite" class="count"></p>
+      <div id="archive-list" class="archive-list"></div>
+    </section>
+    <section class="page" id="page-detail" aria-labelledby="detail-title" hidden>
+      <div class="crumb"><a href="#dokumenty">← Dokumenty</a><span>/</span><span>Detail záznamu</span></div>
+      <div class="detail-header"><div><div class="eyebrow">UKÁZKOVÝ ZÁZNAM · NENÍ SKUTEČNÁ LISTINA</div><h1 id="detail-title"></h1><p id="detail-subtitle"></p></div><span id="detail-badge" class="status"></span></div>
+      <div class="detail-grid"><div class="detail-left"><div class="paper-preview" aria-label="Neobsahuje skutečný dokument"><span class="paper-kicker">SYNTETICKÝ NÁHLED · BEZ PDF</span><div class="paper-icon" aria-hidden="true">⚖</div><h2>DEMONSTRAČNÍ LISTINA</h2><p>Tento panel pouze ukazuje budoucí rozvržení čtečky. Skutečné PDF není načítáno ani veřejně odkazováno.</p><div class="fake-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div><div class="panel"><h2>Popis</h2><p id="detail-desc"></p></div><div class="panel"><h2>Schvalovací workflow</h2><ol class="workflow-line"><li>Přijato (demo)</li><li>Kontrola integrity (demo)</li><li>Redakční revize (demo)</li><li>Rozhodnutí o publikaci (demo)</li></ol></div></div><aside class="detail-right"><div class="panel"><div class="eyebrow">METADATA · DEMO</div><h2>Základní informace</h2><dl id="detail-meta"></dl></div><div class="panel"><div class="eyebrow">KONTROLNÍ STOPA</div><h2>Provenience</h2><p>V produkční verzi zde budou pouze skutečné, ověřitelné události s vazbou na důkazy. Žádné události ani SHA nejsou pro ukázku vymyšlené.</p></div><div class="panel alert"><h2>Ochrana soukromí</h2><p>Public preview nesmí zpřístupnit pracovní originál. Teprve schválená a ověřená veřejná kopie může být odkazována.</p></div></aside></div>
+    </section>
+    <section class="page" id="page-workflow" aria-labelledby="workflow-title" hidden>
+      <div class="page-intro"><div class="eyebrow">NAVRHOVANÁ ARCHITEKTURA · NE PRODUKČNÍ SLUŽBA</div><h1 id="workflow-title">Od příjmu k publikaci</h1><p>Fáze níže popisují zamýšlený proces. Neoznačují produkční nasazení backendu.</p></div>
+      <div class="steps"><article><span>01</span><h2>Příjem</h2><p>Evidence zdroje, metadata a kontrola přístupu.</p></article><article><span>02</span><h2>Karanténa</h2><p>Soukromé úložiště a kontrola obsahu.</p></article><article><span>03</span><h2>Review</h2><p>Provenience, redakce a kontrola veřejné kopie.</p></article><article><span>04</span><h2>Schválení</h2><p>Oprávněná osoba rozhoduje o vydání.</p></article><article><span>05</span><h2>Publikace</h2><p>Samostatné ověření zveřejněných bajtů.</p></article></div>
+      <div class="panel"><h2>Bez falešné transparentnosti</h2><p>Stav „schváleno“ nebo „ověřeno“ se v budoucím rozhraní zobrazí pouze tehdy, pokud je podložený skutečným auditním záznamem. Návrh nepoužívá interní ani reálné právní dokumenty.</p></div>
+    </section>
+  </main>
+  <footer><div><b>Evidence Lab</b><span>Ukázkový UI prototyp. Není to produkční registr ani publikační systém.</span></div><a href="#prehled">↑ Nahoru</a></footer>
+</body>
+</html>
