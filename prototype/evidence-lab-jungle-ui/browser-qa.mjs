@@ -49,6 +49,29 @@ try{
   await page.screenshot({path:'/tmp/evidence-browser-shots/home-dark-'+width+'.png',fullPage:true,animations:'disabled'});
   await page.goto(path+'#dokumenty');
   await page.screenshot({path:'/tmp/evidence-browser-shots/archive-dark-'+width+'.png',fullPage:true,animations:'disabled'});
+  // CZ/EN route and theme remain stable; English data never silently become Czech.
+  await page.goto(path+'#dokumenty');
+  await page.locator('#language-switch').click();
+  await page.waitForURL(/en\.html#dokumenty$/);
+  assert.equal(await page.locator('html').getAttribute('lang'),'en');
+  assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');
+  assert.equal(await page.locator('#archive-title').textContent(),'Document archive');
+  assert.equal(await page.locator('.archive-row').count(),5);
+  await page.locator('#search').fill('attachment');
+  assert.equal(await page.locator('.archive-row').count(),1);
+  await page.locator('#search').fill('');
+  await page.locator('.archive-row a').first().click();
+  await page.waitForFunction(()=>!document.querySelector('#page-detail').hidden);
+  assert.match(await page.locator('#detail-title').textContent(),/Sample court order/);
+  assert.match(await page.locator('#detail-meta').textContent(),/Not available/);
+  await page.locator('#language-switch').click();
+  await page.waitForURL(/index\.html#detail\/DEMO-001$/);
+  assert.equal(await page.locator('html').getAttribute('lang'),'cs');
+  assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');
+  assert.match(await page.locator('#detail-title').textContent(),/Ukázkové usnesení/);
+  assert.deepEqual(errors,[],'CZ/EN page errors at '+width);
+  await page.goto(path.replace('/index.html','/en.html'));
+  await page.screenshot({path:'/tmp/evidence-browser-shots/home-en-dark-'+width+'.png',fullPage:true,animations:'disabled'});
   console.log('BROWSER_QA_OK',width,'theme/search/filter/detail/overflow/javascript');
   await ctx.close();
  }
