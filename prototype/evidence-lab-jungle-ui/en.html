@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Evidence Lab · Design preview</title>
+  <meta name="description" content="Isolated Evidence Lab design preview with sample data only.">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="topbar">
+    <a class="brand" href="#prehled" aria-label="Evidence Lab – overview"><span class="brandmark" aria-hidden="true">///</span><span><b>Evidence Lab</b><small>AI Advocate · design preview</small></span></a>
+    <nav aria-label="Main navigation" class="nav">
+      <a data-nav="prehled" href="#prehled">Overview</a><a data-nav="dokumenty" href="#dokumenty">Documents</a><a data-nav="workflow" href="#workflow">Workflow</a>
+    </nav>
+    <div class="header-actions"><a class="language-switch" id="language-switch" href="./index.html" hreflang="cs" lang="cs" aria-label="Switch to Czech">CZ</a>
+      <span class="preview-tag">PREVIEW · no actual documents</span>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch to dark theme" aria-pressed="false"><span aria-hidden="true">☀</span><span class="theme-copy">Light</span></button>
+    </div>
+  </header>
+  <main id="content" tabindex="-1">
+    <section class="page" id="page-prehled" aria-labelledby="hero-title">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">PUBLIC EVIDENCE PORTAL · CONCEPT PROTOTYPE</div>
+          <h1 id="hero-title">Public evidence <em>supported by AI</em></h1>
+          <p>Documents, context and verifiable evidence history. Provenance, integrity and approval are clearly separated from public release.</p>
+          <div class="hero-actions"><a href="#dokumenty" class="btn primary">Explore documents <span aria-hidden="true">↗</span></a><a href="#workflow" class="btn outline">How it works</a></div>
+          <div class="principles"><span>◇ Verifiable provenance</span><span>▱ Transparent workflow</span><span>◎ Privacy protection</span></div>
+        </div>
+        <div class="justice-visual" aria-label="Abstract illustration of the scales of justice">
+          <div class="light-leaf leaf-a" aria-hidden="true"></div><div class="light-leaf leaf-b" aria-hidden="true"></div>
+          <svg viewBox="0 0 420 345" role="img" aria-label="Stylized scales of justice" xmlns="http://www.w3.org/2000/svg"><path d="M210 26V302M145 305H275M104 100H316M210 62L316 100 210 100 104 100 210 62" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M104 100L55 217M104 100L153 217M316 100L267 217M316 100L365 217" fill="none" stroke="currentColor" stroke-width="3"/><path d="M30 217Q105 282 178 217ZM242 217Q315 282 390 217Z" fill="currentColor" opacity=".58"/><path d="M188 42a22 22 0 1 1 44 0a22 22 0 0 1-44 0" fill="currentColor"/></svg>
+          <span class="visual-label">JUSTICE · EVIDENCE · OVERSIGHT</span>
+        </div>
+      </div>
+      <div class="values"><div><b>01 / Provenance</b><span>Recorded provenance</span></div><div><b>02 / Integrity</b><span>SHA-256 and audit trail</span></div><div><b>03 / Privacy</b><span>Review of public copies</span></div><div><b>04 / Accessibility</b><span>Clear public access</span></div></div>
+      <div class="section-head"><div><div class="eyebrow">INTERFACE PREVIEW</div><h2>Recent records</h2></div><a class="textlink" href="#dokumenty">Open archive →</a></div>
+      <div id="featured-cards" class="featured-grid"></div>
+      <div class="split"><article class="panel"><div class="eyebrow">PROVENANCE</div><h2>Every record has a history</h2><p>Source documents, approvals and published copies remain distinct. A prototype must never present synthetic status as verified fact.</p><div class="mini-chain"><span>Source</span><i>→</i><span>Inspection</span><i>→</i><span>Review</span><i>→</i><span>Publication</span></div></article><article class="panel botanical"><div class="eyebrow">DESIGN PRINCIPLES</div><h2>Serious data. Readable design.</h2><p>The light Jungle/Jazz theme uses subtle botanical details and high-contrast typography. Dark mode retains the same content and controls.</p></article></div>
+    </section>
+    <section class="page" id="page-dokumenty" aria-labelledby="archive-title" hidden>
+      <div class="page-intro"><div><div class="eyebrow">EVIDENCE ARCHIVE · SAMPLE DATA</div><h1 id="archive-title">Document archive</h1><p>Search and filters operate on sample records only.</p></div><div class="header-art" aria-hidden="true">⌁</div></div>
+      <div class="metrics"><div class="metric"><b id="metric-total">0</b><span>Sample documents</span></div><div class="metric"><b id="metric-public">0</b><span>Public copies in demo</span></div><div class="metric"><b id="metric-review">0</b><span>Under review</span></div></div>
+      <form id="filters" role="search" class="filters"><label for="search">Search the demo archive</label><input id="search" name="search" type="search" placeholder="Title, institution, reference…" autocomplete="off"><label for="status">Status</label><select id="status" name="status"><option value="all">All statuses</option><option value="published">Published</option><option value="review">Review</option><option value="redacted">Redaction</option></select><button type="reset" class="btn outline small">Reset filters</button></form>
+      <p id="archive-count" role="status" aria-live="polite" class="count"></p>
+      <div id="archive-list" class="archive-list"></div>
+    </section>
+    <section class="page" id="page-detail" aria-labelledby="detail-title" hidden>
+      <div class="crumb"><a href="#dokumenty">← Documents</a><span>/</span><span>Record details</span></div>
+      <div class="detail-header"><div><div class="eyebrow">SAMPLE RECORD · NOT A REAL DOCUMENT</div><h1 id="detail-title"></h1><p id="detail-subtitle"></p></div><span id="detail-badge" class="status"></span></div>
+      <div class="detail-grid"><div class="detail-left"><div class="paper-preview" aria-label="Contains no real document"><span class="paper-kicker">SYNTHETIC PREVIEW · NO PDF</span><div class="paper-icon" aria-hidden="true">⚖</div><h2>SAMPLE DOCUMENT</h2><p>This panel demonstrates a possible document viewer. No real PDF is loaded or linked.</p><div class="fake-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div><div class="panel"><h2>Description</h2><p id="detail-desc"></p></div><div class="panel"><h2>Approval workflow</h2><ol class="workflow-line"><li>Received (demo)</li><li>Integrity check (demo)</li><li>Redaction review (demo)</li><li>Publication decision (demo)</li></ol></div></div><aside class="detail-right"><div class="panel"><div class="eyebrow">METADATA · DEMO</div><h2>Basic information</h2><dl id="detail-meta"></dl></div><div class="panel"><div class="eyebrow">AUDIT TRAIL</div><h2>Provenience</h2><p>A production view will show only actual, verifiable events linked to evidence. The prototype invents no audit events or hashes.</p></div><div class="panel alert"><h2>Privacy protection</h2><p>A public preview must never expose working originals. Only an approved and verified public copy may be linked.</p></div></aside></div>
+    </section>
+    <section class="page" id="page-workflow" aria-labelledby="workflow-title" hidden>
+      <div class="page-intro"><div class="eyebrow">PROPOSED ARCHITECTURE · NOT A LIVE SERVICE</div><h1 id="workflow-title">From intake to publication</h1><p>These stages describe the intended process, not a deployed production backend.</p></div>
+      <div class="steps"><article><span>01</span><h2>Intake</h2><p>Source registration, metadata and access control.</p></article><article><span>02</span><h2>Quarantine</h2><p>Private storage and content screening.</p></article><article><span>03</span><h2>Review</h2><p>Provenance, redaction and public-copy review.</p></article><article><span>04</span><h2>Approval</h2><p>An authorized person decides on release.</p></article><article><span>05</span><h2>Publication</h2><p>Independent verification of published bytes.</p></article></div>
+      <div class="panel"><h2>No false transparency</h2><p>The production UI will display “approved” or “verified” only when backed by actual audit records. This preview contains no internal or real legal documents.</p></div>
+    </section>
+  </main>
+  <footer><div><b>Evidence Lab</b><span>UI preview only. Not a live registry or publishing system.</span></div><a href="#prehled">↑ Back to top</a></footer>
+</body>
+</html>
