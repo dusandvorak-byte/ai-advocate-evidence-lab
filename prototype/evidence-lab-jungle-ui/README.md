@@ -28,3 +28,16 @@ Current public `web/index.html` is a CannaInsider newsroom. It includes built an
 
 ## Acceptance criteria
 Local navigation Home → Archive → Detail → Archive works. Search and status filter narrow only synthetic entries. Theme toggle changes color tokens while preserving layout and aria-pressed state. No user data, upload, live API, source PDF, credentials or publication hooks exist. Visual polish is subject to human review; demo claims are never presented as facts.
+
+## QA pass 2 — route and public registry boundary
+
+- A malformed percent-escaped hash fragment safely falls back to the overview.
+- Pressing Enter in the demo search form filters locally without submitting a request.
+- `public-registry-contract.mjs` is an **unwired, importable** validator intended for a later approved public-export integration. Only externally attested published copies with explicit privacy/release approval and a 64-character SHA-256 digest survive into a minimal allowlisted view model.
+- The validator excludes original-document URLs, source blobs, reviewer identities, contact details and unknown properties. It rejects absolute/protocol-relative/parent-escaping/encoded URLs and impossible calendar dates; duplicate IDs fail closed.
+- The security boundary is NOT achieved merely by passing user-supplied `releaseApproved` flags: provenance and approval must originate from a trusted server-side release/export process. The browser must only consume its verified public output.
+- Test evidence: `node --test prototype/evidence-lab-jungle-ui/*.test.mjs`. These are structural/contract tests, not browser screenshot or screen-reader certification.
+
+## Visual QA still required
+
+Review at 375, 768, 1024 and 1440 px in an actual browser; verify no overflow, no focus clipping, keyboard-only navigation, 200% zoom, light/dark contrast, Czech and English copy, and all realistic public-record edge cases. No cross-browser or assistive-technology claim until observed.
