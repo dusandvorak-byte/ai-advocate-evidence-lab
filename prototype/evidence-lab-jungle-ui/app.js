@@ -61,7 +61,9 @@ function renderDetail(id){
  return true;
 }
 function navigate(){
- const hash=decodeURIComponent(location.hash.slice(1));
+ let hash='';
+ try {hash=decodeURIComponent(location.hash.slice(1));}
+ catch {hash='prehled';}
  const [section,arg]=hash.split('/');
  let page=section==='dokumenty'||section==='workflow'||section==='detail'?section:'prehled';
  if(page==='detail'&&!renderDetail(arg))page='dokumenty';
@@ -84,6 +86,7 @@ function setup(){
  $('#search').addEventListener('input',renderArchive);
  $('#status').addEventListener('change',renderArchive);
  $('#filters').addEventListener('reset',()=>queueMicrotask(renderArchive));
+ $('#filters').addEventListener('submit',event=>{event.preventDefault();renderArchive();});
  window.addEventListener('hashchange',navigate);
  navigate();
 }
