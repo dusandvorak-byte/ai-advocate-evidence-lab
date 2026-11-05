@@ -14,6 +14,145 @@
         "project-memory/binary-sources/nsz-2026-10-28-53-pages/chunk-05.b64",
         "project-memory/binary-sources/nsz-2026-10-28-53-pages/chunk-06.b64"
       ]
+    },
+    {
+      "target": "web/documents/okte-originaly-2026-10-30/2008-2009-OKTE-KRPT-6172-1-KT-2009.pdf",
+      "sha256": "8f0766a10ab324a4c57f659b51fda172967ae08164b7827ebb2a44f3e21c7642",
+      "size_bytes": 3473598,
+      "page_count": 4,
+      "provenance": "10 separate original expert-report attachments supplied with Olomouc Regional Police reply KRPM-145410-2/ČJ-2026-1400AP-106 dated 2026-10-30",
+      "chunks": [
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-000.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-001.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-002.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-003.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-004.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-005.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-006.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-007.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-008.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-009.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-010.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-011.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-012.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-013.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-014.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-015.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-016.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2008-2009_part-017.b64"
+      ]
+    },
+    {
+      "target": "web/documents/okte-originaly-2026-10-30/2010-OKTE-KRPT-5906-1-KT-2010.pdf",
+      "sha256": "1df5823da968915d541d26ce9412483edee64ebb9776c9cae246277b3a997c39",
+      "size_bytes": 290225,
+      "page_count": 8,
+      "provenance": "10 separate original expert-report attachments supplied with Olomouc Regional Police reply KRPM-145410-2/ČJ-2026-1400AP-106 dated 2026-10-30",
+      "chunks": [
+        "project-memory/binary-transport/2026-11-05/okte/2010_part-000.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2010_part-001.b64"
+      ]
+    },
+    {
+      "target": "web/documents/okte-originaly-2026-10-30/2011-OKTE-KRPT-5088-2-KT-2011.pdf",
+      "sha256": "c2d18c08a1e10b3cbdd55c1b40284513173d35ffeedcce7bf39ed90284846d97",
+      "size_bytes": 442537,
+      "page_count": 9,
+      "provenance": "10 separate original expert-report attachments supplied with Olomouc Regional Police reply KRPM-145410-2/ČJ-2026-1400AP-106 dated 2026-10-30",
+      "chunks": [
+        "project-memory/binary-transport/2026-11-05/okte/2011_part-000.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2011_part-001.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2011_part-002.b64"
+      ]
+    },
+    {
+      "target": "web/documents/okte-originaly-2026-10-30/2012-OKTE-KRPT-5223-1-KT-2012.pdf",
+      "sha256": "e6846ea3aff067bc8c2dff7d81fdfa13a77b31ad0d0b22ce1d627b5428fc5c4d",
+      "size_bytes": 163217,
+      "page_count": 3,
+      "provenance": "10 separate original expert-report attachments supplied with Olomouc Regional Police reply KRPM-145410-2/ČJ-2026-1400AP-106 dated 2026-10-30",
+      "chunks": [
+        "project-memory/binary-transport/2026-11-05/okte/2012_part-000.b64"
+      ]
+    },
+    {
+      "target": "web/documents/okte-originaly-2026-10-30/2014-OKTE-KRPT-5666-1-KT-2014.pdf",
+      "sha256": "92a88cbd00057cfba85ad737c1b94b44da7f069d0eb064a123ebab40229da2be",
+      "size_bytes": 208172,
+      "page_count": 4,
+      "provenance": "10 separate original expert-report attachments supplied with Olomouc Regional Police reply KRPM-145410-2/ČJ-2026-1400AP-106 dated 2026-10-30",
+      "chunks": [
+        "project-memory/binary-transport/2026-11-05/okte/2014_part-000.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2014_part-001.b64"
+      ]
+    },
+    {
+      "target": "web/documents/okte-originaly-2026-10-30/2015-OKTE-KRPT-4455-1-KT-2015.pdf",
+      "sha256": "851d60178b8d9f2e1fe875f46fc234c8a50d8e2f81228d4d419311455eb6cf0c",
+      "size_bytes": 257932,
+      "page_count": 4,
+      "provenance": "10 separate original expert-report attachments supplied with Olomouc Regional Police reply KRPM-145410-2/ČJ-2026-1400AP-106 dated 2026-10-30",
+      "chunks": [
+        "project-memory/binary-transport/2026-11-05/okte/2015_part-000.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2015_part-001.b64"
+      ]
+    },
+    {
+      "target": "web/documents/okte-originaly-2026-10-30/2016-OKTE-KRPT-4344-3-KT-2016.pdf",
+      "sha256": "be63c7bb15d80dd7b4567116775dd711e270d62a02abb5d7e8d13ed7fe4b600b",
+      "size_bytes": 1575936,
+      "page_count": 4,
+      "provenance": "10 separate original expert-report attachments supplied with Olomouc Regional Police reply KRPM-145410-2/ČJ-2026-1400AP-106 dated 2026-10-30",
+      "chunks": [
+        "project-memory/binary-transport/2026-11-05/okte/2016_part-000.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2016_part-001.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2016_part-002.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2016_part-003.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2016_part-004.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2016_part-005.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2016_part-006.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2016_part-007.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2016_part-008.b64"
+      ]
+    },
+    {
+      "target": "web/documents/okte-originaly-2026-10-30/2017-OKTE-KRPT-4572-1-KT-2017.pdf",
+      "sha256": "6561f89fb8d2bd550f9bdcadd5af90e09e393338bd32ec1fcf7fe5764a3d692d",
+      "size_bytes": 525136,
+      "page_count": 3,
+      "provenance": "10 separate original expert-report attachments supplied with Olomouc Regional Police reply KRPM-145410-2/ČJ-2026-1400AP-106 dated 2026-10-30",
+      "chunks": [
+        "project-memory/binary-transport/2026-11-05/okte/2017_part-000.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2017_part-001.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2017_part-002.b64"
+      ]
+    },
+    {
+      "target": "web/documents/okte-originaly-2026-10-30/2018-OKTE-KRPT-3050-2-KT-2018.pdf",
+      "sha256": "8c0e1a33f8e4e72887924909c39936ce8c5045950e04d01fd4c1808b9a68fc66",
+      "size_bytes": 1175929,
+      "page_count": 4,
+      "provenance": "10 separate original expert-report attachments supplied with Olomouc Regional Police reply KRPM-145410-2/ČJ-2026-1400AP-106 dated 2026-10-30",
+      "chunks": [
+        "project-memory/binary-transport/2026-11-05/okte/2018_part-000.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2018_part-001.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2018_part-002.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2018_part-003.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2018_part-004.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2018_part-005.b64"
+      ]
+    },
+    {
+      "target": "web/documents/okte-originaly-2026-10-30/2019-OKTE-KRPT-3350-1-KT-2019.pdf",
+      "sha256": "ed80b1301c3ecad48902cdf6e89c14ddcd7b07bbd8c844f410671b1ea8b7016e",
+      "size_bytes": 502538,
+      "page_count": 4,
+      "provenance": "10 separate original expert-report attachments supplied with Olomouc Regional Police reply KRPM-145410-2/ČJ-2026-1400AP-106 dated 2026-10-30",
+      "chunks": [
+        "project-memory/binary-transport/2026-11-05/okte/2019_part-000.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2019_part-001.b64",
+        "project-memory/binary-transport/2026-11-05/okte/2019_part-002.b64"
+      ]
     }
   ]
 }
