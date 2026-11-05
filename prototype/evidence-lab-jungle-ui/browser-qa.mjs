@@ -96,10 +96,10 @@ try{
   await page.keyboard.press('Enter');
   assert.equal(await page.locator('html').getAttribute('data-theme'),'light','Keyboard toggle should work');
   if(width>=1024){
-    await page.evaluate(()=>{document.documentElement.style.zoom='2';});
-    const zoomOverflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+2);
-    assert.equal(zoomOverflow,false,'200% zoom should not overflow at '+width);
-    await page.evaluate(()=>{document.documentElement.style.zoom='';});
+    await page.setViewportSize({width:Math.floor(width/2),height:860});
+    const reflowOverflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+2);
+    assert.equal(reflowOverflow,false,'200% viewport-equivalent reflow should not overflow at '+width);
+    await page.setViewportSize({width,height:860});
   }
   console.log('BROWSER_QA_OK',width,'theme/search/filter/detail/overflow/javascript');
   await ctx.close();
