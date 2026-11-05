@@ -41,3 +41,10 @@ Local navigation Home → Archive → Detail → Archive works. Search and statu
 ## Visual QA still required
 
 Review at 375, 768, 1024 and 1440 px in an actual browser; verify no overflow, no focus clipping, keyboard-only navigation, 200% zoom, light/dark contrast, Czech and English copy, and all realistic public-record edge cases. No cross-browser or assistive-technology claim until observed.
+
+## Czech / English preview
+
+- `index.html` is the Czech preview and `en.html` the English preview. Both share the same `app.js` and `style.css` and remain static/offline.
+- The language link preserves the current hash route (overview, archive, detail, workflow), while the color theme preference remains shared.
+- All dynamic sample entries, statuses, date locale, metadata labels and document titles switch with the HTML language. The prototypes do not translate or expose real legal documents.
+- Browser QA checks the CZ → EN → CZ round-trip and translation at 375, 768, 1024 and 1440 px. English text is proposed UI copy, not a certified legal translation.
