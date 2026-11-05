@@ -11,7 +11,7 @@ const surfacePaths = [
 
 const replaceAnchorTextByHref = (html, hrefPattern, label) => html.replace(
   new RegExp(`<a([^>]*\\bhref=["'][^"']*${hrefPattern}[^"']*["'][^>]*)>([\\s\\S]*?)<\\/a>`, 'gi'),
-  (match, attrs) => (attrs.includes('#okte-originaly') || attrs.includes('/okte-originaly-2026-10-30/')) ? match : `<a${attrs}>${label}</a>`
+  (match, attrs) => (attrs.includes('#okte-originaly') || attrs.includes('/okte-originaly-2026-10-30/') || attrs.includes('/2026-11-03-okte-srovnavaci-analyza-redigovany-original.pdf')) ? match : `<a${attrs}>${label}</a>`
 );
 
 const normalizeGodot = async (path, lang) => {
