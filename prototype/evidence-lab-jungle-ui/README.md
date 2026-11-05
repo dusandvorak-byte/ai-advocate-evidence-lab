@@ -48,3 +48,13 @@ Review at 375, 768, 1024 and 1440 px in an actual browser; verify no overflow, n
 - The language link preserves the current hash route (overview, archive, detail, workflow), while the color theme preference remains shared.
 - All dynamic sample entries, statuses, date locale, metadata labels and document titles switch with the HTML language. The prototypes do not translate or expose real legal documents.
 - Browser QA checks the CZ → EN → CZ round-trip and translation at 375, 768, 1024 and 1440 px. English text is proposed UI copy, not a certified legal translation.
+
+## Editorial art intake preflight (before any image delivery)
+
+`editorial-intake.mjs` is a **planning-only** validator, not a browser or publication integration. Its tests use synthetic SHA values and explicitly fictional approval references. It expects each of the five original filenames, exact dimensions and MIME type, a real SHA-256 calculated from transferred original bytes, a source credit, CZ/EN alt and caption, privacy/rights/editorial review, Dušan's release approval and the attributable approval reference. The poster must preserve its entire original frame.
+
+This is necessary but **not sufficient** to publish: the flags cannot be trusted when submitted by an untrusted browser/user. A verified editor and source-of-truth record must attest the approvals. Compare actual file bytes and decoded dimensions with the supplied manifest server-side, inspect sensitive metadata and third-party privacy, preserve original pixels, and obtain a distinct merge/publication approval.
+
+`editorial-art.js` currently renders 5 labelled non-image placeholders for all missing assets. It performs no HTTP requests or image loading. Do not replace them with AI-generated imagery or invoke a remote image CDN.
+
+Browser QA additionally checks keyboard-first skip link, visible focus, keyboard theme toggle and 200% zoom at desktop widths. Screenshots are visual-review aids, not proof of screen-reader compliance.
