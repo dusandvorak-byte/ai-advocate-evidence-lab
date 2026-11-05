@@ -1,0 +1,32 @@
+name: Verify synthetic PDF materialization determinism
+on:
+  push:
+    branches: ['fix/pdf105-*']
+    paths:
+      - 'scripts/materialize-redacted-originals-2026-10-16.py'
+      - 'test/test_deterministic_redacted_pdf.py'
+      - '.github/workflows/validate-pdf-determinism.yml'
+  pull_request:
+    paths:
+      - 'scripts/materialize-redacted-originals-2026-10-16.py'
+      - 'test/test_deterministic_redacted_pdf.py'
+      - '.github/workflows/validate-pdf-determinism.yml'
+permissions:
+  contents: read
+jobs:
+  synthetic-pdf-determinism:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin PDF generation engine and fixture renderer in test
+        run: python -m pip install --disable-pip-version-check 'pymupdf==1.26.7' 'Pillow==11.3.0'
+      - name: Verify isolated synthetic deterministic generation
+        run: python -m unittest discover -s test -p 'test_deterministic_redacted_pdf.py' -v
+      - name: No real PDF or publication paths in this test
+        run: |
+          test ! -e .env
+          test ! -e test/real-document.pdf
