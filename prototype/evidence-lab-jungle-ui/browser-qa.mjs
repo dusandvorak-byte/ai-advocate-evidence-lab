@@ -17,6 +17,13 @@ try{
   await page.locator('#hero-title').waitFor();
   assert.equal(await page.locator('html').getAttribute('data-theme'),'light');
   assert.equal(await page.locator('#page-prehled').isVisible(),true);
+  assert.equal(await page.locator('.art-story').count(),5,'Five source-specific art positions must exist');
+  assert.equal(await page.locator('.art-story img').count(),0,'No missing or invented image may render');
+  assert.match(await page.locator('.art-story--poster .art-pending').textContent(),/ORIGINÁL ZATÍM NENÍ DODÁN/);
+  const posterRatio=await page.locator('.art-story--poster .art-placeholder').evaluate(el=>{
+    const box=el.getBoundingClientRect();return box.width/box.height;
+  });
+  assert.ok(Math.abs(posterRatio-1086/1448)<0.03,'Poster aspect ratio must not be cropped');
   await mkdir('/tmp/evidence-browser-shots',{recursive:true});
   await page.screenshot({path:'/tmp/evidence-browser-shots/home-light-'+width+'.png',fullPage:true,animations:'disabled'});
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth > window.innerWidth+1);
@@ -56,6 +63,10 @@ try{
   assert.equal(await page.locator('html').getAttribute('lang'),'en');
   assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');
   assert.equal(await page.locator('#archive-title').textContent(),'Document archive');
+  await page.goto(path.replace('/index.html','/en.html')+'#prehled');
+  assert.equal(await page.locator('.art-story').count(),5);
+  assert.match(await page.locator('.art-story--poster .art-pending').textContent(),/ORIGINAL FILE NOT YET PROVIDED/);
+  await page.goto(path.replace('/index.html','/en.html')+'#dokumenty');
   assert.equal(await page.locator('.archive-row').count(),5);
   await page.locator('#search').fill('attachment');
   assert.equal(await page.locator('.archive-row').count(),1);
