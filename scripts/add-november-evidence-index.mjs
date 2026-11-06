@@ -28,10 +28,11 @@ for (const [file, english] of targets) {
   const explanation = english
     ? 'One incoming Supreme Court record and five submissions are linked directly to their redacted PDF copies. The ten historical OKTE expert reports remain annexes to the Olomouc Police response of 30 October 2026, not ten new responses.'
     : 'Jedna příchozí listina Nejvyššího soudu a pět vlastních či spolkových podání mají přímé odkazy na redigované PDF. Deset historických vyjádření OKTE zůstává přílohami odpovědi olomoucké policie ze dne 30. října 2026, nikoli deseti novými odpověďmi.';
-  const linkLabel = english ? 'PDF document (redacted copy)' : 'Dokument v PDF (redigovaná kopie)';
+  const linkLabel = 'Dokument v PDF';
+  const copyNote = english ? ' (redacted public copy)' : ' (redigovaná veřejná kopie)';
   const entries = unique.map(item => {
     const heading = english ? (item.english_title || item.title_en || item.user_title_en || item.user_title || item.reference || item.id) : (item.user_title || item.title || item.reference || item.id);
-    return '<li data-document-id="' + esc(item.id) + '"><strong>' + esc(item.issue_date) + '</strong> — ' + esc(heading) + ' · <a href="' + root + esc(item.public.pdf) + '">' + linkLabel + '</a></li>';
+    return '<li data-document-id="' + esc(item.id) + '"><strong>' + esc(item.issue_date) + '</strong> — ' + esc(heading) + ' · <a href="' + root + esc(item.public.pdf) + '">' + linkLabel + '</a>' + copyNote + '</li>';
   }).join('');
   const annexLink = root + 'listiny/2026-11-02-evidence-krpm.html#okte-originaly';
   const block = marker + '<section class="november-evidence-index" id="listiny-listopad-2026" aria-label="' + esc(title) + '" style="max-width:1240px;margin:1.25rem auto;padding:1.2rem;border:1px solid #9babb3;background:#fff;color:#193448;box-sizing:border-box"><h2 style="margin-top:0">' + esc(title) + '</h2><p>' + esc(explanation) + '</p><ol>' + entries + '</ol><p><a href="' + annexLink + '">' + (english ? 'Open all ten original OKTE PDF annexes' : 'Otevřít všech deset původních PDF příloh OKTE') + '</a></p></section>' + endmarker;
