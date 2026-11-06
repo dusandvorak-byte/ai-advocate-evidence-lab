@@ -80,6 +80,18 @@ try{
   assert.equal(await page.locator('html').getAttribute('lang'),'cs');
   assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');
   assert.match(await page.locator('#detail-title').textContent(),/Ukázkové usnesení/);
+  await page.goto(path+'#dokumenty');
+  await page.locator('#search').fill('DEMO-003');
+  await page.locator('#status').selectOption('redacted');
+  assert.equal(await page.locator('.archive-row').count(),1);
+  await page.locator('#language-switch').click();
+  await page.waitForURL(/en\.html\?q=DEMO-003&status=redacted#dokumenty$/);
+  assert.equal(await page.locator('#search').inputValue(),'DEMO-003');
+  assert.equal(await page.locator('#status').inputValue(),'redacted');
+  assert.equal(await page.locator('.archive-row').count(),1);
+  await page.locator('#language-switch').click();
+  await page.waitForURL(/index\.html\?q=DEMO-003&status=redacted#dokumenty$/);
+  assert.equal(await page.locator('.archive-row').count(),1);
   assert.deepEqual(errors,[],'CZ/EN page errors at '+width);
   // Run accessibility checks on both themes/locales at narrow and wide widths.
   // Axe finds machine-detectable WCAG issues, not every assistive-tech issue.
