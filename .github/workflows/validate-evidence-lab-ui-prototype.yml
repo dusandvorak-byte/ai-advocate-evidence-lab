@@ -27,7 +27,7 @@ jobs:
       - name: Install isolated browser test runner
         run: |
           mkdir -p /tmp/evidence-browser-qa
-          npm install --prefix /tmp/evidence-browser-qa --no-save --ignore-scripts playwright@1.56.1
+          npm install --prefix /tmp/evidence-browser-qa --no-save --ignore-scripts playwright@1.56.1 axe-core@4.10.3
           /tmp/evidence-browser-qa/node_modules/.bin/playwright install --with-deps chromium
       - name: Headless Chromium QA at four viewport widths
         run: node prototype/evidence-lab-jungle-ui/browser-qa.mjs
