@@ -81,6 +81,21 @@ try{
   assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');
   assert.match(await page.locator('#detail-title').textContent(),/Ukázkové usnesení/);
   assert.deepEqual(errors,[],'CZ/EN page errors at '+width);
+  // Run accessibility checks on both themes/locales at narrow and wide widths.
+  // Axe finds machine-detectable WCAG issues, not every assistive-tech issue.
+  for (const locale of ['cs','en']) {
+    for (const theme of ['light','dark']) {
+      await page.goto(path.replace('index.html',locale==='en'?'en.html':'index.html'));
+      if(await page.locator('html').getAttribute('data-theme')!==theme) await page.locator('#theme-toggle').click();
+      await page.addScriptTag({path:'/tmp/evidence-browser-qa/node_modules/axe-core/axe.min.js'});
+      const report=await page.evaluate(async()=>window.axe.run(document,{
+        runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','best-practice']}
+      }));
+      const failures=report.violations.map(x=>({id:x.id,impact:x.impact,targets:x.nodes.slice(0,3).map(n=>n.target)}));
+      assert.deepEqual(failures,[], 'Axe accessibility violations '+locale+'/'+theme+'/'+width);
+    }
+  }
+
   await page.goto(path.replace('/index.html','/en.html'));
   await page.screenshot({path:'/tmp/evidence-browser-shots/home-en-dark-'+width+'.png',fullPage:true,animations:'disabled'});
   // Keyboard-only operation, visible focus and zoom/reflow regression.
