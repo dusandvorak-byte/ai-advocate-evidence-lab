@@ -35,13 +35,15 @@ for (const [file, english] of targets) {
     return '<li data-document-id="' + esc(item.id) + '"><strong>' + esc(item.issue_date) + '</strong> — ' + esc(heading) + ' · <a href="' + root + esc(item.public.pdf) + '">' + linkLabel + '</a>' + copyNote + '</li>';
   }).join('');
   const annexLink = root + 'listiny/2026-11-02-evidence-krpm.html#okte-originaly';
-  const block = marker + '<section class="november-evidence-index" id="listiny-listopad-2026" aria-label="' + esc(title) + '" style="max-width:1240px;margin:1.25rem auto;padding:1.2rem;border:1px solid #9babb3;background:#fff;color:#193448;box-sizing:border-box"><h2 style="margin-top:0">' + esc(title) + '</h2><p>' + esc(explanation) + '</p><ol>' + entries + '</ol><p><a href="' + annexLink + '">' + (english ? 'Open all ten original OKTE PDF annexes' : 'Otevřít všech deset původních PDF příloh OKTE') + '</a></p></section>' + endmarker;
+  const block = marker + '<section class="november-evidence-index" id="listiny-listopad-2026" aria-label="' + esc(title) + '" style="max-width:1240px;margin:1.25rem auto;padding:1.2rem;border:1px solid #9babb3;background:#fff;color:#193448;box-sizing:border-box"><h2 style="margin-top:0">' + esc(title) + '</h2><p>' + esc(explanation) + '</p><ol>' + entries + '</ol><p><a href="' + annexLink + '">' + (english ? 'Ten original OKTE annexes' : 'Deset původních příloh OKTE') + '</a></p></section>' + endmarker;
   const main = html.indexOf('<main');
   if (main < 0) throw new Error('Missing main tag: ' + file);
   const openEnd = html.indexOf('>', main);
   if (openEnd < 0) throw new Error('Unclosed main tag: ' + file);
   html = html.slice(0, openEnd+1) + block + html.slice(openEnd+1);
   if (unique.some(item => !html.includes(item.public.pdf))) throw new Error('Missing PDF in ' + file);
+  const panelLabels = [...block.matchAll(/<a[^>]+href="[^"]+"[^>]*>([^<]+)<\/a>/g)].map(match => match[1].trim());
+  if (panelLabels.some(label => /PDF|kopie|listina|dokument/i.test(label) && !['Dokument v PDF','Evidenční stránka'].includes(label))) throw new Error('Invalid November panel document link label in ' + file);
   await writeFile(file, html, 'utf8');
 }
 console.log('November public evidence index: six documents plus ten OKTE attachments linked on six public surfaces');
