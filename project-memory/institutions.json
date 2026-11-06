@@ -498,6 +498,13 @@
       "type": "parliamentary_contact",
       "name": "Poslanecká sněmovna – MVDr. Ing. Václav Trojan, Ph.D.\nDostupnost léčebného konopí a odklon od jeho kriminalizace, vedoucí pěstírny konopí MU/FNUSA",
       "short_name": "PSP – MVDr. Ing. Václav Trojan, Ph.D."
+    },
+    {
+      "id": "CZ-PSP",
+      "country": "CZ",
+      "type": "parliamentary_contact",
+      "name": "Poslanecká sněmovna Parlamentu České republiky",
+      "short_name": "Poslanecká sněmovna"
     }
   ]
 }

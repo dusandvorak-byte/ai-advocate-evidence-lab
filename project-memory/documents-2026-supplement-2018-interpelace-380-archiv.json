@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-11-06",
+  "status": "binding",
+  "description": "Historický spis: dva původní PDF originály interpelace č. 380 z prosince 2018 a odpovědi předsedy vlády (s přílohami), tematické souvislosti PP/MSp 2026.",
+  "documents": [
+    {
+      "id": "doc-cz-psp-2018-12-17-interpelace-380",
+      "issue_date": "2018-12-17",
+      "received_date": null,
+      "institution_id": "CZ-PSP",
+      "reference": "Interpelace č. 380; související odpověď č. j. 41872/2018-KPV-2",
+      "user_title": "Poslanecká interpelace č. 380 (prosinec 2018) a odpověď premiéra Andreje Babiše s přílohou Úřadu vlády",
+      "case_ids": [],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "historical parliamentary interpellation; accompanying government response; both published as original supporting documents, not separate 2026 official responses",
+      "parent_document_id": "doc-cz-pcr-pp-2026-10-16-ppr-54525-1-cj-2026-990340",
+      "topics": [
+        "interpelace č. 380",
+        "Cannabis is The Cure",
+        "historická evidence 2018–2019",
+        "Policejní prezidium",
+        "Ministerstvo spravedlnosti"
+      ],
+      "relations": [
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-pcr-pp-2026-10-16-ppr-54525-1-cj-2026-990340"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-msp-2026-10-19-msp-898-2026-op-osv-2"
+        }
+      ],
+      "public": {
+        "html": "listiny/2018-interpelace-380.html",
+        "pdf": "documents/interpelace-380-2018/interpelace-zuzana-majerova-zahradnikova-2018.pdf",
+        "intended_pdf": "documents/interpelace-380-2018/interpelace-zuzana-majerova-zahradnikova-2018.pdf",
+        "sha256": "e5844a961b84628bee2320e6897a4aa52efefa2b616414760655b872ab9b7a71",
+        "source_original_sha256": "e5844a961b84628bee2320e6897a4aa52efefa2b616414760655b872ab9b7a71",
+        "source_original_size_bytes": 2518874,
+        "source_original_page_count": 2,
+        "response_pdf": "documents/interpelace-380-2018/odpoved-andrej-babis-interpelace-380.pdf",
+        "response_sha256": "4a986f28d6940869026b01db7dadb36b3757e928a1e37a3c439702b12eb0ff73",
+        "response_size_bytes": 918781,
+        "response_page_count": 3,
+        "verification_status": "two_original_binary_PDF_blobs_sha256_verified; no_content_changes",
+        "source_manifest": "project-memory/documents-2026-supplement-2018-interpelace-380-archiv.json"
+      },
+      "evidence_note": "Interpelace poslankyně Zuzany Majerové Zahradníkové je datována 17.12.2018, s razítkem Parlamentu 19.12.2018. Druhý samostatný původní PDF soubor obsahuje odpověď premiéra na interpelaci č.380, dopis Sekce Legislativní rady vlády ze dne 20.12.2018, č.j. 39287/2018-OVL a 41180/2018-OVL, a doložku konverze ze 14.1.2019. Datum samotné premiérovy odpovědi nelze ze souboru spolehlivě určit. Historická souvislost s dnešními dotazy k nečinnosti státních orgánů, bez tvrzení o totožnosti všech odborných otázek."
+    }
+  ]
+}
