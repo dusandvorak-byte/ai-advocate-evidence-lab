@@ -93,8 +93,20 @@ function setup(){
  $('#metric-public').textContent=records.filter(x=>x.status==='published').length;
  $('#metric-review').textContent=records.filter(x=>x.status==='review').length;
  $('#theme-toggle').addEventListener('click',toggleTheme);
+ const params=new URLSearchParams(location.search);
+ const query=params.get('q');
+ if(query)$('#search').value=query.slice(0,120);
+ const selected=params.get('status');
+ if(['all','published','review','redacted'].includes(selected))$('#status').value=selected;
  const lang=$('#language-switch');
- if(lang)lang.addEventListener('click',()=>{lang.href=(english?'./index.html':'./en.html')+location.hash;});
+ if(lang)lang.addEventListener('click',()=>{
+   const dest=new URL(english?'./index.html':'./en.html',location.href);
+   const q=$('#search').value.trim().slice(0,120),status=$('#status').value;
+   if(q)dest.searchParams.set('q',q);
+   if(status!=='all')dest.searchParams.set('status',status);
+   dest.hash=location.hash;
+   lang.href=dest.href;
+ });
  $('#search').addEventListener('input',renderArchive);
  $('#status').addEventListener('change',renderArchive);
  $('#filters').addEventListener('reset',()=>queueMicrotask(renderArchive));
