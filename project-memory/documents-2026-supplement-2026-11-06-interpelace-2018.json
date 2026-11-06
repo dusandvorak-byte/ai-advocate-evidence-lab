@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-11-06",
+  "status": "binding",
+  "description": "Dva byte-identické historické originály (písemná interpelace č. 380 z prosince 2018 a odpověď předsedy vlády s přílohou) jako související důkazní přílohy k agendě PP a MSP 2026. Nejzávažnější datace v originálu nezměněna.",
+  "documents": [
+    {
+      "id": "doc-cz-psp-2018-12-17-interpelace-c-380-zahradnikova",
+      "issue_date": "2018-12-17",
+      "received_date": null,
+      "institution_id": "CZ-PSP",
+      "reference": "Interpelace č. 380; podací razítko Poslanecké sněmovny 19. 12. 2018",
+      "user_title": "Poslankyně Zuzana Majerová Zahradníková – písemná interpelace předsedy vlády ve věci Cannabis is The Cure, z. s.",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "official_parliamentary_correspondence_historical_annex_not_user_submission",
+      "topics": [
+        "historická korespondence",
+        "interpelace 380",
+        "Cannabis is The Cure, z. s.",
+        "Policejní prezidium",
+        "Ministerstvo spravedlnosti"
+      ],
+      "public": {
+        "html": "listiny/2018-interpelace-380.html",
+        "pdf": "documents/originaly-2018/2018-12-17-interpelace-380-zahradnikova.pdf",
+        "intended_pdf": "documents/originaly-2018/2018-12-17-interpelace-380-zahradnikova.pdf",
+        "sha256": "e5844a961b84628bee2320e6897a4aa52efefa2b616414760655b872ab9b7a71",
+        "source_original_sha256": "e5844a961b84628bee2320e6897a4aa52efefa2b616414760655b872ab9b7a71",
+        "source_original_size_bytes": 2518874,
+        "source_original_page_count": 2,
+        "verification_status": "byte_identical_original_pdf_sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-06-interpelace-2018.json"
+      },
+      "relations": [
+        {
+          "type": "odpoved",
+          "target_id": "doc-cz-uv-2018-01-11-interpelace-c-380-babis-odpoved"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-pcr-pp-2026-10-16-ppr-54525-1-cj-2026-990340"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-msp-2026-10-19-msp-898-2026-op-osv-2"
+        }
+      ],
+      "evidence_note": "Dvoustránková písemná interpelace poslankyně Zuzany Majerové Zahradníkové určená tehdejšímu předsedovi vlády Andreji Babišovi; listina datována 17. 12. 2018, razítko přijetí 19. 12. 2018. Žádá odpověď na stížnost Cannabis is The Cure, z. s., a vysvětlení nečinnosti vlády a ministerstev. Jde o historickou dokumentaci tematicky související s informačními a trestními podněty v roce 2026, nikoli o dnešní podání."
+    },
+    {
+      "id": "doc-cz-uv-2018-01-11-interpelace-c-380-babis-odpoved",
+      "issue_date": "2018-01-11",
+      "received_date": null,
+      "institution_id": "CZ-UV",
+      "reference": "41872/2018-KPV-2; interpelace č. 380; příloha 39287/2018-OVL a 41180/2018-OVL",
+      "user_title": "Odpověď Andreje Babiše na interpelaci č. 380 s přípisem Úřadu vlády ze dne 20. 12. 2018 a doložkou konverze 14. 1. 2019",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "official_government_reply_historical_annex_not_user_submission",
+      "topics": [
+        "historická korespondence",
+        "interpelace 380",
+        "odpověď předsedy vlády",
+        "Cannabis is The Cure, z. s.",
+        "Policejní prezidium",
+        "Ministerstvo spravedlnosti"
+      ],
+      "public": {
+        "html": "listiny/2018-interpelace-380.html",
+        "pdf": "documents/originaly-2018/2018-interpelace-380-odpoved-predsedy-vlady.pdf",
+        "intended_pdf": "documents/originaly-2018/2018-interpelace-380-odpoved-predsedy-vlady.pdf",
+        "sha256": "4a986f28d6940869026b01db7dadb36b3757e928a1e37a3c439702b12eb0ff73",
+        "source_original_sha256": "4a986f28d6940869026b01db7dadb36b3757e928a1e37a3c439702b12eb0ff73",
+        "source_original_size_bytes": 918781,
+        "source_original_page_count": 3,
+        "verification_status": "byte_identical_original_pdf_sha256_verified; printed_date_inconsistent_with_enclosure",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-06-interpelace-2018.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-psp-2018-12-17-interpelace-c-380-zahradnikova"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-pcr-pp-2026-10-16-ppr-54525-1-cj-2026-990340"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-msp-2026-10-19-msp-898-2026-op-osv-2"
+        }
+      ],
+      "evidence_note": "Třístránkový originál obsahuje odpověď předsedy vlády č. j. 41872/2018-KPV-2, navazující přípis Úřadu vlády ze dne 20. 12. 2018 (č. j. 39287/2018-OVL a 41180/2018-OVL) a doložku konverze ze dne 14. 1. 2019. Na první straně odpovědi je vytištěn údaj „11. ledna 2018“, ačkoli přípis odkazuje na interpelaci z 19. 12. 2018; tento vnitřní časový rozpor není opravován ani vydáván za jistý den skutečného vydání. Premiérem zmiňované výhrady jsou tvrzení podatele, nikoli zde prokázané skutkové závěry."
+    }
+  ]
+}

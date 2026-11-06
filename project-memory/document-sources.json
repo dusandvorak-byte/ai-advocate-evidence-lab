@@ -380,6 +380,18 @@
       "role": "batch",
       "batch_date": "2026-11-05",
       "public_status": "10 byte-identical original PDF annexes of 30 October Olomouc Police response"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2018-interpelace-380-archiv.json",
+      "role": "batch",
+      "batch_date": "2026-11-06",
+      "public_status": "two verified byte-identical originals of the December 2018 parliamentary interpellation and subsequent response"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-11-06-interpelace-2018.json",
+      "role": "batch",
+      "batch_date": "2026-11-06",
+      "public_status": "two byte-identical historical parliamentary/government PDF originals; historical attachments to PP/MSP 2026"
     }
   ]
 }
