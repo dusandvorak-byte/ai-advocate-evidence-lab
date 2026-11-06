@@ -198,4 +198,5 @@ await writeFile(`${output.data}/build-manifest.json`, `${JSON.stringify(manifest
 await run('scripts/add-original-pdf-links-2026-11-02.mjs');
 await run('scripts/add-interpelace-380-links.mjs');
 await run('scripts/validate-interpelace-380.mjs');
+await run('scripts/add-november-evidence-index.mjs');
 console.log(`Evidence Lab 2.0 build: stát/veřejné instituce ${expectedStateCount}; naše podání ${expectedOurCount}; celkem ${expectedTotalCount}; titulní strana = Godot = manifest; ${publicPdfLinks.length} aktivních PDF; ${finalTimerRegistry.timers.length} živých procesních časovačů.`);
