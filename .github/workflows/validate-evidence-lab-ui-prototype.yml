@@ -1,0 +1,48 @@
+name: Validate Evidence Lab design prototype (no deploy)
+on:
+  push:
+    branches: ['feature/evidence-lab-jungle-jazz-ui-prototype']
+    paths:
+      - 'prototype/evidence-lab-jungle-ui/**'
+      - '.github/workflows/validate-evidence-lab-ui-prototype.yml'
+  pull_request:
+    paths:
+      - 'prototype/evidence-lab-jungle-ui/**'
+      - '.github/workflows/validate-evidence-lab-ui-prototype.yml'
+permissions:
+  contents: read
+jobs:
+  validate-preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Static syntax and synthetic-only UI tests
+        run: |
+          node --check prototype/evidence-lab-jungle-ui/app.js
+          node --test prototype/evidence-lab-jungle-ui/*.test.mjs
+      - name: Install isolated browser test runner
+        run: |
+          mkdir -p /tmp/evidence-browser-qa
+          npm install --prefix /tmp/evidence-browser-qa --no-save --ignore-scripts playwright@1.56.1 axe-core@4.10.3
+          /tmp/evidence-browser-qa/node_modules/.bin/playwright install --with-deps chromium
+      - name: Headless Chromium QA at four viewport widths
+        run: node prototype/evidence-lab-jungle-ui/browser-qa.mjs
+      - name: Store screenshots for human visual inspection
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-lab-ui-qa-screenshots
+          path: /tmp/evidence-browser-shots/*.png
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Confirm no public site files changed
+        run: |
+          git fetch origin main --depth=1
+          if git diff --name-only origin/main...HEAD | grep -E '^(web/|project-memory/|scripts/|\.github/workflows/publish-gh-pages-branch.yml)'; then
+            echo 'Forbidden production/publishing path modified in design preview' >&2
+            exit 1
+          fi
