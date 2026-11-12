@@ -118,7 +118,7 @@ const dateText = (value, lang) => {
   const [y,m,d] = value.split('-').map(Number);
   return lang === 'en' ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(y,m - 1,d))) : `${d}. ${m}. ${y}`;
 };
-const renderRow = (row, lang) => {
+const renderRow = (row, lang, anchor) => {
   const english = lang === 'en';
   const label = english ? row.subject_en : row.subject_cs;
   const recipient = english ? row.recipient_en : row.recipient_cs;
@@ -128,11 +128,17 @@ const renderRow = (row, lang) => {
     : row.pdf_kind === 'redacted_original'
       ? (english ? 'Redacted original PDF' : 'Redigovaný originál PDF')
       : (english ? 'Public PDF copy' : 'Veřejná kopie PDF');
-  return `<tr data-slalom-id="${esc(row.id)}" data-row-number="${row.number}" data-document-id="${esc(row.document_id)}" data-recipient-id="${esc(row.recipient_id)}" data-filing-date="${esc(row.date)}"><td class="slalom-number">${row.number}</td><td><time datetime="${esc(row.date)}">${esc(dateText(row.date,lang))}</time></td><td>${esc(recipient)}${role ? `<small class="slalom-role">${esc(role)}</small>` : ''}</td><td>${esc(row.reference)}</td><td>${esc(label)} <a href="${root}${esc(row.pdf)}" target="_blank" rel="noopener" aria-label="${esc(`${pdfLabel}: ${label}`)}">${pdfLabel}</a></td></tr>`;
+  return `<tr${anchor ? ` id="${esc(row.document_id)}"` : ''} data-slalom-id="${esc(row.id)}" data-row-number="${row.number}" data-document-id="${esc(row.document_id)}" data-recipient-id="${esc(row.recipient_id)}" data-filing-date="${esc(row.date)}"><td class="slalom-number">${row.number}</td><td><time datetime="${esc(row.date)}">${esc(dateText(row.date,lang))}</time></td><td>${esc(recipient)}${role ? `<small class="slalom-role">${esc(role)}</small>` : ''}</td><td>${esc(row.reference)}</td><td>${esc(label)} <a href="${root}${esc(row.pdf)}" target="_blank" rel="noopener" aria-label="${esc(`${pdfLabel}: ${label}`)}">${pdfLabel}</a></td></tr>`;
 };
 const renderPanel = lang => {
   const english = lang === 'en';
-  return `<section class="justice-slalom-shell home-rollup-stack home-rollup-stack-primary" aria-label="${english ? 'Justice Slalom filings' : 'Podání Justičního slalomu'}"><details id="justicni-slalom" class="home-rollup justice-slalom" data-justice-slalom><summary><span class="rollup-title">${english ? 'Justice Slalom since 1 July 2026' : 'Justiční slalom od 1. července 2026'}</span><span class="rollup-prompt">${english ? 'read as an investigation with love' : 'číst jako investigativu s láskou'}</span><span class="rollup-heart" aria-hidden="true">❤️</span><b class="rollup-action">${english ? 'Expand' : 'Rozbalit'} ↓</b></summary><div class="justice-slalom-body"><p class="justice-slalom-intro">${english ? `${entries.length} filings · ${rows.length} numbered addressee entries · since 1 July 2026. Each row has one PDF link; public copies are labeled.` : `${entries.length} podání · ${rows.length} číslovaných řádků podle adresáta · od 1. července 2026. V každém řádku je jeden odkaz na PDF; veřejné kopie jsou označeny.`}</p><div class="justice-slalom-scroll"><table><thead><tr><th scope="col">${english ? 'No.' : 'Č.'}</th><th scope="col">${english ? 'Date' : 'Datum'}</th><th scope="col">${english ? 'Addressee' : 'Adresát'}</th><th scope="col">${english ? 'Ref./case no.' : 'č. j./sp. zn.'}</th><th scope="col">${english ? 'Subject of filing' : 'Předmět podání'}</th></tr></thead><tbody>${rows.map(row => renderRow(row,lang)).join('')}</tbody></table></div></div></details></section>`;
+  const anchored = new Set();
+  const renderedRows = rows.map(row => {
+    const first = !anchored.has(row.document_id);
+    anchored.add(row.document_id);
+    return renderRow(row, lang, first);
+  }).join('');
+  return `<section class="justice-slalom-shell home-rollup-stack home-rollup-stack-primary" aria-label="${english ? 'Justice Slalom filings' : 'Podání Justičního slalomu'}"><details id="justicni-slalom" class="home-rollup justice-slalom" data-justice-slalom><summary><span class="rollup-title">${english ? 'Justice Slalom since 1 July 2026' : 'Justiční slalom od 1. července 2026'}</span><span class="rollup-prompt">${english ? 'read as an investigation with love' : 'číst jako investigativu s láskou'}</span><span class="rollup-heart" aria-hidden="true">❤️</span><b class="rollup-action">${english ? 'Expand' : 'Rozbalit'} ↓</b></summary><div class="justice-slalom-body"><p class="justice-slalom-intro">${english ? `${entries.length} filings · ${rows.length} numbered addressee entries · since 1 July 2026. Each row has one PDF link; public copies are labeled.` : `${entries.length} podání · ${rows.length} číslovaných řádků podle adresáta · od 1. července 2026. V každém řádku je jeden odkaz na PDF; veřejné kopie jsou označeny.`}</p><div class="justice-slalom-scroll"><table><thead><tr><th scope="col">${english ? 'No.' : 'Č.'}</th><th scope="col">${english ? 'Date' : 'Datum'}</th><th scope="col">${english ? 'Addressee' : 'Adresát'}</th><th scope="col">${english ? 'Ref./case no.' : 'č. j./sp. zn.'}</th><th scope="col">${english ? 'Subject of filing' : 'Předmět podání'}</th></tr></thead><tbody>${renderedRows}</tbody></table></div></div></details></section>`;
 };
 
 const extractStateLovePanel = (html, lang) => {
