@@ -20,7 +20,7 @@ export function validateFinalOkteRelations(registry, expectedAnnexes) {
       || actualIds.some(id => !expectedIds.has(id))) {
     errors.push(`OKTE forward annex relations: expected ${expectedIds.size}, got ${links.length} [${actualIds.join(', ')}]`);
   }
-  if (String(parent.evidence_note || '').toLowerCase().includes(OBSOLETE_NOTE)) {
+  if (String(parent.evidence_note || '').toLowerCase().includes(OBSOLETE_NOTE.toLowerCase())) {
     errors.push('OKTE parent contains obsolete missing-annex note');
   }
   for (const source of expectedAnnexes) {
