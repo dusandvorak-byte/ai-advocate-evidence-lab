@@ -89,6 +89,11 @@ jobs:
           node --check scripts/verify-live-pdf-workflow.test.mjs
           node --test scripts/verify-live-pdf-workflow.test.mjs
 
+      - name: Regress standalone generated PDF preflight (synthetic fixtures)
+        run: |
+          node --check scripts/ensure-generated-state-pdfs.mjs
+          node --test test/ensure-generated-state-pdfs.test.mjs
+
       - name: Připravit generátor ověřených veřejných PDF
         shell: bash
         run: |
