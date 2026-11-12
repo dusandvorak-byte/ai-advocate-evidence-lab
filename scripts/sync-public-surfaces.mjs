@@ -100,6 +100,7 @@ const localizedCopy = {
     'doc-cz-mv-2026-08-11-mv-127234-2-obp-2026': 'Ministerstvo vnitra odmítlo žádost Ganja For All Animals, z.s., podle § 11b informačního zákona.'
   },
   en: {
+    'doc-cz-ns-2026-11-03-zin-208-2026-postoupeni': 'The Supreme Court forwarded the complaint against its information response to the Office for Personal Data Protection on 3 November 2026.',
     'doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd': 'The Police Presidium’s Internal Control Office declared that it lacked subject-matter jurisdiction over the complaint concerning inactivity by the Institute of Criminalistics and transferred it to the office of the Institute’s director.',
     'doc-cz-mk-2026-08-12-mk-49467-2026-socns': 'The Ministry of Culture confirmed that the new registration proceeding for the Church of Cannabis began on 26 June 2026.',
     'doc-cz-kpr-2026-08-12-4873-2026': 'The Office of the President declined to assist with the plan to fly a cannabis standard above Prague Castle.',
@@ -128,13 +129,13 @@ function latestSection(lang) {
     const title = localizedCopy[lang][item.id] || item.user_title;
     const detail = isEn ? `news/04082026-010.html#en-${item.id}` : detailHref(item);
     const pdf = item.public?.pdf ? publicPath(item.public.pdf) : null;
-    const pdfLabel = /(?:verejna-kopie|public-copy)\.pdf$/i.test(pdf || '')
+    const pdfLabel = /(?:verejna-kopie|public-copy)\.pdf$/i.test(pdf || '') || /redacted|redigovan/i.test(`${item.public?.verification_status || ''} ${pdf || ''}`)
       ? (isEn ? 'Anonymised public PDF copy' : 'Anonymizovaná veřejná kopie PDF')
       : (isEn ? 'Original PDF' : 'Originální PDF');
     const pdfControl = pdf
       ? `<a class="latest-record-pdf" href="${escapeHtml(pdf)}" target="_blank" rel="noopener">${pdfLabel}</a>`
       : `<span class="latest-record-pending">${isEn ? 'Evidence page; PDF not yet public' : 'Evidenční stránka; PDF dosud není veřejné'}</span>`;
-    return `<article class="latest-record-card" data-document-id="${escapeHtml(item.id)}"><p class="kicker">${escapeHtml(isEn ? formatEnDate(item.issue_date) : formatCzDate(item.issue_date))} · ${escapeHtml(institutionName(item, lang))}</p><h3><a href="${escapeHtml(detail)}"${isEn ? ' hreflang="cs"' : ''}>${escapeHtml(title)}</a></h3><p class="latest-record-reference">${escapeHtml(item.reference || (isEn ? 'No separate reference number' : 'Bez samostatného č. j.'))}</p>${pdfControl}</article>`;
+    return `<article class="latest-record-card" data-document-id="${escapeHtml(item.id)}"><p class="kicker">${escapeHtml(isEn ? formatEnDate(item.issue_date) : formatCzDate(item.issue_date))} · ${escapeHtml(institutionName(item, lang))}</p><h3><a href="${escapeHtml(detail)}"${isEn ? ' hreflang="en"' : ''}>${escapeHtml(title)}</a></h3><p class="latest-record-reference">${escapeHtml(item.reference || (isEn ? 'No separate reference number' : 'Bez samostatného č. j.'))}</p>${pdfControl}</article>`;
   }).join('');
   return `<section id="latest-records" class="latest-records" aria-label="${isEn ? 'Latest verified records' : 'Nejnovější ověřené listiny'}"><header><p class="section-label">${isEn ? 'LATEST VERIFIED RECORDS' : 'NEJNOVĚJŠÍ OVĚŘENÉ LISTINY'}</p><h2>${isEn ? `Canonical evidence memory through ${latestEn}` : `Kanonická důkazní paměť do ${latestCz}`}</h2><p>${isEn ? `${stateCount} state and public-institution records and ${activePdfCount} verified public PDFs are synchronized across all public surfaces.` : `${stateCount} listin státu a veřejných institucí je synchronizováno na všech veřejných plochách.`}</p></header><div class="latest-record-grid">${cards}</div></section>`;
 }
@@ -231,6 +232,7 @@ await update('web/en.html', [
     .replaceAll('href="zpravy/25072026-007.html"', 'href="news/25072026-007.html"')
     .replaceAll('href="zpravy/24072026-006.html"', 'href="news/24072026-006.html"')
     .replaceAll('href="zpravy/04082026-010.html"', 'href="news/04082026-010.html"')
+    .replace(/<a\b[^>]*>/g, tag => tag.includes('hreflang="cs"') ? tag.replace('href="news/04082026-010.html"', 'href="zpravy/04082026-010.html"') : tag)
     .replaceAll('Czech report and sources →', 'Report and controlling sources →')
     .replace('<p class="capability-status">International rollout</p><h3>Language selector</h3><ul><li>English is the international entry.</li><li>Additional languages will be generated from the same canonical content.</li><li>The selector should preserve article/document context.</li></ul>', '<p class="capability-status">Available now</p><h3>Language selector</h3><ul><li>English is the international editorial edition.</li><li>Portuguese and other languages are available through clearly labelled machine translation.</li><li>Czech official records and PDFs remain controlling.</li></ul>');
   if (!html.includes('data-shared-news-feed')) {
