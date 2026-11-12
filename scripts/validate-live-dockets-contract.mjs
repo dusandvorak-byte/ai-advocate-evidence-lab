@@ -165,7 +165,7 @@ for (const [label, page] of [['český', churchCzPage], ['anglický', churchEnPa
 }
 if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Further current reports')) throw new Error('Anglická titulní stránka nemá blok dalších aktuálních zpráv');
 // A clearly marked Czech canonical counterpart is intentional, not an EN link regression.
-for (const tag of englishHome.match(/<a\\b[^>]*href="zpravy\\/\\d{8}-\\d{3}\\.html"[^>]*>/g) || []) {
+for (const tag of englishHome.match(/<a\b[^>]*href="zpravy\/\d{8}-\d{3}\.html"[^>]*>/g) || []) {
   if (!tag.includes('href="zpravy/04082026-010.html"') || !tag.includes('hreflang="cs"')) {
     throw new Error('Anglická titulní stránka odkazuje na český článek bez označení hreflang=cs');
   }
