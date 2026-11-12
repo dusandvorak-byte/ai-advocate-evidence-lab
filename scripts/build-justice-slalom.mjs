@@ -178,6 +178,9 @@ for (const file of await walk('web')) {
     html = html.replace(/<!-- JUSTICE-SLALOM:BEGIN -->[\s\S]*?<!-- JUSTICE-SLALOM:END -->/g,'');
     html = html.replace(/<!-- STATE-LOVE-HOME:BEGIN -->[\s\S]*?<!-- STATE-LOVE-HOME:END -->/g,'');
     if (!html.includes('</nav>')) throw new Error(`JUSTICE-SLALOM: stránce ${file} chybí navigace`);
+    if (file === 'web/zpravy/04082026-010.html' && !html.includes('href="/ai-advocate-evidence-lab/news/04082026-010.html"')) {
+      html = html.replace('</nav>', '<a href="/ai-advocate-evidence-lab/news/04082026-010.html" hreflang="en" lang="en">English chronology</a></nav>');
+    }
     const stateLoveHome = stateLoveClonePages.has(file)
       ? `<!-- STATE-LOVE-HOME:BEGIN -->${stateLovePanels.get(lang)}<!-- STATE-LOVE-HOME:END -->\n`
       : '';
