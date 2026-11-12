@@ -89,6 +89,11 @@ jobs:
           node --check scripts/verify-live-pdf-workflow.test.mjs
           node --test scripts/verify-live-pdf-workflow.test.mjs
 
+      - name: Validate final OKTE public relations logic (synthetic fixtures)
+        run: |
+          node --check scripts/validate-okte-final-relations.mjs
+          node --test test/validate-okte-final-relations.test.mjs
+
       - name: Připravit generátor ověřených veřejných PDF
         shell: bash
         run: |
