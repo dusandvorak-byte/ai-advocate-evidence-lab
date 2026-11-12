@@ -183,6 +183,7 @@ for (const file of await walk('web')) {
       : '';
     html = html.replace('</nav>', `</nav>\n${stateLoveHome}<!-- JUSTICE-SLALOM:BEGIN -->${renderPanel(lang)}<!-- JUSTICE-SLALOM:END -->`);
     if (!html.includes('justice-slalom.css')) html = html.replace('</head>', `<link rel="stylesheet" href="${root}justice-slalom.css">\n</head>`);
+    if (!html.includes('justice-slalom-anchor.js')) html = html.replace('</head>', `<script src="${root}justice-slalom-anchor.js" defer></script>\n</head>`);
     html = html.replace(/\s*<script\s+src="process-timers\.js"\s+defer><\/script>/g,'');
   }
   if (html.includes('data-timer-id=') || html.includes('id="procesni-casovace"') || /Živé procesní časovače|Live procedural timers/.test(html)) {
