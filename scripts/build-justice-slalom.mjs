@@ -130,11 +130,18 @@ const renderRow = (row, lang, anchor) => {
       : (english ? 'Public PDF copy' : 'Veřejná kopie PDF');
   return `<tr${anchor ? ` id="${esc(row.document_id)}"` : ''} data-slalom-id="${esc(row.id)}" data-row-number="${row.number}" data-document-id="${esc(row.document_id)}" data-recipient-id="${esc(row.recipient_id)}" data-filing-date="${esc(row.date)}"><td class="slalom-number">${row.number}</td><td><time datetime="${esc(row.date)}">${esc(dateText(row.date,lang))}</time></td><td>${esc(recipient)}${role ? `<small class="slalom-role">${esc(role)}</small>` : ''}</td><td>${esc(row.reference)}</td><td>${esc(label)} <a href="${root}${esc(row.pdf)}" target="_blank" rel="noopener" aria-label="${esc(`${pdfLabel}: ${label}`)}">${pdfLabel}</a></td></tr>`;
 };
+const backlinkTargets = new Set([
+  'doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni',
+  'doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba',
+  'doc-cz-dd-2026-11-03-okte-srovnavaci-analyza',
+  'doc-cz-ekk-2026-11-03-stiznost-krpm-145410',
+  'doc-cz-dd-2026-11-04-cak-urgence-advokata',
+]);
 const renderPanel = lang => {
   const english = lang === 'en';
   const anchored = new Set();
   const renderedRows = rows.map(row => {
-    const first = !anchored.has(row.document_id);
+    const first = backlinkTargets.has(row.document_id) && !anchored.has(row.document_id);
     anchored.add(row.document_id);
     return renderRow(row, lang, first);
   }).join('');
