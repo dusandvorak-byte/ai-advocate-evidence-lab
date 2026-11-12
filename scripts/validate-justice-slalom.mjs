@@ -44,7 +44,7 @@ const expectedIds = published.rows.map(row => row.id);
 for (const [file,lang] of pages) {
   const html = await readFile(file,'utf8');
   if ((html.match(/id="justicni-slalom"/g) || []).length !== 1) fail(`${file}: chybí jedna rozbalovací lišta`);
-  const ids = [...html.matchAll(/<tr data-slalom-id="([^"]+)"/g)].map(match => match[1]);
+  const ids = [...html.matchAll(/<tr(?: id="[^"]+")? data-slalom-id="([^"]+)"/g)].map(match => match[1]);
   if (JSON.stringify(ids) !== JSON.stringify(expectedIds)) fail(`${file}: chybí řádky nebo se liší chronologie`);
   if (/slalom-date-note|date_note_(?:cs|en)|V poskytnutém PDF je v záhlaví omylem|Datum v těle podání je|Podáno 23\. července;|V těle podání je uvedeno 25\. července;|The supplied PDF header mistakenly says|filename says|file name says/.test(html)) fail(`${file}: v archivu zůstala vysvětlující poznámka k datu`);
   const headers = lang === 'cs' ? ['Č.','Datum','Adresát','č. j./sp. zn.','Předmět podání'] : ['No.','Date','Addressee','Ref./case no.','Subject of filing'];
@@ -53,7 +53,7 @@ for (const [file,lang] of pages) {
   if (!html.includes('❤️') || !html.includes('justice-slalom.css')) fail(`${file}: chybí srdce či styly`);
   for (const row of published.rows) {
     const href = `/ai-advocate-evidence-lab/${row.pdf}`;
-    const rendered = html.match(new RegExp(`<tr data-slalom-id="${row.id}"[^>]*>[\\s\\S]*?<\\/tr>`))?.[0] || '';
+    const rendered = html.match(new RegExp(`<tr(?: id="[^"]+")? data-slalom-id="${row.id}"[^>]*>[\\s\\S]*?<\\/tr>`))?.[0] || '';
     if (!rendered.includes(`data-row-number="${row.number}"`) || !rendered.includes(`<td class="slalom-number">${row.number}</td>`)) fail(`${file}: neplatné číslo řádku ${row.id}`);
     if ((rendered.match(/<td(?:\s|>)/g) || []).length !== 5) fail(`${file}: řádek ${row.number} obsahuje neočekávanou poznámku či sloupec`);
     const pdfLinks = [...rendered.matchAll(/<a\s+href="([^"]+\.pdf)"/g)];
