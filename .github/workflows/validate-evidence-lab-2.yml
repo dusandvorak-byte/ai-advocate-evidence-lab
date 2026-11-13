@@ -160,6 +160,11 @@ jobs:
       - name: Validate final public navigation after terminal writers
         run: node scripts/validate-public-navigation.mjs
 
+      - name: Audit provenance, live OKTE SHA and actual public-PDF privacy evidence
+        run: |
+          python3 -m py_compile scripts/audit-release-evidence-2026-11-13.py
+          python3 scripts/audit-release-evidence-2026-11-13.py
+
       - name: Ověřit mobilní čitelnost a plnou šířku hlavního článku
         run: node test/mobile-readability-v5.test.mjs
 
@@ -305,6 +310,14 @@ jobs:
           test "$(head -c 5 web/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf)" = '%PDF-'
           ! grep -qi 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
           ! grep -qi 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
+
+      - name: Uložit release evidence audit pro lidské review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-lab-release-evidence-${{ runner.os }}
+          path: review-artifacts
+          if-no-files-found: warn
 
       - name: Uložit ověřený web pouze jako kontrolní artefakt
         uses: actions/upload-artifact@v4
