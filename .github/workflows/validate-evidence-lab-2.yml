@@ -107,6 +107,10 @@ jobs:
       - name: Enforce binding privacy redaction in generated public copies
         run: |
           python3 -m py_compile scripts/publication_redaction.py
+          python3 -m py_compile scripts/materialize-godot-state-text-pdfs.py
+          python3 -m py_compile scripts/materialize-godot-late-state-pdfs.py
+          python3 -m py_compile scripts/materialize-uoou-2026-08-26.py
+          python3 -m py_compile scripts/materialize-euda-2026-09-25.py
           python3 test/publication_redaction.test.py
 
       - name: Připravit generátor ověřených veřejných PDF
