@@ -15,6 +15,7 @@ RULES = [
     ("private_address_euda", re.compile(r"(?i)\b798\s*55\s*Ospělov\s*6\b"), "[soukromá poštovní adresa redigována]"),
     ("private_address_house", re.compile(r"(?i)\bOspělov(?:\s+č\.\s*p\.)?\s*6\b"), "[soukromá adresa redigována]"),
     ("private_postcode", re.compile(r"(?i)\b798\s*55\s*Ludmírov\b"), "Ludmírov"),
+    ("residual_private_address_ocr", re.compile(r"(?i)\b798\s*55\s*Ludomír\s*1\b"), "[zbylá část soukromé adresy redigována]"),
 ]
 
 FORBIDDEN_PUBLIC_IDENTIFIERS = [
@@ -23,6 +24,7 @@ FORBIDDEN_PUBLIC_IDENTIFIERS = [
     re.compile(r"\b12\.\s*1\.\s*1962\b"),
     re.compile(r"(?i)\bOspělov(?:\s+č\.\s*p\.)?\s*6\b"),
     re.compile(r"(?i)\b798\s*55\s*Ludmírov\b"),
+    re.compile(r"(?i)\b798\s*55\s*Ludomír\s*1\b"),
 ]
 
 def redact_public_text(text: str) -> str:
