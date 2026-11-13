@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import base64, gzip, hashlib, json, re, runpy, time
+import base64, gzip, hashlib, json, re, runpy, subprocess, time
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
@@ -26,7 +26,13 @@ def source_text(path: Path) -> str:
 
 def pdf_facts(path: Path) -> dict:
     doc = fitz.open(path)
-    text = "\n".join(page.get_text("text") for page in doc)
+    fitz_text = "\n".join(page.get_text("text") for page in doc)
+    poppler = subprocess.run(
+        ["pdftotext", "-enc", "UTF-8", str(path), "-"],
+        check=True, capture_output=True, text=True
+    )
+    poppler_text = poppler.stdout
+    text = fitz_text + "\n" + poppler_text
     meta = {k: v for k, v in (doc.metadata or {}).items() if v}
     embedded = doc.embfile_count() if hasattr(doc, "embfile_count") else 0
     suspicious_meta = {
@@ -49,8 +55,9 @@ def pdf_facts(path: Path) -> dict:
             else ("FLAGGED_FOR_HUMAN_CONTENT_REVIEW" if any(signals.values()) else "NO_OBVIOUS_HIGH_RISK_PATTERN")
         ),
         "human_privacy_review_required": True,
-        "public_copy_notice_present": bool(re.search(r"(?i)(veřejn.{0,12}kopie|public pdf copy)", text)),
-        "not_byte_identical_notice_present": bool(re.search(r"(?i)(nejde o byte-identick|not byte-identical)", text)),
+        "text_extraction_engines": ["PyMuPDF", "pdftotext/poppler"],
+        "public_copy_notice_present": bool(re.search(r"(?i)(veřejn.{0,20}kopie|public pdf copy)", text)),
+        "not_byte_identical_notice_present": bool(re.search(r"(?i)(nejde\s+o\s+byte[^\n]{0,20}identick|not\s+byte[^\n]{0,20}identical)", text)),
     }
 
 def load_generator_records():
