@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-10-30-kasacni-ncoz-pp-18a17",
+      "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-ncoz.html",
+      "date": "2026-10-30",
+      "reference": "18 A 17/2026; 18 A 17/2026-215",
+      "title_cs": "Kasační stížnost proti odmítnutí zásahové žaloby proti NCOZ a Policejnímu prezidiu",
+      "title_en": "Cassation complaint, case 18 A 17/2026, dated 30 October 2026. Full Czech-language text transcription, not the original PDF. Court receipt is unverified.",
+      "public_kind": "complete_text_transcript",
+      "source_sha256": "6d37a3b27fa121dad5bbb3b417a4695cc6e8a09890bd7e7ef6a6c4a193d317f3",
+      "pdf_url": "/ai-advocate-evidence-lab/documents/originaly-2026-11-02/2026-10-30-kasacni-stiznost-ncoz-18a17.pdf",
+      "pdf_byte_identical": true,
+      "pages": 9
+    },
+    {
+      "id": "doc-cz-dd-2026-11-01-os-prostejov-dukazni-doplneni",
+      "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-ospro-nov1.html",
+      "date": "2026-11-01",
+      "reference": "15 Nt 3104/2026; 15 Nt 3106/2026; 15 Nt 3103/2026; 15 Nt 3105/2026",
+      "title_cs": "OS Prostějov – naléhavé důkazní doplnění, předběžné šetření a návrh svědků před jednáními 30. 11. 2026",
+      "title_en": "Urgent evidence supplement in criminal-reopening matters 15 Nt 3104/2026 and 15 Nt 3106/2026 dated 1 November 2026. Evidence annotation only, not a full original document.",
+      "public_kind": "evidence_annotation",
+      "source_sha256": "c78f057e467e6cde9d03ea05d1d7780d905bb4ee9c22cd408b0a28c739c67806",
+      "pdf_url": "/ai-advocate-evidence-lab/documents/originaly-2026-11-02/2026-11-01-os-prostejov-nalehave-doplneni.pdf",
+      "pdf_byte_identical": true,
+      "pages": 9
+    },
+    {
+      "id": "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2",
+      "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-krpm.html",
+      "date": "2026-10-30",
+      "reference": "KRPM-145410-2/ČJ-2026-1400AP-106",
+      "title_cs": "KŘP Olomouckého kraje – vyrozumění k žádosti z 15. 10. 2026: zničené spisy, elektronické spisy a znalecká zkoumání",
+      "title_en": "Original two-page Olomouc Regional Police response dated 30 October 2026. Its ten separately supplied historical OKTE expert-report PDF annexes are now linked below as byte-identical public originals, with SHA-256 provenance. The 2026 reply remains one incoming Godot record.",
+      "public_kind": "complete_text_transcript",
+      "source_sha256": "11a49092de3eece2ad19b8c1ac30f830c64068857d9b6f3c36f5fb6f07f12fcd",
+      "pdf_url": "/ai-advocate-evidence-lab/documents/originaly-2026-11-02/2026-10-30-krpm-145410.pdf",
+      "pdf_byte_identical": true,
+      "pages": 2
+    },
+    {
+      "id": "doc-cz-dd-2026-10-28-nsz-kratke-shrnuti-trestniho-podnetu",
+      "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-nsz-short.html",
+      "date": "2026-10-28",
+      "reference": "6 NZN 1737/2026; Zin 208/2026; SIN 72/2026-16; MSP-898/2026-OP-OSV/2",
+      "title_cs": "NSZ – dvoustránkové shrnutí podání a reakce na výzvy k trestnímu podnětu ze dne 10. 10. 2026",
+      "title_en": "Two-page summary of correspondence with the Supreme Public Prosecutor dated 28 October 2026. Evidence annotation only. Full original is referenced at Konopí je lék.cz.",
+      "public_kind": "evidence_annotation",
+      "source_sha256": "d1c6ffb7cdc1caf20027a19664ce328ecc9c99195ad94e14b18c8dc3bdaf86c1",
+      "pdf_url": "/ai-advocate-evidence-lab/documents/originaly-2026-11-02/2026-10-28-nsz-trestni-podnet-2-strany.pdf",
+      "pdf_byte_identical": true,
+      "pages": 2
+    },
+    {
+      "id": "doc-cz-os-pro-2026-10-30-15-nt-3105-vyrozumeni",
+      "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-ospro-3105.html",
+      "date": "2026-10-30",
+      "reference": "15 Nt 3105/2026",
+      "title_cs": "Okresní soud v Prostějově – sdělení o pravomocném skončení věci 15 Nt 3105/2026 a neřešení bezplatné obhajoby",
+      "title_en": "District Court of Prostějov notice on case 15 Nt 3105/2026 dated 30 October 2026. Evidence annotation only; this is not a ruling in pending case 15 Nt 3106/2026.",
+      "public_kind": "evidence_annotation",
+      "source_sha256": "096b444ba31486a845f2d87a48c39c76aa86e8ca3226189aa37cdaeb8c6b30ed",
+      "pdf_url": "/ai-advocate-evidence-lab/documents/originaly-2026-11-02/2026-10-30-os-prostejov-15-nt-3105.pdf",
+      "pdf_byte_identical": true,
+      "pages": 1
+    },
+    {
+      "id": "doc-cz-os-pro-2026-10-30-15-nt-3103-vyrozumeni",
+      "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-ospro-3103.html",
+      "date": "2026-10-30",
+      "reference": "15 Nt 3103/2026",
+      "title_cs": "Okresní soud v Prostějově – sdělení o pravomocném skončení věci 15 Nt 3103/2026 a neřešení bezplatné obhajoby",
+      "title_en": "District Court of Prostějov notice on case 15 Nt 3103/2026 dated 30 October 2026. Full text transcription, not the original PDF; this is not a ruling in pending case 15 Nt 3104/2026.",
+      "public_kind": "complete_text_transcript",
+      "source_sha256": "e70e70a2f644ea2151281c4d9fa7c06f542f17d5b1544a8912d69f55d948f413",
+      "pdf_url": "/ai-advocate-evidence-lab/documents/originaly-2026-11-02/2026-10-30-os-prostejov-15-nt-3103.pdf",
+      "pdf_byte_identical": true,
+      "pages": 1
+    },
+    {
+      "id": "doc-cz-dd-2026-10-28-nsz-53str-specifikace-a-reakce",
+      "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-nsz53.html",
+      "date": "2026-10-28",
+      "reference": "NSZ 6 NZN 1737/2026; SIN 72/2026-16; Zin 208/2026",
+      "title_cs": "NSZ – úplné 53stránkové stížnosti, reakce na výzvy a specifikace trestního podnětu ze dne 28. října 2026",
+      "title_en": "Complete original 53-page complaints and specified criminal report, 28 October 2026. Delivery not established by publication.",
+      "public_kind": "evidence_annotation",
+      "source_sha256": "7d3fad3785d027fb5c5194e43a9d8f2b373891a76b342a5012548aa5b5ebde44",
+      "pdf_url": "/ai-advocate-evidence-lab/documents/originaly-2026-11-02/2026-10-28-nsz-specifikace-trestnich-podnetu-53-stran.pdf",
+      "pdf_byte_identical": true,
+      "pages": 53
+    },
+    {
+      "id": "doc-cz-dd-2026-10-28-nsz-zasahova-zaloba-podminena",
+      "href": "/ai-advocate-evidence-lab/listiny/2026-11-02-evidence-nsz22.html",
+      "date": "2026-10-28",
+      "reference": "6 NZN 1737/2026; podmíněné soudní podání 17. 11. 2026",
+      "title_cs": "NSZ – 22stránkový schválený originál zásahové žaloby, předložený NSZ dne 31. října 2026 s podmíněným podáním soudu 17. listopadu",
+      "title_en": "Final original 22-page conditional NSZ intervention complaint dated 28 October 2026; court filing for 17 November is conditional, not yet evidenced.",
+      "public_kind": "evidence_annotation",
+      "source_sha256": "fcb792708b8e6f2a24b1a68f45a51696cf2a5c0c84c78100789546b296d72797",
+      "pdf_url": "/ai-advocate-evidence-lab/documents/originaly-2026-11-02/2026-10-28-nsz-zasahova-zaloba-22-stran.pdf",
+      "pdf_byte_identical": true,
+      "pages": 22
+    }
+  ]
+}
