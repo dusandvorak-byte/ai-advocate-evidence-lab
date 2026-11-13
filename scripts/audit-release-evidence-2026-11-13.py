@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-import base64, gzip, hashlib, json, re, runpy, subprocess, time
+import base64, gzip, hashlib, json, re, runpy, subprocess, sys, time
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 import fitz
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+from publication_redaction import forbidden_public_identifiers
 WEB = ROOT / "web"
 OUT = ROOT / "review-artifacts" / "release-evidence-audit.json"
 LIVE_BASE = "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/"
@@ -33,6 +35,7 @@ def pdf_facts(path: Path) -> dict:
     )
     poppler_text = poppler.stdout
     text = fitz_text + "\n" + poppler_text
+    private_hits = forbidden_public_identifiers(text)
     meta = {k: v for k, v in (doc.metadata or {}).items() if v}
     embedded = doc.embfile_count() if hasattr(doc, "embfile_count") else 0
     suspicious_meta = {
@@ -55,6 +58,7 @@ def pdf_facts(path: Path) -> dict:
             else ("FLAGGED_FOR_HUMAN_CONTENT_REVIEW" if any(signals.values()) else "NO_OBVIOUS_HIGH_RISK_PATTERN")
         ),
         "human_privacy_review_required": True,
+        "known_private_identifier_hits": private_hits,
         "text_extraction_engines": ["PyMuPDF", "pdftotext/poppler"],
         "public_copy_notice_present": bool(re.search(r"(?i)(veřejn.{0,20}kopie|public pdf copy)", text)),
         "not_byte_identical_notice_present": bool(re.search(r"(?i)(nejde\s+o\s+byte[^\n]{0,20}identick|not\s+byte[^\n]{0,20}identical)", text)),
@@ -112,6 +116,11 @@ def audit_generated():
             failures.append(f"missing not-byte-identical notice in {target.relative_to(ROOT)}")
         if facts["embedded_file_count"] or facts["suspicious_metadata"]:
             failures.append(f"unsafe metadata/embedded content in {target.relative_to(ROOT)}")
+        if facts["known_private_identifier_hits"]:
+            failures.append(
+                f"known private identifier leaked into public derivative {target.relative_to(ROOT)}: "
+                f"{facts['known_private_identifier_hits']}"
+            )
         out.append({
             "output": target.relative_to(ROOT).as_posix(),
             "generator": generator,
