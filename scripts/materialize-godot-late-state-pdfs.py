@@ -11,7 +11,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase.ttfonts import TTFont\nfrom publication_redaction import redact_public_text
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -80,7 +80,7 @@ def page_number(canvas, doc):
 
 
 def make_pdf(target: Path, source: Path):
-    text = source.read_text(encoding="utf-8").strip()
+    text = redact_public_text(source.read_text(encoding="utf-8")).strip()
     if not text:
         raise SystemExit(f"Empty source: {source}")
     styles = getSampleStyleSheet()
