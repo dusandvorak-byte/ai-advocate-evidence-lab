@@ -23,6 +23,13 @@ IDDS: r8u3nhx
         self.assertNotIn("DusanDvorak@seznam.cz", public)
         self.assertEqual(forbidden_public_identifiers(public), [])
 
+    def test_removes_residual_postal_address_after_redaction_marker(self):
+        source = "žalobce: Mgr. Dušan Dvořák, nar. 1962, bytem [soukromá adresa redigována], 798 55 Ludomír 1"
+        public = redact_public_text(source)
+        self.assertNotIn("798 55 Ludomír 1", public)
+        self.assertIn("[zbylá část soukromé adresy redigována]", public)
+        self.assertEqual(forbidden_public_identifiers(public), [])
+
     def test_does_not_redact_institutional_contact(self):
         source = "Tel.: +420 974 721 111 E-mail: krpt.podatelna@policie.gov.cz"
         self.assertEqual(redact_public_text(source), source)
