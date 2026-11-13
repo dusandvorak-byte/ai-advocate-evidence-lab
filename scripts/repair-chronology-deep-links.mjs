@@ -12,7 +12,7 @@ const [home, target, registryText] = await Promise.all([
 ]);
 const registry = JSON.parse(registryText);
 const documents = registry.documents || [];
-const targetIds = new Set([...target.matchAll(/\\bid="([^"]+)"/g)].map(match => match[1]));
+const targetIds = new Set([...target.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]));
 if (!targetIds.has('chronologie')) throw new Error('Missing target chronology anchor');
 const evidenceId = caseId => documents
   .filter(item => (item.case_ids || []).includes(caseId) && targetIds.has(item.id))
@@ -20,7 +20,7 @@ const evidenceId = caseId => documents
 
 let repaired = 0;
 let fallback = 0;
-const updated = home.replace(/href="zpravy\\/04082026-010\\.html#([^"]+)"/g, (full, fragment) => {
+const updated = home.replace(/href="zpravy\/04082026-010\.html#([^"]+)"/g, (full, fragment) => {
   if (targetIds.has(fragment)) return full;
   // Prefer an existing, dated and independently addressable evidence row.
   const resolved = fragment.startsWith('case-') ? evidenceId(fragment) : null;
