@@ -18,3 +18,18 @@ for (const [sourcePath, targetPath, relativeTarget] of targets) {
 }
 const target = await readFile('web/zpravy/04082026-010.html', 'utf8');
 if (!target.includes('chronology-deep-link.js')) throw new Error('Deep-link reveal handler missing');
+
+const registry = JSON.parse(await readFile('web/data/documents-2026.json','utf8'));
+const godot = await readFile('web/zpravy/04082026-010.html','utf8');
+const godotIds = new Set([...godot.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]));
+let detailCount = 0;
+for (const doc of registry.documents || []) {
+  let html;
+  try { html = await readFile('web/listiny/'+doc.id+'.html','utf8'); }
+  catch (error) { if (error.code === 'ENOENT') continue; throw error; }
+  for (const hit of html.matchAll(/href="zpravy\/04082026-010\.html#([^"]+)"/g)) {
+    if (!godotIds.has(hit[1])) throw new Error('Broken detail return from '+doc.id+' to #'+hit[1]);
+    detailCount += 1;
+  }
+}
+console.log('Godot detail return anchors verified: '+detailCount);
