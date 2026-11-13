@@ -33,10 +33,11 @@ jobs:
     runs-on: ${{ inputs.runner || 'ubuntu-24.04' }}
     timeout-minutes: 15
     steps:
-      - name: Načíst zvolenou větev
+      - name: Načíst přesný PR HEAD
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Použít Node.js 24
         uses: actions/setup-node@v4
@@ -170,6 +171,9 @@ jobs:
         run: node scripts/validate-public-navigation.mjs
 
       - name: Audit provenance, live OKTE SHA and actual public-PDF privacy evidence
+        env:
+          EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          EXPECTED_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           python3 -m py_compile scripts/audit-release-evidence-2026-11-13.py
           python3 scripts/audit-release-evidence-2026-11-13.py

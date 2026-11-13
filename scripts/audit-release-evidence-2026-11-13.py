@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import base64, gzip, hashlib, json, re, runpy, subprocess, sys, time
+import base64, gzip, hashlib, json, os, re, runpy, subprocess, sys, time
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
@@ -256,10 +256,20 @@ def main():
     okte, okte_fail = audit_okte()
     redacted, redact_fail = audit_redacted_analysis()
     failures = gen_fail + okte_fail + redact_fail
+    checkout_sha = subprocess.run(
+        ["git", "rev-parse", "HEAD"], check=True, capture_output=True, text=True
+    ).stdout.strip()
+    expected_head = os.environ.get("EXPECTED_HEAD_SHA", "").strip()
+    expected_base = os.environ.get("EXPECTED_BASE_SHA", "").strip()
+    if expected_head and checkout_sha != expected_head:
+        failures.append(f"checkout SHA {checkout_sha} != expected PR head {expected_head}")
     report = {
         "schema_version": "1.0",
         "scope": "nonpublishing integration evidence for PR #183 + #184 + #185",
-        "commit": __import__("os").environ.get("GITHUB_SHA"),
+        "checkout_commit": checkout_sha,
+        "expected_pr_head_commit": expected_head or None,
+        "expected_base_commit": expected_base or None,
+        "github_event_sha": os.environ.get("GITHUB_SHA"),
         "generated_public_derivatives": generated,
         "okte_originals": okte,
         "redacted_okte_analysis": redacted,
