@@ -199,4 +199,6 @@ await run('scripts/add-original-pdf-links-2026-11-02.mjs');
 await run('scripts/add-interpelace-380-links.mjs');
 await run('scripts/validate-interpelace-380.mjs');
 await run('scripts/add-november-evidence-index.mjs');
+// Fail closed if the published canonical JSON loses ten verified OKTE annex links.
+await run('scripts/validate-okte-final-relations.mjs');
 console.log(`Evidence Lab 2.0 build: stát/veřejné instituce ${expectedStateCount}; naše podání ${expectedOurCount}; celkem ${expectedTotalCount}; titulní strana = Godot = manifest; ${publicPdfLinks.length} aktivních PDF; ${finalTimerRegistry.timers.length} živých procesních časovačů.`);
