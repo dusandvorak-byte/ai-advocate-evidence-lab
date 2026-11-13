@@ -40,3 +40,23 @@ if (!article.includes('chronology-deep-link.js')) {
   await writeFile(targetPath, article, 'utf8');
 }
 console.log('Godot fragment integrity: repaired '+repaired+' links; '+fallback+' safely point to chronology overview instead of inventing evidence.');
+
+let repairedDetails = 0;
+for (const item of documents) {
+  const detailPath = 'web/listiny/' + item.id + '.html';
+  let detail;
+  try { detail = await readFile(detailPath, 'utf8'); }
+  catch (error) { if (error.code === 'ENOENT') continue; throw error; }
+  const oldHref = 'zpravy/04082026-010.html#' + item.id;
+  if (targetIds.has(item.id) || !detail.includes(oldHref)) continue;
+  const outgoing = item.submission_side === 'outgoing_from_user_or_alliance';
+  const destination = outgoing && targetIds.has('justicni-slalom') ? 'justicni-slalom' : 'chronologie';
+  if (!targetIds.has(destination)) throw new Error('Missing detail fallback ' + destination);
+  detail = detail.replace(oldHref, 'zpravy/04082026-010.html#' + destination);
+  // Do not imply that a historical attachment has its own row in the current Godot table.
+  detail = detail.replace('Zpět do chronologie', outgoing ? 'Přejít na přehled podání' : 'Přejít na přehled chronologie');
+  await writeFile(detailPath, detail, 'utf8');
+  repairedDetails += 1;
+}
+console.log('Godot detail page returns: '+repairedDetails+' unmatched anchors repaired.');
+
