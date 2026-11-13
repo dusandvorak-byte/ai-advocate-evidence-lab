@@ -54,7 +54,7 @@ for (const item of documents) {
   if (!targetIds.has(destination)) throw new Error('Missing detail fallback ' + destination);
   detail = detail.replace(oldHref, 'zpravy/04082026-010.html#' + destination);
   // Do not imply that a historical attachment has its own row in the current Godot table.
-  detail = detail.replace('Zpět do chronologie', outgoing ? 'Přejít na přehled podání' : 'Přejít na přehled chronologie');
+  detail = detail.replace('Zpět do chronologie', destination === 'justicni-slalom' ? 'Přejít na přehled podání' : 'Přejít na přehled chronologie');
   await writeFile(detailPath, detail, 'utf8');
   repairedDetails += 1;
 }
