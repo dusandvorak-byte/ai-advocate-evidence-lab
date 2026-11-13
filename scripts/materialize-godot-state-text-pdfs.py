@@ -11,7 +11,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase.ttfonts import TTFont\nfrom publication_redaction import redact_public_text
 from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -82,7 +82,7 @@ def make_pdf(target: Path, source_paths: list[Path]):
     if missing:
         raise SystemExit("Missing verified text source(s): " + ", ".join(missing))
 
-    source_text = "\n\n".join(p.read_text(encoding="utf-8") for p in source_paths).strip()
+    source_text = redact_public_text("\n\n".join(p.read_text(encoding="utf-8") for p in source_paths)).strip()
     if not source_text:
         raise SystemExit(f"Verified text source is empty for {target.name}")
 
