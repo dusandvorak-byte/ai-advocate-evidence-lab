@@ -89,6 +89,21 @@ jobs:
           node --check scripts/verify-live-pdf-workflow.test.mjs
           node --test scripts/verify-live-pdf-workflow.test.mjs
 
+      - name: Regress standalone generated PDF preflight (synthetic fixtures)
+        run: |
+          node --check scripts/ensure-generated-state-pdfs.mjs
+          node --test test/ensure-generated-state-pdfs.test.mjs
+
+      - name: Validate final OKTE public relations logic (synthetic fixtures)
+        run: |
+          node --check scripts/validate-okte-final-relations.mjs
+          node --test test/validate-okte-final-relations.test.mjs
+
+      - name: Regress CZ/EN and return-anchor checker with synthetic fixtures
+        run: |
+          node --check scripts/validate-public-navigation.mjs
+          node --test test/validate-public-navigation.test.mjs
+
       - name: Připravit generátor ověřených veřejných PDF
         shell: bash
         run: |
@@ -141,6 +156,9 @@ jobs:
 
       - name: Obnovit společnou jazykovou nabídku po všech generátorech
         run: node scripts/build-language-access.mjs
+
+      - name: Validate final public navigation after terminal writers
+        run: node scripts/validate-public-navigation.mjs
 
       - name: Ověřit mobilní čitelnost a plnou šířku hlavního článku
         run: node test/mobile-readability-v5.test.mjs
