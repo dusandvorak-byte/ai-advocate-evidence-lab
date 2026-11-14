@@ -6,6 +6,8 @@ import path from 'node:path';
 // to earlier generators; no timer card or timer script is shipped in public HTML.
 const documents = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8')).documents;
 const institutions = JSON.parse(await readFile('project-memory/institutions.json', 'utf8')).institutions;
+const privacyHardening = JSON.parse(await readFile('project-memory/privacy-hardening-report.json', 'utf8'));
+const hardeningById = new Map((privacyHardening.documents || []).map(item => [item.id, item]));
 const names = new Map(institutions.map(item => [item.id, item.name]));
 const entries = documents.filter(item => item.justice_slalom);
 const expectedArchiveNumbers = Array.from({ length: 47 }, (_, index) => index + 2);
@@ -29,6 +31,18 @@ const pdfKind = item => item.justice_slalom.source_kind === redactedOriginalKind
   ? 'redacted_original'
   : publicCopyKinds.has(item.justice_slalom.source_kind) ? 'redacted_public_copy' : 'original';
 const root = '/ai-advocate-evidence-lab/';
+const hardenedCopyOk = (doc, digest, expectedInputSha) => {
+  const row = hardeningById.get(doc.id);
+  return Boolean(
+    row
+    && row.changed
+    && row.public_path === doc.public?.pdf
+    && row.input_sha256 === expectedInputSha
+    && row.output_sha256 === digest
+    && Array.isArray(row.known_private_identifier_hits_after)
+    && row.known_private_identifier_hits_after.length === 0
+  );
+};
 const rows = [];
 for (const doc of entries) {
   const meta = doc.justice_slalom;
@@ -46,7 +60,10 @@ for (const doc of entries) {
   const digest = sha(bytes);
   const provenanceOk = kind === 'original'
     ? digest === meta.source_sha256
-    : digest === meta.public_sha256 && Boolean(copyManifest);
+    : Boolean(copyManifest) && (
+        digest === meta.public_sha256
+        || hardenedCopyOk(doc, digest, meta.public_sha256)
+      );
   if (digest !== doc.public.sha256 || !provenanceOk) {
     throw new Error(`JUSTICE-SLALOM: veřejné PDF neodpovídá deklarovanému zdroji a typu kopie ${doc.id}`);
   }
