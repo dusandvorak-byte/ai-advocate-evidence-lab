@@ -35,7 +35,7 @@ IDDS: r8u3nhx
             "798 55 Ospělov",
             "79855",
             "79855 Ospělov 6",
-            "bytem Ospělov 6, 798 55 Ospělov",
+            "bytem Ospělov 6, 798 55 Ospělov",\n            "narozen 12. ledna 1962",
         ]
         for source in cases:
             public = redact_public_text(source)
