@@ -263,12 +263,51 @@ def main():
     expected_base = os.environ.get("EXPECTED_BASE_SHA", "").strip()
     if expected_head and checkout_sha != expected_head:
         failures.append(f"checkout SHA {checkout_sha} != expected PR head {expected_head}")
+
+    merge_base = None
+    base_is_ancestor = None
+    remote_main_sha = None
+    if expected_base:
+        ancestor = subprocess.run(
+            ["git", "merge-base", "--is-ancestor", expected_base, checkout_sha],
+            capture_output=True, text=True
+        )
+        base_is_ancestor = ancestor.returncode == 0
+        if not base_is_ancestor:
+            failures.append(
+                f"expected base {expected_base} is not an ancestor of checkout {checkout_sha}"
+            )
+        merge = subprocess.run(
+            ["git", "merge-base", expected_base, checkout_sha],
+            check=False, capture_output=True, text=True
+        )
+        merge_base = merge.stdout.strip() or None
+        if merge.returncode != 0 or merge_base != expected_base:
+            failures.append(
+                f"merge-base mismatch: expected {expected_base}, got {merge_base or 'none'}"
+            )
+        remote = subprocess.run(
+            ["git", "ls-remote", "origin", "refs/heads/main"],
+            check=False, capture_output=True, text=True
+        )
+        if remote.returncode == 0 and remote.stdout.strip():
+            remote_main_sha = remote.stdout.split()[0]
+            if remote_main_sha != expected_base:
+                failures.append(
+                    f"main advanced during validation: expected {expected_base}, remote main is {remote_main_sha}"
+                )
+        else:
+            failures.append("cannot verify current remote main SHA")
+
     report = {
         "schema_version": "1.0",
         "scope": "nonpublishing integration evidence for PR #183 + #184 + #185",
         "checkout_commit": checkout_sha,
         "expected_pr_head_commit": expected_head or None,
         "expected_base_commit": expected_base or None,
+        "base_is_ancestor": base_is_ancestor,
+        "merge_base_commit": merge_base,
+        "remote_main_commit": remote_main_sha,
         "github_event_sha": os.environ.get("GITHUB_SHA"),
         "generated_public_derivatives": generated,
         "okte_originals": okte,
