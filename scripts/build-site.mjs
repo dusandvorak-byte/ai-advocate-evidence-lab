@@ -61,6 +61,9 @@ await runPython('scripts/materialize-redacted-originals-2026-10-16.py');
 await runPython('scripts/validate-redacted-originals-2026-10-16.py');
 await run('scripts/build-kasace-2026-10-30.mjs');
 await run('scripts/build-late-evidence-2026-11-02.mjs');
+// GitHub Actions pre-materializes these historical public copies. A standalone
+// build must also reconstruct them from versioned verified text sources.
+await run('scripts/ensure-generated-state-pdfs.mjs');
 await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');
 await run('scripts/reconcile-public-pdfs.mjs');
