@@ -30,7 +30,7 @@ const updated = home.replace(/href="zpravy\/04082026-010\.html#([^"]+)"/g, (full
   if (!resolved) fallback += 1;
   return 'href="zpravy/04082026-010.html#'+destination+'"';
 });
-if (repaired < 20) throw new Error('Expected at least 20 historical broken Godot fragments, found '+repaired);
+if (repaired > 0 && repaired < 20) throw new Error('Expected either an already-repaired page or at least 20 historical broken Godot fragments, found '+repaired);
 await writeFile(homePath, updated, 'utf8');
 const runtime = '<script src="/ai-advocate-evidence-lab/chronology-deep-link.js" defer></script>';
 let article = target;
@@ -48,14 +48,30 @@ for (const item of documents) {
   try { detail = await readFile(detailPath, 'utf8'); }
   catch (error) { if (error.code === 'ENOENT') continue; throw error; }
   const oldHref = 'zpravy/04082026-010.html#' + item.id;
-  if (targetIds.has(item.id) || !detail.includes(oldHref)) continue;
+  const chronologyHref = 'zpravy/04082026-010.html#chronologie';
+  const slalomHref = 'zpravy/04082026-010.html#justicni-slalom';
   const outgoing = item.submission_side === 'outgoing_from_user_or_alliance';
-  const destination = outgoing && targetIds.has('justicni-slalom') ? 'justicni-slalom' : 'chronologie';
-  if (!targetIds.has(destination)) throw new Error('Missing detail fallback ' + destination);
-  detail = detail.replace(oldHref, 'zpravy/04082026-010.html#' + destination);
-  // Do not imply that a historical attachment has its own row in the current Godot table.
-  detail = detail.replace('Zpět do chronologie', destination === 'justicni-slalom' ? 'Přejít na přehled podání' : 'Přejít na přehled chronologie');
-  await writeFile(detailPath, detail, 'utf8');
+  const fallback = outgoing && targetIds.has('justicni-slalom') ? 'justicni-slalom' : 'chronologie';
+  const destination = targetIds.has(item.id) ? item.id : fallback;
+  if (!targetIds.has(destination)) throw new Error('Missing detail return target ' + destination);
+
+  const currentHref = [oldHref, chronologyHref, slalomHref].find(href => detail.includes(href));
+  if (!currentHref) continue;
+  const desiredHref = 'zpravy/04082026-010.html#' + destination;
+  const desiredLabel = destination === item.id
+    ? 'Zpět do chronologie'
+    : destination === 'justicni-slalom'
+      ? 'Přejít na přehled podání'
+      : 'Přejít na přehled chronologie';
+
+  let updatedDetail = detail;
+  if (currentHref !== desiredHref) updatedDetail = updatedDetail.replace(currentHref, desiredHref);
+  updatedDetail = updatedDetail.replace(
+    /(?:Zpět do chronologie|Přejít na přehled podání|Přejít na přehled chronologie)/,
+    desiredLabel
+  );
+  if (updatedDetail === detail) continue;
+  await writeFile(detailPath, updatedDetail, 'utf8');
   repairedDetails += 1;
 }
 console.log('Godot detail page returns: '+repairedDetails+' unmatched anchors repaired.');
