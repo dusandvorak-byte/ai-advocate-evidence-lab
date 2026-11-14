@@ -65,6 +65,7 @@ await run('scripts/build-late-evidence-2026-11-02.mjs');
 await run('scripts/ensure-generated-state-pdfs.mjs');
 await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');
+await runPython('scripts/harden-public-pdf-privacy.py');
 await run('scripts/reconcile-public-pdfs.mjs');
 await run('scripts/audit-registries.mjs');
 
