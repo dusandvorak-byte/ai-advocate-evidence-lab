@@ -12,9 +12,22 @@ const court=await json('web/data/active-court-dockets.json');
 const slalom=await json('web/data/justice-slalom.json');
 const translations=await json('project-memory/english-godot-translations.json');
 const sourceManifest=await json('project-memory/document-sources.json');
+const privacyHardening=await json('project-memory/privacy-hardening-report.json');
+const hardeningById=new Map((privacyHardening.documents||[]).map(row=>[row.id,row]));
 const byId=new Map(normalized.documents.map(d=>[d.id,d]));
 const sourceById=new Map(source.documents.map(d=>[d.id,d]));
 const caseMap=new Map(cases.cases.map(c=>[c.id,c]));
+const hardenedCopyOk=(id,currentSha,expectedInputSha)=>{
+  const row=hardeningById.get(id);
+  return Boolean(
+    row
+    && row.changed
+    && row.input_sha256===expectedInputSha
+    && row.output_sha256===currentSha
+    && Array.isArray(row.known_private_identifier_hits_after)
+    && row.known_private_identifier_hits_after.length===0
+  );
+};
 must(packet.documents.length===16,'inventory must retain all sixteen source inputs');
 must(new Set(packet.documents.map(d=>d.number)).size===16,'input numbers repeated');
 must(new Set(packet.documents.map(d=>d.canonical_document_id)).size===15,'canonical deduplication must yield fifteen identities');
@@ -31,18 +44,22 @@ for(const record of packet.documents){
   must(d,'inventory target missing: '+record.number);
   must(d.public?.pdf===record.pdf,'inventory/canonical PDF differs: '+record.number);
   const b=await readFile('web/'+record.pdf);
-  must(sha(b)===record.public_sha256,'public bytes differ: '+record.number);
+  const digest=sha(b);
+  const bytesOk=digest===record.public_sha256||hardenedCopyOk(record.canonical_document_id,digest,record.public_sha256);
+  must(bytesOk&&d.public.sha256===digest,'public bytes/provenance differ: '+record.number);
   must(b.subarray(0,5).toString()==='%PDF-'&&b.subarray(-2048).includes(Buffer.from('%%EOF')),'invalid PDF: '+record.number);
 }
 for(const r of packet.privacy_documents){
   const d=byId.get(r.id),src=sourceById.get(r.id);
   must(d&&src,'new source missing: '+r.id);
-  must(d.public.sha256===r.sha256&&src.public.source_original_sha256===r.source_original_sha256,'provenance mismatch: '+r.id);
+  must(src.public.sha256===r.sha256&&src.public.source_original_sha256===r.source_original_sha256,'historical reviewed provenance mismatch: '+r.id);
   must(r.sha256!==r.source_original_sha256,'redacted copy labeled byte-identical: '+r.id);
   const b=await readFile('web/'+r.pdf);
-  must(b.length===r.size_bytes&&sha(b)===r.sha256,'new public bytes changed: '+r.id);
+  const currentSha=sha(b);
+  const candidateOk=currentSha===r.sha256||hardenedCopyOk(r.id,currentSha,r.sha256);
+  must(candidateOk&&d.public.sha256===currentSha,'candidate public bytes lack reviewed→hardened provenance: '+r.id);
   const indexed=execFileSync('git',['show',':web/'+r.pdf],{maxBuffer:Math.max(r.size_bytes+65536,2*1024*1024)});
-  must(sha(indexed)===r.sha256,'Git changed reviewed PDF bytes: '+r.id);
+  must(indexed.length===r.size_bytes&&sha(indexed)===r.sha256,'Git changed historical reviewed PDF bytes: '+r.id);
   const attrs=execFileSync('git',['check-attr','--cached','text','diff','--','web/'+r.pdf],{encoding:'utf8'});
   must(attrs.includes('text: unset')&&attrs.includes('diff: unset'),'new PDFs must be treated as binary by Git: '+r.id);
   const info=execFileSync('pdfinfo',['web/'+r.pdf],{encoding:'utf8'});
