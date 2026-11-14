@@ -332,12 +332,30 @@ def main():
     ).stdout.strip()
     expected_head = os.environ.get("EXPECTED_HEAD_SHA", "").strip()
     expected_base = os.environ.get("EXPECTED_BASE_SHA", "").strip()
+    expected_base_source = "workflow_event" if expected_base else "remote_main_derived"
     if expected_head and checkout_sha != expected_head:
         failures.append(f"checkout SHA {checkout_sha} != expected PR head {expected_head}")
 
     merge_base = None
     base_is_ancestor = None
     remote_main_sha = None
+    remote = subprocess.run(
+        ["git", "ls-remote", "origin", "refs/heads/main"],
+        check=False, capture_output=True, text=True
+    )
+    if remote.returncode == 0 and remote.stdout.strip():
+        remote_main_sha = remote.stdout.split()[0]
+    else:
+        failures.append("cannot verify current remote main SHA")
+
+    # Non-PR triggers do not expose pull_request.base.sha. Derive the expected
+    # base from the current remote main rather than silently skipping ancestry checks.
+    if not expected_base:
+        if remote_main_sha:
+            expected_base = remote_main_sha
+        else:
+            failures.append("EXPECTED_BASE_SHA missing and remote main could not be derived")
+
     if expected_base:
         ancestor = subprocess.run(
             ["git", "merge-base", "--is-ancestor", expected_base, checkout_sha],
@@ -357,18 +375,10 @@ def main():
             failures.append(
                 f"merge-base mismatch: expected {expected_base}, got {merge_base or 'none'}"
             )
-        remote = subprocess.run(
-            ["git", "ls-remote", "origin", "refs/heads/main"],
-            check=False, capture_output=True, text=True
-        )
-        if remote.returncode == 0 and remote.stdout.strip():
-            remote_main_sha = remote.stdout.split()[0]
-            if remote_main_sha != expected_base:
-                failures.append(
-                    f"main advanced during validation: expected {expected_base}, remote main is {remote_main_sha}"
-                )
-        else:
-            failures.append("cannot verify current remote main SHA")
+        if remote_main_sha and remote_main_sha != expected_base:
+            failures.append(
+                f"main advanced during validation: expected {expected_base}, remote main is {remote_main_sha}"
+            )
 
     report = {
         "schema_version": "1.0",
@@ -376,6 +386,7 @@ def main():
         "checkout_commit": checkout_sha,
         "expected_pr_head_commit": expected_head or None,
         "expected_base_commit": expected_base or None,
+        "expected_base_source": expected_base_source,
         "base_is_ancestor": base_is_ancestor,
         "merge_base_commit": merge_base,
         "remote_main_commit": remote_main_sha,
