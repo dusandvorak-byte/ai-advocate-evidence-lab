@@ -5,7 +5,7 @@ from pathlib import Path
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase.ttfonts import TTFont\nfrom publication_redaction import redact_public_text
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 from PIL import Image as PILImage
@@ -157,7 +157,7 @@ def main():
             print("SKIP LEGACY PUBLIC COPY",spec["id"],"redacted original is canonical")
             continue
         source=(ROOT/spec["source"])
-        text=source.read_text("utf-8")
+        text=redact_public_text(source.read_text("utf-8"))
         if f"ORIGINAL_SHA256: {spec['original_sha']}" not in text:
             raise SystemExit("Source provenance mismatch "+spec["id"])
         pages=parse_pages(text,spec["source_pages"])
