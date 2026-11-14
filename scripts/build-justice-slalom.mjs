@@ -118,7 +118,7 @@ const dateText = (value, lang) => {
   const [y,m,d] = value.split('-').map(Number);
   return lang === 'en' ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(y,m - 1,d))) : `${d}. ${m}. ${y}`;
 };
-const renderRow = (row, lang) => {
+const renderRow = (row, lang, anchor) => {
   const english = lang === 'en';
   const label = english ? row.subject_en : row.subject_cs;
   const recipient = english ? row.recipient_en : row.recipient_cs;
@@ -128,11 +128,24 @@ const renderRow = (row, lang) => {
     : row.pdf_kind === 'redacted_original'
       ? (english ? 'Redacted original PDF' : 'Redigovaný originál PDF')
       : (english ? 'Public PDF copy' : 'Veřejná kopie PDF');
-  return `<tr data-slalom-id="${esc(row.id)}" data-row-number="${row.number}" data-document-id="${esc(row.document_id)}" data-recipient-id="${esc(row.recipient_id)}" data-filing-date="${esc(row.date)}"><td class="slalom-number">${row.number}</td><td><time datetime="${esc(row.date)}">${esc(dateText(row.date,lang))}</time></td><td>${esc(recipient)}${role ? `<small class="slalom-role">${esc(role)}</small>` : ''}</td><td>${esc(row.reference)}</td><td>${esc(label)} <a href="${root}${esc(row.pdf)}" target="_blank" rel="noopener" aria-label="${esc(`${pdfLabel}: ${label}`)}">${pdfLabel}</a></td></tr>`;
+  return `<tr${anchor ? ` id="${esc(row.document_id)}"` : ''} data-slalom-id="${esc(row.id)}" data-row-number="${row.number}" data-document-id="${esc(row.document_id)}" data-recipient-id="${esc(row.recipient_id)}" data-filing-date="${esc(row.date)}"><td class="slalom-number">${row.number}</td><td><time datetime="${esc(row.date)}">${esc(dateText(row.date,lang))}</time></td><td>${esc(recipient)}${role ? `<small class="slalom-role">${esc(role)}</small>` : ''}</td><td>${esc(row.reference)}</td><td>${esc(label)} <a href="${root}${esc(row.pdf)}" target="_blank" rel="noopener" aria-label="${esc(`${pdfLabel}: ${label}`)}">${pdfLabel}</a></td></tr>`;
 };
+const backlinkTargets = new Set([
+  'doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni',
+  'doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba',
+  'doc-cz-dd-2026-11-03-okte-srovnavaci-analyza',
+  'doc-cz-ekk-2026-11-03-stiznost-krpm-145410',
+  'doc-cz-dd-2026-11-04-cak-urgence-advokata',
+]);
 const renderPanel = lang => {
   const english = lang === 'en';
-  return `<section class="justice-slalom-shell home-rollup-stack home-rollup-stack-primary" aria-label="${english ? 'Justice Slalom filings' : 'Podání Justičního slalomu'}"><details id="justicni-slalom" class="home-rollup justice-slalom" data-justice-slalom><summary><span class="rollup-title">${english ? 'Justice Slalom since 1 July 2026' : 'Justiční slalom od 1. července 2026'}</span><span class="rollup-prompt">${english ? 'read as an investigation with love' : 'číst jako investigativu s láskou'}</span><span class="rollup-heart" aria-hidden="true">❤️</span><b class="rollup-action">${english ? 'Expand' : 'Rozbalit'} ↓</b></summary><div class="justice-slalom-body"><p class="justice-slalom-intro">${english ? `${entries.length} filings · ${rows.length} numbered addressee entries · since 1 July 2026. Each row has one PDF link; public copies are labeled.` : `${entries.length} podání · ${rows.length} číslovaných řádků podle adresáta · od 1. července 2026. V každém řádku je jeden odkaz na PDF; veřejné kopie jsou označeny.`}</p><div class="justice-slalom-scroll"><table><thead><tr><th scope="col">${english ? 'No.' : 'Č.'}</th><th scope="col">${english ? 'Date' : 'Datum'}</th><th scope="col">${english ? 'Addressee' : 'Adresát'}</th><th scope="col">${english ? 'Ref./case no.' : 'č. j./sp. zn.'}</th><th scope="col">${english ? 'Subject of filing' : 'Předmět podání'}</th></tr></thead><tbody>${rows.map(row => renderRow(row,lang)).join('')}</tbody></table></div></div></details></section>`;
+  const anchored = new Set();
+  const renderedRows = rows.map(row => {
+    const first = backlinkTargets.has(row.document_id) && !anchored.has(row.document_id);
+    anchored.add(row.document_id);
+    return renderRow(row, lang, first);
+  }).join('');
+  return `<section class="justice-slalom-shell home-rollup-stack home-rollup-stack-primary" aria-label="${english ? 'Justice Slalom filings' : 'Podání Justičního slalomu'}"><details id="justicni-slalom" class="home-rollup justice-slalom" data-justice-slalom><summary><span class="rollup-title">${english ? 'Justice Slalom since 1 July 2026' : 'Justiční slalom od 1. července 2026'}</span><span class="rollup-prompt">${english ? 'read as an investigation with love' : 'číst jako investigativu s láskou'}</span><span class="rollup-heart" aria-hidden="true">❤️</span><b class="rollup-action">${english ? 'Expand' : 'Rozbalit'} ↓</b></summary><div class="justice-slalom-body"><p class="justice-slalom-intro">${english ? `${entries.length} filings · ${rows.length} numbered addressee entries · since 1 July 2026. Each row has one PDF link; public copies are labeled.` : `${entries.length} podání · ${rows.length} číslovaných řádků podle adresáta · od 1. července 2026. V každém řádku je jeden odkaz na PDF; veřejné kopie jsou označeny.`}</p><div class="justice-slalom-scroll"><table><thead><tr><th scope="col">${english ? 'No.' : 'Č.'}</th><th scope="col">${english ? 'Date' : 'Datum'}</th><th scope="col">${english ? 'Addressee' : 'Adresát'}</th><th scope="col">${english ? 'Ref./case no.' : 'č. j./sp. zn.'}</th><th scope="col">${english ? 'Subject of filing' : 'Předmět podání'}</th></tr></thead><tbody>${renderedRows}</tbody></table></div></div></details></section>`;
 };
 
 const extractStateLovePanel = (html, lang) => {
@@ -172,11 +185,15 @@ for (const file of await walk('web')) {
     html = html.replace(/<!-- JUSTICE-SLALOM:BEGIN -->[\s\S]*?<!-- JUSTICE-SLALOM:END -->/g,'');
     html = html.replace(/<!-- STATE-LOVE-HOME:BEGIN -->[\s\S]*?<!-- STATE-LOVE-HOME:END -->/g,'');
     if (!html.includes('</nav>')) throw new Error(`JUSTICE-SLALOM: stránce ${file} chybí navigace`);
+    if (file === 'web/zpravy/04082026-010.html' && !html.includes('href="/ai-advocate-evidence-lab/news/04082026-010.html"')) {
+      html = html.replace('</nav>', '<a href="/ai-advocate-evidence-lab/news/04082026-010.html" hreflang="en" lang="en">English chronology</a></nav>');
+    }
     const stateLoveHome = stateLoveClonePages.has(file)
       ? `<!-- STATE-LOVE-HOME:BEGIN -->${stateLovePanels.get(lang)}<!-- STATE-LOVE-HOME:END -->\n`
       : '';
     html = html.replace('</nav>', `</nav>\n${stateLoveHome}<!-- JUSTICE-SLALOM:BEGIN -->${renderPanel(lang)}<!-- JUSTICE-SLALOM:END -->`);
     if (!html.includes('justice-slalom.css')) html = html.replace('</head>', `<link rel="stylesheet" href="${root}justice-slalom.css">\n</head>`);
+    if (!html.includes('justice-slalom-anchor.js')) html = html.replace('</head>', `<script src="${root}justice-slalom-anchor.js" defer></script>\n</head>`);
     html = html.replace(/\s*<script\s+src="process-timers\.js"\s+defer><\/script>/g,'');
   }
   if (html.includes('data-timer-id=') || html.includes('id="procesni-casovace"') || /Živé procesní časovače|Live procedural timers/.test(html)) {
