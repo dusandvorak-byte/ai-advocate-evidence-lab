@@ -108,6 +108,7 @@ jobs:
       - name: Enforce binding privacy redaction in generated public copies
         run: |
           python3 -m py_compile scripts/publication_redaction.py
+          python3 -m py_compile scripts/generated_pdf_signatures.py
           python3 -m py_compile scripts/materialize-godot-state-text-pdfs.py
           python3 -m py_compile scripts/materialize-godot-late-state-pdfs.py
           python3 -m py_compile scripts/materialize-uoou-2026-08-26.py
