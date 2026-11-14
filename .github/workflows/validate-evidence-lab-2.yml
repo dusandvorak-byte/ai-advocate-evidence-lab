@@ -113,6 +113,16 @@ jobs:
           python3 -m py_compile scripts/materialize-godot-late-state-pdfs.py
           python3 -m py_compile scripts/materialize-uoou-2026-08-26.py
           python3 -m py_compile scripts/materialize-euda-2026-09-25.py
+          python3 -m py_compile scripts/materialize-state-pdfs-2026-09-03.py
+          python3 -m py_compile scripts/materialize-msp-2026-09-08.py
+          python3 -m py_compile scripts/materialize-gibs-2026-09-08.py
+          python3 -m py_compile scripts/materialize-state-pdf-2026-10-01.py
+          python3 -m py_compile scripts/materialize-euda-access-documents-2026-10-01.py
+          python3 -m py_compile scripts/materialize-ekk-evidence-2026-10-02.py
+          python3 -m py_compile scripts/materialize-four-records-2026-10-03.py
+          python3 -m py_compile scripts/materialize-state-responses-2026-10-07.py
+          python3 -m py_compile scripts/materialize-justice-slalom-2026-10-12.py
+          python3 -m py_compile scripts/materialize-2026-10-15-godot-slalom.py
           python3 test/publication_redaction.test.py
 
       - name: Připravit generátor ověřených veřejných PDF
