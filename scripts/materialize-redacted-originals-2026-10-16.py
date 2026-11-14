@@ -81,7 +81,10 @@ def append_scans(raw:bytes)->bytes:
         page.insert_image(rect,filename=str(p),keep_proportion=True)
     tmp=ROOT/"project-memory"/".tmp-police-redacted-original-with-2014.pdf"
     doc.set_metadata({**(doc.metadata or {}),"title":"Žádost policii 15. 10. 2026 - redigovaný originál + historická příloha 11. 8. 2014"})
-    doc.save(tmp,garbage=4,deflate=True,clean=True)
+    # Preserve the source document's PDF /ID: PyMuPDF otherwise replaces it on
+    # every save, yielding different SHA-256 digests for identical inputs.
+    # This does not replace privacy/provenance review of any public output.
+    doc.save(tmp,garbage=4,deflate=True,clean=True,no_new_id=True)
     doc.close()
     out=tmp.read_bytes()
     tmp.unlink(missing_ok=True)
