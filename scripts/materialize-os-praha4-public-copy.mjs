@@ -1,4 +1,5 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';\nimport { spawnSync } from 'node:child_process';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 
 const output = 'web/documents/report-04082026-010/96-os-praha4-10-c-69-2026-predvolani-2026-09-16.pdf';
