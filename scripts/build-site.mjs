@@ -61,6 +61,8 @@ await runPython('scripts/materialize-redacted-originals-2026-10-16.py');
 await runPython('scripts/validate-redacted-originals-2026-10-16.py');
 await run('scripts/build-kasace-2026-10-30.mjs');
 await run('scripts/build-late-evidence-2026-11-02.mjs');
+// Standalone builds must reconstruct the current privacy-safe generated PDF derivatives.
+await run('scripts/ensure-generated-state-pdfs.mjs');
 await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');
 await run('scripts/reconcile-public-pdfs.mjs');

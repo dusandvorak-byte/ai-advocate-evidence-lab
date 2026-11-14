@@ -14,6 +14,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from publication_redaction import redact_public_text
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -73,7 +74,7 @@ def materialize(item, warning, body, meta):
     target = OUT / item["target"]
     doc = SimpleDocTemplate(str(target), pagesize=A4, rightMargin=18*mm, leftMargin=18*mm, topMargin=17*mm, bottomMargin=18*mm, title=target.stem, author="Evidence Lab / veřejná kopie z ověřeného textového přepisu")
     story = [Paragraph("OVĚŘENÁ VEŘEJNÁ KOPIE PDF", warning), Paragraph("Tato veřejná kopie byla vytvořena z ověřeného textového přepisu listiny. Nejde o byte-identický originální soubor; obsah je publikován pro veřejnou evidenci a čitelnost.", meta), Spacer(1, 4*mm)]
-    for raw in read_source_text(source).splitlines():
+    for raw in redact_public_text(read_source_text(source)).splitlines():
         if not raw.strip():
             story.append(Spacer(1, 2.2*mm))
         else:

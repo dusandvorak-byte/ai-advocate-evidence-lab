@@ -10,6 +10,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from publication_redaction import redact_public_text
 from reportlab.pdfgen import canvas
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -50,7 +51,7 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 def extract_pages(source: Path, expected_pages: int) -> list[str]:
-    text = source.read_text("utf-8")
+    text = redact_public_text(source.read_text("utf-8"))
     pattern = re.compile(r"<PARSED TEXT FOR PAGE:\s*(\d+)\s*/\s*(\d+)>")
     matches = list(pattern.finditer(text))
     if len(matches) != expected_pages:

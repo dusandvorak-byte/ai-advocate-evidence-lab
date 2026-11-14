@@ -14,6 +14,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from publication_redaction import redact_public_text
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -51,7 +52,7 @@ def footer(canvas, doc):
 def main():
     if not SOURCE.exists():
         raise SystemExit(f"Missing verified GIBS text source: {SOURCE}")
-    text = SOURCE.read_text(encoding="utf-8").strip()
+    text = redact_public_text(SOURCE.read_text(encoding="utf-8")).strip()
     if "GI-3794-4/ČJ-2026-840502-P" not in text or "15. a 24.08.2026" not in text or "Policejnímu prezidiu České republiky" not in text:
         raise SystemExit("GIBS source integrity gate failed")
     pdfmetrics.registerFont(TTFont("StateUnicode", str(find_font())))

@@ -1,8 +1,11 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';\nimport { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 
 const output = 'web/documents/report-04082026-010/96-os-praha4-10-c-69-2026-predvolani-2026-09-16.pdf';
-const sourceText = await readFile('project-memory/source-texts/os-praha4-2026-09-16-10-c-69-2026-predvolani.txt', 'utf8');
+const rawSourceText = await readFile('project-memory/source-texts/os-praha4-2026-09-16-10-c-69-2026-predvolani.txt', 'utf8');
+const redaction = spawnSync('python3', ['scripts/publication_redaction.py'], { input: rawSourceText, encoding: 'utf8' });
+if (redaction.status !== 0) throw new Error(`Publication redaction failed: ${redaction.stderr || redaction.status}`);
+const sourceText = redaction.stdout;
 const pages = sourceText.split(/<PARSED TEXT FOR PAGE: \d+ \/ 4>\n/).slice(1);
 if (pages.length !== 4) throw new Error(`OS Praha 4 public copy source must contain 4 pages, got ${pages.length}`);
 

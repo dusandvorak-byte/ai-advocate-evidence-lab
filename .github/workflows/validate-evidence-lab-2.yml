@@ -33,10 +33,11 @@ jobs:
     runs-on: ${{ inputs.runner || 'ubuntu-24.04' }}
     timeout-minutes: 15
     steps:
-      - name: Načíst zvolenou větev
+      - name: Načíst přesný PR HEAD
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Použít Node.js 24
         uses: actions/setup-node@v4
@@ -89,6 +90,41 @@ jobs:
           node --check scripts/verify-live-pdf-workflow.test.mjs
           node --test scripts/verify-live-pdf-workflow.test.mjs
 
+      - name: Regress standalone generated PDF preflight (synthetic fixtures)
+        run: |
+          node --check scripts/ensure-generated-state-pdfs.mjs
+          node --test test/ensure-generated-state-pdfs.test.mjs
+
+      - name: Validate final OKTE public relations logic (synthetic fixtures)
+        run: |
+          node --check scripts/validate-okte-final-relations.mjs
+          node --test test/validate-okte-final-relations.test.mjs
+
+      - name: Regress CZ/EN and return-anchor checker with synthetic fixtures
+        run: |
+          node --check scripts/validate-public-navigation.mjs
+          node --test test/validate-public-navigation.test.mjs
+
+      - name: Enforce binding privacy redaction in generated public copies
+        run: |
+          python3 -m py_compile scripts/publication_redaction.py
+          python3 -m py_compile scripts/generated_pdf_signatures.py
+          python3 -m py_compile scripts/materialize-godot-state-text-pdfs.py
+          python3 -m py_compile scripts/materialize-godot-late-state-pdfs.py
+          python3 -m py_compile scripts/materialize-uoou-2026-08-26.py
+          python3 -m py_compile scripts/materialize-euda-2026-09-25.py
+          python3 -m py_compile scripts/materialize-state-pdfs-2026-09-03.py
+          python3 -m py_compile scripts/materialize-msp-2026-09-08.py
+          python3 -m py_compile scripts/materialize-gibs-2026-09-08.py
+          python3 -m py_compile scripts/materialize-state-pdf-2026-10-01.py
+          python3 -m py_compile scripts/materialize-euda-access-documents-2026-10-01.py
+          python3 -m py_compile scripts/materialize-ekk-evidence-2026-10-02.py
+          python3 -m py_compile scripts/materialize-four-records-2026-10-03.py
+          python3 -m py_compile scripts/materialize-state-responses-2026-10-07.py
+          python3 -m py_compile scripts/materialize-justice-slalom-2026-10-12.py
+          python3 -m py_compile scripts/materialize-2026-10-15-godot-slalom.py
+          python3 test/publication_redaction.test.py
+
       - name: Připravit generátor ověřených veřejných PDF
         shell: bash
         run: |
@@ -136,11 +172,27 @@ jobs:
       - name: Nahradit veřejné časovače archivem Justiční slalom
         run: node scripts/build-justice-slalom.mjs
 
+      - name: Znovu sjednotit návratové odkazy po finálních Slalom kotvách
+        run: |
+          node scripts/repair-chronology-deep-links.mjs
+          node scripts/validate-chronology-deep-links.mjs
+
       - name: Ověřit PDF odkazy Godota
         run: node scripts/audit-godot-pdf-links.mjs
 
       - name: Obnovit společnou jazykovou nabídku po všech generátorech
         run: node scripts/build-language-access.mjs
+
+      - name: Validate final public navigation after terminal writers
+        run: node scripts/validate-public-navigation.mjs
+
+      - name: Audit provenance, live OKTE SHA and actual public-PDF privacy evidence
+        env:
+          EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          EXPECTED_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          python3 -m py_compile scripts/audit-release-evidence-2026-11-13.py
+          python3 scripts/audit-release-evidence-2026-11-13.py
 
       - name: Ověřit mobilní čitelnost a plnou šířku hlavního článku
         run: node test/mobile-readability-v5.test.mjs
@@ -287,6 +339,14 @@ jobs:
           test "$(head -c 5 web/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf)" = '%PDF-'
           ! grep -qi 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
           ! grep -qi 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
+
+      - name: Uložit release evidence audit pro lidské review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-lab-release-evidence-${{ runner.os }}
+          path: review-artifacts
+          if-no-files-found: warn
 
       - name: Uložit ověřený web pouze jako kontrolní artefakt
         uses: actions/upload-artifact@v4

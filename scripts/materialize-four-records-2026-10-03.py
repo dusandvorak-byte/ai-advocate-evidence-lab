@@ -13,6 +13,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from publication_redaction import redact_public_text
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -81,7 +82,7 @@ def footer(canvas, doc):
     canvas.restoreState()
 
 def build_copy(spec, font_path):
-    source = spec["source"].read_text("utf-8").strip()
+    source = redact_public_text(spec["source"].read_text("utf-8")).strip()
     if len(source) < 300:
         raise SystemExit(f"Source text too short: {spec['id']}")
     if "FourRecordsUnicode" not in pdfmetrics.getRegisteredFontNames():
