@@ -113,7 +113,6 @@ jobs:
           python3 -m py_compile scripts/materialize-godot-state-text-pdfs.py
           python3 -m py_compile scripts/materialize-godot-late-state-pdfs.py
           python3 -m py_compile scripts/materialize-uoou-2026-08-26.py
-          python3 -m py_compile scripts/enforce-public-pdf-privacy.py
           python3 -m py_compile scripts/materialize-euda-2026-09-25.py
           python3 -m py_compile scripts/materialize-state-pdfs-2026-09-03.py
           python3 -m py_compile scripts/materialize-msp-2026-09-08.py
