@@ -61,7 +61,7 @@ await runPython('scripts/materialize-redacted-originals-2026-10-16.py');
 await runPython('scripts/validate-redacted-originals-2026-10-16.py');
 await run('scripts/build-kasace-2026-10-30.mjs');
 await run('scripts/build-late-evidence-2026-11-02.mjs');
-// Standalone builds must reconstruct the same versioned public PDF derivatives as CI.
+// Standalone builds must reconstruct the current privacy-safe generated PDF derivatives.
 await run('scripts/ensure-generated-state-pdfs.mjs');
 await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');
@@ -201,6 +201,9 @@ await run('scripts/add-original-pdf-links-2026-11-02.mjs');
 await run('scripts/add-interpelace-380-links.mjs');
 await run('scripts/validate-interpelace-380.mjs');
 await run('scripts/add-november-evidence-index.mjs');
-// Final public JSON must retain verified OKTE parent/annex integrity after all writers.
+// Fail closed if the published canonical JSON loses ten verified OKTE annex links.
 await run('scripts/validate-okte-final-relations.mjs');
+// Reconcile href fragments only after all public HTML writers have completed.
+await run('scripts/repair-chronology-deep-links.mjs');
+await run('scripts/validate-chronology-deep-links.mjs');
 console.log(`Evidence Lab 2.0 build: stát/veřejné instituce ${expectedStateCount}; naše podání ${expectedOurCount}; celkem ${expectedTotalCount}; titulní strana = Godot = manifest; ${publicPdfLinks.length} aktivních PDF; ${finalTimerRegistry.timers.length} živých procesních časovačů.`);
