@@ -44,6 +44,19 @@ IDDS: r8u3nhx
             self.assertNotIn("Ospělov 6", public)
             self.assertEqual(forbidden_public_identifiers(public), [])
 
+    def test_current_repository_sources_redact_to_policy(self):
+        root = Path(__file__).resolve().parents[1]
+        paths = [
+            "project-memory/state-text-sources-2026-08-25/72-md-46042-2026-010-4.txt",
+            "project-memory/state-text-sources-2026-08-27/79-szu-10724-2026-2026-08-25.txt",
+            "project-memory/state-text-sources-2026-08-27/80-szu-10724-2026-decision-2026-08-26.txt",
+            "project-memory/state-text-sources-2026-09-03/osz-fm-1-zn-7061-2026-79-2026-09-03.txt",
+        ]
+        for rel in paths:
+            source = (root / rel).read_text("utf-8")
+            public = redact_public_text(source)
+            self.assertEqual(forbidden_public_identifiers(public), [], rel)
+
     def test_does_not_redact_institutional_contact(self):
         source = "Tel.: +420 974 721 111 E-mail: krpt.podatelna@policie.gov.cz"
         self.assertEqual(redact_public_text(source), source)
