@@ -22,12 +22,12 @@ RULES = [
     {
         "id": "private_email",
         "variants": ["DusanDvorak@seznam.cz", "dusandvorak@seznam.cz"],
-        "replacement": "[soukromý e-mail redigován]",
+        "replacement": "[private e-mail redacted]",
     },
     {
         "id": "private_data_box",
         "variants": ["r8u3nhx", "R8U3NHX"],
-        "replacement": "[ID datové schránky redigováno]",
+        "replacement": "[private data-box ID redacted]",
     },
     {
         "id": "exact_birth_date",
@@ -45,22 +45,22 @@ RULES = [
             "79855 Ospělov 6",
             "Ludmírov Ospělov 6, Hvozd u Prostějova, 79855",
         ],
-        "replacement": "Ludmírov",
+        "replacement": "Ludmirov",
     },
     {
         "id": "private_address_house",
         "variants": ["Ospělov č. p. 6", "Ospělov 6"],
-        "replacement": "Ludmírov",
+        "replacement": "Ludmirov",
     },
     {
         "id": "private_postcode_locality",
         "variants": ["798 55 Ospělov", "798 55 Ludmírov"],
-        "replacement": "Ludmírov",
+        "replacement": "Ludmirov",
     },
     {
         "id": "private_postcode_unspaced",
         "variants": ["79855"],
-        "replacement": "[soukromé PSČ redigováno]",
+        "replacement": "[private postcode redacted]",
     },
 ]
 
@@ -124,7 +124,7 @@ def harden_pdf(path: Path) -> tuple[bytes | None, list[dict]]:
 
     # Remove document metadata that can carry local usernames or author details.
     doc.set_metadata({})
-    out = path.with_suffix(path.suffix + ".privacy.tmp")
+    out = path.with_name(path.name + ".privacy.tmp.pdf")
     doc.save(out, garbage=4, clean=True, deflate=True)
     doc.close()
 
