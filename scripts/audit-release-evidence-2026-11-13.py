@@ -254,57 +254,79 @@ def audit_okte():
 
 def audit_redacted_analysis():
     release_path = ROOT / "project-memory/evidence-release-2026-11-04.json"
-    registry_path = ROOT / "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json"
+    source_registry_path = ROOT / "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json"
+    final_registry_path = ROOT / "project-memory/documents-2026.json"
+    hardening_path = ROOT / "project-memory/privacy-hardening-report.json"
+
     release = json.loads(release_path.read_text("utf-8"))
-    registry = json.loads(registry_path.read_text("utf-8"))
+    source_registry = json.loads(source_registry_path.read_text("utf-8"))
+    final_registry = json.loads(final_registry_path.read_text("utf-8"))
+    hardening = json.loads(hardening_path.read_text("utf-8"))
+
     target_id = "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza"
     privacy = next(x for x in release["privacy_documents"] if x["id"] == target_id)
-    item = next(x for x in registry["documents"] if x["id"] == target_id)
-    local = WEB / item["public"]["pdf"]
+    source_item = next(x for x in source_registry["documents"] if x["id"] == target_id)
+    final_item = next(x for x in final_registry["documents"] if x["id"] == target_id)
+    hardening_row = next((x for x in hardening.get("documents", []) if x.get("id") == target_id), None)
+    local = WEB / final_item["public"]["pdf"]
     failures = []
+
     if not local.exists():
         return {"id": target_id, "missing": True}, [f"missing redacted public copy {local}"]
+    if not hardening_row:
+        return {"id": target_id, "hardening_missing": True}, [f"missing privacy hardening evidence for {target_id}"]
+
     facts = pdf_facts(local)
     actual = {
         "sha256": sha256_file(local),
         "size_bytes": local.stat().st_size,
         "page_count": facts["page_count"],
     }
-    live = fetch_live(item["public"]["pdf"])
+    live = fetch_live(final_item["public"]["pdf"])
     checks = {
-        "actual_sha_matches_privacy_manifest": actual["sha256"] == privacy["sha256"] == item["public"]["sha256"],
-        "actual_size_matches_privacy_manifest": actual["size_bytes"] == privacy["size_bytes"] == item["public"]["source_public_size_bytes"],
-        "actual_pages_match_privacy_manifest": actual["page_count"] == privacy["page_count"] == item["public"]["source_original_page_count"],
-        "redactions_recorded": privacy.get("redaction_count", 0) > 0,
-        "outside_redaction_pixel_changes_zero": privacy.get("pixel_changes_outside_redactions") == 0,
-        "metadata_removal_recorded": privacy.get("metadata_removed") is True,
+        "hardening_input_matches_reviewed_privacy_copy": hardening_row.get("input_sha256") == privacy["sha256"] == source_item["public"]["sha256"],
+        "candidate_sha_matches_hardening_and_final_registry": actual["sha256"] == hardening_row.get("output_sha256") == final_item["public"]["sha256"],
+        "candidate_pages_match_reviewed_copy": actual["page_count"] == privacy["page_count"] == source_item["public"]["source_original_page_count"],
+        "hardening_changed_candidate": hardening_row.get("changed") is True,
+        "hardening_removed_known_private_identifiers": not hardening_row.get("known_private_identifier_hits_after"),
+        "historical_redactions_recorded": privacy.get("redaction_count", 0) > 0,
+        "historical_outside_redaction_pixel_changes_zero": privacy.get("pixel_changes_outside_redactions") == 0,
+        "historical_metadata_removal_recorded": privacy.get("metadata_removed") is True,
         "no_embedded_files_now": facts["embedded_file_count"] == 0,
         "no_suspicious_metadata_now": not facts["suspicious_metadata"],
-        "live_http_200": live.get("http_status") == 200,
-        "live_sha_matches_manifest": live.get("sha256") == privacy["sha256"],
+        "no_known_private_identifiers_now": not facts["known_private_identifier_hits"],
+        "live_http_200_pre_release": live.get("http_status") == 200,
+        "live_still_matches_pre_release_reviewed_copy": live.get("sha256") == privacy["sha256"],
     }
     if not all(checks.values()):
         failures.append(f"redacted analysis verification failed: {checks}")
     return {
         "id": target_id,
-        "public_path": item["public"]["pdf"],
+        "public_path": final_item["public"]["pdf"],
         "source_original_sha256": privacy["source_original_sha256"],
-        "actual": actual,
+        "actual_candidate": actual,
         "privacy_manifest": privacy,
+        "privacy_hardening": hardening_row,
         "current_pdf_metadata": facts["metadata"],
         "current_content_privacy_signals": facts["content_privacy_signals"],
-        "live": live,
+        "live_pre_release": live,
         "checks": checks,
         "human_privacy_review_required": True,
         "privacy_manifest_source": release_path.relative_to(ROOT).as_posix(),
+        "privacy_hardening_source": hardening_path.relative_to(ROOT).as_posix(),
     }, failures
 
 def main():
     generated, gen_fail = audit_generated()
     registry_derivatives, registry_fail = audit_registry_public_derivatives()
+    hardening_path = ROOT / "project-memory/privacy-hardening-report.json"
+    hardening = json.loads(hardening_path.read_text("utf-8"))
+    hardening_fail = list(hardening.get("hard_failures") or [])
+    if hardening.get("hard_failure_count") != len(hardening_fail):
+        hardening_fail.append("privacy hardening failure count does not match hard failure list")
     okte, okte_fail = audit_okte()
     redacted, redact_fail = audit_redacted_analysis()
-    failures = gen_fail + registry_fail + okte_fail + redact_fail
+    failures = gen_fail + registry_fail + hardening_fail + okte_fail + redact_fail
     checkout_sha = subprocess.run(
         ["git", "rev-parse", "HEAD"], check=True, capture_output=True, text=True
     ).stdout.strip()
@@ -360,11 +382,13 @@ def main():
         "github_event_sha": os.environ.get("GITHUB_SHA"),
         "generated_public_derivatives": generated,
         "registry_public_derivatives": registry_derivatives,
+        "privacy_hardening": hardening,
         "okte_originals": okte,
         "redacted_okte_analysis": redacted,
         "summary": {
             "generated_derivative_count": len(generated),
             "registry_public_derivative_count": len(registry_derivatives),
+            "privacy_hardened_derivative_count": hardening.get("changed_derivative_count"),
             "okte_original_count": len(okte.get("annexes", [])),
             "hard_failure_count": len(failures),
             "hard_failures": failures,
