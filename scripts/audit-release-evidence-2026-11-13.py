@@ -147,6 +147,54 @@ def fetch_live(path: str, tries: int = 3):
             time.sleep(1 + attempt)
     return {"url": url, "http_status": None, "error": last}
 
+def audit_registry_public_derivatives():
+    registry_path = WEB / "data/documents-2026.json"
+    registry = json.loads(registry_path.read_text("utf-8"))
+    rows = []
+    failures = []
+    seen = set()
+    markers = ("generated", "public_copy", "text_copy", "redacted", "not_byte_identical")
+    for item in registry.get("documents", []):
+        public = item.get("public") or {}
+        rel = public.get("pdf")
+        if not rel or rel in seen:
+            continue
+        status = " ".join([
+            str(public.get("verification_status") or ""),
+            str(public.get("public_copy_note") or ""),
+            str(rel),
+        ]).lower()
+        filename_derivative = bool(re.search(r"(?i)(verejna|veřejná|textova|textová|redigovan|public[-_ ]?copy)", rel))
+        if not filename_derivative and not any(marker in status for marker in markers):
+            continue
+        seen.add(rel)
+        local = WEB / rel
+        if not local.exists():
+            failures.append(f"missing registry public derivative {rel}")
+            continue
+        facts = pdf_facts(local)
+        checks = {
+            "known_private_identifiers_absent": not facts["known_private_identifier_hits"],
+            "embedded_files_absent": facts["embedded_file_count"] == 0,
+            "suspicious_metadata_absent": not facts["suspicious_metadata"],
+        }
+        if not all(checks.values()):
+            failures.append(f"registry public derivative privacy failure {item.get('id')} {rel}: {checks}; hits={facts['known_private_identifier_hits']}")
+        rows.append({
+            "id": item.get("id"),
+            "public_path": rel,
+            "verification_status": public.get("verification_status"),
+            "sha256": sha256_file(local),
+            "page_count": facts["page_count"],
+            "known_private_identifier_hits": facts["known_private_identifier_hits"],
+            "machine_privacy_status": facts["machine_privacy_status"],
+            "metadata": facts["metadata"],
+            "checks": checks,
+        })
+    if not rows:
+        failures.append("no generated/redacted public derivatives discovered in final registry")
+    return rows, failures
+
 def audit_okte():
     annex_path = ROOT / "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
     parent_path = ROOT / "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
@@ -253,9 +301,10 @@ def audit_redacted_analysis():
 
 def main():
     generated, gen_fail = audit_generated()
+    registry_derivatives, registry_fail = audit_registry_public_derivatives()
     okte, okte_fail = audit_okte()
     redacted, redact_fail = audit_redacted_analysis()
-    failures = gen_fail + okte_fail + redact_fail
+    failures = gen_fail + registry_fail + okte_fail + redact_fail
     checkout_sha = subprocess.run(
         ["git", "rev-parse", "HEAD"], check=True, capture_output=True, text=True
     ).stdout.strip()
@@ -310,10 +359,12 @@ def main():
         "remote_main_commit": remote_main_sha,
         "github_event_sha": os.environ.get("GITHUB_SHA"),
         "generated_public_derivatives": generated,
+        "registry_public_derivatives": registry_derivatives,
         "okte_originals": okte,
         "redacted_okte_analysis": redacted,
         "summary": {
             "generated_derivative_count": len(generated),
+            "registry_public_derivative_count": len(registry_derivatives),
             "okte_original_count": len(okte.get("annexes", [])),
             "hard_failure_count": len(failures),
             "hard_failures": failures,
