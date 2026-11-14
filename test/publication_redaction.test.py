@@ -35,13 +35,15 @@ IDDS: r8u3nhx
             "798 55 Ospělov",
             "79855",
             "79855 Ospělov 6",
-            "bytem Ospělov 6, 798 55 Ospělov",\n            "narozen 12. ledna 1962",
+            "bytem Ospělov 6, 798 55 Ospělov",
+            "narozen 12. ledna 1962",
         ]
         for source in cases:
             public = redact_public_text(source)
             self.assertNotIn("798 55 Ospělov", public)
             self.assertNotIn("79855", public)
             self.assertNotIn("Ospělov 6", public)
+            self.assertNotIn("12. ledna 1962", public)
             self.assertEqual(forbidden_public_identifiers(public), [])
 
     def test_current_repository_sources_redact_to_policy(self):
