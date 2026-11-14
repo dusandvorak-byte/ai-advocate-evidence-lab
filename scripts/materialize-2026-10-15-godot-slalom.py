@@ -5,7 +5,8 @@ from pathlib import Path
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont\nfrom publication_redaction import redact_public_text
+from reportlab.pdfbase.ttfonts import TTFont
+from publication_redaction import redact_public_text
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 from PIL import Image as PILImage
