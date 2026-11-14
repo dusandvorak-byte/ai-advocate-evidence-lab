@@ -194,6 +194,12 @@ jobs:
           EXPECTED_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           python3 -m py_compile scripts/audit-release-evidence-2026-11-13.py
+          # Regress non-PR/manual trigger behavior: an absent event base must be
+          # derived from remote main and still pass ancestry/merge-base gates.
+          EXPECTED_BASE_SHA= python3 scripts/audit-release-evidence-2026-11-13.py >/tmp/evidence-audit-derived-base.log
+          grep -q '"hard_failure_count": 0' /tmp/evidence-audit-derived-base.log
+          # Re-run with the explicit PR base so the retained review artifact
+          # records the exact source/base pair used for this release candidate.
           python3 scripts/audit-release-evidence-2026-11-13.py
 
       - name: Ověřit mobilní čitelnost a plnou šířku hlavního článku
