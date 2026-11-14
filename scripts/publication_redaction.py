@@ -24,7 +24,8 @@ RULES = [
 FORBIDDEN_PUBLIC_IDENTIFIERS = [
     re.compile(r"(?i)\bDusanDvorak@seznam\.cz\b"),
     re.compile(r"(?i)\br8u3nhx\b"),
-    re.compile(r"\b12\.\s*1\.\s*1962\b"),\n    re.compile(r"(?i)\b12\.\s*ledna\s+1962\b"),
+    re.compile(r"\b12\.\s*1\.\s*1962\b"),
+    re.compile(r"(?i)\b12\.\s*ledna\s+1962\b"),
     re.compile(r"(?i)\bOspělov(?:\s+č\.\s*p\.)?\s*6\b"),
     re.compile(r"(?i)\b798\s*55\s*Ospělov\b"),
     re.compile(r"(?i)\b798\s*55\s*Ludmírov\b"),
