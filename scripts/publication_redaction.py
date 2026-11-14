@@ -14,7 +14,9 @@ RULES = [
     ("private_address_full", re.compile(r"(?i)\bOspělov(?:\s+č\.\s*p\.)?\s*6\s*,?\s*798\s*55\s*Ludmírov\b"), "Ludmírov"),
     ("private_address_euda", re.compile(r"(?i)\b798\s*55\s*Ospělov\s*6\b"), "[soukromá poštovní adresa redigována]"),
     ("private_address_house", re.compile(r"(?i)\bOspělov(?:\s+č\.\s*p\.)?\s*6\b"), "[soukromá adresa redigována]"),
-    ("private_postcode", re.compile(r"(?i)\b798\s*55\s*Ludmírov\b"), "Ludmírov"),
+    ("private_postcode_ospelov", re.compile(r"(?i)\b798\s*55\s*Ospělov\b"), "Ludmírov"),
+    ("private_postcode_ludmirov", re.compile(r"(?i)\b798\s*55\s*Ludmírov\b"), "Ludmírov"),
+    ("private_postcode_unspaced", re.compile(r"(?i)\b79855\b"), "[soukromé PSČ redigováno]"),
     ("residual_private_address_ocr", re.compile(r"(?i)\b798\s*55\s*Ludomír\s*1\b"), "[zbylá část soukromé adresy redigována]"),
 ]
 
@@ -23,7 +25,9 @@ FORBIDDEN_PUBLIC_IDENTIFIERS = [
     re.compile(r"(?i)\br8u3nhx\b"),
     re.compile(r"\b12\.\s*1\.\s*1962\b"),
     re.compile(r"(?i)\bOspělov(?:\s+č\.\s*p\.)?\s*6\b"),
+    re.compile(r"(?i)\b798\s*55\s*Ospělov\b"),
     re.compile(r"(?i)\b798\s*55\s*Ludmírov\b"),
+    re.compile(r"(?i)\b79855\b"),
     re.compile(r"(?i)\b798\s*55\s*Ludomír\s*1\b"),
 ]
 
