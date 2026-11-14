@@ -85,5 +85,5 @@ if (!pdf.subarray(-2048).includes(Buffer.from('%%EOF'))) throw new Error('Genera
 await mkdir('web/documents/report-04082026-010',{recursive:true});
 await writeFile(output,pdf);
 const sha256=createHash('sha256').update(pdf).digest('hex');
-if (sha256 !== '0cd831f494e7b1001ccb358449f6ca757a870ae72931e603464c83f4d53caea7') throw new Error(`Unexpected OS Praha 4 public copy sha256: ${sha256}`);
+if (sha256 !== 'fec601ef78493d49e3acf6d3cc0a7258c6d990a7048aaf633e9e51a8a4b15ca3') throw new Error(`Unexpected OS Praha 4 public copy sha256: ${sha256}`);
 console.log(`Materialized verified OS Praha 4 public PDF copy: ${pdf.length} B; sha256=${sha256}`);
