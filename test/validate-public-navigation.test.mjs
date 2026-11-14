@@ -51,5 +51,9 @@ test('reject broken fallback, missing row anchor and wrong Czech link on English
     .replace('#justicni-slalom', '#nonexistent')
     .replace('Přejít na přehled podání', 'Broken');
   data.en = data.en.replace('href="zpravy/04082026-010.html"', 'href="news/04082026-010.html"');
-  assert.equal(validateNavigationPages(data).length, 3);
+  const errors = validateNavigationPages(data);
+  assert.equal(errors.length, 4);
+  assert.ok(errors.some(x => x.includes('Missing Justice Slalom row anchor')));
+  assert.ok(errors.some(x => x.includes('Invalid detail return target')));
+  assert.ok(errors.some(x => x.includes('incorrect EN target')));
 });
