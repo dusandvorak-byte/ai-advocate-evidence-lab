@@ -39,3 +39,8 @@ def redact_public_text(text: str) -> str:
 
 def forbidden_public_identifiers(text: str) -> list[str]:
     return [pattern.pattern for pattern in FORBIDDEN_PUBLIC_IDENTIFIERS if pattern.search(text)]
+
+
+if __name__ == "__main__":
+    import sys
+    sys.stdout.write(redact_public_text(sys.stdin.read()))
