@@ -30,6 +30,20 @@ IDDS: r8u3nhx
         self.assertIn("[zbylá část soukromé adresy redigována]", public)
         self.assertEqual(forbidden_public_identifiers(public), [])
 
+    def test_redacts_current_postcode_variants(self):
+        cases = [
+            "798 55 Ospělov",
+            "79855",
+            "79855 Ospělov 6",
+            "bytem Ospělov 6, 798 55 Ospělov",
+        ]
+        for source in cases:
+            public = redact_public_text(source)
+            self.assertNotIn("798 55 Ospělov", public)
+            self.assertNotIn("79855", public)
+            self.assertNotIn("Ospělov 6", public)
+            self.assertEqual(forbidden_public_identifiers(public), [])
+
     def test_does_not_redact_institutional_contact(self):
         source = "Tel.: +420 974 721 111 E-mail: krpt.podatelna@policie.gov.cz"
         self.assertEqual(redact_public_text(source), source)
