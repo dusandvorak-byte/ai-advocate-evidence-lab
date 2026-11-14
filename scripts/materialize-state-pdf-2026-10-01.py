@@ -7,7 +7,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase.ttfonts import TTFont\nfrom publication_redaction import redact_public_text
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -27,7 +27,7 @@ def footer(canvas,doc):
     canvas.saveState(); canvas.setFont("StateUnicode",8); canvas.drawCentredString(A4[0]/2,10*mm,f"Strana {doc.page}"); canvas.restoreState()
 
 pdfmetrics.registerFont(TTFont("StateUnicode",str(font())))
-text=SOURCE.read_text(encoding="utf-8").strip()
+text=redact_public_text(SOURCE.read_text(encoding="utf-8")).strip()
 styles=getSampleStyleSheet()
 warning=ParagraphStyle("warning",parent=styles["Heading2"],fontName="StateUnicode",fontSize=10,leading=14,alignment=TA_CENTER,spaceAfter=7*mm)
 body=ParagraphStyle("body",parent=styles["BodyText"],fontName="StateUnicode",fontSize=9.2,leading=12.2,spaceAfter=2.1*mm)
