@@ -17,6 +17,7 @@ import publication_redaction as redaction
 from publication_redaction import RedactionPolicyError
 from provenance_manifest import manifest_binds_digest
 from canonical_pdf_provenance_contract import validate_frozen_provenance_binding
+from trusted_preflight_report import sanitize_output_row
 
 PUBLIC_CONTRACT = json.loads((ROOT / "project-memory/private-redaction-policy-contract.json").read_text("utf-8"))
 
@@ -56,12 +57,14 @@ class PublicationRedactionTests(unittest.TestCase):
                 {"id": "private_data_box", "mode": "literal", "value": "ab12cd3", "replacement": "[private data-box redacted]"},
                 {"id": "private_birth_date", "mode": "literal", "value": "3. 2. 1974", "replacement": "1974"},
                 {"id": "private_address_wrapped", "mode": "regex", "value": r"SecretTown\s+42\s*,?\s*123\s*45\s*\n?\s*Exampleville", "replacement": "Exampleville", "pdf_variants": ["SecretTown 42, 123 45"]},
+                {"id": "private_czech_literal", "mode": "literal", "value": "Příliš žluťoučký kůň 42", "replacement": "[synthetic Czech literal redacted]"},
             ],
             "forbidden": [
                 {"mode": "literal", "value": "private.person@example.invalid"},
                 {"mode": "literal", "value": "ab12cd3"},
                 {"mode": "literal", "value": "3. 2. 1974"},
                 {"mode": "regex", "value": r"SecretTown\s+42"},
+                {"mode": "literal", "value": "Příliš žluťoučký kůň 42"},
             ],
         }
 
@@ -348,6 +351,52 @@ private.person@example.invalid
         rows, failures = ns["audit_all_web_pdfs"](root)
         self.assertTrue(any("trailing.pdf" in failure and "pdf_trailing_payload_absent" in failure for failure in failures))
         self.assertTrue(any("trailing.bin" in failure and "pdf_trailing_payload_absent" in failure for failure in failures))
+
+    def test_raw_private_literal_scan_detects_czech_utf8_and_cp1250(self):
+        self.write_policy_and_contract()
+        from publication_redaction import forbidden_public_identifier_byte_hits
+        literal = "Příliš žluťoučký kůň 42"
+        self.assertTrue(forbidden_public_identifier_byte_hits(literal.encode("utf-8")))
+        self.assertTrue(forbidden_public_identifier_byte_hits(literal.encode("cp1250")))
+
+    def test_release_audit_rejects_unique_fake_xref_revision(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_unique_fake_xref_test")
+        root = self.tmpdir / "fake-xref"
+        root.mkdir()
+        clean = root / "base.pdf"
+        doc = fitz.open()
+        doc.new_page()
+        doc.save(clean)
+        doc.close()
+        raw = clean.read_bytes()
+        payload = b"\nSAFE-UNPARSED-PADDING\n"
+        fake_offset = len(raw) + len(payload)
+        forged = root / "forged.pdf"
+        forged.write_bytes(
+            raw + payload
+            + b"xref\n0 1\n0000000000 65535 f \ntrailer\n<< /Size 1 >>\nstartxref\n"
+            + str(fake_offset).encode("ascii")
+            + b"\n%%EOF\n"
+        )
+        clean.unlink()
+        facts = ns["pdf_facts"](forged)
+        self.assertFalse(facts["qpdf_structurally_valid"])
+        self.assertEqual(facts["machine_privacy_status"], "FAIL_PRIVATE_OR_METADATA_CHANNEL")
+
+    def test_trusted_preflight_report_preserves_registry_identity(self):
+        row = {
+            "published_path": "documents/example.pdf",
+            "source_web_path": "documents/example.pdf",
+            "registry_ids": ["doc-example"],
+            "verification_statuses": ["published"],
+            "sha256": "a" * 64,
+            "page_count": 2,
+            "checks": {"privacy": True},
+        }
+        sanitized = sanitize_output_row(row)
+        self.assertEqual(sanitized["registered_ids"], ["doc-example"])
+        self.assertEqual(sanitized["registered_statuses"], ["published"])
 
     def test_release_audit_rejects_ef_dictionary_and_embeddedfile_object(self):
         ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_ef_test")
