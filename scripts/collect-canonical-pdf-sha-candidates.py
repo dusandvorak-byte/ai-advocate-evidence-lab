@@ -26,12 +26,33 @@ def manifest_binds_digest(manifest, doc_id, rel, measured_sha):
     if not path.is_file():
         return False
     try:
-        text = path.read_text("utf-8")
-    except UnicodeDecodeError:
+        data = json.loads(path.read_text("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError):
         return False
-    if measured_sha.lower() not in text.lower():
+
+    digest = measured_sha.lower()
+    bindings = {str(doc_id or ""), rel, "web/" + rel}
+
+    def scalar_text(record):
+        parts = []
+        for key, value in record.items():
+            if isinstance(value, (str, int, float, bool)) or value is None:
+                parts.append(str(key))
+                parts.append(str(value))
+        return "\n".join(parts)
+
+    def walk(node):
+        if isinstance(node, dict):
+            text = scalar_text(node)
+            low = text.lower()
+            if digest in low and any(binding and binding in text for binding in bindings):
+                return True
+            return any(walk(value) for value in node.values() if isinstance(value, (dict, list)))
+        if isinstance(node, list):
+            return any(walk(value) for value in node)
         return False
-    return (str(doc_id or "") in text) or (rel in text) or (("web/" + rel) in text)
+
+    return walk(data)
 
 registry=json.loads(REGISTRY.read_text("utf-8"))
 rows=[]
