@@ -126,8 +126,8 @@ def audit_generated():
             failures.append(f"missing public-copy notice in {target.relative_to(ROOT)}")
         if not facts["not_byte_identical_notice_present"]:
             failures.append(f"missing not-byte-identical notice in {target.relative_to(ROOT)}")
-        if facts["embedded_file_count"] or facts["suspicious_metadata_keys"]:
-            failures.append(f"unsafe metadata/embedded content in {target.relative_to(ROOT)}")
+        if facts["embedded_file_count"] or facts["suspicious_metadata_keys"] or facts["xmp_suspicious"] or facts["xmp_known_private_identifier_hits"]:
+            failures.append(f"unsafe metadata/embedded/XMP content in {target.relative_to(ROOT)}")
         if facts["known_private_identifier_hits"]:
             failures.append(
                 f"known private identifier leaked into public derivative {target.relative_to(ROOT)}: "
@@ -374,6 +374,8 @@ def audit_redacted_analysis():
         "historical_metadata_removal_recorded": privacy.get("metadata_removed") is True,
         "no_embedded_files_now": facts["embedded_file_count"] == 0,
         "no_suspicious_metadata_now": not facts["suspicious_metadata_keys"],
+        "no_private_xmp_now": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
+        "xmp_removed_now": not facts["xmp_present"],
         "no_known_private_identifiers_now": not facts["known_private_identifier_hits"],
         "live_http_200_pre_release": live.get("http_status") == 200,
         "live_still_matches_pre_release_reviewed_copy": live.get("sha256") == privacy["sha256"],
