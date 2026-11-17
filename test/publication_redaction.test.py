@@ -348,7 +348,11 @@ private.person@example.invalid
         self.assertTrue(mixed_facts["non_whitespace_prefix_before_pdf_header"])
         self.assertEqual(mixed_facts["machine_privacy_status"], "FAIL_PRIVATE_OR_METADATA_CHANNEL")
 
-        rows, failures = ns["audit_all_web_pdfs"](root)
+        wrapped_root = self.tmpdir / "wrapped-only"
+        wrapped_root.mkdir()
+        (wrapped_root / "wrapped.bin").write_bytes(wrapped.read_bytes())
+        (wrapped_root / "wrapped.PDF").write_bytes(mixed_wrapped.read_bytes())
+        rows, failures = ns["audit_all_web_pdfs"](wrapped_root)
         self.assertTrue(any("wrapped.bin" in failure and "pdf_header_prefix_clean" in failure for failure in failures))
         self.assertTrue(any("wrapped.PDF" in failure and "pdf_header_prefix_clean" in failure for failure in failures))
 
