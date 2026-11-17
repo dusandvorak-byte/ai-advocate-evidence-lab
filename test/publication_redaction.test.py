@@ -205,6 +205,29 @@ private.person@example.invalid
         self.assertNotEqual(hashlib.sha256(before_render).hexdigest(), hashlib.sha256(after_render).hexdigest())
         self.assertEqual(redaction.forbidden_public_identifiers(after_text), [])
 
+    def test_metadata_is_sanitized_even_without_text_match(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"), run_name="privacy_hardening_metadata_test")
+        rules, _ = ns["private_pdf_rules"]()
+
+        pdf = self.tmpdir / "metadata-only.pdf"
+        doc = fitz.open()
+        page = doc.new_page()
+        page.insert_text((72, 72), "Public text only")
+        doc.set_metadata({"author": "private.person@example.invalid", "subject": "/Users/private/local/path"})
+        doc.save(pdf)
+        doc.close()
+
+        data, matches = ns["harden_pdf"](pdf, rules)
+        self.assertIsNotNone(data)
+        self.assertEqual(matches, [])
+        pdf.write_bytes(data)
+
+        after_doc = fitz.open(pdf)
+        metadata = after_doc.metadata or {}
+        after_doc.close()
+        self.assertFalse(any(value for value in metadata.values()))
+
     def test_verified_identity_is_authenticated_hmac(self):
         self.write_policy_and_contract()
         identity = redaction.verified_private_policy_identity()
