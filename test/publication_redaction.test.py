@@ -274,6 +274,31 @@ private.person@example.invalid
         reopened.close()
         self.assertEqual(count, 1)
 
+    def test_release_audit_rejects_payload_after_final_pdf_eof(self):
+        ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_eof_test")
+        root = self.tmpdir / "eof-payload"
+        root.mkdir()
+
+        for filename in ("trailing.pdf", "trailing.bin"):
+            clean = root / (filename + ".clean.pdf")
+            doc = fitz.open()
+            doc.new_page()
+            doc.save(clean)
+            doc.close()
+            payload = clean.read_bytes() + b"\nsynthetic-forbidden@example.invalid\n"
+            target = root / filename
+            target.write_bytes(payload)
+            clean.unlink()
+
+            facts = ns["pdf_facts"](target)
+            self.assertTrue(facts["pdf_eof_present"])
+            self.assertTrue(facts["non_whitespace_suffix_after_pdf_eof"])
+            self.assertEqual(facts["machine_privacy_status"], "FAIL_PRIVATE_OR_METADATA_CHANNEL")
+
+        rows, failures = ns["audit_all_web_pdfs"](root)
+        self.assertTrue(any("trailing.pdf" in failure and "pdf_trailing_payload_absent" in failure for failure in failures))
+        self.assertTrue(any("trailing.bin" in failure and "pdf_trailing_payload_absent" in failure for failure in failures))
+
     def test_release_audit_rejects_ef_dictionary_and_embeddedfile_object(self):
         ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_ef_test")
         pdf = self.tmpdir / "embedded-file-object.pdf"
