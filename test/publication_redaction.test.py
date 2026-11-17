@@ -226,7 +226,8 @@ private.person@example.invalid
         after_doc = fitz.open(pdf)
         metadata = after_doc.metadata or {}
         after_doc.close()
-        self.assertFalse(any(value for value in metadata.values()))
+        writable_fields = ("title", "author", "subject", "keywords", "creator", "producer", "creationDate", "modDate", "trapped")
+        self.assertTrue(all(not metadata.get(field) for field in writable_fields))
 
     def test_verified_identity_is_authenticated_hmac(self):
         self.write_policy_and_contract()
