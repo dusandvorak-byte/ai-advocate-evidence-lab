@@ -81,6 +81,58 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+      - name: Verify deterministic public-copy materialization and record hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --disable-pip-version-check reportlab
+          python3 scripts/materialize-verified-public-copies-2026-09-16.py
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root=Path("web/documents/report-04082026-010")
+          names=[
+            "89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
+            "92-ms-praha-9-ad-12-2026-7-2026-09-14.pdf",
+            "93-mv-139593-3-tp-2026-2026-09-14.pdf",
+            "94-vsz-olomouc-3-vzn-239-2026-64-2026-09-15.pdf",
+            "97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
+            "98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
+            "99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf",
+            "100-msp-19-2026-odka-roz-26-2026-08-27-verejna-kopie.pdf",
+          ]
+          def digest(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+          first={name:digest(root/name) for name in names}
+          Path("review-artifacts").mkdir(exist_ok=True)
+          Path("review-artifacts/generated-public-copy-hashes-first.json").write_text(json.dumps(first,indent=2)+"\n")
+          PY
+          python3 scripts/materialize-verified-public-copies-2026-09-16.py
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root=Path("web/documents/report-04082026-010")
+          first=json.loads(Path("review-artifacts/generated-public-copy-hashes-first.json").read_text())
+          second={name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in first}
+          if first != second:
+              raise SystemExit(f"verified public-copy generator is not deterministic: {[(k,first[k],second[k]) for k in first if first[k]!=second[k]]}")
+          out={
+            "schema_version":"1.0",
+            "generator":"scripts/materialize-verified-public-copies-2026-09-16.py",
+            "deterministic_rebuild_match":True,
+            "hashes":second,
+          }
+          Path("review-artifacts/generated-public-copy-hashes.json").write_text(json.dumps(out,indent=2)+"\n")
+          print(json.dumps(out))
+          PY
+
+      - name: Upload deterministic generated public-copy hashes
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-public-copy-hashes
+          path: review-artifacts/generated-public-copy-hashes.json
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Spustit pouze syntetické privacy regrese bez repository Secrets
         run: |
           python3 test/publication_redaction.test.py
