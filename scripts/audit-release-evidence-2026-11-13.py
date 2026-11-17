@@ -142,8 +142,10 @@ def pdf_revision_envelope(raw: bytes) -> dict:
             xref_targets_valid = False
             invalid_xref_offsets.append(offset)
 
+    single_revision_only = len(eof_matches) == 1 and len(startxref_matches) == 1
     structurally_bound = bool(
         eof_present
+        and single_revision_only
         and startxref_matches_all_eofs
         and xref_offsets_unique
         and xref_targets_valid
@@ -155,6 +157,7 @@ def pdf_revision_envelope(raw: bytes) -> dict:
         "pdf_startxref_count": len(startxref_matches),
         "pdf_startxref_offsets_unique": xref_offsets_unique,
         "pdf_startxref_targets_valid": xref_targets_valid,
+        "pdf_single_revision_only": single_revision_only,
         "pdf_invalid_startxref_offsets": invalid_xref_offsets,
         "pdf_revision_markers_bound": structurally_bound,
         "non_whitespace_suffix_after_pdf_eof": suffix_non_whitespace,
@@ -245,6 +248,8 @@ def pdf_facts(path: Path) -> dict:
             "pdf_startxref_offsets_unique": envelope["pdf_startxref_offsets_unique"],
             "pdf_startxref_targets_valid": envelope["pdf_startxref_targets_valid"],
             "pdf_revision_markers_bound": envelope["pdf_revision_markers_bound"],
+        "pdf_single_revision_only": envelope["pdf_single_revision_only"],
+            "pdf_single_revision_only": envelope["pdf_single_revision_only"],
             "qpdf_structurally_valid": qpdf_valid,
             "qpdf_check_tail": qpdf_output,
             "non_whitespace_suffix_after_pdf_eof": suffix_non_whitespace,
@@ -293,6 +298,7 @@ def pdf_facts(path: Path) -> dict:
         "pdf_startxref_offsets_unique": envelope["pdf_startxref_offsets_unique"],
         "pdf_startxref_targets_valid": envelope["pdf_startxref_targets_valid"],
         "pdf_revision_markers_bound": envelope["pdf_revision_markers_bound"],
+        "pdf_single_revision_only": envelope["pdf_single_revision_only"],
         "qpdf_structurally_valid": qpdf_valid,
         "qpdf_check_tail": qpdf_output,
         "non_whitespace_suffix_after_pdf_eof": suffix_non_whitespace,
@@ -431,6 +437,7 @@ def audit_registry_public_derivatives():
             "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
             "pdf_eof_present": facts["pdf_eof_present"],
             "pdf_revision_markers_bound": facts["pdf_revision_markers_bound"],
+            "pdf_single_revision_only": facts["pdf_single_revision_only"],
             "qpdf_structurally_valid": facts["qpdf_structurally_valid"],
             "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
             "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
@@ -527,6 +534,7 @@ def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
             "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
             "pdf_eof_present": facts["pdf_eof_present"],
             "pdf_revision_markers_bound": facts["pdf_revision_markers_bound"],
+            "pdf_single_revision_only": facts["pdf_single_revision_only"],
             "qpdf_structurally_valid": facts["qpdf_structurally_valid"],
             "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
             "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
