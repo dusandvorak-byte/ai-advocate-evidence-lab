@@ -21,7 +21,9 @@ for (const source of sourceManifest.sources || []) {
   }
 }
 const canonicalDocuments = { documents: [...mergedDocuments.values()] };
-const stateLoveCount = canonicalDocuments.documents.filter(item =>
+const builtCanonicalRegistry = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
+const builtCanonicalDocuments = Array.isArray(builtCanonicalRegistry.documents) ? builtCanonicalRegistry.documents : [];
+const stateLoveCount = builtCanonicalDocuments.filter(item =>
   item.issue_date >= '2026-05-01'
   && item.document_type !== 'state_record_attachment'
   && (item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record')
@@ -32,7 +34,7 @@ const churchEnPage = await readFile('web/kc/en.html', 'utf8');
 const czechArchive = await readFile('web/zpravy/index.html', 'utf8');
 const englishArchive = await readFile('web/news/index.html', 'utf8');
 const latestCardIds = page => [...page.matchAll(/class="latest-record-card" data-document-id="([^"]+)"/g)].map(match => match[1]);
-const canonicalLatestStateIds = canonicalDocuments.documents
+const canonicalLatestStateIds = builtCanonicalDocuments
   .filter(item => item.issue_date >= '2026-05-01' && item.document_type === 'state_record')
   .sort((a,b) => String(b.issue_date).localeCompare(String(a.issue_date)) || String(a.id).localeCompare(String(b.id)))
   .slice(0,3)
