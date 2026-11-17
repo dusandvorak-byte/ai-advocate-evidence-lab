@@ -68,6 +68,23 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+      - name: Evaluate SHA candidate provenance without exposing PDF text
+        run: |
+          python3 -m pip install --disable-pip-version-check pymupdf
+          python3 scripts/evaluate-canonical-pdf-provenance.py
+
+      - name: Upload canonical SHA provenance evaluation
+        uses: actions/upload-artifact@v4
+        with:
+          name: canonical-pdf-provenance-evaluation
+          path: review-artifacts/canonical-pdf-provenance-evaluation.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Spustit pouze syntetické privacy regrese bez repository Secrets
+        run: |
+          python3 test/publication_redaction.test.py
+
       - name: Fail closed on canonical PDF records without SHA-256 provenance
         run: |
           python3 - <<'PY'
@@ -87,11 +104,6 @@ jobs:
               raise SystemExit("canonical PDF SHA provenance incomplete")
           print("Canonical PDF SHA provenance complete.")
           PY
-
-      - name: Spustit pouze syntetické privacy regrese bez repository Secrets
-        run: |
-          python3 -m pip install --disable-pip-version-check pymupdf
-          python3 test/publication_redaction.test.py
 
   validate:
     name: Trusted build se secret-backed privacy policy
