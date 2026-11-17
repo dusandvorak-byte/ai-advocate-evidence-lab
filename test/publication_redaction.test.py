@@ -16,7 +16,11 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import publication_redaction as redaction
 from publication_redaction import RedactionPolicyError
 from provenance_manifest import manifest_binds_digest
-from canonical_pdf_provenance_contract import validate_frozen_provenance_binding
+from canonical_pdf_provenance_contract import (
+    canonical_contract_sha256,
+    validate_frozen_provenance_binding,
+    validate_trusted_contract_root,
+)
 from trusted_preflight_report import sanitize_output_row
 
 PUBLIC_CONTRACT = json.loads((ROOT / "project-memory/private-redaction-policy-contract.json").read_text("utf-8"))
@@ -279,6 +283,53 @@ private.person@example.invalid
         count = ns["file_attachment_annotation_count"](reopened)
         reopened.close()
         self.assertEqual(count, 1)
+
+    def test_trusted_provenance_contract_root_rejects_substitution(self):
+        original = b'{"schema_version":1,"records":[{"id":"doc-example"}]}'
+        substituted = b'{"schema_version":1,"records":[{"id":"doc-example","changed":true}]}'
+        trusted = canonical_contract_sha256(original)
+        self.assertEqual(validate_trusted_contract_root(original, trusted), [])
+        errors = validate_trusted_contract_root(substituted, trusted)
+        self.assertTrue(any("trusted external SHA-256 root" in error for error in errors))
+        self.assertTrue(validate_trusted_contract_root(original, ""))
+
+    def test_release_audit_rejects_inline_image_filter_payload(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_inline_image_test")
+        pdf = self.tmpdir / "inline-image.pdf"
+
+        literal = "Příliš žluťoučký kůň 42".encode("utf-8")
+        pixels = (literal + b"|") * 40
+        pixels = (pixels + b"X" * 1024)[:1024]
+        compressed = __import__("zlib").compress(pixels, level=9)
+        content = (
+            b"q\n"
+            b"BI /W 32 /H 32 /CS /G /BPC 8 /F /FlateDecode ID\n"
+            + compressed
+            + b"\nEI\nQ\n"
+        )
+
+        doc = fitz.open()
+        page = doc.new_page()
+        xref = doc.get_new_xref()
+        doc.update_object(xref, "<< /Length 0 >>")
+        doc.update_stream(xref, content, compress=False)
+        doc.xref_set_key(page.xref, "Contents", f"{xref} 0 R")
+        doc.save(pdf)
+        doc.close()
+
+        raw = pdf.read_bytes()
+        self.assertNotIn(literal, raw)
+
+        facts = ns["pdf_facts"](pdf)
+        self.assertGreater(facts["inline_image_stream_count"], 0)
+        self.assertEqual(facts["machine_privacy_status"], "FAIL_PRIVATE_OR_METADATA_CHANNEL")
+
+        root = self.tmpdir / "inline-image-tree"
+        root.mkdir()
+        (root / "inline-image.pdf").write_bytes(pdf.read_bytes())
+        rows, failures = ns["audit_all_web_pdfs"](root)
+        self.assertTrue(any("inline-image.pdf" in failure and "inline_images_absent" in failure for failure in failures))
 
     def test_frozen_provenance_contract_rejects_status_switch(self):
         expected = {
