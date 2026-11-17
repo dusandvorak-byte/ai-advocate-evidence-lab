@@ -1,4 +1,5 @@
-import { readFile, access } from 'node:fs/promises';
+import { readFile, access, readdir } from 'node:fs/promises';
+import { extname, join, relative } from 'node:path';
 
 const fail = message => { throw new Error('RELEASE-EXCLUSIONS: ' + message); };
 const id = 'doc-cz-pcr-krpt-2026-08-20-metodicko-odborne-vyjezdy-okte';
@@ -42,12 +43,28 @@ if (groupStart < 0 || groupEnd < 0) fail('cannot locate state PDF provenance gro
 const provenanceGroup = preflight.slice(groupStart, groupEnd);
 if (provenanceGroup.includes(filename)) fail('ID 69 is still required by generated-PDF provenance preflight');
 
-for (const path of [
-  'web/index.html','web/en.html','web/kc/index.html','web/kc/en.html',
-  'web/zpravy/04082026-010.html','web/news/04082026-010.html'
-]) {
-  const html = await readFile(path,'utf8');
-  if (html.includes(id) || html.includes(filename)) fail('ID 69 leaked into public navigation: ' + path);
+const TEXT_EXTENSIONS = new Set(['.html','.htm','.json','.js','.mjs','.css','.txt','.xml','.csv','.md','.svg']);
+
+async function scanPublicTree(dir) {
+  const entries = await readdir(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const full = join(dir, entry.name);
+    const rel = relative('.', full).replaceAll('\\\\','/');
+    if (entry.name.includes(id) || entry.name.includes(filename)) {
+      fail('ID 69 leaked into public output filename/path: ' + rel);
+    }
+    if (entry.isDirectory()) {
+      await scanPublicTree(full);
+      continue;
+    }
+    if (!entry.isFile() || !TEXT_EXTENSIONS.has(extname(entry.name).toLowerCase())) continue;
+    const text = await readFile(full, 'utf8');
+    if (text.includes(id) || text.includes(filename)) {
+      fail('ID 69 leaked into public text output: ' + rel);
+    }
+  }
 }
 
-console.log('Release exclusions OK: ID 69 absent from canonical/public release outputs; historical source evidence preserved.');
+await scanPublicTree('web');
+
+console.log('Release exclusions OK: ID 69 absent from complete public web tree, canonical/public registries and generation/provenance maps; historical source evidence preserved.');
