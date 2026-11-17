@@ -4123,9 +4123,11 @@
         "html": null,
         "pdf": "documents/report-04082026-010/89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
         "intended_pdf": "documents/report-04082026-010/89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
-        "sha256": null,
+        "sha256": "c5c2a4adf484e6ea605a37eeeea1099a8181ad3ccc5e2688b7b64cbd2b2044f3",
         "verification_status": "published",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-09-09-ms-8-ad-9.json"
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-09-ms-8-ad-9.json",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [
         {
@@ -4528,9 +4530,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/93-mv-139593-3-tp-2026-2026-09-14.pdf",
-        "sha256": null,
+        "sha256": "b6a68b2155eb2bf4218841949bf8c0ac895b01c701aa28bd8f8b569662f1981f",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -4557,9 +4561,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/92-ms-praha-9-ad-12-2026-7-2026-09-14.pdf",
-        "sha256": null,
+        "sha256": "fb0a0178d436eabfe06af8dad27da857073860705b14ffc2b12b3685ba302cbb",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -4586,9 +4592,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/94-vsz-olomouc-3-vzn-239-2026-64-2026-09-15.pdf",
-        "sha256": null,
+        "sha256": "21c07c7c3b5bc1631c837781699daeeda77540b2dd91ff1b1cbf0ba378b9f80a",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [
         {
@@ -4720,11 +4728,13 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "ba9ac9db190335b38d1a88db04699cd1528d5ebc3814e7ac1282402f3d0b383f",
         "verification_status": "published",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-22-ms-15-ad-14.json",
         "source_text": "project-memory/verified-public-copy-sources-2026-09-22/97-ms-praha-15-ad-14-2026-12.txt",
-        "source_sha256": "7bc93e4b9da0250b89b6cba8bfe93a4f2619dd1aba0fa3c48c5828bc4b755e63"
+        "source_sha256": "7bc93e4b9da0250b89b6cba8bfe93a4f2619dd1aba0fa3c48c5828bc4b755e63",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [
         {
@@ -4762,11 +4772,13 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "7a44c8785f223031464ed14b1f3031a41decd7edeb1042a5a9d47ac7abea93b7",
         "verification_status": "published",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-23-ms-18-a-23.json",
         "source_text": "project-memory/verified-public-copy-sources-2026-09-23/98-ms-praha-18-a-23-2026-182.txt",
-        "source_sha256": "1b699d2de2ed5048af8b28e20e98299f05c501626e20ebc25c4cb9960c8a4fa6"
+        "source_sha256": "1b699d2de2ed5048af8b28e20e98299f05c501626e20ebc25c4cb9960c8a4fa6",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [
         {
@@ -4808,11 +4820,13 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/100-msp-19-2026-odka-roz-26-2026-08-27-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "584e32f351b93c1a082e37ffd05d6aea68d33c051125536dedb79a856a8bdba2",
         "verification_status": "published",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-23-ms-18a17-msp-18a23.json",
         "source_text": "project-memory/verified-public-copy-sources-2026-08-27/100-msp-19-2026-odka-roz-26.txt",
-        "source_sha256": "9b96223d5b4f7566c6bdf8aae50362cef517fe0c5f89ce18af37803c9f8a21b2"
+        "source_sha256": "9b96223d5b4f7566c6bdf8aae50362cef517fe0c5f89ce18af37803c9f8a21b2",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [
         {
@@ -4849,11 +4863,13 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "a63aa88a52f62745a0e10b8e251ca4c6531eb4e044655e50b996502257869e33",
         "verification_status": "published",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-23-ms-18a17-msp-18a23.json",
         "source_text": "project-memory/verified-public-copy-sources-2026-09-23/99-ms-praha-18-a-17-2026-182.txt",
-        "source_sha256": "cf652f2a11d3034ad9e1b70f56473562c12eb5bcd1767d9a022f351095ab994f"
+        "source_sha256": "cf652f2a11d3034ad9e1b70f56473562c12eb5bcd1767d9a022f351095ab994f",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [
         {
