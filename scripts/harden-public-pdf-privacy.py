@@ -100,8 +100,15 @@ def harden_pdf(path: Path, rules: list[dict]) -> tuple[bytes | None, list[dict]]
     # Remove document metadata on every derivative, even when no page-text rule matched.
     # Metadata can independently carry private emails, usernames or local filesystem paths.
     metadata_present = any(value for value in (doc.metadata or {}).values())
+    xml_metadata = doc.get_xml_metadata() or ""
     if metadata_present:
         doc.set_metadata({})
+        changed = True
+    if xml_metadata:
+        if not hasattr(doc, "del_xml_metadata"):
+            doc.close()
+            raise RuntimeError("PyMuPDF lacks del_xml_metadata; refusing to publish derivative with XMP metadata")
+        doc.del_xml_metadata()
         changed = True
 
     if not changed:
