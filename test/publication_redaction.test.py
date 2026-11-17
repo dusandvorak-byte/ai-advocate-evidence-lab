@@ -154,7 +154,8 @@ private.person@example.invalid
 
     def test_regex_policy_requires_pdf_variants_for_pdf_hardening(self):
         payload = self.policy_payload()
-        payload["rules"][-1].pop("pdf_variants", None)
+        regex_rule = next(rule for rule in payload["rules"] if rule["id"] == "private_address_wrapped")
+        regex_rule.pop("pdf_variants", None)
         self.write_policy_and_contract(payload)
         ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"), run_name="privacy_hardening_test")
         with self.assertRaises(SystemExit):
@@ -162,7 +163,8 @@ private.person@example.invalid
 
     def test_rejects_scalar_pdf_variants(self):
         payload = self.policy_payload()
-        payload["rules"][-1]["pdf_variants"] = "SecretTown 42, 123 45"
+        regex_rule = next(rule for rule in payload["rules"] if rule["id"] == "private_address_wrapped")
+        regex_rule["pdf_variants"] = "SecretTown 42, 123 45"
         self.write_policy_and_contract(payload)
         ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"), run_name="privacy_hardening_scalar_test")
         with self.assertRaises(SystemExit):
