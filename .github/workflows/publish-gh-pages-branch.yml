@@ -108,7 +108,7 @@ jobs:
       - name: Připravit Python a PDF kontrolní nástroje
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq poppler-utils
+          sudo apt-get install -y -qq poppler-utils qpdf
           python3 -m pip install --quiet reportlab pillow pymupdf
 
       - name: Provision private redaction policy only inside runner temp
@@ -368,8 +368,15 @@ jobs:
           grep -q 'Ministry of Transport' web/news/04082026-010.html
           grep -q 'The Ministry of Transport deferred the freedom-of-information request' web/news/04082026-010.html
 
-      - name: Deterministically rebuild the frozen generated public-copy provenance set
-        run: python3 scripts/materialize-verified-public-copies-2026-09-16.py
+      - name: Deterministically rebuild the frozen provenance set in isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "$RUNNER_TEMP/evidence-lab-deterministic-rebuild"
+          mkdir -p "$RUNNER_TEMP/evidence-lab-deterministic-rebuild"
+          EVIDENCE_LAB_VERIFIED_COPY_OUT="$RUNNER_TEMP/evidence-lab-deterministic-rebuild" \
+            python3 scripts/materialize-verified-public-copies-2026-09-16.py
+          echo "EVIDENCE_LAB_DETERMINISTIC_REBUILD_ROOT=$RUNNER_TEMP/evidence-lab-deterministic-rebuild" >> "$GITHUB_ENV"
 
       - name: Reverify remediated canonical PDF provenance from primary evidence
         run: python3 scripts/validate-canonical-pdf-sha-provenance.py
