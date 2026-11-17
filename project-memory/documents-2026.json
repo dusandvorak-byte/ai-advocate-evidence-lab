@@ -353,9 +353,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/06-kpr-4093-2026-2026-06-05.pdf",
-        "sha256": null,
+        "sha256": "22204b610525cdd1249ae3033460b20e14a52fe72448495eb82a7eb7c575f933",
         "verification_status": "published",
-        "source_manifest": "project-memory/pdf-link-overrides.json"
+        "source_manifest": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/pdf-link-overrides.json",
+        "sha256_provenance_status": "public-byte-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -723,9 +725,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/podnet-uoou-prezkum-mv-ku-2026-07-15.pdf",
-        "sha256": null,
+        "sha256": "d74cfb33b0a3ed232349693832dd2fb2374be1886c72c332e0477d62bbd7c363",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-04082026-010-sources.json"
+        "source_manifest": "project-memory/report-04082026-010-sources.json",
+        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-04082026-010-sources.json",
+        "sha256_provenance_status": "public-byte-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -913,9 +917,11 @@
       "public": {
         "html": null,
         "pdf": "documents/mk-konopna-cirkev-vyrozumeni-2026-07-22-original.pdf",
-        "sha256": null,
+        "sha256": "db53e6ddb0330b573c236d5973a062536fb29b2fe01aff12e4d31e352b77d6d2",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json"
+        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json",
+        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-20260810-pdf-repair-sources.json",
+        "sha256_provenance_status": "public-byte-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -955,9 +961,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/46-uoou-05058-26-2-2026-07-28.pdf",
-        "sha256": null,
+        "sha256": "b2d2aa27a6678918de26d7160148cff7d44b00f9f6c649bb1578407446e56c87",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-04082026-010-sources.json"
+        "source_manifest": "project-memory/report-04082026-010-sources.json",
+        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-04082026-010-sources.json",
+        "sha256_provenance_status": "public-byte-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -976,9 +984,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/47-uoou-05093-26-2-2026-07-28.pdf",
-        "sha256": null,
+        "sha256": "856455422c2c4cfd0670cb63abbfa8007694f4cdc10a52f391fbf1462c6c17a9",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-04082026-010-sources.json"
+        "source_manifest": "project-memory/report-04082026-010-sources.json",
+        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-04082026-010-sources.json",
+        "sha256_provenance_status": "public-byte-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1018,9 +1028,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/49-osz-praha-7-zn-87-2026-47-2026-07-28.pdf",
-        "sha256": null,
+        "sha256": "557535d320f23f0eb361a59ce057232f74798f4b30acfacac4e4e34fce63fb25",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-04082026-010-sources.json"
+        "source_manifest": "project-memory/report-04082026-010-sources.json",
+        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-04082026-010-sources.json",
+        "sha256_provenance_status": "public-byte-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1123,9 +1135,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/kpr-5772-2026-1-2026-07-30-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "8a5a03430f501dfd40ba448b2eafe083361371418ffd90c7f2490c50ae8474bc",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-04082026-010-sources.json"
+        "source_manifest": "project-memory/report-04082026-010-sources.json",
+        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-04082026-010-sources.json",
+        "sha256_provenance_status": "public-byte-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1144,9 +1158,11 @@
       "public": {
         "html": "web/listiny/ksz-brno-1-kzn-1079-2026-14.html",
         "pdf": "documents/report-04082026-010/55-ksz-brno-1-kzn-1079-2026-14-2026-07-31-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "315dab40f0b0df176457f633b28d6ba6a94b29988c89e22ecc36620226e45d6b",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json"
+        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json",
+        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-20260810-pdf-repair-sources.json",
+        "sha256_provenance_status": "public-byte-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1165,9 +1181,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/kpr-5080-2026-2026-08-03-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "0920fe53480d0f38b18f35d99690bd0dfbd2623858a55d40fcbcef8d88d8a3e2",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-04082026-010-sources.json"
+        "source_manifest": "project-memory/report-04082026-010-sources.json",
+        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-04082026-010-sources.json",
+        "sha256_provenance_status": "public-byte-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1186,9 +1204,11 @@
       "public": {
         "html": "web/listiny/krpt-203594-3-cj-2026-0700kr.html",
         "pdf": "documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "4ed6b5efda28244a41807d5a440fad459bf7baf8d92729ebd18a1055a7d07580",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json"
+        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json",
+        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-20260810-pdf-repair-sources.json",
+        "sha256_provenance_status": "public-byte-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
