@@ -385,6 +385,7 @@ def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
         file_sha = sha256_file(path)
         checks = {
             "excluded_id69_digest_absent": file_sha != EXCLUDED_ID69_SHA256,
+            "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
             "forbidden_identifiers_absent": not facts["known_private_identifier_hits"],
             "embedded_files_absent": facts["embedded_file_count"] == 0,
             "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
