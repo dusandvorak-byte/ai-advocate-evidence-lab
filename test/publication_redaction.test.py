@@ -337,6 +337,17 @@ private.person@example.invalid
         self.assertEqual(paths, {"lower.pdf", "mixed.PDF", "odd.bin", "wrapped.bin"})
         self.assertIn(b"synthetic-forbidden@example.invalid", wrapped.read_bytes()[:1024])
 
+        self.assertGreater(ns["pdf_header_offset"](wrapped), 0)
+        facts = ns["pdf_facts"](wrapped)
+        self.assertTrue(facts["non_whitespace_prefix_before_pdf_header"])
+        self.assertEqual(facts["machine_privacy_status"], "FAIL_PRIVATE_OR_METADATA_CHANNEL")
+
+        mixed_wrapped = root / "wrapped.PDF"
+        mixed_wrapped.write_bytes(b"NONWHITESPACE\n" + (root / "mixed.PDF").read_bytes())
+        mixed_facts = ns["pdf_facts"](mixed_wrapped)
+        self.assertTrue(mixed_facts["non_whitespace_prefix_before_pdf_header"])
+        self.assertEqual(mixed_facts["machine_privacy_status"], "FAIL_PRIVATE_OR_METADATA_CHANNEL")
+
     def test_release_audit_rejects_catalog_and_page_associated_files(self):
         ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_af_test")
 
