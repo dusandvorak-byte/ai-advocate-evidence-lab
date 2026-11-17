@@ -432,6 +432,67 @@ jobs:
           git clean -fdx
           cp -a /tmp/verified-site/. .
           git add -A
+
+          # Verify that git clean filters/attributes did not alter any audited byte.
+          # The index must be an exact byte+mode+path representation of /tmp/verified-site.
+          python3 - <<'PY'
+          import os
+          import stat
+          import subprocess
+          from pathlib import Path
+
+          source = Path("/tmp/verified-site")
+          expected = {}
+
+          for path in source.rglob("*"):
+              rel = path.relative_to(source).as_posix()
+              st = path.lstat()
+              if stat.S_ISREG(st.st_mode):
+                  mode = "100755" if (st.st_mode & stat.S_IXUSR) else "100644"
+                  expected[rel] = (mode, path.read_bytes())
+              elif stat.S_ISLNK(st.st_mode):
+                  expected[rel] = ("120000", os.readlink(path).encode())
+              elif stat.S_ISDIR(st.st_mode):
+                  continue
+              else:
+                  raise SystemExit(f"unsupported staged filesystem object: {rel}")
+
+          proc = subprocess.run(
+              ["git", "ls-files", "-s", "-z"],
+              check=True, stdout=subprocess.PIPE
+          )
+          actual = {}
+          for record in proc.stdout.split(b"\0"):
+              if not record:
+                  continue
+              meta, raw_path = record.split(b"\t", 1)
+              mode_b, blob_b, stage_b = meta.split()
+              if stage_b != b"0":
+                  raise SystemExit(f"non-zero git index stage for {raw_path!r}")
+              rel = raw_path.decode("utf-8", "surrogateescape")
+              blob = blob_b.decode("ascii")
+              payload = subprocess.run(
+                  ["git", "cat-file", "blob", blob],
+                  check=True, stdout=subprocess.PIPE
+              ).stdout
+              actual[rel] = (mode_b.decode("ascii"), payload)
+
+          missing = sorted(set(expected) - set(actual))
+          extra = sorted(set(actual) - set(expected))
+          if missing or extra:
+              raise SystemExit(f"git index path-set mismatch: missing={missing} extra={extra}")
+
+          changed = []
+          for rel, exp in expected.items():
+              got = actual[rel]
+              if exp[0] != got[0] or exp[1] != got[1]:
+                  changed.append(rel)
+          if changed:
+              raise SystemExit(f"git index differs from audited staging bytes/modes: {changed}")
+
+          print(f"Git index identity verified for {len(expected)} audited staged files.")
+          PY
+
           git commit -m "Publish verified Evidence Lab 2.0 from $GITHUB_SHA"
           git push --force origin HEAD:gh-pages
 
