@@ -9,7 +9,10 @@ import subprocess
 from pathlib import Path
 
 from provenance_manifest import manifest_binds_digest
-from canonical_pdf_provenance_contract import validate_frozen_provenance_binding
+from canonical_pdf_provenance_contract import (
+    validate_frozen_provenance_binding,
+    validate_trusted_contract_root,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "project-memory" / "documents-2026.json"
@@ -90,9 +93,15 @@ def git_show(commit: str, path: str) -> bytes:
 
 
 registry = json.loads(REGISTRY.read_text("utf-8"))
-contract = json.loads(CONTRACT.read_text("utf-8"))
+contract_raw = CONTRACT.read_bytes()
+contract = json.loads(contract_raw.decode("utf-8"))
 checked = []
 failures = []
+
+require_trusted_root = os.environ.get("EVIDENCE_LAB_REQUIRE_TRUSTED_PROVENANCE_ROOT", "").strip() == "1"
+if require_trusted_root:
+    trusted_sha = os.environ.get("EVIDENCE_LAB_CANONICAL_PROVENANCE_CONTRACT_SHA256", "")
+    failures.extend(validate_trusted_contract_root(contract_raw, trusted_sha))
 
 if contract.get("schema_version") != 1 or contract.get("contract_id") != "evidence-lab-canonical-pdf-provenance-v1":
     failures.append("canonical provenance contract identity/schema mismatch")
