@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -147,11 +148,17 @@ for item in registry.get("documents", []):
     if status == "binding-manifest-exact-digest-verified":
         manifest = public.get("source_manifest")
         expected_manifest = evidence_contract.get("manifest")
+        expected_manifest_blob = str(evidence_contract.get("manifest_git_blob_sha") or "")
         if evidence_contract.get("type") != "manifest" or manifest != expected_manifest:
             failures.append(f"{item.get('id')}: binding manifest differs from frozen contract")
             continue
+        manifest_proc = subprocess.run(["git", "hash-object", manifest], cwd=ROOT, capture_output=True, text=True)
+        manifest_blob = manifest_proc.stdout.strip() if manifest_proc.returncode == 0 else ""
+        if manifest_blob != expected_manifest_blob:
+            failures.append(f"{item.get('id')}: binding manifest content differs from frozen reviewed blob")
+            continue
         ok = manifest_binds_digest(ROOT, manifest, item.get("id"), rel, sha)
-        evidence = manifest
+        evidence = f"{manifest}@gitblob:{manifest_blob}"
 
     elif status in {
         "historical-introduction-and-blob-continuity-verified",
@@ -185,24 +192,35 @@ for item in registry.get("documents", []):
         generator = ROOT / generator_rel
         output_name = str(evidence_contract.get("output_name") or "")
         expected_blob = str(evidence_contract.get("generator_git_blob_sha") or "")
+        source_rel = str(evidence_contract.get("source_path") or "")
+        expected_source_blob = str(evidence_contract.get("source_git_blob_sha") or "")
         if Path(rel).name != output_name:
             failures.append(f"{item.get('id')}: generated output name differs from frozen contract")
             continue
         if not generator.is_file() or output_name not in generator.read_text("utf-8"):
             failures.append(f"{item.get('id')}: output is not a member of the frozen deterministic generator")
             continue
+        if not source_rel or not expected_source_blob:
+            failures.append(f"{item.get('id')}: deterministic source is not pinned in frozen contract")
+            continue
+        source_proc = subprocess.run(["git", "hash-object", source_rel], cwd=ROOT, capture_output=True, text=True)
+        source_blob = source_proc.stdout.strip() if source_proc.returncode == 0 else ""
+        if source_blob != expected_source_blob:
+            failures.append(f"{item.get('id')}: deterministic source bytes differ from frozen reviewed blob")
+            continue
         blob_proc = subprocess.run(["git", "hash-object", generator_rel], cwd=ROOT, capture_output=True, text=True)
         generator_blob = blob_proc.stdout.strip() if blob_proc.returncode == 0 else ""
         if generator_blob != expected_blob:
             failures.append(f"{item.get('id')}: deterministic generator changed from frozen reviewed blob")
             continue
-        current_path = ROOT / "web" / rel
+        rebuild_root = os.environ.get("EVIDENCE_LAB_DETERMINISTIC_REBUILD_ROOT", "").strip()
+        current_path = (Path(rebuild_root) / output_name) if rebuild_root else (ROOT / "web" / rel)
         if not current_path.is_file():
             failures.append(f"{item.get('id')}: deterministic generated PDF missing after rebuild")
             continue
         current_sha = sha256_file(current_path)
         ok = current_sha == sha
-        evidence = f"{generator_rel}@gitblob:{generator_blob}"
+        evidence = f"{generator_rel}@gitblob:{generator_blob};{source_rel}@gitblob:{source_blob}"
 
     if not ok:
         failures.append(f"{item.get('id')}: provenance verification failed ({status})")
