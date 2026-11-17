@@ -96,4 +96,8 @@ for source_path, out_name in all_jobs:
     data = target.read_bytes()
     if not data.startswith(b"%PDF-") or b"%%EOF" not in data[-2048:]:
         raise SystemExit(f"Invalid generated PDF: {target}")
-    print(f"materialized {target.relative_to(ROOT)} ({len(data)} bytes)")
+    try:
+        display_path = target.relative_to(ROOT)
+    except ValueError:
+        display_path = target
+    print(f"materialized {display_path} ({len(data)} bytes)")
