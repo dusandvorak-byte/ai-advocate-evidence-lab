@@ -255,7 +255,6 @@ jobs:
           python3 -m py_compile scripts/materialize-state-responses-2026-10-07.py
           python3 -m py_compile scripts/materialize-justice-slalom-2026-10-12.py
           python3 -m py_compile scripts/materialize-2026-10-15-godot-slalom.py
-          python3 test/publication_redaction.test.py
           node --check scripts/materialize-os-praha4-public-copy.mjs
 
       - name: Připravit generátor ověřených veřejných PDF
@@ -265,6 +264,8 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check reportlab pillow pymupdf
+          # Synthetic privacy tests use qpdf and must run after its installation.
+          python3 test/publication_redaction.test.py
 
       - name: Provision private redaction policy only inside runner temp
         shell: bash
