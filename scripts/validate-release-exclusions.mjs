@@ -1,5 +1,5 @@
 import { readFile, access, readdir } from 'node:fs/promises';
-import { extname, join, relative } from 'node:path';
+import { join, relative } from 'node:path';
 
 const fail = message => { throw new Error('RELEASE-EXCLUSIONS: ' + message); };
 const id = 'doc-cz-pcr-krpt-2026-08-20-metodicko-odborne-vyjezdy-okte';
@@ -43,7 +43,8 @@ if (groupStart < 0 || groupEnd < 0) fail('cannot locate state PDF provenance gro
 const provenanceGroup = preflight.slice(groupStart, groupEnd);
 if (provenanceGroup.includes(filename)) fail('ID 69 is still required by generated-PDF provenance preflight');
 
-const TEXT_EXTENSIONS = new Set(['.html','.htm','.json','.js','.mjs','.css','.txt','.xml','.csv','.md','.svg']);
+const forbiddenIdBytes = Buffer.from(id, 'utf8');
+const forbiddenFilenameBytes = Buffer.from(filename, 'utf8');
 
 async function scanPublicTree(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -57,10 +58,10 @@ async function scanPublicTree(dir) {
       await scanPublicTree(full);
       continue;
     }
-    if (!entry.isFile() || !TEXT_EXTENSIONS.has(extname(entry.name).toLowerCase())) continue;
-    const text = await readFile(full, 'utf8');
-    if (text.includes(id) || text.includes(filename)) {
-      fail('ID 69 leaked into public text output: ' + rel);
+    if (!entry.isFile()) continue;
+    const bytes = await readFile(full);
+    if (bytes.includes(forbiddenIdBytes) || bytes.includes(forbiddenFilenameBytes)) {
+      fail('ID 69 leaked into public output bytes: ' + rel);
     }
   }
 }
