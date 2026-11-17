@@ -53,6 +53,21 @@ jobs:
           python3 -m py_compile scripts/harden-public-pdf-privacy.py
           python3 -m py_compile scripts/generated_pdf_signatures.py
 
+      - name: Collect non-authoritative SHA candidate evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin refs/heads/gh-pages:refs/remotes/origin/gh-pages
+          python3 scripts/collect-canonical-pdf-sha-candidates.py
+
+      - name: Upload canonical SHA candidate evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: canonical-pdf-sha-candidates
+          path: review-artifacts/canonical-pdf-sha-candidates.json
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Fail closed on canonical PDF records without SHA-256 provenance
         run: |
           python3 - <<'PY'
