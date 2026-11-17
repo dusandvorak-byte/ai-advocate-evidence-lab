@@ -367,6 +367,28 @@ private.person@example.invalid
         mixed = b"pRiVaTe.PeRsOn@ExAmPlE.InVaLiD"
         self.assertTrue(forbidden_public_identifier_byte_hits(mixed))
 
+    def test_release_audit_rejects_incremental_multi_revision_pdf(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_incremental_test")
+        pdf = self.tmpdir / "incremental.pdf"
+
+        doc = fitz.open()
+        doc.new_page()
+        doc.save(pdf)
+        doc.close()
+
+        doc = fitz.open(pdf)
+        metadata = doc.metadata or {}
+        metadata["subject"] = "synthetic incremental update"
+        doc.set_metadata(metadata)
+        doc.saveIncr()
+        doc.close()
+
+        facts = ns["pdf_facts"](pdf)
+        self.assertFalse(facts["pdf_single_revision_only"])
+        self.assertGreaterEqual(facts["pdf_eof_count"], 2)
+        self.assertEqual(facts["machine_privacy_status"], "FAIL_PRIVATE_OR_METADATA_CHANNEL")
+
     def test_release_audit_rejects_private_literal_in_compressed_unused_stream(self):
         self.write_policy_and_contract()
         ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_compressed_stream_test")
