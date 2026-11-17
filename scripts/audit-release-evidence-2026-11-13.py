@@ -323,8 +323,17 @@ def audit_registry_reconciliation(staged_rows: list[dict]):
 
     source_paths = {p.relative_to(WEB).as_posix() for p in publication_pdf_paths(WEB)}
     staged_paths = {row["published_path"] for row in staged_rows}
-    expected_staged_paths = source_paths | {"web/" + rel for rel in source_paths}
     failures = []
+
+    canonical_pdf_paths = set()
+    for item in canonical.get("documents", []):
+        public = item.get("public") or {}
+        rel = str(public.get("pdf") or "")
+        if rel:
+            canonical_pdf_paths.add(rel)
+
+    expected_root_paths = source_paths | canonical_pdf_paths
+    expected_staged_paths = expected_root_paths | {"web/" + rel for rel in expected_root_paths}
 
     stage_missing = sorted(expected_staged_paths - staged_paths)
     stage_extra = sorted(staged_paths - expected_staged_paths)
@@ -367,40 +376,24 @@ def audit_registry_reconciliation(staged_rows: list[dict]):
             failures.append(f"final public registry references PDF absent from staged publication tree: {rel}")
 
     missing_canonical_paths = sorted(set(canonical_by_path) - source_paths)
-    live_results = {}
-    published_missing = [
-        rel for rel in missing_canonical_paths
-        if any(str(ref.get("verification_status") or "").lower() == "published" for ref in canonical_by_path[rel])
-    ]
-    if published_missing:
-        with ThreadPoolExecutor(max_workers=12) as pool:
-            futures = {pool.submit(fetch_live, rel, 1): rel for rel in published_missing}
-            for future in as_completed(futures):
-                rel = futures[future]
-                try:
-                    live_results[rel] = future.result()
-                except Exception as exc:
-                    live_results[rel] = {"http_status": None, "error_type": type(exc).__name__}
-
     missing_rows = []
     for rel in missing_canonical_paths:
         refs = canonical_by_path[rel]
         statuses = sorted({str(ref.get("verification_status") or "") for ref in refs})
-        live = live_results.get(rel)
-        if live and live.get("http_status") == 200:
-            classification = "historical_live_only_pre_release"
-        elif "published" in {status.lower() for status in statuses}:
-            classification = "published_but_unverified_missing"
-            failures.append(f"canonical published PDF is absent from source web and not verified live: {rel}")
+        present_root = rel in staged_paths
+        present_mirror = ("web/" + rel) in staged_paths
+        if present_root and present_mirror:
+            classification = "restored_into_exact_staging"
         else:
-            classification = "not_in_source_web_not_marked_published"
+            classification = "missing_from_exact_staging"
+            failures.append(f"canonical PDF missing from exact staged publication tree: {rel}")
         missing_rows.append({
             "path": rel,
             "ids": [ref.get("id") for ref in refs if ref.get("id")],
             "verification_statuses": statuses,
             "classification": classification,
-            "live_http_status": live.get("http_status") if live else None,
-            "live_sha256": live.get("sha256") if live and live.get("http_status") == 200 else None,
+            "present_in_staged_root": present_root,
+            "present_in_staged_web_mirror": present_mirror,
         })
 
     id69 = "doc-cz-pcr-krpt-2026-08-20-metodicko-odborne-vyjezdy-okte"
@@ -417,6 +410,8 @@ def audit_registry_reconciliation(staged_rows: list[dict]):
         "canonical_registry_unique_pdf_count": len(canonical_by_path),
         "public_registry_reference_count": len(public_refs),
         "source_web_pdf_count": len(source_paths),
+        "canonical_unique_pdf_count": len(canonical_pdf_paths),
+        "expected_root_pdf_count": len(expected_root_paths),
         "staged_pdf_count": len(staged_paths),
         "expected_staged_pdf_count": len(expected_staged_paths),
         "staged_set_exact_match": not stage_missing and not stage_extra,
