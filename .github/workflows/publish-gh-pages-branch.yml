@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   publish:
-    name: Sestavit, ověřit a publikovat jedinou produkční verzi
+    name: Trusted preflight; publikace jen po explicitní exact-SHA autorizaci
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -27,6 +27,55 @@ jobs:
         with:
           ref: ${{ github.sha }}
           fetch-depth: 0
+
+      - name: Určit trusted preflight vs explicitně autorizovanou publikaci
+        shell: bash
+        env:
+          PREVIOUS_SHA: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          auth_file=".release/evidence-lab-publication-authorization.json"
+          mode="preflight"
+          authorized_target=""
+
+          if [[ "$PREVIOUS_SHA" =~ ^[0-9a-f]{40}$ ]] && [[ "$PREVIOUS_SHA" != "0000000000000000000000000000000000000000" ]]; then
+            mapfile -t changed < <(git diff --name-only "$PREVIOUS_SHA" "$GITHUB_SHA")
+            if [ "${#changed[@]}" -eq 1 ] && [ "${changed[0]}" = "$auth_file" ]; then
+              python3 - "$auth_file" "$PREVIOUS_SHA" <<'PY'
+          import json, re, sys
+          from pathlib import Path
+
+          path = Path(sys.argv[1])
+          previous = sys.argv[2]
+          data = json.loads(path.read_text("utf-8"))
+          if data.get("schema_version") != 1:
+              raise SystemExit("publication authorization schema mismatch")
+          if data.get("authorization_scope") != "publish-evidence-lab-gh-pages":
+              raise SystemExit("publication authorization scope mismatch")
+          if data.get("authorized") is not True:
+              raise SystemExit("authorization-only commit must set authorized=true")
+          target = str(data.get("authorized_target_sha") or "")
+          if not re.fullmatch(r"[0-9a-f]{40}", target):
+              raise SystemExit("authorized_target_sha must be exact 40hex")
+          if target != previous:
+              raise SystemExit("authorized_target_sha must equal the immediately preceding main SHA")
+          print("Publication authorization file is structurally valid.")
+          PY
+              parent="$(git rev-parse "$GITHUB_SHA^")"
+              test "$parent" = "$PREVIOUS_SHA"
+              mode="publish"
+              authorized_target="$PREVIOUS_SHA"
+            fi
+          fi
+
+          echo "RELEASE_MODE=$mode" >> "$GITHUB_ENV"
+          echo "AUTHORIZED_TARGET_SHA=$authorized_target" >> "$GITHUB_ENV"
+          echo "Release mode: $mode"
+          if [ "$mode" = "publish" ]; then
+            echo "Authorized target SHA: $authorized_target"
+          else
+            echo "Trusted preflight only; gh-pages push is disabled."
+          fi
 
       - name: Snapshot canonical registry before any build reconciliation
         shell: bash
@@ -418,7 +467,26 @@ jobs:
           EVIDENCE_LAB_PUBLICATION_ROOT: /tmp/verified-site
         run: python3 scripts/audit-release-evidence-2026-11-13.py
 
+      - name: Vytvořit necitlivý trusted preflight per-output report
+        run: python3 scripts/build-trusted-preflight-public-report.py
+
+      - name: Uložit trusted preflight report pro nezávislý review
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-lab-trusted-preflight-${{ github.sha }}
+          path: review-artifacts/trusted-preflight-public-report.json
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Potvrdit preflight-only režim bez publikace
+        if: env.RELEASE_MODE != 'publish'
+        run: |
+          echo "Trusted preflight completed successfully."
+          echo "No gh-pages write was attempted."
+          echo "A separate main commit changing only .release/evidence-lab-publication-authorization.json is required for publication."
+
       - name: Publikovat ověřené soubory do jediné větve gh-pages
+        if: env.RELEASE_MODE == 'publish'
         shell: bash
         run: |
           set -euo pipefail
@@ -497,6 +565,7 @@ jobs:
           git push --force origin HEAD:gh-pages
 
       - name: Ověřit živou produkci po publikaci
+        if: env.RELEASE_MODE == 'publish'
         shell: bash
         run: |
           set -euo pipefail
