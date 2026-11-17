@@ -111,6 +111,56 @@ def embedded_file_object_count(doc) -> int:
             count += 1
     return count
 
+def pdf_revision_envelope(raw: bytes) -> dict:
+    eof_matches = list(re.finditer(br"%%EOF", raw))
+    startxref_matches = list(re.finditer(br"startxref\s+(\d+)\s+%%EOF", raw))
+    eof_present = bool(eof_matches)
+    suffix_non_whitespace = False
+    if eof_present:
+        suffix_non_whitespace = bool(raw[eof_matches[-1].end():].strip())
+
+    xref_offsets = [int(match.group(1)) for match in startxref_matches]
+    xref_offsets_unique = len(xref_offsets) == len(set(xref_offsets))
+    startxref_matches_all_eofs = (
+        len(startxref_matches) == len(eof_matches)
+        and {match.end() for match in startxref_matches} == {match.end() for match in eof_matches}
+    )
+
+    xref_targets_valid = True
+    invalid_xref_offsets = []
+    for offset in xref_offsets:
+        if offset < 0 or offset >= len(raw):
+            xref_targets_valid = False
+            invalid_xref_offsets.append(offset)
+            continue
+        tail = raw[offset:offset + 2048]
+        traditional = tail.startswith(b"xref")
+        stream = bool(re.match(br"\d+\s+\d+\s+obj\b", tail)) and bool(
+            re.search(br"/Type\s*/XRef\b", tail)
+        )
+        if not (traditional or stream):
+            xref_targets_valid = False
+            invalid_xref_offsets.append(offset)
+
+    structurally_bound = bool(
+        eof_present
+        and startxref_matches_all_eofs
+        and xref_offsets_unique
+        and xref_targets_valid
+        and not suffix_non_whitespace
+    )
+    return {
+        "pdf_eof_present": eof_present,
+        "pdf_eof_count": len(eof_matches),
+        "pdf_startxref_count": len(startxref_matches),
+        "pdf_startxref_offsets_unique": xref_offsets_unique,
+        "pdf_startxref_targets_valid": xref_targets_valid,
+        "pdf_invalid_startxref_offsets": invalid_xref_offsets,
+        "pdf_revision_markers_bound": structurally_bound,
+        "non_whitespace_suffix_after_pdf_eof": suffix_non_whitespace,
+    }
+
+
 def pdf_facts(path: Path) -> dict:
     header_offset = pdf_header_offset(path)
     raw = path.read_bytes()
@@ -118,16 +168,15 @@ def pdf_facts(path: Path) -> dict:
     if header_offset is not None and header_offset > 0:
         prefix_non_whitespace = bool(raw[:header_offset].strip())
 
-    eof_offset = raw.rfind(b"%%EOF")
-    eof_present = eof_offset >= 0
-    suffix_non_whitespace = False
-    if eof_present:
-        suffix_non_whitespace = bool(raw[eof_offset + len(b"%%EOF"):].strip())
+    envelope = pdf_revision_envelope(raw)
+    eof_present = envelope["pdf_eof_present"]
+    suffix_non_whitespace = envelope["non_whitespace_suffix_after_pdf_eof"]
+    raw_private_hits = forbidden_public_identifiers(raw.decode("latin-1", errors="ignore"))
 
     # Fail before invoking any PDF parser when bytes exist outside the accepted
-    # PDF envelope. Prefix/suffix payloads remain downloadable but may be ignored
-    # by PDF parsers, so they are publication blockers.
-    if prefix_non_whitespace or not eof_present or suffix_non_whitespace:
+    # PDF revision envelope, when startxref/EOF markers are forged or ambiguous,
+    # or when authenticated private literals occur anywhere in raw downloadable bytes.
+    if prefix_non_whitespace or not envelope["pdf_revision_markers_bound"] or raw_private_hits:
         return {
             "page_count": None,
             "metadata_keys_present": [],
@@ -146,13 +195,18 @@ def pdf_facts(path: Path) -> dict:
             },
             "machine_privacy_status": "FAIL_PRIVATE_OR_METADATA_CHANNEL",
             "human_privacy_review_required": True,
-            "known_private_identifier_hits": [],
+            "known_private_identifier_hits": raw_private_hits,
             "text_extraction_engines": [],
             "public_copy_notice_present": False,
             "not_byte_identical_notice_present": False,
             "pdf_header_offset": header_offset,
             "non_whitespace_prefix_before_pdf_header": prefix_non_whitespace,
             "pdf_eof_present": eof_present,
+            "pdf_eof_count": envelope["pdf_eof_count"],
+            "pdf_startxref_count": envelope["pdf_startxref_count"],
+            "pdf_startxref_offsets_unique": envelope["pdf_startxref_offsets_unique"],
+            "pdf_startxref_targets_valid": envelope["pdf_startxref_targets_valid"],
+            "pdf_revision_markers_bound": envelope["pdf_revision_markers_bound"],
             "non_whitespace_suffix_after_pdf_eof": suffix_non_whitespace,
         }
 
@@ -173,7 +227,7 @@ def pdf_facts(path: Path) -> dict:
 
     metadata_text = "\n".join(str(v) for v in meta.values())
     combined_private_scan = page_text + "\n" + metadata_text + "\n" + xmp
-    private_hits = forbidden_public_identifiers(combined_private_scan)
+    private_hits = sorted(set(forbidden_public_identifiers(combined_private_scan) + raw_private_hits))
 
     suspicious_re = re.compile(r"(?i)([\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|/Users/|/home/|[A-Z]:\\\\Users\\\\)")
     suspicious_metadata_keys = sorted(k for k, v in meta.items() if suspicious_re.search(str(v)))
@@ -187,12 +241,17 @@ def pdf_facts(path: Path) -> dict:
     page_count = doc.page_count
     doc.close()
 
-    machine_failure = bool(prefix_non_whitespace or not eof_present or suffix_non_whitespace or embedded or file_attachment_annotations or associated_file_references or embedded_file_objects or suspicious_metadata_keys or xmp_suspicious or private_hits)
+    machine_failure = bool(prefix_non_whitespace or not envelope["pdf_revision_markers_bound"] or embedded or file_attachment_annotations or associated_file_references or embedded_file_objects or suspicious_metadata_keys or xmp_suspicious or private_hits)
     return {
         "page_count": page_count,
         "pdf_header_offset": header_offset,
         "non_whitespace_prefix_before_pdf_header": prefix_non_whitespace,
         "pdf_eof_present": eof_present,
+        "pdf_eof_count": envelope["pdf_eof_count"],
+        "pdf_startxref_count": envelope["pdf_startxref_count"],
+        "pdf_startxref_offsets_unique": envelope["pdf_startxref_offsets_unique"],
+        "pdf_startxref_targets_valid": envelope["pdf_startxref_targets_valid"],
+        "pdf_revision_markers_bound": envelope["pdf_revision_markers_bound"],
         "non_whitespace_suffix_after_pdf_eof": suffix_non_whitespace,
         "metadata_keys_present": sorted(meta.keys()),
         "embedded_file_count": embedded,
@@ -327,6 +386,7 @@ def audit_registry_public_derivatives():
         checks = {
             "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
             "pdf_eof_present": facts["pdf_eof_present"],
+            "pdf_revision_markers_bound": facts["pdf_revision_markers_bound"],
             "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
             "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
             "known_private_identifiers_absent": not facts["known_private_identifier_hits"],
@@ -400,6 +460,7 @@ def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
             "excluded_id69_digest_absent": file_sha != EXCLUDED_ID69_SHA256,
             "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
             "pdf_eof_present": facts["pdf_eof_present"],
+            "pdf_revision_markers_bound": facts["pdf_revision_markers_bound"],
             "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
             "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
             "forbidden_identifiers_absent": not facts["known_private_identifier_hits"],
