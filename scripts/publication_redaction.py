@@ -86,7 +86,7 @@ def _verify_private_policy_authentication(contract: dict, data: dict) -> str:
     return actual
 
 
-def load_private_policy() -> tuple[dict, list[tuple[str, re.Pattern[str], str]], list[re.Pattern[str]], str]:
+def authenticated_private_policy_document() -> tuple[dict, dict, str]:
     contract = _load_contract()
     path = _private_policy_path(contract)
     data = json.loads(path.read_text("utf-8"))
@@ -97,6 +97,11 @@ def load_private_policy() -> tuple[dict, list[tuple[str, re.Pattern[str], str]],
     if data.get("revision_token") != contract.get("revision_token"):
         raise RedactionPolicyError("private redaction policy token mismatch")
     authenticated_identity = _verify_private_policy_authentication(contract, data)
+    return contract, data, authenticated_identity
+
+
+def load_private_policy() -> tuple[dict, list[tuple[str, re.Pattern[str], str]], list[re.Pattern[str]], str]:
+    contract, data, authenticated_identity = authenticated_private_policy_document()
 
     rules = [_compile_rule(rule) for rule in data.get("rules") or []]
     if not rules:
