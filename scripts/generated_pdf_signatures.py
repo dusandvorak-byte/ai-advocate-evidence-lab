@@ -9,7 +9,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
+from publication_redaction import verified_private_policy_identity
+
 POLICY = ROOT / "scripts/publication_redaction.py"
+POLICY_CONTRACT = ROOT / "project-memory/private-redaction-policy-contract.json"
 GENERATORS = [
     "scripts/materialize-godot-state-text-pdfs.py",
     "scripts/materialize-godot-late-state-pdfs.py",
@@ -41,7 +44,7 @@ def source_paths(script: str, ns: dict) -> list[Path]:
 def group_signature(script: str) -> dict:
     generator = ROOT / script
     ns = runpy.run_path(str(generator), run_name=f"signature_{generator.stem}")
-    components = [generator, POLICY, *source_paths(script, ns)]
+    components = [generator, POLICY, POLICY_CONTRACT, *source_paths(script, ns)]
     rows = []
     for path in components:
         if not path.exists():
@@ -50,6 +53,10 @@ def group_signature(script: str) -> dict:
             "path": path.relative_to(ROOT).as_posix(),
             "sha256": sha256(path),
         })
+    rows.append({
+        "path": "private-redaction-policy:authenticated-hmac",
+        "sha256": verified_private_policy_identity(),
+    })
     canonical = json.dumps(rows, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return {
         "input_fingerprint": hashlib.sha256(canonical).hexdigest(),
