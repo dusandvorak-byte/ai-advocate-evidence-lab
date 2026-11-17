@@ -361,6 +361,17 @@ private.person@example.invalid
         self.assertTrue(forbidden_public_identifier_byte_hits(literal.encode("utf-8")))
         self.assertTrue(forbidden_public_identifier_byte_hits(literal.encode("cp1250")))
 
+    def test_raw_private_literal_scan_decodes_pdf_hex_and_octal_strings(self):
+        self.write_policy_and_contract()
+        from publication_redaction import forbidden_public_identifier_byte_hits
+        literal = "Příliš žluťoučký kůň 42"
+        utf8 = literal.encode("utf-8")
+        hex_pdf = b"<< /Unused <" + utf8.hex().encode("ascii") + b"> >>"
+        octal = b"".join((f"\\{byte:03o}".encode("ascii") for byte in utf8))
+        literal_pdf = b"<< /Unused (" + octal + b") >>"
+        self.assertTrue(forbidden_public_identifier_byte_hits(hex_pdf))
+        self.assertTrue(forbidden_public_identifier_byte_hits(literal_pdf))
+
     def test_release_audit_rejects_unique_fake_xref_revision(self):
         self.write_policy_and_contract()
         ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_unique_fake_xref_test")
