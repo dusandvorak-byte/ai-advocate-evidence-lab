@@ -27,6 +27,13 @@ jobs:
           ref: main
           fetch-depth: 0
 
+      - name: Snapshot canonical registry before any build reconciliation
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp project-memory/documents-2026.json "$RUNNER_TEMP/canonical-documents-2026-prebuild.json"
+          echo "EVIDENCE_LAB_CANONICAL_REGISTRY=$RUNNER_TEMP/canonical-documents-2026-prebuild.json" >> "$GITHUB_ENV"
+
       - name: Použít Node.js 24
         uses: actions/setup-node@v4
         with:
@@ -323,11 +330,11 @@ jobs:
           # Never blanket-copy gh-pages. Every recovered file must match the canonical SHA.
           git fetch --no-tags origin refs/heads/gh-pages:refs/remotes/origin/gh-pages
           python3 - <<'PY'
-          import hashlib, json, subprocess
+          import hashlib, json, os, re, subprocess
           from pathlib import Path
 
           root = Path("/tmp/verified-site")
-          registry = json.loads(Path("project-memory/documents-2026.json").read_text("utf-8"))
+          registry = json.loads(Path(os.environ["EVIDENCE_LAB_CANONICAL_REGISTRY"]).read_text("utf-8"))
           excluded_id = "doc-cz-pcr-krpt-2026-08-20-metodicko-odborne-vyjezdy-okte"
           restored = []
 
@@ -340,10 +347,17 @@ jobs:
               if not rel:
                   continue
               target = root / rel
+              if not re.fullmatch(r"[0-9a-f]{64}", expected_sha):
+                  raise SystemExit(f"canonical PDF lacks valid SHA-256 provenance: {rel}")
+
               if target.exists():
+                  payload = target.read_bytes()
+                  if not payload.startswith(b"%PDF-"):
+                      raise SystemExit(f"checked-in canonical asset is not a PDF: {rel}")
+                  actual_sha = hashlib.sha256(payload).hexdigest()
+                  if actual_sha != expected_sha:
+                      raise SystemExit(f"checked-in canonical PDF SHA mismatch: {rel}")
                   continue
-              if not expected_sha or len(expected_sha) != 64:
-                  raise SystemExit(f"cannot preserve canonical historical PDF without SHA-256: {rel}")
 
               payload = None
               source_ref = None
