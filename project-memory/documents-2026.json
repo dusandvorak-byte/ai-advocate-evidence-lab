@@ -230,7 +230,8 @@
         "sha256": "7743a0d0cf03b00423cf85a2baf619ccd0dbb467c953afdffe8cb1bef4548b4f",
         "verification_status": "published",
         "source_manifest": "project-memory/pdf-link-overrides.json",
-        "sha256_provenance": "project-memory/pdf-link-overrides.json"
+        "sha256_provenance": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance_status": "binding-manifest-exact-digest-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -252,7 +253,8 @@
         "sha256": "33086830279d85789e32590b0e725ce969ae222694e8f4d936b49b9cec7850dd",
         "verification_status": "published",
         "source_manifest": "project-memory/pdf-link-overrides.json",
-        "sha256_provenance": "project-memory/pdf-link-overrides.json"
+        "sha256_provenance": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance_status": "binding-manifest-exact-digest-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -274,7 +276,8 @@
         "sha256": "d3fe12fd3209be4984dcf291f945337d2d7033e94b26561e9c547e1e10850fa8",
         "verification_status": "published",
         "source_manifest": "project-memory/pdf-link-overrides.json",
-        "sha256_provenance": "project-memory/pdf-link-overrides.json"
+        "sha256_provenance": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance_status": "binding-manifest-exact-digest-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -813,7 +816,8 @@
         "sha256": "c43c816b79295749c5da876050d540689ce8c80c85939ab4f0dc3478b5c7a6af",
         "verification_status": "published",
         "source_manifest": "project-memory/pdf-link-overrides.json",
-        "sha256_provenance": "project-memory/pdf-link-overrides.json"
+        "sha256_provenance": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance_status": "binding-manifest-exact-digest-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
