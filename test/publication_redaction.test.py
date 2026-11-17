@@ -287,6 +287,22 @@ private.person@example.invalid
         paths = {p.name for p in ns["publication_pdf_paths"](root)}
         self.assertEqual(paths, {"lower.pdf", "mixed.PDF", "odd.bin"})
 
+    def test_release_audit_rejects_catalog_and_page_associated_files(self):
+        ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_af_test")
+
+        pdf = self.tmpdir / "associated-files.pdf"
+        doc = fitz.open()
+        page = doc.new_page()
+        doc.xref_set_key(doc.pdf_catalog(), "AF", f"[{page.xref} 0 R]")
+        doc.xref_set_key(page.xref, "AF", f"[{doc.pdf_catalog()} 0 R]")
+        doc.save(pdf)
+        doc.close()
+
+        reopened = fitz.open(pdf)
+        count = ns["associated_file_reference_count"](reopened)
+        reopened.close()
+        self.assertEqual(count, 2)
+
     def test_verified_identity_is_authenticated_hmac(self):
         self.write_policy_and_contract()
         identity = redaction.verified_private_policy_identity()
