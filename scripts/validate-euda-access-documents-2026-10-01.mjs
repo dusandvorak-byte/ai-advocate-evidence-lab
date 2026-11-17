@@ -30,7 +30,14 @@ if (!objection?.relations?.some(rel => rel.type === 'podani_na_ktere_organ_reagu
 const pdfPath = 'web/' + item.public.pdf;
 const bytes = await readFile(pdfPath);
 if (!bytes.subarray(0, 5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF') || bytes.length < 5000) fail('veřejná PDF kopie je neúplná');
-if (sha256(bytes) !== item.public.sha256) fail('SHA-256 veřejné PDF kopie neodpovídá registru');
+// The source supplement records the original provenance, but privacy hardening can
+// change the generated public derivative. Compare its final bytes with the post-hardening
+// canonical registry, rather than the generator's pre-hardening supplement digest.
+const canonical = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
+const canonicalItem = canonical.documents?.find(entry => entry.id === item.id);
+if (!canonicalItem || canonicalItem.public?.pdf !== item.public.pdf) fail('kanonický veřejný záznam/cesta chybí nebo nesouhlasí');
+if (!/^[a-f0-9]{64}$/i.test(String(canonicalItem.public?.sha256 || ''))) fail('kanonický veřejný SHA-256 není doložen');
+if (sha256(bytes) !== canonicalItem.public.sha256) fail('SHA-256 finální zredigované PDF neodpovídá kanonickému registru');
 
 const cz = await readFile('web/zpravy/04082026-010.html', 'utf8');
 const en = await readFile('web/news/04082026-010.html', 'utf8');
