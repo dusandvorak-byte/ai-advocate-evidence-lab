@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from publication_redaction import forbidden_public_identifiers
 WEB = ROOT / "web"
 PUBLICATION_ROOT = Path(os.environ.get("EVIDENCE_LAB_PUBLICATION_ROOT", str(WEB))).resolve()
+CANONICAL_REGISTRY = Path(os.environ.get("EVIDENCE_LAB_CANONICAL_REGISTRY", str(ROOT / "project-memory/documents-2026.json"))).resolve()
 OUT = ROOT / "review-artifacts" / "release-evidence-audit.json"
 LIVE_BASE = "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/"
 
@@ -344,7 +345,7 @@ def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
 
 
 def audit_registry_reconciliation(staged_rows: list[dict]):
-    canonical_path = ROOT / "project-memory/documents-2026.json"
+    canonical_path = CANONICAL_REGISTRY
     public_registry_path = WEB / "data/documents-2026.json"
     canonical = json.loads(canonical_path.read_text("utf-8"))
     public_registry = json.loads(public_registry_path.read_text("utf-8"))
