@@ -136,18 +136,122 @@ def redact_public_text(text: str) -> str:
     return out
 
 
+def _pdf_decoded_string_payloads(raw: bytes) -> list[bytes]:
+    payloads: list[bytes] = []
+    n = len(raw)
+    i = 0
+    hex_chars = b"0123456789abcdefABCDEF"
+
+    while i < n:
+        byte = raw[i]
+
+        # PDF hex string: <...>, excluding dictionary delimiters <<...>>.
+        if byte == 0x3C and not (i + 1 < n and raw[i + 1] == 0x3C):
+            j = i + 1
+            buf = bytearray()
+            valid = True
+            while j < n and raw[j] != 0x3E:
+                b = raw[j]
+                if b in b" \t\r\n\x0c\x00":
+                    j += 1
+                    continue
+                if b not in hex_chars:
+                    valid = False
+                    break
+                buf.append(b)
+                j += 1
+            if valid and j < n and raw[j] == 0x3E and buf:
+                if len(buf) % 2:
+                    buf.append(ord("0"))
+                try:
+                    payloads.append(bytes.fromhex(buf.decode("ascii")))
+                except ValueError:
+                    pass
+                i = j + 1
+                continue
+
+        # PDF literal string with balanced parentheses and PDF escape/octal decoding.
+        if byte == 0x28:
+            j = i + 1
+            depth = 1
+            out = bytearray()
+            while j < n and depth:
+                b = raw[j]
+                if b == 0x5C:  # backslash
+                    j += 1
+                    if j >= n:
+                        break
+                    esc = raw[j]
+                    escapes = {
+                        ord("n"): 0x0A,
+                        ord("r"): 0x0D,
+                        ord("t"): 0x09,
+                        ord("b"): 0x08,
+                        ord("f"): 0x0C,
+                        ord("("): 0x28,
+                        ord(")"): 0x29,
+                        ord("\\"): 0x5C,
+                    }
+                    if esc in escapes:
+                        out.append(escapes[esc])
+                        j += 1
+                        continue
+                    if 0x30 <= esc <= 0x37:
+                        digits = bytearray([esc])
+                        j += 1
+                        while j < n and len(digits) < 3 and 0x30 <= raw[j] <= 0x37:
+                            digits.append(raw[j])
+                            j += 1
+                        out.append(int(digits.decode("ascii"), 8) & 0xFF)
+                        continue
+                    if esc == 0x0D:
+                        j += 1
+                        if j < n and raw[j] == 0x0A:
+                            j += 1
+                        continue
+                    if esc == 0x0A:
+                        j += 1
+                        continue
+                    out.append(esc)
+                    j += 1
+                    continue
+                if b == 0x28:
+                    depth += 1
+                    if depth > 1:
+                        out.append(b)
+                    j += 1
+                    continue
+                if b == 0x29:
+                    depth -= 1
+                    if depth:
+                        out.append(b)
+                    j += 1
+                    continue
+                out.append(b)
+                j += 1
+            if depth == 0 and out:
+                payloads.append(bytes(out))
+                i = j
+                continue
+        i += 1
+
+    return payloads
+
+
 def forbidden_public_identifier_byte_hits(raw: bytes) -> list[str]:
     _, data, _ = authenticated_private_policy_document()
     items = list(data.get("rules") or []) + list(data.get("forbidden") or [])
     hits = []
     seen = set()
 
+    byte_candidates = [raw] + _pdf_decoded_string_payloads(raw)
     decoded_variants = []
-    for encoding in ("utf-8", "cp1250", "iso-8859-2", "utf-16-be", "utf-16-le"):
-        try:
-            decoded_variants.append(raw.decode(encoding, errors="ignore"))
-        except LookupError:
-            pass
+    for candidate in byte_candidates:
+        for encoding in ("utf-8", "cp1250", "iso-8859-2", "utf-16-be", "utf-16-le"):
+            try:
+                decoded_variants.append(candidate.decode(encoding, errors="ignore"))
+            except LookupError:
+                pass
 
     for index, item in enumerate(items, start=1):
         mode = str(item.get("mode") or "literal").strip()
@@ -163,7 +267,7 @@ def forbidden_public_identifier_byte_hits(raw: bytes) -> list[str]:
                         encoded = variant.encode(encoding)
                     except UnicodeEncodeError:
                         continue
-                    if encoded and encoded in raw:
+                    if encoded and any(encoded in candidate for candidate in byte_candidates):
                         matched = True
                         break
                 if matched:
