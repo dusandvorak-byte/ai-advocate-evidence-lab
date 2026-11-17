@@ -257,6 +257,50 @@ def pdf_facts(path: Path) -> dict:
 
     doc = fitz.open(path)
     decoded_object_hits = decoded_pdf_object_private_hits(doc)
+
+    # If authenticated private data exists in any decoded object/stream, fail
+    # before invoking page/text extractors. The leak is already proven and no
+    # parser-dependent continuation can make publication safe.
+    if decoded_object_hits:
+        page_count = doc.page_count
+        doc.close()
+        return {
+            "page_count": page_count,
+            "pdf_header_offset": header_offset,
+            "non_whitespace_prefix_before_pdf_header": prefix_non_whitespace,
+            "pdf_eof_present": eof_present,
+            "pdf_eof_count": envelope["pdf_eof_count"],
+            "pdf_startxref_count": envelope["pdf_startxref_count"],
+            "pdf_startxref_offsets_unique": envelope["pdf_startxref_offsets_unique"],
+            "pdf_startxref_targets_valid": envelope["pdf_startxref_targets_valid"],
+            "pdf_single_revision_only": envelope["pdf_single_revision_only"],
+            "pdf_revision_markers_bound": envelope["pdf_revision_markers_bound"],
+            "qpdf_structurally_valid": qpdf_valid,
+            "qpdf_check_tail": qpdf_output,
+            "non_whitespace_suffix_after_pdf_eof": suffix_non_whitespace,
+            "metadata_keys_present": [],
+            "embedded_file_count": 0,
+            "file_attachment_annotation_count": 0,
+            "associated_file_reference_count": 0,
+            "embedded_file_object_count": 0,
+            "suspicious_metadata_keys": [],
+            "xmp_present": False,
+            "xmp_suspicious": False,
+            "xmp_known_private_identifier_hits": [],
+            "content_privacy_signals": {
+                "email_like_count": 0,
+                "czech_birth_number_like_count": 0,
+                "phone_like_count": 0,
+            },
+            "machine_privacy_status": "FAIL_PRIVATE_OR_METADATA_CHANNEL",
+            "human_privacy_review_required": True,
+            "known_private_identifier_hits": decoded_object_hits,
+            "decoded_object_private_identifier_hits": decoded_object_hits,
+            "text_extraction_engines": ["PyMuPDF/xref_stream"],
+            "public_copy_notice_present": False,
+            "not_byte_identical_notice_present": False,
+        }
+
     fitz_text = "\n".join(page.get_text("text") for page in doc)
     poppler = subprocess.run(
         ["pdftotext", "-enc", "UTF-8", str(path), "-"],
