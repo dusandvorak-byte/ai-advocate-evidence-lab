@@ -155,6 +155,22 @@ private.person@example.invalid
         with self.assertRaises(SystemExit):
             ns["private_pdf_rules"]()
 
+    def test_rejects_scalar_pdf_variants(self):
+        payload = self.policy_payload()
+        payload["rules"][-1]["pdf_variants"] = "SecretTown 42, 123 45"
+        self.write_policy_and_contract(payload)
+        ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"), run_name="privacy_hardening_scalar_test")
+        with self.assertRaises(SystemExit):
+            ns["private_pdf_rules"]()
+
+    def test_rule_is_post_checked_even_if_missing_from_forbidden_list(self):
+        payload = self.policy_payload()
+        payload["forbidden"] = payload["forbidden"][1:]
+        self.write_policy_and_contract(payload)
+        hits = redaction.forbidden_public_identifiers("private.person@example.invalid")
+        self.assertTrue(hits)
+        self.assertTrue(all("example.invalid" not in hit for hit in hits))
+
     def test_synthetic_pdf_line_wrapped_address_is_redacted_in_text_and_render(self):
         self.write_policy_and_contract()
         ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"), run_name="privacy_hardening_e2e")
