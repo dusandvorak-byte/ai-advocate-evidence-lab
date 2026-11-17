@@ -182,7 +182,7 @@ def qpdf_structural_check(path: Path) -> tuple[bool, str]:
 def inline_image_operator_present(stream: bytes) -> bool:
     # Fail-closed: nested inline-image filters are not fully decoded by xref_stream().
     # Reject content that lexically contains the BI ... ID inline-image operator pair.
-    return bool(re.search(br"(?s)(?<![A-Za-z0-9])BI(?:\s|/).{0,8192}?\sID(?:\s|\r|\n)", stream))
+    return bool(re.search(br"(?s)(?<![A-Za-z0-9])BI(?:\s|/).*?\sID(?:\s|\r|\n)", stream))
 
 
 def decoded_pdf_object_private_hits(doc) -> tuple[list[str], int]:
