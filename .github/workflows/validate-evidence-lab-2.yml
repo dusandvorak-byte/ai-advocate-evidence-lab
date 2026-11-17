@@ -133,6 +133,8 @@ jobs:
 
       - name: Spustit pouze syntetické privacy regrese bez repository Secrets
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq qpdf
           python3 test/publication_redaction.test.py
 
       - name: Fail closed on canonical PDF records without SHA-256 provenance
