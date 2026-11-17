@@ -8,6 +8,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen.canvas import Canvas
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -57,6 +58,10 @@ notice = ParagraphStyle(
 
 OUT.mkdir(parents=True, exist_ok=True)
 
+def deterministic_canvas(*args, **kwargs):
+    kwargs["invariant"] = 1
+    return Canvas(*args, **kwargs)
+
 all_jobs = [(SOURCE / source_name, out_name) for source_name, out_name in JOBS.items()]
 all_jobs.extend(EXTRA_JOBS.items())
 
@@ -86,7 +91,7 @@ for source_path, out_name in all_jobs:
         author="Evidence Lab - verified public copy",
         subject="Verified public copy from complete text output of user-supplied PDF",
     )
-    doc.build(story)
+    doc.build(story, canvasmaker=deterministic_canvas)
     data = target.read_bytes()
     if not data.startswith(b"%PDF-") or b"%%EOF" not in data[-2048:]:
         raise SystemExit(f"Invalid generated PDF: {target}")
