@@ -258,6 +258,35 @@ private.person@example.invalid
         after_doc.close()
         self.assertEqual(xmp, "")
 
+    def test_release_audit_detects_file_attachment_annotations(self):
+        ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_attachment_test")
+        pdf = self.tmpdir / "attachment.pdf"
+        doc = fitz.open()
+        page = doc.new_page()
+        page.insert_text((72, 72), "Public text only")
+        page.add_file_annot((72, 96), b"synthetic private attachment", "private.txt")
+        doc.save(pdf)
+        doc.close()
+
+        reopened = fitz.open(pdf)
+        count = ns["file_attachment_annotation_count"](reopened)
+        reopened.close()
+        self.assertEqual(count, 1)
+
+    def test_release_audit_enumerates_mixed_case_and_signature_pdfs(self):
+        ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_inventory_test")
+        root = self.tmpdir / "tree"
+        root.mkdir()
+
+        for filename in ("lower.pdf", "mixed.PDF", "odd.bin"):
+            doc = fitz.open()
+            doc.new_page()
+            doc.save(root / filename)
+            doc.close()
+
+        paths = {p.name for p in ns["publication_pdf_paths"](root)}
+        self.assertEqual(paths, {"lower.pdf", "mixed.PDF", "odd.bin"})
+
     def test_verified_identity_is_authenticated_hmac(self):
         self.write_policy_and_contract()
         identity = redaction.verified_private_policy_identity()
