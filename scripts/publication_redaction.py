@@ -137,9 +137,22 @@ def redact_public_text(text: str) -> str:
 
 
 def forbidden_public_identifiers(text: str) -> list[str]:
-    _, _, forbidden, _ = load_private_policy()
-    # Return only stable opaque matcher labels, never the private values/patterns.
-    return [f"private_match_{index + 1}" for index, pattern in enumerate(forbidden) if pattern.search(text)]
+    _, rules, forbidden, _ = load_private_policy()
+    # Post-check every redaction rule as well as the explicit forbidden list.
+    # De-duplicate identical matcher expressions so reporting stays stable and opaque.
+    combined = []
+    seen = set()
+    for _, pattern, _ in rules:
+        key = (pattern.pattern, pattern.flags)
+        if key not in seen:
+            seen.add(key)
+            combined.append(pattern)
+    for pattern in forbidden:
+        key = (pattern.pattern, pattern.flags)
+        if key not in seen:
+            seen.add(key)
+            combined.append(pattern)
+    return [f"private_match_{index + 1}" for index, pattern in enumerate(combined) if pattern.search(text)]
 
 
 if __name__ == "__main__":
