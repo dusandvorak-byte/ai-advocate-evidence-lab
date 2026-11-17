@@ -331,6 +331,15 @@ private.person@example.invalid
         rows, failures = ns["audit_all_web_pdfs"](root)
         self.assertTrue(any("inline-image.pdf" in failure and "inline_images_absent" in failure for failure in failures))
 
+    def test_release_audit_rejects_inline_image_operator_beyond_8192_bytes(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_inline_image_long_test")
+
+        padding = b"/Comment (" + (b"A" * 9000) + b") "
+        stream = b"q\nBI /W 1 /H 1 /CS /G /BPC 8 " + padding + b"ID\nX\nEI\nQ\n"
+
+        self.assertTrue(ns["inline_image_operator_present"](stream))
+
     def test_frozen_provenance_contract_rejects_status_switch(self):
         expected = {
             "id": "doc-example",
