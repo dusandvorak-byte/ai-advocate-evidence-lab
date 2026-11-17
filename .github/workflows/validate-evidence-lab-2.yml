@@ -185,6 +185,9 @@ jobs:
       - name: Obnovit společnou jazykovou nabídku po všech generátorech
         run: node scripts/build-language-access.mjs
 
+      - name: Fail closed if withdrawn ID 69 reappears after terminal public writers
+        run: node scripts/validate-release-exclusions.mjs
+
       - name: Validate final public navigation after terminal writers
         run: node scripts/validate-public-navigation.mjs
 
@@ -311,7 +314,7 @@ jobs:
           test -f web/data/generated-state-pdf-manifest.json
           test -f web/data/generated-state-pdf-manifest-2026-09-03.json
           test -f web/zpravy/04082026-010.html
-          test "$(jq -r '.count' web/data/generated-state-pdf-manifest.json)" = '8'
+          test "$(jq -r '.count' web/data/generated-state-pdf-manifest.json)" = '7'
           test "$(jq -r '.count' web/data/generated-state-pdf-manifest-2026-09-03.json)" = '2'
           state_count="$(jq -r '.counts.state_public_submissions' web/data/build-manifest.json)"
           test "$state_count" -ge 84
@@ -335,10 +338,11 @@ jobs:
           grep -q 'KU-4139-12/ČJ-2026-2305KM' web/zpravy/04082026-010.html
           grep -q 'KRPT-203594-8/ČJ-2026-0700KR' web/zpravy/04082026-010.html
           grep -q 'PPR-44020-2/ČJ-2026-990210-PD' web/zpravy/04082026-010.html
-          for f in web/documents/report-04082026-010/{64-msz-praha-2-kzn-55-2025-136-2026-08-20,65-ku-4139-12-cj-2026-2305km-2026-08-20,66-krpt-203594-7-cj-2026-0700kr-2026-08-20,67-krpt-priloha-rr-ku-54-2021,68-krpt-priloha-rr-ku-54-2021-priloha-1,69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019,70-krpt-203594-8-cj-2026-0700kr-2026-08-20,71-ppr-44020-2-cj-2026-990210-pd-2026-08-24}.pdf; do
+          for f in web/documents/report-04082026-010/{64-msz-praha-2-kzn-55-2025-136-2026-08-20,65-ku-4139-12-cj-2026-2305km-2026-08-20,66-krpt-203594-7-cj-2026-0700kr-2026-08-20,67-krpt-priloha-rr-ku-54-2021,68-krpt-priloha-rr-ku-54-2021-priloha-1,70-krpt-203594-8-cj-2026-0700kr-2026-08-20,71-ppr-44020-2-cj-2026-990210-pd-2026-08-24}.pdf; do
             test -f "$f"
             test "$(head -c 5 "$f")" = '%PDF-'
           done
+          test ! -e web/documents/report-04082026-010/69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf
           for f in web/documents/report-04082026-010/{kpr-5080-2026-vyrizeni-stiznosti-2026-09-02-verejna-kopie,osz-fm-1-zn-7061-2026-79-2026-09-03-verejna-kopie}.pdf; do
             test -f "$f"
             test "$(head -c 5 "$f")" = '%PDF-'

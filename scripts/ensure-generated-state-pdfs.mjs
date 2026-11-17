@@ -19,7 +19,6 @@ export const generatorGroups = [
       '66-krpt-203594-7-cj-2026-0700kr-2026-08-20.pdf',
       '67-krpt-priloha-rr-ku-54-2021.pdf',
       '68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf',
-      '69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf',
       '70-krpt-203594-8-cj-2026-0700kr-2026-08-20.pdf',
       '71-ppr-44020-2-cj-2026-990210-pd-2026-08-24.pdf',
     ],
