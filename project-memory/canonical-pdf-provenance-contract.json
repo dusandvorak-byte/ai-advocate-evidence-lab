@@ -10,7 +10,8 @@
       "status": "binding-manifest-exact-digest-verified",
       "evidence": {
         "type": "manifest",
-        "manifest": "project-memory/pdf-link-overrides.json"
+        "manifest": "project-memory/pdf-link-overrides.json",
+        "manifest_git_blob_sha": "a23634fdc737ff27c182611598d53ce8739ccec0"
       }
     },
     {
@@ -120,7 +121,9 @@
         "type": "deterministic_generator",
         "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
         "generator_git_blob_sha": "9e83a49cd8724295c646382d10dd863831368f93",
-        "output_name": "89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf"
+        "output_name": "89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-16/89-ms-praha-8-ad-9-2026-89.txt",
+        "source_git_blob_sha": "8bcc5d310e7eae637c50ba31fecc6a2e3add4b4e"
       }
     },
     {
@@ -131,7 +134,9 @@
         "type": "deterministic_generator",
         "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
         "generator_git_blob_sha": "9e83a49cd8724295c646382d10dd863831368f93",
-        "output_name": "92-ms-praha-9-ad-12-2026-7-2026-09-14.pdf"
+        "output_name": "92-ms-praha-9-ad-12-2026-7-2026-09-14.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-16/92-ms-praha-9-ad-12-2026-7.txt",
+        "source_git_blob_sha": "80723d7f25544a8ff1dce7a497a513e696256c3e"
       }
     },
     {
@@ -142,7 +147,9 @@
         "type": "deterministic_generator",
         "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
         "generator_git_blob_sha": "9e83a49cd8724295c646382d10dd863831368f93",
-        "output_name": "97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf"
+        "output_name": "97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-22/97-ms-praha-15-ad-14-2026-12.txt",
+        "source_git_blob_sha": "ef518d6f55fdb7a388c36dcef554fec31d61cce8"
       }
     },
     {
@@ -153,7 +160,9 @@
         "type": "deterministic_generator",
         "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
         "generator_git_blob_sha": "9e83a49cd8724295c646382d10dd863831368f93",
-        "output_name": "99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf"
+        "output_name": "99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-23/99-ms-praha-18-a-17-2026-182.txt",
+        "source_git_blob_sha": "009336155245dd34fbdbdb3bc37536ec6491bce9"
       }
     },
     {
@@ -164,7 +173,9 @@
         "type": "deterministic_generator",
         "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
         "generator_git_blob_sha": "9e83a49cd8724295c646382d10dd863831368f93",
-        "output_name": "98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf"
+        "output_name": "98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-23/98-ms-praha-18-a-23-2026-182.txt",
+        "source_git_blob_sha": "7e3b53e2e49c96ffd23c348bca00917b5f8bdbfa"
       }
     },
     {
@@ -184,7 +195,9 @@
         "type": "deterministic_generator",
         "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
         "generator_git_blob_sha": "9e83a49cd8724295c646382d10dd863831368f93",
-        "output_name": "100-msp-19-2026-odka-roz-26-2026-08-27-verejna-kopie.pdf"
+        "output_name": "100-msp-19-2026-odka-roz-26-2026-08-27-verejna-kopie.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-08-27/100-msp-19-2026-odka-roz-26.txt",
+        "source_git_blob_sha": "a8e45905b060fed72dc3b17e1d97ddd41aa03c8f"
       }
     },
     {
@@ -267,7 +280,9 @@
         "type": "deterministic_generator",
         "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
         "generator_git_blob_sha": "9e83a49cd8724295c646382d10dd863831368f93",
-        "output_name": "93-mv-139593-3-tp-2026-2026-09-14.pdf"
+        "output_name": "93-mv-139593-3-tp-2026-2026-09-14.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-16/93-mv-139593-3-tp-2026.txt",
+        "source_git_blob_sha": "d63126a3524572c2dc50622c0153ad0b7908585b"
       }
     },
     {
@@ -276,7 +291,8 @@
       "status": "binding-manifest-exact-digest-verified",
       "evidence": {
         "type": "manifest",
-        "manifest": "project-memory/pdf-link-overrides.json"
+        "manifest": "project-memory/pdf-link-overrides.json",
+        "manifest_git_blob_sha": "a23634fdc737ff27c182611598d53ce8739ccec0"
       }
     },
     {
@@ -348,7 +364,8 @@
       "status": "binding-manifest-exact-digest-verified",
       "evidence": {
         "type": "manifest",
-        "manifest": "project-memory/pdf-link-overrides.json"
+        "manifest": "project-memory/pdf-link-overrides.json",
+        "manifest_git_blob_sha": "a23634fdc737ff27c182611598d53ce8739ccec0"
       }
     },
     {
@@ -384,7 +401,8 @@
       "status": "binding-manifest-exact-digest-verified",
       "evidence": {
         "type": "manifest",
-        "manifest": "project-memory/pdf-link-overrides.json"
+        "manifest": "project-memory/pdf-link-overrides.json",
+        "manifest_git_blob_sha": "a23634fdc737ff27c182611598d53ce8739ccec0"
       }
     },
     {
@@ -413,7 +431,9 @@
         "type": "deterministic_generator",
         "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
         "generator_git_blob_sha": "9e83a49cd8724295c646382d10dd863831368f93",
-        "output_name": "94-vsz-olomouc-3-vzn-239-2026-64-2026-09-15.pdf"
+        "output_name": "94-vsz-olomouc-3-vzn-239-2026-64-2026-09-15.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-16/94-vsz-olomouc-3-vzn-239-2026-64.txt",
+        "source_git_blob_sha": "092d28723ff0296b38f2a8e1486cc07ef93af3ab"
       }
     },
     {
