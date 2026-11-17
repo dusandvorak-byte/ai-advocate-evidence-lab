@@ -340,6 +340,11 @@ private.person@example.invalid
 
         self.assertTrue(ns["inline_image_operator_present"](stream))
 
+    def test_release_audit_inline_image_scanner_many_bi_without_id(self):
+        ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_inline_image_linear_test")
+        stream = (b" BI /W 1 /H 1 /CS /G /BPC 8 " * 20000) + b" Q"
+        self.assertFalse(ns["inline_image_operator_present"](stream))
+
     def test_frozen_provenance_contract_rejects_status_switch(self):
         expected = {
             "id": "doc-example",
