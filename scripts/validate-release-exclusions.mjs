@@ -19,6 +19,14 @@ if (canonical.documents.some(item => item.id === id)) fail('ID 69 leaked into ca
 const publicRegistry = JSON.parse(await readFile('web/data/documents-2026.json','utf8'));
 if (publicRegistry.documents.some(item => item.id === id)) fail('ID 69 leaked into public registry');
 
+const withdrawnPublicPath = 'web/documents/report-04082026-010/' + filename;
+try {
+  await access(withdrawnPublicPath);
+  fail('withdrawn ID 69 PDF still exists in public web tree');
+} catch (error) {
+  if (error?.code !== 'ENOENT') throw error;
+}
+
 const generator = await readFile('scripts/materialize-godot-state-text-pdfs.py','utf8');
 const preflight = await readFile('scripts/ensure-generated-state-pdfs.mjs','utf8');
 if (generator.includes(filename) || preflight.includes(filename)) fail('ID 69 is still required by a release generator');
