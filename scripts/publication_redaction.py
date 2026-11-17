@@ -136,6 +136,52 @@ def redact_public_text(text: str) -> str:
     return out
 
 
+def forbidden_public_identifier_byte_hits(raw: bytes) -> list[str]:
+    _, data, _ = authenticated_private_policy_document()
+    items = list(data.get("rules") or []) + list(data.get("forbidden") or [])
+    hits = []
+    seen = set()
+
+    decoded_variants = []
+    for encoding in ("utf-8", "cp1250", "iso-8859-2", "utf-16-be", "utf-16-le"):
+        try:
+            decoded_variants.append(raw.decode(encoding, errors="ignore"))
+        except LookupError:
+            pass
+
+    for index, item in enumerate(items, start=1):
+        mode = str(item.get("mode") or "literal").strip()
+        value = str(item.get("value") or "")
+        if not value:
+            continue
+        matched = False
+        if mode == "literal":
+            variants = {value, value.lower(), value.upper(), value.casefold()}
+            for variant in variants:
+                for encoding in ("utf-8", "cp1250", "iso-8859-2", "utf-16-be", "utf-16-le"):
+                    try:
+                        encoded = variant.encode(encoding)
+                    except UnicodeEncodeError:
+                        continue
+                    if encoded and encoded in raw:
+                        matched = True
+                        break
+                if matched:
+                    break
+        elif mode == "regex":
+            flags = re.IGNORECASE if item.get("ignore_case", True) else 0
+            pattern = re.compile(value, flags)
+            matched = any(pattern.search(text) for text in decoded_variants)
+
+        if matched:
+            opaque = f"private_raw_match_{index}"
+            if opaque not in seen:
+                seen.add(opaque)
+                hits.append(opaque)
+
+    return hits
+
+
 def forbidden_public_identifiers(text: str) -> list[str]:
     _, rules, forbidden, _ = load_private_policy()
     # Post-check every redaction rule as well as the explicit forbidden list.
