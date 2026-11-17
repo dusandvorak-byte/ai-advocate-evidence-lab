@@ -3,7 +3,6 @@ name: Publikovat ověřený Evidence Lab do gh-pages
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   contents: write
