@@ -118,6 +118,37 @@ def pdf_facts(path: Path) -> dict:
         with path.open("rb") as handle:
             prefix = handle.read(header_offset)
         prefix_non_whitespace = bool(prefix.strip())
+
+    # Fail before invoking any PDF parser when wrapper bytes are non-whitespace.
+    # Those bytes are outside the PDF object model and would otherwise bypass
+    # text/Info/XMP/attachment inspection while remaining publicly downloadable.
+    if prefix_non_whitespace:
+        return {
+            "page_count": None,
+            "metadata_keys_present": [],
+            "embedded_file_count": 0,
+            "file_attachment_annotation_count": 0,
+            "associated_file_reference_count": 0,
+            "embedded_file_object_count": 0,
+            "suspicious_metadata_keys": [],
+            "xmp_present": False,
+            "xmp_suspicious": False,
+            "xmp_known_private_identifier_hits": [],
+            "content_privacy_signals": {
+                "email_like_count": 0,
+                "czech_birth_number_like_count": 0,
+                "phone_like_count": 0,
+            },
+            "machine_privacy_status": "FAIL_PRIVATE_OR_METADATA_CHANNEL",
+            "human_privacy_review_required": True,
+            "known_private_identifier_hits": [],
+            "text_extraction_engines": [],
+            "public_copy_notice_present": False,
+            "not_byte_identical_notice_present": False,
+            "pdf_header_offset": header_offset,
+            "non_whitespace_prefix_before_pdf_header": True,
+        }
+
     doc = fitz.open(path)
     fitz_text = "\n".join(page.get_text("text") for page in doc)
     poppler = subprocess.run(
