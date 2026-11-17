@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import publication_redaction as redaction
 from publication_redaction import RedactionPolicyError
+from provenance_manifest import manifest_binds_digest
 
 PUBLIC_CONTRACT = json.loads((ROOT / "project-memory/private-redaction-policy-contract.json").read_text("utf-8"))
 
@@ -272,6 +273,44 @@ private.person@example.invalid
         count = ns["file_attachment_annotation_count"](reopened)
         reopened.close()
         self.assertEqual(count, 1)
+
+    def test_release_audit_rejects_ef_dictionary_and_embeddedfile_object(self):
+        ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_ef_test")
+        pdf = self.tmpdir / "embedded-file-object.pdf"
+        doc = fitz.open()
+        page = doc.new_page()
+        note = page.add_text_annot((120, 120), "ordinary note")
+        doc.xref_set_key(note.xref, "EF", "<< /F 1 0 R >>")
+        doc.xref_set_key(page.xref, "Type", "/EmbeddedFile")
+        doc.save(pdf)
+        doc.close()
+
+        reopened = fitz.open(pdf)
+        count = ns["embedded_file_object_count"](reopened)
+        reopened.close()
+        self.assertGreaterEqual(count, 2)
+
+    def test_manifest_digest_and_binding_must_share_one_record(self):
+        manifest = self.tmpdir / "manifest.json"
+        digest = "a" * 64
+        rel = "documents/example.pdf"
+        doc_id = "doc-example"
+
+        manifest.write_text(json.dumps({
+            "records": [
+                {"id": doc_id, "path": rel},
+                {"sha256": digest, "path": "documents/other.pdf"},
+            ]
+        }), encoding="utf-8")
+        manifest_rel = os.path.relpath(manifest, ROOT)
+        self.assertFalse(manifest_binds_digest(ROOT, manifest_rel, doc_id, rel, digest))
+
+        manifest.write_text(json.dumps({
+            "records": [
+                {"id": doc_id, "path": rel, "sha256": digest},
+            ]
+        }), encoding="utf-8")
+        self.assertTrue(manifest_binds_digest(ROOT, manifest_rel, doc_id, rel, digest))
 
     def test_release_audit_enumerates_mixed_case_and_signature_pdfs(self):
         ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_inventory_test")
