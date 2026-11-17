@@ -113,16 +113,21 @@ def embedded_file_object_count(doc) -> int:
 
 def pdf_facts(path: Path) -> dict:
     header_offset = pdf_header_offset(path)
+    raw = path.read_bytes()
     prefix_non_whitespace = False
     if header_offset is not None and header_offset > 0:
-        with path.open("rb") as handle:
-            prefix = handle.read(header_offset)
-        prefix_non_whitespace = bool(prefix.strip())
+        prefix_non_whitespace = bool(raw[:header_offset].strip())
 
-    # Fail before invoking any PDF parser when wrapper bytes are non-whitespace.
-    # Those bytes are outside the PDF object model and would otherwise bypass
-    # text/Info/XMP/attachment inspection while remaining publicly downloadable.
-    if prefix_non_whitespace:
+    eof_offset = raw.rfind(b"%%EOF")
+    eof_present = eof_offset >= 0
+    suffix_non_whitespace = False
+    if eof_present:
+        suffix_non_whitespace = bool(raw[eof_offset + len(b"%%EOF"):].strip())
+
+    # Fail before invoking any PDF parser when bytes exist outside the accepted
+    # PDF envelope. Prefix/suffix payloads remain downloadable but may be ignored
+    # by PDF parsers, so they are publication blockers.
+    if prefix_non_whitespace or not eof_present or suffix_non_whitespace:
         return {
             "page_count": None,
             "metadata_keys_present": [],
@@ -146,7 +151,9 @@ def pdf_facts(path: Path) -> dict:
             "public_copy_notice_present": False,
             "not_byte_identical_notice_present": False,
             "pdf_header_offset": header_offset,
-            "non_whitespace_prefix_before_pdf_header": True,
+            "non_whitespace_prefix_before_pdf_header": prefix_non_whitespace,
+            "pdf_eof_present": eof_present,
+            "non_whitespace_suffix_after_pdf_eof": suffix_non_whitespace,
         }
 
     doc = fitz.open(path)
@@ -180,11 +187,13 @@ def pdf_facts(path: Path) -> dict:
     page_count = doc.page_count
     doc.close()
 
-    machine_failure = bool(prefix_non_whitespace or embedded or file_attachment_annotations or associated_file_references or embedded_file_objects or suspicious_metadata_keys or xmp_suspicious or private_hits)
+    machine_failure = bool(prefix_non_whitespace or not eof_present or suffix_non_whitespace or embedded or file_attachment_annotations or associated_file_references or embedded_file_objects or suspicious_metadata_keys or xmp_suspicious or private_hits)
     return {
         "page_count": page_count,
         "pdf_header_offset": header_offset,
         "non_whitespace_prefix_before_pdf_header": prefix_non_whitespace,
+        "pdf_eof_present": eof_present,
+        "non_whitespace_suffix_after_pdf_eof": suffix_non_whitespace,
         "metadata_keys_present": sorted(meta.keys()),
         "embedded_file_count": embedded,
         "file_attachment_annotation_count": file_attachment_annotations,
@@ -316,6 +325,10 @@ def audit_registry_public_derivatives():
             continue
         facts = pdf_facts(local)
         checks = {
+            "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
+            "pdf_eof_present": facts["pdf_eof_present"],
+            "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
+            "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
             "known_private_identifiers_absent": not facts["known_private_identifier_hits"],
             "embedded_files_absent": facts["embedded_file_count"] == 0,
             "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
@@ -386,6 +399,9 @@ def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
         checks = {
             "excluded_id69_digest_absent": file_sha != EXCLUDED_ID69_SHA256,
             "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
+            "pdf_eof_present": facts["pdf_eof_present"],
+            "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
+            "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
             "forbidden_identifiers_absent": not facts["known_private_identifier_hits"],
             "embedded_files_absent": facts["embedded_file_count"] == 0,
             "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
