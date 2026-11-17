@@ -185,6 +185,9 @@ jobs:
       - name: Obnovit společnou jazykovou nabídku po všech generátorech
         run: node scripts/build-language-access.mjs
 
+      - name: Fail closed if withdrawn ID 69 reappears after terminal public writers
+        run: node scripts/validate-release-exclusions.mjs
+
       - name: Validate final public navigation after terminal writers
         run: node scripts/validate-public-navigation.mjs
 
