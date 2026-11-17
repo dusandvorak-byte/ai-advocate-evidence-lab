@@ -96,6 +96,9 @@ jobs:
       - name: Obnovit společnou jazykovou nabídku po všech generátorech
         run: node scripts/build-language-access.mjs
 
+      - name: Fail closed if withdrawn ID 69 reappears after terminal public writers
+        run: node scripts/validate-release-exclusions.mjs
+
       - name: Ověřit mobilní čitelnost a plnou šířku hlavního článku
         run: node test/mobile-readability-v5.test.mjs
 
