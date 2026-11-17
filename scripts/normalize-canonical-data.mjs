@@ -34,9 +34,14 @@ for (const source of sourceManifest.sources) {
 const base = sourceRegistries.find(item => item.source.role === 'base') || sourceRegistries[0];
 const registry = base.data;
 const merged = new Map();
+const releaseExcluded = [];
 for (const { source, data } of sourceRegistries) {
   for (const doc of data.documents) {
     if (!doc?.id) throw new Error(`Dokument bez stabilního ID ve zdroji ${source.path}`);
+    if (doc.release_excluded === true) {
+      releaseExcluded.push({ id: doc.id, source: source.path, reason: doc.release_exclusion_reason || null });
+      continue;
+    }
     const previous = merged.get(doc.id) || {};
     merged.set(doc.id, { ...previous, ...doc });
   }
@@ -123,6 +128,8 @@ registry.normalization = {
   unlisted_supplement_count: unlistedSupplements.length,
   source_documents_before_deduplication: sourceRegistries.reduce((sum, item) => sum + item.data.documents.length, 0),
   merged_document_count: registry.documents.length,
+  release_excluded_count: releaseExcluded.length,
+  release_excluded_documents: releaseExcluded,
   institution_aliases: Object.fromEntries(institutionAliases),
   filled_user_titles_from_existing_title: filledUserTitles,
   incoming_from_state_or_public_institution: incoming,
