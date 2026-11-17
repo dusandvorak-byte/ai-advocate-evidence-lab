@@ -449,6 +449,54 @@ def audit_registry_reconciliation(staged_rows: list[dict]):
     }, failures
 
 
+def audit_id68_fidelity(staged_rows: list[dict]):
+    id68 = "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021-priloha-1"
+    expected_path = "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf"
+    expected_source_sha = "a9ea7ffed4f9eb7f759287dd949ce6bcb4027dd86a1e5c53fabaa2abc59331dd"
+    expected_public_sha = "336af9dff0ad906759d2bddae8868970026bfef063e516bb2c148ff74ea64e32"
+    canonical = json.loads(CANONICAL_REGISTRY.read_text("utf-8"))
+    item = next((x for x in canonical.get("documents", []) if x.get("id") == id68), None)
+    failures = []
+    if not item:
+        return {"id": id68, "status": "FAIL_MISSING_CANONICAL_RECORD"}, ["ID68 canonical record missing"]
+
+    public = item.get("public") or {}
+    root_row = next((r for r in staged_rows if r.get("published_path") == expected_path), None)
+    mirror_row = next((r for r in staged_rows if r.get("published_path") == "web/" + expected_path), None)
+    source_text_path = ROOT / "project-memory/state-text-sources-2026-08-25/68-00.txt"
+    source_text_value = source_text_path.read_text("utf-8") if source_text_path.is_file() else ""
+
+    checks = {
+        "source_sha_recorded": public.get("source_original_sha256") == expected_source_sha,
+        "source_page_count_recorded": public.get("source_original_page_count") == 2,
+        "public_path_expected": public.get("pdf") == expected_path,
+        "public_sha_expected": public.get("sha256") == expected_public_sha,
+        "public_page_count_recorded": public.get("public_derivative_page_count") == 4,
+        "public_staged_root_present": root_row is not None,
+        "public_staged_mirror_present": mirror_row is not None,
+        "public_staged_sha_expected": bool(root_row and root_row.get("sha256") == expected_public_sha),
+        "public_staged_page_count_expected": bool(root_row and root_row.get("page_count") == 4),
+        "fidelity_class_explicit": public.get("fidelity_class") == "verified_textual_public_copy_not_render_faithful",
+        "not_byte_identical_status_explicit": "not_byte_identical_original" in str(public.get("verification_status") or ""),
+        "visual_facsimile_not_claimed": "visual_facsimile_not_claimed" in str(public.get("verification_status") or ""),
+        "verified_source_text_has_table_1": "Tabulka č. 1" in source_text_value,
+        "verified_source_text_has_scheme_1": "Schéma č. 1" in source_text_value,
+    }
+    if not all(checks.values()):
+        failures.append(f"ID68 source/public fidelity contract failed: {checks}")
+
+    return {
+        "id": id68,
+        "source_original_sha256": expected_source_sha,
+        "source_original_page_count": 2,
+        "public_derivative_sha256": expected_public_sha,
+        "public_derivative_page_count": root_row.get("page_count") if root_row else None,
+        "fidelity_class": public.get("fidelity_class"),
+        "render_faithful_facsimile_claimed": False,
+        "checks": checks,
+    }, failures
+
+
 def audit_okte():
     annex_path = ROOT / "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
     parent_path = ROOT / "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
@@ -580,6 +628,7 @@ def main():
     registry_derivatives, registry_fail = audit_registry_public_derivatives()
     all_web_pdfs, all_web_fail = audit_all_web_pdfs()
     reconciliation, reconciliation_fail = audit_registry_reconciliation(all_web_pdfs)
+    id68_fidelity, id68_fail = audit_id68_fidelity(all_web_pdfs)
     hardening_path = ROOT / "project-memory/privacy-hardening-report.json"
     hardening = json.loads(hardening_path.read_text("utf-8"))
     hardening_fail = list(hardening.get("hard_failures") or [])
@@ -587,7 +636,7 @@ def main():
         hardening_fail.append("privacy hardening failure count does not match hard failure list")
     okte, okte_fail = audit_okte()
     redacted, redact_fail = audit_redacted_analysis()
-    failures = gen_fail + registry_fail + all_web_fail + reconciliation_fail + hardening_fail + okte_fail + redact_fail
+    failures = gen_fail + registry_fail + all_web_fail + reconciliation_fail + id68_fail + hardening_fail + okte_fail + redact_fail
     checkout_sha = subprocess.run(
         ["git", "rev-parse", "HEAD"], check=True, capture_output=True, text=True
     ).stdout.strip()
@@ -656,6 +705,7 @@ def main():
         "registry_public_derivatives": registry_derivatives,
         "all_final_web_pdfs": all_web_pdfs,
         "registry_web_stage_reconciliation": reconciliation,
+        "id68_source_public_fidelity": id68_fidelity,
         "privacy_hardening": hardening,
         "okte_originals": okte,
         "redacted_okte_analysis": redacted,
