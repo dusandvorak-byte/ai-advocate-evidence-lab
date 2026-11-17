@@ -14,6 +14,7 @@ PUBLICATION_ROOT = Path(os.environ.get("EVIDENCE_LAB_PUBLICATION_ROOT", str(WEB)
 CANONICAL_REGISTRY = Path(os.environ.get("EVIDENCE_LAB_CANONICAL_REGISTRY", str(ROOT / "project-memory/documents-2026.json"))).resolve()
 OUT = ROOT / "review-artifacts" / "release-evidence-audit.json"
 LIVE_BASE = "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/"
+EXCLUDED_ID69_SHA256 = "e73fcf803f59c4ed58cfb0ff01ee773cfedbd2782426132d3feeb715655d0ca2"
 
 def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
@@ -58,19 +59,11 @@ def file_attachment_annotation_count(doc) -> int:
 
 def associated_file_reference_count(doc) -> int:
     count = 0
-    xrefs = []
     try:
-        xrefs.append(doc.pdf_catalog())
+        xref_len = doc.xref_length()
     except Exception:
-        pass
-    for page in doc:
-        try:
-            xrefs.append(page.xref)
-        except Exception:
-            pass
-    for xref in xrefs:
-        if not xref:
-            continue
+        return 0
+    for xref in range(1, xref_len):
         try:
             kind, value = doc.xref_get_key(xref, "AF")
         except Exception:
@@ -308,7 +301,9 @@ def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
         registered = bool(refs)
         is_derivative = source_rel in derivative_paths
 
+        file_sha = sha256_file(path)
         checks = {
+            "excluded_id69_digest_absent": file_sha != EXCLUDED_ID69_SHA256,
             "forbidden_identifiers_absent": not facts["known_private_identifier_hits"],
             "embedded_files_absent": facts["embedded_file_count"] == 0,
             "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
@@ -330,7 +325,7 @@ def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
             "registry_ids": [ref.get("id") for ref in refs if ref.get("id")],
             "verification_statuses": [ref.get("verification_status") for ref in refs if ref.get("verification_status")],
             "derivative": is_derivative,
-            "sha256": sha256_file(path),
+            "sha256": file_sha,
             "page_count": facts["page_count"],
             "metadata_keys_present": facts["metadata_keys_present"],
             "xmp_present": facts["xmp_present"],
