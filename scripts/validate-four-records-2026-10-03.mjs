@@ -6,6 +6,8 @@ const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 
 const supplementPath='project-memory/documents-2026-supplement-2026-10-03-four-records.json';
 const supplement=JSON.parse(await readFile(supplementPath,'utf8'));
+const canonicalRegistry=JSON.parse(await readFile('project-memory/documents-2026.json','utf8'));
+const canonical={ docs:new Map((canonicalRegistry.documents||[]).map(d=>[d.id,d])) };
 const docs=new Map((supplement.documents||[]).map(d=>[d.id,d]));
 const ids=[
   'doc-cz-ks-brn-2026-09-03-9-to-315-2026-140',
@@ -40,7 +42,15 @@ for(const item of [ks,ms]){
   if(item.public?.source_original_sha256!==originals[item.id]) fail(item.id+': nesouhlasí SHA-256 nahraného originálu');
   if(!String(item.public.verification_status||'').includes('not_byte_identical_original')) fail(item.id+': veřejná kopie není jasně odlišena od originálu');
   const bytes=await readFile('web/'+item.public.pdf);
-  if(!bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF') || bytes.length<4000 || sha256(bytes)!==item.public.sha256) fail(item.id+': veřejná kopie je neúplná nebo má chybný hash');
+  if(!bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF') || bytes.length<4000) fail(item.id+': veřejná kopie je neúplná');
+  // The source supplement SHA describes the pre-redaction generated derivative.
+  // Authenticate exact final public bytes against the post-hardening canonical registry.
+  const final = canonical.docs.get(item.id);
+  if(!final || final.public?.pdf !== item.public.pdf ||
+     !/^[a-f0-9]{64}$/i.test(String(final.public?.sha256 || '')) ||
+     !String(final.public?.verification_status || '').includes('verified_deterministic_public_text_copy') ||
+     !String(final.public?.verification_status || '').includes('publication_policy_hardened') ||
+     sha256(bytes) !== final.public.sha256) fail(item.id+': finální zredigovaná veřejná kopie nemá ověřenou provenienci/hash');
 }
 for(const item of [prima,reaction]){
   const bytes=await readFile('web/'+item.public.pdf);
