@@ -57,7 +57,14 @@ for (const { source, data } of sourceRegistries) {
     }
     if (excludedIds.has(doc.id)) continue;
     const previous = merged.get(doc.id) || {};
-    merged.set(doc.id, { ...previous, ...doc });
+    // Public metadata is cumulative across source layers. A later supplement may
+    // update the PDF/status fields, but must not erase reviewed provenance
+    // annotations already present in the canonical/base source.
+    merged.set(doc.id, {
+      ...previous,
+      ...doc,
+      public: { ...(previous.public || {}), ...(doc.public || {}) }
+    });
   }
 }
 registry.documents = [...merged.values()];
