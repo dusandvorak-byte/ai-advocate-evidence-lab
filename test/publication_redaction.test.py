@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import publication_redaction as redaction
 from publication_redaction import RedactionPolicyError
 from provenance_manifest import manifest_binds_digest
+from canonical_pdf_provenance_contract import validate_frozen_provenance_binding
 
 PUBLIC_CONTRACT = json.loads((ROOT / "project-memory/private-redaction-policy-contract.json").read_text("utf-8"))
 
@@ -273,6 +274,53 @@ private.person@example.invalid
         count = ns["file_attachment_annotation_count"](reopened)
         reopened.close()
         self.assertEqual(count, 1)
+
+    def test_frozen_provenance_contract_rejects_status_switch(self):
+        expected = {
+            "id": "doc-example",
+            "path": "documents/example.pdf",
+            "status": "historical-introduction-and-blob-continuity-verified",
+        }
+        item = {
+            "id": "doc-example",
+            "public": {
+                "pdf": "documents/example.pdf",
+                "sha256_provenance_status": "deterministic-generated-public-copy-verified",
+            },
+        }
+        errors = validate_frozen_provenance_binding(expected, item)
+        self.assertTrue(any("method/status changed" in error for error in errors))
+
+    def test_release_audit_rejects_forged_final_eof_marker(self):
+        ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_forged_eof_test")
+        root = self.tmpdir / "forged-eof"
+        root.mkdir()
+
+        clean = root / "base.pdf"
+        doc = fitz.open()
+        doc.new_page()
+        doc.save(clean)
+        doc.close()
+        raw = clean.read_bytes()
+        match = list(__import__("re").finditer(br"startxref\s+(\d+)\s+%%EOF", raw))[-1]
+        original_xref = match.group(1)
+
+        forged = root / "forged.pdf"
+        forged.write_bytes(
+            raw
+            + b"\nsynthetic-forbidden@example.invalid\nstartxref\n"
+            + original_xref
+            + b"\n%%EOF\n"
+        )
+        clean.unlink()
+
+        facts = ns["pdf_facts"](forged)
+        self.assertFalse(facts["pdf_revision_markers_bound"])
+        self.assertFalse(facts["pdf_startxref_offsets_unique"])
+        self.assertEqual(facts["machine_privacy_status"], "FAIL_PRIVATE_OR_METADATA_CHANNEL")
+
+        rows, failures = ns["audit_all_web_pdfs"](root)
+        self.assertTrue(any("forged.pdf" in failure and "pdf_revision_markers_bound" in failure for failure in failures))
 
     def test_release_audit_rejects_payload_after_final_pdf_eof(self):
         ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_eof_test")
