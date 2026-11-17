@@ -402,9 +402,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/19-msz-praha-3-kzn-197-2026-12-2026-06-11.pdf",
-        "sha256": null,
+        "sha256": "defc8b701defe4415f61157af37d3d557f4cb51e57ce45d78fa5f8c595d132fb",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 69b08cde0fffd72b024287028468f68f5ca90a4c; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -423,9 +425,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/17-ncoz-ncoz-4871-5-cj-2026-410066-e-2026-06-15.pdf",
-        "sha256": null,
+        "sha256": "99e13ef62c9a92fb8a2fa25e01712c780ad9bbc0f6099fb3ee36a574a3e12ec5",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 033e1a62543d2e4cb79c3a32bb088e16204ed3a0; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -507,9 +511,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/21-vsz-praha-1-vzn-1678-2026-8-2026-06-22.pdf",
-        "sha256": null,
+        "sha256": "ffefe297481b729ddad100fb3c8ec4d584d1bb0561d7f8ad340bd310bbc2ae4a",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 033e1a62543d2e4cb79c3a32bb088e16204ed3a0; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -548,9 +554,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/06-ku-4139-5-2026-2305km-2026-06-25.pdf",
-        "sha256": null,
+        "sha256": "259178bedbb586d22c6f56603a651381214ffb1353d4627aa68e6d546d57ee34",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 69b08cde0fffd72b024287028468f68f5ca90a4c; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -712,9 +720,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/32-msz-brno-0-sin-15-2026-5-2026-07-14.pdf",
-        "sha256": null,
+        "sha256": "e910b61751f16f75b312d077a01968493ebbabce2cd8f5d616d63fa9202e1d99",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 69b08cde0fffd72b024287028468f68f5ca90a4c; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -864,9 +874,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/34-ksz-brno-1-kzt-475-2026-32-2026-07-21.pdf",
-        "sha256": null,
+        "sha256": "69cc0bd0262cf6f333402fb4f1a0f9ca7d061e1c65fce5827300f94937e54055",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 033e1a62543d2e4cb79c3a32bb088e16204ed3a0; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -908,9 +920,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/33-msz-brno-3-zn-140-2026-3-2026-07-21.pdf",
-        "sha256": null,
+        "sha256": "f985217b0c9f0e7332b8466b6ce05aa772abbdd8f61a8b82ab19dc3ee7298450",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 28e9472279814be90a8bc85a65f828e061f6379f; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -952,9 +966,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/25-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf",
-        "sha256": null,
+        "sha256": "d63bae00cbc47c38ef86406fbdc359409cc907185fd978d885103f8b9f29a67a",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 69b08cde0fffd72b024287028468f68f5ca90a4c; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
