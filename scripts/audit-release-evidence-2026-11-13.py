@@ -179,12 +179,19 @@ def qpdf_structural_check(path: Path) -> tuple[bool, str]:
     return proc.returncode == 0, output[-2000:]
 
 
-def decoded_pdf_object_private_hits(doc) -> list[str]:
+def inline_image_operator_present(stream: bytes) -> bool:
+    # Fail-closed: nested inline-image filters are not fully decoded by xref_stream().
+    # Reject content that lexically contains the BI ... ID inline-image operator pair.
+    return bool(re.search(br"(?s)(?<![A-Za-z0-9])BI(?:\s|/).{0,8192}?\sID(?:\s|\r|\n)", stream))
+
+
+def decoded_pdf_object_private_hits(doc) -> tuple[list[str], int]:
     hits = set()
+    inline_image_streams = 0
     try:
         xref_len = doc.xref_length()
     except Exception:
-        return []
+        return [], 0
     for xref in range(1, xref_len):
         try:
             obj = doc.xref_object(xref, compressed=False)
@@ -197,8 +204,10 @@ def decoded_pdf_object_private_hits(doc) -> list[str]:
         except Exception:
             stream = None
         if stream:
+            if inline_image_operator_present(stream):
+                inline_image_streams += 1
             hits.update(forbidden_public_identifier_byte_hits(stream))
-    return sorted(hits)
+    return sorted(hits), inline_image_streams
 
 
 def pdf_facts(path: Path) -> dict:
@@ -256,12 +265,12 @@ def pdf_facts(path: Path) -> dict:
         }
 
     doc = fitz.open(path)
-    decoded_object_hits = decoded_pdf_object_private_hits(doc)
+    decoded_object_hits, inline_image_stream_count = decoded_pdf_object_private_hits(doc)
 
     # If authenticated private data exists in any decoded object/stream, fail
     # before invoking page/text extractors. The leak is already proven and no
     # parser-dependent continuation can make publication safe.
-    if decoded_object_hits:
+    if decoded_object_hits or inline_image_stream_count:
         page_count = doc.page_count
         doc.close()
         return {
@@ -296,6 +305,8 @@ def pdf_facts(path: Path) -> dict:
             "human_privacy_review_required": True,
             "known_private_identifier_hits": decoded_object_hits,
             "decoded_object_private_identifier_hits": decoded_object_hits,
+        "inline_image_stream_count": inline_image_stream_count,
+            "inline_image_stream_count": inline_image_stream_count,
             "text_extraction_engines": ["PyMuPDF/xref_stream"],
             "public_copy_notice_present": False,
             "not_byte_identical_notice_present": False,
@@ -331,7 +342,7 @@ def pdf_facts(path: Path) -> dict:
     page_count = doc.page_count
     doc.close()
 
-    machine_failure = bool(prefix_non_whitespace or not envelope["pdf_revision_markers_bound"] or not qpdf_valid or embedded or file_attachment_annotations or associated_file_references or embedded_file_objects or suspicious_metadata_keys or xmp_suspicious or private_hits)
+    machine_failure = bool(prefix_non_whitespace or not envelope["pdf_revision_markers_bound"] or not qpdf_valid or inline_image_stream_count or embedded or file_attachment_annotations or associated_file_references or embedded_file_objects or suspicious_metadata_keys or xmp_suspicious or private_hits)
     return {
         "page_count": page_count,
         "pdf_header_offset": header_offset,
@@ -485,6 +496,7 @@ def audit_registry_public_derivatives():
             "qpdf_structurally_valid": facts["qpdf_structurally_valid"],
             "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
             "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
+            "inline_images_absent": facts.get("inline_image_stream_count", 0) == 0,
             "known_private_identifiers_absent": not facts["known_private_identifier_hits"],
             "embedded_files_absent": facts["embedded_file_count"] == 0,
             "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
@@ -582,6 +594,7 @@ def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
             "qpdf_structurally_valid": facts["qpdf_structurally_valid"],
             "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
             "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
+            "inline_images_absent": facts.get("inline_image_stream_count", 0) == 0,
             "forbidden_identifiers_absent": not facts["known_private_identifier_hits"],
             "embedded_files_absent": facts["embedded_file_count"] == 0,
             "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
