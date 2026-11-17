@@ -225,9 +225,10 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/36-ncoz-4324-2-cj-2026-4100pi-2026-05-22.pdf",
-        "sha256": null,
+        "sha256": "7743a0d0cf03b00423cf85a2baf619ccd0dbb467c953afdffe8cb1bef4548b4f",
         "verification_status": "published",
-        "source_manifest": "project-memory/pdf-link-overrides.json"
+        "source_manifest": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance": "project-memory/pdf-link-overrides.json"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -246,9 +247,10 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/34-mzdr-13429-2026-3-olzp-2026-05-29.pdf",
-        "sha256": null,
+        "sha256": "33086830279d85789e32590b0e725ce969ae222694e8f4d936b49b9cec7850dd",
         "verification_status": "published",
-        "source_manifest": "project-memory/pdf-link-overrides.json"
+        "source_manifest": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance": "project-memory/pdf-link-overrides.json"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -267,9 +269,10 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/50-ct-338889-2025-38-odmitnuti-smiru-2026-06-01.pdf",
-        "sha256": null,
+        "sha256": "d3fe12fd3209be4984dcf291f945337d2d7033e94b26561e9c547e1e10850fa8",
         "verification_status": "published",
-        "source_manifest": "project-memory/pdf-link-overrides.json"
+        "source_manifest": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance": "project-memory/pdf-link-overrides.json"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -783,9 +786,10 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/35-rrtv-7757-2026-fej-2026-07-16.pdf",
-        "sha256": null,
+        "sha256": "c43c816b79295749c5da876050d540689ce8c80c85939ab4f0dc3478b5c7a6af",
         "verification_status": "published",
-        "source_manifest": "project-memory/pdf-link-overrides.json"
+        "source_manifest": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance": "project-memory/pdf-link-overrides.json"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
