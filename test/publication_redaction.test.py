@@ -361,6 +361,32 @@ private.person@example.invalid
         self.assertTrue(forbidden_public_identifier_byte_hits(literal.encode("utf-8")))
         self.assertTrue(forbidden_public_identifier_byte_hits(literal.encode("cp1250")))
 
+    def test_raw_private_literal_scan_is_truly_case_insensitive(self):
+        self.write_policy_and_contract()
+        from publication_redaction import forbidden_public_identifier_byte_hits
+        mixed = b"pRiVaTe.PeRsOn@ExAmPlE.InVaLiD"
+        self.assertTrue(forbidden_public_identifier_byte_hits(mixed))
+
+    def test_release_audit_rejects_private_literal_in_compressed_unused_stream(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_compressed_stream_test")
+        pdf = self.tmpdir / "compressed-unused-stream.pdf"
+
+        doc = fitz.open()
+        doc.new_page()
+        xref = doc.get_new_xref()
+        doc.update_object(xref, "<< /Length 0 >>")
+        doc.update_stream(xref, "Příliš žluťoučký kůň 42".encode("utf-8"), compress=True)
+        doc.save(pdf)
+        doc.close()
+
+        raw = pdf.read_bytes()
+        self.assertNotIn("Příliš žluťoučký kůň 42".encode("utf-8"), raw)
+
+        facts = ns["pdf_facts"](pdf)
+        self.assertTrue(facts["decoded_object_private_identifier_hits"])
+        self.assertEqual(facts["machine_privacy_status"], "FAIL_PRIVATE_OR_METADATA_CHANNEL")
+
     def test_raw_private_literal_scan_decodes_pdf_hex_and_octal_strings(self):
         self.write_policy_and_contract()
         from publication_redaction import forbidden_public_identifier_byte_hits
