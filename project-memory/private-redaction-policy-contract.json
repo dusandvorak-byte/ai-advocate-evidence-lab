@@ -10,5 +10,5 @@
   "note": "Public contract only. Concrete protected values and the HMAC key must never be committed, logged, attached to PRs, or stored in public build artifacts. approved_policy_hmac must be provisioned only after the private policy is approved.",
   "hmac_algorithm": "sha256",
   "hmac_key_env": "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY",
-  "approved_policy_hmac": null
+  "approved_policy_hmac": "ff1bf1b9b35a1c95354ab2caeb6006ba56a80ab291bad3e71be36a29ab0ee18e"
 }
