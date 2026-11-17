@@ -15,7 +15,7 @@ for (const source of sourceManifest.sources) {
     documentMap.set(item.id, { ...previous, ...item, public: { ...(previous.public || {}), ...(item.public || {}) } });
   }
 }
-const documents = [...documentMap.values()];
+const documents = [...documentMap.values()].filter(item => item.release_excluded !== true);
 const institutionMap = new Map(institutions.institutions.map(item => [item.id, item]));
 const churchTimer = processTimers.timers?.find(item => item.id === 'timer-admin-mk-2026-07-22');
 if (!churchTimer) throw new Error('Chybí kanonický procesní uzel Konopné církve / Ministerstva kultury');
