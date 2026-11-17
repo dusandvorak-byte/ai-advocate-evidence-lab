@@ -49,11 +49,14 @@ for (const item of [ksz, ppr]) {
   // Source supplement contains the generated pre-hardening SHA. Validate the bytes
   // actually served to the public against the post-hardening canonical record.
   const final = canonicalDocs.get(item.id);
+  const finalSha = sha256(bytes);
   if (!final || final.public?.pdf !== item.public.pdf ||
+      final.public?.source_original_sha256 !== originals[item.id] ||
       !/^[a-f0-9]{64}$/i.test(String(final.public?.sha256 || '')) ||
       !String(final.public?.verification_status || '').includes('verified_deterministic_public_text_copy') ||
       !String(final.public?.verification_status || '').includes('publication_policy_hardened') ||
-      sha256(bytes) !== final.public.sha256) fail(item.id + ': konečná zredigovaná PDF kopie nemá ověřenou provenienci/hash');
+      finalSha !== final.public.sha256 ||
+      finalSha === originals[item.id]) fail(item.id + ': konečná zredigovaná PDF kopie nemá ověřenou provenienci/hash nebo je byte-identická s chráněným originálem');
 }
 
 const sources = JSON.parse(await readFile('project-memory/document-sources.json', 'utf8'));
