@@ -292,6 +292,7 @@ private.person@example.invalid
         self.assertTrue(any("method/status changed" in error for error in errors))
 
     def test_release_audit_rejects_forged_final_eof_marker(self):
+        self.write_policy_and_contract()
         ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_forged_eof_test")
         root = self.tmpdir / "forged-eof"
         root.mkdir()
@@ -323,6 +324,7 @@ private.person@example.invalid
         self.assertTrue(any("forged.pdf" in failure and "pdf_revision_markers_bound" in failure for failure in failures))
 
     def test_release_audit_rejects_payload_after_final_pdf_eof(self):
+        self.write_policy_and_contract()
         ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_eof_test")
         root = self.tmpdir / "eof-payload"
         root.mkdir()
@@ -386,6 +388,7 @@ private.person@example.invalid
         self.assertTrue(manifest_binds_digest(ROOT, manifest_rel, doc_id, rel, digest))
 
     def test_release_audit_enumerates_mixed_case_and_signature_pdfs(self):
+        self.write_policy_and_contract()
         ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_inventory_test")
         root = self.tmpdir / "tree"
         root.mkdir()
