@@ -8,6 +8,7 @@ import subprocess
 from pathlib import Path
 
 from provenance_manifest import manifest_binds_digest
+from canonical_pdf_provenance_contract import validate_frozen_provenance_binding
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "project-memory" / "documents-2026.json"
@@ -115,10 +116,7 @@ for expected_id in sorted(EXPECTED_REMEDIATED_IDS):
     if not public.get("sha256_provenance") or not public.get("sha256_provenance_status"):
         failures.append(f"{expected_id}: required provenance annotation missing")
         continue
-    if public.get("pdf") != expected.get("path"):
-        failures.append(f"{expected_id}: canonical PDF path changed from frozen provenance contract")
-    if public.get("sha256_provenance_status") != expected.get("status"):
-        failures.append(f"{expected_id}: provenance method/status changed from frozen contract")
+    failures.extend(validate_frozen_provenance_binding(expected, item))
 
 for item in registry.get("documents", []):
     public = item.get("public") or {}
