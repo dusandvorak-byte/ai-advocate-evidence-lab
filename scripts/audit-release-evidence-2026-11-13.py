@@ -30,16 +30,23 @@ def source_text(path: Path) -> str:
     except UnicodeDecodeError:
         return ""
 
+def pdf_header_offset(path: Path) -> int | None:
+    if not path.is_file():
+        return None
+    try:
+        with path.open("rb") as handle:
+            head = handle.read(1024)
+    except OSError:
+        return None
+    offset = head.find(b"%PDF-")
+    return offset if offset >= 0 else None
+
 def is_pdf_candidate(path: Path) -> bool:
     if not path.is_file():
         return False
     if path.suffix.lower() == ".pdf":
         return True
-    try:
-        with path.open("rb") as handle:
-            return b"%PDF-" in handle.read(1024)
-    except OSError:
-        return False
+    return pdf_header_offset(path) is not None
 
 def publication_pdf_paths(root: Path) -> list[Path]:
     return sorted((p for p in root.rglob("*") if is_pdf_candidate(p)), key=lambda p: p.as_posix().lower())
@@ -105,6 +112,12 @@ def embedded_file_object_count(doc) -> int:
     return count
 
 def pdf_facts(path: Path) -> dict:
+    header_offset = pdf_header_offset(path)
+    prefix_non_whitespace = False
+    if header_offset is not None and header_offset > 0:
+        with path.open("rb") as handle:
+            prefix = handle.read(header_offset)
+        prefix_non_whitespace = bool(prefix.strip())
     doc = fitz.open(path)
     fitz_text = "\n".join(page.get_text("text") for page in doc)
     poppler = subprocess.run(
@@ -136,9 +149,11 @@ def pdf_facts(path: Path) -> dict:
     page_count = doc.page_count
     doc.close()
 
-    machine_failure = bool(embedded or file_attachment_annotations or associated_file_references or embedded_file_objects or suspicious_metadata_keys or xmp_suspicious or private_hits)
+    machine_failure = bool(prefix_non_whitespace or embedded or file_attachment_annotations or associated_file_references or embedded_file_objects or suspicious_metadata_keys or xmp_suspicious or private_hits)
     return {
         "page_count": page_count,
+        "pdf_header_offset": header_offset,
+        "non_whitespace_prefix_before_pdf_header": prefix_non_whitespace,
         "metadata_keys_present": sorted(meta.keys()),
         "embedded_file_count": embedded,
         "file_attachment_annotation_count": file_attachment_annotations,
