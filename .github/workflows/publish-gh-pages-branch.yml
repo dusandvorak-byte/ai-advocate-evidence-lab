@@ -311,9 +311,6 @@ jobs:
           grep -q 'Ministry of Transport' web/news/04082026-010.html
           grep -q 'The Ministry of Transport deferred the freedom-of-information request' web/news/04082026-010.html
 
-      - name: Fail-closed release evidence and PDF metadata/privacy audit
-        run: python3 scripts/audit-release-evidence-2026-11-13.py
-
       - name: Připravit kořen webu a kompatibilní cestu /web
         shell: bash
         run: |
@@ -341,6 +338,11 @@ jobs:
           touch /tmp/verified-site/web/.nojekyll
           printf '%s\n' "$GITHUB_SHA" > /tmp/verified-site/.source-commit
           printf '%s\n' "$GITHUB_SHA" > /tmp/verified-site/web/.source-commit
+
+      - name: Fail-closed audit exact staged publication tree
+        env:
+          EVIDENCE_LAB_PUBLICATION_ROOT: /tmp/verified-site
+        run: python3 scripts/audit-release-evidence-2026-11-13.py
 
       - name: Publikovat ověřené soubory do jediné větve gh-pages
         shell: bash
