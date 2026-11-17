@@ -323,8 +323,19 @@ private.person@example.invalid
             doc.save(root / filename)
             doc.close()
 
+        wrapped_source = root / "wrapped-source.pdf"
+        doc = fitz.open()
+        doc.new_page()
+        doc.save(wrapped_source)
+        doc.close()
+        wrapped_bytes = b"synthetic-forbidden@example.invalid\n" + wrapped_source.read_bytes()
+        wrapped = root / "wrapped.bin"
+        wrapped.write_bytes(wrapped_bytes)
+        wrapped_source.unlink()
+
         paths = {p.name for p in ns["publication_pdf_paths"](root)}
-        self.assertEqual(paths, {"lower.pdf", "mixed.PDF", "odd.bin"})
+        self.assertEqual(paths, {"lower.pdf", "mixed.PDF", "odd.bin", "wrapped.bin"})
+        self.assertIn(b"synthetic-forbidden@example.invalid", wrapped.read_bytes()[:1024])
 
     def test_release_audit_rejects_catalog_and_page_associated_files(self):
         ns = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"), run_name="release_audit_af_test")
