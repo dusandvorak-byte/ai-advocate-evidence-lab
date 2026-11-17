@@ -85,8 +85,8 @@ def load_generator_records():
                 records.append((script, [item["source"]], ns["OUT"] / item["target"], None))
         else:
             records.append((script, [ns["SOURCE"]], ns["TARGET"], ns.get("ORIGINAL_SHA256")))
-    if len(records) != 24:
-        raise RuntimeError(f"expected 24 generated public derivatives, found {len(records)}")
+    if len(records) != 23:
+        raise RuntimeError(f"expected 23 generated public derivatives after owner-approved ID 69 exclusion, found {len(records)}")
     return records
 
 def audit_generated():
