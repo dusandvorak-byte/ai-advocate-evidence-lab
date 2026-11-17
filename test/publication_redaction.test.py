@@ -229,6 +229,35 @@ private.person@example.invalid
         writable_fields = ("title", "author", "subject", "keywords", "creator", "producer", "creationDate", "modDate", "trapped")
         self.assertTrue(all(not metadata.get(field) for field in writable_fields))
 
+    def test_xmp_metadata_is_removed_even_without_text_match(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"), run_name="privacy_hardening_xmp_test")
+        rules, _ = ns["private_pdf_rules"]()
+
+        pdf = self.tmpdir / "xmp-only.pdf"
+        doc = fitz.open()
+        page = doc.new_page()
+        page.insert_text((72, 72), "Public text only")
+        doc.set_xml_metadata("""<?xpacket begin=''?>
+<x:xmpmeta xmlns:x='adobe:ns:meta/'>
+  <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+    <rdf:Description xmlns:dc='http://purl.org/dc/elements/1.1/' dc:creator='private.person@example.invalid'/>
+  </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end='w'?>""")
+        doc.save(pdf)
+        doc.close()
+
+        data, matches = ns["harden_pdf"](pdf, rules)
+        self.assertIsNotNone(data)
+        self.assertEqual(matches, [])
+        pdf.write_bytes(data)
+
+        after_doc = fitz.open(pdf)
+        xmp = after_doc.get_xml_metadata() or ""
+        after_doc.close()
+        self.assertEqual(xmp, "")
+
     def test_verified_identity_is_authenticated_hmac(self):
         self.write_policy_and_contract()
         identity = redaction.verified_private_policy_identity()
