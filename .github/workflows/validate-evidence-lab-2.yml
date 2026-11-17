@@ -2,20 +2,9 @@ name: Ověřit Evidence Lab 2.0
 
 on:
   push:
-    branches: [agent/evidence-lab-2-final]
+    branches: [main]
   pull_request:
     branches: [main]
-  workflow_dispatch:
-    inputs:
-      runner:
-        description: 'GitHub-hosted runner pro validační failover'
-        required: true
-        default: 'ubuntu-24.04'
-        type: choice
-        options:
-          - ubuntu-24.04
-          - macos-14
-          - windows-2025
 
 permissions:
   contents: read
@@ -28,15 +17,157 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate:
-    name: Ověřit architekturu a sestavit web bez publikace
-    runs-on: ${{ inputs.runner || 'ubuntu-24.04' }}
-    timeout-minutes: 15
+  pr_static:
+    name: PR kontrola bez přístupu k private Secrets
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
-      - name: Načíst zvolenou větev
+      - name: Načíst přesný PR HEAD bez Secrets
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Použít Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Staticky ověřit privacy a release guardy
+        run: |
+          node --check scripts/validate-release-exclusions.mjs
+          node --check scripts/ensure-generated-state-pdfs.mjs
+          python3 -m py_compile scripts/publication_redaction.py
+          python3 -m py_compile scripts/harden-public-pdf-privacy.py
+          python3 -m py_compile scripts/generated_pdf_signatures.py
+          python3 -m py_compile scripts/audit-release-evidence-2026-11-13.py
+
+      - name: Collect non-authoritative SHA candidate evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin refs/heads/gh-pages:refs/remotes/origin/gh-pages
+          python3 scripts/collect-canonical-pdf-sha-candidates.py
+
+      - name: Upload canonical SHA candidate evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: canonical-pdf-sha-candidates
+          path: review-artifacts/canonical-pdf-sha-candidates.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Evaluate SHA candidate provenance without exposing PDF text
+        run: |
+          python3 -m pip install --disable-pip-version-check pymupdf
+          python3 scripts/evaluate-canonical-pdf-provenance.py
+
+      - name: Upload canonical SHA provenance evaluation
+        uses: actions/upload-artifact@v4
+        with:
+          name: canonical-pdf-provenance-evaluation
+          path: review-artifacts/canonical-pdf-provenance-evaluation.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Verify deterministic public-copy materialization and record hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --disable-pip-version-check reportlab
+          rm -rf "$RUNNER_TEMP/evidence-lab-deterministic-rebuild"
+          mkdir -p "$RUNNER_TEMP/evidence-lab-deterministic-rebuild"
+          EVIDENCE_LAB_VERIFIED_COPY_OUT="$RUNNER_TEMP/evidence-lab-deterministic-rebuild" \
+            python3 scripts/materialize-verified-public-copies-2026-09-16.py
+          export EVIDENCE_LAB_DETERMINISTIC_REBUILD_ROOT="$RUNNER_TEMP/evidence-lab-deterministic-rebuild"
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          root=Path(os.environ["EVIDENCE_LAB_DETERMINISTIC_REBUILD_ROOT"])
+          names=[
+            "89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
+            "92-ms-praha-9-ad-12-2026-7-2026-09-14.pdf",
+            "93-mv-139593-3-tp-2026-2026-09-14.pdf",
+            "94-vsz-olomouc-3-vzn-239-2026-64-2026-09-15.pdf",
+            "97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
+            "98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
+            "99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf",
+            "100-msp-19-2026-odka-roz-26-2026-08-27-verejna-kopie.pdf",
+          ]
+          def digest(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+          first={name:digest(root/name) for name in names}
+          Path("review-artifacts").mkdir(exist_ok=True)
+          Path("review-artifacts/generated-public-copy-hashes-first.json").write_text(json.dumps(first,indent=2)+"\n")
+          PY
+          python3 scripts/materialize-verified-public-copies-2026-09-16.py
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          root=Path(os.environ["EVIDENCE_LAB_DETERMINISTIC_REBUILD_ROOT"])
+          first=json.loads(Path("review-artifacts/generated-public-copy-hashes-first.json").read_text())
+          second={name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in first}
+          if first != second:
+              raise SystemExit(f"verified public-copy generator is not deterministic: {[(k,first[k],second[k]) for k in first if first[k]!=second[k]]}")
+          out={
+            "schema_version":"1.0",
+            "generator":"scripts/materialize-verified-public-copies-2026-09-16.py",
+            "deterministic_rebuild_match":True,
+            "hashes":second,
+          }
+          Path("review-artifacts/generated-public-copy-hashes.json").write_text(json.dumps(out,indent=2)+"\n")
+          print(json.dumps(out))
+          PY
+
+      - name: Upload deterministic generated public-copy hashes
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-public-copy-hashes
+          path: review-artifacts/generated-public-copy-hashes.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Reverify remediated canonical PDF provenance from primary evidence
+        run: |
+          python3 scripts/validate-canonical-pdf-sha-provenance.py
+
+      - name: Spustit pouze syntetické privacy regrese bez repository Secrets
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq qpdf
+          python3 test/publication_redaction.test.py
+
+      - name: Fail closed on canonical PDF records without SHA-256 provenance
+        run: |
+          python3 - <<'PY'
+          import json, re
+          from pathlib import Path
+          registry = json.loads(Path("project-memory/documents-2026.json").read_text("utf-8"))
+          missing = []
+          for item in registry.get("documents", []):
+              public = item.get("public") or {}
+              if not public.get("pdf"):
+                  continue
+              sha = str(public.get("sha256") or "")
+              if not re.fullmatch(r"[0-9a-fA-F]{64}", sha):
+                  missing.append({"id": item.get("id"), "pdf": public.get("pdf")})
+          if missing:
+              print(json.dumps({"canonical_pdf_sha_missing_count": len(missing), "items": missing}, ensure_ascii=False))
+              raise SystemExit("canonical PDF SHA provenance incomplete")
+          print("Canonical PDF SHA provenance complete.")
+          PY
+
+  validate:
+    name: Trusted build se secret-backed privacy policy
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Načíst přesný PR HEAD
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Použít Node.js 24
         uses: actions/setup-node@v4
@@ -89,13 +220,79 @@ jobs:
           node --check scripts/verify-live-pdf-workflow.test.mjs
           node --test scripts/verify-live-pdf-workflow.test.mjs
 
+      - name: Regress standalone generated PDF preflight (synthetic fixtures)
+        run: |
+          node --check scripts/ensure-generated-state-pdfs.mjs
+          node --test test/ensure-generated-state-pdfs.test.mjs
+
+      - name: Validate final OKTE public relations logic (synthetic fixtures)
+        run: |
+          node --check scripts/validate-okte-final-relations.mjs
+          node --test test/validate-okte-final-relations.test.mjs
+
+      - name: Regress CZ/EN and return-anchor checker with synthetic fixtures
+        run: |
+          node --check scripts/validate-public-navigation.mjs
+          node --test test/validate-public-navigation.test.mjs
+
+      - name: Enforce binding privacy redaction in generated public copies
+        run: |
+          python3 -m pip install --disable-pip-version-check pymupdf
+          python3 -m py_compile scripts/publication_redaction.py
+          python3 -m py_compile scripts/harden-public-pdf-privacy.py
+          python3 -m py_compile scripts/generated_pdf_signatures.py
+          python3 -m py_compile scripts/materialize-godot-state-text-pdfs.py
+          python3 -m py_compile scripts/materialize-godot-late-state-pdfs.py
+          python3 -m py_compile scripts/materialize-uoou-2026-08-26.py
+          python3 -m py_compile scripts/materialize-euda-2026-09-25.py
+          python3 -m py_compile scripts/materialize-state-pdfs-2026-09-03.py
+          python3 -m py_compile scripts/materialize-msp-2026-09-08.py
+          python3 -m py_compile scripts/materialize-gibs-2026-09-08.py
+          python3 -m py_compile scripts/materialize-state-pdf-2026-10-01.py
+          python3 -m py_compile scripts/materialize-euda-access-documents-2026-10-01.py
+          python3 -m py_compile scripts/materialize-ekk-evidence-2026-10-02.py
+          python3 -m py_compile scripts/materialize-four-records-2026-10-03.py
+          python3 -m py_compile scripts/materialize-state-responses-2026-10-07.py
+          python3 -m py_compile scripts/materialize-justice-slalom-2026-10-12.py
+          python3 -m py_compile scripts/materialize-2026-10-15-godot-slalom.py
+          python3 test/publication_redaction.test.py
+          node --check scripts/materialize-os-praha4-public-copy.mjs
+
       - name: Připravit generátor ověřených veřejných PDF
         shell: bash
         run: |
           set -euo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y -qq poppler-utils
+          sudo apt-get install -y -qq poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check reportlab pillow pymupdf
+
+      - name: Provision private redaction policy only inside runner temp
+        shell: bash
+        env:
+          PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
+          PRIVATE_POLICY_HMAC_KEY: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$PRIVATE_POLICY_B64"
+          test -n "$PRIVATE_POLICY_HMAC_KEY"
+          POLICY_PATH="$RUNNER_TEMP/evidence-lab-private-redaction-policy.json"
+          printf '%s' "$PRIVATE_POLICY_B64" | base64 --decode > "$POLICY_PATH"
+          chmod 600 "$POLICY_PATH"
+          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=$POLICY_PATH" >> "$GITHUB_ENV"
+          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY=$PRIVATE_POLICY_HMAC_KEY" >> "$GITHUB_ENV"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path(os.environ["RUNNER_TEMP"]) / "evidence-lab-private-redaction-policy.json"
+          data = json.loads(path.read_text("utf-8"))
+          if data.get("policy_id") != "evidence-lab-private-redaction-policy":
+              raise SystemExit("private policy identity mismatch")
+          if data.get("revision") != 1 or data.get("revision_token") != "2026-11-17-v1":
+              raise SystemExit("private policy revision mismatch")
+          if not data.get("rules") or not data.get("forbidden"):
+              raise SystemExit("private policy is incomplete")
+          print("Private redaction policy provisioned in runner temp; private literals not logged.")
+          PY
 
       - name: Obnovit a kryptograficky ověřit všechna verzovaná PDF z historie
         run: node scripts/recover-historical-binary-blobs.mjs
@@ -136,11 +333,36 @@ jobs:
       - name: Nahradit veřejné časovače archivem Justiční slalom
         run: node scripts/build-justice-slalom.mjs
 
+      - name: Znovu sjednotit návratové odkazy po finálních Slalom kotvách
+        run: |
+          node scripts/repair-chronology-deep-links.mjs
+          node scripts/validate-chronology-deep-links.mjs
+
       - name: Ověřit PDF odkazy Godota
         run: node scripts/audit-godot-pdf-links.mjs
 
       - name: Obnovit společnou jazykovou nabídku po všech generátorech
         run: node scripts/build-language-access.mjs
+
+      - name: Fail closed if withdrawn ID 69 reappears after terminal public writers
+        run: node scripts/validate-release-exclusions.mjs
+
+      - name: Validate final public navigation after terminal writers
+        run: node scripts/validate-public-navigation.mjs
+
+      - name: Audit provenance, live OKTE SHA and actual public-PDF privacy evidence
+        env:
+          EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          EXPECTED_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          python3 -m py_compile scripts/audit-release-evidence-2026-11-13.py
+          # Regress non-PR/manual trigger behavior: an absent event base must be
+          # derived from remote main and still pass ancestry/merge-base gates.
+          EXPECTED_BASE_SHA= python3 scripts/audit-release-evidence-2026-11-13.py >/tmp/evidence-audit-derived-base.log
+          grep -q '"hard_failure_count": 0' /tmp/evidence-audit-derived-base.log
+          # Re-run with the explicit PR base so the retained review artifact
+          # records the exact source/base pair used for this release candidate.
+          python3 scripts/audit-release-evidence-2026-11-13.py
 
       - name: Ověřit mobilní čitelnost a plnou šířku hlavního článku
         run: node test/mobile-readability-v5.test.mjs
@@ -251,7 +473,7 @@ jobs:
           test -f web/data/generated-state-pdf-manifest.json
           test -f web/data/generated-state-pdf-manifest-2026-09-03.json
           test -f web/zpravy/04082026-010.html
-          test "$(jq -r '.count' web/data/generated-state-pdf-manifest.json)" = '8'
+          test "$(jq -r '.count' web/data/generated-state-pdf-manifest.json)" = '7'
           test "$(jq -r '.count' web/data/generated-state-pdf-manifest-2026-09-03.json)" = '2'
           state_count="$(jq -r '.counts.state_public_submissions' web/data/build-manifest.json)"
           test "$state_count" -ge 84
@@ -275,10 +497,11 @@ jobs:
           grep -q 'KU-4139-12/ČJ-2026-2305KM' web/zpravy/04082026-010.html
           grep -q 'KRPT-203594-8/ČJ-2026-0700KR' web/zpravy/04082026-010.html
           grep -q 'PPR-44020-2/ČJ-2026-990210-PD' web/zpravy/04082026-010.html
-          for f in web/documents/report-04082026-010/{64-msz-praha-2-kzn-55-2025-136-2026-08-20,65-ku-4139-12-cj-2026-2305km-2026-08-20,66-krpt-203594-7-cj-2026-0700kr-2026-08-20,67-krpt-priloha-rr-ku-54-2021,68-krpt-priloha-rr-ku-54-2021-priloha-1,69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019,70-krpt-203594-8-cj-2026-0700kr-2026-08-20,71-ppr-44020-2-cj-2026-990210-pd-2026-08-24}.pdf; do
+          for f in web/documents/report-04082026-010/{64-msz-praha-2-kzn-55-2025-136-2026-08-20,65-ku-4139-12-cj-2026-2305km-2026-08-20,66-krpt-203594-7-cj-2026-0700kr-2026-08-20,67-krpt-priloha-rr-ku-54-2021,68-krpt-priloha-rr-ku-54-2021-priloha-1,70-krpt-203594-8-cj-2026-0700kr-2026-08-20,71-ppr-44020-2-cj-2026-990210-pd-2026-08-24}.pdf; do
             test -f "$f"
             test "$(head -c 5 "$f")" = '%PDF-'
           done
+          test ! -e web/documents/report-04082026-010/69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf
           for f in web/documents/report-04082026-010/{kpr-5080-2026-vyrizeni-stiznosti-2026-09-02-verejna-kopie,osz-fm-1-zn-7061-2026-79-2026-09-03-verejna-kopie}.pdf; do
             test -f "$f"
             test "$(head -c 5 "$f")" = '%PDF-'
@@ -287,6 +510,14 @@ jobs:
           test "$(head -c 5 web/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf)" = '%PDF-'
           ! grep -qi 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
           ! grep -qi 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
+
+      - name: Uložit release evidence audit pro lidské review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-lab-release-evidence-${{ runner.os }}
+          path: review-artifacts
+          if-no-files-found: warn
 
       - name: Uložit ověřený web pouze jako kontrolní artefakt
         uses: actions/upload-artifact@v4

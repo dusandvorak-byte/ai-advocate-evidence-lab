@@ -1,8 +1,12 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 
 const output = 'web/documents/report-04082026-010/96-os-praha4-10-c-69-2026-predvolani-2026-09-16.pdf';
-const sourceText = await readFile('project-memory/source-texts/os-praha4-2026-09-16-10-c-69-2026-predvolani.txt', 'utf8');
+const rawSourceText = await readFile('project-memory/source-texts/os-praha4-2026-09-16-10-c-69-2026-predvolani.txt', 'utf8');
+const redaction = spawnSync('python3', ['scripts/publication_redaction.py'], { input: rawSourceText, encoding: 'utf8' });
+if (redaction.status !== 0) throw new Error(`Publication redaction failed: ${redaction.stderr || redaction.status}`);
+const sourceText = redaction.stdout;
 const pages = sourceText.split(/<PARSED TEXT FOR PAGE: \d+ \/ 4>\n/).slice(1);
 if (pages.length !== 4) throw new Error(`OS Praha 4 public copy source must contain 4 pages, got ${pages.length}`);
 
@@ -81,5 +85,5 @@ if (!pdf.subarray(-2048).includes(Buffer.from('%%EOF'))) throw new Error('Genera
 await mkdir('web/documents/report-04082026-010',{recursive:true});
 await writeFile(output,pdf);
 const sha256=createHash('sha256').update(pdf).digest('hex');
-if (sha256 !== '0cd831f494e7b1001ccb358449f6ca757a870ae72931e603464c83f4d53caea7') throw new Error(`Unexpected OS Praha 4 public copy sha256: ${sha256}`);
+if (sha256 !== 'fec601ef78493d49e3acf6d3cc0a7258c6d990a7048aaf633e9e51a8a4b15ca3') throw new Error(`Unexpected OS Praha 4 public copy sha256: ${sha256}`);
 console.log(`Materialized verified OS Praha 4 public PDF copy: ${pdf.length} B; sha256=${sha256}`);

@@ -208,8 +208,10 @@ for (const item of documents) {
   const institution = institutionMap.get(item.institution_id);
   const name = institution?.name_cs || institution?.name || item.institution_id;
   const published = item.public || {};
+  const publicCopy = /redacted|redigovan|public.copy|verejna.kopie|generated_public_copy/i.test(`${published.verification_status || ''} ${published.pdf || ''}`);
+  const pdfLabel = publicCopy ? 'Otevřít redigovanou veřejnou kopii PDF' : 'Otevřít originální listinu v PDF';
   const directPdf = published.pdf
-    ? `<p><a href="${escapeHtml(normalizePublicPath(published.pdf))}" target="_blank" rel="noopener">Otevřít originální listinu v PDF</a></p>`
+    ? `<p><a href="${escapeHtml(normalizePublicPath(published.pdf))}" target="_blank" rel="noopener">${pdfLabel}</a></p>`
     : '<p><b>Originální PDF:</b> dosud není fyzicky uloženo ve veřejném repozitáři. Tato stránka je stabilním veřejným evidenčním odkazem.</p>';
   const cases = Array.isArray(item.case_ids) && item.case_ids.length ? `<p><b>Řízení:</b> ${item.case_ids.map(escapeHtml).join(', ')}</p>` : '';
   const relations = Array.isArray(item.relations) && item.relations.length ? `<h2>Procesní vazby</h2><ul>${item.relations.map(rel => `<li>${escapeHtml(rel.type || rel.relation_type || 'souvisí')} ${escapeHtml(rel.target_id || rel.document_id || '')}</li>`).join('')}</ul>` : '';

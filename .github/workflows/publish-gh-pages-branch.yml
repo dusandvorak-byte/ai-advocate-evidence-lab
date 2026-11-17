@@ -3,13 +3,13 @@ name: Publikovat ověřený Evidence Lab do gh-pages
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   contents: write
 
 env:
   NODE_VERSION: '24'
+  EXPECTED_HEAD_SHA: ${{ github.sha }}
 
 concurrency:
   group: evidence-lab-production
@@ -17,15 +17,72 @@ concurrency:
 
 jobs:
   publish:
-    name: Sestavit, ověřit a publikovat jedinou produkční verzi
+    name: Trusted preflight; publikace jen po explicitní exact-SHA autorizaci
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - name: Načíst main
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.sha }}
           fetch-depth: 0
+
+      - name: Určit trusted preflight vs explicitně autorizovanou publikaci
+        shell: bash
+        env:
+          PREVIOUS_SHA: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          auth_file=".release/evidence-lab-publication-authorization.json"
+          mode="preflight"
+          authorized_target=""
+
+          if [[ "$PREVIOUS_SHA" =~ ^[0-9a-f]{40}$ ]] && [[ "$PREVIOUS_SHA" != "0000000000000000000000000000000000000000" ]]; then
+            mapfile -t changed < <(git diff --name-only "$PREVIOUS_SHA" "$GITHUB_SHA")
+            if [ "${#changed[@]}" -eq 1 ] && [ "${changed[0]}" = "$auth_file" ]; then
+              python3 - "$auth_file" "$PREVIOUS_SHA" <<'PY'
+          import json, re, sys
+          from pathlib import Path
+
+          path = Path(sys.argv[1])
+          previous = sys.argv[2]
+          data = json.loads(path.read_text("utf-8"))
+          if data.get("schema_version") != 1:
+              raise SystemExit("publication authorization schema mismatch")
+          if data.get("authorization_scope") != "publish-evidence-lab-gh-pages":
+              raise SystemExit("publication authorization scope mismatch")
+          if data.get("authorized") is not True:
+              raise SystemExit("authorization-only commit must set authorized=true")
+          target = str(data.get("authorized_target_sha") or "")
+          if not re.fullmatch(r"[0-9a-f]{40}", target):
+              raise SystemExit("authorized_target_sha must be exact 40hex")
+          if target != previous:
+              raise SystemExit("authorized_target_sha must equal the immediately preceding main SHA")
+          print("Publication authorization file is structurally valid.")
+          PY
+              parent="$(git rev-parse "$GITHUB_SHA^")"
+              test "$parent" = "$PREVIOUS_SHA"
+              mode="publish"
+              authorized_target="$PREVIOUS_SHA"
+            fi
+          fi
+
+          echo "RELEASE_MODE=$mode" >> "$GITHUB_ENV"
+          echo "AUTHORIZED_TARGET_SHA=$authorized_target" >> "$GITHUB_ENV"
+          echo "Release mode: $mode"
+          if [ "$mode" = "publish" ]; then
+            echo "Authorized target SHA: $authorized_target"
+          else
+            echo "Trusted preflight only; gh-pages push is disabled."
+          fi
+
+      - name: Snapshot canonical registry before any build reconciliation
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp project-memory/documents-2026.json "$RUNNER_TEMP/canonical-documents-2026-prebuild.json"
+          echo "EVIDENCE_LAB_CANONICAL_REGISTRY=$RUNNER_TEMP/canonical-documents-2026-prebuild.json" >> "$GITHUB_ENV"
 
       - name: Použít Node.js 24
         uses: actions/setup-node@v4
@@ -51,8 +108,36 @@ jobs:
       - name: Připravit Python a PDF kontrolní nástroje
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq poppler-utils
+          sudo apt-get install -y -qq poppler-utils qpdf
           python3 -m pip install --quiet reportlab pillow pymupdf
+
+      - name: Provision private redaction policy only inside runner temp
+        shell: bash
+        env:
+          PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
+          PRIVATE_POLICY_HMAC_KEY: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$PRIVATE_POLICY_B64"
+          test -n "$PRIVATE_POLICY_HMAC_KEY"
+          POLICY_PATH="$RUNNER_TEMP/evidence-lab-private-redaction-policy.json"
+          printf '%s' "$PRIVATE_POLICY_B64" | base64 --decode > "$POLICY_PATH"
+          chmod 600 "$POLICY_PATH"
+          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=$POLICY_PATH" >> "$GITHUB_ENV"
+          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY=$PRIVATE_POLICY_HMAC_KEY" >> "$GITHUB_ENV"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path(os.environ["RUNNER_TEMP"]) / "evidence-lab-private-redaction-policy.json"
+          data = json.loads(path.read_text("utf-8"))
+          if data.get("policy_id") != "evidence-lab-private-redaction-policy":
+              raise SystemExit("private policy identity mismatch")
+          if data.get("revision") != 1 or data.get("revision_token") != "2026-11-17-v1":
+              raise SystemExit("private policy revision mismatch")
+          if not data.get("rules") or not data.get("forbidden"):
+              raise SystemExit("private policy is incomplete")
+          print("Private redaction policy provisioned in runner temp; private literals not logged.")
+          PY
 
       - name: Obnovit přesné PDF z historických binárních zdrojů
         run: node scripts/recover-historical-binary-blobs.mjs
@@ -95,6 +180,9 @@ jobs:
 
       - name: Obnovit společnou jazykovou nabídku po všech generátorech
         run: node scripts/build-language-access.mjs
+
+      - name: Fail closed if withdrawn ID 69 reappears after terminal public writers
+        run: node scripts/validate-release-exclusions.mjs
 
       - name: Ověřit mobilní čitelnost a plnou šířku hlavního článku
         run: node test/mobile-readability-v5.test.mjs
@@ -280,14 +368,99 @@ jobs:
           grep -q 'Ministry of Transport' web/news/04082026-010.html
           grep -q 'The Ministry of Transport deferred the freedom-of-information request' web/news/04082026-010.html
 
-      - name: Připravit kořen webu a kompatibilní cestu /web
+      - name: Deterministically rebuild the frozen provenance set in isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "$RUNNER_TEMP/evidence-lab-deterministic-rebuild"
+          mkdir -p "$RUNNER_TEMP/evidence-lab-deterministic-rebuild"
+          EVIDENCE_LAB_VERIFIED_COPY_OUT="$RUNNER_TEMP/evidence-lab-deterministic-rebuild" \
+            python3 scripts/materialize-verified-public-copies-2026-09-16.py
+          echo "EVIDENCE_LAB_DETERMINISTIC_REBUILD_ROOT=$RUNNER_TEMP/evidence-lab-deterministic-rebuild" >> "$GITHUB_ENV"
+
+      - name: Reverify remediated canonical PDF provenance from primary evidence
+        env:
+          EVIDENCE_LAB_REQUIRE_TRUSTED_PROVENANCE_ROOT: '1'
+          EVIDENCE_LAB_CANONICAL_PROVENANCE_CONTRACT_SHA256: ${{ secrets.EVIDENCE_LAB_CANONICAL_PROVENANCE_CONTRACT_SHA256 }}
+        run: |
+          set -euo pipefail
+          test -n "$EVIDENCE_LAB_CANONICAL_PROVENANCE_CONTRACT_SHA256"
+          python3 scripts/validate-canonical-pdf-sha-provenance.py
+
+      - name: Připravit kořen webu, bezpečně zachovat canonical historical PDF a vytvořit /web mirror
         shell: bash
         run: |
           set -euo pipefail
           rm -rf /tmp/verified-site /tmp/verified-site-copy
           mkdir -p /tmp/verified-site /tmp/verified-site-copy
           cp -a web/. /tmp/verified-site/
-          cp -a web/. /tmp/verified-site-copy/
+
+          # Preserve only current canonical-registry PDFs missing from the new source tree.
+          # Never blanket-copy gh-pages. Every recovered file must match the canonical SHA.
+          git fetch --no-tags origin refs/heads/gh-pages:refs/remotes/origin/gh-pages
+          python3 - <<'PY'
+          import hashlib, json, os, re, subprocess
+          from pathlib import Path
+
+          root = Path("/tmp/verified-site")
+          registry = json.loads(Path(os.environ["EVIDENCE_LAB_CANONICAL_REGISTRY"]).read_text("utf-8"))
+          excluded_id = "doc-cz-pcr-krpt-2026-08-20-metodicko-odborne-vyjezdy-okte"
+          restored = []
+
+          for item in registry.get("documents", []):
+              if item.get("id") == excluded_id:
+                  raise SystemExit("owner-excluded ID69 unexpectedly present in canonical registry")
+              public = item.get("public") or {}
+              rel = str(public.get("pdf") or "")
+              expected_sha = str(public.get("sha256") or "").lower()
+              if not rel:
+                  continue
+              target = root / rel
+              if not re.fullmatch(r"[0-9a-f]{64}", expected_sha):
+                  raise SystemExit(f"canonical PDF lacks valid SHA-256 provenance: {rel}")
+
+              if target.exists():
+                  payload = target.read_bytes()
+                  if not payload.startswith(b"%PDF-"):
+                      raise SystemExit(f"checked-in canonical asset is not a PDF: {rel}")
+                  actual_sha = hashlib.sha256(payload).hexdigest()
+                  if actual_sha != expected_sha:
+                      raise SystemExit(f"checked-in canonical PDF SHA mismatch: {rel}")
+                  continue
+
+              payload = None
+              source_ref = None
+              for candidate in (rel, "web/" + rel):
+                  proc = subprocess.run(
+                      ["git", "show", f"origin/gh-pages:{candidate}"],
+                      stdout=subprocess.PIPE, stderr=subprocess.DEVNULL
+                  )
+                  if proc.returncode == 0:
+                      payload = proc.stdout
+                      source_ref = candidate
+                      break
+              if payload is None:
+                  raise SystemExit(f"canonical historical PDF missing from both new source and current gh-pages: {rel}")
+              if not payload.startswith(b"%PDF-"):
+                  raise SystemExit(f"historical canonical asset is not a PDF: {rel}")
+              actual_sha = hashlib.sha256(payload).hexdigest()
+              if actual_sha != expected_sha:
+                  raise SystemExit(f"historical canonical PDF SHA mismatch: {rel}")
+              target.parent.mkdir(parents=True, exist_ok=True)
+              target.write_bytes(payload)
+              restored.append({"path": rel, "sha256": actual_sha, "source": source_ref})
+
+          out = Path("review-artifacts/historical-pdf-restoration.json")
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(json.dumps({
+              "restored_count": len(restored),
+              "restored": restored,
+              "policy": "canonical-registry-only, exact-SHA, ID69 excluded"
+          }, ensure_ascii=False, indent=2) + "\n", "utf-8")
+          print(f"Restored {len(restored)} canonical historical PDFs by exact SHA.")
+          PY
+
+          cp -a /tmp/verified-site/. /tmp/verified-site-copy/
           mkdir -p /tmp/verified-site/web
           cp -a /tmp/verified-site-copy/. /tmp/verified-site/web/
           version="${GITHUB_SHA:0:12}"
@@ -308,7 +481,31 @@ jobs:
           printf '%s\n' "$GITHUB_SHA" > /tmp/verified-site/.source-commit
           printf '%s\n' "$GITHUB_SHA" > /tmp/verified-site/web/.source-commit
 
+      - name: Fail-closed audit exact staged publication tree
+        env:
+          EVIDENCE_LAB_PUBLICATION_ROOT: /tmp/verified-site
+        run: python3 scripts/audit-release-evidence-2026-11-13.py
+
+      - name: Vytvořit necitlivý trusted preflight per-output report
+        run: python3 scripts/build-trusted-preflight-public-report.py
+
+      - name: Uložit trusted preflight report pro nezávislý review
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-lab-trusted-preflight-${{ github.sha }}
+          path: review-artifacts/trusted-preflight-public-report.json
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Potvrdit preflight-only režim bez publikace
+        if: env.RELEASE_MODE != 'publish'
+        run: |
+          echo "Trusted preflight completed successfully."
+          echo "No gh-pages write was attempted."
+          echo "A separate main commit changing only .release/evidence-lab-publication-authorization.json is required for publication."
+
       - name: Publikovat ověřené soubory do jediné větve gh-pages
+        if: env.RELEASE_MODE == 'publish'
         shell: bash
         run: |
           set -euo pipefail
@@ -319,12 +516,75 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout --orphan gh-pages-publish
           git rm -rf .
+          git clean -fdx
           cp -a /tmp/verified-site/. .
           git add -A
+
+          # Verify that git clean filters/attributes did not alter any audited byte.
+          # The index must be an exact byte+mode+path representation of /tmp/verified-site.
+          python3 - <<'PY'
+          import os
+          import stat
+          import subprocess
+          from pathlib import Path
+
+          source = Path("/tmp/verified-site")
+          expected = {}
+
+          for path in source.rglob("*"):
+              rel = path.relative_to(source).as_posix()
+              st = path.lstat()
+              if stat.S_ISREG(st.st_mode):
+                  mode = "100755" if (st.st_mode & stat.S_IXUSR) else "100644"
+                  expected[rel] = (mode, path.read_bytes())
+              elif stat.S_ISLNK(st.st_mode):
+                  expected[rel] = ("120000", os.readlink(path).encode())
+              elif stat.S_ISDIR(st.st_mode):
+                  continue
+              else:
+                  raise SystemExit(f"unsupported staged filesystem object: {rel}")
+
+          proc = subprocess.run(
+              ["git", "ls-files", "-s", "-z"],
+              check=True, stdout=subprocess.PIPE
+          )
+          actual = {}
+          for record in proc.stdout.split(b"\0"):
+              if not record:
+                  continue
+              meta, raw_path = record.split(b"\t", 1)
+              mode_b, blob_b, stage_b = meta.split()
+              if stage_b != b"0":
+                  raise SystemExit(f"non-zero git index stage for {raw_path!r}")
+              rel = raw_path.decode("utf-8", "surrogateescape")
+              blob = blob_b.decode("ascii")
+              payload = subprocess.run(
+                  ["git", "cat-file", "blob", blob],
+                  check=True, stdout=subprocess.PIPE
+              ).stdout
+              actual[rel] = (mode_b.decode("ascii"), payload)
+
+          missing = sorted(set(expected) - set(actual))
+          extra = sorted(set(actual) - set(expected))
+          if missing or extra:
+              raise SystemExit(f"git index path-set mismatch: missing={missing} extra={extra}")
+
+          changed = []
+          for rel, exp in expected.items():
+              got = actual[rel]
+              if exp[0] != got[0] or exp[1] != got[1]:
+                  changed.append(rel)
+          if changed:
+              raise SystemExit(f"git index differs from audited staging bytes/modes: {changed}")
+
+          print(f"Git index identity verified for {len(expected)} audited staged files.")
+          PY
+
           git commit -m "Publish verified Evidence Lab 2.0 from $GITHUB_SHA"
           git push --force origin HEAD:gh-pages
 
       - name: Ověřit živou produkci po publikaci
+        if: env.RELEASE_MODE == 'publish'
         shell: bash
         run: |
           set -euo pipefail
