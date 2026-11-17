@@ -2,7 +2,7 @@ name: Ověřit Evidence Lab 2.0
 
 on:
   push:
-    branches: [agent/evidence-lab-2-final]
+    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -28,8 +28,39 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  pr_static:
+    name: PR kontrola bez přístupu k private Secrets
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Načíst přesný PR HEAD bez Secrets
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Použít Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Staticky ověřit privacy a release guardy
+        run: |
+          node --check scripts/validate-release-exclusions.mjs
+          node --check scripts/ensure-generated-state-pdfs.mjs
+          python3 -m py_compile scripts/publication_redaction.py
+          python3 -m py_compile scripts/harden-public-pdf-privacy.py
+          python3 -m py_compile scripts/generated_pdf_signatures.py
+
+      - name: Spustit pouze syntetické privacy regrese bez repository Secrets
+        run: |
+          python3 -m pip install --disable-pip-version-check pymupdf
+          python3 test/publication_redaction.test.py
+
   validate:
-    name: Ověřit architekturu a sestavit web bez publikace
+    name: Trusted build se secret-backed privacy policy
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ${{ inputs.runner || 'ubuntu-24.04' }}
     timeout-minutes: 15
     steps:
@@ -134,6 +165,34 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq poppler-utils
           python3 -m pip install --disable-pip-version-check reportlab pillow pymupdf
+
+      - name: Provision private redaction policy only inside runner temp
+        shell: bash
+        env:
+          PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
+          PRIVATE_POLICY_HMAC_KEY: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$PRIVATE_POLICY_B64"
+          test -n "$PRIVATE_POLICY_HMAC_KEY"
+          POLICY_PATH="$RUNNER_TEMP/evidence-lab-private-redaction-policy.json"
+          printf '%s' "$PRIVATE_POLICY_B64" | base64 --decode > "$POLICY_PATH"
+          chmod 600 "$POLICY_PATH"
+          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=$POLICY_PATH" >> "$GITHUB_ENV"
+          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY=$PRIVATE_POLICY_HMAC_KEY" >> "$GITHUB_ENV"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path(os.environ["RUNNER_TEMP"]) / "evidence-lab-private-redaction-policy.json"
+          data = json.loads(path.read_text("utf-8"))
+          if data.get("policy_id") != "evidence-lab-private-redaction-policy":
+              raise SystemExit("private policy identity mismatch")
+          if data.get("revision") != 1 or data.get("revision_token") != "2026-11-17-v1":
+              raise SystemExit("private policy revision mismatch")
+          if not data.get("rules") or not data.get("forbidden"):
+              raise SystemExit("private policy is incomplete")
+          print("Private redaction policy provisioned in runner temp; private literals not logged.")
+          PY
 
       - name: Obnovit a kryptograficky ověřit všechna verzovaná PDF z historie
         run: node scripts/recover-historical-binary-blobs.mjs
