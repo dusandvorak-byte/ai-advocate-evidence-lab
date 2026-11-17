@@ -34,34 +34,46 @@ def pdf_facts(path: Path) -> dict:
         check=True, capture_output=True, text=True
     )
     poppler_text = poppler.stdout
-    text = fitz_text + "\n" + poppler_text
-    private_hits = forbidden_public_identifiers(text)
+    page_text = fitz_text + "\n" + poppler_text
     meta = {k: v for k, v in (doc.metadata or {}).items() if v}
+    xmp = doc.get_xml_metadata() or ""
     embedded = doc.embfile_count() if hasattr(doc, "embfile_count") else 0
-    suspicious_meta = {
-        k: v for k, v in meta.items()
-        if re.search(r"(?i)([\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|/Users/|/home/|[A-Z]:\\\\Users\\\\)", str(v))
-    }
+
+    metadata_text = "\n".join(str(v) for v in meta.values())
+    combined_private_scan = page_text + "\n" + metadata_text + "\n" + xmp
+    private_hits = forbidden_public_identifiers(combined_private_scan)
+
+    suspicious_re = re.compile(r"(?i)([\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|/Users/|/home/|[A-Z]:\\\\Users\\\\)")
+    suspicious_metadata_keys = sorted(k for k, v in meta.items() if suspicious_re.search(str(v)))
+    xmp_suspicious = bool(suspicious_re.search(xmp))
+
     signals = {
-        "email_like_count": len(re.findall(r"(?i)\b[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}\b", text)),
-        "czech_birth_number_like_count": len(re.findall(r"(?<!\d)\d{6}/?\d{3,4}(?!\d)", text)),
-        "phone_like_count": len(re.findall(r"(?<!\d)(?:\+420\s*)?(?:\d[ -]?){9}(?!\d)", text)),
+        "email_like_count": len(re.findall(r"(?i)\b[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}\b", page_text)),
+        "czech_birth_number_like_count": len(re.findall(r"(?<!\d)\d{6}/?\d{3,4}(?!\d)", page_text)),
+        "phone_like_count": len(re.findall(r"(?<!\d)(?:\+420\s*)?(?:\d[ -]?){9}(?!\d)", page_text)),
     }
+    page_count = doc.page_count
+    doc.close()
+
+    machine_failure = bool(embedded or suspicious_metadata_keys or xmp_suspicious or private_hits)
     return {
-        "page_count": doc.page_count,
-        "metadata": meta,
+        "page_count": page_count,
+        "metadata_keys_present": sorted(meta.keys()),
         "embedded_file_count": embedded,
-        "suspicious_metadata": suspicious_meta,
+        "suspicious_metadata_keys": suspicious_metadata_keys,
+        "xmp_present": bool(xmp),
+        "xmp_suspicious": xmp_suspicious,
+        "xmp_known_private_identifier_hits": forbidden_public_identifiers(xmp),
         "content_privacy_signals": signals,
         "machine_privacy_status": (
-            "FAIL_EMBEDDED_OR_SUSPICIOUS_METADATA" if embedded or suspicious_meta
+            "FAIL_PRIVATE_OR_METADATA_CHANNEL" if machine_failure
             else ("FLAGGED_FOR_HUMAN_CONTENT_REVIEW" if any(signals.values()) else "NO_OBVIOUS_HIGH_RISK_PATTERN")
         ),
         "human_privacy_review_required": True,
         "known_private_identifier_hits": private_hits,
         "text_extraction_engines": ["PyMuPDF", "pdftotext/poppler"],
-        "public_copy_notice_present": bool(re.search(r"(?i)(veřejn.{0,20}kopie|public pdf copy)", text)),
-        "not_byte_identical_notice_present": bool(re.search(r"(?i)(nejde\s+o\s+byte[^\n]{0,20}identick|not\s+byte[^\n]{0,20}identical)", text)),
+        "public_copy_notice_present": bool(re.search(r"(?i)(veřejn.{0,20}kopie|public pdf copy)", page_text)),
+        "not_byte_identical_notice_present": bool(re.search(r"(?i)(nejde\s+o\s+byte[^\n]{0,20}identick|not\s+byte[^\n]{0,20}identical)", page_text)),
     }
 
 def load_generator_records():
@@ -114,7 +126,7 @@ def audit_generated():
             failures.append(f"missing public-copy notice in {target.relative_to(ROOT)}")
         if not facts["not_byte_identical_notice_present"]:
             failures.append(f"missing not-byte-identical notice in {target.relative_to(ROOT)}")
-        if facts["embedded_file_count"] or facts["suspicious_metadata"]:
+        if facts["embedded_file_count"] or facts["suspicious_metadata_keys"]:
             failures.append(f"unsafe metadata/embedded content in {target.relative_to(ROOT)}")
         if facts["known_private_identifier_hits"]:
             failures.append(
@@ -176,7 +188,7 @@ def audit_registry_public_derivatives():
         checks = {
             "known_private_identifiers_absent": not facts["known_private_identifier_hits"],
             "embedded_files_absent": facts["embedded_file_count"] == 0,
-            "suspicious_metadata_absent": not facts["suspicious_metadata"],
+            "suspicious_metadata_absent": not facts["suspicious_metadata_keys"],\n            "xmp_private_absent": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
         }
         if not all(checks.values()):
             failures.append(f"registry public derivative privacy failure {item.get('id')} {rel}: {checks}; hits={facts['known_private_identifier_hits']}")
@@ -188,12 +200,80 @@ def audit_registry_public_derivatives():
             "page_count": facts["page_count"],
             "known_private_identifier_hits": facts["known_private_identifier_hits"],
             "machine_privacy_status": facts["machine_privacy_status"],
-            "metadata": facts["metadata"],
+            "metadata_keys_present": facts["metadata_keys_present"],\n            "xmp_present": facts["xmp_present"],
             "checks": checks,
         })
     if not rows:
         failures.append("no generated/redacted public derivatives discovered in final registry")
     return rows, failures
+
+def audit_all_web_pdfs():
+    registry_path = WEB / "data/documents-2026.json"
+    registry = json.loads(registry_path.read_text("utf-8"))
+    registry_by_path = {}
+    derivative_paths = set()
+    markers = ("generated", "public_copy", "text_copy", "redacted", "not_byte_identical")
+
+    for item in registry.get("documents", []):
+        public = item.get("public") or {}
+        rel = str(public.get("pdf") or "")
+        if not rel:
+            continue
+        registry_by_path.setdefault(rel, []).append({
+            "id": item.get("id"),
+            "verification_status": public.get("verification_status"),
+        })
+        status = " ".join([
+            str(public.get("verification_status") or ""),
+            str(public.get("public_copy_note") or ""),
+            rel,
+        ]).lower()
+        if re.search(r"(?i)(verejna|veřejná|textova|textová|redigovan|public[-_ ]?copy)", rel) or any(marker in status for marker in markers):
+            derivative_paths.add(rel)
+
+    rows = []
+    failures = []
+    pdfs = sorted(p for p in WEB.rglob("*.pdf") if p.is_file())
+    if not pdfs:
+        failures.append("no PDFs found under web/")
+        return rows, failures
+
+    for path in pdfs:
+        rel = path.relative_to(WEB).as_posix()
+        facts = pdf_facts(path)
+        refs = registry_by_path.get(rel, [])
+        registered = bool(refs)
+        is_derivative = rel in derivative_paths
+
+        checks = {
+            "forbidden_identifiers_absent": not facts["known_private_identifier_hits"],
+            "embedded_files_absent": facts["embedded_file_count"] == 0,
+            "suspicious_info_metadata_absent": not facts["suspicious_metadata_keys"],
+            "xmp_private_or_suspicious_absent": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
+        }
+        if is_derivative:
+            checks["derivative_xmp_removed"] = not facts["xmp_present"]
+
+        if not all(checks.values()):
+            failures.append(f"final web PDF privacy failure {rel}: {checks}")
+
+        rows.append({
+            "public_path": rel,
+            "registered": registered,
+            "registry_ids": [ref.get("id") for ref in refs if ref.get("id")],
+            "verification_statuses": [ref.get("verification_status") for ref in refs if ref.get("verification_status")],
+            "derivative": is_derivative,
+            "sha256": sha256_file(path),
+            "page_count": facts["page_count"],
+            "metadata_keys_present": facts["metadata_keys_present"],
+            "xmp_present": facts["xmp_present"],
+            "embedded_file_count": facts["embedded_file_count"],
+            "machine_privacy_status": facts["machine_privacy_status"],
+            "checks": checks,
+        })
+
+    return rows, failures
+
 
 def audit_okte():
     annex_path = ROOT / "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
@@ -293,7 +373,7 @@ def audit_redacted_analysis():
         "historical_outside_redaction_pixel_changes_zero": privacy.get("pixel_changes_outside_redactions") == 0,
         "historical_metadata_removal_recorded": privacy.get("metadata_removed") is True,
         "no_embedded_files_now": facts["embedded_file_count"] == 0,
-        "no_suspicious_metadata_now": not facts["suspicious_metadata"],
+        "no_suspicious_metadata_now": not facts["suspicious_metadata_keys"],
         "no_known_private_identifiers_now": not facts["known_private_identifier_hits"],
         "live_http_200_pre_release": live.get("http_status") == 200,
         "live_still_matches_pre_release_reviewed_copy": live.get("sha256") == privacy["sha256"],
@@ -307,7 +387,7 @@ def audit_redacted_analysis():
         "actual_candidate": actual,
         "privacy_manifest": privacy,
         "privacy_hardening": hardening_row,
-        "current_pdf_metadata": facts["metadata"],
+        "current_pdf_metadata_keys": facts["metadata_keys_present"],\n        "current_pdf_xmp_present": facts["xmp_present"],
         "current_content_privacy_signals": facts["content_privacy_signals"],
         "live_pre_release": live,
         "checks": checks,
@@ -319,6 +399,7 @@ def audit_redacted_analysis():
 def main():
     generated, gen_fail = audit_generated()
     registry_derivatives, registry_fail = audit_registry_public_derivatives()
+    all_web_pdfs, all_web_fail = audit_all_web_pdfs()
     hardening_path = ROOT / "project-memory/privacy-hardening-report.json"
     hardening = json.loads(hardening_path.read_text("utf-8"))
     hardening_fail = list(hardening.get("hard_failures") or [])
@@ -326,7 +407,7 @@ def main():
         hardening_fail.append("privacy hardening failure count does not match hard failure list")
     okte, okte_fail = audit_okte()
     redacted, redact_fail = audit_redacted_analysis()
-    failures = gen_fail + registry_fail + hardening_fail + okte_fail + redact_fail
+    failures = gen_fail + registry_fail + all_web_fail + hardening_fail + okte_fail + redact_fail
     checkout_sha = subprocess.run(
         ["git", "rev-parse", "HEAD"], check=True, capture_output=True, text=True
     ).stdout.strip()
@@ -393,12 +474,15 @@ def main():
         "github_event_sha": os.environ.get("GITHUB_SHA"),
         "generated_public_derivatives": generated,
         "registry_public_derivatives": registry_derivatives,
+        "all_final_web_pdfs": all_web_pdfs,
         "privacy_hardening": hardening,
         "okte_originals": okte,
         "redacted_okte_analysis": redacted,
         "summary": {
             "generated_derivative_count": len(generated),
             "registry_public_derivative_count": len(registry_derivatives),
+            "all_final_web_pdf_count": len(all_web_pdfs),
+            "unregistered_final_web_pdf_count": len([row for row in all_web_pdfs if not row["registered"]]),
             "privacy_hardened_derivative_count": hardening.get("changed_derivative_count"),
             "okte_original_count": len(okte.get("annexes", [])),
             "hard_failure_count": len(failures),
