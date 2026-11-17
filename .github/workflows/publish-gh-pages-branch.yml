@@ -379,7 +379,13 @@ jobs:
           echo "EVIDENCE_LAB_DETERMINISTIC_REBUILD_ROOT=$RUNNER_TEMP/evidence-lab-deterministic-rebuild" >> "$GITHUB_ENV"
 
       - name: Reverify remediated canonical PDF provenance from primary evidence
-        run: python3 scripts/validate-canonical-pdf-sha-provenance.py
+        env:
+          EVIDENCE_LAB_REQUIRE_TRUSTED_PROVENANCE_ROOT: '1'
+          EVIDENCE_LAB_CANONICAL_PROVENANCE_CONTRACT_SHA256: ${{ secrets.EVIDENCE_LAB_CANONICAL_PROVENANCE_CONTRACT_SHA256 }}
+        run: |
+          set -euo pipefail
+          test -n "$EVIDENCE_LAB_CANONICAL_PROVENANCE_CONTRACT_SHA256"
+          python3 scripts/validate-canonical-pdf-sha-provenance.py
 
       - name: Připravit kořen webu, bezpečně zachovat canonical historical PDF a vytvořit /web mirror
         shell: bash
