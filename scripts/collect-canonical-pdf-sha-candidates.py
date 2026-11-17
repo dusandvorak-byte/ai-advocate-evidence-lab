@@ -29,28 +29,39 @@ for item in registry.get("documents", []):
         continue
 
     source_path=ROOT/"web"/rel
-    data=None
-    measured_from=None
-    source_ref=None
-    if source_path.is_file():
-        data=source_path.read_bytes()
-        measured_from="checked_in_web"
-        source_ref=str(source_path.relative_to(ROOT))
+    checked_in_data=source_path.read_bytes() if source_path.is_file() else None
+    gh_data, gh_ref=git_show(rel)
+
+    data=checked_in_data if checked_in_data is not None else gh_data
+    measured_from="checked_in_web" if checked_in_data is not None else ("current_gh_pages" if gh_data is not None else None)
+    source_ref=str(source_path.relative_to(ROOT)) if checked_in_data is not None else gh_ref
+
+    checked_sha=digest(checked_in_data) if checked_in_data is not None else None
+    gh_sha=digest(gh_data) if gh_data is not None else None
+    manifest=public.get("source_manifest")
+    if manifest and manifest != "filename-reference-date-reconciliation":
+        provenance_strength="EXPLICIT_PROJECT_MANIFEST"
+    elif manifest == "filename-reference-date-reconciliation":
+        provenance_strength="HEURISTIC_RECONCILIATION_ONLY"
     else:
-        data, source_ref=git_show(rel)
-        if data is not None:
-            measured_from="current_gh_pages"
+        provenance_strength="NO_EXPLICIT_MANIFEST"
 
     row={
         "id": item.get("id"),
         "pdf": rel,
         "verification_status": public.get("verification_status"),
-        "source_manifest": public.get("source_manifest"),
+        "source_manifest": manifest,
+        "source_text": public.get("source_text"),
+        "source_sha256": public.get("source_sha256") or public.get("source_original_sha256"),
+        "provenance_strength": provenance_strength,
         "measured_from": measured_from,
         "source_ref": source_ref,
         "pdf_magic_ok": bool(data and data.startswith(b"%PDF-")),
         "byte_size": len(data) if data is not None else None,
         "measured_sha256": digest(data) if data is not None else None,
+        "checked_in_sha256": checked_sha,
+        "gh_pages_sha256": gh_sha,
+        "continuity_match": bool(checked_sha and gh_sha and checked_sha == gh_sha),
         "canonical_sha_present": False,
         "promotion_status": "MEASUREMENT_ONLY_NOT_AUTHORITY",
     }
