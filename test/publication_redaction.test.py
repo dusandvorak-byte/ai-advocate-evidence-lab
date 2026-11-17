@@ -375,8 +375,11 @@ private.person@example.invalid
         doc = fitz.open()
         doc.new_page()
         xref = doc.get_new_xref()
-        doc.update_object(xref, "<< /Length 0 >>")
-        doc.update_stream(xref, "Příliš žluťoučký kůň 42".encode("utf-8"), compress=True)
+        secret = "Příliš žluťoučký kůň 42".encode("utf-8")
+        compressed = __import__("zlib").compress(secret)
+        doc.update_object(xref, "<< /Length 0 /Filter /FlateDecode >>")
+        doc.update_stream(xref, compressed, compress=False)
+        doc.xref_set_key(xref, "Filter", "/FlateDecode")
         doc.save(pdf)
         doc.close()
 
