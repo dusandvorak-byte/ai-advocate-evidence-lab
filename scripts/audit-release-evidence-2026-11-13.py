@@ -8,7 +8,7 @@ import fitz
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from publication_redaction import forbidden_public_identifiers
+from publication_redaction import forbidden_public_identifiers, forbidden_public_identifier_byte_hits
 WEB = ROOT / "web"
 PUBLICATION_ROOT = Path(os.environ.get("EVIDENCE_LAB_PUBLICATION_ROOT", str(WEB))).resolve()
 CANONICAL_REGISTRY = Path(os.environ.get("EVIDENCE_LAB_CANONICAL_REGISTRY", str(ROOT / "project-memory/documents-2026.json"))).resolve()
@@ -161,6 +161,21 @@ def pdf_revision_envelope(raw: bytes) -> dict:
     }
 
 
+def qpdf_structural_check(path: Path) -> tuple[bool, str]:
+    try:
+        proc = subprocess.run(
+            ["qpdf", "--check", str(path)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            timeout=30,
+        )
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return False, "qpdf_unavailable_or_timeout"
+    output = (proc.stdout or "").strip()
+    return proc.returncode == 0, output[-2000:]
+
+
 def pdf_facts(path: Path) -> dict:
     header_offset = pdf_header_offset(path)
     raw = path.read_bytes()
@@ -171,12 +186,13 @@ def pdf_facts(path: Path) -> dict:
     envelope = pdf_revision_envelope(raw)
     eof_present = envelope["pdf_eof_present"]
     suffix_non_whitespace = envelope["non_whitespace_suffix_after_pdf_eof"]
-    raw_private_hits = forbidden_public_identifiers(raw.decode("latin-1", errors="ignore"))
+    raw_private_hits = forbidden_public_identifier_byte_hits(raw)
+    qpdf_valid, qpdf_output = qpdf_structural_check(path)
 
-    # Fail before invoking any PDF parser when bytes exist outside the accepted
-    # PDF revision envelope, when startxref/EOF markers are forged or ambiguous,
-    # or when authenticated private literals occur anywhere in raw downloadable bytes.
-    if prefix_non_whitespace or not envelope["pdf_revision_markers_bound"] or raw_private_hits:
+    # Fail before invoking rendering/text parsers when bytes exist outside the
+    # accepted PDF envelope, authenticated private literals occur anywhere in raw
+    # downloadable bytes, or qpdf rejects the final xref/trailer revision.
+    if prefix_non_whitespace or not envelope["pdf_revision_markers_bound"] or not qpdf_valid or raw_private_hits:
         return {
             "page_count": None,
             "metadata_keys_present": [],
@@ -207,6 +223,8 @@ def pdf_facts(path: Path) -> dict:
             "pdf_startxref_offsets_unique": envelope["pdf_startxref_offsets_unique"],
             "pdf_startxref_targets_valid": envelope["pdf_startxref_targets_valid"],
             "pdf_revision_markers_bound": envelope["pdf_revision_markers_bound"],
+            "qpdf_structurally_valid": qpdf_valid,
+            "qpdf_check_tail": qpdf_output,
             "non_whitespace_suffix_after_pdf_eof": suffix_non_whitespace,
         }
 
@@ -241,7 +259,7 @@ def pdf_facts(path: Path) -> dict:
     page_count = doc.page_count
     doc.close()
 
-    machine_failure = bool(prefix_non_whitespace or not envelope["pdf_revision_markers_bound"] or embedded or file_attachment_annotations or associated_file_references or embedded_file_objects or suspicious_metadata_keys or xmp_suspicious or private_hits)
+    machine_failure = bool(prefix_non_whitespace or not envelope["pdf_revision_markers_bound"] or not qpdf_valid or embedded or file_attachment_annotations or associated_file_references or embedded_file_objects or suspicious_metadata_keys or xmp_suspicious or private_hits)
     return {
         "page_count": page_count,
         "pdf_header_offset": header_offset,
@@ -252,6 +270,8 @@ def pdf_facts(path: Path) -> dict:
         "pdf_startxref_offsets_unique": envelope["pdf_startxref_offsets_unique"],
         "pdf_startxref_targets_valid": envelope["pdf_startxref_targets_valid"],
         "pdf_revision_markers_bound": envelope["pdf_revision_markers_bound"],
+        "qpdf_structurally_valid": qpdf_valid,
+        "qpdf_check_tail": qpdf_output,
         "non_whitespace_suffix_after_pdf_eof": suffix_non_whitespace,
         "metadata_keys_present": sorted(meta.keys()),
         "embedded_file_count": embedded,
@@ -387,6 +407,7 @@ def audit_registry_public_derivatives():
             "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
             "pdf_eof_present": facts["pdf_eof_present"],
             "pdf_revision_markers_bound": facts["pdf_revision_markers_bound"],
+            "qpdf_structurally_valid": facts["qpdf_structurally_valid"],
             "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
             "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
             "known_private_identifiers_absent": not facts["known_private_identifier_hits"],
@@ -461,6 +482,7 @@ def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
             "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
             "pdf_eof_present": facts["pdf_eof_present"],
             "pdf_revision_markers_bound": facts["pdf_revision_markers_bound"],
+            "qpdf_structurally_valid": facts["qpdf_structurally_valid"],
             "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
             "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
             "forbidden_identifiers_absent": not facts["known_private_identifier_hits"],
