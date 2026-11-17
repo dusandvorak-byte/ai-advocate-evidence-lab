@@ -53,7 +53,8 @@ for item in cand.get("items",[]):
     matched=[t for t in toks if t in ntext]
     ratio=(len(matched)/len(toks)) if toks else 0
     content_ref_match=bool(toks and len(matched)>=min(2,len(toks)) and ratio>=0.6)
-    explicit=item.get("provenance_strength")=="EXPLICIT_PROJECT_MANIFEST"
+    explicit_digest=bool(item.get("manifest_digest_binding"))
+    explicit_manifest=item.get("provenance_strength") in ("EXPLICIT_DIGEST_MANIFEST", "EXPLICIT_PROJECT_MANIFEST_NO_DIGEST")
     continuity=bool(item.get("continuity_match"))
     source_sha_value=str(item.get("source_sha256") or "")
     source_sha=bool(re.fullmatch(r"[0-9a-fA-F]{64}",source_sha_value))
@@ -63,11 +64,11 @@ for item in cand.get("items",[]):
     if source_sha and source_text_path and source_text_path.is_file():
         source_text_hash_match=hashlib.sha256(source_text_path.read_bytes()).hexdigest().lower()==source_sha_value.lower()
     materializer_mapping_present=bool(rel and rel.split("/")[-1] in materializer_text and source_text_rel and source_text_rel.split("/")[-1] in materializer_text)
-    if explicit and continuity and content_ref_match:
+    if explicit_digest and continuity and content_ref_match:
         recommendation="PROMOTABLE_PUBLIC_BYTE_IDENTITY"
-    elif explicit and source_text_hash_match and materializer_mapping_present and content_ref_match:
+    elif explicit_manifest and source_text_hash_match and materializer_mapping_present and content_ref_match:
         recommendation="PROMOTABLE_SOURCE_BACKED_DERIVATIVE"
-    elif explicit and source_sha and content_ref_match:
+    elif explicit_manifest and source_sha and content_ref_match:
         recommendation="SOURCE_BACKED_DERIVATIVE_REVIEW"
     elif continuity and content_ref_match:
         recommendation="CONTINUITY_PLUS_CONTENT_NEEDS_SOURCE_PROOF"
@@ -79,6 +80,7 @@ for item in cand.get("items",[]):
         "measured_sha256":item.get("measured_sha256"),
         "measured_from":item.get("measured_from"),
         "provenance_strength":item.get("provenance_strength"),
+        "manifest_digest_binding":bool(item.get("manifest_digest_binding")),
         "source_manifest":item.get("source_manifest"),
         "source_sha256_present":source_sha,
         "source_text_hash_match":source_text_hash_match,
