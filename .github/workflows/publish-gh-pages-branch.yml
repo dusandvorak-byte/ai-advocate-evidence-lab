@@ -311,14 +311,73 @@ jobs:
           grep -q 'Ministry of Transport' web/news/04082026-010.html
           grep -q 'The Ministry of Transport deferred the freedom-of-information request' web/news/04082026-010.html
 
-      - name: Připravit kořen webu a kompatibilní cestu /web
+      - name: Připravit kořen webu, bezpečně zachovat canonical historical PDF a vytvořit /web mirror
         shell: bash
         run: |
           set -euo pipefail
           rm -rf /tmp/verified-site /tmp/verified-site-copy
           mkdir -p /tmp/verified-site /tmp/verified-site-copy
           cp -a web/. /tmp/verified-site/
-          cp -a web/. /tmp/verified-site-copy/
+
+          # Preserve only current canonical-registry PDFs missing from the new source tree.
+          # Never blanket-copy gh-pages. Every recovered file must match the canonical SHA.
+          git fetch --no-tags origin refs/heads/gh-pages:refs/remotes/origin/gh-pages
+          python3 - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+
+          root = Path("/tmp/verified-site")
+          registry = json.loads(Path("project-memory/documents-2026.json").read_text("utf-8"))
+          excluded_id = "doc-cz-pcr-krpt-2026-08-20-metodicko-odborne-vyjezdy-okte"
+          restored = []
+
+          for item in registry.get("documents", []):
+              if item.get("id") == excluded_id:
+                  raise SystemExit("owner-excluded ID69 unexpectedly present in canonical registry")
+              public = item.get("public") or {}
+              rel = str(public.get("pdf") or "")
+              expected_sha = str(public.get("sha256") or "").lower()
+              if not rel:
+                  continue
+              target = root / rel
+              if target.exists():
+                  continue
+              if not expected_sha or len(expected_sha) != 64:
+                  raise SystemExit(f"cannot preserve canonical historical PDF without SHA-256: {rel}")
+
+              payload = None
+              source_ref = None
+              for candidate in (rel, "web/" + rel):
+                  proc = subprocess.run(
+                      ["git", "show", f"origin/gh-pages:{candidate}"],
+                      stdout=subprocess.PIPE, stderr=subprocess.DEVNULL
+                  )
+                  if proc.returncode == 0:
+                      payload = proc.stdout
+                      source_ref = candidate
+                      break
+              if payload is None:
+                  raise SystemExit(f"canonical historical PDF missing from both new source and current gh-pages: {rel}")
+              if not payload.startswith(b"%PDF-"):
+                  raise SystemExit(f"historical canonical asset is not a PDF: {rel}")
+              actual_sha = hashlib.sha256(payload).hexdigest()
+              if actual_sha != expected_sha:
+                  raise SystemExit(f"historical canonical PDF SHA mismatch: {rel}")
+              target.parent.mkdir(parents=True, exist_ok=True)
+              target.write_bytes(payload)
+              restored.append({"path": rel, "sha256": actual_sha, "source": source_ref})
+
+          out = Path("review-artifacts/historical-pdf-restoration.json")
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(json.dumps({
+              "restored_count": len(restored),
+              "restored": restored,
+              "policy": "canonical-registry-only, exact-SHA, ID69 excluded"
+          }, ensure_ascii=False, indent=2) + "\n", "utf-8")
+          print(f"Restored {len(restored)} canonical historical PDFs by exact SHA.")
+          PY
+
+          cp -a /tmp/verified-site/. /tmp/verified-site-copy/
           mkdir -p /tmp/verified-site/web
           cp -a /tmp/verified-site-copy/. /tmp/verified-site/web/
           version="${GITHUB_SHA:0:12}"
