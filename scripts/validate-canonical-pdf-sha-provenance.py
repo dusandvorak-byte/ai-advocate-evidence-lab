@@ -11,6 +11,55 @@ from provenance_manifest import manifest_binds_digest
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "project-memory" / "documents-2026.json"
+EXPECTED_REMEDIATED_IDS = {
+    "doc-cz-ct-2026-06-01-ct-338889-2025-38",
+    "doc-cz-dd-2026-08-10-reakce-18-a-23-2026",
+    "doc-cz-kpr-2026-06-05-kpr-4093-2026",
+    "doc-cz-kpr-2026-07-30-kpr-5772-2026-1",
+    "doc-cz-kpr-2026-08-03-kpr-5080-2026",
+    "doc-cz-kpr-2026-08-07-kpr-5772-2026-2",
+    "doc-cz-ksz-brn-2026-07-21-1-kzt-475-2026-32",
+    "doc-cz-ksz-brn-2026-07-31-1-kzn-1079-2026-14",
+    "doc-cz-ksz-ost-2026-07-29-4-kzn-7116-2026-50",
+    "doc-cz-mk-2026-07-22-mk-45728-2026-socns",
+    "doc-cz-ms-pha-2026-08-10-18-a-23-2026-130",
+    "doc-cz-ms-pha-2026-08-10-18-a-23-2026-131",
+    "doc-cz-ms-pha-2026-09-09-8-ad-9-2026-89",
+    "doc-cz-ms-pha-2026-09-14-9-ad-12-2026-7",
+    "doc-cz-ms-pha-2026-09-22-15-ad-14-2026-12",
+    "doc-cz-ms-pha-2026-09-23-18-a-17-2026-182",
+    "doc-cz-ms-pha-2026-09-23-18-a-23-2026-182",
+    "doc-cz-msp-2026-06-03-msp-19-2026-odka-roz-7",
+    "doc-cz-msp-2026-08-27-msp-19-2026-odka-roz-26",
+    "doc-cz-msz-brn-2026-07-14-sin-15-2026-5",
+    "doc-cz-msz-brn-2026-07-21-3-zn-140-2026-3",
+    "doc-cz-msz-pha-2026-06-11-3-kzn-197-2026-12",
+    "doc-cz-msz-pha-2026-06-17-3-kzn-197-2026-18",
+    "doc-cz-msz-pha-2026-07-30-sin-48-2026-12",
+    "doc-cz-mv-2026-07-15-mv-108890-3-tp-2026",
+    "doc-cz-mv-2026-07-16-mv-97289-3-tp-2026",
+    "doc-cz-mv-2026-07-21-mv-114818-2-tp-2026",
+    "doc-cz-mv-2026-09-14-mv-139593-3-tp-2026",
+    "doc-cz-mz-2026-05-29-mzdr-13429-2026-3-olzp",
+    "doc-cz-nsz-2026-07-30-sin-55-2026-19",
+    "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54",
+    "doc-cz-osz-pha2-2026-07-30-1-zn-157-2026-33",
+    "doc-cz-osz-pha7-2026-07-28-zn-87-2026-47",
+    "doc-cz-osz-pro-2026-07-28-zn-4-2026-6",
+    "doc-cz-pcr-krpt-2026-08-05-krpt-203594-3-cj-2026-0700kr",
+    "doc-cz-pcr-ku-2026-06-25-ku-4139-5-cj-2026-2305km",
+    "doc-cz-pcr-ncoz-2026-05-22-ncoz-4324-2-cj-2026-4100pi",
+    "doc-cz-pcr-ncoz-2026-06-01-ncoz-4324-4-cj-2026-4100pi",
+    "doc-cz-pcr-ncoz-2026-06-15-ncoz-4871-5-cj-2026-410066-e",
+    "doc-cz-pcr-pp-2026-05-22-ppr-24960-8-cj-2026-990810",
+    "doc-cz-rrtv-2026-07-16-rrtv-7757-2026-fej",
+    "doc-cz-uoou-2026-07-28-uoou-05058-26-2",
+    "doc-cz-uoou-2026-07-28-uoou-05093-26-2",
+    "doc-cz-vsz-olo-2026-09-15-3-vzn-239-2026-64",
+    "doc-cz-vsz-pha-2026-06-22-1-vzn-1678-2026-8",
+    "doc-cz-vsz-pha-2026-07-23-1-vzn-1678-2026-70",
+}
+
 ALLOWED = {
     "binding-manifest-exact-digest-verified",
     "historical-introduction-and-blob-continuity-verified",
@@ -40,6 +89,19 @@ def git_show(commit: str, path: str) -> bytes:
 registry = json.loads(REGISTRY.read_text("utf-8"))
 checked = []
 failures = []
+
+registry_by_id = {item.get("id"): item for item in registry.get("documents", [])}
+missing_expected = sorted(EXPECTED_REMEDIATED_IDS - set(registry_by_id))
+if missing_expected:
+    failures.append(f"expected remediated records missing from registry: {missing_expected}")
+
+for expected_id in sorted(EXPECTED_REMEDIATED_IDS):
+    item = registry_by_id.get(expected_id)
+    if not item:
+        continue
+    public = item.get("public") or {}
+    if not public.get("sha256_provenance") or not public.get("sha256_provenance_status"):
+        failures.append(f"{expected_id}: required provenance annotation missing")
 
 for item in registry.get("documents", []):
     public = item.get("public") or {}
@@ -102,6 +164,16 @@ for item in registry.get("documents", []):
         "evidence": evidence,
         "verified": ok,
     })
+
+checked_ids = {row["id"] for row in checked}
+missing_checked = sorted(EXPECTED_REMEDIATED_IDS - checked_ids)
+unexpected_checked = sorted(checked_ids - EXPECTED_REMEDIATED_IDS)
+if missing_checked:
+    failures.append(f"expected remediated provenance not replayed: {missing_checked}")
+if unexpected_checked:
+    failures.append(f"unexpected provenance records replayed: {unexpected_checked}")
+if len(checked_ids) != len(EXPECTED_REMEDIATED_IDS):
+    failures.append(f"provenance replay count mismatch: expected {len(EXPECTED_REMEDIATED_IDS)}, got {len(checked_ids)}")
 
 if failures:
     print(json.dumps({"checked": len(checked), "failures": failures}, ensure_ascii=False))
