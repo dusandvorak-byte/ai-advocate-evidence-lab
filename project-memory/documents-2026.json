@@ -362,8 +362,8 @@
         "sha256": "22204b610525cdd1249ae3033460b20e14a52fe72448495eb82a7eb7c575f933",
         "verification_status": "published",
         "source_manifest": "project-memory/pdf-link-overrides.json",
-        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/pdf-link-overrides.json",
-        "sha256_provenance_status": "public-byte-continuity-verified"
+        "sha256_provenance": "public PDF introduced/restored in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -746,8 +746,8 @@
         "sha256": "d74cfb33b0a3ed232349693832dd2fb2374be1886c72c332e0477d62bbd7c363",
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json",
-        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-04082026-010-sources.json",
-        "sha256_provenance_status": "public-byte-continuity-verified"
+        "sha256_provenance": "public PDF introduced/restored in commit ee481d9e850b9dfa42172ff32a3d2bd119adb62b; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -946,8 +946,8 @@
         "sha256": "db53e6ddb0330b573c236d5973a062536fb29b2fe01aff12e4d31e352b77d6d2",
         "verification_status": "published",
         "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json",
-        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-20260810-pdf-repair-sources.json",
-        "sha256_provenance_status": "public-byte-continuity-verified"
+        "sha256_provenance": "public PDF introduced/restored in commit b45574d6827f238bbd97b25844da030e6663b80f; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -992,8 +992,8 @@
         "sha256": "b2d2aa27a6678918de26d7160148cff7d44b00f9f6c649bb1578407446e56c87",
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json",
-        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-04082026-010-sources.json",
-        "sha256_provenance_status": "public-byte-continuity-verified"
+        "sha256_provenance": "public PDF introduced/restored in commit ee481d9e850b9dfa42172ff32a3d2bd119adb62b; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1015,8 +1015,8 @@
         "sha256": "856455422c2c4cfd0670cb63abbfa8007694f4cdc10a52f391fbf1462c6c17a9",
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json",
-        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-04082026-010-sources.json",
-        "sha256_provenance_status": "public-byte-continuity-verified"
+        "sha256_provenance": "public PDF introduced/restored in commit ee481d9e850b9dfa42172ff32a3d2bd119adb62b; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1061,8 +1061,8 @@
         "sha256": "557535d320f23f0eb361a59ce057232f74798f4b30acfacac4e4e34fce63fb25",
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json",
-        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-04082026-010-sources.json",
-        "sha256_provenance_status": "public-byte-continuity-verified"
+        "sha256_provenance": "public PDF introduced/restored in commit ee481d9e850b9dfa42172ff32a3d2bd119adb62b; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1176,8 +1176,8 @@
         "sha256": "8a5a03430f501dfd40ba448b2eafe083361371418ffd90c7f2490c50ae8474bc",
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json",
-        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-04082026-010-sources.json",
-        "sha256_provenance_status": "public-byte-continuity-verified"
+        "sha256_provenance": "public PDF introduced/restored in commit 77fa410a26410838f7646b80889db3153bed9fca; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1199,8 +1199,8 @@
         "sha256": "315dab40f0b0df176457f633b28d6ba6a94b29988c89e22ecc36620226e45d6b",
         "verification_status": "published",
         "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json",
-        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-20260810-pdf-repair-sources.json",
-        "sha256_provenance_status": "public-byte-continuity-verified"
+        "sha256_provenance": "public PDF introduced/restored in commit 1e12d46b3cf068d2f38052a85cb77dc01d70d0fb; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1222,8 +1222,8 @@
         "sha256": "0920fe53480d0f38b18f35d99690bd0dfbd2623858a55d40fcbcef8d88d8a3e2",
         "verification_status": "published",
         "source_manifest": "project-memory/report-04082026-010-sources.json",
-        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-04082026-010-sources.json",
-        "sha256_provenance_status": "public-byte-continuity-verified"
+        "sha256_provenance": "public PDF introduced/restored in commit 1c2432101020d2956170807dd2bc857ac3e44e28; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1245,8 +1245,8 @@
         "sha256": "4ed6b5efda28244a41807d5a440fad459bf7baf8d92729ebd18a1055a7d07580",
         "verification_status": "published",
         "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json",
-        "sha256_provenance": "current checked-in public bytes == current gh-pages bytes; explicit source mapping: project-memory/report-20260810-pdf-repair-sources.json",
-        "sha256_provenance_status": "public-byte-continuity-verified"
+        "sha256_provenance": "public PDF introduced/restored in commit 1e12d46b3cf068d2f38052a85cb77dc01d70d0fb; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
