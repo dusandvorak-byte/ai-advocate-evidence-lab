@@ -55,6 +55,29 @@ def file_attachment_annotation_count(doc) -> int:
                 count += 1
     return count
 
+def associated_file_reference_count(doc) -> int:
+    count = 0
+    xrefs = []
+    try:
+        xrefs.append(doc.pdf_catalog())
+    except Exception:
+        pass
+    for page in doc:
+        try:
+            xrefs.append(page.xref)
+        except Exception:
+            pass
+    for xref in xrefs:
+        if not xref:
+            continue
+        try:
+            kind, value = doc.xref_get_key(xref, "AF")
+        except Exception:
+            continue
+        if kind != "null" and str(value).strip() not in ("", "null", "[]"):
+            count += 1
+    return count
+
 def pdf_facts(path: Path) -> dict:
     doc = fitz.open(path)
     fitz_text = "\n".join(page.get_text("text") for page in doc)
@@ -68,6 +91,7 @@ def pdf_facts(path: Path) -> dict:
     xmp = doc.get_xml_metadata() or ""
     embedded = doc.embfile_count() if hasattr(doc, "embfile_count") else 0
     file_attachment_annotations = file_attachment_annotation_count(doc)
+    associated_file_references = associated_file_reference_count(doc)
 
     metadata_text = "\n".join(str(v) for v in meta.values())
     combined_private_scan = page_text + "\n" + metadata_text + "\n" + xmp
@@ -85,12 +109,13 @@ def pdf_facts(path: Path) -> dict:
     page_count = doc.page_count
     doc.close()
 
-    machine_failure = bool(embedded or file_attachment_annotations or suspicious_metadata_keys or xmp_suspicious or private_hits)
+    machine_failure = bool(embedded or file_attachment_annotations or associated_file_references or suspicious_metadata_keys or xmp_suspicious or private_hits)
     return {
         "page_count": page_count,
         "metadata_keys_present": sorted(meta.keys()),
         "embedded_file_count": embedded,
         "file_attachment_annotation_count": file_attachment_annotations,
+        "associated_file_reference_count": associated_file_references,
         "suspicious_metadata_keys": suspicious_metadata_keys,
         "xmp_present": bool(xmp),
         "xmp_suspicious": xmp_suspicious,
@@ -157,7 +182,7 @@ def audit_generated():
             failures.append(f"missing public-copy notice in {target.relative_to(ROOT)}")
         if not facts["not_byte_identical_notice_present"]:
             failures.append(f"missing not-byte-identical notice in {target.relative_to(ROOT)}")
-        if facts["embedded_file_count"] or facts["file_attachment_annotation_count"] or facts["suspicious_metadata_keys"] or facts["xmp_suspicious"] or facts["xmp_known_private_identifier_hits"]:
+        if facts["embedded_file_count"] or facts["file_attachment_annotation_count"] or facts["associated_file_reference_count"] or facts["suspicious_metadata_keys"] or facts["xmp_suspicious"] or facts["xmp_known_private_identifier_hits"]:
             failures.append(f"unsafe metadata/embedded/XMP content in {target.relative_to(ROOT)}")
         if facts["known_private_identifier_hits"]:
             failures.append(
@@ -220,6 +245,7 @@ def audit_registry_public_derivatives():
             "known_private_identifiers_absent": not facts["known_private_identifier_hits"],
             "embedded_files_absent": facts["embedded_file_count"] == 0,
             "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
+            "associated_files_absent": facts["associated_file_reference_count"] == 0,
             "suspicious_metadata_absent": not facts["suspicious_metadata_keys"],
             "xmp_private_absent": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
         }
@@ -285,6 +311,7 @@ def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
             "forbidden_identifiers_absent": not facts["known_private_identifier_hits"],
             "embedded_files_absent": facts["embedded_file_count"] == 0,
             "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
+            "associated_files_absent": facts["associated_file_reference_count"] == 0,
             "suspicious_info_metadata_absent": not facts["suspicious_metadata_keys"],
             "xmp_private_or_suspicious_absent": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
         }
@@ -308,6 +335,7 @@ def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
             "xmp_present": facts["xmp_present"],
             "embedded_file_count": facts["embedded_file_count"],
             "file_attachment_annotation_count": facts["file_attachment_annotation_count"],
+            "associated_file_reference_count": facts["associated_file_reference_count"],
             "machine_privacy_status": facts["machine_privacy_status"],
             "checks": checks,
         })
@@ -524,6 +552,7 @@ def audit_redacted_analysis():
         "historical_metadata_removal_recorded": privacy.get("metadata_removed") is True,
         "no_embedded_files_now": facts["embedded_file_count"] == 0,
         "no_file_attachment_annotations_now": facts["file_attachment_annotation_count"] == 0,
+        "no_associated_files_now": facts["associated_file_reference_count"] == 0,
         "no_suspicious_metadata_now": not facts["suspicious_metadata_keys"],
         "no_private_xmp_now": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
         "xmp_removed_now": not facts["xmp_present"],
