@@ -8,6 +8,11 @@ from pathlib import Path
 
 import fitz
 
+from publication_redaction import (
+    authenticated_private_policy_document,
+    forbidden_public_identifiers,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
 REGISTRY = ROOT / "project-memory/documents-2026.json"
@@ -17,52 +22,24 @@ POLICY = ROOT / "scripts/publication_redaction.py"
 DERIVATIVE_MARKERS = ("generated", "public_copy", "text_copy", "redacted", "not_byte_identical")
 FILENAME_DERIVATIVE = re.compile(r"(?i)(verejna|veřejná|textova|textová|redigovan|public[-_ ]?copy)")
 
-# Longest / most specific first so overlapping fragments are redacted only once.
-RULES = [
-    {
-        "id": "private_email",
-        "variants": ["DusanDvorak@seznam.cz", "dusandvorak@seznam.cz"],
-        "replacement": "[private e-mail redacted]",
-    },
-    {
-        "id": "private_data_box",
-        "variants": ["r8u3nhx", "R8U3NHX"],
-        "replacement": "[private data-box ID redacted]",
-    },
-    {
-        "id": "exact_birth_date",
-        "variants": ["12. ledna 1962", "12. Ledna 1962", "12. 1. 1962", "12.1.1962"],
-        "replacement": "1962",
-    },
-    {
-        "id": "private_address_full",
-        "variants": [
-            "Ospělov č. p. 6, 798 55 Ludmírov",
-            "Ospělov 6, 798 55 Ludmírov",
-            "Ospělov 6, 798 55 Ospělov",
-            "bytem Ospělov 6, 798 55 Ospělov",
-            "798 55 Ospělov 6",
-            "79855 Ospělov 6",
-            "Ludmírov Ospělov 6, Hvozd u Prostějova, 79855",
-        ],
-        "replacement": "Ludmirov",
-    },
-    {
-        "id": "private_address_house",
-        "variants": ["Ospělov č. p. 6", "Ospělov 6"],
-        "replacement": "Ludmirov",
-    },
-    {
-        "id": "private_postcode_locality",
-        "variants": ["798 55 Ospělov", "798 55 Ludmírov"],
-        "replacement": "Ludmirov",
-    },
-    {
-        "id": "private_postcode_unspaced",
-        "variants": ["79855"],
-        "replacement": "[private postcode redacted]",
-    },
-]
+def private_pdf_rules() -> tuple[list[dict], str]:
+    _, data, authenticated_identity = authenticated_private_policy_document()
+    rules = []
+    for rule in data.get("rules") or []:
+        variants = rule.get("pdf_variants")
+        if variants is None and rule.get("mode", "literal") == "literal":
+            variants = [rule.get("value")]
+        variants = [str(value) for value in (variants or []) if str(value)]
+        if not variants:
+            continue
+        replacement = str(rule.get("replacement") or "")
+        rule_id = str(rule.get("id") or "")
+        if not rule_id or not replacement:
+            raise SystemExit("authenticated private PDF redaction rule is incomplete")
+        rules.append({"id": rule_id, "variants": variants, "replacement": replacement})
+    if not rules:
+        raise SystemExit("authenticated private policy has no PDF-searchable redaction variants")
+    return rules, authenticated_identity
 
 def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
@@ -87,14 +64,14 @@ def rect_overlaps(rect: fitz.Rect, used: list[fitz.Rect]) -> bool:
     # Treat meaningful intersection as already covered by a more specific rule.
     return any((rect & existing).get_area() > 0.15 * min(rect.get_area(), existing.get_area()) for existing in used)
 
-def harden_pdf(path: Path) -> tuple[bytes | None, list[dict]]:
+def harden_pdf(path: Path, rules: list[dict]) -> tuple[bytes | None, list[dict]]:
     doc = fitz.open(path)
     matches: list[dict] = []
     changed = False
 
     for page_number, page in enumerate(doc):
         used: list[fitz.Rect] = []
-        for rule in RULES:
+        for rule in rules:
             for variant in sorted(rule["variants"], key=len, reverse=True):
                 for rect in page.search_for(variant):
                     if rect_overlaps(rect, used):
@@ -111,8 +88,6 @@ def harden_pdf(path: Path) -> tuple[bytes | None, list[dict]]:
                     matches.append({
                         "page": page_number + 1,
                         "rule": rule["id"],
-                        "matched_variant": variant,
-                        "replacement": rule["replacement"],
                     })
                     changed = True
         if used:
@@ -136,17 +111,7 @@ def forbidden_hits(path: Path) -> list[str]:
     doc = fitz.open(path)
     text = "\n".join(page.get_text("text") for page in doc)
     doc.close()
-    checks = [
-        re.compile(r"(?i)\bDusanDvorak@seznam\.cz\b"),
-        re.compile(r"(?i)\br8u3nhx\b"),
-        re.compile(r"\b12\.\s*1\.\s*1962\b"),
-        re.compile(r"(?i)\b12\.\s*ledna\s+1962\b"),
-        re.compile(r"(?i)\bOspělov(?:\s+č\.\s*p\.)?\s*6\b"),
-        re.compile(r"(?i)\b798\s*55\s*Ospělov\b"),
-        re.compile(r"(?i)\b798\s*55\s*Ludmírov\b"),
-        re.compile(r"(?i)\b79855\b"),
-    ]
-    return [pattern.pattern for pattern in checks if pattern.search(text)]
+    return forbidden_public_identifiers(text)
 
 def main() -> None:
     registry = json.loads(REGISTRY.read_text("utf-8"))
@@ -154,6 +119,7 @@ def main() -> None:
         raise SystemExit("canonical document registry missing documents array")
 
     policy_sha = sha256_file(POLICY)
+    pdf_rules, authenticated_policy_identity = private_pdf_rules()
     rows = []
     failures = []
 
@@ -169,7 +135,7 @@ def main() -> None:
 
         before_sha = sha256_file(path)
         before_pages = fitz.open(path).page_count
-        data, matches = harden_pdf(path)
+        data, matches = harden_pdf(path, pdf_rules)
         if data is not None:
             path.write_bytes(data)
         after_sha = sha256_file(path)
@@ -206,6 +172,7 @@ def main() -> None:
         "schema_version": "1.0",
         "policy_file": POLICY.relative_to(ROOT).as_posix(),
         "policy_sha256": policy_sha,
+        "authenticated_private_policy_identity": authenticated_policy_identity,
         "derivative_count": len(rows),
         "changed_derivative_count": sum(1 for row in rows if row["changed"]),
         "hard_failure_count": len(failures),
