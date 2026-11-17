@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import hmac
 import json
 import os
 import re
@@ -57,7 +59,34 @@ def _compile_rule(rule: dict) -> tuple[str, re.Pattern[str], str]:
     return rule_id, pattern, replacement
 
 
-def load_private_policy() -> tuple[dict, list[tuple[str, re.Pattern[str], str]], list[re.Pattern[str]]]:
+def _canonical_private_policy_bytes(data: dict) -> bytes:
+    signed = {
+        "policy_id": data.get("policy_id"),
+        "revision": data.get("revision"),
+        "revision_token": data.get("revision_token"),
+        "rules": data.get("rules") or [],
+        "forbidden": data.get("forbidden") or [],
+    }
+    return json.dumps(signed, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+
+
+def _verify_private_policy_authentication(contract: dict, data: dict) -> str:
+    expected = str(contract.get("approved_policy_hmac") or "").strip().lower()
+    if not re.fullmatch(r"[0-9a-f]{64}", expected):
+        raise RedactionPolicyError("private redaction policy authentication is not provisioned")
+    if contract.get("hmac_algorithm") != "sha256":
+        raise RedactionPolicyError("private redaction policy HMAC algorithm is unsupported")
+    key_env = str(contract.get("hmac_key_env") or "").strip()
+    key = os.environ.get(key_env, "") if key_env else ""
+    if not key:
+        raise RedactionPolicyError("private redaction policy authentication key is unavailable")
+    actual = hmac.new(key.encode("utf-8"), _canonical_private_policy_bytes(data), hashlib.sha256).hexdigest()
+    if not hmac.compare_digest(actual, expected):
+        raise RedactionPolicyError("private redaction policy authentication failed")
+    return actual
+
+
+def load_private_policy() -> tuple[dict, list[tuple[str, re.Pattern[str], str]], list[re.Pattern[str]], str]:
     contract = _load_contract()
     path = _private_policy_path(contract)
     data = json.loads(path.read_text("utf-8"))
@@ -67,6 +96,7 @@ def load_private_policy() -> tuple[dict, list[tuple[str, re.Pattern[str], str]],
         raise RedactionPolicyError("private redaction policy revision mismatch")
     if data.get("revision_token") != contract.get("revision_token"):
         raise RedactionPolicyError("private redaction policy token mismatch")
+    authenticated_identity = _verify_private_policy_authentication(contract, data)
 
     rules = [_compile_rule(rule) for rule in data.get("rules") or []]
     if not rules:
@@ -78,16 +108,23 @@ def load_private_policy() -> tuple[dict, list[tuple[str, re.Pattern[str], str]],
         value = str(item.get("value") or "")
         if not value:
             raise RedactionPolicyError("private forbidden matcher is incomplete")
+        if mode not in {"literal", "regex"}:
+            raise RedactionPolicyError("private forbidden matcher mode is unsupported")
         flags = re.IGNORECASE if item.get("ignore_case", True) else 0
         forbidden.append(re.compile(re.escape(value), flags) if mode == "literal" else re.compile(value, flags))
     if not forbidden:
         raise RedactionPolicyError("private redaction policy has no forbidden matchers")
 
-    return contract, rules, forbidden
+    return contract, rules, forbidden, authenticated_identity
+
+
+def verified_private_policy_identity() -> str:
+    _, _, _, authenticated_identity = load_private_policy()
+    return authenticated_identity
 
 
 def redact_public_text(text: str) -> str:
-    _, rules, _ = load_private_policy()
+    _, rules, _, _ = load_private_policy()
     out = text
     for _, pattern, replacement in rules:
         out = pattern.sub(replacement, out)
@@ -95,7 +132,7 @@ def redact_public_text(text: str) -> str:
 
 
 def forbidden_public_identifiers(text: str) -> list[str]:
-    _, _, forbidden = load_private_policy()
+    _, _, forbidden, _ = load_private_policy()
     # Return only stable opaque matcher labels, never the private values/patterns.
     return [f"private_match_{index + 1}" for index, pattern in enumerate(forbidden) if pattern.search(text)]
 
