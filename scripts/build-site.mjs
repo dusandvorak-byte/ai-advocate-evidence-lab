@@ -207,4 +207,5 @@ await run('scripts/validate-okte-final-relations.mjs');
 // Reconcile href fragments only after all public HTML writers have completed.
 await run('scripts/repair-chronology-deep-links.mjs');
 await run('scripts/validate-chronology-deep-links.mjs');
+await run('scripts/validate-release-exclusions.mjs');
 console.log(`Evidence Lab 2.0 build: stát/veřejné instituce ${expectedStateCount}; naše podání ${expectedOurCount}; celkem ${expectedTotalCount}; titulní strana = Godot = manifest; ${publicPdfLinks.length} aktivních PDF; ${finalTimerRegistry.timers.length} živých procesních časovačů.`);
