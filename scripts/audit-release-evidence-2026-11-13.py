@@ -176,6 +176,28 @@ def qpdf_structural_check(path: Path) -> tuple[bool, str]:
     return proc.returncode == 0, output[-2000:]
 
 
+def decoded_pdf_object_private_hits(doc) -> list[str]:
+    hits = set()
+    try:
+        xref_len = doc.xref_length()
+    except Exception:
+        return []
+    for xref in range(1, xref_len):
+        try:
+            obj = doc.xref_object(xref, compressed=False)
+        except Exception:
+            obj = ""
+        if obj:
+            hits.update(forbidden_public_identifier_byte_hits(obj.encode("utf-8", errors="ignore")))
+        try:
+            stream = doc.xref_stream(xref)
+        except Exception:
+            stream = None
+        if stream:
+            hits.update(forbidden_public_identifier_byte_hits(stream))
+    return sorted(hits)
+
+
 def pdf_facts(path: Path) -> dict:
     header_offset = pdf_header_offset(path)
     raw = path.read_bytes()
@@ -229,6 +251,7 @@ def pdf_facts(path: Path) -> dict:
         }
 
     doc = fitz.open(path)
+    decoded_object_hits = decoded_pdf_object_private_hits(doc)
     fitz_text = "\n".join(page.get_text("text") for page in doc)
     poppler = subprocess.run(
         ["pdftotext", "-enc", "UTF-8", str(path), "-"],
@@ -245,7 +268,7 @@ def pdf_facts(path: Path) -> dict:
 
     metadata_text = "\n".join(str(v) for v in meta.values())
     combined_private_scan = page_text + "\n" + metadata_text + "\n" + xmp
-    private_hits = sorted(set(forbidden_public_identifiers(combined_private_scan) + raw_private_hits))
+    private_hits = sorted(set(forbidden_public_identifiers(combined_private_scan) + raw_private_hits + decoded_object_hits))
 
     suspicious_re = re.compile(r"(?i)([\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|/Users/|/home/|[A-Z]:\\\\Users\\\\)")
     suspicious_metadata_keys = sorted(k for k, v in meta.items() if suspicious_re.search(str(v)))
@@ -289,6 +312,7 @@ def pdf_facts(path: Path) -> dict:
         ),
         "human_privacy_review_required": True,
         "known_private_identifier_hits": private_hits,
+        "decoded_object_private_identifier_hits": decoded_object_hits,
         "text_extraction_engines": ["PyMuPDF", "pdftotext/poppler"],
         "public_copy_notice_present": bool(re.search(r"(?i)(veřejn.{0,20}kopie|public pdf copy)", page_text)),
         "not_byte_identical_notice_present": bool(re.search(r"(?i)(nejde\s+o\s+byte[^\n]{0,20}identick|not\s+byte[^\n]{0,20}identical)", page_text)),
