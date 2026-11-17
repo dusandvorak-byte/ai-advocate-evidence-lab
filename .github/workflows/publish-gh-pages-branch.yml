@@ -368,6 +368,9 @@ jobs:
           grep -q 'Ministry of Transport' web/news/04082026-010.html
           grep -q 'The Ministry of Transport deferred the freedom-of-information request' web/news/04082026-010.html
 
+      - name: Reverify remediated canonical PDF provenance from primary evidence
+        run: python3 scripts/validate-canonical-pdf-sha-provenance.py
+
       - name: Připravit kořen webu, bezpečně zachovat canonical historical PDF a vytvořit /web mirror
         shell: bash
         run: |
