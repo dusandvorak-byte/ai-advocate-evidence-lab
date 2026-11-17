@@ -143,7 +143,11 @@ for (const doc of registry.documents) {
   const repoPath = `web/${normalized}`;
   const oldPdf = doc.public.pdf || null;
   doc.public.pdf = normalized;
-  doc.public.verification_status = 'published';
+  // Preserve authenticated privacy-hardening provenance for the same PDF path.
+  // An override changing the path must not inherit the old PDF's review status.
+  if (oldPdf !== normalized || !String(doc.public.verification_status || '').includes('publication_policy_hardened')) {
+    doc.public.verification_status = 'published';
+  }
   doc.public.source_manifest = overridesPath;
   usedPaths.set(repoPath, doc.id);
   if (oldPdf !== normalized) overrideChanges.push({ id: doc.id, previous_pdf: oldPdf, pdf: normalized, reason: override.reason || null });
@@ -197,7 +201,11 @@ for (const doc of registry.documents) {
     continue;
   }
   usedPaths.set(repoPath, doc.id);
-  doc.public.verification_status = 'published';
+  // Reconciliation is an index/link operation, not a privacy re-review.
+  // Do not erase the machine-verified hardening marker after final PDF redaction.
+  if (!String(doc.public.verification_status || '').includes('publication_policy_hardened')) {
+    doc.public.verification_status = 'published';
+  }
 }
 
 function fileEligibleForDocument(doc, file) {
