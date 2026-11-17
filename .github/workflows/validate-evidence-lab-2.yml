@@ -76,11 +76,15 @@ jobs:
         run: |
           set -euo pipefail
           python3 -m pip install --disable-pip-version-check reportlab
-          python3 scripts/materialize-verified-public-copies-2026-09-16.py
+          rm -rf "$RUNNER_TEMP/evidence-lab-deterministic-rebuild"
+          mkdir -p "$RUNNER_TEMP/evidence-lab-deterministic-rebuild"
+          EVIDENCE_LAB_VERIFIED_COPY_OUT="$RUNNER_TEMP/evidence-lab-deterministic-rebuild" \
+            python3 scripts/materialize-verified-public-copies-2026-09-16.py
+          export EVIDENCE_LAB_DETERMINISTIC_REBUILD_ROOT="$RUNNER_TEMP/evidence-lab-deterministic-rebuild"
           python3 - <<'PY'
-          import hashlib, json
+          import hashlib, json, os
           from pathlib import Path
-          root=Path("web/documents/report-04082026-010")
+          root=Path(os.environ["EVIDENCE_LAB_DETERMINISTIC_REBUILD_ROOT"])
           names=[
             "89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
             "92-ms-praha-9-ad-12-2026-7-2026-09-14.pdf",
@@ -98,9 +102,9 @@ jobs:
           PY
           python3 scripts/materialize-verified-public-copies-2026-09-16.py
           python3 - <<'PY'
-          import hashlib, json
+          import hashlib, json, os
           from pathlib import Path
-          root=Path("web/documents/report-04082026-010")
+          root=Path(os.environ["EVIDENCE_LAB_DETERMINISTIC_REBUILD_ROOT"])
           first=json.loads(Path("review-artifacts/generated-public-copy-hashes-first.json").read_text())
           second={name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in first}
           if first != second:
@@ -257,7 +261,7 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y -qq poppler-utils
+          sudo apt-get install -y -qq poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check reportlab pillow pymupdf
 
       - name: Provision private redaction policy only inside runner temp
