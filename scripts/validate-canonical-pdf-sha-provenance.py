@@ -11,6 +11,7 @@ from provenance_manifest import manifest_binds_digest
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "project-memory" / "documents-2026.json"
+CONTRACT = ROOT / "project-memory" / "canonical-pdf-provenance-contract.json"
 EXPECTED_REMEDIATED_IDS = {
     "doc-cz-ct-2026-06-01-ct-338889-2025-38",
     "doc-cz-dd-2026-08-10-reakce-18-a-23-2026",
@@ -87,8 +88,18 @@ def git_show(commit: str, path: str) -> bytes:
 
 
 registry = json.loads(REGISTRY.read_text("utf-8"))
+contract = json.loads(CONTRACT.read_text("utf-8"))
 checked = []
 failures = []
+
+if contract.get("schema_version") != 1 or contract.get("contract_id") != "evidence-lab-canonical-pdf-provenance-v1":
+    failures.append("canonical provenance contract identity/schema mismatch")
+if contract.get("record_count") != 46 or len(contract.get("records") or []) != 46:
+    failures.append("canonical provenance contract must contain exactly 46 records")
+
+contract_by_id = {row.get("id"): row for row in contract.get("records", [])}
+if set(contract_by_id) != EXPECTED_REMEDIATED_IDS:
+    failures.append("canonical provenance contract ID set differs from expected 46-record set")
 
 registry_by_id = {item.get("id"): item for item in registry.get("documents", [])}
 missing_expected = sorted(EXPECTED_REMEDIATED_IDS - set(registry_by_id))
@@ -97,11 +108,17 @@ if missing_expected:
 
 for expected_id in sorted(EXPECTED_REMEDIATED_IDS):
     item = registry_by_id.get(expected_id)
-    if not item:
+    expected = contract_by_id.get(expected_id)
+    if not item or not expected:
         continue
     public = item.get("public") or {}
     if not public.get("sha256_provenance") or not public.get("sha256_provenance_status"):
         failures.append(f"{expected_id}: required provenance annotation missing")
+        continue
+    if public.get("pdf") != expected.get("path"):
+        failures.append(f"{expected_id}: canonical PDF path changed from frozen provenance contract")
+    if public.get("sha256_provenance_status") != expected.get("status"):
+        failures.append(f"{expected_id}: provenance method/status changed from frozen contract")
 
 for item in registry.get("documents", []):
     public = item.get("public") or {}
@@ -112,6 +129,14 @@ for item in registry.get("documents", []):
 
     sha = str(public.get("sha256") or "").lower()
     status = str(public.get("sha256_provenance_status") or "")
+    expected = contract_by_id.get(item.get("id"))
+    if not expected:
+        failures.append(f"{item.get('id')}: provenance record is not present in frozen contract")
+        continue
+    evidence_contract = expected.get("evidence") or {}
+    if rel != expected.get("path") or status != expected.get("status"):
+        failures.append(f"{item.get('id')}: path/status differs from frozen provenance contract")
+        continue
     if not re.fullmatch(r"[0-9a-f]{64}", sha):
         failures.append(f"{item.get('id')}: invalid canonical SHA")
         continue
@@ -123,6 +148,10 @@ for item in registry.get("documents", []):
     evidence = None
     if status == "binding-manifest-exact-digest-verified":
         manifest = public.get("source_manifest")
+        expected_manifest = evidence_contract.get("manifest")
+        if evidence_contract.get("type") != "manifest" or manifest != expected_manifest:
+            failures.append(f"{item.get('id')}: binding manifest differs from frozen contract")
+            continue
         ok = manifest_binds_digest(ROOT, manifest, item.get("id"), rel, sha)
         evidence = manifest
 
@@ -130,11 +159,16 @@ for item in registry.get("documents", []):
         "historical-introduction-and-blob-continuity-verified",
         "historical-origin-restoration-and-blob-continuity-verified",
     }:
-        m = re.search(r"\b[0-9a-f]{40}\b", provenance)
-        if not m:
-            failures.append(f"{item.get('id')}: introduction commit missing from provenance")
+        if evidence_contract.get("type") != "historical_commit":
+            failures.append(f"{item.get('id')}: historical evidence type differs from frozen contract")
             continue
-        commit = m.group(0)
+        commit = str(evidence_contract.get("commit") or "")
+        if not re.fullmatch(r"[0-9a-f]{40}", commit):
+            failures.append(f"{item.get('id')}: frozen historical commit is invalid")
+            continue
+        if commit not in provenance:
+            failures.append(f"{item.get('id')}: provenance text no longer names frozen historical commit")
+            continue
         historical = git_show(commit, "web/" + rel)
         current_path = ROOT / "web" / rel
         if not current_path.is_file():
@@ -146,13 +180,31 @@ for item in registry.get("documents", []):
         evidence = commit
 
     elif status == "deterministic-generated-public-copy-verified":
+        if evidence_contract.get("type") != "deterministic_generator":
+            failures.append(f"{item.get('id')}: deterministic evidence type differs from frozen contract")
+            continue
+        generator_rel = str(evidence_contract.get("generator") or "")
+        generator = ROOT / generator_rel
+        output_name = str(evidence_contract.get("output_name") or "")
+        expected_blob = str(evidence_contract.get("generator_git_blob_sha") or "")
+        if Path(rel).name != output_name:
+            failures.append(f"{item.get('id')}: generated output name differs from frozen contract")
+            continue
+        if not generator.is_file() or output_name not in generator.read_text("utf-8"):
+            failures.append(f"{item.get('id')}: output is not a member of the frozen deterministic generator")
+            continue
+        blob_proc = subprocess.run(["git", "hash-object", generator_rel], cwd=ROOT, capture_output=True, text=True)
+        generator_blob = blob_proc.stdout.strip() if blob_proc.returncode == 0 else ""
+        if generator_blob != expected_blob:
+            failures.append(f"{item.get('id')}: deterministic generator changed from frozen reviewed blob")
+            continue
         current_path = ROOT / "web" / rel
         if not current_path.is_file():
             failures.append(f"{item.get('id')}: deterministic generated PDF missing after rebuild")
             continue
         current_sha = sha256_file(current_path)
         ok = current_sha == sha
-        evidence = "current deterministic rebuild"
+        evidence = f"{generator_rel}@gitblob:{generator_blob}"
 
     if not ok:
         failures.append(f"{item.get('id')}: provenance verification failed ({status})")
