@@ -53,6 +53,26 @@ jobs:
           python3 -m py_compile scripts/harden-public-pdf-privacy.py
           python3 -m py_compile scripts/generated_pdf_signatures.py
 
+      - name: Fail closed on canonical PDF records without SHA-256 provenance
+        run: |
+          python3 - <<'PY'
+          import json, re
+          from pathlib import Path
+          registry = json.loads(Path("project-memory/documents-2026.json").read_text("utf-8"))
+          missing = []
+          for item in registry.get("documents", []):
+              public = item.get("public") or {}
+              if not public.get("pdf"):
+                  continue
+              sha = str(public.get("sha256") or "")
+              if not re.fullmatch(r"[0-9a-fA-F]{64}", sha):
+                  missing.append({"id": item.get("id"), "pdf": public.get("pdf")})
+          if missing:
+              print(json.dumps({"canonical_pdf_sha_missing_count": len(missing), "items": missing}, ensure_ascii=False))
+              raise SystemExit("canonical PDF SHA provenance incomplete")
+          print("Canonical PDF SHA provenance complete.")
+          PY
+
       - name: Spustit pouze syntetické privacy regrese bez repository Secrets
         run: |
           python3 -m pip install --disable-pip-version-check pymupdf
