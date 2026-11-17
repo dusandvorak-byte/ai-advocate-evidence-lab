@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json, re, subprocess, tempfile
+import hashlib, json, re, subprocess, tempfile
 from pathlib import Path
 import fitz
 
@@ -28,6 +28,8 @@ def gh_bytes(rel):
 registry=json.loads(REGISTRY.read_text("utf-8"))
 by_id={x.get("id"):x for x in registry.get("documents",[])}
 cand=json.loads(CANDIDATES.read_text("utf-8"))
+materializer_path=ROOT/"scripts"/"materialize-verified-public-copies-2026-09-16.py"
+materializer_text=materializer_path.read_text("utf-8") if materializer_path.is_file() else ""
 rows=[]
 for item in cand.get("items",[]):
     doc=by_id.get(item["id"]) or {}
@@ -53,9 +55,18 @@ for item in cand.get("items",[]):
     content_ref_match=bool(toks and len(matched)>=min(2,len(toks)) and ratio>=0.6)
     explicit=item.get("provenance_strength")=="EXPLICIT_PROJECT_MANIFEST"
     continuity=bool(item.get("continuity_match"))
-    source_sha=bool(re.fullmatch(r"[0-9a-fA-F]{64}",str(item.get("source_sha256") or "")))
+    source_sha_value=str(item.get("source_sha256") or "")
+    source_sha=bool(re.fullmatch(r"[0-9a-fA-F]{64}",source_sha_value))
+    source_text_rel=str(item.get("source_text") or "")
+    source_text_path=ROOT/source_text_rel if source_text_rel else None
+    source_text_hash_match=False
+    if source_sha and source_text_path and source_text_path.is_file():
+        source_text_hash_match=hashlib.sha256(source_text_path.read_bytes()).hexdigest().lower()==source_sha_value.lower()
+    materializer_mapping_present=bool(rel and rel.split("/")[-1] in materializer_text and source_text_rel and source_text_rel.split("/")[-1] in materializer_text)
     if explicit and continuity and content_ref_match:
         recommendation="PROMOTABLE_PUBLIC_BYTE_IDENTITY"
+    elif explicit and source_text_hash_match and materializer_mapping_present and content_ref_match:
+        recommendation="PROMOTABLE_SOURCE_BACKED_DERIVATIVE"
     elif explicit and source_sha and content_ref_match:
         recommendation="SOURCE_BACKED_DERIVATIVE_REVIEW"
     elif continuity and content_ref_match:
@@ -70,6 +81,8 @@ for item in cand.get("items",[]):
         "provenance_strength":item.get("provenance_strength"),
         "source_manifest":item.get("source_manifest"),
         "source_sha256_present":source_sha,
+        "source_text_hash_match":source_text_hash_match,
+        "materializer_mapping_present":materializer_mapping_present,
         "continuity_match":continuity,
         "pdf_parse_ok":parse_ok,
         "page_count":pages,
