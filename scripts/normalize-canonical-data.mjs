@@ -143,7 +143,8 @@ registry.normalization = {
   source_documents_before_deduplication: sourceRegistries.reduce((sum, item) => sum + item.data.documents.length, 0),
   merged_document_count: registry.documents.length,
   release_excluded_count: releaseExcluded.length,
-  release_excluded_documents: releaseExcluded,
+  // Public-bound canonical registry exposes counts, never identities of owner-withdrawn records.
+  // Their full historical provenance remains in the source supplement and allowlist above.
   institution_aliases: Object.fromEntries(institutionAliases),
   filled_user_titles_from_existing_title: filledUserTitles,
   incoming_from_state_or_public_institution: incoming,
