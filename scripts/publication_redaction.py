@@ -260,18 +260,9 @@ def forbidden_public_identifier_byte_hits(raw: bytes) -> list[str]:
             continue
         matched = False
         if mode == "literal":
-            variants = {value, value.lower(), value.upper(), value.casefold()}
-            for variant in variants:
-                for encoding in ("utf-8", "cp1250", "iso-8859-2", "utf-16-be", "utf-16-le"):
-                    try:
-                        encoded = variant.encode(encoding)
-                    except UnicodeEncodeError:
-                        continue
-                    if encoded and any(encoded in candidate for candidate in byte_candidates):
-                        matched = True
-                        break
-                if matched:
-                    break
+            flags = re.IGNORECASE if item.get("ignore_case", True) else 0
+            pattern = re.compile(re.escape(value), flags)
+            matched = any(pattern.search(text) for text in decoded_variants)
         elif mode == "regex":
             flags = re.IGNORECASE if item.get("ignore_case", True) else 0
             pattern = re.compile(value, flags)
