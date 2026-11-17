@@ -18,6 +18,7 @@ concurrency:
 jobs:
   publish:
     name: Sestavit, ověřit a publikovat jedinou produkční verzi
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -310,6 +311,9 @@ jobs:
           grep -q 'The Ministry of Transport deferred the information request' web/en.html
           grep -q 'Ministry of Transport' web/news/04082026-010.html
           grep -q 'The Ministry of Transport deferred the freedom-of-information request' web/news/04082026-010.html
+
+      - name: Fail-closed release evidence and PDF metadata/privacy audit
+        run: python3 scripts/audit-release-evidence-2026-11-13.py
 
       - name: Připravit kořen webu a kompatibilní cestu /web
         shell: bash
