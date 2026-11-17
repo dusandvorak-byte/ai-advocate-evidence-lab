@@ -97,12 +97,17 @@ def harden_pdf(path: Path, rules: list[dict]) -> tuple[bytes | None, list[dict]]
         if used:
             page.apply_redactions()
 
+    # Remove document metadata on every derivative, even when no page-text rule matched.
+    # Metadata can independently carry private emails, usernames or local filesystem paths.
+    metadata_present = any(value for value in (doc.metadata or {}).values())
+    if metadata_present:
+        doc.set_metadata({})
+        changed = True
+
     if not changed:
         doc.close()
         return None, []
 
-    # Remove document metadata that can carry local usernames or author details.
-    doc.set_metadata({})
     out = path.with_name(path.name + ".privacy.tmp.pdf")
     doc.save(out, garbage=4, clean=True, deflate=True)
     doc.close()
@@ -154,7 +159,7 @@ def main() -> None:
         if hits:
             failures.append(f"known private identifier remains after privacy hardening: {rel}: {hits}")
 
-        if matches:
+        if data is not None:
             public["sha256"] = after_sha
             status = str(public.get("verification_status") or "published")
             if "publication_policy_hardened" not in status:
@@ -167,7 +172,7 @@ def main() -> None:
             "input_sha256": before_sha,
             "output_sha256": after_sha,
             "page_count": after_pages,
-            "changed": bool(matches),
+            "changed": data is not None,
             "redaction_matches": matches,
             "known_private_identifier_hits_after": hits,
         })
