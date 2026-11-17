@@ -36,7 +36,8 @@ def is_pdf_candidate(path: Path) -> bool:
     if path.suffix.lower() == ".pdf":
         return True
     try:
-        return path.read_bytes()[:5] == b"%PDF-"
+        with path.open("rb") as handle:
+            return b"%PDF-" in handle.read(1024)
     except OSError:
         return False
 
