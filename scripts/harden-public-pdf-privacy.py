@@ -26,12 +26,15 @@ def private_pdf_rules() -> tuple[list[dict], str]:
     _, data, authenticated_identity = authenticated_private_policy_document()
     rules = []
     for rule in data.get("rules") or []:
+        mode = str(rule.get("mode") or "literal").strip()
         variants = rule.get("pdf_variants")
-        if variants is None and rule.get("mode", "literal") == "literal":
+        if variants is None and mode == "literal":
             variants = [rule.get("value")]
         variants = [str(value) for value in (variants or []) if str(value)]
+        if mode == "regex" and not variants:
+            raise SystemExit("authenticated regex redaction rule lacks required pdf_variants")
         if not variants:
-            continue
+            raise SystemExit("authenticated private PDF redaction rule has no searchable variant")
         replacement = str(rule.get("replacement") or "")
         rule_id = str(rule.get("id") or "")
         if not rule_id or not replacement:
