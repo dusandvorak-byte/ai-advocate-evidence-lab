@@ -3141,40 +3141,6 @@
       "submission_side_basis": "explicit_batch_classification"
     },
     {
-      "id": "doc-cz-pcr-krpt-2026-08-20-metodicko-odborne-vyjezdy-okte",
-      "user_title": "Příloha k č. j. KRPT-203594-7/ČJ-2026-0700KR: přehled spisů metodicko-odborných výjezdů, mezilaboratorních zkoušek a jejich skartačních údajů z let 2009-2019",
-      "issue_date": "2026-08-20",
-      "received_date": "2026-08-20",
-      "institution_id": "CZ-PCR-KRPT",
-      "reference": "příloha k KRPT-203594-7/ČJ-2026-0700KR",
-      "case_ids": [
-        "case-cz-pcr-ku-interni-prezkum"
-      ],
-      "document_type": "state_record",
-      "topics": [
-        "příloha",
-        "metodicko-odborné výjezdy",
-        "mezilaboratorní zkoušky",
-        "GC-MS",
-        "skartace"
-      ],
-      "public": {
-        "html": null,
-        "pdf": "documents/report-04082026-010/69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf",
-        "intended_pdf": "documents/report-04082026-010/69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf",
-        "sha256": "e73fcf803f59c4ed58cfb0ff01ee773cfedbd2782426132d3feeb715655d0ca2",
-        "verification_status": "published"
-      },
-      "relations": [
-        {
-          "type": "priloha_k",
-          "target_id": "doc-cz-pcr-krpt-2026-08-20-krpt-203594-7-cj-2026-0700kr"
-        }
-      ],
-      "submission_side": "incoming_from_state_or_public_institution",
-      "submission_side_basis": "explicit_batch_classification"
-    },
-    {
       "id": "doc-cz-pcr-krpt-2026-08-20-krpt-203594-8-cj-2026-0700kr",
       "user_title": "Rozhodnutí o částečném odmítnutí žádosti podle InfZ: KŘP uvádí, že OKTE Frýdek-Místek v letech 2009-2019 nemělo SOP ke stanovení THC, písemné metodické pokyny k homogenizaci ani ke stanovení THC/THCA, metodiku nejistoty měření ani validační protokoly; část kontrolních spisů byla skartována",
       "issue_date": "2026-08-20",
