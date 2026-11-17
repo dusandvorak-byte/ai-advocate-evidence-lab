@@ -295,13 +295,15 @@ private.person@example.invalid
         page = doc.new_page()
         doc.xref_set_key(doc.pdf_catalog(), "AF", f"[{page.xref} 0 R]")
         doc.xref_set_key(page.xref, "AF", f"[{doc.pdf_catalog()} 0 R]")
+        note = page.add_text_annot((120, 120), "ordinary note")
+        doc.xref_set_key(note.xref, "AF", f"[{doc.pdf_catalog()} 0 R]")
         doc.save(pdf)
         doc.close()
 
         reopened = fitz.open(pdf)
         count = ns["associated_file_reference_count"](reopened)
         reopened.close()
-        self.assertEqual(count, 2)
+        self.assertEqual(count, 3)
 
     def test_verified_identity_is_authenticated_hmac(self):
         self.write_policy_and_contract()
