@@ -375,8 +375,9 @@ private.person@example.invalid
         doc = fitz.open()
         doc.new_page()
         xref = doc.get_new_xref()
-        secret = "Příliš žluťoučký kůň 42".encode("utf-8")
-        compressed = __import__("zlib").compress(secret)
+        literal = "Příliš žluťoučký kůň 42".encode("utf-8")
+        secret = (literal + b"|") * 64
+        compressed = __import__("zlib").compress(secret, level=9)
         doc.update_object(xref, "<< /Length 0 /Filter /FlateDecode >>")
         doc.update_stream(xref, compressed, compress=False)
         doc.xref_set_key(xref, "Filter", "/FlateDecode")
@@ -384,7 +385,7 @@ private.person@example.invalid
         doc.close()
 
         raw = pdf.read_bytes()
-        self.assertNotIn("Příliš žluťoučký kůň 42".encode("utf-8"), raw)
+        self.assertNotIn(literal, raw)
 
         facts = ns["pdf_facts"](pdf)
         self.assertTrue(facts["decoded_object_private_identifier_hits"])
