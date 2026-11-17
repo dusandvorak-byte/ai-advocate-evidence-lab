@@ -2,6 +2,8 @@
 import hashlib, json, re, subprocess
 from pathlib import Path
 
+from provenance_manifest import manifest_binds_digest
+
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "project-memory" / "documents-2026.json"
 OUT = ROOT / "review-artifacts" / "canonical-pdf-sha-candidates.json"
@@ -18,41 +20,6 @@ def git_show(path: str):
         if proc.returncode == 0:
             return proc.stdout, candidate
     return None, None
-
-def manifest_binds_digest(manifest, doc_id, rel, measured_sha):
-    if not manifest or manifest == "filename-reference-date-reconciliation":
-        return False
-    path = ROOT / manifest
-    if not path.is_file():
-        return False
-    try:
-        data = json.loads(path.read_text("utf-8"))
-    except (UnicodeDecodeError, json.JSONDecodeError):
-        return False
-
-    digest = measured_sha.lower()
-    bindings = {str(doc_id or ""), rel, "web/" + rel}
-
-    def scalar_text(record):
-        parts = []
-        for key, value in record.items():
-            if isinstance(value, (str, int, float, bool)) or value is None:
-                parts.append(str(key))
-                parts.append(str(value))
-        return "\n".join(parts)
-
-    def walk(node):
-        if isinstance(node, dict):
-            text = scalar_text(node)
-            low = text.lower()
-            if digest in low and any(binding and binding in text for binding in bindings):
-                return True
-            return any(walk(value) for value in node.values() if isinstance(value, (dict, list)))
-        if isinstance(node, list):
-            return any(walk(value) for value in node)
-        return False
-
-    return walk(data)
 
 registry=json.loads(REGISTRY.read_text("utf-8"))
 rows=[]
@@ -75,7 +42,7 @@ for item in registry.get("documents", []):
     gh_sha=digest(gh_data) if gh_data is not None else None
     manifest=public.get("source_manifest")
     measured_sha=digest(data) if data is not None else None
-    digest_bound=bool(measured_sha and manifest_binds_digest(manifest, item.get("id"), rel, measured_sha))
+    digest_bound=bool(measured_sha and manifest_binds_digest(ROOT, manifest, item.get("id"), rel, measured_sha))
     if digest_bound:
         provenance_strength="EXPLICIT_DIGEST_MANIFEST"
     elif manifest and manifest != "filename-reference-date-reconciliation":
