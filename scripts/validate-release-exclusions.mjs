@@ -29,7 +29,18 @@ try {
 
 const generator = await readFile('scripts/materialize-godot-state-text-pdfs.py','utf8');
 const preflight = await readFile('scripts/ensure-generated-state-pdfs.mjs','utf8');
-if (generator.includes(filename) || preflight.includes(filename)) fail('ID 69 is still required by a release generator');
+
+const sourcesStart = generator.indexOf('SOURCES = {');
+const sourcesEnd = generator.indexOf('\nFONT_CANDIDATES = [', sourcesStart);
+if (sourcesStart < 0 || sourcesEnd < 0) fail('cannot locate state PDF SOURCES block');
+const sourceBlock = generator.slice(sourcesStart, sourcesEnd);
+if (sourceBlock.includes(filename)) fail('ID 69 is still present in the state PDF generation source map');
+
+const groupStart = preflight.indexOf("generator: 'scripts/materialize-godot-state-text-pdfs.py'");
+const groupEnd = preflight.indexOf('\n  },', groupStart);
+if (groupStart < 0 || groupEnd < 0) fail('cannot locate state PDF provenance group');
+const provenanceGroup = preflight.slice(groupStart, groupEnd);
+if (provenanceGroup.includes(filename)) fail('ID 69 is still required by generated-PDF provenance preflight');
 
 for (const path of [
   'web/index.html','web/en.html','web/kc/index.html','web/kc/en.html',
