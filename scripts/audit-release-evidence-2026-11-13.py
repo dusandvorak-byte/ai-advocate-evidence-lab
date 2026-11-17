@@ -460,6 +460,27 @@ def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
         if re.search(r"(?i)(verejna|veřejná|textova|textová|redigovan|public[-_ ]?copy)", rel) or any(marker in status for marker in markers):
             derivative_paths.add(rel)
 
+    canonical = json.loads(CANONICAL_REGISTRY.read_text("utf-8"))
+    for item in canonical.get("documents", []):
+        public = item.get("public") or {}
+        rel = str(public.get("pdf") or "")
+        if not rel:
+            continue
+        refs = registry_by_path.setdefault(rel, [])
+        item_id = item.get("id")
+        if item_id and not any(ref.get("id") == item_id for ref in refs):
+            refs.append({
+                "id": item_id,
+                "verification_status": public.get("verification_status"),
+            })
+        status = " ".join([
+            str(public.get("verification_status") or ""),
+            str(public.get("public_copy_note") or ""),
+            rel,
+        ]).lower()
+        if re.search(r"(?i)(verejna|veřejná|textova|textová|redigovan|public[-_ ]?copy)", rel) or any(marker in status for marker in markers):
+            derivative_paths.add(rel)
+
     rows = []
     failures = []
     pdfs = publication_pdf_paths(root)
