@@ -188,7 +188,8 @@ def audit_registry_public_derivatives():
         checks = {
             "known_private_identifiers_absent": not facts["known_private_identifier_hits"],
             "embedded_files_absent": facts["embedded_file_count"] == 0,
-            "suspicious_metadata_absent": not facts["suspicious_metadata_keys"],\n            "xmp_private_absent": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
+            "suspicious_metadata_absent": not facts["suspicious_metadata_keys"],
+            "xmp_private_absent": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
         }
         if not all(checks.values()):
             failures.append(f"registry public derivative privacy failure {item.get('id')} {rel}: {checks}; hits={facts['known_private_identifier_hits']}")
@@ -200,7 +201,8 @@ def audit_registry_public_derivatives():
             "page_count": facts["page_count"],
             "known_private_identifier_hits": facts["known_private_identifier_hits"],
             "machine_privacy_status": facts["machine_privacy_status"],
-            "metadata_keys_present": facts["metadata_keys_present"],\n            "xmp_present": facts["xmp_present"],
+            "metadata_keys_present": facts["metadata_keys_present"],
+            "xmp_present": facts["xmp_present"],
             "checks": checks,
         })
     if not rows:
@@ -389,7 +391,8 @@ def audit_redacted_analysis():
         "actual_candidate": actual,
         "privacy_manifest": privacy,
         "privacy_hardening": hardening_row,
-        "current_pdf_metadata_keys": facts["metadata_keys_present"],\n        "current_pdf_xmp_present": facts["xmp_present"],
+        "current_pdf_metadata_keys": facts["metadata_keys_present"],
+        "current_pdf_xmp_present": facts["xmp_present"],
         "current_content_privacy_signals": facts["content_privacy_signals"],
         "live_pre_release": live,
         "checks": checks,
