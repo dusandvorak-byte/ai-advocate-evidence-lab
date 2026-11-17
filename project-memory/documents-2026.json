@@ -3201,7 +3201,12 @@
         "pdf": "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf",
         "intended_pdf": "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf",
         "sha256": "336af9dff0ad906759d2bddae8868970026bfef063e516bb2c148ff74ea64e32",
-        "verification_status": "published"
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original; textual_fidelity_verified; visual_facsimile_not_claimed",
+        "source_original_sha256": "a9ea7ffed4f9eb7f759287dd949ce6bcb4027dd86a1e5c53fabaa2abc59331dd",
+        "source_original_page_count": 2,
+        "public_derivative_page_count": 4,
+        "fidelity_class": "verified_textual_public_copy_not_render_faithful",
+        "fidelity_note": "Public PDF is an explicitly labelled, non-byte-identical text reconstruction. It preserves verified textual references to Table 1 and Scheme 1 but is not represented as a visual facsimile of the two-page private original."
       },
       "relations": [
         {
