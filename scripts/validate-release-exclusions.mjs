@@ -1,10 +1,12 @@
 import { readFile, access, readdir } from 'node:fs/promises';
 import { join, relative } from 'node:path';
+import { createHash } from 'node:crypto';
 
 const fail = message => { throw new Error('RELEASE-EXCLUSIONS: ' + message); };
 const id = 'doc-cz-pcr-krpt-2026-08-20-metodicko-odborne-vyjezdy-okte';
 const filename = '69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf';
 const sourceText = 'project-memory/state-extracted-2026-08-25/69.txt';
+const withdrawnSha256 = 'e73fcf803f59c4ed58cfb0ff01ee773cfedbd2782426132d3feeb715655d0ca2';
 
 const sourceBatch = JSON.parse(await readFile('project-memory/documents-2026-supplement-2026-08-20-24.json','utf8'));
 const source = sourceBatch.documents.find(item => item.id === id);
@@ -60,6 +62,10 @@ async function scanPublicTree(dir) {
     }
     if (!entry.isFile()) continue;
     const bytes = await readFile(full);
+    const digest = createHash('sha256').update(bytes).digest('hex');
+    if (digest === withdrawnSha256) {
+      fail('withdrawn ID 69 digest leaked into public output under any name: ' + rel);
+    }
     if (bytes.includes(forbiddenIdBytes) || bytes.includes(forbiddenFilenameBytes)) {
       fail('ID 69 leaked into public output bytes: ' + rel);
     }
