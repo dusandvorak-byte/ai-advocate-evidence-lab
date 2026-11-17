@@ -38,9 +38,6 @@ SOURCES = {
     "68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf": [
         ROOT / "project-memory/state-text-sources-2026-08-25/68-00.txt",
     ],
-    "69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf": [
-        ROOT / "project-memory/state-extracted-2026-08-25/69.txt",
-    ],
     "70-krpt-203594-8-cj-2026-0700kr-2026-08-20.pdf": [
         ROOT / "project-memory/state-extracted-2026-08-25/70.txt",
     ],
