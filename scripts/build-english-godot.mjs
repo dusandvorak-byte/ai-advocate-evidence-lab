@@ -40,7 +40,10 @@ for (const source of manifest.sources) {
   if (!Array.isArray(registry.documents)) throw new Error(`${source.path} has no documents array`);
   allDocuments.push(...registry.documents);
 }
-const documents = [...new Map(allDocuments.map(item => [item.id, item])).values()];
+const documents = [...new Map(allDocuments
+  // Owner-excluded historical evidence (e.g. ID 69) must never enter any public EN surface or relation.
+  .filter(item => item.release_excluded !== true)
+  .map(item => [item.id, item])).values()];
 const documentsById = new Map(documents.map(item => [item.id, item]));
 const stateDocuments = documents
   .filter(item => item.issue_date >= mainFrom && item.document_type !== 'state_record_attachment' && (item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record'))
