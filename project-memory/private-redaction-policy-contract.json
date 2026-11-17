@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "status": "binding",
+  "policy_id": "evidence-lab-private-redaction-policy",
+  "revision": 1,
+  "revision_token": "2026-11-17-v1",
+  "private_policy_env": "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY",
+  "fail_closed": true,
+  "allow_private_policy_inside_repository": false,
+  "note": "Public contract only. Concrete protected values must never be committed, logged, attached to PRs, or stored in public build artifacts."
+}
