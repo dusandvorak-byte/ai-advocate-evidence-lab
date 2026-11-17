@@ -5,6 +5,8 @@ import json
 import os
 from pathlib import Path
 
+from trusted_preflight_report import sanitize_output_row
+
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT = ROOT / "review-artifacts" / "release-evidence-audit.json"
 RESTORE = ROOT / "review-artifacts" / "historical-pdf-restoration.json"
@@ -13,27 +15,7 @@ OUT = ROOT / "review-artifacts" / "trusted-preflight-public-report.json"
 audit = json.loads(AUDIT.read_text("utf-8"))
 restore = json.loads(RESTORE.read_text("utf-8")) if RESTORE.is_file() else {"restored_count": 0, "restored": []}
 
-rows = []
-for row in audit.get("all_final_web_pdfs", []):
-    rows.append({
-        "published_path": row.get("published_path"),
-        "source_web_path": row.get("source_web_path"),
-        "compatibility_copy": bool(row.get("compatibility_copy")),
-        "registered_ids": row.get("registry_ids") or [],
-        "registered_statuses": row.get("verification_statuses") or [],
-        "derivative": bool(row.get("derivative")),
-        "sha256": row.get("sha256"),
-        "page_count": row.get("page_count"),
-        "metadata_keys_present": row.get("metadata_keys_present") or [],
-        "xmp_present": bool(row.get("xmp_present")),
-        "embedded_file_count": row.get("embedded_file_count"),
-        "file_attachment_annotation_count": row.get("file_attachment_annotation_count"),
-        "associated_file_reference_count": row.get("associated_file_reference_count"),
-        "embedded_file_object_count": row.get("embedded_file_object_count"),
-        "machine_privacy_status": row.get("machine_privacy_status"),
-        "checks": row.get("checks") or {},
-    })
-
+rows = [sanitize_output_row(row) for row in audit.get("all_final_web_pdfs", [])]
 summary = audit.get("summary") or {}
 reconciliation = audit.get("registry_web_stage_reconciliation") or {}
 id68 = audit.get("id68_source_public_fidelity") or {}
