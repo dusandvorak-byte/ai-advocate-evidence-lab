@@ -2,9 +2,12 @@ import hashlib
 import hmac
 import json
 import os
+import runpy
 import sys
 import tempfile
 import unittest
+
+import fitz
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -50,7 +53,7 @@ class PublicationRedactionTests(unittest.TestCase):
                 {"id": "private_email", "mode": "literal", "value": "private.person@example.invalid", "replacement": "[private email redacted]"},
                 {"id": "private_data_box", "mode": "literal", "value": "ab12cd3", "replacement": "[private data-box redacted]"},
                 {"id": "private_birth_date", "mode": "literal", "value": "3. 2. 1974", "replacement": "1974"},
-                {"id": "private_address_wrapped", "mode": "regex", "value": r"SecretTown\s+42\s*,?\s*123\s*45\s*\n?\s*Exampleville", "replacement": "Exampleville"},
+                {"id": "private_address_wrapped", "mode": "regex", "value": r"SecretTown\s+42\s*,?\s*123\s*45\s*\n?\s*Exampleville", "replacement": "Exampleville", "pdf_variants": ["SecretTown 42, 123 45"]},
             ],
             "forbidden": [
                 {"mode": "literal", "value": "private.person@example.invalid"},
@@ -143,6 +146,48 @@ private.person@example.invalid
         hits = redaction.forbidden_public_identifiers("private.person@example.invalid and ab12cd3")
         self.assertEqual(hits, ["private_match_1", "private_match_2"])
         self.assertTrue(all("example.invalid" not in hit and "ab12cd3" not in hit for hit in hits))
+
+    def test_regex_policy_requires_pdf_variants_for_pdf_hardening(self):
+        payload = self.policy_payload()
+        payload["rules"][-1].pop("pdf_variants", None)
+        self.write_policy_and_contract(payload)
+        ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"), run_name="privacy_hardening_test")
+        with self.assertRaises(SystemExit):
+            ns["private_pdf_rules"]()
+
+    def test_synthetic_pdf_line_wrapped_address_is_redacted_in_text_and_render(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"), run_name="privacy_hardening_e2e")
+        rules, _ = ns["private_pdf_rules"]()
+
+        pdf = self.tmpdir / "synthetic.pdf"
+        doc = fitz.open()
+        page = doc.new_page()
+        page.insert_text((72, 72), "Public Person")
+        page.insert_text((72, 96), "SecretTown 42, 123 45")
+        page.insert_text((72, 120), "Exampleville")
+        doc.save(pdf)
+        doc.close()
+
+        before_doc = fitz.open(pdf)
+        before_text = "\n".join(p.get_text("text") for p in before_doc)
+        before_render = before_doc[0].get_pixmap().samples
+        before_doc.close()
+        self.assertIn("SecretTown 42", before_text)
+
+        data, matches = ns["harden_pdf"](pdf, rules)
+        self.assertIsNotNone(data)
+        self.assertTrue(any(m["rule"] == "private_address_wrapped" for m in matches))
+        pdf.write_bytes(data)
+
+        after_doc = fitz.open(pdf)
+        after_text = "\n".join(p.get_text("text") for p in after_doc)
+        after_render = after_doc[0].get_pixmap().samples
+        after_doc.close()
+
+        self.assertNotIn("SecretTown 42", after_text)
+        self.assertNotEqual(hashlib.sha256(before_render).hexdigest(), hashlib.sha256(after_render).hexdigest())
+        self.assertEqual(redaction.forbidden_public_identifiers(after_text), [])
 
     def test_verified_identity_is_authenticated_hmac(self):
         self.write_policy_and_contract()
