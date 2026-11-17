@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import base64, gzip, hashlib, json, os, re, runpy, subprocess, sys, time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
@@ -9,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from publication_redaction import forbidden_public_identifiers
 WEB = ROOT / "web"
+PUBLICATION_ROOT = Path(os.environ.get("EVIDENCE_LAB_PUBLICATION_ROOT", str(WEB))).resolve()
 OUT = ROOT / "review-artifacts" / "release-evidence-audit.json"
 LIVE_BASE = "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/"
 
@@ -26,6 +28,33 @@ def source_text(path: Path) -> str:
     except UnicodeDecodeError:
         return ""
 
+def is_pdf_candidate(path: Path) -> bool:
+    if not path.is_file():
+        return False
+    if path.suffix.lower() == ".pdf":
+        return True
+    try:
+        return path.read_bytes()[:5] == b"%PDF-"
+    except OSError:
+        return False
+
+def publication_pdf_paths(root: Path) -> list[Path]:
+    return sorted((p for p in root.rglob("*") if is_pdf_candidate(p)), key=lambda p: p.as_posix().lower())
+
+def file_attachment_annotation_count(doc) -> int:
+    count = 0
+    for page in doc:
+        annots = page.annots()
+        if not annots:
+            continue
+        for annot in annots:
+            annot_type = annot.type
+            code = annot_type[0] if isinstance(annot_type, (tuple, list)) and annot_type else None
+            name = annot_type[1] if isinstance(annot_type, (tuple, list)) and len(annot_type) > 1 else str(annot_type)
+            if code == 17 or name == "FileAttachment":
+                count += 1
+    return count
+
 def pdf_facts(path: Path) -> dict:
     doc = fitz.open(path)
     fitz_text = "\n".join(page.get_text("text") for page in doc)
@@ -38,6 +67,7 @@ def pdf_facts(path: Path) -> dict:
     meta = {k: v for k, v in (doc.metadata or {}).items() if v}
     xmp = doc.get_xml_metadata() or ""
     embedded = doc.embfile_count() if hasattr(doc, "embfile_count") else 0
+    file_attachment_annotations = file_attachment_annotation_count(doc)
 
     metadata_text = "\n".join(str(v) for v in meta.values())
     combined_private_scan = page_text + "\n" + metadata_text + "\n" + xmp
@@ -55,11 +85,12 @@ def pdf_facts(path: Path) -> dict:
     page_count = doc.page_count
     doc.close()
 
-    machine_failure = bool(embedded or suspicious_metadata_keys or xmp_suspicious or private_hits)
+    machine_failure = bool(embedded or file_attachment_annotations or suspicious_metadata_keys or xmp_suspicious or private_hits)
     return {
         "page_count": page_count,
         "metadata_keys_present": sorted(meta.keys()),
         "embedded_file_count": embedded,
+        "file_attachment_annotation_count": file_attachment_annotations,
         "suspicious_metadata_keys": suspicious_metadata_keys,
         "xmp_present": bool(xmp),
         "xmp_suspicious": xmp_suspicious,
@@ -126,7 +157,7 @@ def audit_generated():
             failures.append(f"missing public-copy notice in {target.relative_to(ROOT)}")
         if not facts["not_byte_identical_notice_present"]:
             failures.append(f"missing not-byte-identical notice in {target.relative_to(ROOT)}")
-        if facts["embedded_file_count"] or facts["suspicious_metadata_keys"] or facts["xmp_suspicious"] or facts["xmp_known_private_identifier_hits"]:
+        if facts["embedded_file_count"] or facts["file_attachment_annotation_count"] or facts["suspicious_metadata_keys"] or facts["xmp_suspicious"] or facts["xmp_known_private_identifier_hits"]:
             failures.append(f"unsafe metadata/embedded/XMP content in {target.relative_to(ROOT)}")
         if facts["known_private_identifier_hits"]:
             failures.append(
@@ -188,6 +219,7 @@ def audit_registry_public_derivatives():
         checks = {
             "known_private_identifiers_absent": not facts["known_private_identifier_hits"],
             "embedded_files_absent": facts["embedded_file_count"] == 0,
+            "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
             "suspicious_metadata_absent": not facts["suspicious_metadata_keys"],
             "xmp_private_absent": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
         }
@@ -209,7 +241,7 @@ def audit_registry_public_derivatives():
         failures.append("no generated/redacted public derivatives discovered in final registry")
     return rows, failures
 
-def audit_all_web_pdfs():
+def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
     registry_path = WEB / "data/documents-2026.json"
     registry = json.loads(registry_path.read_text("utf-8"))
     registry_by_path = {}
@@ -235,21 +267,24 @@ def audit_all_web_pdfs():
 
     rows = []
     failures = []
-    pdfs = sorted(p for p in WEB.rglob("*.pdf") if p.is_file())
+    pdfs = publication_pdf_paths(root)
     if not pdfs:
-        failures.append("no PDFs found under web/")
+        failures.append(f"no PDF-signature/suffix candidates found under publication root {root}")
         return rows, failures
 
     for path in pdfs:
-        rel = path.relative_to(WEB).as_posix()
+        published_rel = path.relative_to(root).as_posix()
+        compatibility_copy = root != WEB and published_rel.startswith("web/")
+        source_rel = published_rel[4:] if compatibility_copy else published_rel
         facts = pdf_facts(path)
-        refs = registry_by_path.get(rel, [])
+        refs = registry_by_path.get(source_rel, [])
         registered = bool(refs)
-        is_derivative = rel in derivative_paths
+        is_derivative = source_rel in derivative_paths
 
         checks = {
             "forbidden_identifiers_absent": not facts["known_private_identifier_hits"],
             "embedded_files_absent": facts["embedded_file_count"] == 0,
+            "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
             "suspicious_info_metadata_absent": not facts["suspicious_metadata_keys"],
             "xmp_private_or_suspicious_absent": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
         }
@@ -257,10 +292,12 @@ def audit_all_web_pdfs():
             checks["derivative_xmp_removed"] = not facts["xmp_present"]
 
         if not all(checks.values()):
-            failures.append(f"final web PDF privacy failure {rel}: {checks}")
+            failures.append(f"final staged PDF privacy failure {published_rel}: {checks}")
 
         rows.append({
-            "public_path": rel,
+            "published_path": published_rel,
+            "source_web_path": source_rel,
+            "compatibility_copy": compatibility_copy,
             "registered": registered,
             "registry_ids": [ref.get("id") for ref in refs if ref.get("id")],
             "verification_statuses": [ref.get("verification_status") for ref in refs if ref.get("verification_status")],
@@ -270,11 +307,127 @@ def audit_all_web_pdfs():
             "metadata_keys_present": facts["metadata_keys_present"],
             "xmp_present": facts["xmp_present"],
             "embedded_file_count": facts["embedded_file_count"],
+            "file_attachment_annotation_count": facts["file_attachment_annotation_count"],
             "machine_privacy_status": facts["machine_privacy_status"],
             "checks": checks,
         })
 
     return rows, failures
+
+
+def audit_registry_reconciliation(staged_rows: list[dict]):
+    canonical_path = ROOT / "project-memory/documents-2026.json"
+    public_registry_path = WEB / "data/documents-2026.json"
+    canonical = json.loads(canonical_path.read_text("utf-8"))
+    public_registry = json.loads(public_registry_path.read_text("utf-8"))
+
+    source_paths = {p.relative_to(WEB).as_posix() for p in publication_pdf_paths(WEB)}
+    staged_paths = {row["published_path"] for row in staged_rows}
+    expected_staged_paths = source_paths | {"web/" + rel for rel in source_paths}
+    failures = []
+
+    stage_missing = sorted(expected_staged_paths - staged_paths)
+    stage_extra = sorted(staged_paths - expected_staged_paths)
+    if stage_missing:
+        failures.append(f"staged publication PDF set is missing {len(stage_missing)} source/compatibility PDFs")
+    if stage_extra:
+        failures.append(f"staged publication PDF set has {len(stage_extra)} unexpected PDFs")
+
+    canonical_refs = []
+    canonical_by_path = {}
+    for item in canonical.get("documents", []):
+        public = item.get("public") or {}
+        rel = str(public.get("pdf") or "")
+        if not rel:
+            continue
+        row = {
+            "id": item.get("id"),
+            "path": rel,
+            "verification_status": public.get("verification_status"),
+            "present_in_source_web": rel in source_paths,
+        }
+        canonical_refs.append(row)
+        canonical_by_path.setdefault(rel, []).append(row)
+
+    public_refs = []
+    for item in public_registry.get("documents", []):
+        public = item.get("public") or {}
+        rel = str(public.get("pdf") or "")
+        if not rel:
+            continue
+        row = {
+            "id": item.get("id"),
+            "path": rel,
+            "verification_status": public.get("verification_status"),
+            "present_in_source_web": rel in source_paths,
+            "present_in_staged_root": rel in staged_paths,
+        }
+        public_refs.append(row)
+        if not row["present_in_staged_root"]:
+            failures.append(f"final public registry references PDF absent from staged publication tree: {rel}")
+
+    missing_canonical_paths = sorted(set(canonical_by_path) - source_paths)
+    live_results = {}
+    published_missing = [
+        rel for rel in missing_canonical_paths
+        if any(str(ref.get("verification_status") or "").lower() == "published" for ref in canonical_by_path[rel])
+    ]
+    if published_missing:
+        with ThreadPoolExecutor(max_workers=12) as pool:
+            futures = {pool.submit(fetch_live, rel, 1): rel for rel in published_missing}
+            for future in as_completed(futures):
+                rel = futures[future]
+                try:
+                    live_results[rel] = future.result()
+                except Exception as exc:
+                    live_results[rel] = {"http_status": None, "error_type": type(exc).__name__}
+
+    missing_rows = []
+    for rel in missing_canonical_paths:
+        refs = canonical_by_path[rel]
+        statuses = sorted({str(ref.get("verification_status") or "") for ref in refs})
+        live = live_results.get(rel)
+        if live and live.get("http_status") == 200:
+            classification = "historical_live_only_pre_release"
+        elif "published" in {status.lower() for status in statuses}:
+            classification = "published_but_unverified_missing"
+            failures.append(f"canonical published PDF is absent from source web and not verified live: {rel}")
+        else:
+            classification = "not_in_source_web_not_marked_published"
+        missing_rows.append({
+            "path": rel,
+            "ids": [ref.get("id") for ref in refs if ref.get("id")],
+            "verification_statuses": statuses,
+            "classification": classification,
+            "live_http_status": live.get("http_status") if live else None,
+            "live_sha256": live.get("sha256") if live and live.get("http_status") == 200 else None,
+        })
+
+    id69 = "doc-cz-pcr-krpt-2026-08-20-metodicko-odborne-vyjezdy-okte"
+    id69_filename = "69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf"
+    id69_present_canonical = any(item.get("id") == id69 for item in canonical.get("documents", []))
+    id69_present_public_registry = any(item.get("id") == id69 for item in public_registry.get("documents", []))
+    id69_present_source_or_stage = any(id69_filename in rel for rel in source_paths | staged_paths)
+    if id69_present_canonical or id69_present_public_registry or id69_present_source_or_stage:
+        failures.append("owner-excluded ID 69 is present in final canonical/public/staged release state")
+
+    unregistered_source = sorted(source_paths - set(canonical_by_path))
+    return {
+        "canonical_registry_reference_count": len(canonical_refs),
+        "canonical_registry_unique_pdf_count": len(canonical_by_path),
+        "public_registry_reference_count": len(public_refs),
+        "source_web_pdf_count": len(source_paths),
+        "staged_pdf_count": len(staged_paths),
+        "expected_staged_pdf_count": len(expected_staged_paths),
+        "staged_set_exact_match": not stage_missing and not stage_extra,
+        "stage_missing_paths": stage_missing,
+        "stage_extra_paths": stage_extra,
+        "canonical_missing_from_source_count": len(missing_rows),
+        "canonical_missing_from_source": missing_rows,
+        "unregistered_source_pdf_count": len(unregistered_source),
+        "unregistered_source_pdf_paths": unregistered_source,
+        "id69_absent_from_final_release_state": not (id69_present_canonical or id69_present_public_registry or id69_present_source_or_stage),
+    }, failures
 
 
 def audit_okte():
@@ -375,6 +528,7 @@ def audit_redacted_analysis():
         "historical_outside_redaction_pixel_changes_zero": privacy.get("pixel_changes_outside_redactions") == 0,
         "historical_metadata_removal_recorded": privacy.get("metadata_removed") is True,
         "no_embedded_files_now": facts["embedded_file_count"] == 0,
+        "no_file_attachment_annotations_now": facts["file_attachment_annotation_count"] == 0,
         "no_suspicious_metadata_now": not facts["suspicious_metadata_keys"],
         "no_private_xmp_now": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
         "xmp_removed_now": not facts["xmp_present"],
@@ -405,6 +559,7 @@ def main():
     generated, gen_fail = audit_generated()
     registry_derivatives, registry_fail = audit_registry_public_derivatives()
     all_web_pdfs, all_web_fail = audit_all_web_pdfs()
+    reconciliation, reconciliation_fail = audit_registry_reconciliation(all_web_pdfs)
     hardening_path = ROOT / "project-memory/privacy-hardening-report.json"
     hardening = json.loads(hardening_path.read_text("utf-8"))
     hardening_fail = list(hardening.get("hard_failures") or [])
@@ -412,7 +567,7 @@ def main():
         hardening_fail.append("privacy hardening failure count does not match hard failure list")
     okte, okte_fail = audit_okte()
     redacted, redact_fail = audit_redacted_analysis()
-    failures = gen_fail + registry_fail + all_web_fail + hardening_fail + okte_fail + redact_fail
+    failures = gen_fail + registry_fail + all_web_fail + reconciliation_fail + hardening_fail + okte_fail + redact_fail
     checkout_sha = subprocess.run(
         ["git", "rev-parse", "HEAD"], check=True, capture_output=True, text=True
     ).stdout.strip()
@@ -480,14 +635,20 @@ def main():
         "generated_public_derivatives": generated,
         "registry_public_derivatives": registry_derivatives,
         "all_final_web_pdfs": all_web_pdfs,
+        "registry_web_stage_reconciliation": reconciliation,
         "privacy_hardening": hardening,
         "okte_originals": okte,
         "redacted_okte_analysis": redacted,
         "summary": {
             "generated_derivative_count": len(generated),
             "registry_public_derivative_count": len(registry_derivatives),
-            "all_final_web_pdf_count": len(all_web_pdfs),
-            "unregistered_final_web_pdf_count": len([row for row in all_web_pdfs if not row["registered"]]),
+            "all_final_staged_pdf_count": len(all_web_pdfs),
+            "source_web_pdf_count": reconciliation.get("source_web_pdf_count"),
+            "canonical_registry_reference_count": reconciliation.get("canonical_registry_reference_count"),
+            "canonical_missing_from_source_count": reconciliation.get("canonical_missing_from_source_count"),
+            "unregistered_source_pdf_count": reconciliation.get("unregistered_source_pdf_count"),
+            "staged_set_exact_match": reconciliation.get("staged_set_exact_match"),
+            "id69_absent_from_final_release_state": reconciliation.get("id69_absent_from_final_release_state"),
             "privacy_hardened_derivative_count": hardening.get("changed_derivative_count"),
             "okte_original_count": len(okte.get("annexes", [])),
             "hard_failure_count": len(failures),
