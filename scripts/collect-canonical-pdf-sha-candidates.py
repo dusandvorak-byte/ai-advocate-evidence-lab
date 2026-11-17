@@ -19,6 +19,20 @@ def git_show(path: str):
             return proc.stdout, candidate
     return None, None
 
+def manifest_binds_digest(manifest, doc_id, rel, measured_sha):
+    if not manifest or manifest == "filename-reference-date-reconciliation":
+        return False
+    path = ROOT / manifest
+    if not path.is_file():
+        return False
+    try:
+        text = path.read_text("utf-8")
+    except UnicodeDecodeError:
+        return False
+    if measured_sha.lower() not in text.lower():
+        return False
+    return (str(doc_id or "") in text) or (rel in text) or (("web/" + rel) in text)
+
 registry=json.loads(REGISTRY.read_text("utf-8"))
 rows=[]
 for item in registry.get("documents", []):
@@ -39,8 +53,12 @@ for item in registry.get("documents", []):
     checked_sha=digest(checked_in_data) if checked_in_data is not None else None
     gh_sha=digest(gh_data) if gh_data is not None else None
     manifest=public.get("source_manifest")
-    if manifest and manifest != "filename-reference-date-reconciliation":
-        provenance_strength="EXPLICIT_PROJECT_MANIFEST"
+    measured_sha=digest(data) if data is not None else None
+    digest_bound=bool(measured_sha and manifest_binds_digest(manifest, item.get("id"), rel, measured_sha))
+    if digest_bound:
+        provenance_strength="EXPLICIT_DIGEST_MANIFEST"
+    elif manifest and manifest != "filename-reference-date-reconciliation":
+        provenance_strength="EXPLICIT_PROJECT_MANIFEST_NO_DIGEST"
     elif manifest == "filename-reference-date-reconciliation":
         provenance_strength="HEURISTIC_RECONCILIATION_ONLY"
     else:
@@ -58,7 +76,8 @@ for item in registry.get("documents", []):
         "source_ref": source_ref,
         "pdf_magic_ok": bool(data and data.startswith(b"%PDF-")),
         "byte_size": len(data) if data is not None else None,
-        "measured_sha256": digest(data) if data is not None else None,
+        "measured_sha256": measured_sha,
+        "manifest_digest_binding": digest_bound,
         "checked_in_sha256": checked_sha,
         "gh_pages_sha256": gh_sha,
         "continuity_match": bool(checked_sha and gh_sha and checked_sha == gh_sha),
