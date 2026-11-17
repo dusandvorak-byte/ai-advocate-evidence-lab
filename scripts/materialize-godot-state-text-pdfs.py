@@ -20,6 +20,9 @@ WEB = ROOT / "web"
 OUT = WEB / "documents" / "report-04082026-010"
 REGISTRY = ROOT / "project-memory" / "documents-2026-supplement-2026-08-20-24.json"
 MANIFEST = WEB / "data" / "generated-state-pdf-manifest.json"
+EXCLUDED_OUTPUTS = [
+    OUT / "69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf",
+]
 
 SOURCES = {
     "64-msz-praha-2-kzn-55-2025-136-2026-08-20.pdf": [
@@ -149,6 +152,8 @@ def main():
     pdfmetrics.registerFont(TTFont("StateUnicode", str(font)))
     OUT.mkdir(parents=True, exist_ok=True)
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
+    for excluded in EXCLUDED_OUTPUTS:
+        excluded.unlink(missing_ok=True)
 
     records = []
     generated = {}
