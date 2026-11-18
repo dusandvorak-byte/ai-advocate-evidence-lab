@@ -108,7 +108,7 @@ jobs:
       - name: Použít Python 3.12 pro reprodukovatelné PDF
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.12.16'
 
       - name: Připravit Python a PDF kontrolní nástroje
         run: |
