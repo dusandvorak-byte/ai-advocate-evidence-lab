@@ -105,11 +105,16 @@ jobs:
           node --check scripts/validate-vsz-praha-mk-church-2026-10-30.mjs
           node --check scripts/validate-active-court-dockets.mjs
 
+      - name: Použít Python 3.12 pro reprodukovatelné PDF
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
       - name: Připravit Python a PDF kontrolní nástroje
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq poppler-utils qpdf
-          python3 -m pip install --quiet reportlab pillow pymupdf
+          python3 -m pip install --quiet reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
 
       - name: Provision private redaction policy only inside runner temp
         shell: bash
