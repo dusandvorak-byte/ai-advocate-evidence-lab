@@ -18,6 +18,7 @@ from provenance_hardening_bridge import verify_hardening_bridge
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = Path(os.environ.get("EVIDENCE_LAB_CANONICAL_REGISTRY", str(ROOT / "project-memory/documents-2026.json"))).resolve()
 FINAL_REGISTRY = ROOT / "project-memory" / "documents-2026.json"
+PUBLICATION_ROOT = Path(os.environ.get("EVIDENCE_LAB_PUBLICATION_ROOT", str(ROOT / "web"))).resolve()
 CONTRACT = ROOT / "project-memory" / "canonical-pdf-provenance-contract.json"
 HARDENING_REPORT = ROOT / "project-memory" / "privacy-hardening-report.json"
 EXPECTED_REMEDIATED_IDS = {
@@ -171,6 +172,7 @@ for item in registry.get("documents", []):
 
     hardening = hardening_by_id.get(doc_id) or {}
     hardening_output_sha = str(hardening.get("output_sha256") or "").lower()
+    staged_public_path = PUBLICATION_ROOT / rel
     if not re.fullmatch(r"[0-9a-f]{64}", final_sha):
         if final_sha_raw not in (None, ""):
             failures.append(f"{doc_id}: malformed nonempty final registry SHA")
@@ -182,6 +184,12 @@ for item in registry.get("documents", []):
             and re.fullmatch(r"[0-9a-f]{64}", hardening_output_sha)
         ):
             final_sha = hardening_output_sha
+        elif (
+            re.fullmatch(r"[0-9a-f]{64}", source_sha)
+            and staged_public_path.is_file()
+            and sha256_file(staged_public_path) == source_sha
+        ):
+            final_sha = source_sha
         else:
             failures.append(f"{doc_id}: no verified final publication SHA available")
             continue
@@ -278,7 +286,7 @@ for item in registry.get("documents", []):
         })
         continue
 
-    final_public_path = ROOT / "web" / rel
+    final_public_path = PUBLICATION_ROOT / rel
     if not source_identity_sha:
         failures.append(f"{doc_id}: primary source identity SHA was not established")
         final_ok = False
