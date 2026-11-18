@@ -26,7 +26,7 @@ jobs:
           node-version: '24'
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.12.16'
       - name: Install audit dependencies
         run: |
           sudo apt-get update -qq
@@ -93,7 +93,7 @@ jobs:
           ref: ${{ github.sha }}
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.12.16'
       - name: Install audit dependencies
         run: |
           sudo apt-get update -qq
@@ -135,7 +135,7 @@ jobs:
           ref: ${{ github.sha }}
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.12.16'
       - name: Install audit dependencies
         run: |
           sudo apt-get update -qq
@@ -181,7 +181,7 @@ jobs:
           ref: ${{ github.sha }}
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.12.16'
       - name: Install assembler dependency
         run: python3 -m pip install --disable-pip-version-check pymupdf==2.1
       - uses: actions/download-artifact@v4
