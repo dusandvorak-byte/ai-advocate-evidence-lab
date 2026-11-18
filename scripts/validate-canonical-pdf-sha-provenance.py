@@ -99,6 +99,12 @@ def git_show(commit: str, path: str) -> bytes:
 
 registry = json.loads(REGISTRY.read_text("utf-8"))
 final_registry = json.loads(FINAL_REGISTRY.read_text("utf-8"))
+staged_registry = None
+if PUBLICATION_ROOT_ENV:
+    staged_registry_path = PUBLICATION_ROOT / "data" / "documents-2026.json"
+    if not staged_registry_path.is_file():
+        raise SystemExit(f"missing staged canonical registry: {staged_registry_path}")
+    staged_registry = json.loads(staged_registry_path.read_text("utf-8"))
 contract_raw = CONTRACT.read_bytes()
 contract = json.loads(contract_raw.decode("utf-8"))
 hardening_report = json.loads(HARDENING_REPORT.read_text("utf-8")) if HARDENING_REPORT.is_file() else {"documents": [], "hard_failure_count": 0}
@@ -141,56 +147,56 @@ for expected_id in sorted(EXPECTED_REMEDIATED_IDS):
 # assembled publication root (trusted publish/preflight). PR provenance checks do not
 # materialize the complete staged tree and therefore retain the frozen-source proof only.
 if PUBLICATION_ROOT_ENV:
-# First, enforce final staged identity for every canonical PDF, including records
-    # outside the frozen provenance subset. Detailed source provenance proof follows below
-    # for records that carry reviewed provenance annotations.
-    for item in registry.get("documents", []):
-        public = item.get("public") or {}
-        rel = str(public.get("pdf") or "")
+    # Enforce final staged identity over the actual staged registry. The pre-build
+    # registry remains source identity/provenance; it is not the final publication index.
+    staged_by_id = {item.get("id"): item for item in (staged_registry or {}).get("documents", [])}
+    for final_item in (staged_registry or {}).get("documents", []):
+        final_public = final_item.get("public") or {}
+        rel = str(final_public.get("pdf") or "")
         if not rel:
             continue
-    
-        doc_id = str(item.get("id") or "")
-        source_sha = str(public.get("sha256") or "").lower()
-        if not re.fullmatch(r"[0-9a-f]{64}", source_sha):
-            failures.append(f"{doc_id}: canonical registry SHA is invalid")
+
+        doc_id = str(final_item.get("id") or "")
+        source_item = registry_by_id.get(doc_id)
+        if not source_item:
+            failures.append(f"{doc_id}: staged canonical record missing from source registry")
             continue
-    
+        source_public = source_item.get("public") or {}
+        source_sha = str(source_public.get("sha256") or "").lower()
+
         staged_public_path = PUBLICATION_ROOT / rel
         if not staged_public_path.is_file():
             failures.append(f"{doc_id}: canonical staged PDF is missing")
             continue
         actual_sha = sha256_file(staged_public_path)
-    
-        final_item = final_registry_by_id.get(doc_id) or {}
-        final_public = final_item.get("public") or {}
-        final_rel = str(final_public.get("pdf") or "")
+
         final_sha_raw = final_public.get("sha256")
         final_sha = str(final_sha_raw or "").lower()
-        if final_rel and final_rel != rel:
-            failures.append(f"{doc_id}: final registry PDF path differs from canonical path")
-            continue
-    
         hardening = hardening_by_id.get(doc_id) or {}
         hardening_ok = (
             hardening_report.get("hard_failure_count") == 0
             and hardening.get("id") == doc_id
             and hardening.get("public_path") == rel
+            and re.fullmatch(r"[0-9a-f]{64}", source_sha)
             and str(hardening.get("input_sha256") or "").lower() == source_sha
             and str(hardening.get("output_sha256") or "").lower() == actual_sha
         )
-    
+
         if re.fullmatch(r"[0-9a-f]{64}", final_sha):
             if actual_sha != final_sha:
-                failures.append(f"{doc_id}: staged PDF does not match final registry SHA")
+                failures.append(f"{doc_id}: staged PDF does not match staged registry SHA")
                 continue
         elif final_sha_raw not in (None, ""):
-            failures.append(f"{doc_id}: malformed nonempty final registry SHA")
+            failures.append(f"{doc_id}: malformed nonempty staged registry SHA")
             continue
-        elif actual_sha != source_sha and not hardening_ok:
-            failures.append(f"{doc_id}: staged PDF matches neither canonical source SHA nor verified hardening output")
+        elif re.fullmatch(r"[0-9a-f]{64}", source_sha) and actual_sha == source_sha:
+            pass
+        elif hardening_ok:
+            pass
+        else:
+            failures.append(f"{doc_id}: staged PDF has no verified final/source/hardening identity")
             continue
-    
+
 for item in registry.get("documents", []):
     public = item.get("public") or {}
     rel = str(public.get("pdf") or "")
