@@ -13,10 +13,12 @@ from canonical_pdf_provenance_contract import (
     validate_frozen_provenance_binding,
     validate_trusted_contract_root,
 )
+from provenance_hardening_bridge import verify_hardening_bridge
 
 ROOT = Path(__file__).resolve().parents[1]
-REGISTRY = ROOT / "project-memory" / "documents-2026.json"
+REGISTRY = Path(os.environ.get("EVIDENCE_LAB_CANONICAL_REGISTRY", str(ROOT / "project-memory/documents-2026.json"))).resolve()
 CONTRACT = ROOT / "project-memory" / "canonical-pdf-provenance-contract.json"
+HARDENING_REPORT = ROOT / "project-memory" / "privacy-hardening-report.json"
 EXPECTED_REMEDIATED_IDS = {
     "doc-cz-ct-2026-06-01-ct-338889-2025-38",
     "doc-cz-dd-2026-08-10-reakce-18-a-23-2026",
@@ -95,6 +97,8 @@ def git_show(commit: str, path: str) -> bytes:
 registry = json.loads(REGISTRY.read_text("utf-8"))
 contract_raw = CONTRACT.read_bytes()
 contract = json.loads(contract_raw.decode("utf-8"))
+hardening_report = json.loads(HARDENING_REPORT.read_text("utf-8")) if HARDENING_REPORT.is_file() else {"documents": [], "hard_failure_count": 0}
+hardening_by_id = {row.get("id"): row for row in hardening_report.get("documents", [])}
 checked = []
 failures = []
 
@@ -191,6 +195,17 @@ for item in registry.get("documents", []):
         historical_sha = sha256_bytes(historical)
         current_sha = sha256_file(current_path)
         ok = historical_sha == sha and current_sha == sha
+        if not ok:
+            hardening = hardening_by_id.get(item.get("id")) or {}
+            ok = verify_hardening_bridge(
+                hardening_report=hardening_report,
+                hardening_row=hardening,
+                document_id=str(item.get("id") or ""),
+                public_path=rel,
+                input_sha256=historical_sha,
+                expected_output_sha256=sha,
+                final_public_pdf=current_path,
+            )
         evidence = commit
 
     elif status == "deterministic-generated-public-copy-verified":
@@ -229,6 +244,18 @@ for item in registry.get("documents", []):
             continue
         current_sha = sha256_file(current_path)
         ok = current_sha == sha
+        if not ok:
+            hardening = hardening_by_id.get(item.get("id")) or {}
+            final_public_path = ROOT / "web" / rel
+            ok = verify_hardening_bridge(
+                hardening_report=hardening_report,
+                hardening_row=hardening,
+                document_id=str(item.get("id") or ""),
+                public_path=rel,
+                input_sha256=current_sha,
+                expected_output_sha256=sha,
+                final_public_pdf=final_public_path,
+            )
         evidence = f"{generator_rel}@gitblob:{generator_blob};{source_rel}@gitblob:{source_blob}"
 
     if not ok:
