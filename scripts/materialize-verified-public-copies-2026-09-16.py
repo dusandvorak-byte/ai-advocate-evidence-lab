@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hashlib
 import html
+import json
 import os
 from pathlib import Path
 
@@ -14,7 +16,9 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-16"
-OUT = Path(os.environ.get("EVIDENCE_LAB_VERIFIED_COPY_OUT", str(ROOT / "web" / "documents" / "report-04082026-010"))).resolve()
+DEFAULT_OUT = (ROOT / "web" / "documents" / "report-04082026-010").resolve()
+OUT = Path(os.environ.get("EVIDENCE_LAB_VERIFIED_COPY_OUT", str(DEFAULT_OUT))).resolve()
+REGISTRY = ROOT / "project-memory" / "documents-2026.json"
 SOURCE_2026_09_22 = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-22"
 SOURCE_2026_09_23 = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-23"
 SOURCE_2026_08_27 = ROOT / "project-memory" / "verified-public-copy-sources-2026-08-27"
@@ -66,6 +70,8 @@ def deterministic_canvas(*args, **kwargs):
 all_jobs = [(SOURCE / source_name, out_name) for source_name, out_name in JOBS.items()]
 all_jobs.extend(EXTRA_JOBS.items())
 
+generated_sha256 = {}
+
 for source_path, out_name in all_jobs:
     if not source_path.exists():
         raise SystemExit(f"Missing verified text source: {source_path}")
@@ -100,4 +106,27 @@ for source_path, out_name in all_jobs:
         display_path = target.relative_to(ROOT)
     except ValueError:
         display_path = target
+    generated_sha256[out_name] = hashlib.sha256(data).hexdigest()
     print(f"materialized {display_path} ({len(data)} bytes)")
+
+# Only the normal canonical web materialization may refresh the working registry.
+# Isolated provenance rebuilds use EVIDENCE_LAB_VERIFIED_COPY_OUT outside DEFAULT_OUT
+# and must never mutate canonical metadata.
+if OUT == DEFAULT_OUT:
+    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    matched = set()
+    for item in registry.get("documents", []):
+        public = item.get("public") or {}
+        pdf = str(public.get("pdf") or "")
+        name = Path(pdf).name if pdf else ""
+        if name in generated_sha256:
+            public["sha256"] = generated_sha256[name]
+            item["public"] = public
+            matched.add(name)
+    missing = sorted(set(generated_sha256) - matched)
+    if missing:
+        raise SystemExit(f"Generated PDF outputs missing from canonical registry: {missing}")
+    tmp = REGISTRY.with_suffix(REGISTRY.suffix + ".tmp")
+    tmp.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    tmp.replace(REGISTRY)
+    print(f"updated canonical registry SHA for {len(matched)} generated public PDFs")
