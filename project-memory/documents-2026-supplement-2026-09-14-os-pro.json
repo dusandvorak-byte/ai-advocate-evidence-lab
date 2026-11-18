@@ -10,18 +10,34 @@
       "received_date": null,
       "institution_id": "CZ-OS-PRO",
       "reference": "15 Nt 3104/2026",
-      "case_ids": ["15 Nt 3104/2026", "2 T 104/2010"],
+      "case_ids": [
+        "15 Nt 3104/2026",
+        "2 T 104/2010"
+      ],
       "document_type": "state_record",
-      "topics": ["trestní řízení", "obnova řízení", "2 T 104/2010", "15 Nt 3104/2026", "procesní upřesnění"],
+      "topics": [
+        "trestní řízení",
+        "obnova řízení",
+        "2 T 104/2010",
+        "15 Nt 3104/2026",
+        "procesní upřesnění"
+      ],
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/90-os-prostejov-15-nt-3104-2026-2026-09-14.pdf",
         "intended_pdf": "documents/report-04082026-010/90-os-prostejov-15-nt-3104-2026-2026-09-14.pdf",
-        "sha256": "f23e5e35c49f919fbb850afcf64b5e328ef9174d4612b86b2a9b0b7847fed2be",
-        "verification_status": "source_pdf_received; original_pdf_published",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-09-14-os-pro.json"
+        "sha256": "6c436f6913cda84647eb2416733156b9a3ab2fe7c19008ca1fec611331ccffe3",
+        "verification_status": "verified_historical_public_copy; not_byte_identical_original; source_original_sha256_recorded",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-14-os-pro.json",
+        "source_original_sha256": "f23e5e35c49f919fbb850afcf64b5e328ef9174d4612b86b2a9b0b7847fed2be",
+        "public_copy_note": "Historická veřejná PDF kopie ověřená byte-identicky proti současnému gh-pages; původní zdrojový SHA je zachován samostatně."
       },
-      "relations": [{"type": "navazuje_na", "target_id": "doc-cz-os-pro-2026-08-18-15-nt-3104-2026-56"}],
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-os-pro-2026-08-18-15-nt-3104-2026-56"
+        }
+      ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",
       "evidence_note": "Okresní soud v Prostějově dne 14. 9. 2026 pod č. j. 15 Nt 3104/2026 sdělil, že pod touto spisovou značkou se bude projednávat návrh Mgr. Dušana Dvořáka na obnovu řízení vedeného pod sp. zn. 2 T 104/2010. Listina je procesním upřesněním totožnosti projednávané věci; sama nerozhoduje o povolení obnovy ani nezakládá nový opravný prostředek či nový samostatný časovač."
@@ -33,20 +49,40 @@
       "received_date": null,
       "institution_id": "CZ-OS-PRO",
       "reference": "15 Nt 3106/2026",
-      "case_ids": ["15 Nt 3106/2026", "2 T 65/2011"],
+      "case_ids": [
+        "15 Nt 3106/2026",
+        "2 T 65/2011"
+      ],
       "document_type": "state_record",
-      "topics": ["trestní řízení", "obnova řízení", "2 T 65/2011", "15 Nt 3106/2026", "zpětvzetí obžaloby", "zastavení trestního řízení", "procesní upřesnění"],
+      "topics": [
+        "trestní řízení",
+        "obnova řízení",
+        "2 T 65/2011",
+        "15 Nt 3106/2026",
+        "zpětvzetí obžaloby",
+        "zastavení trestního řízení",
+        "procesní upřesnění"
+      ],
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/91-os-prostejov-15-nt-3106-2026-2026-09-14.pdf",
         "intended_pdf": "documents/report-04082026-010/91-os-prostejov-15-nt-3106-2026-2026-09-14.pdf",
-        "sha256": "e9c757214bd16083f6993b44b94035a78947e91fe6811eb5d9053d3237de2882",
-        "verification_status": "source_pdf_received; original_pdf_published",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-09-14-os-pro.json"
+        "sha256": "622cbdd0a7f520befd1cebf244c12806d27242bf126d9273c88d2df8a718b296",
+        "verification_status": "verified_deterministic_public_text_copy; not_byte_identical_original; source_original_sha256_recorded",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-14-os-pro.json",
+        "source_original_sha256": "e9c757214bd16083f6993b44b94035a78947e91fe6811eb5d9053d3237de2882",
+        "source_text": "project-memory/verified-public-copy-sources-2026-09-16/91-os-prostejov-15-nt-3106-2026.txt",
+        "public_copy_note": "Deterministická veřejná textová kopie; není binárně totožná s původním PDF."
       },
       "relations": [
-        {"type": "navazuje_na", "target_id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-predvolani"},
-        {"type": "souvisí", "target_id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-neslouceni"}
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-predvolani"
+        },
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-os-pro-2026-08-25-15-nt-3106-2026-neslouceni"
+        }
       ],
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "deterministic_document_type",
