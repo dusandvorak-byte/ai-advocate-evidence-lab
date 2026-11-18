@@ -4171,9 +4171,11 @@
         "html": null,
         "pdf": "documents/report-04082026-010/90-os-prostejov-15-nt-3104-2026-2026-09-14.pdf",
         "intended_pdf": "documents/report-04082026-010/90-os-prostejov-15-nt-3104-2026-2026-09-14.pdf",
-        "sha256": "f23e5e35c49f919fbb850afcf64b5e328ef9174d4612b86b2a9b0b7847fed2be",
-        "verification_status": "published",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-09-14-os-pro.json"
+        "sha256": "6c436f6913cda84647eb2416733156b9a3ab2fe7c19008ca1fec611331ccffe3",
+        "verification_status": "verified_historical_public_copy; not_byte_identical_original; source_original_sha256_recorded",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-14-os-pro.json",
+        "source_original_sha256": "f23e5e35c49f919fbb850afcf64b5e328ef9174d4612b86b2a9b0b7847fed2be",
+        "public_copy_note": "Historická veřejná PDF kopie ověřená byte-identicky proti současnému gh-pages; původní zdrojový SHA je zachován samostatně."
       },
       "relations": [
         {
@@ -4210,9 +4212,12 @@
         "html": null,
         "pdf": "documents/report-04082026-010/91-os-prostejov-15-nt-3106-2026-2026-09-14.pdf",
         "intended_pdf": "documents/report-04082026-010/91-os-prostejov-15-nt-3106-2026-2026-09-14.pdf",
-        "sha256": "e9c757214bd16083f6993b44b94035a78947e91fe6811eb5d9053d3237de2882",
-        "verification_status": "published",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-09-14-os-pro.json"
+        "sha256": "622cbdd0a7f520befd1cebf244c12806d27242bf126d9273c88d2df8a718b296",
+        "verification_status": "verified_deterministic_public_text_copy; not_byte_identical_original; source_original_sha256_recorded",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-14-os-pro.json",
+        "source_original_sha256": "e9c757214bd16083f6993b44b94035a78947e91fe6811eb5d9053d3237de2882",
+        "source_text": "project-memory/verified-public-copy-sources-2026-09-16/91-os-prostejov-15-nt-3106-2026.txt",
+        "public_copy_note": "Deterministická veřejná textová kopie; není binárně totožná s původním PDF."
       },
       "relations": [
         {
