@@ -150,36 +150,39 @@ if PUBLICATION_ROOT_ENV:
     # Enforce final staged identity over the actual staged registry. The pre-build
     # registry remains source identity/provenance; it is not the final publication index.
     staged_docs = (staged_registry or {}).get("documents", [])
+    working_docs = final_registry.get("documents", [])
     staged_ids = [item.get("id") for item in staged_docs]
-    source_ids = [item.get("id") for item in registry.get("documents", [])]
+    working_ids = [item.get("id") for item in working_docs]
     if len(staged_ids) != len(set(staged_ids)):
         failures.append("staged canonical registry contains duplicate document IDs")
-    if len(source_ids) != len(set(source_ids)):
-        failures.append("source canonical registry contains duplicate document IDs")
-    if set(staged_ids) != set(source_ids):
-        missing_from_staged = sorted(set(source_ids) - set(staged_ids))
-        extra_in_staged = sorted(set(staged_ids) - set(source_ids))
+    if len(working_ids) != len(set(working_ids)):
+        failures.append("post-build canonical registry contains duplicate document IDs")
+    if set(staged_ids) != set(working_ids):
+        missing_from_staged = sorted(set(working_ids) - set(staged_ids))
+        extra_in_staged = sorted(set(staged_ids) - set(working_ids))
         failures.append(
-            f"staged/source canonical ID set mismatch: missing={missing_from_staged}, extra={extra_in_staged}"
+            f"staged/post-build canonical ID set mismatch: missing={missing_from_staged}, extra={extra_in_staged}"
         )
     staged_by_id = {item.get("id"): item for item in staged_docs}
     for final_item in staged_docs:
         final_public = final_item.get("public") or {}
         rel = str(final_public.get("pdf") or "")
-        if not rel:
-            continue
 
         doc_id = str(final_item.get("id") or "")
-        source_item = registry_by_id.get(doc_id)
-        if not source_item:
-            failures.append(f"{doc_id}: staged canonical record missing from source registry")
+        working_item = final_registry_by_id.get(doc_id)
+        if not working_item:
+            failures.append(f"{doc_id}: staged canonical record missing from post-build registry")
             continue
+        working_public = working_item.get("public") or {}
+        working_rel = str(working_public.get("pdf") or "")
+        if rel != working_rel:
+            failures.append(f"{doc_id}: staged PDF path differs from post-build canonical path")
+            continue
+        if not rel:
+            continue
+        source_item = registry_by_id.get(doc_id) or {}
         source_public = source_item.get("public") or {}
         source_sha = str(source_public.get("sha256") or "").lower()
-        source_rel = str(source_public.get("pdf") or "")
-        if rel != source_rel:
-            failures.append(f"{doc_id}: staged PDF path differs from source provenance path")
-            continue
 
         staged_public_path = PUBLICATION_ROOT / rel
         if not staged_public_path.is_file():
@@ -239,7 +242,7 @@ for item in registry.get("documents", []):
         failures.append(f"{doc_id}: unsupported provenance status {status!r}")
         continue
 
-    final_item = final_registry_by_id.get(doc_id) or {}
+    final_item = (staged_by_id.get(doc_id) if PUBLICATION_ROOT_ENV else final_registry_by_id.get(doc_id)) or {}
     final_public = final_item.get("public") or {}
     final_rel = str(final_public.get("pdf") or "")
     final_sha_raw = final_public.get("sha256")
