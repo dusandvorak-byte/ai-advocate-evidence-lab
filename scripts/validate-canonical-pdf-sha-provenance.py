@@ -163,7 +163,8 @@ for item in registry.get("documents", []):
     final_item = final_registry_by_id.get(doc_id) or {}
     final_public = final_item.get("public") or {}
     final_rel = str(final_public.get("pdf") or "")
-    final_sha = str(final_public.get("sha256") or "").lower()
+    final_sha_raw = final_public.get("sha256")
+    final_sha = str(final_sha_raw or "").lower()
     if final_rel and final_rel != rel:
         failures.append(f"{doc_id}: final registry PDF path differs from frozen provenance path")
         continue
@@ -171,6 +172,9 @@ for item in registry.get("documents", []):
     hardening = hardening_by_id.get(doc_id) or {}
     hardening_output_sha = str(hardening.get("output_sha256") or "").lower()
     if not re.fullmatch(r"[0-9a-f]{64}", final_sha):
+        if final_sha_raw not in (None, ""):
+            failures.append(f"{doc_id}: malformed nonempty final registry SHA")
+            continue
         if (
             hardening_report.get("hard_failure_count") == 0
             and hardening.get("id") == doc_id
