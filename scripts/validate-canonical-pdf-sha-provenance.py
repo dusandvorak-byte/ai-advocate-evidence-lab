@@ -167,8 +167,6 @@ if PUBLICATION_ROOT_ENV:
     for final_item in staged_docs:
         final_public = final_item.get("public") or {}
         rel = str(final_public.get("pdf") or "")
-        if not rel:
-            continue
 
         doc_id = str(final_item.get("id") or "")
         working_item = final_registry_by_id.get(doc_id)
@@ -179,6 +177,8 @@ if PUBLICATION_ROOT_ENV:
         working_rel = str(working_public.get("pdf") or "")
         if rel != working_rel:
             failures.append(f"{doc_id}: staged PDF path differs from post-build canonical path")
+            continue
+        if not rel:
             continue
         source_item = registry_by_id.get(doc_id) or {}
         source_public = source_item.get("public") or {}
