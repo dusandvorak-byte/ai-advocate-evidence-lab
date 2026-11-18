@@ -65,11 +65,13 @@ jobs:
           node scripts/build-language-access.mjs
           node scripts/validate-release-exclusions.mjs
           node scripts/validate-public-navigation.mjs
-      - name: Upload prepared public tree
+      - name: Upload prepared public tree and hardening report
         uses: actions/upload-artifact@v4
         with:
           name: trusted-public-tree-${{ github.sha }}
-          path: web
+          path: |
+            web
+            project-memory/privacy-hardening-report.json
           if-no-files-found: error
           retention-days: 3
 
@@ -105,7 +107,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: trusted-public-tree-${{ github.sha }}
-          path: web
+          path: .
       - name: Audit PDF shard ${{ matrix.shard }}/8
         run: python3 scripts/audit-release-evidence-sliced.py pdf-shard ${{ matrix.shard }} 8
       - name: Upload shard fragment
