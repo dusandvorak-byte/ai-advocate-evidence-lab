@@ -67,6 +67,7 @@ await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');
 await runPython('scripts/harden-public-pdf-privacy.py');
 await run('scripts/reconcile-public-pdfs.mjs');
+await runPython('scripts/sync-deterministic-public-sha.py');
 await run('scripts/audit-registries.mjs');
 
 const documentsRegistry = await readJson(source.documents);
