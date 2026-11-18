@@ -146,7 +146,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: trusted-public-tree-${{ github.sha }}
-          path: web
+          path: .
       - name: Run non-PDF slices
         run: |
           python3 scripts/audit-release-evidence-sliced.py generated
@@ -170,6 +170,8 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.sha }}
+      - name: Install assembler dependency
+        run: python3 -m pip install --disable-pip-version-check pymupdf
       - uses: actions/download-artifact@v4
         with:
           name: trusted-public-tree-${{ github.sha }}
