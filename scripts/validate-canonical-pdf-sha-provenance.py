@@ -13,6 +13,7 @@ from canonical_pdf_provenance_contract import (
     validate_frozen_provenance_binding,
     validate_trusted_contract_root,
 )
+from provenance_hardening_bridge import verify_hardening_bridge
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = Path(os.environ.get("EVIDENCE_LAB_CANONICAL_REGISTRY", str(ROOT / "project-memory/documents-2026.json"))).resolve()
@@ -196,12 +197,14 @@ for item in registry.get("documents", []):
         ok = historical_sha == sha and current_sha == sha
         if not ok:
             hardening = hardening_by_id.get(item.get("id")) or {}
-            ok = (
-                hardening_report.get("hard_failure_count") == 0
-                and hardening.get("public_path") == rel
-                and hardening.get("input_sha256") == historical_sha
-                and hardening.get("output_sha256") == sha
-                and current_sha == sha
+            ok = verify_hardening_bridge(
+                hardening_report=hardening_report,
+                hardening_row=hardening,
+                document_id=str(item.get("id") or ""),
+                public_path=rel,
+                input_sha256=historical_sha,
+                expected_output_sha256=sha,
+                final_public_pdf=current_path,
             )
         evidence = commit
 
@@ -243,11 +246,15 @@ for item in registry.get("documents", []):
         ok = current_sha == sha
         if not ok:
             hardening = hardening_by_id.get(item.get("id")) or {}
-            ok = (
-                hardening_report.get("hard_failure_count") == 0
-                and hardening.get("public_path") == rel
-                and hardening.get("input_sha256") == current_sha
-                and hardening.get("output_sha256") == sha
+            final_public_path = ROOT / "web" / rel
+            ok = verify_hardening_bridge(
+                hardening_report=hardening_report,
+                hardening_row=hardening,
+                document_id=str(item.get("id") or ""),
+                public_path=rel,
+                input_sha256=current_sha,
+                expected_output_sha256=sha,
+                final_public_pdf=final_public_path,
             )
         evidence = f"{generator_rel}@gitblob:{generator_blob};{source_rel}@gitblob:{source_blob}"
 
