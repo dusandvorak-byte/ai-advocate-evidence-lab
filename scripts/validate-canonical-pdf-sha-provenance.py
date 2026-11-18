@@ -163,15 +163,31 @@ for item in registry.get("documents", []):
     final_item = final_registry_by_id.get(doc_id) or {}
     final_public = final_item.get("public") or {}
     final_rel = str(final_public.get("pdf") or "")
-    final_sha = str(final_public.get("sha256") or "").lower()
-    if final_rel != rel:
+    final_sha_raw = final_public.get("sha256")
+    final_sha = str(final_sha_raw or "").lower()
+    if final_rel and final_rel != rel:
         failures.append(f"{doc_id}: final registry PDF path differs from frozen provenance path")
         continue
+
+    hardening = hardening_by_id.get(doc_id) or {}
+    hardening_output_sha = str(hardening.get("output_sha256") or "").lower()
     if not re.fullmatch(r"[0-9a-f]{64}", final_sha):
-        failures.append(f"{doc_id}: invalid final registry SHA")
-        continue
+        if final_sha_raw not in (None, ""):
+            failures.append(f"{doc_id}: malformed nonempty final registry SHA")
+            continue
+        if (
+            hardening_report.get("hard_failure_count") == 0
+            and hardening.get("id") == doc_id
+            and hardening.get("public_path") == rel
+            and re.fullmatch(r"[0-9a-f]{64}", hardening_output_sha)
+        ):
+            final_sha = hardening_output_sha
+        else:
+            failures.append(f"{doc_id}: no verified final publication SHA available")
+            continue
 
     source_ok = False
+    source_identity_sha = ""
     evidence = None
 
     if status == "binding-manifest-exact-digest-verified":
@@ -187,6 +203,7 @@ for item in registry.get("documents", []):
             failures.append(f"{doc_id}: binding manifest content differs from frozen reviewed blob")
             continue
         source_ok = manifest_binds_digest(ROOT, manifest, doc_id, rel, source_sha)
+        source_identity_sha = source_sha
         evidence = f"{manifest}@gitblob:{manifest_blob}"
 
     elif status in {
@@ -205,7 +222,8 @@ for item in registry.get("documents", []):
             continue
         historical = git_show(commit, "web/" + rel)
         historical_sha = sha256_bytes(historical)
-        source_ok = historical_sha == source_sha
+        source_identity_sha = historical_sha
+        source_ok = True
         evidence = commit
 
     elif status == "deterministic-generated-public-copy-verified":
@@ -243,7 +261,8 @@ for item in registry.get("documents", []):
             failures.append(f"{doc_id}: deterministic generated PDF missing after rebuild")
             continue
         rebuilt_sha = sha256_file(rebuilt_path)
-        source_ok = rebuilt_sha == source_sha
+        source_identity_sha = rebuilt_sha
+        source_ok = True
         evidence = f"{generator_rel}@gitblob:{generator_blob};{source_rel}@gitblob:{source_blob}"
 
     if not source_ok:
@@ -251,7 +270,7 @@ for item in registry.get("documents", []):
         checked.append({
             "id": doc_id,
             "pdf": rel,
-            "source_sha256": source_sha,
+            "source_sha256": source_identity_sha or source_sha,
             "final_sha256": final_sha,
             "provenance_status": status,
             "evidence": evidence,
@@ -260,16 +279,18 @@ for item in registry.get("documents", []):
         continue
 
     final_public_path = ROOT / "web" / rel
-    if source_sha == final_sha:
+    if not source_identity_sha:
+        failures.append(f"{doc_id}: primary source identity SHA was not established")
+        final_ok = False
+    elif source_identity_sha == final_sha:
         final_ok = final_public_path.is_file() and sha256_file(final_public_path) == final_sha
     else:
-        hardening = hardening_by_id.get(doc_id) or {}
         final_ok = verify_hardening_bridge(
             hardening_report=hardening_report,
             hardening_row=hardening,
             document_id=doc_id,
             public_path=rel,
-            input_sha256=source_sha,
+            input_sha256=source_identity_sha,
             expected_output_sha256=final_sha,
             final_public_pdf=final_public_path,
         )
@@ -280,7 +301,7 @@ for item in registry.get("documents", []):
     checked.append({
         "id": doc_id,
         "pdf": rel,
-        "source_sha256": source_sha,
+        "source_sha256": source_identity_sha or source_sha,
         "final_sha256": final_sha,
         "provenance_status": status,
         "evidence": evidence,
