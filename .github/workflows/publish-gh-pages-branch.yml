@@ -419,9 +419,6 @@ jobs:
                   if not payload.startswith(b"%PDF-"):
                       raise SystemExit(f"checked-in canonical asset is not a PDF: {rel}")
                   actual_sha = hashlib.sha256(payload).hexdigest()
-                  if actual_sha == expected_sha:
-                      continue
-
                   final_item = final_by_id.get(item.get("id")) or {}
                   final_public = final_item.get("public") or {}
                   final_rel = str(final_public.get("pdf") or "")
