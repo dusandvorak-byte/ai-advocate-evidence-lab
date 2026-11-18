@@ -114,18 +114,29 @@ for source_path, out_name in all_jobs:
 # and must never mutate canonical metadata.
 if OUT == DEFAULT_OUT:
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
-    matched = set()
-    for item in registry.get("documents", []):
-        public = item.get("public") or {}
-        pdf = str(public.get("pdf") or "")
-        name = Path(pdf).name if pdf else ""
-        if name in generated_sha256:
-            public["sha256"] = generated_sha256[name]
-            item["public"] = public
-            matched.add(name)
-    missing = sorted(set(generated_sha256) - matched)
-    if missing:
-        raise SystemExit(f"Generated PDF outputs missing from canonical registry: {missing}")
+    canonical_prefix = "documents/report-04082026-010/"
+    owned_paths = {
+        canonical_prefix + out_name: sha
+        for out_name, sha in generated_sha256.items()
+    }
+    matched_paths = set()
+    for path, sha in owned_paths.items():
+        owners = []
+        for item in registry.get("documents", []):
+            public = item.get("public") or {}
+            if str(public.get("pdf") or "") == path:
+                owners.append(item)
+        if not owners:
+            # Some generator outputs are intentionally non-canonical derivatives
+            # (for example the historical 95-* copy). They must not block the
+            # canonical registry sync and must never claim ownership implicitly.
+            continue
+        if len(owners) != 1:
+            raise SystemExit(f"Canonical generated PDF path has {len(owners)} owners: {path}")
+        public = owners[0].get("public") or {}
+        public["sha256"] = sha
+        owners[0]["public"] = public
+        matched_paths.add(path)
     tmp = REGISTRY.with_suffix(REGISTRY.suffix + ".tmp")
     tmp.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     tmp.replace(REGISTRY)
