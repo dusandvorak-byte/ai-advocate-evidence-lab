@@ -17,6 +17,7 @@ from provenance_hardening_bridge import verify_hardening_bridge
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = Path(os.environ.get("EVIDENCE_LAB_CANONICAL_REGISTRY", str(ROOT / "project-memory/documents-2026.json"))).resolve()
+FINAL_REGISTRY = ROOT / "project-memory" / "documents-2026.json"
 CONTRACT = ROOT / "project-memory" / "canonical-pdf-provenance-contract.json"
 HARDENING_REPORT = ROOT / "project-memory" / "privacy-hardening-report.json"
 EXPECTED_REMEDIATED_IDS = {
@@ -95,6 +96,7 @@ def git_show(commit: str, path: str) -> bytes:
 
 
 registry = json.loads(REGISTRY.read_text("utf-8"))
+final_registry = json.loads(FINAL_REGISTRY.read_text("utf-8"))
 contract_raw = CONTRACT.read_bytes()
 contract = json.loads(contract_raw.decode("utf-8"))
 hardening_report = json.loads(HARDENING_REPORT.read_text("utf-8")) if HARDENING_REPORT.is_file() else {"documents": [], "hard_failure_count": 0}
@@ -117,6 +119,7 @@ if set(contract_by_id) != EXPECTED_REMEDIATED_IDS:
     failures.append("canonical provenance contract ID set differs from expected 46-record set")
 
 registry_by_id = {item.get("id"): item for item in registry.get("documents", [])}
+final_registry_by_id = {item.get("id"): item for item in final_registry.get("documents", [])}
 missing_expected = sorted(EXPECTED_REMEDIATED_IDS - set(registry_by_id))
 if missing_expected:
     failures.append(f"expected remediated records missing from registry: {missing_expected}")
@@ -139,38 +142,51 @@ for item in registry.get("documents", []):
     if not rel or not provenance:
         continue
 
-    sha = str(public.get("sha256") or "").lower()
+    doc_id = str(item.get("id") or "")
+    source_sha = str(public.get("sha256") or "").lower()
     status = str(public.get("sha256_provenance_status") or "")
-    expected = contract_by_id.get(item.get("id"))
+    expected = contract_by_id.get(doc_id)
     if not expected:
-        failures.append(f"{item.get('id')}: provenance record is not present in frozen contract")
+        failures.append(f"{doc_id}: provenance record is not present in frozen contract")
         continue
     evidence_contract = expected.get("evidence") or {}
     if rel != expected.get("path") or status != expected.get("status"):
-        failures.append(f"{item.get('id')}: path/status differs from frozen provenance contract")
+        failures.append(f"{doc_id}: path/status differs from frozen provenance contract")
         continue
-    if not re.fullmatch(r"[0-9a-f]{64}", sha):
-        failures.append(f"{item.get('id')}: invalid canonical SHA")
+    if not re.fullmatch(r"[0-9a-f]{64}", source_sha):
+        failures.append(f"{doc_id}: invalid source/provenance SHA")
         continue
     if status not in ALLOWED:
-        failures.append(f"{item.get('id')}: unsupported provenance status {status!r}")
+        failures.append(f"{doc_id}: unsupported provenance status {status!r}")
         continue
 
-    ok = False
+    final_item = final_registry_by_id.get(doc_id) or {}
+    final_public = final_item.get("public") or {}
+    final_rel = str(final_public.get("pdf") or "")
+    final_sha = str(final_public.get("sha256") or "").lower()
+    if final_rel != rel:
+        failures.append(f"{doc_id}: final registry PDF path differs from frozen provenance path")
+        continue
+    if not re.fullmatch(r"[0-9a-f]{64}", final_sha):
+        failures.append(f"{doc_id}: invalid final registry SHA")
+        continue
+
+    source_ok = False
     evidence = None
+
     if status == "binding-manifest-exact-digest-verified":
         manifest = public.get("source_manifest")
         expected_manifest = evidence_contract.get("manifest")
         expected_manifest_blob = str(evidence_contract.get("manifest_git_blob_sha") or "")
         if evidence_contract.get("type") != "manifest" or manifest != expected_manifest:
-            failures.append(f"{item.get('id')}: binding manifest differs from frozen contract")
+            failures.append(f"{doc_id}: binding manifest differs from frozen contract")
             continue
         manifest_proc = subprocess.run(["git", "hash-object", manifest], cwd=ROOT, capture_output=True, text=True)
         manifest_blob = manifest_proc.stdout.strip() if manifest_proc.returncode == 0 else ""
         if manifest_blob != expected_manifest_blob:
-            failures.append(f"{item.get('id')}: binding manifest content differs from frozen reviewed blob")
+            failures.append(f"{doc_id}: binding manifest content differs from frozen reviewed blob")
             continue
-        ok = manifest_binds_digest(ROOT, manifest, item.get("id"), rel, sha)
+        source_ok = manifest_binds_digest(ROOT, manifest, doc_id, rel, source_sha)
         evidence = f"{manifest}@gitblob:{manifest_blob}"
 
     elif status in {
@@ -178,39 +194,23 @@ for item in registry.get("documents", []):
         "historical-origin-restoration-and-blob-continuity-verified",
     }:
         if evidence_contract.get("type") != "historical_commit":
-            failures.append(f"{item.get('id')}: historical evidence type differs from frozen contract")
+            failures.append(f"{doc_id}: historical evidence type differs from frozen contract")
             continue
         commit = str(evidence_contract.get("commit") or "")
         if not re.fullmatch(r"[0-9a-f]{40}", commit):
-            failures.append(f"{item.get('id')}: frozen historical commit is invalid")
+            failures.append(f"{doc_id}: frozen historical commit is invalid")
             continue
         if commit not in provenance:
-            failures.append(f"{item.get('id')}: provenance text no longer names frozen historical commit")
+            failures.append(f"{doc_id}: provenance text no longer names frozen historical commit")
             continue
         historical = git_show(commit, "web/" + rel)
-        current_path = ROOT / "web" / rel
-        if not current_path.is_file():
-            failures.append(f"{item.get('id')}: current web PDF missing for historical provenance")
-            continue
         historical_sha = sha256_bytes(historical)
-        current_sha = sha256_file(current_path)
-        ok = historical_sha == sha and current_sha == sha
-        if not ok:
-            hardening = hardening_by_id.get(item.get("id")) or {}
-            ok = verify_hardening_bridge(
-                hardening_report=hardening_report,
-                hardening_row=hardening,
-                document_id=str(item.get("id") or ""),
-                public_path=rel,
-                input_sha256=historical_sha,
-                expected_output_sha256=sha,
-                final_public_pdf=current_path,
-            )
+        source_ok = historical_sha == source_sha
         evidence = commit
 
     elif status == "deterministic-generated-public-copy-verified":
         if evidence_contract.get("type") != "deterministic_generator":
-            failures.append(f"{item.get('id')}: deterministic evidence type differs from frozen contract")
+            failures.append(f"{doc_id}: deterministic evidence type differs from frozen contract")
             continue
         generator_rel = str(evidence_contract.get("generator") or "")
         generator = ROOT / generator_rel
@@ -219,54 +219,72 @@ for item in registry.get("documents", []):
         source_rel = str(evidence_contract.get("source_path") or "")
         expected_source_blob = str(evidence_contract.get("source_git_blob_sha") or "")
         if Path(rel).name != output_name:
-            failures.append(f"{item.get('id')}: generated output name differs from frozen contract")
+            failures.append(f"{doc_id}: generated output name differs from frozen contract")
             continue
         if not generator.is_file() or output_name not in generator.read_text("utf-8"):
-            failures.append(f"{item.get('id')}: output is not a member of the frozen deterministic generator")
+            failures.append(f"{doc_id}: output is not a member of the frozen deterministic generator")
             continue
         if not source_rel or not expected_source_blob:
-            failures.append(f"{item.get('id')}: deterministic source is not pinned in frozen contract")
+            failures.append(f"{doc_id}: deterministic source is not pinned in frozen contract")
             continue
         source_proc = subprocess.run(["git", "hash-object", source_rel], cwd=ROOT, capture_output=True, text=True)
         source_blob = source_proc.stdout.strip() if source_proc.returncode == 0 else ""
         if source_blob != expected_source_blob:
-            failures.append(f"{item.get('id')}: deterministic source bytes differ from frozen reviewed blob")
+            failures.append(f"{doc_id}: deterministic source bytes differ from frozen reviewed blob")
             continue
         blob_proc = subprocess.run(["git", "hash-object", generator_rel], cwd=ROOT, capture_output=True, text=True)
         generator_blob = blob_proc.stdout.strip() if blob_proc.returncode == 0 else ""
         if generator_blob != expected_blob:
-            failures.append(f"{item.get('id')}: deterministic generator changed from frozen reviewed blob")
+            failures.append(f"{doc_id}: deterministic generator changed from frozen reviewed blob")
             continue
         rebuild_root = os.environ.get("EVIDENCE_LAB_DETERMINISTIC_REBUILD_ROOT", "").strip()
-        current_path = (Path(rebuild_root) / output_name) if rebuild_root else (ROOT / "web" / rel)
-        if not current_path.is_file():
-            failures.append(f"{item.get('id')}: deterministic generated PDF missing after rebuild")
+        rebuilt_path = (Path(rebuild_root) / output_name) if rebuild_root else (ROOT / "web" / rel)
+        if not rebuilt_path.is_file():
+            failures.append(f"{doc_id}: deterministic generated PDF missing after rebuild")
             continue
-        current_sha = sha256_file(current_path)
-        ok = current_sha == sha
-        if not ok:
-            hardening = hardening_by_id.get(item.get("id")) or {}
-            final_public_path = ROOT / "web" / rel
-            ok = verify_hardening_bridge(
-                hardening_report=hardening_report,
-                hardening_row=hardening,
-                document_id=str(item.get("id") or ""),
-                public_path=rel,
-                input_sha256=current_sha,
-                expected_output_sha256=sha,
-                final_public_pdf=final_public_path,
-            )
+        rebuilt_sha = sha256_file(rebuilt_path)
+        source_ok = rebuilt_sha == source_sha
         evidence = f"{generator_rel}@gitblob:{generator_blob};{source_rel}@gitblob:{source_blob}"
 
-    if not ok:
-        failures.append(f"{item.get('id')}: provenance verification failed ({status})")
+    if not source_ok:
+        failures.append(f"{doc_id}: source provenance verification failed ({status})")
+        checked.append({
+            "id": doc_id,
+            "pdf": rel,
+            "source_sha256": source_sha,
+            "final_sha256": final_sha,
+            "provenance_status": status,
+            "evidence": evidence,
+            "verified": False,
+        })
+        continue
+
+    final_public_path = ROOT / "web" / rel
+    if source_sha == final_sha:
+        final_ok = final_public_path.is_file() and sha256_file(final_public_path) == final_sha
+    else:
+        hardening = hardening_by_id.get(doc_id) or {}
+        final_ok = verify_hardening_bridge(
+            hardening_report=hardening_report,
+            hardening_row=hardening,
+            document_id=doc_id,
+            public_path=rel,
+            input_sha256=source_sha,
+            expected_output_sha256=final_sha,
+            final_public_pdf=final_public_path,
+        )
+
+    if not final_ok:
+        failures.append(f"{doc_id}: final public PDF identity verification failed ({status})")
+
     checked.append({
-        "id": item.get("id"),
+        "id": doc_id,
         "pdf": rel,
-        "sha256": sha,
+        "source_sha256": source_sha,
+        "final_sha256": final_sha,
         "provenance_status": status,
         "evidence": evidence,
-        "verified": ok,
+        "verified": source_ok and final_ok,
     })
 
 checked_ids = {row["id"] for row in checked}
