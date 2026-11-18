@@ -370,15 +370,11 @@ jobs:
             python3 scripts/audit-release-evidence-sliced.py pdf-shard "$i" 8 >"/tmp/evidence-pdf-shard-$i.log" 2>&1 &
             pids+=("$!")
           done
-          status=0
           for i in 0 1 2 3 4 5 6 7; do
-            if ! wait "${pids[$i]}"; then
-              status=1
-            fi
+            wait "${pids[$i]}"
             echo "===== PDF SHARD $i/8 ====="
             cat "/tmp/evidence-pdf-shard-$i.log"
           done
-          exit "$status"
 
       - name: Audit live OKTE SHA evidence (bounded slice)
         run: python3 scripts/audit-release-evidence-sliced.py okte
