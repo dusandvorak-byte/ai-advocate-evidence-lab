@@ -42,6 +42,7 @@ jobs:
           python3 -m py_compile scripts/harden-public-pdf-privacy.py
           python3 -m py_compile scripts/generated_pdf_signatures.py
           python3 -m py_compile scripts/audit-release-evidence-2026-11-13.py
+          python3 -m py_compile scripts/provenance_hardening_bridge.py
 
       - name: Collect non-authoritative SHA candidate evidence
         shell: bash
@@ -126,6 +127,10 @@ jobs:
           path: review-artifacts/generated-public-copy-hashes.json
           if-no-files-found: error
           retention-days: 7
+
+      - name: Run fail-closed provenance hardening bridge regressions
+        run: |
+          python3 test/provenance_hardening_bridge.test.py
 
       - name: Reverify remediated canonical PDF provenance from primary evidence
         run: |
