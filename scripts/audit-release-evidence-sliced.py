@@ -153,11 +153,19 @@ def cmd_redacted():
 
 
 def cmd_assemble(count):
-    generated = load_fragment("generated")["data"]
-    registry_derivatives = load_fragment("registry-derivatives")["data"]
+    generated_fragment = load_fragment("generated")
+    registry_fragment = load_fragment("registry-derivatives")
+    generated = generated_fragment["data"]
+    registry_derivatives = registry_fragment["data"]
+
+    fragment_failures = list(generated_fragment.get("failures") or [])
+    fragment_failures += list(registry_fragment.get("failures") or [])
+
     all_web_pdfs = []
     for index in range(count):
-        all_web_pdfs.extend(load_fragment(f"pdf-shard-{index}-of-{count}")["data"])
+        shard_fragment = load_fragment(f"pdf-shard-{index}-of-{count}")
+        all_web_pdfs.extend(shard_fragment["data"])
+        fragment_failures += list(shard_fragment.get("failures") or [])
     all_web_pdfs.sort(key=lambda row: row["published_path"])
 
     reconciliation, reconciliation_fail = audit.audit_registry_reconciliation(all_web_pdfs)
@@ -166,6 +174,8 @@ def cmd_assemble(count):
     redacted_fragment = load_fragment("redacted")
     okte = okte_fragment["data"]
     redacted = redacted_fragment["data"]
+    fragment_failures += list(okte_fragment.get("failures") or [])
+    fragment_failures += list(redacted_fragment.get("failures") or [])
 
     hardening_path = ROOT / "project-memory/privacy-hardening-report.json"
     hardening = json.loads(hardening_path.read_text("utf-8"))
@@ -173,7 +183,7 @@ def cmd_assemble(count):
     if hardening.get("hard_failure_count") != len(hardening_fail):
         hardening_fail.append("privacy hardening failure count does not match hard failure list")
 
-    failures = reconciliation_fail + id68_fail + hardening_fail
+    failures = fragment_failures + reconciliation_fail + id68_fail + hardening_fail
     checkout_sha = subprocess.run(["git", "rev-parse", "HEAD"], check=True, capture_output=True, text=True).stdout.strip()
     expected_head = os.environ.get("EXPECTED_HEAD_SHA", "").strip()
     expected_base = os.environ.get("EXPECTED_BASE_SHA", "").strip()
