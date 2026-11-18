@@ -131,7 +131,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq poppler-utils qpdf
-          python3 -m pip install --disable-pip-version-check pymupdf
+          python3 -m pip install --disable-pip-version-check pymupdf reportlab pillow
       - name: Provision private redaction policy
         env:
           PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
