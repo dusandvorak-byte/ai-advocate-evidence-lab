@@ -149,8 +149,21 @@ for expected_id in sorted(EXPECTED_REMEDIATED_IDS):
 if PUBLICATION_ROOT_ENV:
     # Enforce final staged identity over the actual staged registry. The pre-build
     # registry remains source identity/provenance; it is not the final publication index.
-    staged_by_id = {item.get("id"): item for item in (staged_registry or {}).get("documents", [])}
-    for final_item in (staged_registry or {}).get("documents", []):
+    staged_docs = (staged_registry or {}).get("documents", [])
+    staged_ids = [item.get("id") for item in staged_docs]
+    source_ids = [item.get("id") for item in registry.get("documents", [])]
+    if len(staged_ids) != len(set(staged_ids)):
+        failures.append("staged canonical registry contains duplicate document IDs")
+    if len(source_ids) != len(set(source_ids)):
+        failures.append("source canonical registry contains duplicate document IDs")
+    if set(staged_ids) != set(source_ids):
+        missing_from_staged = sorted(set(source_ids) - set(staged_ids))
+        extra_in_staged = sorted(set(staged_ids) - set(source_ids))
+        failures.append(
+            f"staged/source canonical ID set mismatch: missing={missing_from_staged}, extra={extra_in_staged}"
+        )
+    staged_by_id = {item.get("id"): item for item in staged_docs}
+    for final_item in staged_docs:
         final_public = final_item.get("public") or {}
         rel = str(final_public.get("pdf") or "")
         if not rel:
@@ -163,6 +176,10 @@ if PUBLICATION_ROOT_ENV:
             continue
         source_public = source_item.get("public") or {}
         source_sha = str(source_public.get("sha256") or "").lower()
+        source_rel = str(source_public.get("pdf") or "")
+        if rel != source_rel:
+            failures.append(f"{doc_id}: staged PDF path differs from source provenance path")
+            continue
 
         staged_public_path = PUBLICATION_ROOT / rel
         if not staged_public_path.is_file():
