@@ -107,6 +107,7 @@ jobs:
           Path("review-artifacts/generated-public-copy-hashes-first.json").write_text(json.dumps(first,indent=2)+"\n")
           PY
           python3 scripts/materialize-verified-public-copies-2026-09-16.py
+          python3 scripts/sync-deterministic-public-sha.py
           python3 - <<'PY'
           import hashlib, json, os
           from pathlib import Path
