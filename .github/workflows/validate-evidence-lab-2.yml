@@ -351,19 +351,44 @@ jobs:
       - name: Validate final public navigation after terminal writers
         run: node scripts/validate-public-navigation.mjs
 
-      - name: Audit provenance, live OKTE SHA and actual public-PDF privacy evidence
+      - name: Audit generated public derivatives (bounded slice)
+        run: |
+          python3 -m py_compile scripts/audit-release-evidence-2026-11-13.py
+          python3 -m py_compile scripts/audit-release-evidence-sliced.py
+          python3 scripts/audit-release-evidence-sliced.py generated
+
+      - name: Audit registry public derivatives (bounded slice)
+        run: python3 scripts/audit-release-evidence-sliced.py registry
+
+      - name: Audit final public PDFs in 8 parallel shards
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f /tmp/evidence-pdf-shard-*.log
+          pids=()
+          for i in 0 1 2 3 4 5 6 7; do
+            python3 scripts/audit-release-evidence-sliced.py pdf-shard "$i" 8 >"/tmp/evidence-pdf-shard-$i.log" 2>&1 &
+            pids+=("$!")
+          done
+          for i in 0 1 2 3 4 5 6 7; do
+            wait "${pids[$i]}"
+            echo "===== PDF SHARD $i/8 ====="
+            cat "/tmp/evidence-pdf-shard-$i.log"
+          done
+
+      - name: Audit live OKTE SHA evidence (bounded slice)
+        run: python3 scripts/audit-release-evidence-sliced.py okte
+
+      - name: Audit redacted OKTE analysis (bounded slice)
+        run: python3 scripts/audit-release-evidence-sliced.py redacted
+
+      - name: Assemble sliced release evidence audit
         env:
           EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           EXPECTED_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
-          python3 -m py_compile scripts/audit-release-evidence-2026-11-13.py
-          # Regress non-PR/manual trigger behavior: an absent event base must be
-          # derived from remote main and still pass ancestry/merge-base gates.
-          EXPECTED_BASE_SHA= python3 scripts/audit-release-evidence-2026-11-13.py >/tmp/evidence-audit-derived-base.log
-          grep -q '"hard_failure_count": 0' /tmp/evidence-audit-derived-base.log
-          # Re-run with the explicit PR base so the retained review artifact
-          # records the exact source/base pair used for this release candidate.
-          python3 scripts/audit-release-evidence-2026-11-13.py
+          python3 scripts/audit-release-evidence-sliced.py assemble 8
+          grep -q '"hard_failure_count": 0' review-artifacts/release-evidence-audit.json
 
       - name: Ověřit mobilní čitelnost a plnou šířku hlavního článku
         run: node test/mobile-readability-v5.test.mjs
