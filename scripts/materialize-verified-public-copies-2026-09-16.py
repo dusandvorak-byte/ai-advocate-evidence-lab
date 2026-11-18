@@ -140,4 +140,4 @@ if OUT == DEFAULT_OUT:
     tmp = REGISTRY.with_suffix(REGISTRY.suffix + ".tmp")
     tmp.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     tmp.replace(REGISTRY)
-    print(f"updated canonical registry SHA for {len(matched)} generated public PDFs")
+    print(f"updated canonical registry SHA for {len(matched_paths)} generated public PDFs")
