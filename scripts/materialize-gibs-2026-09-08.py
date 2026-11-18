@@ -89,5 +89,4 @@ def main():
 if __name__ == "__main__":
     main()
     subprocess.run([sys.executable, str(ROOT / "scripts/materialize-verified-public-copies-2026-09-16.py")], check=True)
-    subprocess.run([sys.executable, str(ROOT / "scripts/sync-deterministic-public-sha.py")], check=True)
     subprocess.run([sys.executable, str(ROOT / "scripts/normalize-uploaded-pdfs-2026-09-16.py")], check=True)
