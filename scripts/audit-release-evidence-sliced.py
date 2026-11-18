@@ -17,18 +17,36 @@ assert spec and spec.loader
 spec.loader.exec_module(audit)
 
 
+def current_checkout_sha():
+    return subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+
+
 def write_fragment(name, data, failures):
     FRAG_DIR.mkdir(parents=True, exist_ok=True)
     path = FRAG_DIR / f"{name}.json"
-    payload = {"data": data, "failures": list(failures)}
+    payload = {
+        "checkout_commit": current_checkout_sha(),
+        "data": data,
+        "failures": list(failures),
+    }
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", "utf-8")
     print(json.dumps({"fragment": name, "failure_count": len(failures)}, ensure_ascii=False))
-    if failures:
-        raise SystemExit("\n".join(failures))
 
 
 def load_fragment(name):
-    return json.loads((FRAG_DIR / f"{name}.json").read_text("utf-8"))
+    payload = json.loads((FRAG_DIR / f"{name}.json").read_text("utf-8"))
+    expected = current_checkout_sha()
+    actual = str(payload.get("checkout_commit") or "")
+    if actual != expected:
+        raise RuntimeError(
+            f"stale audit fragment {name}: checkout {actual or 'missing'} != {expected}"
+        )
+    return payload
 
 
 def cmd_generated():
@@ -184,7 +202,7 @@ def cmd_assemble(count):
         hardening_fail.append("privacy hardening failure count does not match hard failure list")
 
     failures = fragment_failures + reconciliation_fail + id68_fail + hardening_fail
-    checkout_sha = subprocess.run(["git", "rev-parse", "HEAD"], check=True, capture_output=True, text=True).stdout.strip()
+    checkout_sha = current_checkout_sha()
     expected_head = os.environ.get("EXPECTED_HEAD_SHA", "").strip()
     expected_base = os.environ.get("EXPECTED_BASE_SHA", "").strip()
     expected_base_source = "workflow_event" if expected_base else "remote_main_derived"
