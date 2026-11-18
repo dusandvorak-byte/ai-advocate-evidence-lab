@@ -161,7 +161,7 @@ jobs:
     name: Trusted build se secret-backed privacy policy
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 40
     steps:
       - name: Načíst přesný PR HEAD
         uses: actions/checkout@v4
