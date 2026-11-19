@@ -193,7 +193,31 @@ def inline_image_operator_present(stream: bytes) -> bool:
     return False
 
 
-def decoded_pdf_object_private_hits(path: Path) -> tuple[list[str], int, bool]:
+def page_inline_image_stream_count(doc) -> int:
+    """Inspect only page content streams for inline BI/ID images."""
+    seen = set()
+    count = 0
+    for page in doc:
+        try:
+            xrefs = page.get_contents() or []
+        except Exception:
+            xrefs = []
+        if isinstance(xrefs, int):
+            xrefs = [xrefs]
+        for xref in xrefs:
+            if xref in seen:
+                continue
+            seen.add(xref)
+            try:
+                stream = doc.xref_stream(xref)
+            except Exception:
+                stream = None
+            if stream and inline_image_operator_present(stream):
+                count += 1
+    return count
+
+
+def decoded_pdf_object_private_hits(path: Path, prepared_matchers) -> tuple[list[str], bool]:
     """Scan decoded PDF object and stream bytes in one native qpdf pass."""
     tmp_name = None
     try:
@@ -213,13 +237,12 @@ def decoded_pdf_object_private_hits(path: Path) -> tuple[list[str], int, bool]:
             timeout=120,
         )
         if proc.returncode != 0:
-            return ["__decoded_stream_scan_failed__"], 0, False
+            return ["__decoded_stream_scan_failed__"], False
         decoded = Path(tmp_name).read_bytes()
-        hits = sorted(set(forbidden_public_identifier_byte_hits(decoded)))
-        inline_image_streams = 1 if inline_image_operator_present(decoded) else 0
-        return hits, inline_image_streams, True
+        hits = sorted(set(forbidden_public_identifier_byte_hits(decoded, prepared_matchers)))
+        return hits, True
     except (OSError, subprocess.TimeoutExpired):
-        return ["__decoded_stream_scan_failed__"], 0, False
+        return ["__decoded_stream_scan_failed__"], False
     finally:
         if tmp_name:
             try:
@@ -314,8 +337,8 @@ def _pdf_facts_uncached(path: Path) -> dict:
 
     doc = fitz.open(path)
     page_count = doc.page_count
-    xref_len = doc.xref_length()
-    decoded_object_hits, inline_image_stream_count = decoded_pdf_object_private_hits(path, xref_len, prepared_matchers)
+    decoded_object_hits, decoded_stream_scan_ok = decoded_pdf_object_private_hits(path, prepared_matchers)
+    inline_image_stream_count = page_inline_image_stream_count(doc)
 
     # If authenticated private data exists in any decoded object/stream, fail
     # before invoking page/text extractors. The leak is already proven and no
