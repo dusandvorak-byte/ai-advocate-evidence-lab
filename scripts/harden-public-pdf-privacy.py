@@ -285,21 +285,23 @@ def main() -> None:
                     "error": type(exc).__name__,
                 }
 
+    candidates = []
     for rel in rel_paths:
-        path = WEB / rel
         items = by_path.get(rel, [])
         inspection = inspections[rel]
         force_policy_copy = any(derivative_doc(item) for item in items)
-        needs_hardening = bool(inspection["reasons"]) or force_policy_copy
-        if not needs_hardening:
-            continue
+        if inspection["reasons"] or force_policy_copy:
+            candidates.append((rel, bool(inspection["reasons"])))
 
+    def process_candidate(rel: str, force_rewrite: bool) -> dict:
+        path = WEB / rel
+        inspection = inspections[rel]
         before_sha = sha256_file(path)
         before_pages = inspection.get("page_count")
         data, matches = harden_pdf(
             path,
             pdf_rules,
-            force_rewrite=bool(inspection["reasons"]),
+            force_rewrite=force_rewrite,
         )
         if data is not None:
             path.write_bytes(data)
@@ -308,27 +310,75 @@ def main() -> None:
         post = inspect_pdf(path, matchers)
         after_pages = post.get("page_count")
         visible_hits = forbidden_hits(path)
+        local_failures = []
 
         if before_pages != after_pages:
-            failures.append(f"page-count changed during privacy hardening: {rel} {before_pages}->{after_pages}")
+            local_failures.append(
+                f"page-count changed during privacy hardening: {rel} {before_pages}->{after_pages}"
+            )
         if visible_hits:
-            failures.append(f"known private identifier remains after privacy hardening: {rel}: {visible_hits}")
+            local_failures.append(
+                f"known private identifier remains after privacy hardening: {rel}: {visible_hits}"
+            )
         if post.get("decoded_private_hits"):
-            failures.append(
+            local_failures.append(
                 f"decoded private identifier remains after privacy hardening: {rel}: {post['decoded_private_hits']}"
             )
         if not post.get("decoded_scan_ok"):
-            failures.append(f"decoded privacy scan failed after hardening: {rel}")
+            local_failures.append(f"decoded privacy scan failed after hardening: {rel}")
         if not post.get("pdf_revision_markers_bound") or not post.get("pdf_single_revision_only"):
-            failures.append(f"PDF revision envelope remains noncanonical after hardening: {rel}")
+            local_failures.append(f"PDF revision envelope remains noncanonical after hardening: {rel}")
+
+        return {
+            "rel": rel,
+            "before_sha": before_sha,
+            "before_pages": before_pages,
+            "after_sha": after_sha,
+            "after_pages": after_pages,
+            "changed": data is not None,
+            "matches": matches,
+            "visible_hits": visible_hits,
+            "post": post,
+            "failures": local_failures,
+        }
+
+    candidate_results = []
+    harden_workers = min(8, max(1, len(candidates)))
+    with ThreadPoolExecutor(max_workers=harden_workers) as executor:
+        future_map = {
+            executor.submit(process_candidate, rel, force_rewrite): rel
+            for rel, force_rewrite in candidates
+        }
+        for future in as_completed(future_map):
+            rel = future_map[future]
+            try:
+                candidate_results.append(future.result())
+            except Exception as exc:
+                candidate_results.append({
+                    "rel": rel,
+                    "before_sha": sha256_file(WEB / rel),
+                    "before_pages": inspections[rel].get("page_count"),
+                    "after_sha": sha256_file(WEB / rel),
+                    "after_pages": inspections[rel].get("page_count"),
+                    "changed": False,
+                    "matches": [],
+                    "visible_hits": [],
+                    "post": inspections[rel],
+                    "failures": [f"privacy hardening worker failed for {rel}: {type(exc).__name__}"],
+                })
+
+    for result in sorted(candidate_results, key=lambda row: row["rel"]):
+        rel = result["rel"]
+        items = by_path.get(rel, [])
+        failures.extend(result["failures"])
 
         for item in items:
             public = item.get("public") or {}
-            if data is not None:
-                public.setdefault("source_original_sha256", before_sha)
-                if before_pages is not None:
-                    public.setdefault("source_original_page_count", before_pages)
-                public["sha256"] = after_sha
+            if result["changed"]:
+                public.setdefault("source_original_sha256", result["before_sha"])
+                if result["before_pages"] is not None:
+                    public.setdefault("source_original_page_count", result["before_pages"])
+                public["sha256"] = result["after_sha"]
                 status = str(public.get("verification_status") or "published")
                 if "publication_policy_hardened" not in status:
                     public["verification_status"] = status + "; publication_policy_hardened"
@@ -343,14 +393,14 @@ def main() -> None:
             rows.append({
                 "id": item.get("id"),
                 "public_path": rel,
-                "input_sha256": before_sha,
-                "output_sha256": after_sha,
-                "page_count": after_pages,
-                "changed": data is not None,
-                "redaction_matches": matches,
-                "trigger_reasons": inspection["reasons"],
-                "known_private_identifier_hits_after": visible_hits,
-                "decoded_private_identifier_hits_after": post.get("decoded_private_hits") or [],
+                "input_sha256": result["before_sha"],
+                "output_sha256": result["after_sha"],
+                "page_count": result["after_pages"],
+                "changed": result["changed"],
+                "redaction_matches": result["matches"],
+                "trigger_reasons": inspections[rel]["reasons"],
+                "known_private_identifier_hits_after": result["visible_hits"],
+                "decoded_private_identifier_hits_after": result["post"].get("decoded_private_hits") or [],
                 "registered": True,
             })
 
@@ -358,14 +408,14 @@ def main() -> None:
             rows.append({
                 "id": None,
                 "public_path": rel,
-                "input_sha256": before_sha,
-                "output_sha256": after_sha,
-                "page_count": after_pages,
-                "changed": data is not None,
-                "redaction_matches": matches,
-                "trigger_reasons": inspection["reasons"],
-                "known_private_identifier_hits_after": visible_hits,
-                "decoded_private_identifier_hits_after": post.get("decoded_private_hits") or [],
+                "input_sha256": result["before_sha"],
+                "output_sha256": result["after_sha"],
+                "page_count": result["after_pages"],
+                "changed": result["changed"],
+                "redaction_matches": result["matches"],
+                "trigger_reasons": inspections[rel]["reasons"],
+                "known_private_identifier_hits_after": result["visible_hits"],
+                "decoded_private_identifier_hits_after": result["post"].get("decoded_private_hits") or [],
                 "registered": False,
             })
 
