@@ -192,29 +192,85 @@ def inline_image_operator_present(stream: bytes) -> bool:
             return True
     return False
 
-def decoded_pdf_object_private_hits(doc) -> tuple[list[str], int]:
+def _decoded_pdf_object_private_hits_range(path: Path, start: int, stop: int) -> tuple[set[str], int]:
     hits = set()
     inline_image_streams = 0
+    doc = fitz.open(path)
     try:
-        xref_len = doc.xref_length()
-    except Exception:
+        for xref in range(start, stop):
+            try:
+                obj = doc.xref_object(xref, compressed=False)
+            except Exception:
+                obj = ""
+            if obj:
+                hits.update(forbidden_public_identifier_byte_hits(obj.encode("utf-8", errors="ignore")))
+            try:
+                stream = doc.xref_stream(xref)
+            except Exception:
+                stream = None
+            if stream:
+                if inline_image_operator_present(stream):
+                    inline_image_streams += 1
+                hits.update(forbidden_public_identifier_byte_hits(stream))
+    finally:
+        doc.close()
+    return hits, inline_image_streams
+
+
+def decoded_pdf_object_private_hits(path: Path, xref_len: int) -> tuple[list[str], int]:
+    if xref_len <= 1:
         return [], 0
-    for xref in range(1, xref_len):
-        try:
-            obj = doc.xref_object(xref, compressed=False)
-        except Exception:
-            obj = ""
-        if obj:
-            hits.update(forbidden_public_identifier_byte_hits(obj.encode("utf-8", errors="ignore")))
-        try:
-            stream = doc.xref_stream(xref)
-        except Exception:
-            stream = None
-        if stream:
-            if inline_image_operator_present(stream):
-                inline_image_streams += 1
-            hits.update(forbidden_public_identifier_byte_hits(stream))
+    worker_count = min(8, max(1, (os.cpu_count() or 2)), max(1, xref_len - 1))
+    chunk = max(1, (xref_len - 1 + worker_count - 1) // worker_count)
+    ranges = []
+    start = 1
+    while start < xref_len:
+        stop = min(xref_len, start + chunk)
+        ranges.append((start, stop))
+        start = stop
+
+    hits = set()
+    inline_image_streams = 0
+    with ThreadPoolExecutor(max_workers=len(ranges)) as executor:
+        futures = [
+            executor.submit(_decoded_pdf_object_private_hits_range, path, start, stop)
+            for start, stop in ranges
+        ]
+        for future in as_completed(futures):
+            part_hits, part_inline = future.result()
+            hits.update(part_hits)
+            inline_image_streams += part_inline
     return sorted(hits), inline_image_streams
+
+
+def _fitz_text_range(path: Path, start: int, stop: int) -> str:
+    doc = fitz.open(path)
+    try:
+        return "\n".join(doc[i].get_text("text") for i in range(start, stop))
+    finally:
+        doc.close()
+
+
+def parallel_fitz_text(path: Path, page_count: int) -> str:
+    if page_count <= 0:
+        return ""
+    worker_count = min(8, max(1, (os.cpu_count() or 2)), page_count)
+    chunk = max(1, (page_count + worker_count - 1) // worker_count)
+    ranges = []
+    start = 0
+    while start < page_count:
+        stop = min(page_count, start + chunk)
+        ranges.append((start, stop))
+        start = stop
+    parts = {}
+    with ThreadPoolExecutor(max_workers=len(ranges)) as executor:
+        future_map = {
+            executor.submit(_fitz_text_range, path, start, stop): start
+            for start, stop in ranges
+        }
+        for future in as_completed(future_map):
+            parts[future_map[future]] = future.result()
+    return "\n".join(parts[start] for start in sorted(parts))
 
 
 def _pdf_facts_uncached(path: Path) -> dict:
@@ -272,13 +328,14 @@ def _pdf_facts_uncached(path: Path) -> dict:
         }
 
     doc = fitz.open(path)
-    decoded_object_hits, inline_image_stream_count = decoded_pdf_object_private_hits(doc)
+    page_count = doc.page_count
+    xref_len = doc.xref_length()
+    decoded_object_hits, inline_image_stream_count = decoded_pdf_object_private_hits(path, xref_len)
 
     # If authenticated private data exists in any decoded object/stream, fail
     # before invoking page/text extractors. The leak is already proven and no
     # parser-dependent continuation can make publication safe.
     if decoded_object_hits or inline_image_stream_count:
-        page_count = doc.page_count
         doc.close()
         return {
             "page_count": page_count,
@@ -319,12 +376,24 @@ def _pdf_facts_uncached(path: Path) -> dict:
             "not_byte_identical_notice_present": False,
         }
 
-    fitz_text = "\n".join(page.get_text("text") for page in doc)
-    poppler = subprocess.run(
+    poppler = subprocess.Popen(
         ["pdftotext", "-enc", "UTF-8", str(path), "-"],
-        check=True, capture_output=True, text=True
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
     )
-    poppler_text = poppler.stdout
+    fitz_text = parallel_fitz_text(path, page_count)
+    try:
+        poppler_stdout, poppler_stderr = poppler.communicate(timeout=180)
+    except subprocess.TimeoutExpired:
+        poppler.kill()
+        poppler.communicate()
+        raise RuntimeError(f"pdftotext timeout for {path}")
+    if poppler.returncode != 0:
+        raise RuntimeError(
+            f"pdftotext failed for {path}: {(poppler_stderr or '').strip()[-1000:]}"
+        )
+    poppler_text = poppler_stdout
     page_text = fitz_text + "\n" + poppler_text
     meta = {k: v for k, v in (doc.metadata or {}).items() if v}
     xmp = doc.get_xml_metadata() or ""
@@ -346,7 +415,6 @@ def _pdf_facts_uncached(path: Path) -> dict:
         "czech_birth_number_like_count": len(re.findall(r"(?<!\d)\d{6}/?\d{3,4}(?!\d)", page_text)),
         "phone_like_count": len(re.findall(r"(?<!\d)(?:\+420\s*)?(?:\d[ -]?){9}(?!\d)", page_text)),
     }
-    page_count = doc.page_count
     doc.close()
 
     machine_failure = bool(prefix_non_whitespace or not envelope["pdf_revision_markers_bound"] or not qpdf_valid or inline_image_stream_count or embedded or file_attachment_annotations or associated_file_references or embedded_file_objects or suspicious_metadata_keys or xmp_suspicious or private_hits)
