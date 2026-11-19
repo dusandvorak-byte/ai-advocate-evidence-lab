@@ -146,21 +146,40 @@ def decoded_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
                 pass
 
 
-def inspect_pdf_fast(path: Path) -> dict:
-    """Cheap candidate selection; authoritative deep scan happens after rewrite and in release audit."""
+def inspect_pdf_fast(path: Path, matchers) -> dict:
+    """Fast candidate selection using native text extraction and cheap metadata/envelope checks."""
     raw = path.read_bytes()
     envelope = pdf_revision_envelope(raw)
+
+    try:
+        poppler = subprocess.run(
+            ["pdftotext", "-enc", "UTF-8", str(path), "-"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            timeout=30,
+        )
+        text_scan_ok = poppler.returncode == 0
+        text_bytes = poppler.stdout if text_scan_ok else b""
+    except (OSError, subprocess.TimeoutExpired):
+        text_scan_ok = False
+        text_bytes = b""
+
+    byte_hits = sorted(set(forbidden_public_identifier_byte_hits(text_bytes, matchers))) if text_scan_ok else []
+    text = text_bytes.decode("utf-8", errors="ignore")
+    visible_hits = sorted(set(byte_hits + forbidden_public_identifiers(text))) if text_scan_ok else []
+
     doc = fitz.open(path)
     try:
         page_count = doc.page_count
-        text = "\n".join(page.get_text("text") for page in doc)
         metadata_text = "\n".join(str(v) for v in (doc.metadata or {}).values() if v)
         xmp = doc.get_xml_metadata() or ""
     finally:
         doc.close()
 
-    visible_hits = forbidden_public_identifiers(text + "\n" + metadata_text + "\n" + xmp)
+    metadata_hits = forbidden_public_identifiers(metadata_text + "\n" + xmp)
+    visible_hits = sorted(set(visible_hits + metadata_hits))
     suspicious_metadata = bool(SUSPICIOUS_METADATA.search(metadata_text + "\n" + xmp))
+
     reasons = []
     if not envelope["pdf_revision_markers_bound"] or not envelope["pdf_single_revision_only"]:
         reasons.append("revision_envelope")
@@ -168,16 +187,20 @@ def inspect_pdf_fast(path: Path) -> dict:
         reasons.append("private_match")
     if suspicious_metadata:
         reasons.append("suspicious_metadata")
+    if not text_scan_ok:
+        reasons.append("text_scan_failed")
+
     return {
         "page_count": page_count,
         "reasons": reasons,
         "visible_private_hits": visible_hits,
+        "text_scan_ok": text_scan_ok,
         **envelope,
     }
 
 
 def inspect_pdf_deep(path: Path, matchers) -> dict:
-    fast = inspect_pdf_fast(path)
+    fast = inspect_pdf_fast(path, matchers)
     decoded_hits, decoded_ok = decoded_private_hits(path, matchers)
     reasons = list(fast["reasons"])
     if decoded_hits and "private_match" not in reasons:
@@ -324,7 +347,7 @@ def main() -> None:
     worker_count = min(8, max(1, len(physical_paths)))
     with ThreadPoolExecutor(max_workers=worker_count) as executor:
         future_map = {
-            executor.submit(inspect_pdf_fast, path): path
+            executor.submit(inspect_pdf_fast, path, matchers): path
             for path in physical_paths
         }
         for future in as_completed(future_map):
