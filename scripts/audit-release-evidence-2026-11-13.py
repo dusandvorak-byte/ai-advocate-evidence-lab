@@ -206,6 +206,12 @@ def decoded_pdf_object_private_hits(doc) -> tuple[list[str], int]:
             obj = ""
         if obj:
             hits.update(forbidden_public_identifier_byte_hits(obj.encode("utf-8", errors="ignore")))
+        # Image XObject payloads are pixel data, not PDF text/metadata channels.
+        # Their dictionaries are still scanned above; page content streams remain
+        # decoded so inline-image operators and textual identifiers are detected.
+        # This avoids decompressing large image payloads that dominate audit time.
+        if obj and re.search(r"/Subtype\s*/Image\b", obj):
+            continue
         try:
             stream = doc.xref_stream(xref)
         except Exception:
@@ -592,69 +598,83 @@ def audit_all_web_pdfs(root: Path = PUBLICATION_ROOT):
         if re.search(r"(?i)(verejna|veřejná|textova|textová|redigovan|public[-_ ]?copy)", rel) or any(marker in status for marker in markers):
             derivative_paths.add(rel)
 
-    rows = []
-    failures = []
     pdfs = publication_pdf_paths(root)
     if not pdfs:
-        failures.append(f"no PDF-signature/suffix candidates found under publication root {root}")
-        return rows, failures
+        return [], [f"no PDF-signature/suffix candidates found under publication root {root}"]
 
+    groups = {}
     for path in pdfs:
-        published_rel = path.relative_to(root).as_posix()
-        compatibility_copy = root != WEB and published_rel.startswith("web/")
-        source_rel = published_rel[4:] if compatibility_copy else published_rel
-        facts = pdf_facts(path)
-        refs = registry_by_path.get(source_rel, [])
-        registered = bool(refs)
-        is_derivative = source_rel in derivative_paths
+        digest = sha256_file(path)
+        groups.setdefault(digest, []).append(path)
 
-        file_sha = sha256_file(path)
-        checks = {
-            "excluded_id69_digest_absent": file_sha != EXCLUDED_ID69_SHA256,
-            "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
-            "pdf_eof_present": facts["pdf_eof_present"],
-            "pdf_revision_markers_bound": facts["pdf_revision_markers_bound"],
-            "pdf_single_revision_only": facts["pdf_single_revision_only"],
-            "qpdf_structurally_valid": facts["qpdf_structurally_valid"],
-            "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
-            "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
-            "inline_images_absent": facts.get("inline_image_stream_count", 0) == 0,
-            "forbidden_identifiers_absent": not facts["known_private_identifier_hits"],
-            "embedded_files_absent": facts["embedded_file_count"] == 0,
-            "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
-            "associated_files_absent": facts["associated_file_reference_count"] == 0,
-            "embedded_file_objects_absent": facts["embedded_file_object_count"] == 0,
-            "suspicious_info_metadata_absent": not facts["suspicious_metadata_keys"],
-            "xmp_private_or_suspicious_absent": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
-        }
-        if is_derivative:
-            checks["derivative_xmp_removed"] = not facts["xmp_present"]
+    facts_by_digest = {}
+    max_workers = max(1, min(int(os.environ.get("EVIDENCE_LAB_PDF_AUDIT_WORKERS", "4")), len(groups)))
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+        futures = {pool.submit(pdf_facts, paths[0]): digest for digest, paths in groups.items()}
+        for future in as_completed(futures):
+            digest = futures[future]
+            facts_by_digest[digest] = future.result()
 
-        if not all(checks.values()):
-            failures.append(f"final staged PDF privacy failure {published_rel}: {checks}")
-
-        rows.append({
-            "published_path": published_rel,
-            "source_web_path": source_rel,
-            "compatibility_copy": compatibility_copy,
-            "registered": registered,
-            "registry_ids": [ref.get("id") for ref in refs if ref.get("id")],
-            "verification_statuses": [ref.get("verification_status") for ref in refs if ref.get("verification_status")],
-            "derivative": is_derivative,
-            "sha256": file_sha,
-            "page_count": facts["page_count"],
-            "metadata_keys_present": facts["metadata_keys_present"],
-            "xmp_present": facts["xmp_present"],
-            "embedded_file_count": facts["embedded_file_count"],
-            "file_attachment_annotation_count": facts["file_attachment_annotation_count"],
-            "associated_file_reference_count": facts["associated_file_reference_count"],
-            "embedded_file_object_count": facts["embedded_file_object_count"],
-            "machine_privacy_status": facts["machine_privacy_status"],
-            "checks": checks,
-        })
-
+    rows = []
+    failures = []
+    for file_sha, identical_paths in groups.items():
+        facts = facts_by_digest[file_sha]
+        for path in identical_paths:
+            published_rel = path.relative_to(root).as_posix()
+            compatibility_copy = root != WEB and published_rel.startswith("web/")
+            source_rel = published_rel[4:] if compatibility_copy else published_rel
+            refs = registry_by_path.get(source_rel, [])
+            registered = bool(refs)
+            is_derivative = source_rel in derivative_paths
+            checks = {
+                "excluded_id69_digest_absent": file_sha != EXCLUDED_ID69_SHA256,
+                "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
+                "pdf_eof_present": facts["pdf_eof_present"],
+                "pdf_revision_markers_bound": facts["pdf_revision_markers_bound"],
+                "pdf_single_revision_only": facts["pdf_single_revision_only"],
+                "qpdf_structurally_valid": facts["qpdf_structurally_valid"],
+                "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
+                "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
+                "inline_images_absent": facts.get("inline_image_stream_count", 0) == 0,
+                "forbidden_identifiers_absent": not facts["known_private_identifier_hits"],
+                "embedded_files_absent": facts["embedded_file_count"] == 0,
+                "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
+                "associated_files_absent": facts["associated_file_reference_count"] == 0,
+                "embedded_file_objects_absent": facts["embedded_file_object_count"] == 0,
+                "suspicious_info_metadata_absent": not facts["suspicious_metadata_keys"],
+                "xmp_private_or_suspicious_absent": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
+            }
+            if is_derivative:
+                checks["derivative_xmp_removed"] = not facts["xmp_present"]
+            if not all(checks.values()):
+                failures.append(f"final staged PDF privacy failure {published_rel}: {checks}")
+            rows.append({
+                "published_path": published_rel,
+                "source_web_path": source_rel,
+                "compatibility_copy": compatibility_copy,
+                "registered": registered,
+                "registry_ids": [ref.get("id") for ref in refs if ref.get("id")],
+                "verification_statuses": [ref.get("verification_status") for ref in refs if ref.get("verification_status")],
+                "derivative": is_derivative,
+                "sha256": file_sha,
+                "page_count": facts["page_count"],
+                "metadata_keys_present": facts["metadata_keys_present"],
+                "xmp_present": facts["xmp_present"],
+                "embedded_file_count": facts["embedded_file_count"],
+                "file_attachment_annotation_count": facts["file_attachment_annotation_count"],
+                "associated_file_reference_count": facts["associated_file_reference_count"],
+                "embedded_file_object_count": facts["embedded_file_object_count"],
+                "machine_privacy_status": facts["machine_privacy_status"],
+                "checks": checks,
+            })
+    rows.sort(key=lambda row: row["published_path"])
+    print(json.dumps({
+        "pdf_path_count": len(pdfs),
+        "unique_pdf_digest_count": len(groups),
+        "deduplicated_path_count": len(pdfs) - len(groups),
+        "parallel_workers": max_workers,
+    }, ensure_ascii=False))
     return rows, failures
-
 
 def audit_registry_reconciliation(staged_rows: list[dict]):
     canonical_path = CANONICAL_REGISTRY
@@ -835,14 +855,12 @@ def audit_okte():
     failures = []
     if not all([support["contains_reference"], support["contains_attachment_count_10"], support["parent_relation_count"] == 10, support["annex_registry_count"] == 10]):
         failures.append("parent evidence support for ten attachments is incomplete")
-    rows = []
-    for item in annexes:
+    def inspect_item(item):
         pub = item["public"]
         rel = pub["pdf"]
         local = WEB / rel
         if not local.exists():
-            failures.append(f"missing local OKTE original {rel}")
-            continue
+            return None, f"missing local OKTE original {rel}"
         local_sha = sha256_file(local)
         facts = pdf_facts(local)
         expected = pub["sha256"]
@@ -855,9 +873,7 @@ def audit_okte():
             "live_http_200": live.get("http_status") == 200,
             "live_sha_matches_registry": live.get("sha256") == expected,
         }
-        if not all(checks.values()):
-            failures.append(f"OKTE verification failed for {item['id']}: {checks}")
-        rows.append({
+        row = {
             "id": item["id"],
             "reference": item.get("reference"),
             "public_path": rel,
@@ -868,7 +884,21 @@ def audit_okte():
             "expected_page_count": pub["source_original_page_count"],
             "live": live,
             "checks": checks,
-        })
+        }
+        failure = None if all(checks.values()) else f"OKTE verification failed for {item['id']}: {checks}"
+        return row, failure
+
+    rows = []
+    workers = max(1, min(int(os.environ.get("EVIDENCE_LAB_OKTE_AUDIT_WORKERS", "5")), len(annexes)))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = [pool.submit(inspect_item, item) for item in annexes]
+        for future in as_completed(futures):
+            row, failure = future.result()
+            if row is not None:
+                rows.append(row)
+            if failure:
+                failures.append(failure)
+    rows.sort(key=lambda row: row["id"])
     return {"parent_evidence_support": support, "annexes": rows}, failures
 
 def audit_redacted_analysis():
@@ -943,8 +973,8 @@ def audit_redacted_analysis():
 
 def main():
     generated, gen_fail = audit_generated()
-    registry_derivatives, registry_fail = audit_registry_public_derivatives()
     all_web_pdfs, all_web_fail = audit_all_web_pdfs()
+    registry_derivatives, registry_fail = audit_registry_public_derivatives()
     reconciliation, reconciliation_fail = audit_registry_reconciliation(all_web_pdfs)
     id68_fidelity, id68_fail = audit_id68_fidelity(all_web_pdfs)
     hardening_path = ROOT / "project-memory/privacy-hardening-report.json"
