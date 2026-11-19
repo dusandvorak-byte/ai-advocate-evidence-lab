@@ -5,6 +5,7 @@ import hashlib
 import json
 import re
 import subprocess
+import sys
 import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
@@ -313,6 +314,151 @@ def harden_pdf(path: Path, rules: list[dict], *, force_rewrite: bool = False) ->
 
 
 
+
+def run_isolated_worker(mode: str, rel: str, *, force_rewrite: bool = False, timeout: int) -> dict:
+    args = [sys.executable, str(Path(__file__).resolve()), mode, rel]
+    if mode == "--worker-candidate":
+        args.append("1" if force_rewrite else "0")
+    try:
+        proc = subprocess.run(
+            args,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired:
+        return {
+            "rel": rel,
+            "worker_timeout": True,
+            "error": f"{mode} timed out after {timeout}s",
+        }
+    if proc.returncode != 0:
+        return {
+            "rel": rel,
+            "worker_timeout": False,
+            "error": (proc.stderr or proc.stdout or f"{mode} failed with {proc.returncode}")[-4000:],
+        }
+    lines = [line for line in proc.stdout.splitlines() if line.strip()]
+    if not lines:
+        return {"rel": rel, "worker_timeout": False, "error": f"{mode} returned no JSON"}
+    try:
+        return json.loads(lines[-1])
+    except json.JSONDecodeError:
+        return {
+            "rel": rel,
+            "worker_timeout": False,
+            "error": f"{mode} returned invalid JSON: {lines[-1][-1000:]}",
+        }
+
+
+def inspect_pdf_isolated(path: Path) -> dict:
+    rel = path.relative_to(WEB).as_posix()
+    result = run_isolated_worker("--worker-inspect", rel, timeout=45)
+    if result.get("error"):
+        return {
+            "page_count": None,
+            "reasons": ["inspection_timeout" if result.get("worker_timeout") else "inspection_failed"],
+            "decoded_private_hits": ["__inspection_failed__"],
+            "decoded_scan_ok": False,
+            "pdf_revision_markers_bound": False,
+            "pdf_single_revision_only": False,
+            "error": result["error"],
+        }
+    return result["inspection"]
+
+
+def process_candidate_isolated(rel: str, force_rewrite: bool) -> dict:
+    result = run_isolated_worker(
+        "--worker-candidate",
+        rel,
+        force_rewrite=force_rewrite,
+        timeout=180,
+    )
+    if result.get("error"):
+        path = WEB / rel
+        return {
+            "rel": rel,
+            "before_sha": sha256_file(path),
+            "before_pages": None,
+            "after_sha": sha256_file(path),
+            "after_pages": None,
+            "changed": False,
+            "matches": [],
+            "visible_hits": [],
+            "post": inspections_placeholder(rel),
+            "failures": [
+                f"privacy hardening worker {'timed out' if result.get('worker_timeout') else 'failed'} for {rel}: {result['error']}"
+            ],
+        }
+    return result["candidate"]
+
+
+def inspections_placeholder(rel: str) -> dict:
+    return {
+        "page_count": None,
+        "reasons": ["inspection_failed"],
+        "decoded_private_hits": ["__inspection_failed__"],
+        "decoded_scan_ok": False,
+        "pdf_revision_markers_bound": False,
+        "pdf_single_revision_only": False,
+        "error": f"isolated worker failed for {rel}",
+    }
+
+
+def worker_inspect(rel: str) -> None:
+    path = WEB / rel
+    matchers = prepared_private_byte_matchers()
+    result = inspect_pdf_fast(path, matchers)
+    print(json.dumps({"inspection": result}, ensure_ascii=False))
+
+
+def worker_candidate(rel: str, force_rewrite: bool) -> None:
+    path = WEB / rel
+    pdf_rules, _ = private_pdf_rules()
+    matchers = prepared_private_byte_matchers()
+    before_sha = sha256_file(path)
+    before_fast = inspect_pdf_fast(path, matchers)
+    before_pages = before_fast.get("page_count")
+    data, matches = harden_pdf(path, pdf_rules, force_rewrite=force_rewrite)
+    if data is not None:
+        path.write_bytes(data)
+    after_sha = sha256_file(path)
+    post = inspect_pdf_deep(path, matchers)
+    after_pages = post.get("page_count")
+    visible_hits = forbidden_hits(path)
+    local_failures = []
+    if before_pages != after_pages:
+        local_failures.append(
+            f"page-count changed during privacy hardening: {rel} {before_pages}->{after_pages}"
+        )
+    if visible_hits:
+        local_failures.append(
+            f"known private identifier remains after privacy hardening: {rel}: {visible_hits}"
+        )
+    if post.get("decoded_private_hits"):
+        local_failures.append(
+            f"decoded private identifier remains after privacy hardening: {rel}: {post['decoded_private_hits']}"
+        )
+    if not post.get("decoded_scan_ok"):
+        local_failures.append(f"decoded privacy scan failed after hardening: {rel}")
+    if not post.get("pdf_revision_markers_bound") or not post.get("pdf_single_revision_only"):
+        local_failures.append(f"PDF revision envelope remains noncanonical after hardening: {rel}")
+    candidate = {
+        "rel": rel,
+        "before_sha": before_sha,
+        "before_pages": before_pages,
+        "after_sha": after_sha,
+        "after_pages": after_pages,
+        "changed": data is not None,
+        "matches": matches,
+        "visible_hits": visible_hits,
+        "post": post,
+        "failures": local_failures,
+    }
+    print(json.dumps({"candidate": candidate}, ensure_ascii=False))
+
+
 def main() -> None:
     registry = json.loads(REGISTRY.read_text("utf-8"))
     if not isinstance(registry.get("documents"), list):
@@ -340,7 +486,7 @@ def main() -> None:
     worker_count = min(8, max(1, len(physical_paths)))
     with ThreadPoolExecutor(max_workers=worker_count) as executor:
         future_map = {
-            executor.submit(inspect_pdf_fast, path, matchers): path
+            executor.submit(inspect_pdf_isolated, path): path
             for path in physical_paths
         }
         for future in as_completed(future_map):
@@ -423,7 +569,7 @@ def main() -> None:
     harden_workers = min(8, max(1, len(candidates)))
     with ThreadPoolExecutor(max_workers=harden_workers) as executor:
         future_map = {
-            executor.submit(process_candidate, rel, force_rewrite): rel
+            executor.submit(process_candidate_isolated, rel, force_rewrite): rel
             for rel, force_rewrite in candidates
         }
         for future in as_completed(future_map):
@@ -524,4 +670,9 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) >= 3 and sys.argv[1] == "--worker-inspect":
+        worker_inspect(sys.argv[2])
+    elif len(sys.argv) >= 4 and sys.argv[1] == "--worker-candidate":
+        worker_candidate(sys.argv[2], sys.argv[3] == "1")
+    else:
+        main()
