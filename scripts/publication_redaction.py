@@ -5,6 +5,7 @@ import hmac
 import json
 import os
 import re
+from functools import lru_cache
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +16,7 @@ class RedactionPolicyError(RuntimeError):
     pass
 
 
+@lru_cache(maxsize=1)
 def _load_contract() -> dict:
     data = json.loads(CONTRACT_PATH.read_text("utf-8"))
     if data.get("status") != "binding":
@@ -86,6 +88,7 @@ def _verify_private_policy_authentication(contract: dict, data: dict) -> str:
     return actual
 
 
+@lru_cache(maxsize=1)
 def authenticated_private_policy_document() -> tuple[dict, dict, str]:
     contract = _load_contract()
     path = _private_policy_path(contract)
@@ -100,6 +103,7 @@ def authenticated_private_policy_document() -> tuple[dict, dict, str]:
     return contract, data, authenticated_identity
 
 
+@lru_cache(maxsize=1)
 def load_private_policy() -> tuple[dict, list[tuple[str, re.Pattern[str], str]], list[re.Pattern[str]], str]:
     contract, data, authenticated_identity = authenticated_private_policy_document()
 
@@ -238,9 +242,28 @@ def _pdf_decoded_string_payloads(raw: bytes) -> list[bytes]:
     return payloads
 
 
-def forbidden_public_identifier_byte_hits(raw: bytes) -> list[str]:
+@lru_cache(maxsize=1)
+def _raw_private_matchers() -> tuple[tuple[str, re.Pattern[str]], ...]:
     _, data, _ = authenticated_private_policy_document()
     items = list(data.get("rules") or []) + list(data.get("forbidden") or [])
+    compiled = []
+    for index, item in enumerate(items, start=1):
+        mode = str(item.get("mode") or "literal").strip()
+        value = str(item.get("value") or "")
+        if not value:
+            continue
+        flags = re.IGNORECASE if item.get("ignore_case", True) else 0
+        if mode == "literal":
+            pattern = re.compile(re.escape(value), flags)
+        elif mode == "regex":
+            pattern = re.compile(value, flags)
+        else:
+            continue
+        compiled.append((f"private_raw_match_{index}", pattern))
+    return tuple(compiled)
+
+
+def forbidden_public_identifier_byte_hits(raw: bytes) -> list[str]:
     hits = []
     seen = set()
 
@@ -253,29 +276,12 @@ def forbidden_public_identifier_byte_hits(raw: bytes) -> list[str]:
             except LookupError:
                 pass
 
-    for index, item in enumerate(items, start=1):
-        mode = str(item.get("mode") or "literal").strip()
-        value = str(item.get("value") or "")
-        if not value:
-            continue
-        matched = False
-        if mode == "literal":
-            flags = re.IGNORECASE if item.get("ignore_case", True) else 0
-            pattern = re.compile(re.escape(value), flags)
-            matched = any(pattern.search(text) for text in decoded_variants)
-        elif mode == "regex":
-            flags = re.IGNORECASE if item.get("ignore_case", True) else 0
-            pattern = re.compile(value, flags)
-            matched = any(pattern.search(text) for text in decoded_variants)
-
-        if matched:
-            opaque = f"private_raw_match_{index}"
-            if opaque not in seen:
-                seen.add(opaque)
-                hits.append(opaque)
+    for opaque, pattern in _raw_private_matchers():
+        if any(pattern.search(text) for text in decoded_variants) and opaque not in seen:
+            seen.add(opaque)
+            hits.append(opaque)
 
     return hits
-
 
 def forbidden_public_identifiers(text: str) -> list[str]:
     _, rules, forbidden, _ = load_private_policy()
