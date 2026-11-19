@@ -179,6 +179,11 @@ def cmd_pdf_shard(index, count):
                 "associated_file_reference_count": facts["associated_file_reference_count"],
                 "embedded_file_object_count": facts["embedded_file_object_count"],
                 "machine_privacy_status": facts["machine_privacy_status"],
+                "suspicious_metadata_keys": facts["suspicious_metadata_keys"],
+                "xmp_known_private_identifier_hits": facts["xmp_known_private_identifier_hits"],
+                "xmp_suspicious": facts["xmp_suspicious"],
+                "known_private_identifier_hits": facts["known_private_identifier_hits"],
+                "content_privacy_signals": facts["content_privacy_signals"],
                 "checks": checks,
             })
     rows.sort(key=lambda row: row["published_path"])
@@ -221,12 +226,28 @@ def cmd_assemble(count):
 
     reconciliation, reconciliation_fail = audit.audit_registry_reconciliation(all_web_pdfs)
     id68_fidelity, id68_fail = audit.audit_id68_fidelity(all_web_pdfs)
-    okte_fragment = load_fragment("okte")
-    redacted_fragment = load_fragment("redacted")
-    okte = okte_fragment["data"]
-    redacted = redacted_fragment["data"]
-    fragment_failures += list(okte_fragment.get("failures") or [])
-    fragment_failures += list(redacted_fragment.get("failures") or [])
+
+    precomputed_facts = {}
+    for row in all_web_pdfs:
+        rel = row["source_web_path"]
+        precomputed_facts.setdefault(rel, {
+            "page_count": row["page_count"],
+            "metadata_keys_present": row["metadata_keys_present"],
+            "xmp_present": row["xmp_present"],
+            "embedded_file_count": row["embedded_file_count"],
+            "file_attachment_annotation_count": row["file_attachment_annotation_count"],
+            "associated_file_reference_count": row["associated_file_reference_count"],
+            "embedded_file_object_count": row["embedded_file_object_count"],
+            "machine_privacy_status": row["machine_privacy_status"],
+            "suspicious_metadata_keys": row["suspicious_metadata_keys"],
+            "xmp_known_private_identifier_hits": row["xmp_known_private_identifier_hits"],
+            "xmp_suspicious": row["xmp_suspicious"],
+            "known_private_identifier_hits": row["known_private_identifier_hits"],
+            "content_privacy_signals": row["content_privacy_signals"],
+        })
+
+    okte, okte_fail = audit.audit_okte(precomputed_facts)
+    redacted, redact_fail = audit.audit_redacted_analysis(precomputed_facts)
 
     hardening_path = ROOT / "project-memory/privacy-hardening-report.json"
     hardening = json.loads(hardening_path.read_text("utf-8"))
@@ -234,7 +255,7 @@ def cmd_assemble(count):
     if hardening.get("hard_failure_count") != len(hardening_fail):
         hardening_fail.append("privacy hardening failure count does not match hard failure list")
 
-    failures = fragment_failures + reconciliation_fail + id68_fail + hardening_fail
+    failures = fragment_failures + reconciliation_fail + id68_fail + hardening_fail + okte_fail + redact_fail
     checkout_sha = current_checkout_sha()
     expected_head = os.environ.get("EXPECTED_HEAD_SHA", "").strip()
     expected_base = os.environ.get("EXPECTED_BASE_SHA", "").strip()
