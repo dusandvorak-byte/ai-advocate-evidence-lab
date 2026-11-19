@@ -146,34 +146,92 @@ def decoded_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
                 pass
 
 
-def inspect_pdf(path: Path, matchers) -> dict:
+def inspect_pdf_fast(path: Path) -> dict:
+    """Cheap candidate selection; authoritative deep scan happens after rewrite and in release audit."""
     raw = path.read_bytes()
     envelope = pdf_revision_envelope(raw)
-    decoded_hits, decoded_ok = decoded_private_hits(path, matchers)
     doc = fitz.open(path)
     try:
+        page_count = doc.page_count
+        text = "\n".join(page.get_text("text") for page in doc)
         metadata_text = "\n".join(str(v) for v in (doc.metadata or {}).values() if v)
         xmp = doc.get_xml_metadata() or ""
-        page_count = doc.page_count
     finally:
         doc.close()
+
+    visible_hits = forbidden_public_identifiers(text + "\n" + metadata_text + "\n" + xmp)
     suspicious_metadata = bool(SUSPICIOUS_METADATA.search(metadata_text + "\n" + xmp))
     reasons = []
     if not envelope["pdf_revision_markers_bound"] or not envelope["pdf_single_revision_only"]:
         reasons.append("revision_envelope")
-    if decoded_hits:
+    if visible_hits:
         reasons.append("private_match")
     if suspicious_metadata:
         reasons.append("suspicious_metadata")
-    if not decoded_ok:
-        reasons.append("decoded_scan_failed")
     return {
         "page_count": page_count,
         "reasons": reasons,
-        "decoded_private_hits": decoded_hits,
-        "decoded_scan_ok": decoded_ok,
+        "visible_private_hits": visible_hits,
         **envelope,
     }
+
+
+def inspect_pdf_deep(path: Path, matchers) -> dict:
+    fast = inspect_pdf_fast(path)
+    decoded_hits, decoded_ok = decoded_private_hits(path, matchers)
+    reasons = list(fast["reasons"])
+    if decoded_hits and "private_match" not in reasons:
+        reasons.append("private_match")
+    if not decoded_ok:
+        reasons.append("decoded_scan_failed")
+    return {
+        **fast,
+        "reasons": reasons,
+        "decoded_private_hits": decoded_hits,
+        "decoded_scan_ok": decoded_ok,
+    }
+
+
+def decoded_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
+    tmp_name = None
+    try:
+        with tempfile.NamedTemporaryFile(prefix="evidence-harden-", suffix=".qdf.pdf", delete=False) as tmp:
+            tmp_name = tmp.name
+        proc = subprocess.run(
+            [
+                "qpdf",
+                "--qdf",
+                "--preserve-unreferenced",
+                "--object-streams=disable",
+                "--stream-data=uncompress",
+                str(path),
+                tmp_name,
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            timeout=120,
+        )
+        if proc.returncode != 0:
+            return ["__decoded_stream_scan_failed__"], False
+        decoded = Path(tmp_name).read_bytes()
+        return sorted(set(forbidden_public_identifier_byte_hits(decoded, matchers))), True
+    except (OSError, subprocess.TimeoutExpired):
+        return ["__decoded_stream_scan_failed__"], False
+    finally:
+        if tmp_name:
+            try:
+                Path(tmp_name).unlink(missing_ok=True)
+            except OSError:
+                pass
+
+
+def forbidden_hits(path: Path) -> list[str]:
+    doc = fitz.open(path)
+    try:
+        text = "\n".join(page.get_text("text") for page in doc)
+    finally:
+        doc.close()
+    return forbidden_public_identifiers(text)
 
 
 def rect_overlaps(rect: fitz.Rect, used: list[fitz.Rect]) -> bool:
@@ -266,7 +324,7 @@ def main() -> None:
     worker_count = min(8, max(1, len(physical_paths)))
     with ThreadPoolExecutor(max_workers=worker_count) as executor:
         future_map = {
-            executor.submit(inspect_pdf, path, matchers): path
+            executor.submit(inspect_pdf_fast, path): path
             for path in physical_paths
         }
         for future in as_completed(future_map):
@@ -307,7 +365,7 @@ def main() -> None:
             path.write_bytes(data)
 
         after_sha = sha256_file(path)
-        post = inspect_pdf(path, matchers)
+        post = inspect_pdf_deep(path, matchers)
         after_pages = post.get("page_count")
         visible_hits = forbidden_hits(path)
         local_failures = []
