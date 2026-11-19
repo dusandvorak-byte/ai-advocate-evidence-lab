@@ -8,7 +8,7 @@ import fitz
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from publication_redaction import forbidden_public_identifiers, forbidden_public_identifier_byte_hits
+from publication_redaction import forbidden_public_identifiers, forbidden_public_identifier_byte_hits, prepared_private_byte_matchers
 WEB = ROOT / "web"
 PUBLICATION_ROOT = Path(os.environ.get("EVIDENCE_LAB_PUBLICATION_ROOT", str(WEB))).resolve()
 CANONICAL_REGISTRY = Path(os.environ.get("EVIDENCE_LAB_CANONICAL_REGISTRY", str(ROOT / "project-memory/documents-2026.json"))).resolve()
@@ -192,7 +192,7 @@ def inline_image_operator_present(stream: bytes) -> bool:
             return True
     return False
 
-def _decoded_pdf_object_private_hits_range(path: Path, start: int, stop: int) -> tuple[set[str], int]:
+def _decoded_pdf_object_private_hits_range(path: Path, start: int, stop: int, prepared_matchers) -> tuple[set[str], int]:
     hits = set()
     inline_image_streams = 0
     doc = fitz.open(path)
@@ -203,7 +203,7 @@ def _decoded_pdf_object_private_hits_range(path: Path, start: int, stop: int) ->
             except Exception:
                 obj = ""
             if obj:
-                hits.update(forbidden_public_identifier_byte_hits(obj.encode("utf-8", errors="ignore")))
+                hits.update(forbidden_public_identifier_byte_hits(obj.encode("utf-8", errors="ignore"), prepared_matchers))
             try:
                 stream = doc.xref_stream(xref)
             except Exception:
@@ -211,13 +211,13 @@ def _decoded_pdf_object_private_hits_range(path: Path, start: int, stop: int) ->
             if stream:
                 if inline_image_operator_present(stream):
                     inline_image_streams += 1
-                hits.update(forbidden_public_identifier_byte_hits(stream))
+                hits.update(forbidden_public_identifier_byte_hits(stream, prepared_matchers))
     finally:
         doc.close()
     return hits, inline_image_streams
 
 
-def decoded_pdf_object_private_hits(path: Path, xref_len: int) -> tuple[list[str], int]:
+def decoded_pdf_object_private_hits(path: Path, xref_len: int, prepared_matchers) -> tuple[list[str], int]:
     if xref_len <= 1:
         return [], 0
     worker_count = min(8, max(1, (os.cpu_count() or 2)), max(1, xref_len - 1))
@@ -233,7 +233,7 @@ def decoded_pdf_object_private_hits(path: Path, xref_len: int) -> tuple[list[str
     inline_image_streams = 0
     with ThreadPoolExecutor(max_workers=len(ranges)) as executor:
         futures = [
-            executor.submit(_decoded_pdf_object_private_hits_range, path, start, stop)
+            executor.submit(_decoded_pdf_object_private_hits_range, path, start, stop, prepared_matchers)
             for start, stop in ranges
         ]
         for future in as_completed(futures):
@@ -283,7 +283,8 @@ def _pdf_facts_uncached(path: Path) -> dict:
     envelope = pdf_revision_envelope(raw)
     eof_present = envelope["pdf_eof_present"]
     suffix_non_whitespace = envelope["non_whitespace_suffix_after_pdf_eof"]
-    raw_private_hits = forbidden_public_identifier_byte_hits(raw)
+    prepared_matchers = prepared_private_byte_matchers()
+    raw_private_hits = forbidden_public_identifier_byte_hits(raw, prepared_matchers)
     qpdf_valid, qpdf_output = qpdf_structural_check(path)
 
     # Fail before invoking rendering/text parsers when bytes exist outside the
@@ -330,7 +331,7 @@ def _pdf_facts_uncached(path: Path) -> dict:
     doc = fitz.open(path)
     page_count = doc.page_count
     xref_len = doc.xref_length()
-    decoded_object_hits, inline_image_stream_count = decoded_pdf_object_private_hits(path, xref_len)
+    decoded_object_hits, inline_image_stream_count = decoded_pdf_object_private_hits(path, xref_len, prepared_matchers)
 
     # If authenticated private data exists in any decoded object/stream, fail
     # before invoking page/text extractors. The leak is already proven and no
