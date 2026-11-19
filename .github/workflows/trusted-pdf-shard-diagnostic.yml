@@ -3,6 +3,8 @@ name: Trusted PDF shard diagnostic
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - '.release/evidence-lab-publication-authorization.json'
 
 permissions:
   contents: read
