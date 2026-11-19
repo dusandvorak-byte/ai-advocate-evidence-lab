@@ -16,7 +16,7 @@ test('verifier is copied outside tracked checkout before destructive orphan publ
   const copy = 'install -m 0600 scripts/verify-live-pdf.mjs /tmp/evidence-verify-live-pdf.mjs';
   const checkout = 'git checkout --orphan gh-pages-publish';
   const remove = 'git rm -rf .';
-  const invocation = 'node /tmp/evidence-verify-live-pdf.mjs "$base/$pdf_rel" "$pdf_local" "$GITHUB_SHA" "" /tmp/live-police-1015.pdf';
+  const invocation = 'node /tmp/evidence-verify-live-pdf.mjs "$base/$pdf_rel" "$pdf_local" "$AUDIT_TARGET_SHA" "" /tmp/live-police-1015.pdf';
   assert.ok(workflow.includes(copy), 'A verifier must be retained outside the worktree');
   assert.ok(workflow.indexOf(copy) < workflow.indexOf(checkout), 'Copy must precede orphan checkout');
   assert.ok(workflow.indexOf(checkout) < workflow.indexOf(remove), 'Original destructive publish ordering preserved');
