@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import base64, copy, gzip, hashlib, json, os, re, runpy, subprocess, sys, time
+import base64, copy, gzip, hashlib, json, os, re, runpy, subprocess, sys, tempfile, time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -192,56 +192,63 @@ def inline_image_operator_present(stream: bytes) -> bool:
             return True
     return False
 
-def _decoded_pdf_object_private_hits_range(path: Path, start: int, stop: int, prepared_matchers) -> tuple[set[str], int]:
-    hits = set()
-    inline_image_streams = 0
-    doc = fitz.open(path)
-    try:
-        for xref in range(start, stop):
-            try:
-                obj = doc.xref_object(xref, compressed=False)
-            except Exception:
-                obj = ""
-            if obj:
-                hits.update(forbidden_public_identifier_byte_hits(obj.encode("utf-8", errors="ignore"), prepared_matchers))
+
+def page_inline_image_stream_count(doc) -> int:
+    """Inspect only page content streams for inline BI/ID images."""
+    seen = set()
+    count = 0
+    for page in doc:
+        try:
+            xrefs = page.get_contents() or []
+        except Exception:
+            xrefs = []
+        if isinstance(xrefs, int):
+            xrefs = [xrefs]
+        for xref in xrefs:
+            if xref in seen:
+                continue
+            seen.add(xref)
             try:
                 stream = doc.xref_stream(xref)
             except Exception:
                 stream = None
-            if stream:
-                if inline_image_operator_present(stream):
-                    inline_image_streams += 1
-                hits.update(forbidden_public_identifier_byte_hits(stream, prepared_matchers))
+            if stream and inline_image_operator_present(stream):
+                count += 1
+    return count
+
+
+def decoded_pdf_object_private_hits(path: Path, prepared_matchers) -> tuple[list[str], bool]:
+    """Scan decoded PDF object and stream bytes in one native qpdf pass."""
+    tmp_name = None
+    try:
+        with tempfile.NamedTemporaryFile(prefix="evidence-audit-", suffix=".qdf.pdf", delete=False) as tmp:
+            tmp_name = tmp.name
+        proc = subprocess.run(
+            [
+                "qpdf",
+                "--qdf",
+                "--object-streams=disable",
+                "--stream-data=uncompress",
+                str(path),
+                tmp_name,
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            timeout=120,
+        )
+        if proc.returncode != 0:
+            return ["__decoded_stream_scan_failed__"], False
+        decoded = Path(tmp_name).read_bytes()
+        hits = sorted(set(forbidden_public_identifier_byte_hits(decoded, prepared_matchers)))
+        return hits, True
+    except (OSError, subprocess.TimeoutExpired):
+        return ["__decoded_stream_scan_failed__"], False
     finally:
-        doc.close()
-    return hits, inline_image_streams
-
-
-def decoded_pdf_object_private_hits(path: Path, xref_len: int, prepared_matchers) -> tuple[list[str], int]:
-    if xref_len <= 1:
-        return [], 0
-    worker_count = min(8, max(1, (os.cpu_count() or 2)), max(1, xref_len - 1))
-    chunk = max(1, (xref_len - 1 + worker_count - 1) // worker_count)
-    ranges = []
-    start = 1
-    while start < xref_len:
-        stop = min(xref_len, start + chunk)
-        ranges.append((start, stop))
-        start = stop
-
-    hits = set()
-    inline_image_streams = 0
-    with ThreadPoolExecutor(max_workers=len(ranges)) as executor:
-        futures = [
-            executor.submit(_decoded_pdf_object_private_hits_range, path, start, stop, prepared_matchers)
-            for start, stop in ranges
-        ]
-        for future in as_completed(futures):
-            part_hits, part_inline = future.result()
-            hits.update(part_hits)
-            inline_image_streams += part_inline
-    return sorted(hits), inline_image_streams
-
+        if tmp_name:
+            try:
+                Path(tmp_name).unlink(missing_ok=True)
+            except OSError:
+                pass
 
 def _fitz_text_range(path: Path, start: int, stop: int) -> str:
     doc = fitz.open(path)
@@ -321,7 +328,6 @@ def _pdf_facts_uncached(path: Path) -> dict:
             "pdf_startxref_offsets_unique": envelope["pdf_startxref_offsets_unique"],
             "pdf_startxref_targets_valid": envelope["pdf_startxref_targets_valid"],
             "pdf_revision_markers_bound": envelope["pdf_revision_markers_bound"],
-        "pdf_single_revision_only": envelope["pdf_single_revision_only"],
             "pdf_single_revision_only": envelope["pdf_single_revision_only"],
             "qpdf_structurally_valid": qpdf_valid,
             "qpdf_check_tail": qpdf_output,
@@ -330,8 +336,8 @@ def _pdf_facts_uncached(path: Path) -> dict:
 
     doc = fitz.open(path)
     page_count = doc.page_count
-    xref_len = doc.xref_length()
-    decoded_object_hits, inline_image_stream_count = decoded_pdf_object_private_hits(path, xref_len, prepared_matchers)
+    decoded_object_hits, decoded_stream_scan_ok = decoded_pdf_object_private_hits(path, prepared_matchers)
+    inline_image_stream_count = page_inline_image_stream_count(doc)
 
     # If authenticated private data exists in any decoded object/stream, fail
     # before invoking page/text extractors. The leak is already proven and no
@@ -370,9 +376,9 @@ def _pdf_facts_uncached(path: Path) -> dict:
             "human_privacy_review_required": True,
             "known_private_identifier_hits": decoded_object_hits,
             "decoded_object_private_identifier_hits": decoded_object_hits,
-        "inline_image_stream_count": inline_image_stream_count,
             "inline_image_stream_count": inline_image_stream_count,
-            "text_extraction_engines": ["PyMuPDF/xref_stream"],
+            "decoded_stream_scan_ok": decoded_stream_scan_ok,
+            "text_extraction_engines": ["qpdf/qdf"],
             "public_copy_notice_present": False,
             "not_byte_identical_notice_present": False,
         }
@@ -418,7 +424,7 @@ def _pdf_facts_uncached(path: Path) -> dict:
     }
     doc.close()
 
-    machine_failure = bool(prefix_non_whitespace or not envelope["pdf_revision_markers_bound"] or not qpdf_valid or inline_image_stream_count or embedded or file_attachment_annotations or associated_file_references or embedded_file_objects or suspicious_metadata_keys or xmp_suspicious or private_hits)
+    machine_failure = bool(prefix_non_whitespace or not envelope["pdf_revision_markers_bound"] or not qpdf_valid or not decoded_stream_scan_ok or inline_image_stream_count or embedded or file_attachment_annotations or associated_file_references or embedded_file_objects or suspicious_metadata_keys or xmp_suspicious or private_hits)
     return {
         "page_count": page_count,
         "pdf_header_offset": header_offset,
@@ -450,7 +456,8 @@ def _pdf_facts_uncached(path: Path) -> dict:
         "human_privacy_review_required": True,
         "known_private_identifier_hits": private_hits,
         "decoded_object_private_identifier_hits": decoded_object_hits,
-        "text_extraction_engines": ["PyMuPDF", "pdftotext/poppler"],
+        "decoded_stream_scan_ok": decoded_stream_scan_ok,
+        "text_extraction_engines": ["qpdf/qdf", "PyMuPDF", "pdftotext/poppler"],
         "public_copy_notice_present": bool(re.search(r"(?i)(veřejn.{0,20}kopie|public pdf copy)", page_text)),
         "not_byte_identical_notice_present": bool(re.search(r"(?i)(nejde\s+o\s+byte[^\n]{0,20}identick|not\s+byte[^\n]{0,20}identical)", page_text)),
     }
@@ -883,7 +890,7 @@ def audit_id68_fidelity(staged_rows: list[dict]):
     }, failures
 
 
-def audit_okte():
+def audit_okte(precomputed_facts=None):
     annex_path = ROOT / "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
     parent_path = ROOT / "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
     transcript_path = ROOT / "project-memory/source-transcripts/2026-11-02-krpm-pages.json"
@@ -913,7 +920,7 @@ def audit_okte():
             failures.append(f"missing local OKTE original {rel}")
             continue
         local_sha = sha256_file(local)
-        facts = pdf_facts(local)
+        facts = (precomputed_facts or {}).get(rel) or pdf_facts(local)
         expected = pub["sha256"]
         source_expected = pub["source_original_sha256"]
         live = fetch_live(rel)
@@ -940,7 +947,7 @@ def audit_okte():
         })
     return {"parent_evidence_support": support, "annexes": rows}, failures
 
-def audit_redacted_analysis():
+def audit_redacted_analysis(precomputed_facts=None):
     release_path = ROOT / "project-memory/evidence-release-2026-11-04.json"
     source_registry_path = ROOT / "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json"
     final_registry_path = ROOT / "project-memory/documents-2026.json"
@@ -964,7 +971,8 @@ def audit_redacted_analysis():
     if not hardening_row:
         return {"id": target_id, "hardening_missing": True}, [f"missing privacy hardening evidence for {target_id}"]
 
-    facts = pdf_facts(local)
+    rel = final_item["public"]["pdf"]
+    facts = (precomputed_facts or {}).get(rel) or pdf_facts(local)
     actual = {
         "sha256": sha256_file(local),
         "size_bytes": local.stat().st_size,
