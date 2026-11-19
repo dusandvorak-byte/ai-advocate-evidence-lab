@@ -182,6 +182,14 @@ def cmd_pdf_shard(index, count):
                 "checks": checks,
             })
     rows.sort(key=lambda row: row["published_path"])
+    print(json.dumps({
+        "pdf_path_count": len(pdfs),
+        "unique_pdf_digest_count": len(groups),
+        "deduplicated_path_count": len(pdfs) - len(groups),
+        "shard": index,
+        "shard_unique_digest_count": len(shard_groups[index]),
+        "shard_weight_bytes": shard_weights[index],
+    }, ensure_ascii=False))
     write_fragment(f"pdf-shard-{index}-of-{count}", rows, failures)
 
 
@@ -273,7 +281,12 @@ def cmd_assemble(count):
         "privacy_hardening": hardening,
         "okte_originals": okte,
         "redacted_okte_analysis": redacted,
-        "execution": {"pdf_shard_count": count},
+        "execution": {
+            "pdf_shard_count": count,
+            "staged_pdf_path_count": len(all_web_pdfs),
+            "unique_pdf_digest_count": len({row["sha256"] for row in all_web_pdfs}),
+            "deduplicated_pdf_path_count": len(all_web_pdfs) - len({row["sha256"] for row in all_web_pdfs}),
+        },
         "summary": {
             "generated_derivative_count": len(generated),
             "registry_public_derivative_count": len(registry_derivatives),
