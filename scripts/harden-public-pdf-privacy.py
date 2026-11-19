@@ -263,31 +263,38 @@ def rect_overlaps(rect: fitz.Rect, used: list[fitz.Rect]) -> bool:
     return any((rect & existing).get_area() > 0.15 * min(rect.get_area(), existing.get_area()) for existing in used)
 
 
-def harden_pdf(path: Path, rules: list[dict], *, force_rewrite: bool = False) -> tuple[bytes | None, list[dict]]:
+def harden_pdf(
+    path: Path,
+    rules: list[dict],
+    *,
+    force_rewrite: bool = False,
+    search_private: bool = True,
+) -> tuple[bytes | None, list[dict]]:
     doc = fitz.open(path)
     matches: list[dict] = []
     changed = bool(force_rewrite)
 
-    for page_number, page in enumerate(doc):
-        used: list[fitz.Rect] = []
-        for rule in rules:
-            for variant in sorted(rule["variants"], key=len, reverse=True):
-                for rect in page.search_for(variant):
-                    if rect_overlaps(rect, used):
-                        continue
-                    page.add_redact_annot(
-                        rect,
-                        text=rule["replacement"],
-                        fontsize=6,
-                        fontname="helv",
-                        fill=(1, 1, 1),
-                        text_color=(0, 0, 0),
-                    )
-                    used.append(rect)
-                    matches.append({"page": page_number + 1, "rule": rule["id"]})
-                    changed = True
-        if used:
-            page.apply_redactions()
+    if search_private:
+        for page_number, page in enumerate(doc):
+            used: list[fitz.Rect] = []
+            for rule in rules:
+                for variant in sorted(rule["variants"], key=len, reverse=True):
+                    for rect in page.search_for(variant):
+                        if rect_overlaps(rect, used):
+                            continue
+                        page.add_redact_annot(
+                            rect,
+                            text=rule["replacement"],
+                            fontsize=6,
+                            fontname="helv",
+                            fill=(1, 1, 1),
+                            text_color=(0, 0, 0),
+                        )
+                        used.append(rect)
+                        matches.append({"page": page_number + 1, "rule": rule["id"]})
+                        changed = True
+            if used:
+                page.apply_redactions()
 
     metadata_present = any(value for value in (doc.metadata or {}).values())
     xml_metadata = doc.get_xml_metadata() or ""
@@ -420,7 +427,16 @@ def worker_candidate(rel: str, force_rewrite: bool) -> None:
     before_sha = sha256_file(path)
     before_fast = inspect_pdf_fast(path, matchers)
     before_pages = before_fast.get("page_count")
-    data, matches = harden_pdf(path, pdf_rules, force_rewrite=force_rewrite)
+    search_private = (
+        "private_match" in before_fast.get("reasons", [])
+        or "text_scan_failed" in before_fast.get("reasons", [])
+    )
+    data, matches = harden_pdf(
+        path,
+        pdf_rules,
+        force_rewrite=force_rewrite,
+        search_private=search_private,
+    )
     if data is not None:
         path.write_bytes(data)
     after_sha = sha256_file(path)
