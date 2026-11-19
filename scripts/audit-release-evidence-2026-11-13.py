@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import base64, gzip, hashlib, json, os, re, runpy, subprocess, sys, time
+import base64, copy, gzip, hashlib, json, os, re, runpy, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -217,7 +217,7 @@ def decoded_pdf_object_private_hits(doc) -> tuple[list[str], int]:
     return sorted(hits), inline_image_streams
 
 
-def pdf_facts(path: Path) -> dict:
+def _pdf_facts_uncached(path: Path) -> dict:
     header_offset = pdf_header_offset(path)
     raw = path.read_bytes()
     prefix_non_whitespace = False
@@ -385,6 +385,23 @@ def pdf_facts(path: Path) -> dict:
         "public_copy_notice_present": bool(re.search(r"(?i)(veřejn.{0,20}kopie|public pdf copy)", page_text)),
         "not_byte_identical_notice_present": bool(re.search(r"(?i)(nejde\s+o\s+byte[^\n]{0,20}identick|not\s+byte[^\n]{0,20}identical)", page_text)),
     }
+
+
+_PDF_FACTS_BY_SHA: dict[str, dict] = {}
+
+def pdf_facts(path: Path) -> dict:
+    """Return byte-derived PDF facts with process-local content-addressed memoization.
+
+    Publication trees intentionally contain compatibility copies of identical PDF
+    bytes. Expensive qpdf / PyMuPDF / pdftotext analysis is therefore performed
+    once per SHA-256 payload, while callers still receive independent result data.
+    """
+    digest = sha256_file(path)
+    cached = _PDF_FACTS_BY_SHA.get(digest)
+    if cached is None:
+        cached = _pdf_facts_uncached(path)
+        _PDF_FACTS_BY_SHA[digest] = cached
+    return copy.deepcopy(cached)
 
 def load_generator_records():
     records = []

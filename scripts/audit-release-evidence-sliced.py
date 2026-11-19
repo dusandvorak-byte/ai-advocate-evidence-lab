@@ -102,61 +102,94 @@ def cmd_pdf_shard(index, count):
             derivative_paths.add(rel)
 
     pdfs = audit.publication_pdf_paths(audit.PUBLICATION_ROOT)
-    selected = pdfs[index::count]
     rows = []
     failures = []
     if not pdfs:
         failures.append(f"no PDF-signature/suffix candidates found under publication root {audit.PUBLICATION_ROOT}")
 
-    for path in selected:
-        published_rel = path.relative_to(audit.PUBLICATION_ROOT).as_posix()
-        compatibility_copy = audit.PUBLICATION_ROOT != audit.WEB and published_rel.startswith("web/")
-        source_rel = published_rel[4:] if compatibility_copy else published_rel
-        facts = audit.pdf_facts(path)
-        refs = registry_by_path.get(source_rel, [])
-        is_derivative = source_rel in derivative_paths
-        file_sha = audit.sha256_file(path)
-        checks = {
-            "excluded_id69_digest_absent": file_sha != audit.EXCLUDED_ID69_SHA256,
-            "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
-            "pdf_eof_present": facts["pdf_eof_present"],
-            "pdf_revision_markers_bound": facts["pdf_revision_markers_bound"],
-            "pdf_single_revision_only": facts["pdf_single_revision_only"],
-            "qpdf_structurally_valid": facts["qpdf_structurally_valid"],
-            "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
-            "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
-            "inline_images_absent": facts.get("inline_image_stream_count", 0) == 0,
-            "forbidden_identifiers_absent": not facts["known_private_identifier_hits"],
-            "embedded_files_absent": facts["embedded_file_count"] == 0,
-            "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
-            "associated_files_absent": facts["associated_file_reference_count"] == 0,
-            "embedded_file_objects_absent": facts["embedded_file_object_count"] == 0,
-            "suspicious_info_metadata_absent": not facts["suspicious_metadata_keys"],
-            "xmp_private_or_suspicious_absent": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
-        }
-        if is_derivative:
-            checks["derivative_xmp_removed"] = not facts["xmp_present"]
-        if not all(checks.values()):
-            failures.append(f"final staged PDF privacy failure {published_rel}: {checks}")
-        rows.append({
-            "published_path": published_rel,
-            "source_web_path": source_rel,
-            "compatibility_copy": compatibility_copy,
-            "registered": bool(refs),
-            "registry_ids": [ref.get("id") for ref in refs if ref.get("id")],
-            "verification_statuses": [ref.get("verification_status") for ref in refs if ref.get("verification_status")],
-            "derivative": is_derivative,
-            "sha256": file_sha,
-            "page_count": facts["page_count"],
-            "metadata_keys_present": facts["metadata_keys_present"],
-            "xmp_present": facts["xmp_present"],
-            "embedded_file_count": facts["embedded_file_count"],
-            "file_attachment_annotation_count": facts["file_attachment_annotation_count"],
-            "associated_file_reference_count": facts["associated_file_reference_count"],
-            "embedded_file_object_count": facts["embedded_file_object_count"],
-            "machine_privacy_status": facts["machine_privacy_status"],
-            "checks": checks,
-        })
+    # Group byte-identical compatibility copies before sharding. The expensive
+    # qpdf / PyMuPDF / pdftotext pass is content-derived, so one representative
+    # can safely provide facts for every path with the same SHA-256.
+    groups = {}
+    for path in pdfs:
+        digest = audit.sha256_file(path)
+        groups.setdefault(digest, []).append(path)
+
+    # Deterministic longest-processing-time approximation: large unique payloads
+    # are assigned first to the currently lightest shard. This avoids the long
+    # tail caused by naive path-stride sharding while keeping output reproducible.
+    shard_groups = [[] for _ in range(count)]
+    shard_weights = [0 for _ in range(count)]
+    weighted_groups = []
+    for digest, paths in groups.items():
+        paths.sort(key=lambda p: p.as_posix().lower())
+        weighted_groups.append((paths[0].stat().st_size, digest, paths))
+    weighted_groups.sort(key=lambda item: (-item[0], item[1]))
+
+    for size_bytes, digest, paths in weighted_groups:
+        target = min(range(count), key=lambda shard: (shard_weights[shard], shard))
+        shard_groups[target].append((digest, paths))
+        shard_weights[target] += size_bytes
+
+    for file_sha, identical_paths in shard_groups[index]:
+        representative = identical_paths[0]
+        facts = audit.pdf_facts(representative)
+        for path in identical_paths:
+            published_rel = path.relative_to(audit.PUBLICATION_ROOT).as_posix()
+            compatibility_copy = audit.PUBLICATION_ROOT != audit.WEB and published_rel.startswith("web/")
+            source_rel = published_rel[4:] if compatibility_copy else published_rel
+            refs = registry_by_path.get(source_rel, [])
+            is_derivative = source_rel in derivative_paths
+            checks = {
+                "excluded_id69_digest_absent": file_sha != audit.EXCLUDED_ID69_SHA256,
+                "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
+                "pdf_eof_present": facts["pdf_eof_present"],
+                "pdf_revision_markers_bound": facts["pdf_revision_markers_bound"],
+                "pdf_single_revision_only": facts["pdf_single_revision_only"],
+                "qpdf_structurally_valid": facts["qpdf_structurally_valid"],
+                "pdf_trailing_payload_absent": not facts["non_whitespace_suffix_after_pdf_eof"],
+                "machine_privacy_not_failed": facts["machine_privacy_status"] != "FAIL_PRIVATE_OR_METADATA_CHANNEL",
+                "inline_images_absent": facts.get("inline_image_stream_count", 0) == 0,
+                "forbidden_identifiers_absent": not facts["known_private_identifier_hits"],
+                "embedded_files_absent": facts["embedded_file_count"] == 0,
+                "file_attachment_annotations_absent": facts["file_attachment_annotation_count"] == 0,
+                "associated_files_absent": facts["associated_file_reference_count"] == 0,
+                "embedded_file_objects_absent": facts["embedded_file_object_count"] == 0,
+                "suspicious_info_metadata_absent": not facts["suspicious_metadata_keys"],
+                "xmp_private_or_suspicious_absent": not facts["xmp_known_private_identifier_hits"] and not facts["xmp_suspicious"],
+            }
+            if is_derivative:
+                checks["derivative_xmp_removed"] = not facts["xmp_present"]
+            if not all(checks.values()):
+                failures.append(f"final staged PDF privacy failure {published_rel}: {checks}")
+            rows.append({
+                "published_path": published_rel,
+                "source_web_path": source_rel,
+                "compatibility_copy": compatibility_copy,
+                "registered": bool(refs),
+                "registry_ids": [ref.get("id") for ref in refs if ref.get("id")],
+                "verification_statuses": [ref.get("verification_status") for ref in refs if ref.get("verification_status")],
+                "derivative": is_derivative,
+                "sha256": file_sha,
+                "page_count": facts["page_count"],
+                "metadata_keys_present": facts["metadata_keys_present"],
+                "xmp_present": facts["xmp_present"],
+                "embedded_file_count": facts["embedded_file_count"],
+                "file_attachment_annotation_count": facts["file_attachment_annotation_count"],
+                "associated_file_reference_count": facts["associated_file_reference_count"],
+                "embedded_file_object_count": facts["embedded_file_object_count"],
+                "machine_privacy_status": facts["machine_privacy_status"],
+                "checks": checks,
+            })
+    rows.sort(key=lambda row: row["published_path"])
+    print(json.dumps({
+        "pdf_path_count": len(pdfs),
+        "unique_pdf_digest_count": len(groups),
+        "deduplicated_path_count": len(pdfs) - len(groups),
+        "shard": index,
+        "shard_unique_digest_count": len(shard_groups[index]),
+        "shard_weight_bytes": shard_weights[index],
+    }, ensure_ascii=False))
     write_fragment(f"pdf-shard-{index}-of-{count}", rows, failures)
 
 
@@ -248,7 +281,12 @@ def cmd_assemble(count):
         "privacy_hardening": hardening,
         "okte_originals": okte,
         "redacted_okte_analysis": redacted,
-        "execution": {"pdf_shard_count": count},
+        "execution": {
+            "pdf_shard_count": count,
+            "staged_pdf_path_count": len(all_web_pdfs),
+            "unique_pdf_digest_count": len({row["sha256"] for row in all_web_pdfs}),
+            "deduplicated_pdf_path_count": len(all_web_pdfs) - len({row["sha256"] for row in all_web_pdfs}),
+        },
         "summary": {
             "generated_derivative_count": len(generated),
             "registry_public_derivative_count": len(registry_derivatives),

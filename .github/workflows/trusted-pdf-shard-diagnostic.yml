@@ -127,7 +127,11 @@ jobs:
   other_slices:
     needs: prepare
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        fragment: [generated, registry, okte, redacted]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -156,15 +160,11 @@ jobs:
         with:
           name: trusted-public-tree-${{ github.sha }}
           path: .
-      - name: Run non-PDF slices
-        run: |
-          python3 scripts/audit-release-evidence-sliced.py generated
-          python3 scripts/audit-release-evidence-sliced.py registry
-          python3 scripts/audit-release-evidence-sliced.py okte
-          python3 scripts/audit-release-evidence-sliced.py redacted
+      - name: Audit non-PDF fragment ${{ matrix.fragment }}
+        run: python3 scripts/audit-release-evidence-sliced.py ${{ matrix.fragment }}
       - uses: actions/upload-artifact@v4
         with:
-          name: other-release-slices-${{ github.sha }}
+          name: other-release-slice-${{ matrix.fragment }}-${{ github.sha }}
           path: review-artifacts/release-audit-fragments
           if-no-files-found: error
           retention-days: 3
@@ -195,8 +195,9 @@ jobs:
           merge-multiple: true
       - uses: actions/download-artifact@v4
         with:
-          name: other-release-slices-${{ github.sha }}
+          pattern: other-release-slice-*-${{ github.sha }}
           path: review-artifacts/release-audit-fragments
+          merge-multiple: true
       - name: Verify all fragments are present and assemble
         run: |
           set -euo pipefail
