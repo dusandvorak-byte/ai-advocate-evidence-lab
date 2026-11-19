@@ -867,7 +867,7 @@ def audit_id68_fidelity(staged_rows: list[dict]):
     }, failures
 
 
-def audit_okte():
+def audit_okte(precomputed_facts=None):
     annex_path = ROOT / "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
     parent_path = ROOT / "project-memory/documents-2026-supplement-2026-11-02-late-october.json"
     transcript_path = ROOT / "project-memory/source-transcripts/2026-11-02-krpm-pages.json"
@@ -897,7 +897,7 @@ def audit_okte():
             failures.append(f"missing local OKTE original {rel}")
             continue
         local_sha = sha256_file(local)
-        facts = pdf_facts(local)
+        facts = (precomputed_facts or {}).get(rel) or pdf_facts(local)
         expected = pub["sha256"]
         source_expected = pub["source_original_sha256"]
         live = fetch_live(rel)
@@ -924,7 +924,7 @@ def audit_okte():
         })
     return {"parent_evidence_support": support, "annexes": rows}, failures
 
-def audit_redacted_analysis():
+def audit_redacted_analysis(precomputed_facts=None):
     release_path = ROOT / "project-memory/evidence-release-2026-11-04.json"
     source_registry_path = ROOT / "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json"
     final_registry_path = ROOT / "project-memory/documents-2026.json"
@@ -948,7 +948,8 @@ def audit_redacted_analysis():
     if not hardening_row:
         return {"id": target_id, "hardening_missing": True}, [f"missing privacy hardening evidence for {target_id}"]
 
-    facts = pdf_facts(local)
+    rel = final_item["public"]["pdf"]
+    facts = (precomputed_facts or {}).get(rel) or pdf_facts(local)
     actual = {
         "sha256": sha256_file(local),
         "size_bytes": local.stat().st_size,
