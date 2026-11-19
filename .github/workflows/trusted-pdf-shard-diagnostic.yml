@@ -214,7 +214,7 @@ jobs:
 
   assemble:
     needs: [prepare, slices, other_slices]
-    if: always() && needs.prepare.result == 'success'
+    if: needs.prepare.result == 'success' && needs.slices.result == 'success' && needs.other_slices.result == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
