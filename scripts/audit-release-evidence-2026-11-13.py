@@ -227,6 +227,7 @@ def decoded_pdf_object_private_hits(path: Path, prepared_matchers) -> tuple[list
             [
                 "qpdf",
                 "--qdf",
+                "--preserve-unreferenced",
                 "--object-streams=disable",
                 "--stream-data=uncompress",
                 str(path),
