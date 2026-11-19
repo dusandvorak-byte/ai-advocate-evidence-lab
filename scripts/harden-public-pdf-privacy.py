@@ -180,7 +180,7 @@ def rect_overlaps(rect: fitz.Rect, used: list[fitz.Rect]) -> bool:
     return any((rect & existing).get_area() > 0.15 * min(rect.get_area(), existing.get_area()) for existing in used)
 
 
-def harden_pdf(path: Path, rules: list[dict], *, force_rewrite: bool) -> tuple[bytes | None, list[dict]]:
+def harden_pdf(path: Path, rules: list[dict], *, force_rewrite: bool = False) -> tuple[bytes | None, list[dict]]:
     doc = fitz.open(path)
     matches: list[dict] = []
     changed = bool(force_rewrite)
