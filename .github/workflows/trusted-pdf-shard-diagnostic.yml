@@ -74,6 +74,7 @@ jobs:
           name: trusted-public-tree-${{ github.sha }}
           path: |
             web
+            project-memory/documents-2026.json
             project-memory/privacy-hardening-report.json
           if-no-files-found: error
           retention-days: 3
