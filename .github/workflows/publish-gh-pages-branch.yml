@@ -133,7 +133,7 @@ jobs:
 
           report="$(find /tmp/evidence-audit/report -type f -name release-evidence-audit.json -print -quit)"
           test -n "$report"
-          python3 - "$report" "$GITHUB_SHA" <<'PY'
+          python3 - "$report" "$AUDIT_TARGET_SHA" <<'PY'
           import json, sys
           from pathlib import Path
           report = json.loads(Path(sys.argv[1]).read_text("utf-8"))
