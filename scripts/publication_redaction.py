@@ -5,7 +5,6 @@ import hmac
 import json
 import os
 import re
-from functools import lru_cache
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,7 +15,6 @@ class RedactionPolicyError(RuntimeError):
     pass
 
 
-@lru_cache(maxsize=1)
 def _load_contract() -> dict:
     data = json.loads(CONTRACT_PATH.read_text("utf-8"))
     if data.get("status") != "binding":
@@ -88,7 +86,6 @@ def _verify_private_policy_authentication(contract: dict, data: dict) -> str:
     return actual
 
 
-@lru_cache(maxsize=1)
 def authenticated_private_policy_document() -> tuple[dict, dict, str]:
     contract = _load_contract()
     path = _private_policy_path(contract)
@@ -103,7 +100,6 @@ def authenticated_private_policy_document() -> tuple[dict, dict, str]:
     return contract, data, authenticated_identity
 
 
-@lru_cache(maxsize=1)
 def load_private_policy() -> tuple[dict, list[tuple[str, re.Pattern[str], str]], list[re.Pattern[str]], str]:
     contract, data, authenticated_identity = authenticated_private_policy_document()
 
@@ -242,8 +238,13 @@ def _pdf_decoded_string_payloads(raw: bytes) -> list[bytes]:
     return payloads
 
 
-@lru_cache(maxsize=1)
-def _raw_private_matchers() -> tuple[tuple[str, re.Pattern[str]], ...]:
+def prepared_private_byte_matchers() -> tuple[tuple[str, re.Pattern[str]], ...]:
+    """Authenticate the current private policy and compile opaque byte-scan matchers.
+
+    Callers performing many scans over one immutable PDF may prepare once and
+    reuse the returned tuple. Calls without an explicit prepared tuple still
+    authenticate the current policy, preserving policy/env change detection.
+    """
     _, data, _ = authenticated_private_policy_document()
     items = list(data.get("rules") or []) + list(data.get("forbidden") or [])
     compiled = []
@@ -263,7 +264,10 @@ def _raw_private_matchers() -> tuple[tuple[str, re.Pattern[str]], ...]:
     return tuple(compiled)
 
 
-def forbidden_public_identifier_byte_hits(raw: bytes) -> list[str]:
+def forbidden_public_identifier_byte_hits(
+    raw: bytes,
+    prepared_matchers: tuple[tuple[str, re.Pattern[str]], ...] | None = None,
+) -> list[str]:
     hits = []
     seen = set()
 
@@ -276,7 +280,8 @@ def forbidden_public_identifier_byte_hits(raw: bytes) -> list[str]:
             except LookupError:
                 pass
 
-    for opaque, pattern in _raw_private_matchers():
+    matchers = prepared_matchers if prepared_matchers is not None else prepared_private_byte_matchers()
+    for opaque, pattern in matchers:
         if any(pattern.search(text) for text in decoded_variants) and opaque not in seen:
             seen.add(opaque)
             hits.append(opaque)
