@@ -195,6 +195,7 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
         "reasons": reasons,
         "visible_private_hits": visible_hits,
         "text_scan_ok": text_scan_ok,
+        "xmp_present": bool(xmp),
         **envelope,
     }
 
@@ -311,14 +312,6 @@ def harden_pdf(path: Path, rules: list[dict], *, force_rewrite: bool = False) ->
     return data, matches
 
 
-def forbidden_hits(path: Path) -> list[str]:
-    doc = fitz.open(path)
-    try:
-        text = "\n".join(page.get_text("text") for page in doc)
-    finally:
-        doc.close()
-    return forbidden_public_identifiers(text)
-
 
 def main() -> None:
     registry = json.loads(REGISTRY.read_text("utf-8"))
@@ -370,8 +363,11 @@ def main() -> None:
     for rel in rel_paths:
         items = by_path.get(rel, [])
         inspection = inspections[rel]
-        force_policy_copy = any(derivative_doc(item) for item in items)
-        if inspection["reasons"] or force_policy_copy:
+        derivative_xmp_cleanup = (
+            any(derivative_doc(item) for item in items)
+            and bool(inspection.get("xmp_present"))
+        )
+        if inspection["reasons"] or derivative_xmp_cleanup:
             candidates.append((rel, bool(inspection["reasons"])))
 
     def process_candidate(rel: str, force_rewrite: bool) -> dict:
