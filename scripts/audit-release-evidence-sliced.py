@@ -4,6 +4,7 @@ import json
 import os
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -131,9 +132,12 @@ def cmd_pdf_shard(index, count):
         shard_groups[target].append((digest, paths))
         shard_weights[target] += size_bytes
 
-    for file_sha, identical_paths in shard_groups[index]:
+    def inspect_group(group):
+        file_sha, identical_paths = group
         representative = identical_paths[0]
         facts = audit.pdf_facts(representative)
+        local_rows = []
+        local_failures = []
         for path in identical_paths:
             published_rel = path.relative_to(audit.PUBLICATION_ROOT).as_posix()
             compatibility_copy = audit.PUBLICATION_ROOT != audit.WEB and published_rel.startswith("web/")
@@ -161,8 +165,8 @@ def cmd_pdf_shard(index, count):
             if is_derivative:
                 checks["derivative_xmp_removed"] = not facts["xmp_present"]
             if not all(checks.values()):
-                failures.append(f"final staged PDF privacy failure {published_rel}: {checks}")
-            rows.append({
+                local_failures.append(f"final staged PDF privacy failure {published_rel}: {checks}")
+            local_rows.append({
                 "published_path": published_rel,
                 "source_web_path": source_rel,
                 "compatibility_copy": compatibility_copy,
@@ -186,7 +190,18 @@ def cmd_pdf_shard(index, count):
                 "content_privacy_signals": facts["content_privacy_signals"],
                 "checks": checks,
             })
+        return local_rows, local_failures
+
+    selected_groups = shard_groups[index]
+    workers = max(1, min(int(os.environ.get("EVIDENCE_LAB_PDF_SHARD_WORKERS", "2")), len(selected_groups) or 1))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = [pool.submit(inspect_group, group) for group in selected_groups]
+        for future in as_completed(futures):
+            local_rows, local_failures = future.result()
+            rows.extend(local_rows)
+            failures.extend(local_failures)
     rows.sort(key=lambda row: row["published_path"])
+    failures.sort()
     print(json.dumps({
         "pdf_path_count": len(pdfs),
         "unique_pdf_digest_count": len(groups),
@@ -194,6 +209,7 @@ def cmd_pdf_shard(index, count):
         "shard": index,
         "shard_unique_digest_count": len(shard_groups[index]),
         "shard_weight_bytes": shard_weights[index],
+        "parallel_workers": workers,
     }, ensure_ascii=False))
     write_fragment(f"pdf-shard-{index}-of-{count}", rows, failures)
 
