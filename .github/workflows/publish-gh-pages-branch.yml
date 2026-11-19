@@ -38,6 +38,7 @@ jobs:
           auth_file=".release/evidence-lab-publication-authorization.json"
           mode="preflight"
           authorized_target=""
+          audit_target="$GITHUB_SHA"
 
           if [[ "$PREVIOUS_SHA" =~ ^[0-9a-f]{40}$ ]] && [[ "$PREVIOUS_SHA" != "0000000000000000000000000000000000000000" ]]; then
             mapfile -t changed < <(git diff --name-only "$PREVIOUS_SHA" "$GITHUB_SHA")
@@ -66,12 +67,15 @@ jobs:
               test "$parent" = "$PREVIOUS_SHA"
               mode="publish"
               authorized_target="$PREVIOUS_SHA"
+              audit_target="$PREVIOUS_SHA"
             fi
           fi
 
           echo "RELEASE_MODE=$mode" >> "$GITHUB_ENV"
           echo "AUTHORIZED_TARGET_SHA=$authorized_target" >> "$GITHUB_ENV"
+          echo "AUDIT_TARGET_SHA=$audit_target" >> "$GITHUB_ENV"
           echo "Release mode: $mode"
+          echo "Authoritative audit target SHA: $audit_target"
           if [ "$mode" = "publish" ]; then
             echo "Authorized target SHA: $authorized_target"
           else
@@ -90,7 +94,7 @@ jobs:
           while [ "$SECONDS" -lt "$deadline" ]; do
             candidate="$(gh run list \
               --workflow trusted-pdf-shard-diagnostic.yml \
-              --commit "$GITHUB_SHA" \
+              --commit "$AUDIT_TARGET_SHA" \
               --limit 20 \
               --json databaseId,status,conclusion,headSha,createdAt \
               --jq 'sort_by(.createdAt) | last // empty' || true)"
@@ -121,15 +125,15 @@ jobs:
           rm -rf /tmp/evidence-audit /tmp/verified-site
           mkdir -p /tmp/evidence-audit/tree /tmp/evidence-audit/report /tmp/verified-site
           gh run download "$DIAGNOSTIC_RUN_ID" \
-            -n "trusted-public-tree-$GITHUB_SHA" \
+            -n "trusted-public-tree-$AUDIT_TARGET_SHA" \
             -D /tmp/evidence-audit/tree
           gh run download "$DIAGNOSTIC_RUN_ID" \
-            -n "evidence-lab-pdf-shard-diagnostic-$GITHUB_SHA" \
+            -n "evidence-lab-pdf-shard-diagnostic-$AUDIT_TARGET_SHA" \
             -D /tmp/evidence-audit/report
 
           report="$(find /tmp/evidence-audit/report -type f -name release-evidence-audit.json -print -quit)"
           test -n "$report"
-          python3 - "$report" "$GITHUB_SHA" <<'PY'
+          python3 - "$report" "$AUDIT_TARGET_SHA" <<'PY'
           import json, sys
           from pathlib import Path
           report = json.loads(Path(sys.argv[1]).read_text("utf-8"))
@@ -149,8 +153,8 @@ jobs:
 
           test -d /tmp/evidence-audit/tree/release-site
           cp -a /tmp/evidence-audit/tree/release-site/. /tmp/verified-site/
-          test "$(cat /tmp/verified-site/.source-commit)" = "$GITHUB_SHA"
-          test "$(cat /tmp/verified-site/web/.source-commit)" = "$GITHUB_SHA"
+          test "$(cat /tmp/verified-site/.source-commit)" = "$AUDIT_TARGET_SHA"
+          test "$(cat /tmp/verified-site/web/.source-commit)" = "$AUDIT_TARGET_SHA"
 
       - name: Potvrdit preflight-only režim bez publikace
         if: env.RELEASE_MODE != 'publish'
@@ -235,7 +239,7 @@ jobs:
           print(f"Git index identity verified for {len(expected)} audited staged files.")
           PY
 
-          git commit -m "Publish verified Evidence Lab 2.0 from $GITHUB_SHA"
+          git commit -m "Publish verified Evidence Lab 2.0 from $AUDIT_TARGET_SHA"
           git push --force origin HEAD:gh-pages
 
       - name: Ověřit živou produkci po publikaci
@@ -578,7 +582,7 @@ jobs:
           # Fail closed on persistent mismatch; never weaken the expected SHA-256.
           test -s /tmp/evidence-verify-live-pdf.mjs
           test "$(sha256sum /tmp/evidence-verify-live-pdf.mjs | awk '{print $1}')" = "$(cat /tmp/evidence-verify-live-pdf.sha256)"
-          node /tmp/evidence-verify-live-pdf.mjs "$base/$pdf_rel" "$pdf_local" "$GITHUB_SHA" "" /tmp/live-police-1015.pdf
+          node /tmp/evidence-verify-live-pdf.mjs "$base/$pdf_rel" "$pdf_local" "$AUDIT_TARGET_SHA" "" /tmp/live-police-1015.pdf
           fetch_pdf_until_sha "documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-redigovany-original.pdf" "web/documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-redigovany-original.pdf" /tmp/live-omb-supp-1015.pdf
           fetch_pdf_until_sha "documents/report-04082026-010/119-euda-access-followup-2026-10-15-verejna-kopie.pdf" "web/documents/report-04082026-010/119-euda-access-followup-2026-10-15-verejna-kopie.pdf" /tmp/live-euda-1015.pdf
           # Ten original historical OKTE expert reports attached to the single
