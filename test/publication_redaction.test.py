@@ -216,6 +216,37 @@ private.person@example.invalid
         self.assertNotEqual(hashlib.sha256(before_render).hexdigest(), hashlib.sha256(after_render).hexdigest())
         self.assertEqual(redaction.forbidden_public_identifiers(after_text), [])
 
+    def test_candidate_strategy_routes_structural_rewrite_away_from_pymupdf(self):
+        ns = runpy.run_path(
+            str(ROOT / "scripts/harden-public-pdf-privacy.py"),
+            run_name="privacy_hardening_strategy_test",
+        )
+        strategy = ns["candidate_strategy"]
+
+        self.assertEqual(
+            strategy({"reasons": ["revision_envelope"], "xmp_present": False}, True),
+            "qpdf_rewrite",
+        )
+        self.assertEqual(
+            strategy({"reasons": ["text_scan_failed"], "xmp_present": False}, True),
+            "qpdf_rewrite",
+        )
+        self.assertEqual(
+            strategy(
+                {"reasons": ["revision_envelope", "private_match"], "xmp_present": False},
+                True,
+            ),
+            "redact",
+        )
+        self.assertEqual(
+            strategy({"reasons": ["suspicious_metadata"], "xmp_present": False}, True),
+            "pymupdf_metadata",
+        )
+        self.assertEqual(
+            strategy({"reasons": [], "xmp_present": True}, False),
+            "pymupdf_metadata",
+        )
+
     def test_metadata_is_sanitized_even_without_text_match(self):
         self.write_policy_and_contract()
         ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"), run_name="privacy_hardening_metadata_test")
