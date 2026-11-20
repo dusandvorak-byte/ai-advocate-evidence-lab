@@ -263,6 +263,60 @@ def rect_overlaps(rect: fitz.Rect, used: list[fitz.Rect]) -> bool:
     return any((rect & existing).get_area() > 0.15 * min(rect.get_area(), existing.get_area()) for existing in used)
 
 
+def candidate_strategy(before_fast: dict, force_rewrite: bool) -> str:
+    reasons = set(before_fast.get("reasons") or [])
+    if "private_match" in reasons:
+        return "redact"
+    if "suspicious_metadata" in reasons or before_fast.get("xmp_present"):
+        return "pymupdf_metadata"
+    qpdf_only_reasons = {"revision_envelope", "text_scan_failed"}
+    if force_rewrite and reasons and reasons.issubset(qpdf_only_reasons):
+        return "qpdf_rewrite"
+    if force_rewrite:
+        return "pymupdf_rewrite"
+    return "verify_only"
+
+
+def canonicalize_pdf_qpdf(path: Path) -> bytes:
+    out = path.with_name(path.name + ".qpdf.tmp.pdf")
+    try:
+        proc = subprocess.run(
+            [
+                "qpdf",
+                "--deterministic-id",
+                "--object-streams=generate",
+                "--stream-data=compress",
+                "--recompress-flate",
+                str(path),
+                str(out),
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            timeout=60,
+        )
+        if proc.returncode != 0:
+            raise RuntimeError(
+                "qpdf canonical rewrite failed: "
+                + proc.stdout.decode("utf-8", errors="replace")[-2000:]
+            )
+        return out.read_bytes()
+    finally:
+        out.unlink(missing_ok=True)
+
+
+def forbidden_hits_worker(rel: str) -> None:
+    path = WEB / rel
+    print(json.dumps({"visible_hits": forbidden_hits(path)}, ensure_ascii=False))
+
+
+def forbidden_hits_isolated(path: Path) -> tuple[list[str], bool]:
+    rel = path.relative_to(WEB).as_posix()
+    result = run_isolated_worker("--worker-visible", rel, timeout=45)
+    if result.get("error"):
+        return ["__visible_text_scan_failed__"], False
+    return result.get("visible_hits") or [], True
+
+
 def harden_pdf(
     path: Path,
     rules: list[dict],
@@ -385,6 +439,7 @@ def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) 
         json.dumps({
             "page_count": inspection.get("page_count"),
             "reasons": inspection.get("reasons") or [],
+            "xmp_present": bool(inspection.get("xmp_present")),
         }, ensure_ascii=False),
     ]
     try:
@@ -393,13 +448,13 @@ def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) 
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-            timeout=240,
+            timeout=300,
         )
     except subprocess.TimeoutExpired:
         result = {
             "rel": rel,
             "worker_timeout": True,
-            "error": "--worker-candidate timed out after 240s",
+            "error": "--worker-candidate timed out after 300s",
         }
     else:
         if proc.returncode != 0:
@@ -466,29 +521,38 @@ def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
     matchers = prepared_private_byte_matchers()
     before_sha = sha256_file(path)
     before_pages = before_fast.get("page_count")
-    # A failed pdftotext pass is not proof of a private identifier.
-    # Do not trigger the expensive page-by-page PyMuPDF redaction search merely
-    # because the fast text extractor failed. We still fail closed below via
-    # the post-rewrite PyMuPDF visible-text scan plus qpdf decoded-stream scan.
-    search_private = "private_match" in before_fast.get("reasons", [])
-    data, matches = harden_pdf(
-        path,
-        pdf_rules,
-        force_rewrite=force_rewrite,
-        search_private=search_private,
-    )
+    strategy = candidate_strategy(before_fast, force_rewrite)
+    matches = []
+    if strategy == "qpdf_rewrite":
+        data = canonicalize_pdf_qpdf(path)
+    elif strategy == "verify_only":
+        data = None
+    else:
+        data, matches = harden_pdf(
+            path,
+            pdf_rules,
+            force_rewrite=force_rewrite,
+            search_private=(strategy == "redact"),
+        )
     if data is not None:
         path.write_bytes(data)
+
     after_sha = sha256_file(path)
     post = inspect_pdf_deep(path, matchers)
     after_pages = post.get("page_count")
-    visible_hits = forbidden_hits(path)
+    if post.get("text_scan_ok"):
+        visible_hits = post.get("visible_private_hits") or []
+        visible_scan_ok = True
+    else:
+        visible_hits, visible_scan_ok = forbidden_hits_isolated(path)
     local_failures = []
     if before_pages != after_pages:
         local_failures.append(
             f"page-count changed during privacy hardening: {rel} {before_pages}->{after_pages}"
         )
-    if visible_hits:
+    if not visible_scan_ok:
+        local_failures.append(f"visible privacy scan failed after hardening: {rel}")
+    elif visible_hits:
         local_failures.append(
             f"known private identifier remains after privacy hardening: {rel}: {visible_hits}"
         )
@@ -502,6 +566,7 @@ def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
         local_failures.append(f"PDF revision envelope remains noncanonical after hardening: {rel}")
     candidate = {
         "rel": rel,
+        "strategy": strategy,
         "before_sha": before_sha,
         "before_pages": before_pages,
         "after_sha": after_sha,
@@ -728,6 +793,8 @@ def main() -> None:
 if __name__ == "__main__":
     if len(sys.argv) >= 3 and sys.argv[1] == "--worker-inspect":
         worker_inspect(sys.argv[2])
+    elif len(sys.argv) >= 3 and sys.argv[1] == "--worker-visible":
+        forbidden_hits_worker(sys.argv[2])
     elif len(sys.argv) >= 5 and sys.argv[1] == "--worker-candidate":
         worker_candidate(sys.argv[2], sys.argv[3] == "1", json.loads(sys.argv[4]))
     else:
