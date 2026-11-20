@@ -375,13 +375,53 @@ def inspect_pdf_isolated(path: Path) -> dict:
     return result["inspection"]
 
 
-def process_candidate_isolated(rel: str, force_rewrite: bool) -> dict:
-    result = run_isolated_worker(
+def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) -> dict:
+    args = [
+        sys.executable,
+        str(Path(__file__).resolve()),
         "--worker-candidate",
         rel,
-        force_rewrite=force_rewrite,
-        timeout=180,
-    )
+        "1" if force_rewrite else "0",
+        json.dumps({
+            "page_count": inspection.get("page_count"),
+            "reasons": inspection.get("reasons") or [],
+        }, ensure_ascii=False),
+    ]
+    try:
+        proc = subprocess.run(
+            args,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=240,
+        )
+    except subprocess.TimeoutExpired:
+        result = {
+            "rel": rel,
+            "worker_timeout": True,
+            "error": "--worker-candidate timed out after 240s",
+        }
+    else:
+        if proc.returncode != 0:
+            result = {
+                "rel": rel,
+                "worker_timeout": False,
+                "error": (proc.stderr or proc.stdout or f"--worker-candidate failed with {proc.returncode}")[-4000:],
+            }
+        else:
+            lines = [line for line in proc.stdout.splitlines() if line.strip()]
+            try:
+                result = json.loads(lines[-1]) if lines else {
+                    "rel": rel,
+                    "worker_timeout": False,
+                    "error": "--worker-candidate returned no JSON",
+                }
+            except json.JSONDecodeError:
+                result = {
+                    "rel": rel,
+                    "worker_timeout": False,
+                    "error": f"--worker-candidate returned invalid JSON: {lines[-1][-1000:] if lines else ''}",
+                }
     if result.get("error"):
         path = WEB / rel
         return {
@@ -420,12 +460,11 @@ def worker_inspect(rel: str) -> None:
     print(json.dumps({"inspection": result}, ensure_ascii=False))
 
 
-def worker_candidate(rel: str, force_rewrite: bool) -> None:
+def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
     path = WEB / rel
     pdf_rules, _ = private_pdf_rules()
     matchers = prepared_private_byte_matchers()
     before_sha = sha256_file(path)
-    before_fast = inspect_pdf_fast(path, matchers)
     before_pages = before_fast.get("page_count")
     # A failed pdftotext pass is not proof of a private identifier.
     # Do not trigger the expensive page-by-page PyMuPDF redaction search merely
@@ -586,7 +625,7 @@ def main() -> None:
     harden_workers = min(8, max(1, len(candidates)))
     with ThreadPoolExecutor(max_workers=harden_workers) as executor:
         future_map = {
-            executor.submit(process_candidate_isolated, rel, force_rewrite): rel
+            executor.submit(process_candidate_isolated, rel, force_rewrite, inspections[rel]): rel
             for rel, force_rewrite in candidates
         }
         for future in as_completed(future_map):
@@ -689,7 +728,7 @@ def main() -> None:
 if __name__ == "__main__":
     if len(sys.argv) >= 3 and sys.argv[1] == "--worker-inspect":
         worker_inspect(sys.argv[2])
-    elif len(sys.argv) >= 4 and sys.argv[1] == "--worker-candidate":
-        worker_candidate(sys.argv[2], sys.argv[3] == "1")
+    elif len(sys.argv) >= 5 and sys.argv[1] == "--worker-candidate":
+        worker_candidate(sys.argv[2], sys.argv[3] == "1", json.loads(sys.argv[4]))
     else:
         main()
