@@ -427,10 +427,11 @@ def worker_candidate(rel: str, force_rewrite: bool) -> None:
     before_sha = sha256_file(path)
     before_fast = inspect_pdf_fast(path, matchers)
     before_pages = before_fast.get("page_count")
-    search_private = (
-        "private_match" in before_fast.get("reasons", [])
-        or "text_scan_failed" in before_fast.get("reasons", [])
-    )
+    # A failed pdftotext pass is not proof of a private identifier.
+    # Do not trigger the expensive page-by-page PyMuPDF redaction search merely
+    # because the fast text extractor failed. We still fail closed below via
+    # the post-rewrite PyMuPDF visible-text scan plus qpdf decoded-stream scan.
+    search_private = "private_match" in before_fast.get("reasons", [])
     data, matches = harden_pdf(
         path,
         pdf_rules,
