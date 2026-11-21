@@ -44,7 +44,7 @@ jobs:
                   raise SystemExit(f'incomplete dependency replacement in {source}')
           PY
           git diff --check
-          test "$(git status --short | awk '{print $2}' | sort)" = "$(printf '%s\n' .github/staged/trusted-pdf-shard-diagnostic.yml .github/staged/validate-evidence-lab-2.yml | sort)"
+          test "$(git status --short --untracked-files=all | awk '{print $2}' | sort)" = "$(printf '%s\n' .github/staged/trusted-pdf-shard-diagnostic.yml .github/staged/validate-evidence-lab-2.yml | sort)"
       - name: Commit staged workflow blobs only
         shell: bash
         run: |
