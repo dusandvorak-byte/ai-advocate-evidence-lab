@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import runpy
 import sys
 import tempfile
@@ -21,6 +22,7 @@ from publication_redaction import (  # noqa: E402
 
 HARDENER = SCRIPTS / "harden-public-pdf-privacy.py"
 OUT = ROOT / "review-artifacts/production-text-fallback-all17.json"
+CANDIDATE_SHA = "3161ab66ce6a1dae2eabad6ce584c650b51fa9a9"
 
 TARGETS = [
     "documents/justice-slalom/2026-07/06-podani-2026-07-10.pdf",
@@ -45,6 +47,47 @@ TARGETS = [
 
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def classify_error(exc: Exception) -> dict:
+    message = str(exc)
+    safe: dict = {"error_type": type(exc).__name__, "error_code": "fallback_other"}
+    prefix_map = (
+        ("independent extractors did not both return nonempty page text:", "one_sided_extraction"),
+        ("Poppler extraction failed or exceeded its resource limit", "poppler_failure_or_resource_limit"),
+        ("Poppler extraction timed out", "poppler_timeout"),
+        ("Poppler extraction byte limit exceeded", "poppler_output_limit"),
+        ("Poppler extraction did not produce valid UTF-8", "poppler_invalid_utf8"),
+        ("MuPDF extraction byte limit exceeded", "mupdf_output_limit"),
+        ("source PDF page-count limit exceeded", "source_page_limit"),
+        ("source PDF has no pages", "source_no_pages"),
+        ("source PDF cannot be opened:", "source_open_failure"),
+        ("generated public copy cannot be opened:", "generated_open_failure"),
+        ("rendered public text copy lost or altered page text at page", "rendered_text_loss"),
+        ("public text copy rendering is not deterministic", "nondeterministic_render"),
+        ("page count changed during public text fallback:", "output_page_count_mismatch"),
+        ("authenticated redaction left a forbidden identifier on pages:", "redaction_failure"),
+    )
+    for prefix, code in prefix_map:
+        if message.startswith(prefix):
+            safe["error_code"] = code
+            break
+
+    pages_match = re.search(r"(?:text:|pages:)\s*([0-9]+(?:,[0-9]+)*)$", message)
+    if pages_match:
+        safe["affected_page_count"] = len(pages_match.group(1).split(","))
+
+    mismatch = re.fullmatch(
+        r"Poppler extraction page count mismatch: expected ([0-9]+), got ([0-9]+)",
+        message,
+    )
+    if mismatch:
+        safe.update({
+            "error_code": "poppler_page_count_mismatch",
+            "expected_page_count": int(mismatch.group(1)),
+            "observed_page_count": int(mismatch.group(2)),
+        })
+    return safe
 
 
 def main() -> int:
@@ -81,6 +124,7 @@ def main() -> int:
                     "public_char_count": facts.get("public_char_count"),
                     "nonempty_page_count": facts.get("nonempty_page_count"),
                     "poppler_ok": bool(facts.get("poppler_ok")),
+                    "dual_extraction_page_count": facts.get("dual_extraction_page_count"),
                     "post_reasons": post.get("reasons") or [],
                     "visible_hit_ids": sorted(set(post.get("visible_private_hits") or [])),
                     "decoded_hit_ids": sorted(set(post.get("decoded_private_hits") or [])),
@@ -90,7 +134,7 @@ def main() -> int:
                     "pdf_single_revision_only": bool(post.get("pdf_single_revision_only")),
                 })
         except Exception as exc:
-            row.update({"status": "error", "error_type": type(exc).__name__})
+            row.update({"status": "error", **classify_error(exc)})
         rows.append(row)
 
     def clean(row: dict) -> bool:
@@ -117,11 +161,12 @@ def main() -> int:
         "error_count": sum(1 for row in rows if row.get("status") == "error"),
     }
     payload = {
-        "schema_version": "1.0",
-        "candidate_sha": "25c664ab0fbf6c7a05c83ffe514838fdf388342f",
+        "schema_version": "1.1",
+        "candidate_sha": CANDIDATE_SHA,
         "purpose": "exact production public_text_fallback verification on all 17 real residual PDFs",
         "secret_values_logged": False,
         "source_text_logged": False,
+        "error_messages_logged": False,
         "summary": summary,
         "documents": rows,
     }
