@@ -1,0 +1,65 @@
+name: Apply atomic hardener writes
+
+on:
+  push:
+    branches: [fix/privacy-text-fallback-clean-20261121]
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - name: Apply exact reviewed patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('scripts/harden-public-pdf-privacy.py')
+          text = path.read_text('utf-8')
+
+          old_import = 'from public_text_fallback import build_public_text_copy'
+          new_import = 'from public_text_fallback import atomic_replace_bytes, build_public_text_copy'
+          if text.count(old_import) != 1:
+              raise SystemExit('unexpected public_text_fallback import count')
+          text = text.replace(old_import, new_import)
+
+          ordinary = '        path.write_bytes(data)'
+          if text.count(ordinary) != 1:
+              raise SystemExit('unexpected ordinary hardening write count')
+          text = text.replace(ordinary, '        atomic_replace_bytes(path, data)')
+
+          rollback = '            path.write_bytes(original_bytes)'
+          if text.count(rollback) != 1:
+              raise SystemExit('unexpected local-failure rollback write count')
+          text = text.replace(rollback, '            atomic_replace_bytes(path, original_bytes)')
+
+          exception_rollback = '        path.write_bytes(original_bytes)'
+          if text.count(exception_rollback) != 1:
+              raise SystemExit('unexpected exception rollback write count')
+          text = text.replace(exception_rollback, '        atomic_replace_bytes(path, original_bytes)')
+
+          path.write_text(text, 'utf-8')
+          PY
+          python3 -m py_compile scripts/harden-public-pdf-privacy.py
+          git diff --check
+          changed="$(git diff --name-only)"
+          test "$changed" = "scripts/harden-public-pdf-privacy.py"
+      - name: Commit exact patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/harden-public-pdf-privacy.py
+          git commit -m 'Use atomic writes throughout PDF hardening transaction'
+          git push origin HEAD:fix/privacy-text-fallback-clean-20261121
