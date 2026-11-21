@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 env:
-  TARGET_SHA: 'a594cf1a5790db805af2ad54f5a4dceccada279a'
+  TARGET_SHA: 'ae81acb5bafb6beca140fe09301dc0b955c30cc7'
   TARGET_DOCUMENT_ID: 'doc-cz-dd-2026-10-02-uoou-stiznost-necinnost'
 
 jobs:
@@ -103,7 +103,7 @@ jobs:
           const digest = createHash('sha256').update(bytes).digest('hex');
           const rows = slalom.rows.filter(row => row.document_id === targetId);
           const checks = {
-            candidate_sha_matches: candidateSha === 'a594cf1a5790db805af2ad54f5a4dceccada279a',
+            candidate_sha_matches: candidateSha === 'ae81acb5bafb6beca140fe09301dc0b955c30cc7',
             hardening_failures_zero: hardening.hard_failure_count === 0 && Array.isArray(hardening.hard_failures) && hardening.hard_failures.length === 0,
             hardening_changed: hardeningRow.changed === true,
             input_bound_to_declared_source: hardeningRow.input_sha256 === doc.justice_slalom.source_sha256,
