@@ -97,11 +97,23 @@ def extract_complete_page_text(
 
     selected: list[str] = []
     unextractable_pages: list[int] = []
+    divergent_extractor_pages: list[int] = []
     redaction_failure_pages: list[int] = []
     source_chars = 0
     public_chars = 0
     for index in range(page_count):
-        candidates = [clean_text(fitz_pages[index]), clean_text(poppler_pages[index])]
+        fitz_text = clean_text(fitz_pages[index])
+        poppler_text = clean_text(poppler_pages[index])
+        fitz_identity = normalized_text_identity(fitz_text)
+        poppler_identity = normalized_text_identity(poppler_text)
+        if fitz_identity and poppler_identity:
+            shorter, longer = sorted(
+                (fitz_identity, poppler_identity),
+                key=len,
+            )
+            if shorter not in longer:
+                divergent_extractor_pages.append(index + 1)
+        candidates = [fitz_text, poppler_text]
         source_text = max(candidates, key=lambda item: len(normalized_text_identity(item)))
         if not source_text.strip():
             unextractable_pages.append(index + 1)
@@ -112,6 +124,11 @@ def extract_complete_page_text(
         public_chars += len(public_text)
         selected.append(public_text)
 
+    if divergent_extractor_pages:
+        raise TextFallbackError(
+            "MuPDF and Poppler text extraction materially diverged on pages: "
+            + ",".join(map(str, divergent_extractor_pages))
+        )
     if unextractable_pages:
         raise TextFallbackError(
             "pages without positively verified extractable text cannot be published as a complete public text copy: "
@@ -132,6 +149,7 @@ def extract_complete_page_text(
         "public_char_count": public_chars,
         "nonempty_page_count": sum(1 for page in selected if page.strip()),
         "unextractable_pages": unextractable_pages,
+        "divergent_extractor_pages": divergent_extractor_pages,
         "redaction_failure_pages": redaction_failure_pages,
     }
     return selected, sizes, facts
