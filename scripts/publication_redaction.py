@@ -5,6 +5,8 @@ import hmac
 import json
 import os
 import re
+from array import array
+from collections.abc import Iterator
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -186,13 +188,19 @@ def _decode_pdf_escapes(raw: bytes) -> bytes:
     return bytes(out)
 
 
-def _pdf_decoded_string_payloads(raw: bytes) -> list[bytes]:
-    payloads: list[bytes] = []
+def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
+    """Yield decoded PDF string payloads with linear CPU and bounded memory.
+
+    QDF streams contain arbitrary binary bytes. Hex and literal strings are
+    therefore recovered in independent monotonic passes so one malformed
+    prefix cannot hide a later valid candidate. The cumulative decoded payload
+    budget is proportional to the input; exceeding it raises and fails closed.
+    """
     n = len(raw)
+    remaining_budget = max(1_048_576, n * 2)
     hex_chars = b"0123456789abcdefABCDEF"
 
-    # Scan hex strings independently so malformed literal-string bytes in an
-    # uncompressed stream cannot hide a later valid <...> value.
+    # Independent hex-string pass, excluding dictionary delimiters <<...>>.
     i = 0
     while i < n:
         if raw[i] != 0x3C or (i + 1 < n and raw[i + 1] == 0x3C):
@@ -215,89 +223,51 @@ def _pdf_decoded_string_payloads(raw: bytes) -> list[bytes]:
             if len(buf) % 2:
                 buf.append(ord("0"))
             try:
-                payloads.append(bytes.fromhex(buf.decode("ascii")))
+                payload = bytes.fromhex(buf.decode("ascii"))
             except ValueError:
-                pass
+                payload = b""
+            if payload:
+                if len(payload) > remaining_budget:
+                    raise RedactionPolicyError("decoded PDF string payload budget exceeded")
+                remaining_budget -= len(payload)
+                yield payload
             i = j + 1
         else:
             i = max(i + 1, j)
 
-    # Parse balanced literal strings. A malformed candidate advances to the
-    # first byte not yet examined instead of rescanning the same tail.
+    # Literal-string pass. A compact stack preserves inner balanced strings
+    # even when unmatched binary '(' bytes precede them. Escaped parentheses
+    # never affect structure. Each byte is visited once by the structural scan.
+    opens = array("Q")
     i = 0
     while i < n:
-        if raw[i] != 0x28:
-            i += 1
+        byte = raw[i]
+        if byte == 0x5C:
+            if i + 1 >= n:
+                i += 1
+                continue
+            escaped = raw[i + 1]
+            if escaped == 0x0D and i + 2 < n and raw[i + 2] == 0x0A:
+                i += 3
+            else:
+                i += 2
             continue
-        j = i + 1
-        depth = 1
-        out = bytearray()
-        while j < n and depth:
-            byte = raw[j]
-            if byte == 0x5C:
-                escape_start = j
-                j += 1
-                if j >= n:
-                    break
-                esc = raw[j]
-                escapes = {
-                    ord("n"): 0x0A,
-                    ord("r"): 0x0D,
-                    ord("t"): 0x09,
-                    ord("b"): 0x08,
-                    ord("f"): 0x0C,
-                    ord("("): 0x28,
-                    ord(")"): 0x29,
-                    ord("\\"): 0x5C,
-                }
-                if esc in escapes:
-                    out.append(escapes[esc])
-                    j += 1
-                    continue
-                if 0x30 <= esc <= 0x37:
-                    digits = bytearray([esc])
-                    j += 1
-                    while j < n and len(digits) < 3 and 0x30 <= raw[j] <= 0x37:
-                        digits.append(raw[j])
-                        j += 1
-                    out.append(int(digits.decode("ascii"), 8) & 0xFF)
-                    continue
-                if esc == 0x0D:
-                    j += 1
-                    if j < n and raw[j] == 0x0A:
-                        j += 1
-                    continue
-                if esc == 0x0A:
-                    j += 1
-                    continue
-                out.extend(raw[escape_start + 1:j + 1])
-                j += 1
-                continue
-            if byte == 0x28:
-                depth += 1
-                if depth > 1:
-                    out.append(byte)
-                j += 1
-                continue
-            if byte == 0x29:
-                depth -= 1
-                if depth:
-                    out.append(byte)
-                j += 1
-                continue
-            out.append(byte)
-            j += 1
-        if depth == 0 and out:
-            payloads.append(bytes(out))
-        i = max(i + 1, j)
+        if byte == 0x28:
+            opens.append(i)
+        elif byte == 0x29 and opens:
+            start = opens.pop()
+            payload = _decode_pdf_escapes(raw[start + 1:i])
+            if payload:
+                if len(payload) > remaining_budget:
+                    raise RedactionPolicyError("decoded PDF string payload budget exceeded")
+                remaining_budget -= len(payload)
+                yield payload
+        i += 1
 
-    # A separate linear escape pass preserves fail-closed detection of an
-    # octal/backslash-encoded value after malformed binary literal bytes.
-    escaped = _decode_pdf_escapes(raw)
-    if escaped != raw:
-        payloads.append(escaped)
 
-    return payloads
+def _pdf_decoded_string_payloads(raw: bytes) -> list[bytes]:
+    """Compatibility wrapper used by focused tests; production scans stream."""
+    return list(_iter_pdf_decoded_string_payloads(raw))
 
 
 def prepared_private_byte_matchers() -> tuple[tuple[str, re.Pattern[str]], ...]:
@@ -330,25 +300,33 @@ def forbidden_public_identifier_byte_hits(
     raw: bytes,
     prepared_matchers: tuple[tuple[str, re.Pattern[str]], ...] | None = None,
 ) -> list[str]:
-    hits = []
-    seen = set()
-
-    byte_candidates = [raw] + _pdf_decoded_string_payloads(raw)
-    decoded_variants = []
-    for candidate in byte_candidates:
-        for encoding in ("utf-8", "cp1250", "iso-8859-2", "utf-16-be", "utf-16-le"):
-            try:
-                decoded_variants.append(candidate.decode(encoding, errors="ignore"))
-            except LookupError:
-                pass
-
     matchers = prepared_matchers if prepared_matchers is not None else prepared_private_byte_matchers()
-    for opaque, pattern in matchers:
-        if any(pattern.search(text) for text in decoded_variants) and opaque not in seen:
-            seen.add(opaque)
-            hits.append(opaque)
+    if not matchers:
+        return []
 
-    return hits
+    matched: set[str] = set()
+    encodings = ("utf-8", "cp1250", "iso-8859-2", "utf-16-be", "utf-16-le")
+
+    def scan_candidate(candidate: bytes) -> bool:
+        for encoding in encodings:
+            try:
+                text = candidate.decode(encoding, errors="ignore")
+            except LookupError:
+                continue
+            for opaque, pattern in matchers:
+                if opaque not in matched and pattern.search(text):
+                    matched.add(opaque)
+            if len(matched) == len(matchers):
+                return True
+        return False
+
+    if not scan_candidate(raw):
+        for payload in _iter_pdf_decoded_string_payloads(raw):
+            if scan_candidate(payload):
+                break
+
+    return [opaque for opaque, _ in matchers if opaque in matched]
+
 
 def forbidden_public_identifiers(text: str) -> list[str]:
     _, rules, forbidden, _ = load_private_policy()
