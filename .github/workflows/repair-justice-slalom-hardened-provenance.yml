@@ -50,7 +50,7 @@ jobs:
         run: |
           set -euo pipefail
           node --test test/justice-slalom-pdf-provenance.test.mjs
-          changed="$(git diff --name-only | sort)"
+          changed="$( { git diff --name-only; git ls-files --others --exclude-standard; } | sort)"
           expected="$(printf '%s\n' scripts/build-justice-slalom.mjs scripts/justice-slalom-pdf-provenance.mjs scripts/validate-justice-slalom.mjs | sort)"
           test "$changed" = "$expected"
 
