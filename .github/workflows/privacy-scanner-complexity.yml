@@ -20,4 +20,6 @@ jobs:
         with:
           python-version: '3.12.16'
       - name: Run linearity regression
-        run: python3 test/publication_redaction_complexity.test.py
+        run: |
+          python3 test/publication_redaction_complexity.test.py
+          python3 test/hardener_extracted_text_mode.test.py
