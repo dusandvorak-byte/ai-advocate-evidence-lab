@@ -6,7 +6,6 @@ import hmac
 import json
 import os
 import re
-from array import array
 from collections.abc import Iterator
 from pathlib import Path
 
@@ -137,64 +136,18 @@ def redact_public_text(text: str) -> str:
     return out
 
 
-def _decode_pdf_escapes(raw: bytes) -> bytes:
-    out = bytearray()
-    n = len(raw)
-    i = 0
-    escapes = {ord("n"): 10, ord("r"): 13, ord("t"): 9, ord("b"): 8, ord("f"): 12, ord("("): 40, ord(")"): 41, ord("\\"): 92}
-    while i < n:
-        byte = raw[i]
-        if byte != 92:
-            out.append(byte)
-            i += 1
-            continue
-        i += 1
-        if i >= n:
-            break
-        esc = raw[i]
-        if esc in escapes:
-            out.append(escapes[esc])
-            i += 1
-            continue
-        if 48 <= esc <= 55:
-            digits = bytearray([esc])
-            i += 1
-            while i < n and len(digits) < 3 and 48 <= raw[i] <= 55:
-                digits.append(raw[i])
-                i += 1
-            out.append(int(digits.decode("ascii"), 8) & 255)
-            continue
-        if esc == 13:
-            i += 1
-            if i < n and raw[i] == 10:
-                i += 1
-            continue
-        if esc == 10:
-            i += 1
-            continue
-        out.append(esc)
-        i += 1
-    return bytes(out)
-
-
 def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
-    """Yield PDF hex/literal payloads with linear CPU and bounded state.
+    """Yield decoded PDF hex and literal strings in bounded linear time.
 
-    Raw bytes are scanned separately at both UTF-16 alignments. This parser is
-    therefore responsible only for PDF hex decoding and strict balanced literal
-    strings with PDF escape/octal decoding. Removing the former permissive
-    recovery pass avoids stale opener state while preserving every proven
-    privacy-detection path.
+    Literal strings are decoded as one streaming top-level segment. Balanced
+    nested parentheses are retained as literal content, escapes are decoded
+    incrementally, and an unmatched outer literal is still yielded at EOF so
+    malformed binary prefixes cannot hide a later identifier. No overlapping
+    raw slices are rescanned.
     """
     n = len(raw)
     remaining_budget = max(1_048_576, n * 4)
-    remaining_scan_budget = max(1_048_576, n * 4)
     hex_chars = b"0123456789abcdefABCDEF"
-
-    def push_bounded(stack: array, offset: int) -> None:
-        if len(stack) >= MAX_PDF_LITERAL_STACK_DEPTH:
-            raise RedactionPolicyError("PDF literal nesting limit exceeded")
-        stack.append(offset)
 
     i = 0
     while i < n:
@@ -232,32 +185,90 @@ def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
         else:
             i = max(i + 1, j)
 
-    opens = array("Q")
+    escapes = {
+        ord("n"): 10,
+        ord("r"): 13,
+        ord("t"): 9,
+        ord("b"): 8,
+        ord("f"): 12,
+        ord("("): 40,
+        ord(")"): 41,
+        ord("\\"): 92,
+    }
+
     i = 0
     while i < n:
-        byte = raw[i]
-        if byte == 92 and opens:
-            if i + 1 >= n:
+        if raw[i] != 40:
+            i += 1
+            continue
+
+        depth = 1
+        meaningful = False
+        payload = bytearray()
+        i += 1
+
+        def append_decoded(value: int, *, marks_content: bool = True) -> None:
+            nonlocal meaningful
+            if len(payload) >= remaining_budget:
+                raise RedactionPolicyError("decoded PDF string payload budget exceeded")
+            payload.append(value)
+            if marks_content:
+                meaningful = True
+
+        while i < n and depth:
+            byte = raw[i]
+
+            if byte == 92:
+                i += 1
+                if i >= n:
+                    break
+                escaped = raw[i]
+                if escaped in escapes:
+                    append_decoded(escapes[escaped])
+                    i += 1
+                    continue
+                if 48 <= escaped <= 55:
+                    digits = bytearray([escaped])
+                    i += 1
+                    while i < n and len(digits) < 3 and 48 <= raw[i] <= 55:
+                        digits.append(raw[i])
+                        i += 1
+                    append_decoded(int(digits.decode("ascii"), 8) & 255)
+                    continue
+                if escaped == 13:
+                    i += 1
+                    if i < n and raw[i] == 10:
+                        i += 1
+                    continue
+                if escaped == 10:
+                    i += 1
+                    continue
+                append_decoded(escaped)
                 i += 1
                 continue
-            escaped = raw[i + 1]
-            i += 3 if escaped == 13 and i + 2 < n and raw[i + 2] == 10 else 2
-            continue
-        if byte == 40:
-            push_bounded(opens, i)
-        elif byte == 41 and opens:
-            start = opens.pop()
-            examined = i - start - 1
-            if examined > remaining_scan_budget:
-                raise RedactionPolicyError("PDF literal scan budget exceeded")
-            remaining_scan_budget -= examined
-            payload = _decode_pdf_escapes(raw[start + 1:i])
-            if payload:
-                if len(payload) > remaining_budget:
-                    raise RedactionPolicyError("decoded PDF string payload budget exceeded")
-                remaining_budget -= len(payload)
-                yield payload
-        i += 1
+
+            if byte == 40:
+                depth += 1
+                if depth > MAX_PDF_LITERAL_STACK_DEPTH:
+                    raise RedactionPolicyError("PDF literal nesting limit exceeded")
+                append_decoded(40, marks_content=False)
+                i += 1
+                continue
+
+            if byte == 41:
+                depth -= 1
+                if depth:
+                    append_decoded(41, marks_content=False)
+                i += 1
+                continue
+
+            append_decoded(byte)
+            i += 1
+
+        if payload and meaningful:
+            result = bytes(payload)
+            remaining_budget -= len(result)
+            yield result
 
 
 def _pdf_decoded_string_payloads(raw: bytes) -> list[bytes]:
