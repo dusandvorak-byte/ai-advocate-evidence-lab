@@ -146,6 +146,27 @@ class HardenerTextFallbackTests(unittest.TestCase):
             self.run_worker(force_rewrite=True)
         self.assertEqual(self.pdf.read_bytes(), self.original_bytes)
 
+    def test_intermediate_and_rollback_writes_are_atomic(self):
+        self.globals["candidate_strategy"] = lambda before, force: "pymupdf_rewrite"
+        self.globals["harden_pdf"] = lambda *args, **kwargs: (b"mutated-intermediate", [])
+        self.globals["inspect_pdf_deep"] = lambda path, matchers: unsafe_post()
+        writes = []
+
+        def atomic_write(path, data):
+            writes.append(bytes(data))
+            Path(path).write_bytes(data)
+
+        def failing_fallback(*args, **kwargs):
+            raise RuntimeError("synthetic fallback failure")
+
+        self.globals["atomic_replace_bytes"] = atomic_write
+        self.globals["build_public_text_copy"] = failing_fallback
+        with self.assertRaisesRegex(RuntimeError, "synthetic fallback failure"):
+            self.run_worker(force_rewrite=True)
+
+        self.assertEqual(writes, [b"mutated-intermediate", self.original_bytes])
+        self.assertEqual(self.pdf.read_bytes(), self.original_bytes)
+
     def test_raw_private_hit_after_fallback_fails_and_restores_original(self):
         self.install_successful_fallback()
         self.globals["forbidden_public_identifier_byte_hits"] = (
