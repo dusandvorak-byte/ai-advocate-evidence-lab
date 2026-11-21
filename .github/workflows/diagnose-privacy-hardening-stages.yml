@@ -56,6 +56,7 @@ jobs:
           python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
           node --check scripts/reconstruct-pre-hardening-tree.mjs
           python3 -m py_compile scripts/diagnose-pdf-hardening-stages.py
+          python3 -m py_compile scripts/diagnose-public-text-fallback.py
           python3 -m py_compile scripts/harden-public-pdf-privacy.py
           python3 test/publication_redaction_complexity.test.py
           python3 test/hardener_extracted_text_mode.test.py
@@ -81,6 +82,9 @@ jobs:
       - name: Diagnose ten residual privacy failures by stage
         run: python3 scripts/diagnose-pdf-hardening-stages.py
 
+      - name: Verify deterministic public text fallback on all ten residuals
+        run: python3 scripts/diagnose-public-text-fallback.py
+
       - name: Upload sanitized residual diagnostic evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -88,6 +92,7 @@ jobs:
           name: privacy-hardening-residual-diagnostic-279285e
           path: |
             review-artifacts/privacy-hardening-residual-diagnostic.json
+            review-artifacts/privacy-text-fallback-diagnostic.json
             review-artifacts/scanner-candidate.json
           if-no-files-found: error
           retention-days: 7
