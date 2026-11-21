@@ -120,6 +120,25 @@ class PublicTextFallbackTests(unittest.TestCase):
         self.make_pdf(source, blank_second_page=True)
         self.assert_unextractable_page_fails(source)
 
+    def test_divergent_extractors_fail_closed(self):
+        source = self.root / "source.pdf"
+        target = self.root / "target.pdf"
+        self.make_pdf(source)
+        conflicting = mock.Mock(
+            returncode=0,
+            stdout=b"Conflicting official passage\fSecond public page\f",
+        )
+
+        with mock.patch.object(fallback_module.subprocess, "run", return_value=conflicting):
+            with self.assertRaises(TextFallbackError):
+                build_public_text_copy(
+                    source,
+                    target,
+                    redact_text=self.redact,
+                    forbidden_text=self.forbidden,
+                )
+        self.assertFalse(target.exists())
+
     def test_rendered_text_loss_fails_before_target_replacement(self):
         source = self.root / "source.pdf"
         target = self.root / "target.pdf"
