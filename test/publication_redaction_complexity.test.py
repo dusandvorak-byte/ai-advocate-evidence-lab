@@ -47,6 +47,30 @@ class PublicationRedactionComplexityTests(unittest.TestCase):
         )
         self.assertEqual(hits, ["private_raw_match_1"])
 
+    def test_top_level_backslash_does_not_escape_literal_opener(self):
+        secret = b"\xfe\xff" + "secret".encode("utf-16-be")
+        raw = b"X\\(" + secret + b")"
+        hits = redaction.forbidden_public_identifier_byte_hits(
+            raw,
+            (("private_raw_match_1", re.compile("secret")),),
+        )
+        self.assertEqual(hits, ["private_raw_match_1"])
+
+    def test_malformed_outer_literal_cannot_escape_recovery_opener(self):
+        secret = b"\xfe\xff" + "secret".encode("utf-16-be")
+        raw = b"(" * 64 + b"X\\(" + secret + b")"
+        hits = redaction.forbidden_public_identifier_byte_hits(
+            raw,
+            (("private_raw_match_1", re.compile("secret")),),
+        )
+        self.assertEqual(hits, ["private_raw_match_1"])
+
+    def test_unmatched_literal_stack_is_bounded_fail_closed(self):
+        limit = redaction.MAX_PDF_LITERAL_STACK_DEPTH
+        raw = b"(" * (limit + 1)
+        with self.assertRaises(redaction.RedactionPolicyError):
+            redaction._pdf_decoded_string_payloads(raw)
+
     def test_escape_recovery_does_not_retain_a_full_file_candidate(self):
         raw = (b"binary-prefix-\\163-" * 4096) + b"tail"
         payloads = redaction._pdf_decoded_string_payloads(raw)
