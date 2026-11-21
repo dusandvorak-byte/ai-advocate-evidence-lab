@@ -1,0 +1,86 @@
+name: Diagnose privacy hardening stages final
+
+on:
+  push:
+    branches: [diag/privacy-stage-rootcause-final-20261121]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '24'
+
+concurrency:
+  group: final-privacy-diagnostic
+  cancel-in-progress: true
+
+jobs:
+  diagnose:
+    name: Final secret-backed privacy stage isolation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact diagnostic revision
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install bounded PDF tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils qpdf
+          python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
+          node --check scripts/reconstruct-pre-hardening-tree.mjs
+          python3 -m py_compile scripts/diagnose-pdf-hardening-stages.py
+          python3 -m py_compile scripts/diagnose-pdf-hardening-residuals.py
+          python3 -m py_compile scripts/harden-public-pdf-privacy.py
+          python3 test/publication_redaction_complexity.test.py
+          python3 test/publication_redaction.test.py
+
+      - name: Provision authenticated private policy in runner temp
+        shell: bash
+        env:
+          PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
+          PRIVATE_POLICY_HMAC_KEY: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$PRIVATE_POLICY_B64"
+          test -n "$PRIVATE_POLICY_HMAC_KEY"
+          POLICY_PATH="$RUNNER_TEMP/evidence-lab-private-redaction-policy.json"
+          printf '%s' "$PRIVATE_POLICY_B64" | base64 --decode > "$POLICY_PATH"
+          chmod 600 "$POLICY_PATH"
+          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=$POLICY_PATH" >> "$GITHUB_ENV"
+          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY=$PRIVATE_POLICY_HMAC_KEY" >> "$GITHUB_ENV"
+
+      - name: Reconstruct exact pre-hardening public tree
+        run: node scripts/reconstruct-pre-hardening-tree.mjs
+
+      - name: Diagnose all previously timed-out PDFs by stage
+        run: python3 scripts/diagnose-pdf-hardening-stages.py
+
+      - name: Diagnose all residual privacy failures by stage
+        run: python3 scripts/diagnose-pdf-hardening-residuals.py
+
+      - name: Upload sanitized diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: privacy-hardening-final-diagnostics
+          path: |
+            review-artifacts/privacy-hardening-stage-diagnostic.json
+            review-artifacts/privacy-hardening-residual-diagnostic.json
+          if-no-files-found: error
+          retention-days: 7
