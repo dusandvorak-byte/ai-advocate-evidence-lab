@@ -10,7 +10,7 @@ permissions:
 
 env:
   NODE_VERSION: '24'
-  FALLBACK_CANDIDATE_SHA: 'dc6c712ea159bbfec0dc77ff51babb021591538f'
+  FALLBACK_CANDIDATE_SHA: '3161ab66ce6a1dae2eabad6ce584c650b51fa9a9'
 
 jobs:
   diagnose:
@@ -95,7 +95,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: production-text-fallback-all17-dc6c712
+          name: production-text-fallback-all17-3161ab6
           path: |
             review-artifacts/production-text-fallback-all17.json
             review-artifacts/extractor-divergence-diagnostic.json
