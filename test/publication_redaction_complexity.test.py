@@ -49,7 +49,7 @@ class PublicationRedactionComplexityTests(unittest.TestCase):
     def test_unbalanced_binary_prefix_does_not_hide_later_utf16_string(self):
         secret = b"\xfe\xff" + "secret".encode("utf-16-be")
         raw = b"(" * 64 + b"\n(" + secret + b")"
-        self.assertIn(secret, redaction._pdf_decoded_string_payloads(raw))
+        self.assertTrue(any(secret in p for p in redaction._pdf_decoded_string_payloads(raw)))
         self.assertEqual(redaction.forbidden_public_identifier_byte_hits(raw, (("m", re.compile("secret")),)), ["m"])
 
     def test_top_level_backslash_does_not_escape_literal_opener(self):
@@ -77,15 +77,24 @@ class PublicationRedactionComplexityTests(unittest.TestCase):
         raw = b"(x\\()" * count
         self.assertEqual(sum(1 for _ in redaction._iter_pdf_decoded_string_payloads(raw)), count)
 
-    def test_overlapping_nested_escape_scans_fail_closed_before_superlinear_work(self):
+    def test_nested_escape_scan_is_linear_without_rejecting_valid_structure(self):
         depth = 320
         continuation_region = b"\\\n" * 2048
         raw = b"(" * depth + continuation_region + b")" * depth
         started = time.perf_counter()
-        with self.assertRaises(redaction.RedactionPolicyError):
-            list(redaction._iter_pdf_decoded_string_payloads(raw))
+        payloads = list(redaction._iter_pdf_decoded_string_payloads(raw))
         elapsed = time.perf_counter() - started
-        self.assertLess(elapsed, 1.0, f"nested overlap scan took {elapsed:.3f}s")
+        self.assertEqual(payloads, [])
+        self.assertLess(elapsed, 1.0, f"nested literal scan took {elapsed:.3f}s")
+
+    def test_many_nested_siblings_are_processed_once(self):
+        count = 100_000
+        raw = b"(" + (b"(abc)" * count) + b")"
+        started = time.perf_counter()
+        payloads = list(redaction._iter_pdf_decoded_string_payloads(raw))
+        elapsed = time.perf_counter() - started
+        self.assertEqual(payloads, [b"(abc)" * count])
+        self.assertLess(elapsed, 1.0, f"sibling literal scan took {elapsed:.3f}s")
 
     def test_unmatched_literal_stack_is_bounded_fail_closed(self):
         raw = b"(" * (redaction.MAX_PDF_LITERAL_STACK_DEPTH + 1)
