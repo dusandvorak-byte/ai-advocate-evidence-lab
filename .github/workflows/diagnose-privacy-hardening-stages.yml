@@ -8,8 +8,8 @@ permissions:
   contents: read
 
 env:
-  TARGET_SHA: 'd83eeb3b26c5a27fa7fa738db7f865af2958550d'
-  TARGET_DOCUMENT_ID: 'doc-cz-citc-2026-08-10-stiznost-kpr-5772-2026-2'
+  TARGET_SHA: '8fad4de2b51c280825d857957dc98a426f32c37d'
+  TARGET_DOCUMENT_ID: 'doc-cz-dd-2026-10-02-uoou-stiznost-necinnost'
 
 jobs:
   verify:
@@ -103,7 +103,7 @@ jobs:
           const digest = createHash('sha256').update(bytes).digest('hex');
           const rows = slalom.rows.filter(row => row.document_id === targetId);
           const checks = {
-            candidate_sha_matches: candidateSha === 'd83eeb3b26c5a27fa7fa738db7f865af2958550d',
+            candidate_sha_matches: candidateSha === '8fad4de2b51c280825d857957dc98a426f32c37d',
             hardening_failures_zero: hardening.hard_failure_count === 0 && Array.isArray(hardening.hard_failures) && hardening.hard_failures.length === 0,
             hardening_changed: hardeningRow.changed === true,
             input_bound_to_declared_source: hardeningRow.input_sha256 === doc.justice_slalom.source_sha256,
