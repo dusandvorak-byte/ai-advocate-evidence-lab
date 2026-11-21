@@ -178,6 +178,14 @@ def _decode_pdf_escapes(raw: bytes) -> bytes:
 
 
 def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
+    """Yield PDF hex/literal payloads with linear CPU and bounded state.
+
+    Raw bytes are scanned separately at both UTF-16 alignments. This parser is
+    therefore responsible only for PDF hex decoding and strict balanced literal
+    strings with PDF escape/octal decoding. Removing the former permissive
+    recovery pass avoids stale opener state while preserving every proven
+    privacy-detection path.
+    """
     n = len(raw)
     remaining_budget = max(1_048_576, n * 4)
     hex_chars = b"0123456789abcdefABCDEF"
@@ -223,11 +231,11 @@ def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
         else:
             i = max(i + 1, j)
 
-    strict_opens = array("Q")
+    opens = array("Q")
     i = 0
     while i < n:
         byte = raw[i]
-        if byte == 92 and strict_opens:
+        if byte == 92 and opens:
             if i + 1 >= n:
                 i += 1
                 continue
@@ -235,41 +243,15 @@ def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
             i += 3 if escaped == 13 and i + 2 < n and raw[i + 2] == 10 else 2
             continue
         if byte == 40:
-            push_bounded(strict_opens, i)
-        elif byte == 41 and strict_opens:
-            start = strict_opens.pop()
+            push_bounded(opens, i)
+        elif byte == 41 and opens:
+            start = opens.pop()
             payload = _decode_pdf_escapes(raw[start + 1:i])
             if payload:
                 if len(payload) > remaining_budget:
                     raise RedactionPolicyError("decoded PDF string payload budget exceeded")
                 remaining_budget -= len(payload)
                 yield payload
-        i += 1
-
-    recovery_opens = array("Q")
-    backslash_run = 0
-    i = 0
-    while i < n:
-        byte = raw[i]
-        if byte == 92:
-            backslash_run += 1
-            i += 1
-            continue
-        escaped = bool(backslash_run % 2)
-        backslash_run = 0
-        if byte == 40:
-            push_bounded(recovery_opens, i)
-        elif byte == 41:
-            if escaped:
-                push_bounded(recovery_opens, i)
-            elif recovery_opens:
-                start = recovery_opens.pop()
-                payload = _decode_pdf_escapes(raw[start + 1:i])
-                if payload:
-                    if len(payload) > remaining_budget:
-                        raise RedactionPolicyError("decoded PDF string payload budget exceeded")
-                    remaining_budget -= len(payload)
-                    yield payload
         i += 1
 
 
