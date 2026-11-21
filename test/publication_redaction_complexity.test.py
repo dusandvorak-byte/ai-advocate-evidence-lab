@@ -25,6 +25,16 @@ class PublicationRedactionComplexityTests(unittest.TestCase):
             f"unbalanced literal scan took {elapsed:.3f}s; expected linear-time behavior",
         )
 
+    def test_unbalanced_binary_prefix_does_not_hide_later_hex_string(self):
+        raw = b"(" * 64 + b"\n<736563726574>"
+        payloads = redaction._pdf_decoded_string_payloads(raw)
+        self.assertIn(b"secret", payloads)
+
+    def test_unbalanced_binary_prefix_does_not_hide_later_octal_string(self):
+        raw = b"(" * 64 + b"\n(\\163\\145\\143\\162\\145\\164)"
+        payloads = redaction._pdf_decoded_string_payloads(raw)
+        self.assertTrue(any(b"secret" in payload for payload in payloads))
+
 
 if __name__ == "__main__":
     unittest.main()
