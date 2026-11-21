@@ -37,23 +37,32 @@ class PublicationRedactionComplexityTests(unittest.TestCase):
         secret = b"\xfe\xff" + "secret".encode("utf-16-be")
         raw = b"(" * 64 + b"\n(" + secret + b")"
         self.assertIn(secret, redaction._pdf_decoded_string_payloads(raw))
-        hits = redaction.forbidden_public_identifier_byte_hits(raw, (("m", re.compile("secret")),))
-        self.assertEqual(hits, ["m"])
+        self.assertEqual(redaction.forbidden_public_identifier_byte_hits(raw, (("m", re.compile("secret")),)), ["m"])
 
     def test_top_level_backslash_does_not_escape_literal_opener(self):
         secret = b"\xfe\xff" + "secret".encode("utf-16-be")
         raw = b"X\\(" + secret + b")"
         self.assertEqual(redaction.forbidden_public_identifier_byte_hits(raw, (("m", re.compile("secret")),)), ["m"])
 
-    def test_malformed_outer_literal_cannot_escape_recovery_opener(self):
+    def test_malformed_outer_literal_cannot_hide_utf16_identifier(self):
         secret = b"\xfe\xff" + "secret".encode("utf-16-be")
         raw = b"(" * 64 + b"X\\(" + secret + b")"
         self.assertEqual(redaction.forbidden_public_identifier_byte_hits(raw, (("m", re.compile("secret")),)), ["m"])
 
-    def test_escaped_closer_does_not_consume_utf16_recovery_boundary(self):
+    def test_escaped_closer_does_not_hide_utf16_identifier(self):
         secret = b"\xfe\xff" + "secret".encode("utf-16-be")
         raw = b"Z(X\\(\\)" + secret + b")"
         self.assertEqual(redaction.forbidden_public_identifier_byte_hits(raw, (("m", re.compile("secret")),)), ["m"])
+
+    def test_escaped_pair_around_utf16_identifier_is_detected(self):
+        secret = b"\xfe\xff" + "secret".encode("utf-16-be")
+        raw = b"ZZ(\\(" + secret + b"\\))"
+        self.assertEqual(redaction.forbidden_public_identifier_byte_hits(raw, (("m", re.compile("secret")),)), ["m"])
+
+    def test_repeated_shallow_literals_do_not_accumulate_recovery_state(self):
+        count = redaction.MAX_PDF_LITERAL_STACK_DEPTH + 1
+        raw = b"(x\\()" * count
+        self.assertEqual(sum(1 for _ in redaction._iter_pdf_decoded_string_payloads(raw)), count)
 
     def test_unmatched_literal_stack_is_bounded_fail_closed(self):
         raw = b"(" * (redaction.MAX_PDF_LITERAL_STACK_DEPTH + 1)
