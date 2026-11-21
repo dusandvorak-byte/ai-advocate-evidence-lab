@@ -1,14 +1,18 @@
 from __future__ import annotations
 
+import codecs
 import hashlib
 import hmac
 import json
 import os
 import re
+from array import array
+from collections.abc import Iterator
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_PATH = ROOT / "project-memory/private-redaction-policy-contract.json"
+MAX_PDF_LITERAL_STACK_DEPTH = 262_144
 
 
 class RedactionPolicyError(RuntimeError):
@@ -102,11 +106,9 @@ def authenticated_private_policy_document() -> tuple[dict, dict, str]:
 
 def load_private_policy() -> tuple[dict, list[tuple[str, re.Pattern[str], str]], list[re.Pattern[str]], str]:
     contract, data, authenticated_identity = authenticated_private_policy_document()
-
     rules = [_compile_rule(rule) for rule in data.get("rules") or []]
     if not rules:
         raise RedactionPolicyError("private redaction policy has no rules")
-
     forbidden = []
     for item in data.get("forbidden") or []:
         mode = str(item.get("mode") or "literal").strip()
@@ -119,7 +121,6 @@ def load_private_policy() -> tuple[dict, list[tuple[str, re.Pattern[str], str]],
         forbidden.append(re.compile(re.escape(value), flags) if mode == "literal" else re.compile(value, flags))
     if not forbidden:
         raise RedactionPolicyError("private redaction policy has no forbidden matchers")
-
     return contract, rules, forbidden, authenticated_identity
 
 
@@ -136,115 +137,134 @@ def redact_public_text(text: str) -> str:
     return out
 
 
-def _pdf_decoded_string_payloads(raw: bytes) -> list[bytes]:
-    payloads: list[bytes] = []
+def _decode_pdf_escapes(raw: bytes) -> bytes:
+    out = bytearray()
     n = len(raw)
     i = 0
-    hex_chars = b"0123456789abcdefABCDEF"
-
+    escapes = {ord("n"): 10, ord("r"): 13, ord("t"): 9, ord("b"): 8, ord("f"): 12, ord("("): 40, ord(")"): 41, ord("\\"): 92}
     while i < n:
         byte = raw[i]
+        if byte != 92:
+            out.append(byte)
+            i += 1
+            continue
+        i += 1
+        if i >= n:
+            break
+        esc = raw[i]
+        if esc in escapes:
+            out.append(escapes[esc])
+            i += 1
+            continue
+        if 48 <= esc <= 55:
+            digits = bytearray([esc])
+            i += 1
+            while i < n and len(digits) < 3 and 48 <= raw[i] <= 55:
+                digits.append(raw[i])
+                i += 1
+            out.append(int(digits.decode("ascii"), 8) & 255)
+            continue
+        if esc == 13:
+            i += 1
+            if i < n and raw[i] == 10:
+                i += 1
+            continue
+        if esc == 10:
+            i += 1
+            continue
+        out.append(esc)
+        i += 1
+    return bytes(out)
 
-        # PDF hex string: <...>, excluding dictionary delimiters <<...>>.
-        if byte == 0x3C and not (i + 1 < n and raw[i + 1] == 0x3C):
-            j = i + 1
-            buf = bytearray()
-            valid = True
-            while j < n and raw[j] != 0x3E:
-                b = raw[j]
-                if b in b" \t\r\n\x0c\x00":
-                    j += 1
-                    continue
-                if b not in hex_chars:
-                    valid = False
-                    break
-                buf.append(b)
-                j += 1
-            if valid and j < n and raw[j] == 0x3E and buf:
-                if len(buf) % 2:
-                    buf.append(ord("0"))
-                try:
-                    payloads.append(bytes.fromhex(buf.decode("ascii")))
-                except ValueError:
-                    pass
-                i = j + 1
-                continue
 
-        # PDF literal string with balanced parentheses and PDF escape/octal decoding.
-        if byte == 0x28:
-            j = i + 1
-            depth = 1
-            out = bytearray()
-            while j < n and depth:
-                b = raw[j]
-                if b == 0x5C:  # backslash
-                    j += 1
-                    if j >= n:
-                        break
-                    esc = raw[j]
-                    escapes = {
-                        ord("n"): 0x0A,
-                        ord("r"): 0x0D,
-                        ord("t"): 0x09,
-                        ord("b"): 0x08,
-                        ord("f"): 0x0C,
-                        ord("("): 0x28,
-                        ord(")"): 0x29,
-                        ord("\\"): 0x5C,
-                    }
-                    if esc in escapes:
-                        out.append(escapes[esc])
-                        j += 1
-                        continue
-                    if 0x30 <= esc <= 0x37:
-                        digits = bytearray([esc])
-                        j += 1
-                        while j < n and len(digits) < 3 and 0x30 <= raw[j] <= 0x37:
-                            digits.append(raw[j])
-                            j += 1
-                        out.append(int(digits.decode("ascii"), 8) & 0xFF)
-                        continue
-                    if esc == 0x0D:
-                        j += 1
-                        if j < n and raw[j] == 0x0A:
-                            j += 1
-                        continue
-                    if esc == 0x0A:
-                        j += 1
-                        continue
-                    out.append(esc)
-                    j += 1
-                    continue
-                if b == 0x28:
-                    depth += 1
-                    if depth > 1:
-                        out.append(b)
-                    j += 1
-                    continue
-                if b == 0x29:
-                    depth -= 1
-                    if depth:
-                        out.append(b)
-                    j += 1
-                    continue
-                out.append(b)
+def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
+    """Yield PDF hex/literal payloads with linear CPU and bounded state.
+
+    Raw bytes are scanned separately at both UTF-16 alignments. This parser is
+    therefore responsible only for PDF hex decoding and strict balanced literal
+    strings with PDF escape/octal decoding. Removing the former permissive
+    recovery pass avoids stale opener state while preserving every proven
+    privacy-detection path.
+    """
+    n = len(raw)
+    remaining_budget = max(1_048_576, n * 4)
+    remaining_scan_budget = max(1_048_576, n * 4)
+    hex_chars = b"0123456789abcdefABCDEF"
+
+    def push_bounded(stack: array, offset: int) -> None:
+        if len(stack) >= MAX_PDF_LITERAL_STACK_DEPTH:
+            raise RedactionPolicyError("PDF literal nesting limit exceeded")
+        stack.append(offset)
+
+    i = 0
+    while i < n:
+        if raw[i] != 60 or (i + 1 < n and raw[i + 1] == 60):
+            i += 1
+            continue
+        j = i + 1
+        buf = bytearray()
+        valid = True
+        while j < n and raw[j] != 62:
+            byte = raw[j]
+            if byte in b" \t\r\n\x0c\x00":
                 j += 1
-            if depth == 0 and out:
-                payloads.append(bytes(out))
-                i = j
                 continue
+            if byte not in hex_chars:
+                valid = False
+                break
+            buf.append(byte)
+            if len(buf) > remaining_budget * 2:
+                raise RedactionPolicyError("decoded PDF string payload budget exceeded")
+            j += 1
+        if valid and j < n and raw[j] == 62 and buf:
+            if len(buf) % 2:
+                buf.append(48)
+            try:
+                payload = bytes.fromhex(buf.decode("ascii"))
+            except ValueError:
+                payload = b""
+            if payload:
+                if len(payload) > remaining_budget:
+                    raise RedactionPolicyError("decoded PDF string payload budget exceeded")
+                remaining_budget -= len(payload)
+                yield payload
+            i = j + 1
+        else:
+            i = max(i + 1, j)
+
+    opens = array("Q")
+    i = 0
+    while i < n:
+        byte = raw[i]
+        if byte == 92 and opens:
+            if i + 1 >= n:
+                i += 1
+                continue
+            escaped = raw[i + 1]
+            i += 3 if escaped == 13 and i + 2 < n and raw[i + 2] == 10 else 2
+            continue
+        if byte == 40:
+            push_bounded(opens, i)
+        elif byte == 41 and opens:
+            start = opens.pop()
+            examined = i - start - 1
+            if examined > remaining_scan_budget:
+                raise RedactionPolicyError("PDF literal scan budget exceeded")
+            remaining_scan_budget -= examined
+            payload = _decode_pdf_escapes(raw[start + 1:i])
+            if payload:
+                if len(payload) > remaining_budget:
+                    raise RedactionPolicyError("decoded PDF string payload budget exceeded")
+                remaining_budget -= len(payload)
+                yield payload
         i += 1
 
-    return payloads
+
+def _pdf_decoded_string_payloads(raw: bytes) -> list[bytes]:
+    return list(_iter_pdf_decoded_string_payloads(raw))
 
 
 def prepared_private_byte_matchers() -> tuple[tuple[str, re.Pattern[str]], ...]:
-    """Authenticate the current private policy and compile opaque byte-scan matchers.
-
-    Callers performing many scans over one immutable PDF may prepare once and
-    reuse the returned tuple. Calls without an explicit prepared tuple still
-    authenticate the current policy, preserving policy/env change detection.
-    """
     _, data, _ = authenticated_private_policy_document()
     items = list(data.get("rules") or []) + list(data.get("forbidden") or [])
     compiled = []
@@ -264,34 +284,34 @@ def prepared_private_byte_matchers() -> tuple[tuple[str, re.Pattern[str]], ...]:
     return tuple(compiled)
 
 
-def forbidden_public_identifier_byte_hits(
-    raw: bytes,
-    prepared_matchers: tuple[tuple[str, re.Pattern[str]], ...] | None = None,
-) -> list[str]:
-    hits = []
-    seen = set()
-
-    byte_candidates = [raw] + _pdf_decoded_string_payloads(raw)
-    decoded_variants = []
-    for candidate in byte_candidates:
-        for encoding in ("utf-8", "cp1250", "iso-8859-2", "utf-16-be", "utf-16-le"):
-            try:
-                decoded_variants.append(candidate.decode(encoding, errors="ignore"))
-            except LookupError:
-                pass
-
+def forbidden_public_identifier_byte_hits(raw: bytes, prepared_matchers: tuple[tuple[str, re.Pattern[str]], ...] | None = None) -> list[str]:
     matchers = prepared_matchers if prepared_matchers is not None else prepared_private_byte_matchers()
-    for opaque, pattern in matchers:
-        if any(pattern.search(text) for text in decoded_variants) and opaque not in seen:
-            seen.add(opaque)
-            hits.append(opaque)
+    if not matchers:
+        return []
+    matched: set[str] = set()
+    encodings = ("utf-8", "cp1250", "iso-8859-2", "utf-16-be", "utf-16-le")
 
-    return hits
+    def scan_candidate(candidate: bytes) -> bool:
+        for encoding in encodings:
+            offsets = (0, 1) if encoding.startswith("utf-16") and len(candidate) > 1 else (0,)
+            for offset in offsets:
+                text = codecs.decode(memoryview(candidate)[offset:], encoding, errors="ignore")
+                for opaque, pattern in matchers:
+                    if opaque not in matched and pattern.search(text):
+                        matched.add(opaque)
+                if len(matched) == len(matchers):
+                    return True
+        return False
+
+    if not scan_candidate(raw):
+        for payload in _iter_pdf_decoded_string_payloads(raw):
+            if scan_candidate(payload):
+                break
+    return [opaque for opaque, _ in matchers if opaque in matched]
+
 
 def forbidden_public_identifiers(text: str) -> list[str]:
     _, rules, forbidden, _ = load_private_policy()
-    # Post-check every redaction rule as well as the explicit forbidden list.
-    # De-duplicate identical matcher expressions so reporting stays stable and opaque.
     combined = []
     seen = set()
     for _, pattern, _ in rules:
@@ -309,5 +329,4 @@ def forbidden_public_identifiers(text: str) -> list[str]:
 
 if __name__ == "__main__":
     import sys
-
     sys.stdout.write(redact_public_text(sys.stdin.read()))
