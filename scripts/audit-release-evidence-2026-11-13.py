@@ -751,7 +751,12 @@ def audit_registry_reconciliation(staged_rows: list[dict]):
             canonical_pdf_paths.add(rel)
 
     expected_root_paths = source_paths | canonical_pdf_paths
-    expected_staged_paths = expected_root_paths | {"web/" + rel for rel in expected_root_paths}
+    # The duplicated web/ compatibility tree exists only in the assembled release-site.
+    # A direct audit of WEB is itself the source tree and must not require a mirror of itself.
+    if PUBLICATION_ROOT.resolve() == WEB.resolve():
+        expected_staged_paths = expected_root_paths
+    else:
+        expected_staged_paths = expected_root_paths | {"web/" + rel for rel in expected_root_paths}
 
     stage_missing = sorted(expected_staged_paths - staged_paths)
     stage_extra = sorted(staged_paths - expected_staged_paths)
