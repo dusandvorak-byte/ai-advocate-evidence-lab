@@ -923,5 +923,73 @@ private.person@example.invalid
         self.assertLess(reconcile, harden)
 
 
+    def test_release_audit_clean_hardening_identity_bridge_is_exact_and_fail_closed(self):
+        ns = runpy.run_path(
+            str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"),
+            run_name="release_audit_hardening_identity_test",
+        )
+        pdf = self.tmpdir / "final.pdf"
+        doc = fitz.open()
+        doc.new_page()
+        doc.save(pdf)
+        doc.close()
+        output_sha = hashlib.sha256(pdf.read_bytes()).hexdigest()
+        source_sha = "1" * 64
+        row = {
+            "id": "doc-synthetic",
+            "public_path": "documents/final.pdf",
+            "input_sha256": source_sha,
+            "output_sha256": output_sha,
+            "changed": True,
+            "registered": True,
+            "known_private_identifier_hits_after": [],
+            "decoded_private_identifier_hits_after": [],
+        }
+        clean_report = {"hard_failure_count": 0, "hard_failures": []}
+
+        self.assertTrue(ns["clean_hardening_identity_authorized"](
+            hardening_report=clean_report,
+            hardening_row=row,
+            document_id="doc-synthetic",
+            public_path="documents/final.pdf",
+            source_sha256=source_sha,
+            final_sha256=output_sha,
+            final_pdf=pdf,
+        ))
+
+        dirty_report = {"hard_failure_count": 1, "hard_failures": ["synthetic"]}
+        self.assertFalse(ns["clean_hardening_identity_authorized"](
+            hardening_report=dirty_report,
+            hardening_row=row,
+            document_id="doc-synthetic",
+            public_path="documents/final.pdf",
+            source_sha256=source_sha,
+            final_sha256=output_sha,
+            final_pdf=pdf,
+        ))
+
+        malformed = dict(row, changed="true")
+        self.assertFalse(ns["clean_hardening_identity_authorized"](
+            hardening_report=clean_report,
+            hardening_row=malformed,
+            document_id="doc-synthetic",
+            public_path="documents/final.pdf",
+            source_sha256=source_sha,
+            final_sha256=output_sha,
+            final_pdf=pdf,
+        ))
+
+        mismatched = dict(row, output_sha256="2" * 64)
+        self.assertFalse(ns["clean_hardening_identity_authorized"](
+            hardening_report=clean_report,
+            hardening_row=mismatched,
+            document_id="doc-synthetic",
+            public_path="documents/final.pdf",
+            source_sha256=source_sha,
+            final_sha256=output_sha,
+            final_pdf=pdf,
+        ))
+
+
 if __name__ == "__main__":
     unittest.main()
