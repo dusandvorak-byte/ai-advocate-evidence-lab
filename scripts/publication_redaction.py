@@ -284,7 +284,12 @@ def prepared_private_byte_matchers() -> tuple[tuple[str, re.Pattern[str]], ...]:
     return tuple(compiled)
 
 
-def forbidden_public_identifier_byte_hits(raw: bytes, prepared_matchers: tuple[tuple[str, re.Pattern[str]], ...] | None = None) -> list[str]:
+def forbidden_public_identifier_byte_hits(
+    raw: bytes,
+    prepared_matchers: tuple[tuple[str, re.Pattern[str]], ...] | None = None,
+    *,
+    scan_pdf_strings: bool = True,
+) -> list[str]:
     matchers = prepared_matchers if prepared_matchers is not None else prepared_private_byte_matchers()
     if not matchers:
         return []
@@ -303,7 +308,9 @@ def forbidden_public_identifier_byte_hits(raw: bytes, prepared_matchers: tuple[t
                     return True
         return False
 
-    if not scan_candidate(raw):
+    if scan_candidate(raw):
+        return [opaque for opaque, _ in matchers if opaque in matched]
+    if scan_pdf_strings:
         for payload in _iter_pdf_decoded_string_payloads(raw):
             if scan_candidate(payload):
                 break
