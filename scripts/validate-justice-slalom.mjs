@@ -1,7 +1,10 @@
 import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
-import { evaluateJusticeSlalomPdfProvenance } from './justice-slalom-pdf-provenance.mjs';
+import {
+  evaluateJusticeSlalomPdfProvenance,
+  evaluatePinnedJusticeSlalomOriginal,
+} from './justice-slalom-pdf-provenance.mjs';
 
 const fail = message => { throw new Error(`JUSTICE-SLALOM-GATE: ${message}`); };
 const uoouMaterializer = await readFile('scripts/materialize-uoou-submission-2026-10-02.py','utf8');
@@ -115,8 +118,19 @@ for (const file of await walk('web')) {
   if (/data-timer-id=|id="procesni-casovace"|PROCESS-TIMERS:BEGIN|Živé procesní časovače|Live procedural timers/.test(html)) fail(`veřejná stránka obsahuje původní časovač: ${file}`);
 }
 const uoouOriginal = items.find(item => item.id === 'doc-cz-dd-2026-10-02-uoou-stiznost-necinnost');
-if (!uoouOriginal || uoouOriginal.justice_slalom.source_kind !== 'original_pdf_uploaded_by_user' || uoouOriginal.justice_slalom.source_sha256 !== '37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74' || uoouOriginal.public.sha256 !== uoouOriginal.justice_slalom.source_sha256) fail('ÚOOÚ 2. 10. 2026 nemá byte-identický originál a korektní provenienci');
-if (!published.rows.some(row => row.document_id === uoouOriginal.id && row.date === '2026-10-02' && row.recipient_id === 'CZ-UOOU' && row.pdf_kind === 'original')) fail('ÚOOÚ 2. 10. 2026 chybí v Justičním slalomu jako původní PDF');
+if (!uoouOriginal) fail('ÚOOÚ 2. 10. 2026 chybí v kanonickém registru');
+const uoouExpectedSourceSha = '37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74';
+const uoouBytes = await readFile(`web/${uoouOriginal.public.pdf}`).catch(() => fail('ÚOOÚ 2. 10. 2026 nemá dostupné veřejné PDF'));
+const uoouDigest = sha(uoouBytes);
+const uoouEvaluation = evaluatePinnedJusticeSlalomOriginal({
+  doc: uoouOriginal,
+  digest: uoouDigest,
+  expectedSourceSha: uoouExpectedSourceSha,
+  hardeningById,
+  hardeningReportOk,
+});
+if (!uoouEvaluation.provenanceOk) fail('ÚOOÚ 2. 10. 2026 nemá korektně svázaný originál nebo ověřenou veřejnou derivaci');
+if (!published.rows.some(row => row.document_id === uoouOriginal.id && row.date === '2026-10-02' && row.recipient_id === 'CZ-UOOU' && row.pdf_kind === uoouEvaluation.effectiveKind)) fail('ÚOOÚ 2. 10. 2026 chybí v Justičním slalomu se správným označením PDF');
 const uocrOriginal = items.find(item => item.id === 'doc-cz-dd-2026-10-01-uocr-pro-bono');
 if (!uocrOriginal || uocrOriginal.justice_slalom.source_kind !== 'original_pdf_uploaded_by_user' || uocrOriginal.justice_slalom.source_sha256 !== '12bd631ab89609b80fb07baffa0d910d4af266f6e849d054371e3d9492786dd7') fail('Dopis Unii obhájců 1. 10. 2026 není veden jako původní PDF');
 if (!published.rows.some(row => row.document_id === uocrOriginal.id && row.recipient_id === 'CZ-UOCR' && row.pdf_kind === 'original')) fail('Dopis Unii obhájců 1. 10. 2026 chybí v Justičním slalomu');

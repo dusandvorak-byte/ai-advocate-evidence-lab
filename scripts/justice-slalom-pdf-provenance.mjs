@@ -89,3 +89,49 @@ export const evaluateJusticeSlalomPdfProvenance = ({
     provenanceOk,
   };
 };
+
+
+export const evaluatePinnedJusticeSlalomOriginal = ({
+  doc,
+  digest,
+  expectedSourceSha,
+  hardeningById,
+  hardeningReportOk,
+}) => {
+  const sourcePinned = Boolean(
+    doc
+    && doc.justice_slalom?.source_kind === 'original_pdf_uploaded_by_user'
+    && validSha256(expectedSourceSha)
+    && doc.justice_slalom?.source_sha256 === expectedSourceSha
+  );
+  const registryDigestMatches = Boolean(
+    validSha256(digest)
+    && digest === doc?.public?.sha256
+  );
+  const evaluation = doc
+    ? evaluateJusticeSlalomPdfProvenance({
+        doc,
+        digest,
+        hardeningById,
+        hardeningReportOk,
+        requiredInputSha: expectedSourceSha,
+      })
+    : {
+        declaredKind: 'original',
+        effectiveKind: 'original',
+        expectedInputSha: expectedSourceSha,
+        policyHardened: false,
+        provenanceOk: false,
+      };
+
+  return {
+    ...evaluation,
+    sourcePinned,
+    registryDigestMatches,
+    provenanceOk: Boolean(
+      sourcePinned
+      && registryDigestMatches
+      && evaluation.provenanceOk
+    ),
+  };
+};

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 import {
   evaluateJusticeSlalomPdfProvenance,
+  evaluatePinnedJusticeSlalomOriginal,
 } from '../scripts/justice-slalom-pdf-provenance.mjs';
 
 const SOURCE_SHA = '1'.repeat(64);
@@ -279,4 +280,45 @@ test('report-level hard failure blocks hardened derivative', () => {
   assert.equal(result.policyHardened, false);
   assert.equal(result.provenanceOk, false);
   assert.equal(result.effectiveKind, 'original');
+});
+
+
+test('pinned uploaded original accepts an authenticated hardened derivative', () => {
+  const doc = makeDoc({
+    sourceKind: 'original_pdf_uploaded_by_user',
+    publicSha: HARDENED_SHA,
+    verificationStatus: 'source_pdf_received_binary_original; publication_policy_hardened',
+    sourceSha: SOURCE_SHA,
+  });
+  const result = evaluatePinnedJusticeSlalomOriginal({
+    doc,
+    digest: HARDENED_SHA,
+    expectedSourceSha: SOURCE_SHA,
+    hardeningReportOk: true,
+    hardeningById: new Map([['doc-test', hardenedRow()]]),
+  });
+
+  assert.equal(result.sourcePinned, true);
+  assert.equal(result.registryDigestMatches, true);
+  assert.equal(result.provenanceOk, true);
+  assert.equal(result.effectiveKind, 'redacted_public_copy');
+});
+
+test('pinned uploaded original rejects a mismatched authenticated source SHA', () => {
+  const doc = makeDoc({
+    sourceKind: 'original_pdf_uploaded_by_user',
+    publicSha: HARDENED_SHA,
+    verificationStatus: 'source_pdf_received_binary_original; publication_policy_hardened',
+    sourceSha: SOURCE_SHA,
+  });
+  const result = evaluatePinnedJusticeSlalomOriginal({
+    doc,
+    digest: HARDENED_SHA,
+    expectedSourceSha: '9'.repeat(64),
+    hardeningReportOk: true,
+    hardeningById: new Map([['doc-test', hardenedRow()]]),
+  });
+
+  assert.equal(result.sourcePinned, false);
+  assert.equal(result.provenanceOk, false);
 });
