@@ -61,6 +61,7 @@ jobs:
           python3 -m py_compile scripts/harden-public-pdf-privacy.py
           python3 -m py_compile scripts/public_text_fallback.py
           python3 -m py_compile scripts/verify-production-text-fallback-all.py
+          python3 -m py_compile scripts/diagnose-extractor-divergence.py
           python3 test/publication_redaction_complexity.test.py
           python3 test/hardener_extracted_text_mode.test.py
           python3 test/public_text_fallback.test.py
@@ -84,6 +85,9 @@ jobs:
       - name: Reconstruct the exact pre-hardening public tree
         run: node scripts/reconstruct-pre-hardening-tree.mjs
 
+      - name: Characterize extractor divergence without logging document text
+        run: python3 scripts/diagnose-extractor-divergence.py
+
       - name: Verify exact production fallback on all seventeen residual PDFs
         run: python3 scripts/verify-production-text-fallback-all.py
 
@@ -94,6 +98,7 @@ jobs:
           name: production-text-fallback-all17-dc6c712
           path: |
             review-artifacts/production-text-fallback-all17.json
+            review-artifacts/extractor-divergence-diagnostic.json
             review-artifacts/fallback-candidate.json
           if-no-files-found: error
           retention-days: 7
