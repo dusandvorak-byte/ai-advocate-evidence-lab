@@ -1,0 +1,192 @@
+name: Repair staged PDF source compare-and-swap guards
+
+on:
+  push:
+    branches: [fix/privacy-text-fallback-clean-20261121]
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+
+      - name: Install fixed PDF dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq qpdf poppler-utils
+          python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pymupdf==2.1
+
+      - name: Add concurrent-source regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('test/hardener_text_fallback.test.py')
+          text = path.read_text('utf-8')
+          anchor = '    def test_raw_private_hit_is_reported_without_touching_canonical(self):\n'
+          if text.count(anchor) != 1:
+              raise SystemExit(f'unexpected test insertion anchor count: {text.count(anchor)}')
+          tests = "\n".join([
+              '    def test_parent_rejects_stage_source_mismatch_before_worker(self):',
+              '        inspection = {"page_count": 1, "reasons": ["private_match"]}',
+              '        original_create = self.globals["create_candidate_stage"]',
+              '',
+              '        def mismatched_stage(path):',
+              '            stage = original_create(path)',
+              '            stage.write_bytes(b"mismatched-stage-source")',
+              '            return stage',
+              '',
+              '        self.globals["create_candidate_stage"] = mismatched_stage',
+              '        with mock.patch.object(self.globals["subprocess"], "run") as worker:',
+              '            result = self.ns["process_candidate_isolated"]("sample.pdf", True, inspection)',
+              '',
+              '        worker.assert_not_called()',
+              '        self.assertFalse(result["changed"])',
+              '        self.assertEqual(self.pdf.read_bytes(), self.original_bytes)',
+              '        self.assertTrue(any("stage source SHA" in failure for failure in result["failures"]))',
+              '        self.assertEqual(list(self.web.glob(".sample.pdf.*.candidate.pdf")), [])',
+              '',
+              '    def test_parent_refuses_to_overwrite_concurrent_canonical_change(self):',
+              '        inspection = {"page_count": 1, "reasons": ["private_match"]}',
+              '        verified = b"verified-staged-pdf"',
+              '        concurrent = b"concurrent-external-update"',
+              '',
+              '        def successful_worker(args, **kwargs):',
+              '            stage = self.web / args[4]',
+              '            stage.write_bytes(verified)',
+              '            self.pdf.write_bytes(concurrent)',
+              '            payload = self.candidate_payload(verified)',
+              '            return SimpleNamespace(returncode=0, stdout=json.dumps({"candidate": payload}) + "\\n", stderr="")',
+              '',
+              '        with mock.patch.object(self.globals["subprocess"], "run", side_effect=successful_worker):',
+              '            result = self.ns["process_candidate_isolated"]("sample.pdf", True, inspection)',
+              '',
+              '        self.assertFalse(result["changed"])',
+              '        self.assertEqual(self.pdf.read_bytes(), concurrent)',
+              '        self.assertEqual(result["after_sha"], hashlib.sha256(concurrent).hexdigest())',
+              '        self.assertTrue(any("changed during privacy hardening" in failure for failure in result["failures"]))',
+              '        self.assertEqual(list(self.web.glob(".sample.pdf.*.candidate.pdf")), [])',
+              '',
+          ])
+          path.write_text(text.replace(anchor, tests + anchor), 'utf-8')
+          PY
+          python3 -m py_compile test/hardener_text_fallback.test.py
+          git diff --check
+
+      - name: Prove the regressions fail before implementation
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          python3 test/hardener_text_fallback.test.py > /tmp/red.log 2>&1
+          status=$?
+          set -e
+          if [ "$status" -eq 0 ]; then
+            cat /tmp/red.log
+            echo 'new concurrency regressions unexpectedly passed before the guard implementation' >&2
+            exit 1
+          fi
+          grep -q 'test_parent_rejects_stage_source_mismatch_before_worker' /tmp/red.log
+          grep -q 'test_parent_refuses_to_overwrite_concurrent_canonical_change' /tmp/red.log
+
+      - name: Add staged-source and precommit canonical guards
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('scripts/harden-public-pdf-privacy.py')
+          text = path.read_text('utf-8')
+          old_stage = "\n".join([
+              '        stage = create_candidate_stage(path)',
+              '        stage_rel = stage.relative_to(WEB).as_posix()',
+          ])
+          new_stage = "\n".join([
+              '        stage = create_candidate_stage(path)',
+              '        stage_source_sha = sha256_file(stage)',
+              '        if stage_source_sha != before_sha:',
+              '            return unchanged_failure(',
+              '                f"candidate stage source SHA verification failed for {rel}"',
+              '            )',
+              '        stage_rel = stage.relative_to(WEB).as_posix()',
+          ])
+          if text.count(old_stage) != 1:
+              raise SystemExit(f'unexpected stage guard anchor count: {text.count(old_stage)}')
+          text = text.replace(old_stage, new_stage)
+
+          old_commit = "\n".join([
+              '            if candidate.get("after_sha") != stage_sha:',
+              '                return unchanged_failure(',
+              '                    f"candidate staged SHA verification failed for {rel}",',
+              '                    candidate,',
+              '                )',
+              '            commit_candidate_stage(stage, path)',
+          ])
+          new_commit = "\n".join([
+              '            if candidate.get("after_sha") != stage_sha:',
+              '                return unchanged_failure(',
+              '                    f"candidate staged SHA verification failed for {rel}",',
+              '                    candidate,',
+              '                )',
+              '            try:',
+              '                current_source_sha = sha256_file(path)',
+              '            except (OSError, RuntimeError) as exc:',
+              '                return unchanged_failure(',
+              '                    f"canonical PDF became unverifiable during privacy hardening for {rel}: "',
+              '                    + type(exc).__name__,',
+              '                    candidate,',
+              '                )',
+              '            if current_source_sha != before_sha:',
+              '                concurrent = unchanged_failure(',
+              '                    f"canonical PDF changed during privacy hardening for {rel}",',
+              '                    candidate,',
+              '                )',
+              '                concurrent["after_sha"] = current_source_sha',
+              '                return concurrent',
+              '            commit_candidate_stage(stage, path)',
+          ])
+          if text.count(old_commit) != 1:
+              raise SystemExit(f'unexpected commit guard anchor count: {text.count(old_commit)}')
+          path.write_text(text.replace(old_commit, new_commit), 'utf-8')
+          PY
+          python3 -m py_compile scripts/harden-public-pdf-privacy.py
+          git diff --check
+          changed="$(git diff --name-only | sort)"
+          expected="$(printf '%s\n' scripts/harden-public-pdf-privacy.py test/hardener_text_fallback.test.py | sort)"
+          test "$changed" = "$expected"
+
+      - name: Run focused and broad privacy regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 test/hardener_text_fallback.test.py
+          python3 test/public_text_fallback.test.py
+          python3 test/publication_redaction.test.py
+
+      - name: Commit verified compare-and-swap guards
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/harden-public-pdf-privacy.py test/hardener_text_fallback.test.py
+          git diff --cached --quiet && exit 0
+          git commit -m 'Reject stale PDF stages and concurrent source changes'
+          git push origin HEAD:fix/privacy-text-fallback-clean-20261121
