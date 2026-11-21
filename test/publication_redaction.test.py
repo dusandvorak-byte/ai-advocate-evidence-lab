@@ -291,6 +291,40 @@ private.person@example.invalid
             },
         )
 
+    def test_targeted_pdf_rules_selects_only_detected_rule_indexes(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(
+            str(ROOT / "scripts/harden-public-pdf-privacy.py"),
+            run_name="privacy_hardening_targeted_rules_test",
+        )
+        rules = [
+            {"id": "r1", "variants": ["one"], "replacement": "[x]"},
+            {"id": "r2", "variants": ["two"], "replacement": "[x]"},
+            {"id": "r3", "variants": ["three"], "replacement": "[x]"},
+        ]
+        selected = ns["targeted_pdf_rules"](
+            rules,
+            ["private_raw_match_2", "private_raw_match_3", "private_raw_match_2"],
+        )
+        self.assertEqual([rule["id"] for rule in selected], ["r2", "r3"])
+
+    def test_metadata_only_private_match_uses_metadata_strategy(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(
+            str(ROOT / "scripts/harden-public-pdf-privacy.py"),
+            run_name="privacy_hardening_metadata_strategy_test",
+        )
+        strategy = ns["candidate_strategy"](
+            {
+                "reasons": ["private_match"],
+                "text_private_hits": [],
+                "metadata_private_hits": ["private_match_1"],
+                "xmp_present": False,
+            },
+            True,
+        )
+        self.assertEqual(strategy, "pymupdf_metadata")
+
     def test_metadata_is_sanitized_even_without_text_match(self):
         self.write_policy_and_contract()
         ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"), run_name="privacy_hardening_metadata_test")
