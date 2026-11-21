@@ -57,6 +57,7 @@ jobs:
           node --check scripts/reconstruct-pre-hardening-tree.mjs
           python3 -m py_compile scripts/diagnose-pdf-hardening-stages.py
           python3 -m py_compile scripts/diagnose-public-text-fallback.py
+          python3 -m py_compile scripts/diagnose-public-text-fallback-all.py
           python3 -m py_compile scripts/harden-public-pdf-privacy.py
           python3 test/publication_redaction_complexity.test.py
           python3 test/hardener_extracted_text_mode.test.py
@@ -82,8 +83,8 @@ jobs:
       - name: Diagnose ten residual privacy failures by stage
         run: python3 scripts/diagnose-pdf-hardening-stages.py
 
-      - name: Verify deterministic public text fallback on all ten residuals
-        run: python3 scripts/diagnose-public-text-fallback.py
+      - name: Verify deterministic public text fallback on all seventeen residuals
+        run: python3 scripts/diagnose-public-text-fallback-all.py
 
       - name: Upload sanitized residual diagnostic evidence
         if: always()
