@@ -19,6 +19,12 @@ class PublicationRedactionComplexityTests(unittest.TestCase):
         self.assertEqual(payloads, [])
         self.assertLess(elapsed, 1.0, f"unbalanced literal scan took {elapsed:.3f}s")
 
+    def test_raw_utf16_identifier_is_detected_at_both_byte_alignments(self):
+        secret = b"\xfe\xff" + "secret".encode("utf-16-be")
+        matcher = (("m", re.compile("secret")),)
+        self.assertEqual(redaction.forbidden_public_identifier_byte_hits(secret, matcher), ["m"])
+        self.assertEqual(redaction.forbidden_public_identifier_byte_hits(b"X" + secret, matcher), ["m"])
+
     def test_unbalanced_binary_prefix_does_not_hide_later_hex_string(self):
         raw = b"(" * 64 + b"\n<736563726574>"
         self.assertIn(b"secret", redaction._pdf_decoded_string_payloads(raw))
