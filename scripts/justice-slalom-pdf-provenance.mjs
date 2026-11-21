@@ -26,10 +26,11 @@ const hardenedRegistryStatus = doc => String(doc.public?.verification_status || 
   .map(part => part.trim())
   .includes('publication_policy_hardened');
 
-export const policyHardenedCopyOk = ({ doc, digest, expectedInputSha, hardeningById }) => {
+export const policyHardenedCopyOk = ({ doc, digest, expectedInputSha, hardeningById, hardeningReportOk }) => {
   const row = hardeningById.get(doc.id);
   return Boolean(
-    hardenedRegistryStatus(doc)
+    hardeningReportOk === true
+    && hardenedRegistryStatus(doc)
     && validSha256(digest)
     && validSha256(expectedInputSha)
     && row
@@ -51,6 +52,7 @@ export const evaluateJusticeSlalomPdfProvenance = ({
   doc,
   digest,
   hardeningById,
+  hardeningReportOk,
   requiredInputSha,
 }) => {
   const meta = doc.justice_slalom || {};
@@ -69,6 +71,7 @@ export const evaluateJusticeSlalomPdfProvenance = ({
     digest,
     expectedInputSha,
     hardeningById,
+    hardeningReportOk,
   });
   const copyManifest = copyManifestFor(doc);
   const provenanceOk = declaredKind === 'original'

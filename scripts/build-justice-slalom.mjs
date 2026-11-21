@@ -9,6 +9,10 @@ const documents = JSON.parse(await readFile('project-memory/documents-2026.json'
 const institutions = JSON.parse(await readFile('project-memory/institutions.json', 'utf8')).institutions;
 const privacyHardening = JSON.parse(await readFile('project-memory/privacy-hardening-report.json', 'utf8'));
 const hardeningById = new Map((privacyHardening.documents || []).map(item => [item.id, item]));
+const hardeningReportOk = privacyHardening.hard_failure_count === 0
+  && Array.isArray(privacyHardening.hard_failures)
+  && privacyHardening.hard_failures.length === 0;
+if (!hardeningReportOk) throw new Error('JUSTICE-SLALOM: privacy hardening report contains failures');
 const names = new Map(institutions.map(item => [item.id, item.name]));
 const entries = documents.filter(item => item.justice_slalom);
 const expectedArchiveNumbers = Array.from({ length: 47 }, (_, index) => index + 2);
@@ -42,7 +46,7 @@ for (const doc of entries) {
   const {
     effectiveKind: kind,
     provenanceOk,
-  } = evaluateJusticeSlalomPdfProvenance({ doc, digest, hardeningById });
+  } = evaluateJusticeSlalomPdfProvenance({ doc, digest, hardeningById, hardeningReportOk });
   if (digest !== doc.public.sha256 || !provenanceOk) {
     throw new Error(`JUSTICE-SLALOM: veřejné PDF neodpovídá deklarovanému zdroji a typu kopie ${doc.id}`);
   }

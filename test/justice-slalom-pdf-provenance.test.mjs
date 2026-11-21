@@ -54,6 +54,7 @@ test('byte-identical original remains an original', () => {
   const result = evaluateJusticeSlalomPdfProvenance({
     doc,
     digest: SOURCE_SHA,
+    hardeningReportOk: true,
     hardeningById: new Map(),
   });
 
@@ -71,6 +72,7 @@ test('policy-hardened original is accepted and labelled as a public copy', () =>
   const result = evaluateJusticeSlalomPdfProvenance({
     doc,
     digest: HARDENED_SHA,
+    hardeningReportOk: true,
     hardeningById: new Map([['doc-test', hardenedRow()]]),
   });
 
@@ -88,6 +90,7 @@ test('hardened original is rejected when the report is not bound to the source d
   const result = evaluateJusticeSlalomPdfProvenance({
     doc,
     digest: HARDENED_SHA,
+    hardeningReportOk: true,
     hardeningById: new Map([['doc-test', hardenedRow({ inputSha: '9'.repeat(64) })]]),
   });
 
@@ -104,6 +107,7 @@ test('hardened copy is rejected when privacy hits remain', () => {
   const result = evaluateJusticeSlalomPdfProvenance({
     doc,
     digest: HARDENED_SHA,
+    hardeningReportOk: true,
     hardeningById: new Map([['doc-test', hardenedRow({ decodedHits: ['private_raw_match_1'] })]]),
   });
 
@@ -116,6 +120,7 @@ test('hardening report alone cannot reclassify a document without hardened regis
   const result = evaluateJusticeSlalomPdfProvenance({
     doc,
     digest: HARDENED_SHA,
+    hardeningReportOk: true,
     hardeningById: new Map([['doc-test', hardenedRow()]]),
   });
 
@@ -133,6 +138,7 @@ test('reviewed public copy may be hardened again without losing its copy classif
   const result = evaluateJusticeSlalomPdfProvenance({
     doc,
     digest: HARDENED_SHA,
+    hardeningReportOk: true,
     hardeningById: new Map([[
       'doc-test',
       hardenedRow({ inputSha: PUBLIC_SHA }),
@@ -154,6 +160,7 @@ test('redacted original keeps its redacted-original label after policy hardening
   const result = evaluateJusticeSlalomPdfProvenance({
     doc,
     digest: HARDENED_SHA,
+    hardeningReportOk: true,
     hardeningById: new Map([[
       'doc-test',
       hardenedRow({ inputSha: PUBLIC_SHA }),
@@ -177,6 +184,7 @@ test('missing input SHA cannot authorize hardening', () => {
   const result = evaluateJusticeSlalomPdfProvenance({
     doc,
     digest: HARDENED_SHA,
+    hardeningReportOk: true,
     hardeningById: new Map([['doc-test', row]]),
   });
 
@@ -196,6 +204,7 @@ test('string changed flag cannot authorize hardening', () => {
   const result = evaluateJusticeSlalomPdfProvenance({
     doc,
     digest: HARDENED_SHA,
+    hardeningReportOk: true,
     hardeningById: new Map([['doc-test', row]]),
   });
 
@@ -213,6 +222,7 @@ test('byte-identical original remains original despite malformed hardening row',
   const result = evaluateJusticeSlalomPdfProvenance({
     doc,
     digest: SOURCE_SHA,
+    hardeningReportOk: true,
     hardeningById: new Map([['doc-test', row]]),
   });
 
@@ -236,12 +246,14 @@ test('upload inventory SHA override rejects a mismatched hardening input', () =>
   const inventoryBound = evaluateJusticeSlalomPdfProvenance({
     doc,
     digest: HARDENED_SHA,
+    hardeningReportOk: true,
     hardeningById: new Map([['doc-test', row]]),
     requiredInputSha: inventorySha,
   });
   const wrongInventory = evaluateJusticeSlalomPdfProvenance({
     doc,
     digest: HARDENED_SHA,
+    hardeningReportOk: true,
     hardeningById: new Map([['doc-test', row]]),
     requiredInputSha: '5'.repeat(64),
   });
@@ -250,4 +262,21 @@ test('upload inventory SHA override rejects a mismatched hardening input', () =>
   assert.equal(inventoryBound.policyHardened, true);
   assert.equal(wrongInventory.provenanceOk, false);
   assert.equal(wrongInventory.policyHardened, false);
+});
+
+test('report-level hard failure blocks hardened derivative', () => {
+  const doc = makeDoc({
+    publicSha: HARDENED_SHA,
+    verificationStatus: 'source_pdf_received_binary_original; publication_policy_hardened',
+  });
+  const result = evaluateJusticeSlalomPdfProvenance({
+    doc,
+    digest: HARDENED_SHA,
+    hardeningReportOk: false,
+    hardeningById: new Map([['doc-test', hardenedRow()]]),
+  });
+
+  assert.equal(result.policyHardened, false);
+  assert.equal(result.provenanceOk, false);
+  assert.equal(result.effectiveKind, 'original');
 });

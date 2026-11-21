@@ -9,6 +9,10 @@ if (!uoouMaterializer.includes('37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef
 const memory = JSON.parse(await readFile('project-memory/documents-2026.json','utf8'));
 const privacyHardening = JSON.parse(await readFile('project-memory/privacy-hardening-report.json','utf8'));
 const hardeningById = new Map((privacyHardening.documents || []).map(item => [item.id, item]));
+const hardeningReportOk = privacyHardening.hard_failure_count === 0
+  && Array.isArray(privacyHardening.hard_failures)
+  && privacyHardening.hard_failures.length === 0;
+if (!hardeningReportOk) fail('privacy hardening report obsahuje chyby');
 const published = JSON.parse(await readFile('web/data/justice-slalom.json','utf8'));
 const manifest = JSON.parse(await readFile('web/data/build-manifest.json','utf8'));
 const items = memory.documents.filter(item => item.justice_slalom);
@@ -26,6 +30,7 @@ for (const upload of archivedUploads) {
       doc: item,
       digest: item.public.sha256,
       hardeningById,
+      hardeningReportOk,
       requiredInputSha: upload.public_sha256,
     });
     if (item.justice_slalom.source_kind !== 'redacted_public_copy_from_user_original' || !evaluation.provenanceOk) {
@@ -89,6 +94,7 @@ for (const item of items) {
     doc: item,
     digest: hash,
     hardeningById,
+    hardeningReportOk,
   });
   if (hash !== item.public.sha256 || !kindOk || !bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF')) fail(`poškozené nebo chybně popsané PDF ${item.id}`);
   const rowsForItem = published.rows.filter(row => row.document_id === item.id);
