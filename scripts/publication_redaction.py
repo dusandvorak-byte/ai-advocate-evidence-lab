@@ -188,6 +188,7 @@ def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
     """
     n = len(raw)
     remaining_budget = max(1_048_576, n * 4)
+    remaining_scan_budget = max(1_048_576, n * 4)
     hex_chars = b"0123456789abcdefABCDEF"
 
     def push_bounded(stack: array, offset: int) -> None:
@@ -246,6 +247,10 @@ def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
             push_bounded(opens, i)
         elif byte == 41 and opens:
             start = opens.pop()
+            examined = i - start - 1
+            if examined > remaining_scan_budget:
+                raise RedactionPolicyError("PDF literal scan budget exceeded")
+            remaining_scan_budget -= examined
             payload = _decode_pdf_escapes(raw[start + 1:i])
             if payload:
                 if len(payload) > remaining_budget:
