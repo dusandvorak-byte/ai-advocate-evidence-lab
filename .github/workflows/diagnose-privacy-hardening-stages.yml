@@ -2,7 +2,7 @@ name: Diagnose privacy hardening stages
 
 on:
   push:
-    branches: [diag/privacy-stage-rootcause-20261121]
+    branches: [main, diag/privacy-stage-rootcause-20261121]
   workflow_dispatch:
 
 permissions:
