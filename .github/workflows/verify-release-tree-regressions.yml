@@ -1,0 +1,27 @@
+name: Verify release-tree regressions
+
+on:
+  push:
+    branches: [fix/release-tree-integrity-20261121]
+
+permissions:
+  contents: read
+
+jobs:
+  regressions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - name: Install test dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq qpdf poppler-utils
+          python3 -m pip install --disable-pip-version-check pymupdf==2.1 reportlab==5.1.0 pillow==13.0.0
+      - name: Run privacy and release-tree regressions
+        run: python3 test/publication_redaction.test.py
