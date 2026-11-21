@@ -1,0 +1,106 @@
+name: Diagnose privacy hardening stages
+
+on:
+  push:
+    branches: [diag/privacy-stage-rootcause-20261121]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '24'
+
+jobs:
+  diagnose:
+    name: Sanitized privacy stage isolation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact diagnostic revision
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install bounded PDF tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils qpdf
+          python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
+          python3 -m py_compile scripts/diagnose-pdf-hardening-stages.py
+          python3 -m py_compile scripts/harden-public-pdf-privacy.py
+
+      - name: Provision authenticated private policy in runner temp
+        shell: bash
+        env:
+          PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
+          PRIVATE_POLICY_HMAC_KEY: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$PRIVATE_POLICY_B64"
+          test -n "$PRIVATE_POLICY_HMAC_KEY"
+          POLICY_PATH="$RUNNER_TEMP/evidence-lab-private-redaction-policy.json"
+          printf '%s' "$PRIVATE_POLICY_B64" | base64 --decode > "$POLICY_PATH"
+          chmod 600 "$POLICY_PATH"
+          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=$POLICY_PATH" >> "$GITHUB_ENV"
+          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY=$PRIVATE_POLICY_HMAC_KEY" >> "$GITHUB_ENV"
+
+      - name: Reconstruct the exact pre-hardening public tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/recover-historical-binary-blobs.mjs
+          node scripts/materialize-godot-pdf-bundle.mjs
+          node scripts/materialize-godot-state-bundle-2026-08-24.mjs
+          python3 scripts/materialize-uoou-2026-08-26.py
+          python3 scripts/materialize-euda-2026-09-25.py
+          python3 scripts/materialize-state-pdfs-2026-09-03.py
+          node scripts/prepare-md-english-build.mjs
+
+          node scripts/validate-architecture.mjs
+          node scripts/materialize-binary-sources.mjs
+          node scripts/apply-justice-slalom-2026-10-12-case-links.mjs
+          python3 scripts/materialize-pdf-release-2026-09-29.py
+          python3 scripts/materialize-state-pdfs-2026-09-03.py
+          python3 scripts/materialize-state-pdf-2026-10-01.py
+          python3 scripts/materialize-october-court-pdfs.py
+          python3 scripts/materialize-uoou-submission-2026-10-02.py
+          python3 scripts/materialize-euda-access-documents-2026-10-01.py
+          python3 scripts/materialize-ekk-evidence-2026-10-02.py
+          python3 scripts/materialize-four-records-2026-10-03.py
+          python3 scripts/materialize-state-responses-2026-10-07.py
+          python3 scripts/materialize-mv-rozklad-2026-10-07.py
+          python3 scripts/materialize-godot-filings-2026-10-08.py
+          python3 scripts/materialize-justice-slalom-2026-10-12.py
+          python3 scripts/materialize-2026-10-15-godot-slalom.py
+          python3 scripts/materialize-redacted-originals-2026-10-16.py
+          python3 scripts/validate-redacted-originals-2026-10-16.py
+          node scripts/build-kasace-2026-10-30.mjs
+          node scripts/build-late-evidence-2026-11-02.mjs
+          node scripts/ensure-generated-state-pdfs.mjs
+          node scripts/normalize-canonical-data.mjs
+          node scripts/materialize-os-praha4-public-copy.mjs
+
+      - name: Diagnose all previously timed-out PDFs by stage
+        run: python3 scripts/diagnose-pdf-hardening-stages.py
+
+      - name: Upload sanitized diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: privacy-hardening-stage-diagnostic
+          path: review-artifacts/privacy-hardening-stage-diagnostic.json
+          if-no-files-found: error
+          retention-days: 7
