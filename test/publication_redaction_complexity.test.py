@@ -35,6 +35,17 @@ class PublicationRedactionComplexityTests(unittest.TestCase):
         payloads = redaction._pdf_decoded_string_payloads(raw)
         self.assertTrue(any(b"secret" in payload for payload in payloads))
 
+    def test_unbalanced_binary_prefix_does_not_hide_later_utf16_string(self):
+        secret = b"\xfe\xff" + "secret".encode("utf-16-be")
+        raw = b"(" * 64 + b"\n(" + secret + b")"
+        payloads = redaction._pdf_decoded_string_payloads(raw)
+        self.assertIn(secret, payloads)
+
+    def test_escape_recovery_does_not_retain_a_full_file_candidate(self):
+        raw = (b"binary-prefix-\\163-" * 4096) + b"tail"
+        payloads = redaction._pdf_decoded_string_payloads(raw)
+        self.assertEqual(payloads, [])
+
 
 if __name__ == "__main__":
     unittest.main()
