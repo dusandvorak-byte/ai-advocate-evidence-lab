@@ -751,7 +751,9 @@ def audit_registry_reconciliation(staged_rows: list[dict]):
             canonical_pdf_paths.add(rel)
 
     expected_root_paths = source_paths | canonical_pdf_paths
-    expected_staged_paths = expected_root_paths | {"web/" + rel for rel in expected_root_paths}
+    expected_staged_paths = set(expected_root_paths)
+    if PUBLICATION_ROOT != WEB:
+        expected_staged_paths |= {"web/" + rel for rel in expected_root_paths}
 
     stage_missing = sorted(expected_staged_paths - staged_paths)
     stage_extra = sorted(staged_paths - expected_staged_paths)

@@ -85,6 +85,9 @@ jobs:
           cp -a web/. release-site/
           mkdir -p release-site/web
           cp -a web/. release-site/web/
+          # Bind the staged release registry to the post-build canonical SHA state.
+          cp project-memory/documents-2026.json release-site/data/documents-2026.json
+          cp project-memory/documents-2026.json release-site/web/data/documents-2026.json
           version="${GITHUB_SHA:0:12}"
           while IFS= read -r -d '' html_file; do
             sed -E -i "s#src=\"live-dockets\\.js(\\?v=[^\"]*)?\"#src=\"live-dockets.js?v=${version}\"#g" "$html_file"

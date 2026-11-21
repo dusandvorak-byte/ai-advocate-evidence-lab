@@ -374,5 +374,16 @@ class HardenerTextFallbackTests(unittest.TestCase):
         self.assertEqual(list(self.web.glob(".durable.pdf.*.candidate.pdf")), [])
 
 
+
+    def test_raw_private_bytes_force_text_fallback(self):
+        post = clean_post()
+        post["raw_private_hits"] = ["private_raw_match_1"]
+        self.assertTrue(self.ns["requires_text_fallback"](post))
+
+    def test_embedded_files_force_text_fallback(self):
+        post = clean_post()
+        post["embedded_file_count"] = 1
+        self.assertTrue(self.ns["requires_text_fallback"](post))
+
 if __name__ == "__main__":
     unittest.main()
