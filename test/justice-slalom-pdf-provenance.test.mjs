@@ -373,3 +373,17 @@ test('unregistered evidence rows without IDs remain non-authoritative', () => {
   assert.equal(result.hardeningById.size, 1);
   assert.equal(result.hardeningById.has(null), false);
 });
+
+
+test('hardening evidence row without an ID field fails closed', () => {
+  const malformed = { ...hardenedRow() };
+  delete malformed.id;
+  const result = indexJusticeSlalomHardeningEvidence({
+    hard_failure_count: 0,
+    hard_failures: [],
+    documents: [hardenedRow(), malformed],
+  });
+
+  assert.equal(result.hardeningReportOk, false);
+  assert.equal(result.hardeningById.size, 0);
+});

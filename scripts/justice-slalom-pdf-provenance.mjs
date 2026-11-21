@@ -12,7 +12,8 @@ export const indexJusticeSlalomHardeningEvidence = report => {
   const rowShapesValid = rows !== null && rows.every(row => Boolean(
     row
     && typeof row === 'object'
-    && (row.id == null || (typeof row.id === 'string' && row.id.length > 0))
+    && Object.prototype.hasOwnProperty.call(row, 'id')
+    && (row.id === null || (typeof row.id === 'string' && row.id.length > 0))
   ));
   const indexedRows = rowShapesValid
     ? rows.filter(row => typeof row.id === 'string' && row.id.length > 0)
