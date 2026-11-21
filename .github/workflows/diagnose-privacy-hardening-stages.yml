@@ -1,4 +1,4 @@
-name: Diagnose alternate bounded PDF transport on residual corpus
+name: Verify exact-head fallback on all residual PDFs
 
 on:
   push:
@@ -8,15 +8,16 @@ permissions:
   contents: read
 
 env:
-  TARGET_SHA: '3a804453b4f433d153f00a59300f012c8422a472'
+  TARGET_SHA: '88b95115458b6b9b7f76532746408272bf469d7b'
   HARNESS_SHA: '745ef7899f65525770f67f59a9cede2a2adfb7f9'
 
 jobs:
-  diagnose:
+  verify:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out exact PR head
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ env.TARGET_SHA }}
@@ -34,7 +35,7 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y -qq ghostscript mupdf-tools poppler-utils qpdf
+          sudo apt-get install -y -qq mupdf-tools poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
 
       - name: Recover fixed trusted harness
@@ -43,8 +44,20 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$TARGET_SHA"
           git show "$HARNESS_SHA:scripts/reconstruct-pre-hardening-tree.mjs" > scripts/reconstruct-pre-hardening-tree.mjs
-          git show "$HARNESS_SHA:scripts/verify-production-text-fallback-all.py" > "$RUNNER_TEMP/all17.py"
+          git show "$HARNESS_SHA:scripts/verify-production-text-fallback-all.py" > scripts/verify-production-text-fallback-all.py
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          path = Path('scripts/verify-production-text-fallback-all.py')
+          text = path.read_text('utf-8')
+          old = 'CANDIDATE_SHA = "3161ab66ce6a1dae2eabad6ce584c650b51fa9a9"'
+          new = f'CANDIDATE_SHA = "{os.environ["TARGET_SHA"]}"'
+          if text.count(old) != 1:
+              raise SystemExit('trusted harness candidate anchor mismatch')
+          path.write_text(text.replace(old, new), 'utf-8')
+          PY
           node --check scripts/reconstruct-pre-hardening-tree.mjs
+          python3 -m py_compile scripts/verify-production-text-fallback-all.py
 
       - name: Provision authenticated private policy
         shell: bash
@@ -61,200 +74,60 @@ jobs:
           echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=$policy" >> "$GITHUB_ENV"
           echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY=$PRIVATE_POLICY_HMAC_KEY" >> "$GITHUB_ENV"
 
-      - name: Reconstruct exact pre-hardening public tree without path logging
+      - name: Reconstruct exact pre-hardening public tree
         shell: bash
         run: |
           set -euo pipefail
           node scripts/reconstruct-pre-hardening-tree.mjs > "$RUNNER_TEMP/reconstruct.log"
-          echo 'pre-hardening tree reconstructed'
+          echo 'pre-hardening tree reconstructed without document text logging'
 
-      - name: Test bounded mutool and Ghostscript transports on the remaining opaque failure
+      - name: Verify all 17 real residual PDFs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/verify-production-text-fallback-all.py
+
+      - name: Independently validate sanitized evidence summary
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          import ast
           import json
-          import resource
-          import runpy
-          import subprocess
-          import sys
-          import tempfile
+          import os
           from pathlib import Path
-
-          import fitz
-
-          root = Path.cwd()
-          sys.path.insert(0, str(root / 'scripts'))
-          import public_text_fallback as fallback
-          from publication_redaction import forbidden_public_identifiers, redact_public_text
-
-          verifier = Path('/home/runner/work/_temp/all17.py')
-          tree = ast.parse(verifier.read_text('utf-8'))
-          targets = None
-          for node in tree.body:
-              if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == 'TARGETS' for t in node.targets):
-                  targets = ast.literal_eval(node.value)
-                  break
-          if not isinstance(targets, list) or len(targets) != 17:
-              raise SystemExit('unexpected trusted target inventory')
-
-          source = root / 'web' / targets[13]
-          hardener = runpy.run_path(str(root / 'scripts/harden-public-pdf-privacy.py'), run_name='alternate_transport_diagnostic')
-          matchers = hardener['prepared_private_byte_matchers']()
-          max_output = 128 * 1024 * 1024
-
-          def limit_child():
-              memory = 768 * 1024 * 1024
-              resource.setrlimit(resource.RLIMIT_AS, (memory, memory))
-              resource.setrlimit(resource.RLIMIT_FSIZE, (max_output, max_output))
-              resource.setrlimit(resource.RLIMIT_CPU, (90, 90))
-
-          def semantic_facts(path):
-              doc = fitz.open(path)
-              try:
-                  identities = []
-                  dimensions = []
-                  for page in doc:
-                      identities.append(
-                          fallback.normalized_text_identity(
-                              fallback.clean_text(page.get_text('text', sort=True))
-                          )
-                      )
-                      dimensions.append((round(float(page.rect.width), 3), round(float(page.rect.height), 3)))
-                  return identities, dimensions, doc.page_count
-              finally:
-                  doc.close()
-
-          original_identities, original_dimensions, original_pages = semantic_facts(source)
-          methods = [
-              (
-                  'mutool-clean',
-                  lambda output: [
-                      'mutool', 'clean', '-gggg', '-z', str(source), str(output)
-                  ],
-              ),
-              (
-                  'ghostscript-pdfwrite',
-                  lambda output: [
-                      'gs', '-q', '-dSAFER', '-dBATCH', '-dNOPAUSE',
-                      '-sDEVICE=pdfwrite', '-dCompatibilityLevel=1.7',
-                      '-dAutoRotatePages=/None',
-                      f'-sOutputFile={output}', str(source),
-                  ],
-              ),
-          ]
-          results = []
-
-          for method, command in methods:
-              row = {'method': method}
-              with tempfile.TemporaryDirectory(prefix='alternate-pdf-transport-') as tmp:
-                  tmpdir = Path(tmp)
-                  normalized = tmpdir / 'normalized.pdf'
-                  log = tmpdir / 'tool.log'
-                  try:
-                      with log.open('wb') as stream:
-                          proc = subprocess.run(
-                              command(normalized),
-                              stdout=stream,
-                              stderr=subprocess.STDOUT,
-                              timeout=120,
-                              check=False,
-                              preexec_fn=limit_child,
-                          )
-                      row['returncode'] = proc.returncode
-                  except subprocess.TimeoutExpired:
-                      row['status'] = 'timeout'
-                      results.append(row)
-                      continue
-                  except (OSError, ValueError) as exc:
-                      row['status'] = 'launch_failure'
-                      row['exception'] = type(exc).__name__
-                      results.append(row)
-                      continue
-
-                  row['output_exists'] = normalized.is_file()
-                  row['output_nonempty'] = row['output_exists'] and normalized.stat().st_size > 0
-                  row['output_bounded'] = row['output_nonempty'] and normalized.stat().st_size <= max_output
-                  if proc.returncode != 0 or not row['output_bounded']:
-                      row['status'] = 'transport_failed'
-                      results.append(row)
-                      continue
-
-                  try:
-                      normalized_identities, normalized_dimensions, normalized_pages = semantic_facts(normalized)
-                  except Exception as exc:
-                      row['status'] = 'normalized_parse_failure'
-                      row['exception'] = type(exc).__name__
-                      results.append(row)
-                      continue
-
-                  row['semantic_match'] = bool(
-                      normalized_pages == original_pages
-                      and normalized_identities == original_identities
-                      and normalized_dimensions == original_dimensions
-                  )
-                  if not row['semantic_match']:
-                      row['status'] = 'semantic_mismatch'
-                      results.append(row)
-                      continue
-
-                  try:
-                      poppler_pages = fallback.extract_poppler_pages(normalized, original_pages)
-                  except fallback.TextFallbackError:
-                      row['status'] = 'poppler_failed_after_transport'
-                      results.append(row)
-                      continue
-                  row['poppler_nonempty_all_pages'] = all(
-                      fallback.normalized_text_identity(page)
-                      for page in poppler_pages
-                  )
-                  if not row['poppler_nonempty_all_pages']:
-                      row['status'] = 'one_sided_after_transport'
-                      results.append(row)
-                      continue
-
-                  out = tmpdir / 'public.pdf'
-                  try:
-                      facts = fallback.build_public_text_copy(
-                          normalized,
-                          out,
-                          redact_text=redact_public_text,
-                          forbidden_text=forbidden_public_identifiers,
-                      )
-                      post = hardener['inspect_pdf_deep'](out, matchers)
-                  except Exception as exc:
-                      row['status'] = 'public_copy_failure'
-                      row['exception'] = type(exc).__name__
-                      results.append(row)
-                      continue
-
-                  row['post_clean'] = bool(
-                      facts.get('deterministic')
-                      and facts.get('source_page_count') == facts.get('output_page_count')
-                      and facts.get('nonempty_page_count') == facts.get('source_page_count')
-                      and not (post.get('reasons') or [])
-                      and not (post.get('visible_private_hits') or [])
-                      and not (post.get('decoded_private_hits') or [])
-                      and post.get('text_scan_ok')
-                      and post.get('decoded_scan_ok')
-                      and post.get('pdf_revision_markers_bound')
-                      and post.get('pdf_single_revision_only')
-                  )
-                  row['status'] = 'clean' if row['post_clean'] else 'post_failed'
-                  results.append(row)
-
-          summary = {
-              'target_sha': '3a804453b4f433d153f00a59300f012c8422a472',
-              'tested_methods': len(results),
-              'clean_methods': [row['method'] for row in results if row.get('status') == 'clean'],
-              'results': results,
-              'document_paths_logged': False,
-              'document_text_logged': False,
-              'tool_diagnostics_logged': False,
-              'secret_values_logged': False,
+          path = Path('review-artifacts/production-text-fallback-all17.json')
+          data = json.loads(path.read_text('utf-8'))
+          summary = data.get('summary') or {}
+          assert data.get('candidate_sha') == os.environ['TARGET_SHA']
+          assert data.get('secret_values_logged') is False
+          assert data.get('source_text_logged') is False
+          assert data.get('error_messages_logged') is False
+          assert summary == {
+              'target_count': 17,
+              'present_count': 17,
+              'complete_count': 17,
+              'clean_count': 17,
+              'missing_count': 0,
+              'error_count': 0,
           }
-          print(json.dumps(summary, ensure_ascii=False))
-          if not summary['clean_methods']:
-              raise SystemExit(1)
+          for row in data.get('documents') or []:
+              assert row.get('status') == 'complete'
+              assert row.get('source_page_count') == row.get('output_page_count')
+              assert row.get('nonempty_page_count') == row.get('source_page_count')
+              assert not row.get('post_reasons')
+              assert not row.get('visible_hit_ids')
+              assert not row.get('decoded_hit_ids')
+              assert row.get('text_scan_ok') is True
+              assert row.get('decoded_scan_ok') is True
+              assert row.get('pdf_revision_markers_bound') is True
+              assert row.get('pdf_single_revision_only') is True
+          print(json.dumps({'candidate_sha': data['candidate_sha'], 'summary': summary}))
           PY
+
+      - name: Upload sanitized exact-head evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: exact-head-fallback-all17-${{ env.TARGET_SHA }}
+          path: review-artifacts/production-text-fallback-all17.json
+          if-no-files-found: error
+          retention-days: 7
