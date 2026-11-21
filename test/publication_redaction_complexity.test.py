@@ -25,6 +25,19 @@ class PublicationRedactionComplexityTests(unittest.TestCase):
         self.assertEqual(redaction.forbidden_public_identifier_byte_hits(secret, matcher), ["m"])
         self.assertEqual(redaction.forbidden_public_identifier_byte_hits(b"X" + secret, matcher), ["m"])
 
+    def test_extracted_text_skips_pdf_literal_payload_parsing(self):
+        raw = (b"(" * 1600) + b" secret " + (b")" * 1600)
+        matcher = (("m", re.compile("secret")),)
+        started = time.perf_counter()
+        hits = redaction.forbidden_public_identifier_byte_hits(
+            raw,
+            matcher,
+            scan_pdf_strings=False,
+        )
+        elapsed = time.perf_counter() - started
+        self.assertEqual(hits, ["m"])
+        self.assertLess(elapsed, 1.0, f"extracted text scan took {elapsed:.3f}s")
+
     def test_unbalanced_binary_prefix_does_not_hide_later_hex_string(self):
         raw = b"(" * 64 + b"\n<736563726574>"
         self.assertIn(b"secret", redaction._pdf_decoded_string_payloads(raw))
