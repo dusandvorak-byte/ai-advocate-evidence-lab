@@ -247,6 +247,48 @@ private.person@example.invalid
             "pymupdf_metadata",
         )
 
+    def test_qpdf_rewrite_worker_does_not_reenter_deep_pymupdf_inspection(self):
+        ns = runpy.run_path(
+            str(ROOT / "scripts/harden-public-pdf-privacy.py"),
+            run_name="privacy_hardening_qpdf_post_test",
+        )
+
+        pdf = self.tmpdir / "sample.pdf"
+        doc = fitz.open()
+        doc.new_page()
+        doc.save(pdf)
+        doc.close()
+
+        ns["WEB"] = self.tmpdir
+        ns["private_pdf_rules"] = lambda: ([], "synthetic")
+        ns["prepared_private_byte_matchers"] = lambda: object()
+        ns["canonicalize_pdf_qpdf"] = lambda path: path.read_bytes()
+        ns["inspect_qpdf_rewrite_post"] = lambda path, matchers: {
+            "page_count": 1,
+            "reasons": [],
+            "visible_private_hits": [],
+            "text_scan_ok": True,
+            "xmp_present": False,
+            "decoded_private_hits": [],
+            "decoded_scan_ok": True,
+            "pdf_revision_markers_bound": True,
+            "pdf_single_revision_only": True,
+        }
+
+        def forbidden_deep_inspection(*args, **kwargs):
+            raise AssertionError("qpdf rewrite must not re-enter inspect_pdf_deep")
+
+        ns["inspect_pdf_deep"] = forbidden_deep_inspection
+        ns["worker_candidate"](
+            "sample.pdf",
+            True,
+            {
+                "page_count": 1,
+                "reasons": ["revision_envelope"],
+                "xmp_present": False,
+            },
+        )
+
     def test_metadata_is_sanitized_even_without_text_match(self):
         self.write_policy_and_contract()
         ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"), run_name="privacy_hardening_metadata_test")
