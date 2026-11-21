@@ -3,7 +3,9 @@ name: Repair Justice Slalom hardened provenance
 on:
   push:
     branches: [fix/justice-slalom-hardened-provenance-20261121]
-    paths: [.github/repair-justice-slalom-hardened-provenance.py]
+    paths:
+      - .github/repair-justice-slalom-hardened-provenance.py
+      - .github/workflows/repair-justice-slalom-hardened-provenance.yml
 
 permissions:
   contents: write
