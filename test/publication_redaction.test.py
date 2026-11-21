@@ -260,11 +260,12 @@ private.person@example.invalid
         doc.save(pdf)
         doc.close()
 
-        ns["WEB"] = self.tmpdir
-        ns["private_pdf_rules"] = lambda: ([], "synthetic")
-        ns["prepared_private_byte_matchers"] = lambda: object()
-        ns["canonicalize_pdf_qpdf"] = lambda path: path.read_bytes()
-        ns["inspect_qpdf_rewrite_post"] = lambda path, matchers: {
+        worker_globals = ns["worker_candidate"].__globals__
+        worker_globals["WEB"] = self.tmpdir
+        worker_globals["private_pdf_rules"] = lambda: ([], "synthetic")
+        worker_globals["prepared_private_byte_matchers"] = lambda: object()
+        worker_globals["canonicalize_pdf_qpdf"] = lambda path: path.read_bytes()
+        worker_globals["inspect_qpdf_rewrite_post"] = lambda path, matchers: {
             "page_count": 1,
             "reasons": [],
             "visible_private_hits": [],
@@ -279,7 +280,7 @@ private.person@example.invalid
         def forbidden_deep_inspection(*args, **kwargs):
             raise AssertionError("qpdf rewrite must not re-enter inspect_pdf_deep")
 
-        ns["inspect_pdf_deep"] = forbidden_deep_inspection
+        worker_globals["inspect_pdf_deep"] = forbidden_deep_inspection
         ns["worker_candidate"](
             "sample.pdf",
             True,
