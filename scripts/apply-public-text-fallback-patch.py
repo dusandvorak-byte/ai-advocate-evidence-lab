@@ -61,12 +61,3 @@ replace_once(
     "report fallback count",
 )
 path.write_text(text, "utf-8")
-
-workflow = Path(".github/workflows/validate-evidence-lab-2.yml")
-workflow_text = workflow.read_text("utf-8")
-needle = "python3 -m py_compile scripts/harden-public-pdf-privacy.py"
-replacement = needle + "\n          python3 -m py_compile scripts/public_text_fallback.py"
-count = workflow_text.count(needle)
-if count < 1:
-    raise SystemExit("validation workflow hardener compile target missing")
-workflow.write_text(workflow_text.replace(needle, replacement), "utf-8")
