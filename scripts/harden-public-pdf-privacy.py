@@ -17,7 +17,9 @@ from publication_redaction import (
     forbidden_public_identifiers,
     forbidden_public_identifier_byte_hits,
     prepared_private_byte_matchers,
+    redact_public_text,
 )
+from public_text_fallback import build_public_text_copy
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
@@ -300,6 +302,18 @@ def targeted_pdf_rules(rules: list[dict], rule_ids: list[str]) -> list[dict]:
     """Limit expensive page.search_for calls to rule IDs proven by pdftotext."""
     selected = set(str(rule_id) for rule_id in (rule_ids or []))
     return [rule for rule in rules if rule["id"] in selected]
+
+
+def requires_text_fallback(post: dict) -> bool:
+    """Use a deterministic text copy only when ordinary hardening is still unsafe."""
+    return bool(
+        post.get("visible_private_hits")
+        or post.get("decoded_private_hits")
+        or not post.get("text_scan_ok")
+        or not post.get("decoded_scan_ok")
+        or not post.get("pdf_revision_markers_bound")
+        or not post.get("pdf_single_revision_only")
+    )
 
 
 def canonicalize_pdf_qpdf(path: Path) -> bytes:
@@ -642,11 +656,23 @@ def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
     if data is not None:
         path.write_bytes(data)
 
-    after_sha = sha256_file(path)
     if strategy == "qpdf_rewrite":
         post = inspect_qpdf_rewrite_post(path, matchers)
     else:
         post = inspect_pdf_deep(path, matchers)
+
+    text_fallback = None
+    if requires_text_fallback(post):
+        text_fallback = build_public_text_copy(
+            path,
+            path,
+            redact_text=redact_public_text,
+            forbidden_text=forbidden_public_identifiers,
+        )
+        post = inspect_pdf_deep(path, matchers)
+        strategy = strategy + "+text_fallback"
+
+    after_sha = sha256_file(path)
     after_pages = post.get("page_count")
     if post.get("text_scan_ok"):
         visible_hits = post.get("visible_private_hits") or []
@@ -679,8 +705,9 @@ def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
         "before_pages": before_pages,
         "after_sha": after_sha,
         "after_pages": after_pages,
-        "changed": data is not None,
+        "changed": bool(data is not None or text_fallback is not None),
         "matches": matches,
+        "text_fallback": text_fallback,
         "visible_hits": visible_hits,
         "post": post,
         "failures": local_failures,
@@ -832,14 +859,28 @@ def main() -> None:
                     public.setdefault("source_original_page_count", result["before_pages"])
                 public["sha256"] = result["after_sha"]
                 status = str(public.get("verification_status") or "published")
-                if "publication_policy_hardened" not in status:
-                    public["verification_status"] = status + "; publication_policy_hardened"
+                status_parts = [part.strip() for part in status.split(";") if part.strip()]
+                status_parts.append("publication_policy_hardened")
+                if result.get("text_fallback"):
+                    status_parts.extend([
+                        "verified_deterministic_public_text_copy",
+                        "not_byte_identical_original",
+                    ])
+                public["verification_status"] = "; ".join(dict.fromkeys(status_parts))
                 note = str(public.get("public_copy_note") or "").strip()
                 hardened_note = (
                     "Public policy-hardened copy; source/original SHA is preserved in provenance metadata."
                 )
                 if hardened_note not in note:
-                    public["public_copy_note"] = (note + " " + hardened_note).strip()
+                    note = (note + " " + hardened_note).strip()
+                if result.get("text_fallback"):
+                    fallback_note = (
+                        "Verified deterministic public text copy; original graphics, signatures and metadata "
+                        "are not reproduced. Source/original SHA-256 and page count are preserved in provenance metadata."
+                    )
+                    if fallback_note not in note:
+                        note = (note + " " + fallback_note).strip()
+                public["public_copy_note"] = note
                 item["public"] = public
 
             rows.append({
@@ -850,6 +891,7 @@ def main() -> None:
                 "page_count": result["after_pages"],
                 "changed": result["changed"],
                 "redaction_matches": result["matches"],
+                "text_fallback": result.get("text_fallback"),
                 "trigger_reasons": inspections[rel]["reasons"],
                 "known_private_identifier_hits_after": result["visible_hits"],
                 "decoded_private_identifier_hits_after": result["post"].get("decoded_private_hits") or [],
@@ -865,6 +907,7 @@ def main() -> None:
                 "page_count": result["after_pages"],
                 "changed": result["changed"],
                 "redaction_matches": result["matches"],
+                "text_fallback": result.get("text_fallback"),
                 "trigger_reasons": inspections[rel]["reasons"],
                 "known_private_identifier_hits_after": result["visible_hits"],
                 "decoded_private_identifier_hits_after": result["post"].get("decoded_private_hits") or [],
@@ -872,7 +915,7 @@ def main() -> None:
             })
 
     report = {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "policy_file": POLICY.relative_to(ROOT).as_posix(),
         "policy_sha256": policy_sha,
         "authenticated_private_policy_identity": authenticated_policy_identity,
@@ -881,6 +924,7 @@ def main() -> None:
         "changed_derivative_count": sum(1 for row in rows if row["changed"]),
         "registered_hardened_count": sum(1 for row in rows if row["registered"] and row["changed"]),
         "unregistered_hardened_count": sum(1 for row in rows if not row["registered"] and row["changed"]),
+        "text_fallback_count": sum(1 for row in rows if row.get("text_fallback")),
         "hard_failure_count": len(failures),
         "hard_failures": failures,
         "documents": rows,
