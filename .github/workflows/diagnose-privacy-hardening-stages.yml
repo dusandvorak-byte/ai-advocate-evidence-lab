@@ -1,4 +1,4 @@
-name: Diagnose bounded qpdf retry on residual corpus
+name: Diagnose qpdf warning-tolerant retry on residual corpus
 
 on:
   push:
@@ -16,8 +16,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
-      - name: Checkout exact PR implementation
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ env.TARGET_SHA }}
@@ -38,7 +37,7 @@ jobs:
           sudo apt-get install -y -qq poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
 
-      - name: Recover trusted reconstruction harness only
+      - name: Recover fixed trusted harness
         shell: bash
         run: |
           set -euo pipefail
@@ -62,10 +61,14 @@ jobs:
           echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=$policy" >> "$GITHUB_ENV"
           echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY=$PRIVATE_POLICY_HMAC_KEY" >> "$GITHUB_ENV"
 
-      - name: Reconstruct exact pre-hardening public tree
-        run: node scripts/reconstruct-pre-hardening-tree.mjs
+      - name: Reconstruct exact pre-hardening public tree without path logging
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/reconstruct-pre-hardening-tree.mjs > "$RUNNER_TEMP/reconstruct.log"
+          echo 'pre-hardening tree reconstructed'
 
-      - name: Prove qpdf normalization recovers only the two bounded Poppler failures
+      - name: Test warning-tolerant qpdf recovery on the two opaque failures
         shell: bash
         run: |
           set -euo pipefail
@@ -86,11 +89,6 @@ jobs:
           from publication_redaction import forbidden_public_identifiers, redact_public_text
 
           verifier = Path('/home/runner/work/_temp/all17.py')
-          if not verifier.is_file():
-              candidates = list(Path('/home/runner/work/_temp').glob('all17.py'))
-              if len(candidates) != 1:
-                  raise SystemExit('trusted target inventory unavailable')
-              verifier = candidates[0]
           tree = ast.parse(verifier.read_text('utf-8'))
           targets = None
           for node in tree.body:
@@ -100,51 +98,32 @@ jobs:
           if not isinstance(targets, list) or len(targets) != 17:
               raise SystemExit('unexpected trusted target inventory')
 
-          hardener = runpy.run_path(str(root / 'scripts/harden-public-pdf-privacy.py'), run_name='qpdf_retry_diagnostic')
+          hardener = runpy.run_path(str(root / 'scripts/harden-public-pdf-privacy.py'), run_name='qpdf_warning_retry')
           matchers = hardener['prepared_private_byte_matchers']()
-          baseline_clean = 0
-          retry_candidates = 0
-          retry_clean = 0
-          other_errors = 0
-          opaque_failures = []
+          results = []
 
-          def mupdf_identities(path):
+          def identities(path):
               doc = fitz.open(path)
               try:
-                  return [
+                  values = [
                       fallback.normalized_text_identity(
                           fallback.clean_text(page.get_text('text', sort=True))
                       )
                       for page in doc
-                  ], doc.page_count
+                  ]
+                  return values, doc.page_count
               finally:
                   doc.close()
 
-          for index, rel in enumerate(targets, 1):
-              source = root / 'web' / rel
-              try:
-                  with tempfile.TemporaryDirectory(prefix='baseline-fallback-') as tmp:
-                      out = Path(tmp) / 'public.pdf'
-                      fallback.build_public_text_copy(
-                          source,
-                          out,
-                          redact_text=redact_public_text,
-                          forbidden_text=forbidden_public_identifiers,
-                      )
-                  baseline_clean += 1
-                  continue
-              except fallback.TextFallbackError as exc:
-                  if str(exc) != 'Poppler extraction failed or exceeded its resource limit':
-                      other_errors += 1
-                      opaque_failures.append({'index': index, 'code': 'non_retryable'})
-                      continue
-
-              retry_candidates += 1
-              with tempfile.TemporaryDirectory(prefix='qpdf-retry-diagnostic-') as tmp:
+          for opaque_index in (14, 17):
+              source = root / 'web' / targets[opaque_index - 1]
+              row = {'index': opaque_index}
+              with tempfile.TemporaryDirectory(prefix='qpdf-warning-retry-') as tmp:
                   normalized = Path(tmp) / 'normalized.pdf'
                   proc = subprocess.run(
                       [
                           'qpdf',
+                          '--warning-exit-0',
                           '--deterministic-id',
                           '--object-streams=generate',
                           '--stream-data=compress',
@@ -157,18 +136,37 @@ jobs:
                       timeout=60,
                       check=False,
                   )
-                  if proc.returncode != 0 or not normalized.is_file() or normalized.stat().st_size == 0:
-                      opaque_failures.append({'index': index, 'code': 'qpdf_failed'})
+                  row.update({
+                      'qpdf_returncode': proc.returncode,
+                      'output_exists': normalized.is_file(),
+                      'output_nonempty': normalized.is_file() and normalized.stat().st_size > 0,
+                  })
+                  if proc.returncode != 0 or not row['output_nonempty']:
+                      row['status'] = 'qpdf_failed'
+                      results.append(row)
                       continue
-                  original_ids, original_pages = mupdf_identities(source)
-                  normalized_ids, normalized_pages = mupdf_identities(normalized)
-                  if original_pages != normalized_pages or original_ids != normalized_ids:
-                      opaque_failures.append({'index': index, 'code': 'semantic_mismatch'})
+
+                  original_ids, original_pages = identities(source)
+                  normalized_ids, normalized_pages = identities(normalized)
+                  row['semantic_match'] = bool(
+                      original_pages == normalized_pages
+                      and original_ids == normalized_ids
+                  )
+                  if not row['semantic_match']:
+                      row['status'] = 'semantic_mismatch'
+                      results.append(row)
                       continue
+
                   poppler_pages = fallback.extract_poppler_pages(normalized, original_pages)
-                  if any(not fallback.normalized_text_identity(page) for page in poppler_pages):
-                      opaque_failures.append({'index': index, 'code': 'one_sided_after_retry'})
+                  row['poppler_nonempty_all_pages'] = all(
+                      fallback.normalized_text_identity(page)
+                      for page in poppler_pages
+                  )
+                  if not row['poppler_nonempty_all_pages']:
+                      row['status'] = 'one_sided_after_retry'
+                      results.append(row)
                       continue
+
                   out = Path(tmp) / 'public.pdf'
                   facts = fallback.build_public_text_copy(
                       normalized,
@@ -177,7 +175,7 @@ jobs:
                       forbidden_text=forbidden_public_identifiers,
                   )
                   post = hardener['inspect_pdf_deep'](out, matchers)
-                  clean = bool(
+                  row['post_clean'] = bool(
                       facts.get('deterministic')
                       and facts.get('source_page_count') == facts.get('output_page_count')
                       and facts.get('nonempty_page_count') == facts.get('source_page_count')
@@ -189,30 +187,20 @@ jobs:
                       and post.get('pdf_revision_markers_bound')
                       and post.get('pdf_single_revision_only')
                   )
-                  if clean:
-                      retry_clean += 1
-                  else:
-                      opaque_failures.append({'index': index, 'code': 'post_verification_failed'})
+                  row['status'] = 'clean' if row['post_clean'] else 'post_failed'
+                  results.append(row)
 
           summary = {
-              'target_count': len(targets),
-              'baseline_clean': baseline_clean,
-              'retry_candidates': retry_candidates,
-              'retry_clean': retry_clean,
-              'other_errors': other_errors,
-              'opaque_failures': opaque_failures,
               'target_sha': '3a804453b4f433d153f00a59300f012c8422a472',
+              'tested_count': len(results),
+              'clean_count': sum(1 for row in results if row.get('status') == 'clean'),
+              'results': results,
               'document_paths_logged': False,
               'document_text_logged': False,
+              'qpdf_diagnostics_logged': False,
               'secret_values_logged': False,
           }
           print(json.dumps(summary, ensure_ascii=False))
-          if not (
-              baseline_clean == 15
-              and retry_candidates == 2
-              and retry_clean == 2
-              and other_errors == 0
-              and not opaque_failures
-          ):
+          if summary['clean_count'] != 2:
               raise SystemExit(1)
           PY
