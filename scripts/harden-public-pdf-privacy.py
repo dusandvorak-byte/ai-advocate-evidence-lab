@@ -140,6 +140,15 @@ def validate_candidate_stage(stage: Path, target: Path) -> None:
         raise RuntimeError("candidate stage is not regular")
 
 
+def fsync_directory(directory: Path) -> None:
+    directory_flags = os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
+    directory_fd = os.open(directory, directory_flags)
+    try:
+        os.fsync(directory_fd)
+    finally:
+        os.close(directory_fd)
+
+
 def commit_candidate_stage(stage: Path, target: Path) -> None:
     stage = Path(stage)
     target = Path(target)
@@ -152,13 +161,31 @@ def commit_candidate_stage(stage: Path, target: Path) -> None:
         os.fsync(stage_fd)
     finally:
         os.close(stage_fd)
-    os.replace(stage, target)
-    directory_flags = os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
-    directory_fd = os.open(target.parent, directory_flags)
+
+    rollback = create_candidate_stage(target)
+    replaced = False
     try:
-        os.fsync(directory_fd)
+        os.replace(stage, target)
+        replaced = True
+        fsync_directory(target.parent)
+    except Exception:
+        if replaced:
+            try:
+                os.replace(rollback, target)
+                rollback = None
+                try:
+                    fsync_directory(target.parent)
+                except OSError:
+                    # The original bytes are already restored. Preserve the first
+                    # durability error as the authoritative failure.
+                    pass
+            except Exception as rollback_error:
+                raise RuntimeError(
+                    "candidate commit failed and rollback could not restore the target"
+                ) from rollback_error
+        raise
     finally:
-        os.close(directory_fd)
+        cleanup_candidate_stage(rollback)
 
 
 def cleanup_candidate_stage(stage: Path | None) -> None:
@@ -886,6 +913,11 @@ def worker_candidate(
     if post.get("text_scan_ok"):
         visible_hits = post.get("visible_private_hits") or []
         visible_scan_ok = True
+    elif text_fallback is not None:
+        # A fallback copy is publishable only when the required Poppler scan
+        # succeeds. MuPDF-only extraction is not an equivalent privacy gate.
+        visible_hits = []
+        visible_scan_ok = False
     else:
         visible_hits, visible_scan_ok = forbidden_hits_isolated(path)
     local_failures = []

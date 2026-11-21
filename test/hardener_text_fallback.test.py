@@ -4,6 +4,7 @@ import io
 import json
 import runpy
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -326,6 +327,51 @@ class HardenerTextFallbackTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "synthetic raw scan failure"):
             self.run_worker()
         self.assertEqual(self.pdf.read_bytes(), self.original_bytes)
+
+    def test_post_fallback_poppler_scan_failure_is_rejected(self):
+        calls = self.install_successful_fallback()
+        post_failed = clean_post()
+        post_failed["text_scan_ok"] = False
+        post_failed["reasons"] = ["text_scan_failed"]
+        posts = iter([unsafe_post(), post_failed])
+        self.globals["inspect_pdf_deep"] = lambda path, matchers: next(posts)
+        self.globals["forbidden_public_identifier_byte_hits"] = lambda raw, matchers: []
+        self.globals["forbidden_hits_isolated"] = lambda path: ([], True)
+
+        candidate, _ = self.run_worker()
+
+        self.assertEqual(len(calls), 1)
+        self.assertFalse(candidate["post"]["text_scan_ok"])
+        self.assertTrue(any(
+            "visible privacy scan failed after hardening" in failure
+            for failure in candidate["failures"]
+        ))
+        self.assertEqual(self.pdf.read_bytes(), self.original_bytes)
+
+    def test_durable_commit_failure_restores_original_target(self):
+        target = self.web / "durable.pdf"
+        target.write_bytes(self.original_bytes)
+        stage = self.web / ".durable.pdf.unit.candidate.pdf"
+        candidate_bytes = b"verified-candidate-pdf"
+        stage.write_bytes(candidate_bytes)
+        real_fsync = self.globals["os"].fsync
+
+        def fail_directory_fsync(fd):
+            if stat.S_ISDIR(self.globals["os"].fstat(fd).st_mode):
+                raise OSError("synthetic directory fsync failure")
+            return real_fsync(fd)
+
+        with mock.patch.object(
+            self.globals["os"],
+            "fsync",
+            side_effect=fail_directory_fsync,
+        ):
+            with self.assertRaisesRegex(OSError, "synthetic directory fsync failure"):
+                self.ns["commit_candidate_stage"](stage, target)
+
+        self.assertEqual(target.read_bytes(), self.original_bytes)
+        self.assertFalse(stage.exists())
+        self.assertEqual(list(self.web.glob(".durable.pdf.*.candidate.pdf")), [])
 
 
 if __name__ == "__main__":
