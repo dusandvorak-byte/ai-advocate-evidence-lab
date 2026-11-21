@@ -61,6 +61,10 @@ jobs:
           set -euo pipefail
           python3 .github/repair-bounded-pdf-transport-retry.py implementation
           python3 -m py_compile scripts/public_text_fallback.py
+          git checkout -- \
+            .github/workflows/public-text-fallback.yml \
+            .github/workflows/trusted-pdf-shard-diagnostic.yml \
+            .github/workflows/validate-evidence-lab-2.yml
           git diff --check
 
       - name: Run focused and broad privacy regressions
@@ -73,9 +77,6 @@ jobs:
           python3 -m py_compile scripts/harden-public-pdf-privacy.py
           changed="$(git diff --name-only | sort)"
           expected="$(printf '%s\n' \
-            .github/workflows/public-text-fallback.yml \
-            .github/workflows/trusted-pdf-shard-diagnostic.yml \
-            .github/workflows/validate-evidence-lab-2.yml \
             scripts/public_text_fallback.py \
             test/public_text_fallback.test.py | sort)"
           test "$changed" = "$expected"
@@ -87,9 +88,6 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add \
-            .github/workflows/public-text-fallback.yml \
-            .github/workflows/trusted-pdf-shard-diagnostic.yml \
-            .github/workflows/validate-evidence-lab-2.yml \
             scripts/public_text_fallback.py \
             test/public_text_fallback.test.py
           git diff --cached --quiet && exit 0
