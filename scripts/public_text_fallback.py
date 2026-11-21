@@ -3,11 +3,17 @@ from __future__ import annotations
 
 import hashlib
 import html
+import os
 import subprocess
 import tempfile
 import unicodedata
 from pathlib import Path
 from typing import Callable
+
+try:
+    import resource
+except ImportError:  # pragma: no cover - the production runner is POSIX
+    resource = None
 
 import fitz
 from reportlab.lib.styles import ParagraphStyle
@@ -21,6 +27,11 @@ FONT_CANDIDATES = (
     Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
     Path("/usr/share/fonts/dejavu/DejaVuSans.ttf"),
 )
+MAX_EXTRACTED_TEXT_BYTES = 8 * 1024 * 1024
+MAX_POPPLER_MEMORY_BYTES = 256 * 1024 * 1024
+MAX_SOURCE_PAGES = 2000
+MUPDF_VARIANT_LABEL = "EXTRAKČNÍ VARIANTA A — MuPDF"
+POPPLER_VARIANT_LABEL = "EXTRAKČNÍ VARIANTA B — Poppler"
 
 
 class TextFallbackError(RuntimeError):
@@ -55,12 +66,98 @@ def normalized_text_identity(value: str) -> str:
 
 
 def split_poppler_pages(raw: bytes, page_count: int) -> list[str]:
-    pages = raw.decode("utf-8", errors="ignore").split("\f")
+    try:
+        decoded = raw.decode("utf-8", errors="strict")
+    except UnicodeDecodeError as exc:
+        raise TextFallbackError("Poppler extraction did not produce valid UTF-8") from exc
+    pages = decoded.split("\f")
     while pages and not pages[-1].strip():
         pages.pop()
-    if len(pages) < page_count:
-        pages.extend([""] * (page_count - len(pages)))
-    return pages[:page_count]
+    if len(pages) != page_count:
+        raise TextFallbackError(
+            f"Poppler extraction page count mismatch: expected {page_count}, got {len(pages)}"
+        )
+    return pages
+
+
+def _set_poppler_resource_limits() -> None:
+    if resource is None:
+        return
+    resource.setrlimit(
+        resource.RLIMIT_FSIZE,
+        (MAX_EXTRACTED_TEXT_BYTES, MAX_EXTRACTED_TEXT_BYTES),
+    )
+    if hasattr(resource, "RLIMIT_AS"):
+        resource.setrlimit(
+            resource.RLIMIT_AS,
+            (MAX_POPPLER_MEMORY_BYTES, MAX_POPPLER_MEMORY_BYTES),
+        )
+
+
+def extract_poppler_pages(source: Path, page_count: int) -> list[str]:
+    with tempfile.TemporaryFile(prefix="evidence-poppler-text-") as output:
+        try:
+            proc = subprocess.run(
+                ["pdftotext", "-layout", "-enc", "UTF-8", str(source), "-"],
+                stdout=output,
+                stderr=subprocess.DEVNULL,
+                timeout=60,
+                check=False,
+                preexec_fn=_set_poppler_resource_limits if os.name == "posix" else None,
+            )
+        except subprocess.TimeoutExpired as exc:
+            raise TextFallbackError("Poppler extraction timed out") from exc
+        except OSError as exc:
+            raise TextFallbackError(f"Poppler extraction failed: {type(exc).__name__}") from exc
+
+        output.flush()
+        output.seek(0, os.SEEK_END)
+        output_size = output.tell()
+        if output_size > MAX_EXTRACTED_TEXT_BYTES:
+            raise TextFallbackError("Poppler extraction byte limit exceeded")
+        if proc.returncode != 0:
+            raise TextFallbackError(
+                "Poppler extraction failed or exceeded its resource limit"
+            )
+        output.seek(0)
+        raw = output.read(MAX_EXTRACTED_TEXT_BYTES + 1)
+        if len(raw) > MAX_EXTRACTED_TEXT_BYTES:
+            raise TextFallbackError("Poppler extraction byte limit exceeded")
+    return split_poppler_pages(raw, page_count)
+
+
+def atomic_replace_bytes(target: Path, data: bytes) -> None:
+    target = Path(target)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    if target.is_symlink():
+        raise TextFallbackError("refusing to replace a symlink target")
+    mode = (target.stat().st_mode & 0o777) if target.exists() else 0o644
+    fd, temporary_name = tempfile.mkstemp(
+        prefix=f".{target.name}.",
+        suffix=".tmp",
+        dir=target.parent,
+    )
+    temporary = Path(temporary_name)
+    fd_open = True
+    try:
+        with os.fdopen(fd, "wb") as handle:
+            fd_open = False
+            handle.write(data)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.chmod(temporary, mode)
+        os.replace(temporary, target)
+        directory_flags = os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
+        directory_fd = os.open(target.parent, directory_flags)
+        try:
+            os.fsync(directory_fd)
+        finally:
+            os.close(directory_fd)
+    except Exception:
+        if fd_open:
+            os.close(fd)
+        temporary.unlink(missing_ok=True)
+        raise
 
 
 def extract_complete_page_text(
@@ -77,27 +174,26 @@ def extract_complete_page_text(
         page_count = doc.page_count
         if page_count < 1:
             raise TextFallbackError("source PDF has no pages")
-        sizes = [(float(page.rect.width), float(page.rect.height)) for page in doc]
-        fitz_pages = [clean_text(page.get_text("text", sort=True)) for page in doc]
+        if page_count > MAX_SOURCE_PAGES:
+            raise TextFallbackError("source PDF page-count limit exceeded")
+        sizes: list[tuple[float, float]] = []
+        fitz_pages: list[str] = []
+        fitz_bytes = 0
+        for page in doc:
+            sizes.append((float(page.rect.width), float(page.rect.height)))
+            page_text = clean_text(page.get_text("text", sort=True))
+            fitz_bytes += len(page_text.encode("utf-8"))
+            if fitz_bytes > MAX_EXTRACTED_TEXT_BYTES:
+                raise TextFallbackError("MuPDF extraction byte limit exceeded")
+            fitz_pages.append(page_text)
     finally:
         doc.close()
 
-    try:
-        proc = subprocess.run(
-            ["pdftotext", "-layout", "-enc", "UTF-8", str(source), "-"],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.DEVNULL,
-            timeout=60,
-        )
-        poppler_ok = proc.returncode == 0
-        poppler_pages = split_poppler_pages(proc.stdout, page_count) if poppler_ok else [""] * page_count
-    except (OSError, subprocess.TimeoutExpired):
-        poppler_ok = False
-        poppler_pages = [""] * page_count
+    poppler_pages = extract_poppler_pages(source, page_count)
 
     selected: list[str] = []
-    unextractable_pages: list[int] = []
-    divergent_extractor_pages: list[int] = []
+    one_sided_pages: list[int] = []
+    dual_extraction_pages: list[int] = []
     redaction_failure_pages: list[int] = []
     source_chars = 0
     public_chars = 0
@@ -106,17 +202,23 @@ def extract_complete_page_text(
         poppler_text = clean_text(poppler_pages[index])
         fitz_identity = normalized_text_identity(fitz_text)
         poppler_identity = normalized_text_identity(poppler_text)
-        if fitz_identity and poppler_identity:
-            shorter, longer = sorted(
-                (fitz_identity, poppler_identity),
-                key=len,
+        if not fitz_identity or not poppler_identity:
+            one_sided_pages.append(index + 1)
+            continue
+
+        if fitz_identity == poppler_identity:
+            source_text = fitz_text
+        elif fitz_identity in poppler_identity:
+            source_text = poppler_text
+        elif poppler_identity in fitz_identity:
+            source_text = fitz_text
+        else:
+            dual_extraction_pages.append(index + 1)
+            source_text = (
+                f"{MUPDF_VARIANT_LABEL}\n{fitz_text}\n\n"
+                f"{POPPLER_VARIANT_LABEL}\n{poppler_text}"
             )
-            if shorter not in longer:
-                divergent_extractor_pages.append(index + 1)
-        candidates = [fitz_text, poppler_text]
-        source_text = max(candidates, key=lambda item: len(normalized_text_identity(item)))
-        if not source_text.strip():
-            unextractable_pages.append(index + 1)
+
         public_text = clean_text(redact_text(source_text))
         if forbidden_text(public_text):
             redaction_failure_pages.append(index + 1)
@@ -124,33 +226,30 @@ def extract_complete_page_text(
         public_chars += len(public_text)
         selected.append(public_text)
 
-    if divergent_extractor_pages:
+    if one_sided_pages:
         raise TextFallbackError(
-            "MuPDF and Poppler text extraction materially diverged on pages: "
-            + ",".join(map(str, divergent_extractor_pages))
-        )
-    if unextractable_pages:
-        raise TextFallbackError(
-            "pages without positively verified extractable text cannot be published as a complete public text copy: "
-            + ",".join(map(str, unextractable_pages))
+            "independent extractors did not both return nonempty page text: "
+            + ",".join(map(str, one_sided_pages))
         )
     if redaction_failure_pages:
         raise TextFallbackError(
             "authenticated redaction left a forbidden identifier on pages: "
             + ",".join(map(str, redaction_failure_pages))
         )
-    if source_chars == 0:
-        raise TextFallbackError("source PDF contains no extractable text")
+    if len(selected) != page_count or source_chars == 0:
+        raise TextFallbackError("source PDF contains no independently verified extractable text")
 
     facts = {
         "page_count": page_count,
-        "poppler_ok": poppler_ok,
+        "poppler_ok": True,
         "source_char_count": source_chars,
         "public_char_count": public_chars,
         "nonempty_page_count": sum(1 for page in selected if page.strip()),
-        "unextractable_pages": unextractable_pages,
-        "divergent_extractor_pages": divergent_extractor_pages,
+        "one_sided_pages": one_sided_pages,
+        "dual_extraction_pages": dual_extraction_pages,
+        "dual_extraction_page_count": len(dual_extraction_pages),
         "redaction_failure_pages": redaction_failure_pages,
+        "fitz_extracted_bytes": fitz_bytes,
     }
     return selected, sizes, facts
 
@@ -273,8 +372,7 @@ def build_public_text_copy(
                 raise TextFallbackError(
                     f"rendered public text copy lost or altered page text at page {index}"
                 )
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes(first_bytes)
+        atomic_replace_bytes(target, first_bytes)
 
     return {
         "source_sha256": source_sha,
@@ -285,6 +383,8 @@ def build_public_text_copy(
         "public_char_count": extraction["public_char_count"],
         "nonempty_page_count": extraction["nonempty_page_count"],
         "poppler_ok": extraction["poppler_ok"],
+        "dual_extraction_page_count": extraction["dual_extraction_page_count"],
+        "dual_extraction_pages": extraction["dual_extraction_pages"],
         "deterministic": True,
         "output_text_verified": True,
     }
