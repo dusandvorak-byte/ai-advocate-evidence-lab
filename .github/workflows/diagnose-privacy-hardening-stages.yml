@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 env:
-  TARGET_SHA: 'c12dc078258b7e1490287a1fa9eb68265eaef41b'
+  TARGET_SHA: 'd83eeb3b26c5a27fa7fa738db7f865af2958550d'
   TARGET_DOCUMENT_ID: 'doc-cz-citc-2026-08-10-stiznost-kpr-5772-2026-2'
 
 jobs:
@@ -103,8 +103,8 @@ jobs:
           const digest = createHash('sha256').update(bytes).digest('hex');
           const rows = slalom.rows.filter(row => row.document_id === targetId);
           const checks = {
-            candidate_sha_matches: candidateSha === 'c12dc078258b7e1490287a1fa9eb68265eaef41b',
-            hardening_failures_zero: hardening.hard_failure_count === 0,
+            candidate_sha_matches: candidateSha === 'd83eeb3b26c5a27fa7fa738db7f865af2958550d',
+            hardening_failures_zero: hardening.hard_failure_count === 0 && Array.isArray(hardening.hard_failures) && hardening.hard_failures.length === 0,
             hardening_changed: hardeningRow.changed === true,
             input_bound_to_declared_source: hardeningRow.input_sha256 === doc.justice_slalom.source_sha256,
             output_bound_to_public_pdf: hardeningRow.output_sha256 === digest && doc.public.sha256 === digest,
