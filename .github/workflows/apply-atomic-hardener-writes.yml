@@ -33,20 +33,20 @@ jobs:
               raise SystemExit('unexpected public_text_fallback import count')
           text = text.replace(old_import, new_import)
 
-          ordinary = '        path.write_bytes(data)'
-          if text.count(ordinary) != 1:
-              raise SystemExit('unexpected ordinary hardening write count')
-          text = text.replace(ordinary, '        atomic_replace_bytes(path, data)')
+          data_write = 'path.write_bytes(data)'
+          rollback_write = 'path.write_bytes(original_bytes)'
+          data_count = text.count(data_write)
+          rollback_count = text.count(rollback_write)
+          print({'data_write_count': data_count, 'rollback_write_count': rollback_count})
+          if data_count < 1:
+              raise SystemExit('ordinary hardening write was not found')
+          if rollback_count < 1:
+              raise SystemExit('rollback writes were not found')
 
-          rollback = '            path.write_bytes(original_bytes)'
-          if text.count(rollback) != 1:
-              raise SystemExit('unexpected local-failure rollback write count')
-          text = text.replace(rollback, '            atomic_replace_bytes(path, original_bytes)')
-
-          exception_rollback = '        path.write_bytes(original_bytes)'
-          if text.count(exception_rollback) != 1:
-              raise SystemExit('unexpected exception rollback write count')
-          text = text.replace(exception_rollback, '        atomic_replace_bytes(path, original_bytes)')
+          text = text.replace(data_write, 'atomic_replace_bytes(path, data)')
+          text = text.replace(rollback_write, 'atomic_replace_bytes(path, original_bytes)')
+          if 'path.write_bytes(' in text:
+              raise SystemExit('a direct transaction write remains after patch')
 
           path.write_text(text, 'utf-8')
           PY
