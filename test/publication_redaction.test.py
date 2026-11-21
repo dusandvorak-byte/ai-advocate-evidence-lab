@@ -763,5 +763,233 @@ private.person@example.invalid
         self.assertRegex(identity, r"^[0-9a-f]{64}$")
 
 
+    def test_hardener_fast_inspection_includes_pymupdf_text_channel(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(
+            str(ROOT / "scripts/harden-public-pdf-privacy.py"),
+            run_name="privacy_hardening_fitz_channel_test",
+        )
+        pdf = self.tmpdir / "fitz-only-private.pdf"
+        doc = fitz.open()
+        page = doc.new_page()
+        page.insert_text((72, 72), "private.person@example.invalid")
+        doc.save(pdf)
+        doc.close()
+
+        globals_ = ns["inspect_pdf_fast"].__globals__
+        original_run = globals_["subprocess"].run
+
+        class Result:
+            returncode = 0
+            stdout = b"Public text only"
+
+        def fake_run(args, *a, **kw):
+            if args and args[0] == "pdftotext":
+                return Result()
+            return original_run(args, *a, **kw)
+
+        globals_["subprocess"].run = fake_run
+        try:
+            result = ns["inspect_pdf_fast"](pdf, redaction.prepared_private_byte_matchers())
+        finally:
+            globals_["subprocess"].run = original_run
+
+        self.assertIn("private_match", result["reasons"])
+        self.assertTrue(result.get("fitz_private_hits"))
+
+    def test_hardener_fast_inspection_routes_embedded_payload_to_candidate(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(
+            str(ROOT / "scripts/harden-public-pdf-privacy.py"),
+            run_name="privacy_hardening_embedded_channel_test",
+        )
+        pdf = self.tmpdir / "embedded.pdf"
+        doc = fitz.open()
+        page = doc.new_page()
+        page.insert_text((72, 72), "Public text")
+        page.add_file_annot((72, 96), b"synthetic attachment", "attachment.txt")
+        doc.save(pdf)
+        doc.close()
+
+        result = ns["inspect_pdf_fast"](pdf, redaction.prepared_private_byte_matchers())
+        self.assertIn("embedded_payload", result["reasons"])
+        self.assertGreater(
+            result.get("embedded_file_count", 0)
+            + result.get("file_attachment_annotation_count", 0)
+            + result.get("associated_file_reference_count", 0)
+            + result.get("embedded_file_object_count", 0),
+            0,
+        )
+        post = {
+            "visible_private_hits": [],
+            "decoded_private_hits": [],
+            "text_scan_ok": True,
+            "decoded_scan_ok": True,
+            "pdf_revision_markers_bound": True,
+            "pdf_single_revision_only": True,
+            "qpdf_structurally_valid": True,
+            "embedded_file_count": 1,
+            "file_attachment_annotation_count": 0,
+            "associated_file_reference_count": 0,
+            "embedded_file_object_count": 0,
+        }
+        self.assertTrue(ns["requires_text_fallback"](post))
+
+    def test_hardener_fast_inspection_routes_qpdf_invalid_pdf_to_candidate(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(
+            str(ROOT / "scripts/harden-public-pdf-privacy.py"),
+            run_name="privacy_hardening_qpdf_channel_test",
+        )
+        pdf = self.tmpdir / "qpdf-invalid-synthetic.pdf"
+        doc = fitz.open()
+        doc.new_page()
+        doc.save(pdf)
+        doc.close()
+
+        globals_ = ns["inspect_pdf_fast"].__globals__
+        original = globals_.get("qpdf_structural_check")
+        globals_["qpdf_structural_check"] = lambda path: (False, "synthetic qpdf failure")
+        try:
+            result = ns["inspect_pdf_fast"](pdf, redaction.prepared_private_byte_matchers())
+        finally:
+            if original is None:
+                globals_.pop("qpdf_structural_check", None)
+            else:
+                globals_["qpdf_structural_check"] = original
+
+        self.assertIn("qpdf_invalid", result["reasons"])
+        self.assertFalse(result["qpdf_structurally_valid"])
+        self.assertTrue(ns["requires_text_fallback"]({
+            **result,
+            "decoded_private_hits": [],
+            "decoded_scan_ok": True,
+        }))
+
+    def test_release_audit_requires_web_mirror_only_for_staged_release_root(self):
+        ns = runpy.run_path(
+            str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"),
+            run_name="release_audit_stage_shape_test",
+        )
+        web = self.tmpdir / "web-shape"
+        (web / "documents").mkdir(parents=True)
+        (web / "data").mkdir(parents=True)
+        pdf = web / "documents" / "one.pdf"
+        doc = fitz.open()
+        doc.new_page()
+        doc.save(pdf)
+        doc.close()
+
+        registry = {
+            "documents": [{
+                "id": "doc-synthetic-one",
+                "public": {"pdf": "documents/one.pdf", "verification_status": "published"},
+            }]
+        }
+        canonical = self.tmpdir / "canonical-shape.json"
+        canonical.write_text(json.dumps(registry), "utf-8")
+        (web / "data" / "documents-2026.json").write_text(json.dumps(registry), "utf-8")
+
+        globals_ = ns["audit_registry_reconciliation"].__globals__
+        original_web = globals_["WEB"]
+        original_registry = globals_["CANONICAL_REGISTRY"]
+        original_root = globals_["PUBLICATION_ROOT"]
+        globals_["WEB"] = web
+        globals_["CANONICAL_REGISTRY"] = canonical
+        try:
+            globals_["PUBLICATION_ROOT"] = web
+            source_result, source_failures = ns["audit_registry_reconciliation"]([
+                {"published_path": "documents/one.pdf"}
+            ])
+            self.assertEqual(source_failures, [])
+            self.assertTrue(source_result["staged_set_exact_match"])
+
+            globals_["PUBLICATION_ROOT"] = self.tmpdir / "release-site"
+            staged_result, staged_failures = ns["audit_registry_reconciliation"]([
+                {"published_path": "documents/one.pdf"},
+                {"published_path": "web/documents/one.pdf"},
+            ])
+            self.assertEqual(staged_failures, [])
+            self.assertTrue(staged_result["staged_set_exact_match"])
+        finally:
+            globals_["WEB"] = original_web
+            globals_["CANONICAL_REGISTRY"] = original_registry
+            globals_["PUBLICATION_ROOT"] = original_root
+
+    def test_build_reconciles_pdf_ownership_before_privacy_hardening(self):
+        build = (ROOT / "scripts/build-site.mjs").read_text("utf-8")
+        reconcile = build.index("await run('scripts/reconcile-public-pdfs.mjs');")
+        harden = build.index("await runPython('scripts/harden-public-pdf-privacy.py');")
+        self.assertLess(reconcile, harden)
+
+
+    def test_release_audit_clean_hardening_identity_bridge_is_exact_and_fail_closed(self):
+        ns = runpy.run_path(
+            str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"),
+            run_name="release_audit_hardening_identity_test",
+        )
+        pdf = self.tmpdir / "final.pdf"
+        doc = fitz.open()
+        doc.new_page()
+        doc.save(pdf)
+        doc.close()
+        output_sha = hashlib.sha256(pdf.read_bytes()).hexdigest()
+        source_sha = "1" * 64
+        row = {
+            "id": "doc-synthetic",
+            "public_path": "documents/final.pdf",
+            "input_sha256": source_sha,
+            "output_sha256": output_sha,
+            "changed": True,
+            "registered": True,
+            "known_private_identifier_hits_after": [],
+            "decoded_private_identifier_hits_after": [],
+        }
+        clean_report = {"hard_failure_count": 0, "hard_failures": []}
+
+        self.assertTrue(ns["clean_hardening_identity_authorized"](
+            hardening_report=clean_report,
+            hardening_row=row,
+            document_id="doc-synthetic",
+            public_path="documents/final.pdf",
+            source_sha256=source_sha,
+            final_sha256=output_sha,
+            final_pdf=pdf,
+        ))
+
+        dirty_report = {"hard_failure_count": 1, "hard_failures": ["synthetic"]}
+        self.assertFalse(ns["clean_hardening_identity_authorized"](
+            hardening_report=dirty_report,
+            hardening_row=row,
+            document_id="doc-synthetic",
+            public_path="documents/final.pdf",
+            source_sha256=source_sha,
+            final_sha256=output_sha,
+            final_pdf=pdf,
+        ))
+
+        malformed = dict(row, changed="true")
+        self.assertFalse(ns["clean_hardening_identity_authorized"](
+            hardening_report=clean_report,
+            hardening_row=malformed,
+            document_id="doc-synthetic",
+            public_path="documents/final.pdf",
+            source_sha256=source_sha,
+            final_sha256=output_sha,
+            final_pdf=pdf,
+        ))
+
+        mismatched = dict(row, output_sha256="2" * 64)
+        self.assertFalse(ns["clean_hardening_identity_authorized"](
+            hardening_report=clean_report,
+            hardening_row=mismatched,
+            document_id="doc-synthetic",
+            public_path="documents/final.pdf",
+            source_sha256=source_sha,
+            final_sha256=output_sha,
+            final_pdf=pdf,
+        ))
+
+
 if __name__ == "__main__":
     unittest.main()

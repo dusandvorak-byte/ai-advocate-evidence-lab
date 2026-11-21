@@ -9,12 +9,53 @@ import fitz
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from publication_redaction import forbidden_public_identifiers, forbidden_public_identifier_byte_hits, prepared_private_byte_matchers
+from provenance_hardening_bridge import verify_hardening_bridge
 WEB = ROOT / "web"
 PUBLICATION_ROOT = Path(os.environ.get("EVIDENCE_LAB_PUBLICATION_ROOT", str(WEB))).resolve()
 CANONICAL_REGISTRY = Path(os.environ.get("EVIDENCE_LAB_CANONICAL_REGISTRY", str(ROOT / "project-memory/documents-2026.json"))).resolve()
 OUT = ROOT / "review-artifacts" / "release-evidence-audit.json"
 LIVE_BASE = "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/"
 EXCLUDED_ID69_SHA256 = "e73fcf803f59c4ed58cfb0ff01ee773cfedbd2782426132d3feeb715655d0ca2"
+
+def clean_hardening_identity_authorized(
+    *,
+    hardening_report: dict,
+    hardening_row: dict | None,
+    document_id: str,
+    public_path: str,
+    source_sha256: str,
+    final_sha256: str,
+    final_pdf: Path,
+) -> bool:
+    """Authorize a changed public identity only through exact, clean, document-bound hardening evidence."""
+    if not re.fullmatch(r"[0-9a-f]{64}", str(source_sha256 or ""), re.I):
+        return False
+    if not re.fullmatch(r"[0-9a-f]{64}", str(final_sha256 or ""), re.I):
+        return False
+    if not isinstance(hardening_report, dict) or hardening_report.get("hard_failure_count") != 0:
+        return False
+    if hardening_report.get("hard_failures") != []:
+        return False
+    if not isinstance(hardening_row, dict):
+        return False
+    if hardening_row.get("changed") is not True or hardening_row.get("registered") is not True:
+        return False
+    visible_after = hardening_row.get("known_private_identifier_hits_after")
+    decoded_after = hardening_row.get("decoded_private_identifier_hits_after")
+    if not isinstance(visible_after, list) or visible_after:
+        return False
+    if not isinstance(decoded_after, list) or decoded_after:
+        return False
+    return verify_hardening_bridge(
+        hardening_report=hardening_report,
+        hardening_row=hardening_row,
+        document_id=document_id,
+        public_path=public_path,
+        input_sha256=source_sha256,
+        expected_output_sha256=final_sha256,
+        final_public_pdf=final_pdf,
+    )
+
 
 def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
@@ -751,7 +792,12 @@ def audit_registry_reconciliation(staged_rows: list[dict]):
             canonical_pdf_paths.add(rel)
 
     expected_root_paths = source_paths | canonical_pdf_paths
-    expected_staged_paths = expected_root_paths | {"web/" + rel for rel in expected_root_paths}
+    # The duplicated web/ compatibility tree exists only in the assembled release-site.
+    # A direct audit of WEB is itself the source tree and must not require a mirror of itself.
+    if PUBLICATION_ROOT.resolve() == WEB.resolve():
+        expected_staged_paths = expected_root_paths
+    else:
+        expected_staged_paths = expected_root_paths | {"web/" + rel for rel in expected_root_paths}
 
     stage_missing = sorted(expected_staged_paths - staged_paths)
     stage_extra = sorted(staged_paths - expected_staged_paths)
@@ -849,26 +895,60 @@ def audit_id68_fidelity(staged_rows: list[dict]):
     expected_source_sha = "a9ea7ffed4f9eb7f759287dd949ce6bcb4027dd86a1e5c53fabaa2abc59331dd"
     expected_public_sha = "336af9dff0ad906759d2bddae8868970026bfef063e516bb2c148ff74ea64e32"
     canonical = json.loads(CANONICAL_REGISTRY.read_text("utf-8"))
+    final_registry = json.loads((ROOT / "project-memory/documents-2026.json").read_text("utf-8"))
+    hardening_report = json.loads((ROOT / "project-memory/privacy-hardening-report.json").read_text("utf-8"))
     item = next((x for x in canonical.get("documents", []) if x.get("id") == id68), None)
+    final_item = next((x for x in final_registry.get("documents", []) if x.get("id") == id68), None)
+    hardening_row = next((x for x in hardening_report.get("documents", []) if x.get("id") == id68), None)
     failures = []
-    if not item:
-        return {"id": id68, "status": "FAIL_MISSING_CANONICAL_RECORD"}, ["ID68 canonical record missing"]
+    if not item or not final_item:
+        return {"id": id68, "status": "FAIL_MISSING_CANONICAL_RECORD"}, ["ID68 canonical/final record missing"]
 
     public = item.get("public") or {}
+    final_public = final_item.get("public") or {}
     root_row = next((r for r in staged_rows if r.get("published_path") == expected_path), None)
     mirror_row = next((r for r in staged_rows if r.get("published_path") == "web/" + expected_path), None)
     source_text_path = ROOT / "project-memory/state-text-sources-2026-08-25/68-00.txt"
     source_text_value = source_text_path.read_text("utf-8") if source_text_path.is_file() else ""
+    staged_sha = root_row.get("sha256") if root_row else None
+    mirror_required = PUBLICATION_ROOT.resolve() != WEB.resolve()
+    hardening_authorized = bool(
+        root_row
+        and clean_hardening_identity_authorized(
+            hardening_report=hardening_report,
+            hardening_row=hardening_row,
+            document_id=id68,
+            public_path=expected_path,
+            source_sha256=expected_public_sha,
+            final_sha256=staged_sha,
+            final_pdf=WEB / expected_path,
+        )
+    )
+    final_registry_bound = bool(
+        root_row
+        and final_public.get("pdf") == expected_path
+        and final_public.get("sha256") == staged_sha
+    )
+    staged_identity_authorized = bool(
+        root_row
+        and final_registry_bound
+        and (staged_sha == expected_public_sha or hardening_authorized)
+    )
 
     checks = {
         "source_sha_recorded": public.get("source_original_sha256") == expected_source_sha,
         "source_page_count_recorded": public.get("source_original_page_count") == 2,
         "public_path_expected": public.get("pdf") == expected_path,
-        "public_sha_expected": public.get("sha256") == expected_public_sha,
+        "pre_hardening_public_sha_expected": public.get("sha256") == expected_public_sha,
         "public_page_count_recorded": public.get("public_derivative_page_count") == 4,
         "public_staged_root_present": root_row is not None,
-        "public_staged_mirror_present": mirror_row is not None,
-        "public_staged_sha_expected": bool(root_row and root_row.get("sha256") == expected_public_sha),
+        "public_staged_mirror_present": (mirror_row is not None) if mirror_required else True,
+        "public_staged_mirror_sha_matches_root": (
+            bool(mirror_row and root_row and mirror_row.get("sha256") == staged_sha)
+            if mirror_required else True
+        ),
+        "public_staged_identity_authorized": staged_identity_authorized,
+        "final_registry_bound_to_staged_sha": final_registry_bound,
         "public_staged_page_count_expected": bool(root_row and root_row.get("page_count") == 4),
         "fidelity_class_explicit": public.get("fidelity_class") == "verified_textual_public_copy_not_render_faithful",
         "not_byte_identical_status_explicit": "not_byte_identical_original" in str(public.get("verification_status") or ""),
@@ -883,13 +963,14 @@ def audit_id68_fidelity(staged_rows: list[dict]):
         "id": id68,
         "source_original_sha256": expected_source_sha,
         "source_original_page_count": 2,
-        "public_derivative_sha256": expected_public_sha,
+        "pre_hardening_public_derivative_sha256": expected_public_sha,
+        "final_public_derivative_sha256": staged_sha,
         "public_derivative_page_count": root_row.get("page_count") if root_row else None,
         "fidelity_class": public.get("fidelity_class"),
         "render_faithful_facsimile_claimed": False,
+        "hardening_identity_authorized": hardening_authorized,
         "checks": checks,
     }, failures
-
 
 def audit_okte(precomputed_facts=None):
     annex_path = ROOT / "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json"
@@ -897,6 +978,14 @@ def audit_okte(precomputed_facts=None):
     transcript_path = ROOT / "project-memory/source-transcripts/2026-11-02-krpm-pages.json"
     annexes = json.loads(annex_path.read_text("utf-8"))["documents"]
     parents = json.loads(parent_path.read_text("utf-8"))["documents"]
+    final_registry = json.loads((ROOT / "project-memory/documents-2026.json").read_text("utf-8"))
+    final_by_id = {item.get("id"): item for item in final_registry.get("documents", []) if item.get("id")}
+    hardening_report = json.loads((ROOT / "project-memory/privacy-hardening-report.json").read_text("utf-8"))
+    hardening_by_id = {
+        row.get("id"): row
+        for row in hardening_report.get("documents", [])
+        if row.get("id")
+    }
     parent = next(x for x in parents if x["id"] == "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2")
     transcript = json.loads(transcript_path.read_text("utf-8"))
     transcript_text = "\n".join(transcript.get("pages", []))
@@ -918,19 +1007,44 @@ def audit_okte(precomputed_facts=None):
         rel = pub["pdf"]
         local = WEB / rel
         if not local.exists():
-            failures.append(f"missing local OKTE original {rel}")
+            failures.append(f"missing local OKTE public identity {rel}")
             continue
         local_sha = sha256_file(local)
         facts = (precomputed_facts or {}).get(rel) or pdf_facts(local)
-        expected = pub["sha256"]
         source_expected = pub["source_original_sha256"]
+        supplement_public_sha = pub["sha256"]
+        final_item = final_by_id.get(item["id"])
+        final_public = (final_item or {}).get("public") or {}
+        hardening_row = hardening_by_id.get(item["id"])
+        direct_source = local_sha == source_expected
+        hardened = clean_hardening_identity_authorized(
+            hardening_report=hardening_report,
+            hardening_row=hardening_row,
+            document_id=item["id"],
+            public_path=rel,
+            source_sha256=source_expected,
+            final_sha256=local_sha,
+            final_pdf=local,
+        )
+        final_registry_bound = bool(
+            final_item
+            and final_public.get("pdf") == rel
+            and final_public.get("sha256") == local_sha
+        )
+        hardened_status_bound = (
+            "publication_policy_hardened" in str(final_public.get("verification_status") or "")
+            if hardened else True
+        )
         live = fetch_live(rel)
+        authorized_live_shas = {source_expected, local_sha}
         checks = {
-            "registry_public_equals_source_original": expected == source_expected,
-            "local_sha_matches_registry": local_sha == expected,
-            "local_page_count_matches_registry": facts["page_count"] == pub["source_original_page_count"],
+            "supplement_public_equals_source_original": supplement_public_sha == source_expected,
+            "final_registry_path_and_sha_match_local": final_registry_bound,
+            "local_identity_is_source_or_clean_hardening": direct_source or hardened,
+            "hardening_status_bound_when_changed": hardened_status_bound,
+            "local_page_count_matches_source_registry": facts["page_count"] == pub["source_original_page_count"],
             "live_http_200": live.get("http_status") == 200,
-            "live_sha_matches_registry": live.get("sha256") == expected,
+            "live_identity_is_authorized_pre_or_post_release": live.get("sha256") in authorized_live_shas,
         }
         if not all(checks.values()):
             failures.append(f"OKTE verification failed for {item['id']}: {checks}")
@@ -938,9 +1052,11 @@ def audit_okte(precomputed_facts=None):
             "id": item["id"],
             "reference": item.get("reference"),
             "public_path": rel,
-            "expected_sha256": expected,
             "source_original_sha256": source_expected,
+            "supplement_public_sha256": supplement_public_sha,
+            "final_registry_sha256": final_public.get("sha256"),
             "local_sha256": local_sha,
+            "local_identity_mode": "source_original" if direct_source else ("policy_hardened" if hardened else "unauthorized"),
             "page_count": facts["page_count"],
             "expected_page_count": pub["source_original_page_count"],
             "live": live,

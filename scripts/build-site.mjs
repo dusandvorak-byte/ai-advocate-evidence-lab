@@ -65,8 +65,10 @@ await run('scripts/build-late-evidence-2026-11-02.mjs');
 await run('scripts/ensure-generated-state-pdfs.mjs');
 await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');
-await runPython('scripts/harden-public-pdf-privacy.py');
+// Establish final PDF ownership before hardening so every registered derivative
+// receives document-bound input/output SHA provenance instead of an id:null row.
 await run('scripts/reconcile-public-pdfs.mjs');
+await runPython('scripts/harden-public-pdf-privacy.py');
 await runPython('scripts/sync-deterministic-public-sha.py');
 await run('scripts/audit-registries.mjs');
 

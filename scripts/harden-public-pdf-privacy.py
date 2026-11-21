@@ -280,10 +280,124 @@ def decoded_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
                 pass
 
 
+
+def qpdf_structural_check(path: Path) -> tuple[bool, str]:
+    try:
+        proc = subprocess.run(
+            ["qpdf", "--check", str(path)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            timeout=30,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return False, "qpdf_unavailable_or_timeout"
+    output = (proc.stdout or "").strip()
+    return proc.returncode == 0, output[-2000:]
+
+
+def file_attachment_annotation_count(doc) -> int:
+    count = 0
+    for page in doc:
+        annots = page.annots()
+        if not annots:
+            continue
+        for annot in annots:
+            annot_type = annot.type
+            code = annot_type[0] if isinstance(annot_type, (tuple, list)) and annot_type else None
+            name = annot_type[1] if isinstance(annot_type, (tuple, list)) and len(annot_type) > 1 else str(annot_type)
+            if code == 17 or name == "FileAttachment":
+                count += 1
+    return count
+
+
+def associated_file_reference_count(doc) -> int:
+    count = 0
+    try:
+        xref_len = doc.xref_length()
+    except Exception:
+        return 0
+    for xref in range(1, xref_len):
+        try:
+            kind, value = doc.xref_get_key(xref, "AF")
+        except Exception:
+            continue
+        if kind != "null" and str(value).strip() not in ("", "null", "[]"):
+            count += 1
+    return count
+
+
+def embedded_file_object_count(doc) -> int:
+    count = 0
+    try:
+        xref_len = doc.xref_length()
+    except Exception:
+        return 0
+    for xref in range(1, xref_len):
+        hit = False
+        try:
+            kind, value = doc.xref_get_key(xref, "EF")
+            if kind != "null" and str(value).strip() not in ("", "null", "<<>>", "<< >>"):
+                hit = True
+        except Exception:
+            pass
+        try:
+            kind, value = doc.xref_get_key(xref, "Type")
+            if str(value).strip() in ("/EmbeddedFile", "EmbeddedFile"):
+                hit = True
+        except Exception:
+            pass
+        if not hit:
+            try:
+                obj = doc.xref_object(xref, compressed=False)
+                if "/Type /EmbeddedFile" in obj or re.search(r"/EF\s*<<", obj):
+                    hit = True
+            except Exception:
+                pass
+        if hit:
+            count += 1
+    return count
+
+
+def inline_image_operator_present(stream: bytes) -> bool:
+    saw_bi = False
+    token_re = re.compile(br"(?<![A-Za-z0-9])BI(?=\s|/)|(?<=\s)ID(?=\s)")
+    for match in token_re.finditer(stream):
+        if match.group(0) == b"BI":
+            saw_bi = True
+        elif saw_bi:
+            return True
+    return False
+
+
+def page_inline_image_stream_count(doc) -> int:
+    seen = set()
+    count = 0
+    for page in doc:
+        try:
+            xrefs = page.get_contents() or []
+        except Exception:
+            xrefs = []
+        if isinstance(xrefs, int):
+            xrefs = [xrefs]
+        for xref in xrefs:
+            if xref in seen:
+                continue
+            seen.add(xref)
+            try:
+                stream = doc.xref_stream(xref)
+            except Exception:
+                stream = None
+            if stream and inline_image_operator_present(stream):
+                count += 1
+    return count
+
+
 def inspect_pdf_fast(path: Path, matchers) -> dict:
-    """Fast candidate selection using native text extraction and cheap metadata/envelope checks."""
+    """Candidate selection aligned with the final release audit's independent PDF channels."""
     raw = path.read_bytes()
     envelope = pdf_revision_envelope(raw)
+    qpdf_valid, qpdf_output = qpdf_structural_check(path)
 
     try:
         poppler = subprocess.run(
@@ -298,35 +412,62 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
         text_scan_ok = False
         text_bytes = b""
 
-    byte_hits = sorted(set(forbidden_public_identifier_byte_hits(text_bytes, matchers, scan_pdf_strings=False))) if text_scan_ok else []
-    text = text_bytes.decode("utf-8", errors="ignore")
-    text_private_hits = sorted(set(byte_hits + forbidden_public_identifiers(text))) if text_scan_ok else []
-    text_casefold = text.casefold()
-    redaction_rule_ids = sorted({
-        rule["id"]
-        for rule in private_pdf_rules()[0]
-        if any(variant.casefold() in text_casefold for variant in rule["variants"])
-    }) if text_scan_ok else []
+    poppler_byte_hits = (
+        sorted(set(forbidden_public_identifier_byte_hits(text_bytes, matchers, scan_pdf_strings=False)))
+        if text_scan_ok else []
+    )
+    poppler_text = text_bytes.decode("utf-8", errors="ignore")
+    poppler_private_hits = (
+        sorted(set(poppler_byte_hits + forbidden_public_identifiers(poppler_text)))
+        if text_scan_ok else []
+    )
 
     doc = fitz.open(path)
     try:
         page_count = doc.page_count
+        fitz_text = "\n".join(page.get_text("text") for page in doc)
         metadata_text = "\n".join(str(v) for v in (doc.metadata or {}).values() if v)
         xmp = doc.get_xml_metadata() or ""
+        embedded_files = doc.embfile_count() if hasattr(doc, "embfile_count") else 0
+        attachment_annotations = file_attachment_annotation_count(doc)
+        associated_files = associated_file_reference_count(doc)
+        embedded_objects = embedded_file_object_count(doc)
+        inline_images = page_inline_image_stream_count(doc)
     finally:
         doc.close()
+
+    fitz_private_hits = sorted(set(forbidden_public_identifiers(fitz_text)))
+    text_private_hits = sorted(set(poppler_private_hits + fitz_private_hits))
+    combined_text_casefold = (poppler_text + "\n" + fitz_text).casefold()
+    redaction_rule_ids = sorted({
+        rule["id"]
+        for rule in private_pdf_rules()[0]
+        if any(variant.casefold() in combined_text_casefold for variant in rule["variants"])
+    })
 
     metadata_hits = sorted(set(forbidden_public_identifiers(metadata_text + "\n" + xmp)))
     visible_hits = sorted(set(text_private_hits + metadata_hits))
     suspicious_metadata = bool(SUSPICIOUS_METADATA.search(metadata_text + "\n" + xmp))
+    embedded_payload = bool(
+        embedded_files
+        or attachment_annotations
+        or associated_files
+        or embedded_objects
+    )
 
     reasons = []
     if not envelope["pdf_revision_markers_bound"] or not envelope["pdf_single_revision_only"]:
         reasons.append("revision_envelope")
+    if not qpdf_valid:
+        reasons.append("qpdf_invalid")
     if visible_hits:
         reasons.append("private_match")
     if suspicious_metadata:
         reasons.append("suspicious_metadata")
+    if embedded_payload:
+        reasons.append("embedded_payload")
+    if inline_images:
+        reasons.append("inline_image")
     if not text_scan_ok:
         reasons.append("text_scan_failed")
 
@@ -335,13 +476,21 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
         "reasons": reasons,
         "visible_private_hits": visible_hits,
         "text_private_hits": text_private_hits,
+        "poppler_private_hits": poppler_private_hits,
+        "fitz_private_hits": fitz_private_hits,
         "text_redaction_rule_ids": redaction_rule_ids,
         "metadata_private_hits": metadata_hits,
         "text_scan_ok": text_scan_ok,
         "xmp_present": bool(xmp),
+        "qpdf_structurally_valid": qpdf_valid,
+        "qpdf_check_tail": qpdf_output,
+        "embedded_file_count": embedded_files,
+        "file_attachment_annotation_count": attachment_annotations,
+        "associated_file_reference_count": associated_files,
+        "embedded_file_object_count": embedded_objects,
+        "inline_image_stream_count": inline_images,
         **envelope,
     }
-
 
 def inspect_pdf_deep(path: Path, matchers) -> dict:
     fast = inspect_pdf_fast(path, matchers)
@@ -436,7 +585,7 @@ def targeted_pdf_rules(rules: list[dict], rule_ids: list[str]) -> list[dict]:
 
 
 def requires_text_fallback(post: dict) -> bool:
-    """Use a deterministic text copy only when ordinary hardening is still unsafe."""
+    """Use a deterministic text copy when any final-audit safety channel remains unsafe."""
     return bool(
         post.get("visible_private_hits")
         or post.get("decoded_private_hits")
@@ -444,6 +593,12 @@ def requires_text_fallback(post: dict) -> bool:
         or not post.get("decoded_scan_ok")
         or not post.get("pdf_revision_markers_bound")
         or not post.get("pdf_single_revision_only")
+        or not post.get("qpdf_structurally_valid", True)
+        or post.get("embedded_file_count", 0)
+        or post.get("file_attachment_annotation_count", 0)
+        or post.get("associated_file_reference_count", 0)
+        or post.get("embedded_file_object_count", 0)
+        or post.get("inline_image_stream_count", 0)
     )
 
 
@@ -514,9 +669,10 @@ def pdftotext_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
 
 
 def inspect_qpdf_rewrite_post(path: Path, matchers) -> dict:
-    """Bounded post-verification for qpdf-only rewrites; deliberately avoids PyMuPDF."""
+    """Bounded post-verification for qpdf-only rewrites; deliberately avoids deep PyMuPDF."""
     envelope = pdf_revision_envelope(path.read_bytes())
     page_count = qpdf_page_count(path)
+    qpdf_valid, qpdf_output = qpdf_structural_check(path)
     visible_hits, text_scan_ok = pdftotext_private_hits(path, matchers)
     decoded_hits, decoded_ok = decoded_private_hits(path, matchers)
     reasons = []
@@ -536,6 +692,13 @@ def inspect_qpdf_rewrite_post(path: Path, matchers) -> dict:
         "xmp_present": False,
         "decoded_private_hits": decoded_hits,
         "decoded_scan_ok": decoded_ok,
+        "qpdf_structurally_valid": qpdf_valid,
+        "qpdf_check_tail": qpdf_output,
+        "embedded_file_count": 0,
+        "file_attachment_annotation_count": 0,
+        "associated_file_reference_count": 0,
+        "embedded_file_object_count": 0,
+        "inline_image_stream_count": 0,
         **envelope,
     }
 
