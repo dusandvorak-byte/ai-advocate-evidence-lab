@@ -1,0 +1,66 @@
+name: Repair Justice Slalom hardened provenance
+
+on:
+  push:
+    branches: [fix/justice-slalom-hardened-provenance-20261121]
+    paths: [.github/repair-justice-slalom-hardened-provenance.py]
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Prove hardened-original regression is red
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          node --test test/justice-slalom-pdf-provenance.test.mjs > "$RUNNER_TEMP/red.log" 2>&1
+          status=$?
+          set -e
+          cat "$RUNNER_TEMP/red.log"
+          test "$status" -ne 0
+          grep -Eq 'ERR_MODULE_NOT_FOUND|Cannot find module' "$RUNNER_TEMP/red.log"
+
+      - name: Implement shared provenance contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/repair-justice-slalom-hardened-provenance.py
+          node --check scripts/justice-slalom-pdf-provenance.mjs
+          node --check scripts/build-justice-slalom.mjs
+          node --check scripts/validate-justice-slalom.mjs
+          git diff --check
+
+      - name: Run focused provenance regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --test test/justice-slalom-pdf-provenance.test.mjs
+          changed="$(git diff --name-only | sort)"
+          expected="$(printf '%s\n' scripts/build-justice-slalom.mjs scripts/justice-slalom-pdf-provenance.mjs scripts/validate-justice-slalom.mjs | sort)"
+          test "$changed" = "$expected"
+
+      - name: Commit verified provenance repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/build-justice-slalom.mjs scripts/justice-slalom-pdf-provenance.mjs scripts/validate-justice-slalom.mjs
+          git diff --cached --quiet && exit 0
+          git commit -m 'Recognize policy-hardened Justice Slalom copies'
+          git push origin HEAD:fix/justice-slalom-hardened-provenance-20261121
