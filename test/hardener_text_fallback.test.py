@@ -2,6 +2,7 @@ import contextlib
 import io
 import json
 import runpy
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -9,6 +10,7 @@ from pathlib import Path
 import fitz
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 HARDENER = ROOT / "scripts/harden-public-pdf-privacy.py"
 
 
