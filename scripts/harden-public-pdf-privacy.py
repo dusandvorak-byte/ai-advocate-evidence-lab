@@ -284,6 +284,9 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
     """Fast candidate selection using native text extraction and cheap metadata/envelope checks."""
     raw = path.read_bytes()
     envelope = pdf_revision_envelope(raw)
+    raw_private_hits = sorted(set(
+        forbidden_public_identifier_byte_hits(raw, matchers)
+    ))
 
     try:
         poppler = subprocess.run(
@@ -313,6 +316,7 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
         page_count = doc.page_count
         metadata_text = "\n".join(str(v) for v in (doc.metadata or {}).values() if v)
         xmp = doc.get_xml_metadata() or ""
+        embedded_file_count = doc.embfile_count() if hasattr(doc, "embfile_count") else 0
     finally:
         doc.close()
 
@@ -323,8 +327,10 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
     reasons = []
     if not envelope["pdf_revision_markers_bound"] or not envelope["pdf_single_revision_only"]:
         reasons.append("revision_envelope")
-    if visible_hits:
+    if visible_hits or raw_private_hits:
         reasons.append("private_match")
+    if embedded_file_count:
+        reasons.append("embedded_content")
     if suspicious_metadata:
         reasons.append("suspicious_metadata")
     if not text_scan_ok:
@@ -334,6 +340,8 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
         "page_count": page_count,
         "reasons": reasons,
         "visible_private_hits": visible_hits,
+        "raw_private_hits": raw_private_hits,
+        "embedded_file_count": embedded_file_count,
         "text_private_hits": text_private_hits,
         "text_redaction_rule_ids": redaction_rule_ids,
         "metadata_private_hits": metadata_hits,
@@ -439,6 +447,8 @@ def requires_text_fallback(post: dict) -> bool:
     """Use a deterministic text copy only when ordinary hardening is still unsafe."""
     return bool(
         post.get("visible_private_hits")
+        or post.get("raw_private_hits")
+        or post.get("embedded_file_count")
         or post.get("decoded_private_hits")
         or not post.get("text_scan_ok")
         or not post.get("decoded_scan_ok")
@@ -515,8 +525,12 @@ def pdftotext_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
 
 def inspect_qpdf_rewrite_post(path: Path, matchers) -> dict:
     """Bounded post-verification for qpdf-only rewrites; deliberately avoids PyMuPDF."""
-    envelope = pdf_revision_envelope(path.read_bytes())
+    raw = path.read_bytes()
+    envelope = pdf_revision_envelope(raw)
     page_count = qpdf_page_count(path)
+    raw_private_hits = sorted(set(
+        forbidden_public_identifier_byte_hits(raw, matchers)
+    ))
     visible_hits, text_scan_ok = pdftotext_private_hits(path, matchers)
     decoded_hits, decoded_ok = decoded_private_hits(path, matchers)
     reasons = []
@@ -532,6 +546,8 @@ def inspect_qpdf_rewrite_post(path: Path, matchers) -> dict:
         "page_count": page_count,
         "reasons": reasons,
         "visible_private_hits": visible_hits,
+        "raw_private_hits": raw_private_hits,
+        "embedded_file_count": 0,
         "text_scan_ok": text_scan_ok,
         "xmp_present": False,
         "decoded_private_hits": decoded_hits,
@@ -702,6 +718,8 @@ def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) 
             "page_count": before_pages,
             "reasons": inspection.get("reasons") or [],
             "visible_private_hits": inspection.get("visible_private_hits") or [],
+            "raw_private_hits": inspection.get("raw_private_hits") or [],
+            "embedded_file_count": inspection.get("embedded_file_count") or 0,
             "text_private_hits": inspection.get("text_private_hits") or [],
             "text_redaction_rule_ids": inspection.get("text_redaction_rule_ids") or [],
             "metadata_private_hits": inspection.get("metadata_private_hits") or [],
@@ -930,6 +948,14 @@ def worker_candidate(
     elif visible_hits:
         local_failures.append(
             f"known private identifier remains after privacy hardening: {rel}: {visible_hits}"
+        )
+    if post.get("raw_private_hits"):
+        local_failures.append(
+            f"raw private identifier remains after privacy hardening: {rel}: {post['raw_private_hits']}"
+        )
+    if post.get("embedded_file_count"):
+        local_failures.append(
+            f"embedded files remain after privacy hardening: {rel}: {post['embedded_file_count']}"
         )
     if post.get("decoded_private_hits"):
         local_failures.append(
