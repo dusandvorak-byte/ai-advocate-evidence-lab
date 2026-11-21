@@ -11,6 +11,10 @@ permissions:
 env:
   NODE_VERSION: '24'
 
+concurrency:
+  group: fixed-privacy-diagnostic
+  cancel-in-progress: true
+
 jobs:
   diagnose:
     name: Sanitized fixed-scanner stage isolation
@@ -41,6 +45,7 @@ jobs:
           python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
           node --check scripts/reconstruct-pre-hardening-tree.mjs
           python3 -m py_compile scripts/diagnose-pdf-hardening-stages.py
+          python3 -m py_compile scripts/diagnose-pdf-hardening-residuals.py
           python3 -m py_compile scripts/harden-public-pdf-privacy.py
           python3 test/publication_redaction_complexity.test.py
 
@@ -65,11 +70,16 @@ jobs:
       - name: Diagnose all previously timed-out PDFs by stage
         run: python3 scripts/diagnose-pdf-hardening-stages.py
 
+      - name: Diagnose all residual privacy failures by stage
+        run: python3 scripts/diagnose-pdf-hardening-residuals.py
+
       - name: Upload sanitized diagnostic evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: privacy-hardening-stage-diagnostic-fixed
-          path: review-artifacts/privacy-hardening-stage-diagnostic.json
+          path: |
+            review-artifacts/privacy-hardening-stage-diagnostic.json
+            review-artifacts/privacy-hardening-residual-diagnostic.json
           if-no-files-found: error
           retention-days: 7
