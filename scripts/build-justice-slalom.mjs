@@ -1,6 +1,7 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
+import { evaluateJusticeSlalomPdfProvenance } from './justice-slalom-pdf-provenance.mjs';
 
 // Terminal publication step. The timer builder still supplies internal case history
 // to earlier generators; no timer card or timer script is shipped in public HTML.
@@ -25,24 +26,7 @@ if (JSON.stringify(allArchiveNumbers) !== JSON.stringify(contiguousNumbers) || a
 const esc = value => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;')
   .replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
-const publicCopyKinds = new Set(['redacted_public_copy_from_user_original', 'verified_public_copy_from_user_original']);
-const redactedOriginalKind = 'redacted_original_from_user_binary';
-const pdfKind = item => item.justice_slalom.source_kind === redactedOriginalKind
-  ? 'redacted_original'
-  : publicCopyKinds.has(item.justice_slalom.source_kind) ? 'redacted_public_copy' : 'original';
 const root = '/ai-advocate-evidence-lab/';
-const hardenedCopyOk = (doc, digest, expectedInputSha) => {
-  const row = hardeningById.get(doc.id);
-  return Boolean(
-    row
-    && row.changed
-    && row.public_path === doc.public?.pdf
-    && row.input_sha256 === expectedInputSha
-    && row.output_sha256 === digest
-    && Array.isArray(row.known_private_identifier_hits_after)
-    && row.known_private_identifier_hits_after.length === 0
-  );
-};
 const rows = [];
 for (const doc of entries) {
   const meta = doc.justice_slalom;
@@ -54,16 +38,11 @@ for (const doc of entries) {
   if (bytes.subarray(0, 5).toString() !== '%PDF-' || !bytes.subarray(-2048).toString('latin1').includes('%%EOF') || bytes.length < 1024) {
     throw new Error(`JUSTICE-SLALOM: neplatné PDF ${doc.public.pdf}`);
   }
-  const kind = pdfKind(doc);
-  const copyManifest = meta.source_kind === 'redacted_public_copy_from_user_original' || meta.source_kind === redactedOriginalKind
-    ? meta.redaction_manifest : meta.public_copy_manifest;
   const digest = sha(bytes);
-  const provenanceOk = kind === 'original'
-    ? digest === meta.source_sha256
-    : Boolean(copyManifest) && (
-        digest === meta.public_sha256
-        || hardenedCopyOk(doc, digest, meta.public_sha256)
-      );
+  const {
+    effectiveKind: kind,
+    provenanceOk,
+  } = evaluateJusticeSlalomPdfProvenance({ doc, digest, hardeningById });
   if (digest !== doc.public.sha256 || !provenanceOk) {
     throw new Error(`JUSTICE-SLALOM: veřejné PDF neodpovídá deklarovanému zdroji a typu kopie ${doc.id}`);
   }
@@ -112,7 +91,7 @@ for (const doc of entries) {
       role: recipient.role, reference: recipient.reference,
       subject_cs: recipient.subject_cs, subject_en: recipient.subject_en,
       pdf: doc.public.pdf, pdf_sha256: doc.public.sha256,
-      pdf_kind: pdfKind(doc)
+      pdf_kind: kind
     });
   }
 }
