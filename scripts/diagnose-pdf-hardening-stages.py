@@ -15,36 +15,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
 HARDENER = ROOT / "scripts/harden-public-pdf-privacy.py"
-OUT = ROOT / "review-artifacts/privacy-hardening-stage-diagnostic.json"
+OUT = ROOT / "review-artifacts/privacy-hardening-residual-diagnostic.json"
 
 TARGETS = [
-    "documents/2026-11-04/2026-11-03-okte-srovnavaci-analyza-redigovany-original.pdf",
-    "documents/justice-slalom/2026-07/02-podani-2026-07-06.pdf",
-    "documents/justice-slalom/2026-07/03-podani-2026-07-19.pdf",
-    "documents/justice-slalom/2026-07/06-podani-2026-07-10.pdf",
-    "documents/justice-slalom/2026-07/22-podani-2026-07-15.pdf",
-    "documents/justice-slalom/2026-07/23-podani-2026-07-15.pdf",
-    "documents/justice-slalom/2026-07/27-podani-2026-07-08.pdf",
-    "documents/justice-slalom/2026-07/33-podani-2026-07-25.pdf",
-    "documents/justice-slalom/2026-07/34-podani-2026-07-14.pdf",
-    "documents/justice-slalom/2026-07/41-podani-2026-07-12.pdf",
-    "documents/justice-slalom/2026-07/42-podani-2026-07-14.pdf",
-    "documents/justice-slalom/2026-09/005-podani-2026-09-21.pdf",
-    "documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf",
-    "documents/originaly-2026-11-02/2026-10-28-nsz-specifikace-trestnich-podnetu-53-stran.pdf",
-    "documents/originaly-2026-11-02/2026-10-28-nsz-zasahova-zaloba-22-stran.pdf",
-    "documents/originaly-2026-11-02/2026-10-30-krpm-145410.pdf",
-    "documents/report-04082026-010/132-krpt-276756-2-2026-10-20-original.pdf",
-    "documents/report-04082026-010/138-ns-zin-208-2026-2026-10-23-original.pdf",
-    "documents/report-04082026-010/142-vsz-praha-1-vzn-1678-2026-173-2026-10-27-original.pdf",
-    "documents/report-04082026-010/36-ncoz-4324-2-cj-2026-4100pi-2026-05-22.pdf",
-    "documents/report-25072026-007/02-predzalobni-vyzva-nsz-2026-07-14-original.pdf",
-    "documents/report-25072026-007/04-msz-podnet-2026-05-27.pdf",
-    "documents/report-25072026-007/08-osz-prostejov-treti-zadost-2026-07-04.pdf",
-    "documents/report-25072026-007/10-ksz-brno-vsz-olomouc-podnet-2026-07-10.pdf",
-    "documents/report-25072026-007/11-preventivni-podani-os-pcr-prostejov-2026-07-12.pdf",
-    "documents/report-25072026-007/15-kpr-nalehavost-2026-07-19.pdf",
-    "documents/report-27072026-008/14-ncoz-doplneni-2026-05-12.pdf",
+    "documents/justice-slalom/2026-07/44-podani-2026-07-02.pdf",
+    "documents/justice-slalom/2026-08/066-podani-2026-08-12.pdf",
+    "documents/justice-slalom/2026-09/083-podani-2026-09-27.pdf",
+    "documents/justice-slalom/2026-10/101-podani-2026-10-10-ns-nsz-msp-mv-pp.pdf",
+    "documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-redigovany-original.pdf",
+    "documents/originaly-2026-11-03/2026-10-16-cnb-2026-167900-cnb-110-original.pdf",
+    "documents/report-04082026-010/90-os-prostejov-15-nt-3104-2026-2026-09-14.pdf",
+    "documents/report-25072026-007/07-vsz-msz-praha-doplneni-2026-07-02.pdf",
+    "documents/report-25072026-007/12-msz-praha-zadost-spis-2026-07-13.pdf",
+    "documents/report-25072026-007/18-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf",
 ]
 
 
@@ -258,6 +241,12 @@ def main() -> int:
         "harden_timeout_count": sum(1 for row in rows if (row.get("harden") or {}).get("status") == "timeout"),
         "post_timeout_count": sum(1 for row in rows if (row.get("post") or {}).get("status") == "timeout"),
         "complete_count": sum(1 for row in rows if row.get("terminal_stage") == "complete"),
+        "post_private_match_count": sum(
+            1 for row in rows if "private_match" in ((row.get("post") or {}).get("reasons") or [])
+        ),
+        "post_scan_failure_count": sum(
+            1 for row in rows if not (row.get("post") or {}).get("decoded_scan_ok", False)
+        ),
         "strategy_counts": {},
     }
     for row in rows:
@@ -267,7 +256,7 @@ def main() -> int:
 
     payload = {
         "schema_version": "1.0",
-        "purpose": "sanitized stage isolation for privacy hardening timeouts",
+        "purpose": "sanitized residual privacy-failure isolation after timeout root-cause repair",
         "secret_values_logged": False,
         "summary": summary,
         "documents": rows,
