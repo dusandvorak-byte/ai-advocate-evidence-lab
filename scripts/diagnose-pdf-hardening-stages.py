@@ -106,6 +106,8 @@ def child_post(path: Path, strategy: str) -> int:
         result = mod["inspect_qpdf_rewrite_post"](path, matchers)
     else:
         result = mod["inspect_pdf_deep"](path, matchers)
+    visible_ids = sorted(set(result.get("visible_private_hits") or []))
+    decoded_ids = sorted(set(result.get("decoded_private_hits") or []))
     emit({
         "status": "ok",
         "stage": "post",
@@ -113,8 +115,10 @@ def child_post(path: Path, strategy: str) -> int:
         "seconds": round(time.monotonic() - start, 3),
         "page_count": result.get("page_count"),
         "reasons": result.get("reasons") or [],
-        "visible_hit_count": len(result.get("visible_private_hits") or []),
-        "decoded_hit_count": len(result.get("decoded_private_hits") or []),
+        "visible_hit_count": len(visible_ids),
+        "visible_hit_ids": visible_ids,
+        "decoded_hit_count": len(decoded_ids),
+        "decoded_hit_ids": decoded_ids,
         "text_scan_ok": bool(result.get("text_scan_ok")),
         "decoded_scan_ok": bool(result.get("decoded_scan_ok")),
         "pdf_revision_markers_bound": bool(result.get("pdf_revision_markers_bound")),
@@ -175,6 +179,9 @@ def diagnose(rel: str) -> dict:
         })
         return row
 
+    visible_ids = sorted(set(inspection.get("visible_private_hits") or []))
+    text_ids = sorted(set(inspection.get("text_private_hits") or []))
+    metadata_ids = sorted(set(inspection.get("metadata_private_hits") or []))
     row.update({
         "status": "diagnosed",
         "input_size": source.stat().st_size,
@@ -182,9 +189,12 @@ def diagnose(rel: str) -> dict:
         "page_count": inspection.get("page_count"),
         "inspection_seconds": round(time.monotonic() - started, 3),
         "reasons": inspection.get("reasons") or [],
-        "visible_hit_count": len(inspection.get("visible_private_hits") or []),
-        "text_private_hit_count": len(inspection.get("text_private_hits") or []),
-        "metadata_private_hit_count": len(inspection.get("metadata_private_hits") or []),
+        "visible_hit_count": len(visible_ids),
+        "visible_hit_ids": visible_ids,
+        "text_private_hit_count": len(text_ids),
+        "text_private_hit_ids": text_ids,
+        "metadata_private_hit_count": len(metadata_ids),
+        "metadata_private_hit_ids": metadata_ids,
         "text_redaction_rule_count": len(inspection.get("text_redaction_rule_ids") or []),
         "text_scan_ok": bool(inspection.get("text_scan_ok")),
     })
@@ -255,9 +265,10 @@ def main() -> int:
             summary["strategy_counts"][strategy] = summary["strategy_counts"].get(strategy, 0) + 1
 
     payload = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "purpose": "sanitized residual privacy-failure isolation after timeout root-cause repair",
         "secret_values_logged": False,
+        "opaque_matcher_ids_logged": True,
         "summary": summary,
         "documents": rows,
     }
