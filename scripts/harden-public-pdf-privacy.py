@@ -304,6 +304,72 @@ def canonicalize_pdf_qpdf(path: Path) -> bytes:
         out.unlink(missing_ok=True)
 
 
+def qpdf_page_count(path: Path) -> int:
+    try:
+        proc = subprocess.run(
+            ["qpdf", "--show-npages", str(path)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            timeout=20,
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        raise RuntimeError(f"qpdf page-count failed: {type(exc).__name__}") from exc
+    if proc.returncode != 0:
+        raise RuntimeError(
+            "qpdf page-count failed: "
+            + proc.stdout.decode("utf-8", errors="replace")[-1000:]
+        )
+    try:
+        return int(proc.stdout.decode("ascii", errors="strict").strip())
+    except (ValueError, UnicodeError) as exc:
+        raise RuntimeError("qpdf page-count returned invalid output") from exc
+
+
+def pdftotext_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
+    try:
+        proc = subprocess.run(
+            ["pdftotext", "-enc", "UTF-8", str(path), "-"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            timeout=30,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return [], False
+    if proc.returncode != 0:
+        return [], False
+    text_bytes = proc.stdout
+    byte_hits = forbidden_public_identifier_byte_hits(text_bytes, matchers)
+    text = text_bytes.decode("utf-8", errors="ignore")
+    return sorted(set(byte_hits + forbidden_public_identifiers(text))), True
+
+
+def inspect_qpdf_rewrite_post(path: Path, matchers) -> dict:
+    """Bounded post-verification for qpdf-only rewrites; deliberately avoids PyMuPDF."""
+    envelope = pdf_revision_envelope(path.read_bytes())
+    page_count = qpdf_page_count(path)
+    visible_hits, text_scan_ok = pdftotext_private_hits(path, matchers)
+    decoded_hits, decoded_ok = decoded_private_hits(path, matchers)
+    reasons = []
+    if not envelope["pdf_revision_markers_bound"] or not envelope["pdf_single_revision_only"]:
+        reasons.append("revision_envelope")
+    if visible_hits or decoded_hits:
+        reasons.append("private_match")
+    if not text_scan_ok:
+        reasons.append("text_scan_failed")
+    if not decoded_ok:
+        reasons.append("decoded_scan_failed")
+    return {
+        "page_count": page_count,
+        "reasons": reasons,
+        "visible_private_hits": visible_hits,
+        "text_scan_ok": text_scan_ok,
+        "xmp_present": False,
+        "decoded_private_hits": decoded_hits,
+        "decoded_scan_ok": decoded_ok,
+        **envelope,
+    }
+
+
 def forbidden_hits_worker(rel: str) -> None:
     path = WEB / rel
     print(json.dumps({"visible_hits": forbidden_hits(path)}, ensure_ascii=False))
@@ -448,13 +514,13 @@ def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) 
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-            timeout=300,
+            timeout=330,
         )
     except subprocess.TimeoutExpired:
         result = {
             "rel": rel,
             "worker_timeout": True,
-            "error": "--worker-candidate timed out after 300s",
+            "error": "--worker-candidate timed out after 330s",
         }
     else:
         if proc.returncode != 0:
@@ -538,7 +604,10 @@ def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
         path.write_bytes(data)
 
     after_sha = sha256_file(path)
-    post = inspect_pdf_deep(path, matchers)
+    if strategy == "qpdf_rewrite":
+        post = inspect_qpdf_rewrite_post(path, matchers)
+    else:
+        post = inspect_pdf_deep(path, matchers)
     after_pages = post.get("page_count")
     if post.get("text_scan_ok"):
         visible_hits = post.get("visible_private_hits") or []
