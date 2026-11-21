@@ -248,6 +248,7 @@ private.person@example.invalid
         )
 
     def test_qpdf_rewrite_worker_does_not_reenter_deep_pymupdf_inspection(self):
+        self.write_policy_and_contract()
         ns = runpy.run_path(
             str(ROOT / "scripts/harden-public-pdf-privacy.py"),
             run_name="privacy_hardening_qpdf_post_test",
