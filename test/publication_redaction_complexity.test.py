@@ -1,3 +1,4 @@
+import re
 import sys
 import time
 import unittest
@@ -40,6 +41,11 @@ class PublicationRedactionComplexityTests(unittest.TestCase):
         raw = b"(" * 64 + b"\n(" + secret + b")"
         payloads = redaction._pdf_decoded_string_payloads(raw)
         self.assertIn(secret, payloads)
+        hits = redaction.forbidden_public_identifier_byte_hits(
+            raw,
+            (("private_raw_match_1", re.compile("secret")),),
+        )
+        self.assertEqual(hits, ["private_raw_match_1"])
 
     def test_escape_recovery_does_not_retain_a_full_file_candidate(self):
         raw = (b"binary-prefix-\\163-" * 4096) + b"tail"
