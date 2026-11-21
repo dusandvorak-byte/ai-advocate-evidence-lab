@@ -19,7 +19,7 @@ from publication_redaction import (
     prepared_private_byte_matchers,
     redact_public_text,
 )
-from public_text_fallback import build_public_text_copy
+from public_text_fallback import atomic_replace_bytes, build_public_text_copy
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
@@ -660,7 +660,7 @@ def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
                 search_private=(strategy == "redact"),
             )
         if data is not None:
-            path.write_bytes(data)
+            atomic_replace_bytes(path, data)
 
         if strategy == "qpdf_rewrite":
             post = inspect_qpdf_rewrite_post(path, matchers)
@@ -717,12 +717,12 @@ def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
 
         changed = bool(data is not None or text_fallback is not None)
         if text_fallback is not None and local_failures:
-            path.write_bytes(original_bytes)
+            atomic_replace_bytes(path, original_bytes)
             after_sha = before_sha
             after_pages = before_pages
             changed = False
     except Exception:
-        path.write_bytes(original_bytes)
+        atomic_replace_bytes(path, original_bytes)
         raise
 
     candidate = {
@@ -811,7 +811,7 @@ def main() -> None:
             force_rewrite=force_rewrite,
         )
         if data is not None:
-            path.write_bytes(data)
+            atomic_replace_bytes(path, data)
 
         after_sha = sha256_file(path)
         post = inspect_pdf_deep(path, matchers)
