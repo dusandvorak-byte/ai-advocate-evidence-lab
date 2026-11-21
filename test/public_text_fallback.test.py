@@ -215,6 +215,172 @@ class PublicTextFallbackTests(unittest.TestCase):
                 )
         self.assertFalse(target.exists())
 
+    def test_qpdf_retry_recovers_generic_poppler_failure(self):
+        source = self.root / "source.pdf"
+        target = self.root / "target.pdf"
+        self.make_pdf(source)
+        pages = ["Public SECRET value on page one", "Second public page"]
+        with mock.patch.object(
+            fallback_module,
+            "extract_poppler_pages",
+            side_effect=[
+                TextFallbackError(fallback_module.POPPLER_RESOURCE_FAILURE),
+                pages,
+            ],
+        ) as extract, mock.patch.object(
+            fallback_module, "_run_pdf_transport", return_value=True
+        ) as transport, mock.patch.object(
+            fallback_module, "_transport_semantics_match", return_value=True
+        ):
+            facts = build_public_text_copy(
+                source,
+                target,
+                redact_text=self.redact,
+                forbidden_text=self.forbidden,
+            )
+        self.assertEqual(facts["poppler_transport_retry"], "qpdf")
+        self.assertEqual(extract.call_count, 2)
+        self.assertEqual(transport.call_args_list[0].args[0], "qpdf")
+
+    def test_mutool_retry_runs_after_qpdf_cannot_create_a_valid_transport(self):
+        source = self.root / "source.pdf"
+        target = self.root / "target.pdf"
+        self.make_pdf(source)
+        pages = ["Public SECRET value on page one", "Second public page"]
+        with mock.patch.object(
+            fallback_module,
+            "extract_poppler_pages",
+            side_effect=[
+                TextFallbackError(fallback_module.POPPLER_RESOURCE_FAILURE),
+                pages,
+            ],
+        ), mock.patch.object(
+            fallback_module, "_run_pdf_transport", side_effect=[False, True]
+        ) as transport, mock.patch.object(
+            fallback_module, "_transport_semantics_match", return_value=True
+        ):
+            facts = build_public_text_copy(
+                source,
+                target,
+                redact_text=self.redact,
+                forbidden_text=self.forbidden,
+            )
+        self.assertEqual(facts["poppler_transport_retry"], "mutool")
+        self.assertEqual(
+            [call.args[0] for call in transport.call_args_list],
+            ["qpdf", "mutool"],
+        )
+
+    def test_transport_semantic_mismatch_fails_closed(self):
+        source = self.root / "source.pdf"
+        target = self.root / "target.pdf"
+        self.make_pdf(source)
+        with mock.patch.object(
+            fallback_module,
+            "extract_poppler_pages",
+            side_effect=TextFallbackError(fallback_module.POPPLER_RESOURCE_FAILURE),
+        ) as extract, mock.patch.object(
+            fallback_module, "_run_pdf_transport", return_value=True
+        ) as transport, mock.patch.object(
+            fallback_module, "_transport_semantics_match", return_value=False
+        ):
+            with self.assertRaisesRegex(TextFallbackError, "transport"):
+                build_public_text_copy(
+                    source,
+                    target,
+                    redact_text=self.redact,
+                    forbidden_text=self.forbidden,
+                )
+        self.assertEqual(extract.call_count, 1)
+        self.assertEqual(
+            [call.args[0] for call in transport.call_args_list],
+            ["qpdf", "mutool"],
+        )
+        self.assertFalse(target.exists())
+
+    def test_nonretryable_poppler_error_never_runs_a_transport(self):
+        source = self.root / "source.pdf"
+        target = self.root / "target.pdf"
+        self.make_pdf(source)
+        with mock.patch.object(
+            fallback_module,
+            "extract_poppler_pages",
+            side_effect=TextFallbackError("Poppler extraction timed out"),
+        ), mock.patch.object(
+            fallback_module, "_run_pdf_transport"
+        ) as transport:
+            with self.assertRaisesRegex(TextFallbackError, "timed out"):
+                build_public_text_copy(
+                    source,
+                    target,
+                    redact_text=self.redact,
+                    forbidden_text=self.forbidden,
+                )
+        transport.assert_not_called()
+        self.assertFalse(target.exists())
+
+    def test_transport_commands_are_fixed_and_warning_tolerant_only_for_qpdf(self):
+        source = self.root / "source.pdf"
+        output = self.root / "normalized.pdf"
+        qpdf = fallback_module._pdf_transport_command("qpdf", source, output)
+        mutool = fallback_module._pdf_transport_command("mutool", source, output)
+        self.assertEqual(qpdf[0], "qpdf")
+        self.assertIn("--warning-exit-0", qpdf)
+        self.assertEqual(qpdf[-2:], [str(source), str(output)])
+        self.assertEqual(mutool[:4], ["mutool", "clean", "-gggg", "-z"])
+        self.assertEqual(mutool[-2:], [str(source), str(output)])
+        with self.assertRaises(ValueError):
+            fallback_module._pdf_transport_command("ghostscript", source, output)
+
+    def test_transport_output_size_limit_is_enforced(self):
+        source = self.root / "source.pdf"
+        output = self.root / "normalized.pdf"
+        self.make_pdf(source)
+
+        def oversized_transport(command, **kwargs):
+            Path(command[-1]).write_bytes(b"X" * 17)
+            return mock.Mock(returncode=0)
+
+        with mock.patch.object(
+            fallback_module, "MAX_NORMALIZED_PDF_BYTES", 16
+        ), mock.patch.object(
+            fallback_module.subprocess, "run", side_effect=oversized_transport
+        ):
+            self.assertFalse(
+                fallback_module._run_pdf_transport("qpdf", source, output)
+            )
+
+    def test_transport_semantics_require_original_text_and_page_geometry(self):
+        source = self.root / "source.pdf"
+        self.make_pdf(source)
+        doc = fitz.open(source)
+        try:
+            identities = [
+                fallback_module.normalized_text_identity(
+                    fallback_module.clean_text(page.get_text("text", sort=True))
+                )
+                for page in doc
+            ]
+            sizes = [
+                (round(float(page.rect.width), 3), round(float(page.rect.height), 3))
+                for page in doc
+            ]
+            page_count = doc.page_count
+        finally:
+            doc.close()
+        self.assertTrue(
+            fallback_module._transport_semantics_match(
+                source, identities, sizes, page_count
+            )
+        )
+        altered_sizes = list(sizes)
+        altered_sizes[0] = (1.0, 1.0)
+        self.assertFalse(
+            fallback_module._transport_semantics_match(
+                source, identities, altered_sizes, page_count
+            )
+        )
+
     def test_atomic_replace_failure_preserves_existing_target(self):
         source = self.root / "source.pdf"
         target = self.root / "target.pdf"

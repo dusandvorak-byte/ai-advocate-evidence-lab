@@ -29,7 +29,12 @@ FONT_CANDIDATES = (
 )
 MAX_EXTRACTED_TEXT_BYTES = 8 * 1024 * 1024
 MAX_POPPLER_MEMORY_BYTES = 256 * 1024 * 1024
+MAX_NORMALIZED_PDF_BYTES = 128 * 1024 * 1024
+MAX_NORMALIZER_MEMORY_BYTES = 768 * 1024 * 1024
+NORMALIZER_TIMEOUT_SECONDS = 120
 MAX_SOURCE_PAGES = 2000
+POPPLER_RESOURCE_FAILURE = "Poppler extraction failed or exceeded its resource limit"
+PDF_TRANSPORT_METHODS = ("qpdf", "mutool")
 MUPDF_VARIANT_LABEL = "EXTRAKČNÍ VARIANTA A — MuPDF"
 POPPLER_VARIANT_LABEL = "EXTRAKČNÍ VARIANTA B — Poppler"
 
@@ -40,6 +45,14 @@ class TextFallbackError(RuntimeError):
 
 def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def find_font() -> Path:
@@ -116,14 +129,144 @@ def extract_poppler_pages(source: Path, page_count: int) -> list[str]:
         if output_size > MAX_EXTRACTED_TEXT_BYTES:
             raise TextFallbackError("Poppler extraction byte limit exceeded")
         if proc.returncode != 0:
-            raise TextFallbackError(
-                "Poppler extraction failed or exceeded its resource limit"
-            )
+            raise TextFallbackError(POPPLER_RESOURCE_FAILURE)
         output.seek(0)
         raw = output.read(MAX_EXTRACTED_TEXT_BYTES + 1)
         if len(raw) > MAX_EXTRACTED_TEXT_BYTES:
             raise TextFallbackError("Poppler extraction byte limit exceeded")
     return split_poppler_pages(raw, page_count)
+
+
+
+def _set_transport_resource_limits() -> None:
+    if resource is None:
+        return
+    resource.setrlimit(
+        resource.RLIMIT_FSIZE,
+        (MAX_NORMALIZED_PDF_BYTES, MAX_NORMALIZED_PDF_BYTES),
+    )
+    if hasattr(resource, "RLIMIT_AS"):
+        resource.setrlimit(
+            resource.RLIMIT_AS,
+            (MAX_NORMALIZER_MEMORY_BYTES, MAX_NORMALIZER_MEMORY_BYTES),
+        )
+    if hasattr(resource, "RLIMIT_CPU"):
+        resource.setrlimit(resource.RLIMIT_CPU, (90, 90))
+
+
+def _pdf_transport_command(method: str, source: Path, output: Path) -> list[str]:
+    if method == "qpdf":
+        return [
+            "qpdf",
+            "--warning-exit-0",
+            "--deterministic-id",
+            "--object-streams=generate",
+            "--stream-data=compress",
+            "--recompress-flate",
+            str(source),
+            str(output),
+        ]
+    if method == "mutool":
+        return ["mutool", "clean", "-gggg", "-z", str(source), str(output)]
+    raise ValueError(f"unsupported PDF transport method: {method}")
+
+
+def _run_pdf_transport(method: str, source: Path, output: Path) -> bool:
+    output.unlink(missing_ok=True)
+    try:
+        with tempfile.TemporaryFile(prefix="evidence-pdf-transport-log-") as log:
+            proc = subprocess.run(
+                _pdf_transport_command(method, source, output),
+                stdout=log,
+                stderr=subprocess.STDOUT,
+                timeout=NORMALIZER_TIMEOUT_SECONDS,
+                check=False,
+                preexec_fn=_set_transport_resource_limits if os.name == "posix" else None,
+            )
+    except (OSError, subprocess.TimeoutExpired, ValueError):
+        output.unlink(missing_ok=True)
+        return False
+    if proc.returncode != 0 or output.is_symlink() or not output.is_file():
+        output.unlink(missing_ok=True)
+        return False
+    try:
+        size = output.stat().st_size
+    except OSError:
+        output.unlink(missing_ok=True)
+        return False
+    if size < 1 or size > MAX_NORMALIZED_PDF_BYTES:
+        output.unlink(missing_ok=True)
+        return False
+    return True
+
+
+def _transport_semantics_match(
+    normalized: Path,
+    expected_identities: list[str],
+    expected_sizes: list[tuple[float, float]],
+    expected_page_count: int,
+) -> bool:
+    try:
+        doc = fitz.open(normalized)
+    except Exception:
+        return False
+    try:
+        if doc.page_count != expected_page_count:
+            return False
+        identities: list[str] = []
+        sizes: list[tuple[float, float]] = []
+        for page in doc:
+            identities.append(
+                normalized_text_identity(clean_text(page.get_text("text", sort=True)))
+            )
+            sizes.append(
+                (round(float(page.rect.width), 3), round(float(page.rect.height), 3))
+            )
+        return identities == expected_identities and sizes == expected_sizes
+    except Exception:
+        return False
+    finally:
+        doc.close()
+
+
+def extract_poppler_pages_with_retry(
+    source: Path,
+    page_count: int,
+    fitz_pages: list[str],
+    sizes: list[tuple[float, float]],
+) -> tuple[list[str], str | None]:
+    try:
+        return extract_poppler_pages(source, page_count), None
+    except TextFallbackError as exc:
+        if str(exc) != POPPLER_RESOURCE_FAILURE:
+            raise
+
+    expected_identities = [normalized_text_identity(clean_text(page)) for page in fitz_pages]
+    expected_sizes = [
+        (round(float(width), 3), round(float(height), 3))
+        for width, height in sizes
+    ]
+    with tempfile.TemporaryDirectory(prefix="evidence-pdf-transport-") as tmp:
+        root = Path(tmp)
+        for method in PDF_TRANSPORT_METHODS:
+            normalized = root / f"{method}.pdf"
+            if not _run_pdf_transport(method, source, normalized):
+                continue
+            if not _transport_semantics_match(
+                normalized,
+                expected_identities,
+                expected_sizes,
+                page_count,
+            ):
+                continue
+            try:
+                pages = extract_poppler_pages(normalized, page_count)
+            except TextFallbackError:
+                continue
+            return pages, method
+    raise TextFallbackError(
+        "Poppler extraction failed after bounded PDF transport retries"
+    )
 
 
 def atomic_replace_bytes(target: Path, data: bytes) -> None:
@@ -189,7 +332,12 @@ def extract_complete_page_text(
     finally:
         doc.close()
 
-    poppler_pages = extract_poppler_pages(source, page_count)
+    poppler_pages, poppler_transport_retry = extract_poppler_pages_with_retry(
+        source,
+        page_count,
+        fitz_pages,
+        sizes,
+    )
 
     selected: list[str] = []
     one_sided_pages: list[int] = []
@@ -242,6 +390,7 @@ def extract_complete_page_text(
     facts = {
         "page_count": page_count,
         "poppler_ok": True,
+        "poppler_transport_retry": poppler_transport_retry,
         "source_char_count": source_chars,
         "public_char_count": public_chars,
         "nonempty_page_count": sum(1 for page in selected if page.strip()),
@@ -334,8 +483,7 @@ def build_public_text_copy(
     target = Path(target)
     if not source.is_file():
         raise TextFallbackError("source PDF does not exist")
-    source_bytes = source.read_bytes()
-    source_sha = sha256_bytes(source_bytes)
+    source_sha = sha256_file(source)
     pages, sizes, extraction = extract_complete_page_text(
         source,
         redact_text=redact_text,
@@ -383,6 +531,7 @@ def build_public_text_copy(
         "public_char_count": extraction["public_char_count"],
         "nonempty_page_count": extraction["nonempty_page_count"],
         "poppler_ok": extraction["poppler_ok"],
+        "poppler_transport_retry": extraction["poppler_transport_retry"],
         "dual_extraction_page_count": extraction["dual_extraction_page_count"],
         "dual_extraction_pages": extraction["dual_extraction_pages"],
         "deterministic": True,
