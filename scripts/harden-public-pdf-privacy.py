@@ -165,7 +165,7 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
         text_scan_ok = False
         text_bytes = b""
 
-    byte_hits = sorted(set(forbidden_public_identifier_byte_hits(text_bytes, matchers))) if text_scan_ok else []
+    byte_hits = sorted(set(forbidden_public_identifier_byte_hits(text_bytes, matchers, scan_pdf_strings=False))) if text_scan_ok else []
     text = text_bytes.decode("utf-8", errors="ignore")
     text_private_hits = sorted(set(byte_hits + forbidden_public_identifiers(text))) if text_scan_ok else []
     text_casefold = text.casefold()
@@ -363,7 +363,7 @@ def pdftotext_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
     if proc.returncode != 0:
         return [], False
     text_bytes = proc.stdout
-    byte_hits = forbidden_public_identifier_byte_hits(text_bytes, matchers)
+    byte_hits = forbidden_public_identifier_byte_hits(text_bytes, matchers, scan_pdf_strings=False)
     text = text_bytes.decode("utf-8", errors="ignore")
     return sorted(set(byte_hits + forbidden_public_identifiers(text))), True
 

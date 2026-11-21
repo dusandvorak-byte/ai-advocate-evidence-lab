@@ -1,0 +1,25 @@
+name: Verify privacy scanner complexity
+
+on:
+  push:
+    branches: [main, fix/linear-pdf-byte-scanner-20261121]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  complexity:
+    name: Linear PDF byte scanner regression
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - name: Run linearity regression
+        run: |
+          python3 test/publication_redaction_complexity.test.py
+          python3 test/hardener_extracted_text_mode.test.py
