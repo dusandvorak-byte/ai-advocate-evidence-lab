@@ -26,6 +26,7 @@ for (const upload of archivedUploads) {
       doc: item,
       digest: item.public.sha256,
       hardeningById,
+      requiredInputSha: upload.public_sha256,
     });
     if (item.justice_slalom.source_kind !== 'redacted_public_copy_from_user_original' || !evaluation.provenanceOk) {
       fail(`veřejná kopie nemá správný původ ${upload.number}`);

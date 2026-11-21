@@ -3,6 +3,8 @@ const publicCopyKinds = new Set([
   'verified_public_copy_from_user_original',
 ]);
 const redactedOriginalKind = 'redacted_original_from_user_binary';
+const SHA256_RE = /^[0-9a-f]{64}$/i;
+const validSha256 = value => typeof value === 'string' && SHA256_RE.test(value);
 
 export const declaredJusticeSlalomPdfKind = doc => {
   const sourceKind = doc.justice_slalom?.source_kind;
@@ -28,11 +30,16 @@ export const policyHardenedCopyOk = ({ doc, digest, expectedInputSha, hardeningB
   const row = hardeningById.get(doc.id);
   return Boolean(
     hardenedRegistryStatus(doc)
+    && validSha256(digest)
+    && validSha256(expectedInputSha)
     && row
-    && row.changed
+    && row.changed === true
+    && validSha256(row.input_sha256)
+    && validSha256(row.output_sha256)
     && row.public_path === doc.public?.pdf
     && row.input_sha256 === expectedInputSha
     && row.output_sha256 === digest
+    && digest !== expectedInputSha
     && Array.isArray(row.known_private_identifier_hits_after)
     && row.known_private_identifier_hits_after.length === 0
     && Array.isArray(row.decoded_private_identifier_hits_after)
@@ -40,12 +47,23 @@ export const policyHardenedCopyOk = ({ doc, digest, expectedInputSha, hardeningB
   );
 };
 
-export const evaluateJusticeSlalomPdfProvenance = ({ doc, digest, hardeningById }) => {
+export const evaluateJusticeSlalomPdfProvenance = ({
+  doc,
+  digest,
+  hardeningById,
+  requiredInputSha,
+}) => {
   const meta = doc.justice_slalom || {};
   const declaredKind = declaredJusticeSlalomPdfKind(doc);
-  const expectedInputSha = declaredKind === 'original'
+  const declaredInputSha = declaredKind === 'original'
     ? meta.source_sha256
     : meta.public_sha256;
+  const expectedInputSha = requiredInputSha === undefined
+    ? declaredInputSha
+    : requiredInputSha;
+  const directMatch = validSha256(digest)
+    && validSha256(expectedInputSha)
+    && digest === expectedInputSha;
   const policyHardened = policyHardenedCopyOk({
     doc,
     digest,
@@ -54,8 +72,8 @@ export const evaluateJusticeSlalomPdfProvenance = ({ doc, digest, hardeningById 
   });
   const copyManifest = copyManifestFor(doc);
   const provenanceOk = declaredKind === 'original'
-    ? digest === meta.source_sha256 || policyHardened
-    : Boolean(copyManifest) && (digest === meta.public_sha256 || policyHardened);
+    ? directMatch || policyHardened
+    : Boolean(copyManifest) && (directMatch || policyHardened);
   const effectiveKind = policyHardened && declaredKind === 'original'
     ? 'redacted_public_copy'
     : declaredKind;

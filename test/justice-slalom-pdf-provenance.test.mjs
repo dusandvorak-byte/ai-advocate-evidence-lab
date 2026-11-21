@@ -164,3 +164,90 @@ test('redacted original keeps its redacted-original label after policy hardening
   assert.equal(result.policyHardened, true);
   assert.equal(result.effectiveKind, 'redacted_original');
 });
+
+test('missing input SHA cannot authorize hardening', () => {
+  const doc = makeDoc({
+    publicSha: HARDENED_SHA,
+    verificationStatus: 'source_pdf_received_binary_original; publication_policy_hardened',
+  });
+  delete doc.justice_slalom.source_sha256;
+  const row = hardenedRow();
+  delete row.input_sha256;
+
+  const result = evaluateJusticeSlalomPdfProvenance({
+    doc,
+    digest: HARDENED_SHA,
+    hardeningById: new Map([['doc-test', row]]),
+  });
+
+  assert.equal(result.policyHardened, false);
+  assert.equal(result.provenanceOk, false);
+  assert.equal(result.effectiveKind, 'original');
+});
+
+test('string changed flag cannot authorize hardening', () => {
+  const doc = makeDoc({
+    publicSha: HARDENED_SHA,
+    verificationStatus: 'source_pdf_received_binary_original; publication_policy_hardened',
+  });
+  const row = hardenedRow();
+  row.changed = 'false';
+
+  const result = evaluateJusticeSlalomPdfProvenance({
+    doc,
+    digest: HARDENED_SHA,
+    hardeningById: new Map([['doc-test', row]]),
+  });
+
+  assert.equal(result.policyHardened, false);
+  assert.equal(result.provenanceOk, false);
+});
+
+test('byte-identical original remains original despite malformed hardening row', () => {
+  const doc = makeDoc({
+    publicSha: SOURCE_SHA,
+    verificationStatus: 'source_pdf_received_binary_original; publication_policy_hardened',
+  });
+  const row = hardenedRow({ inputSha: SOURCE_SHA, outputSha: SOURCE_SHA });
+
+  const result = evaluateJusticeSlalomPdfProvenance({
+    doc,
+    digest: SOURCE_SHA,
+    hardeningById: new Map([['doc-test', row]]),
+  });
+
+  assert.equal(result.provenanceOk, true);
+  assert.equal(result.policyHardened, false);
+  assert.equal(result.effectiveKind, 'original');
+});
+
+test('upload inventory SHA override rejects a mismatched hardening input', () => {
+  const inventorySha = PUBLIC_SHA;
+  const tamperedCanonicalInput = '4'.repeat(64);
+  const doc = makeDoc({
+    sourceKind: 'redacted_public_copy_from_user_original',
+    publicSha: HARDENED_SHA,
+    declaredPublicSha: tamperedCanonicalInput,
+    verificationStatus: 'redacted_public_copy_reviewed; publication_policy_hardened',
+    redactionManifest: 'project-memory/redaction-manifest.json',
+  });
+  const row = hardenedRow({ inputSha: inventorySha, outputSha: HARDENED_SHA });
+
+  const inventoryBound = evaluateJusticeSlalomPdfProvenance({
+    doc,
+    digest: HARDENED_SHA,
+    hardeningById: new Map([['doc-test', row]]),
+    requiredInputSha: inventorySha,
+  });
+  const wrongInventory = evaluateJusticeSlalomPdfProvenance({
+    doc,
+    digest: HARDENED_SHA,
+    hardeningById: new Map([['doc-test', row]]),
+    requiredInputSha: '5'.repeat(64),
+  });
+
+  assert.equal(inventoryBound.provenanceOk, true);
+  assert.equal(inventoryBound.policyHardened, true);
+  assert.equal(wrongInventory.provenanceOk, false);
+  assert.equal(wrongInventory.policyHardened, false);
+});
