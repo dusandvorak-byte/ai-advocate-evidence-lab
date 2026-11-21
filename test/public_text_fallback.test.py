@@ -54,6 +54,18 @@ class PublicTextFallbackTests(unittest.TestCase):
     def forbidden(text: str) -> list[str]:
         return ["secret"] if "SECRET" in text else []
 
+    @staticmethod
+    def fake_poppler(raw: bytes, *, returncode: int = 0):
+        def runner(*args, **kwargs):
+            output = kwargs.get("stdout")
+            if hasattr(output, "write"):
+                output.write(raw)
+                output.flush()
+                return mock.Mock(returncode=returncode)
+            return mock.Mock(returncode=returncode, stdout=raw)
+
+        return runner
+
     def test_build_is_deterministic_clean_and_preserves_page_count(self):
         source = self.root / "source.pdf"
         first = self.root / "first.pdf"
@@ -120,17 +132,148 @@ class PublicTextFallbackTests(unittest.TestCase):
         self.make_pdf(source, blank_second_page=True)
         self.assert_unextractable_page_fails(source)
 
-    def test_divergent_extractors_fail_closed(self):
+    def test_divergent_extractors_are_reconciled_without_dropping_either_variant(self):
         source = self.root / "source.pdf"
         target = self.root / "target.pdf"
         self.make_pdf(source)
-        conflicting = mock.Mock(
-            returncode=0,
-            stdout=b"Conflicting official passage\fSecond public page\f",
-        )
+        poppler = b"Conflicting official passage\fSecond public page\f"
 
-        with mock.patch.object(fallback_module.subprocess, "run", return_value=conflicting):
+        with mock.patch.object(
+            fallback_module.subprocess,
+            "run",
+            side_effect=self.fake_poppler(poppler),
+        ):
+            facts = build_public_text_copy(
+                source,
+                target,
+                redact_text=self.redact,
+                forbidden_text=self.forbidden,
+            )
+
+        out = fitz.open(target)
+        try:
+            text = "\n".join(page.get_text("text") for page in out)
+        finally:
+            out.close()
+        self.assertIn("Public [REDACTED] value on page one", text)
+        self.assertIn("Conflicting official passage", text)
+        self.assertEqual(facts["dual_extraction_page_count"], 1)
+
+    def test_poppler_failure_fails_closed(self):
+        source = self.root / "source.pdf"
+        target = self.root / "target.pdf"
+        self.make_pdf(source)
+        with mock.patch.object(
+            fallback_module.subprocess,
+            "run",
+            side_effect=self.fake_poppler(b"", returncode=1),
+        ):
             with self.assertRaises(TextFallbackError):
+                build_public_text_copy(
+                    source,
+                    target,
+                    redact_text=self.redact,
+                    forbidden_text=self.forbidden,
+                )
+        self.assertFalse(target.exists())
+
+    def test_one_sided_poppler_page_fails_closed(self):
+        source = self.root / "source.pdf"
+        target = self.root / "target.pdf"
+        self.make_pdf(source)
+        poppler = b"\fSecond public page\f"
+        with mock.patch.object(
+            fallback_module.subprocess,
+            "run",
+            side_effect=self.fake_poppler(poppler),
+        ):
+            with self.assertRaises(TextFallbackError):
+                build_public_text_copy(
+                    source,
+                    target,
+                    redact_text=self.redact,
+                    forbidden_text=self.forbidden,
+                )
+        self.assertFalse(target.exists())
+
+    def test_one_sided_mupdf_page_fails_closed(self):
+        source = self.root / "source.pdf"
+        target = self.root / "target.pdf"
+        self.make_pdf(source, blank_second_page=True)
+        poppler = b"Public SECRET value on page one\fPoppler-only page text\f"
+        with mock.patch.object(
+            fallback_module.subprocess,
+            "run",
+            side_effect=self.fake_poppler(poppler),
+        ):
+            with self.assertRaises(TextFallbackError):
+                build_public_text_copy(
+                    source,
+                    target,
+                    redact_text=self.redact,
+                    forbidden_text=self.forbidden,
+                )
+        self.assertFalse(target.exists())
+
+    def test_atomic_replace_failure_preserves_existing_target(self):
+        source = self.root / "source.pdf"
+        target = self.root / "target.pdf"
+        self.make_pdf(source)
+        original_target = b"pre-existing-target"
+        target.write_bytes(original_target)
+
+        with mock.patch.object(
+            fallback_module.os,
+            "replace",
+            side_effect=OSError("synthetic atomic replace failure"),
+        ) as replace:
+            with self.assertRaises(OSError):
+                build_public_text_copy(
+                    source,
+                    target,
+                    redact_text=self.redact,
+                    forbidden_text=self.forbidden,
+                )
+
+        replace.assert_called_once()
+        self.assertEqual(target.read_bytes(), original_target)
+        self.assertEqual(list(self.root.glob(f".{target.name}.*.tmp")), [])
+
+    def test_mupdf_extraction_limit_fails_closed(self):
+        source = self.root / "source.pdf"
+        target = self.root / "target.pdf"
+        self.make_pdf(source)
+        with mock.patch.object(
+            fallback_module,
+            "MAX_EXTRACTED_TEXT_BYTES",
+            16,
+            create=True,
+        ):
+            with self.assertRaisesRegex(TextFallbackError, "limit"):
+                build_public_text_copy(
+                    source,
+                    target,
+                    redact_text=self.redact,
+                    forbidden_text=self.forbidden,
+                )
+        self.assertFalse(target.exists())
+
+    def test_poppler_output_limit_fails_closed(self):
+        source = self.root / "source.pdf"
+        target = self.root / "target.pdf"
+        self.make_pdf(source)
+        oversized = b"A" * 257
+        with mock.patch.object(
+            fallback_module,
+            "MAX_EXTRACTED_TEXT_BYTES",
+            256,
+            create=True,
+        ), mock.patch.object(
+            fallback_module.subprocess,
+            "run",
+            side_effect=self.fake_poppler(oversized),
+        ):
+            with self.assertRaisesRegex(TextFallbackError, "limit"):
                 build_public_text_copy(
                     source,
                     target,
