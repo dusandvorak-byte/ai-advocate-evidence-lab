@@ -10,7 +10,7 @@ permissions:
 
 env:
   NODE_VERSION: '24'
-  FALLBACK_CANDIDATE_SHA: '25c664ab0fbf6c7a05c83ffe514838fdf388342f'
+  FALLBACK_CANDIDATE_SHA: 'dc6c712ea159bbfec0dc77ff51babb021591538f'
 
 jobs:
   diagnose:
@@ -91,7 +91,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: production-text-fallback-all17-25c664a
+          name: production-text-fallback-all17-dc6c712
           path: |
             review-artifacts/production-text-fallback-all17.json
             review-artifacts/fallback-candidate.json
