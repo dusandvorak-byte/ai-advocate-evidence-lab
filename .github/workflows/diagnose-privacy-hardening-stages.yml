@@ -1,8 +1,8 @@
-name: Diagnose privacy hardening stages
+name: Diagnose residual privacy hardening failures
 
 on:
   push:
-    branches: [main, diag/privacy-stage-rootcause-20261121]
+    branches: [diag/privacy-residuals-20261121]
   workflow_dispatch:
 
 permissions:
@@ -13,7 +13,7 @@ env:
 
 jobs:
   diagnose:
-    name: Sanitized privacy stage isolation
+    name: Sanitized residual privacy isolation
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -61,14 +61,14 @@ jobs:
       - name: Reconstruct the exact pre-hardening public tree
         run: node scripts/reconstruct-pre-hardening-tree.mjs
 
-      - name: Diagnose all previously timed-out PDFs by stage
+      - name: Diagnose ten residual privacy failures by stage
         run: python3 scripts/diagnose-pdf-hardening-stages.py
 
-      - name: Upload sanitized diagnostic evidence
+      - name: Upload sanitized residual diagnostic evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: privacy-hardening-stage-diagnostic
-          path: review-artifacts/privacy-hardening-stage-diagnostic.json
+          name: privacy-hardening-residual-diagnostic
+          path: review-artifacts/privacy-hardening-residual-diagnostic.json
           if-no-files-found: error
           retention-days: 7
