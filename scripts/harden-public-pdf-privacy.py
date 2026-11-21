@@ -3,7 +3,10 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
+import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -17,7 +20,9 @@ from publication_redaction import (
     forbidden_public_identifiers,
     forbidden_public_identifier_byte_hits,
     prepared_private_byte_matchers,
+    redact_public_text,
 )
+from public_text_fallback import atomic_replace_bytes, build_public_text_copy
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
@@ -56,8 +61,136 @@ def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+CANDIDATE_STAGE_SUFFIX = ".candidate.pdf"
+COPY_CHUNK_BYTES = 1024 * 1024
+
+
 def sha256_file(path: Path) -> str:
-    return sha256_bytes(path.read_bytes())
+    digest = hashlib.sha256()
+    flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+    fd = os.open(path, flags)
+    try:
+        info = os.fstat(fd)
+        if not stat.S_ISREG(info.st_mode):
+            raise RuntimeError("refusing to hash a non-regular PDF path")
+        with os.fdopen(fd, "rb", closefd=False) as handle:
+            while True:
+                chunk = handle.read(COPY_CHUNK_BYTES)
+                if not chunk:
+                    break
+                digest.update(chunk)
+    finally:
+        os.close(fd)
+    return digest.hexdigest()
+
+
+def create_candidate_stage(path: Path) -> Path:
+    path = Path(path)
+    if path.is_symlink():
+        raise RuntimeError("refusing to stage a symlink PDF")
+    source_flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+    source_fd = os.open(path, source_flags)
+    stage_fd = -1
+    stage: Path | None = None
+    try:
+        source_info = os.fstat(source_fd)
+        if not stat.S_ISREG(source_info.st_mode):
+            raise RuntimeError("refusing to stage a non-regular PDF")
+        stage_fd, stage_name = tempfile.mkstemp(
+            prefix=f".{path.name}.",
+            suffix=CANDIDATE_STAGE_SUFFIX,
+            dir=path.parent,
+        )
+        stage = Path(stage_name)
+        with os.fdopen(source_fd, "rb", closefd=False) as source_handle:
+            with os.fdopen(stage_fd, "wb", closefd=False) as stage_handle:
+                shutil.copyfileobj(
+                    source_handle,
+                    stage_handle,
+                    length=COPY_CHUNK_BYTES,
+                )
+                stage_handle.flush()
+                os.fsync(stage_handle.fileno())
+        os.chmod(stage, stat.S_IMODE(source_info.st_mode))
+        return stage
+    except Exception:
+        if stage is not None:
+            stage.unlink(missing_ok=True)
+        raise
+    finally:
+        os.close(source_fd)
+        if stage_fd >= 0:
+            os.close(stage_fd)
+
+
+def validate_candidate_stage(stage: Path, target: Path) -> None:
+    stage = Path(stage)
+    target = Path(target)
+    if stage.parent != target.parent:
+        raise RuntimeError("candidate stage must share the target directory")
+    if target.is_symlink():
+        raise RuntimeError("refusing to replace a symlink PDF target")
+    if stage.is_symlink() or not stage.is_file():
+        raise RuntimeError("candidate stage is not a regular file")
+    if not stage.name.startswith(f".{target.name}."):
+        raise RuntimeError("candidate stage name does not match target")
+    if not stage.name.endswith(CANDIDATE_STAGE_SUFFIX):
+        raise RuntimeError("candidate stage suffix mismatch")
+    if not stat.S_ISREG(stage.stat().st_mode):
+        raise RuntimeError("candidate stage is not regular")
+
+
+def fsync_directory(directory: Path) -> None:
+    directory_flags = os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
+    directory_fd = os.open(directory, directory_flags)
+    try:
+        os.fsync(directory_fd)
+    finally:
+        os.close(directory_fd)
+
+
+def commit_candidate_stage(stage: Path, target: Path) -> None:
+    stage = Path(stage)
+    target = Path(target)
+    validate_candidate_stage(stage, target)
+    flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+    stage_fd = os.open(stage, flags)
+    try:
+        if not stat.S_ISREG(os.fstat(stage_fd).st_mode):
+            raise RuntimeError("candidate stage changed type before commit")
+        os.fsync(stage_fd)
+    finally:
+        os.close(stage_fd)
+
+    rollback = create_candidate_stage(target)
+    replaced = False
+    try:
+        os.replace(stage, target)
+        replaced = True
+        fsync_directory(target.parent)
+    except Exception:
+        if replaced:
+            try:
+                os.replace(rollback, target)
+                rollback = None
+                try:
+                    fsync_directory(target.parent)
+                except OSError:
+                    # The original bytes are already restored. Preserve the first
+                    # durability error as the authoritative failure.
+                    pass
+            except Exception as rollback_error:
+                raise RuntimeError(
+                    "candidate commit failed and rollback could not restore the target"
+                ) from rollback_error
+        raise
+    finally:
+        cleanup_candidate_stage(rollback)
+
+
+def cleanup_candidate_stage(stage: Path | None) -> None:
+    if stage is not None:
+        Path(stage).unlink(missing_ok=True)
 
 
 def derivative_doc(item: dict) -> bool:
@@ -302,6 +435,18 @@ def targeted_pdf_rules(rules: list[dict], rule_ids: list[str]) -> list[dict]:
     return [rule for rule in rules if rule["id"] in selected]
 
 
+def requires_text_fallback(post: dict) -> bool:
+    """Use a deterministic text copy only when ordinary hardening is still unsafe."""
+    return bool(
+        post.get("visible_private_hits")
+        or post.get("decoded_private_hits")
+        or not post.get("text_scan_ok")
+        or not post.get("decoded_scan_ok")
+        or not post.get("pdf_revision_markers_bound")
+        or not post.get("pdf_single_revision_only")
+    )
+
+
 def canonicalize_pdf_qpdf(path: Path) -> bytes:
     out = path.with_name(path.name + ".qpdf.tmp.pdf")
     try:
@@ -521,75 +666,156 @@ def inspect_pdf_isolated(path: Path) -> dict:
 
 
 def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) -> dict:
-    args = [
-        sys.executable,
-        str(Path(__file__).resolve()),
-        "--worker-candidate",
-        rel,
-        "1" if force_rewrite else "0",
-        json.dumps({
-            "page_count": inspection.get("page_count"),
+    path = WEB / rel
+    before_sha = sha256_file(path)
+    before_pages = inspection.get("page_count")
+    stage: Path | None = None
+
+    def unchanged_failure(message: str, candidate: dict | None = None) -> dict:
+        candidate = dict(candidate or {})
+        failures = list(candidate.get("failures") or [])
+        failures.append(message)
+        return {
+            "rel": rel,
+            "before_sha": before_sha,
+            "before_pages": before_pages,
+            "after_sha": before_sha,
+            "after_pages": before_pages,
+            "changed": False,
+            "matches": candidate.get("matches") or [],
+            "text_fallback": candidate.get("text_fallback"),
+            "raw_fallback_hits": candidate.get("raw_fallback_hits") or [],
+            "visible_hits": candidate.get("visible_hits") or [],
+            "post": candidate.get("post") or inspections_placeholder(rel),
+            "failures": failures,
+        }
+
+    try:
+        stage = create_candidate_stage(path)
+        stage_source_sha = sha256_file(stage)
+        if stage_source_sha != before_sha:
+            return unchanged_failure(
+                f"candidate stage source SHA verification failed for {rel}"
+            )
+        stage_rel = stage.relative_to(WEB).as_posix()
+        worker_input = {
+            "page_count": before_pages,
             "reasons": inspection.get("reasons") or [],
             "visible_private_hits": inspection.get("visible_private_hits") or [],
             "text_private_hits": inspection.get("text_private_hits") or [],
             "text_redaction_rule_ids": inspection.get("text_redaction_rule_ids") or [],
             "metadata_private_hits": inspection.get("metadata_private_hits") or [],
             "xmp_present": bool(inspection.get("xmp_present")),
-        }, ensure_ascii=False),
-    ]
-    try:
-        proc = subprocess.run(
-            args,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            timeout=330,
-        )
-    except subprocess.TimeoutExpired:
-        result = {
-            "rel": rel,
-            "worker_timeout": True,
-            "error": "--worker-candidate timed out after 330s",
+            "source_sha256": before_sha,
         }
-    else:
-        if proc.returncode != 0:
-            result = {
-                "rel": rel,
-                "worker_timeout": False,
-                "error": (proc.stderr or proc.stdout or f"--worker-candidate failed with {proc.returncode}")[-4000:],
-            }
-        else:
-            lines = [line for line in proc.stdout.splitlines() if line.strip()]
-            try:
-                result = json.loads(lines[-1]) if lines else {
-                    "rel": rel,
-                    "worker_timeout": False,
-                    "error": "--worker-candidate returned no JSON",
-                }
-            except json.JSONDecodeError:
-                result = {
-                    "rel": rel,
-                    "worker_timeout": False,
-                    "error": f"--worker-candidate returned invalid JSON: {lines[-1][-1000:] if lines else ''}",
-                }
-    if result.get("error"):
-        path = WEB / rel
-        return {
-            "rel": rel,
-            "before_sha": sha256_file(path),
-            "before_pages": None,
-            "after_sha": sha256_file(path),
-            "after_pages": None,
-            "changed": False,
-            "matches": [],
-            "visible_hits": [],
-            "post": inspections_placeholder(rel),
-            "failures": [
-                f"privacy hardening worker {'timed out' if result.get('worker_timeout') else 'failed'} for {rel}: {result['error']}"
-            ],
-        }
-    return result["candidate"]
+        args = [
+            sys.executable,
+            str(Path(__file__).resolve()),
+            "--worker-candidate",
+            rel,
+            stage_rel,
+            "1" if force_rewrite else "0",
+            json.dumps(worker_input, ensure_ascii=False),
+        ]
+        try:
+            proc = subprocess.run(
+                args,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                timeout=330,
+            )
+        except subprocess.TimeoutExpired:
+            return unchanged_failure(
+                f"privacy hardening worker timed out for {rel}"
+            )
 
+        if proc.returncode != 0:
+            return unchanged_failure(
+                f"privacy hardening worker failed for {rel} with exit code {proc.returncode}"
+            )
+        lines = [line for line in proc.stdout.splitlines() if line.strip()]
+        if not lines:
+            return unchanged_failure(
+                f"privacy hardening worker returned no result for {rel}"
+            )
+        try:
+            result = json.loads(lines[-1])
+        except json.JSONDecodeError:
+            return unchanged_failure(
+                f"privacy hardening worker returned invalid JSON for {rel}"
+            )
+        candidate = result.get("candidate")
+        if not isinstance(candidate, dict):
+            return unchanged_failure(
+                f"privacy hardening worker returned no candidate for {rel}"
+            )
+
+        provenance_failures = []
+        if candidate.get("rel") != rel:
+            provenance_failures.append("candidate relation mismatch")
+        if candidate.get("before_sha") != before_sha:
+            provenance_failures.append("candidate source provenance mismatch")
+        if candidate.get("before_pages") != before_pages:
+            provenance_failures.append("candidate source page-count provenance mismatch")
+        if provenance_failures:
+            return unchanged_failure(
+                f"candidate provenance validation failed for {rel}: "
+                + ", ".join(provenance_failures),
+                candidate,
+            )
+
+        if candidate.get("failures"):
+            rejected = dict(candidate)
+            rejected["after_sha"] = before_sha
+            rejected["after_pages"] = before_pages
+            rejected["changed"] = False
+            return rejected
+
+        stage_sha = sha256_file(stage)
+        if candidate.get("changed"):
+            if candidate.get("after_sha") != stage_sha:
+                return unchanged_failure(
+                    f"candidate staged SHA verification failed for {rel}",
+                    candidate,
+                )
+            try:
+                current_source_sha = sha256_file(path)
+            except (OSError, RuntimeError) as exc:
+                return unchanged_failure(
+                    f"canonical PDF became unverifiable during privacy hardening for {rel}: "
+                    + type(exc).__name__,
+                    candidate,
+                )
+            if current_source_sha != before_sha:
+                concurrent = unchanged_failure(
+                    f"canonical PDF changed during privacy hardening for {rel}",
+                    candidate,
+                )
+                concurrent["after_sha"] = current_source_sha
+                return concurrent
+            commit_candidate_stage(stage, path)
+            stage = None
+            committed = dict(candidate)
+            committed["before_sha"] = before_sha
+            committed["before_pages"] = before_pages
+            committed["after_sha"] = stage_sha
+            return committed
+
+        if stage_sha != before_sha:
+            return unchanged_failure(
+                f"unchanged candidate modified its stage for {rel}",
+                candidate,
+            )
+        unchanged = dict(candidate)
+        unchanged["before_sha"] = before_sha
+        unchanged["before_pages"] = before_pages
+        unchanged["after_sha"] = before_sha
+        unchanged["after_pages"] = before_pages
+        unchanged["changed"] = False
+        return unchanged
+    finally:
+        cleanup_candidate_stage(stage)
 
 def inspections_placeholder(rel: str) -> dict:
     return {
@@ -610,14 +836,34 @@ def worker_inspect(rel: str) -> None:
     print(json.dumps({"inspection": result}, ensure_ascii=False))
 
 
-def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
-    path = WEB / rel
+def validate_worker_stage(rel: str, stage_rel: str) -> tuple[Path, Path]:
+    canonical = WEB / rel
+    stage = WEB / stage_rel
+    if canonical.is_symlink() or not canonical.is_file():
+        raise RuntimeError("canonical PDF source is not a regular file")
+    validate_candidate_stage(stage, canonical)
+    return canonical, stage
+
+
+def worker_candidate(
+    rel: str,
+    stage_rel: str,
+    force_rewrite: bool,
+    before_fast: dict,
+) -> None:
+    _, path = validate_worker_stage(rel, stage_rel)
+    before_sha = str(before_fast.get("source_sha256") or "")
+    if not re.fullmatch(r"[0-9a-f]{64}", before_sha):
+        raise RuntimeError("missing authoritative source SHA-256")
+    before_pages = before_fast.get("page_count")
     pdf_rules, _ = private_pdf_rules()
     matchers = prepared_private_byte_matchers()
-    before_sha = sha256_file(path)
-    before_pages = before_fast.get("page_count")
     strategy = candidate_strategy(before_fast, force_rewrite)
     matches = []
+    data = None
+    text_fallback = None
+    raw_fallback_hits = []
+
     if strategy == "qpdf_rewrite":
         data = canonicalize_pdf_qpdf(path)
     elif strategy == "verify_only":
@@ -630,8 +876,6 @@ def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
                 before_fast.get("text_redaction_rule_ids") or [],
             )
             if not rules_for_worker:
-                # Fail safe: never suppress a redaction just because the optimization
-                # could not map the fast-scan hit to an explicit authenticated rule.
                 rules_for_worker = pdf_rules
         data, matches = harden_pdf(
             path,
@@ -640,17 +884,40 @@ def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
             search_private=(strategy == "redact"),
         )
     if data is not None:
-        path.write_bytes(data)
+        atomic_replace_bytes(path, data)
 
-    after_sha = sha256_file(path)
     if strategy == "qpdf_rewrite":
         post = inspect_qpdf_rewrite_post(path, matchers)
     else:
         post = inspect_pdf_deep(path, matchers)
+
+    if requires_text_fallback(post):
+        text_fallback = dict(build_public_text_copy(
+            path,
+            path,
+            redact_text=redact_public_text,
+            forbidden_text=forbidden_public_identifiers,
+        ))
+        text_fallback["fallback_input_sha256"] = text_fallback.get("source_sha256")
+        text_fallback["fallback_input_page_count"] = text_fallback.get("source_page_count")
+        text_fallback["source_sha256"] = before_sha
+        text_fallback["source_page_count"] = before_pages
+        post = inspect_pdf_deep(path, matchers)
+        raw_fallback_hits = sorted(set(
+            forbidden_public_identifier_byte_hits(path.read_bytes(), matchers)
+        ))
+        strategy = strategy + "+text_fallback"
+
+    after_sha = sha256_file(path)
     after_pages = post.get("page_count")
     if post.get("text_scan_ok"):
         visible_hits = post.get("visible_private_hits") or []
         visible_scan_ok = True
+    elif text_fallback is not None:
+        # A fallback copy is publishable only when the required Poppler scan
+        # succeeds. MuPDF-only extraction is not an equivalent privacy gate.
+        visible_hits = []
+        visible_scan_ok = False
     else:
         visible_hits, visible_scan_ok = forbidden_hits_isolated(path)
     local_failures = []
@@ -672,6 +939,11 @@ def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
         local_failures.append(f"decoded privacy scan failed after hardening: {rel}")
     if not post.get("pdf_revision_markers_bound") or not post.get("pdf_single_revision_only"):
         local_failures.append(f"PDF revision envelope remains noncanonical after hardening: {rel}")
+    if raw_fallback_hits:
+        local_failures.append(
+            f"raw private identifier remains after text fallback: {rel}: {raw_fallback_hits}"
+        )
+
     candidate = {
         "rel": rel,
         "strategy": strategy,
@@ -679,14 +951,15 @@ def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
         "before_pages": before_pages,
         "after_sha": after_sha,
         "after_pages": after_pages,
-        "changed": data is not None,
+        "changed": bool(data is not None or text_fallback is not None),
         "matches": matches,
+        "text_fallback": text_fallback,
+        "raw_fallback_hits": raw_fallback_hits,
         "visible_hits": visible_hits,
         "post": post,
         "failures": local_failures,
     }
     print(json.dumps({"candidate": candidate}, ensure_ascii=False))
-
 
 def main() -> None:
     registry = json.loads(REGISTRY.read_text("utf-8"))
@@ -745,55 +1018,6 @@ def main() -> None:
         if inspection["reasons"] or derivative_xmp_cleanup:
             candidates.append((rel, bool(inspection["reasons"])))
 
-    def process_candidate(rel: str, force_rewrite: bool) -> dict:
-        path = WEB / rel
-        inspection = inspections[rel]
-        before_sha = sha256_file(path)
-        before_pages = inspection.get("page_count")
-        data, matches = harden_pdf(
-            path,
-            pdf_rules,
-            force_rewrite=force_rewrite,
-        )
-        if data is not None:
-            path.write_bytes(data)
-
-        after_sha = sha256_file(path)
-        post = inspect_pdf_deep(path, matchers)
-        after_pages = post.get("page_count")
-        visible_hits = forbidden_hits(path)
-        local_failures = []
-
-        if before_pages != after_pages:
-            local_failures.append(
-                f"page-count changed during privacy hardening: {rel} {before_pages}->{after_pages}"
-            )
-        if visible_hits:
-            local_failures.append(
-                f"known private identifier remains after privacy hardening: {rel}: {visible_hits}"
-            )
-        if post.get("decoded_private_hits"):
-            local_failures.append(
-                f"decoded private identifier remains after privacy hardening: {rel}: {post['decoded_private_hits']}"
-            )
-        if not post.get("decoded_scan_ok"):
-            local_failures.append(f"decoded privacy scan failed after hardening: {rel}")
-        if not post.get("pdf_revision_markers_bound") or not post.get("pdf_single_revision_only"):
-            local_failures.append(f"PDF revision envelope remains noncanonical after hardening: {rel}")
-
-        return {
-            "rel": rel,
-            "before_sha": before_sha,
-            "before_pages": before_pages,
-            "after_sha": after_sha,
-            "after_pages": after_pages,
-            "changed": data is not None,
-            "matches": matches,
-            "visible_hits": visible_hits,
-            "post": post,
-            "failures": local_failures,
-        }
-
     candidate_results = []
     harden_workers = min(8, max(1, len(candidates)))
     with ThreadPoolExecutor(max_workers=harden_workers) as executor:
@@ -832,14 +1056,28 @@ def main() -> None:
                     public.setdefault("source_original_page_count", result["before_pages"])
                 public["sha256"] = result["after_sha"]
                 status = str(public.get("verification_status") or "published")
-                if "publication_policy_hardened" not in status:
-                    public["verification_status"] = status + "; publication_policy_hardened"
+                status_parts = [part.strip() for part in status.split(";") if part.strip()]
+                status_parts.append("publication_policy_hardened")
+                if result.get("text_fallback"):
+                    status_parts.extend([
+                        "verified_deterministic_public_text_copy",
+                        "not_byte_identical_original",
+                    ])
+                public["verification_status"] = "; ".join(dict.fromkeys(status_parts))
                 note = str(public.get("public_copy_note") or "").strip()
                 hardened_note = (
                     "Public policy-hardened copy; source/original SHA is preserved in provenance metadata."
                 )
                 if hardened_note not in note:
-                    public["public_copy_note"] = (note + " " + hardened_note).strip()
+                    note = (note + " " + hardened_note).strip()
+                if result.get("text_fallback"):
+                    fallback_note = (
+                        "Verified deterministic public text copy; original graphics, signatures and metadata "
+                        "are not reproduced. Source/original SHA-256 and page count are preserved in provenance metadata."
+                    )
+                    if fallback_note not in note:
+                        note = (note + " " + fallback_note).strip()
+                public["public_copy_note"] = note
                 item["public"] = public
 
             rows.append({
@@ -850,6 +1088,7 @@ def main() -> None:
                 "page_count": result["after_pages"],
                 "changed": result["changed"],
                 "redaction_matches": result["matches"],
+                "text_fallback": result.get("text_fallback"),
                 "trigger_reasons": inspections[rel]["reasons"],
                 "known_private_identifier_hits_after": result["visible_hits"],
                 "decoded_private_identifier_hits_after": result["post"].get("decoded_private_hits") or [],
@@ -865,6 +1104,7 @@ def main() -> None:
                 "page_count": result["after_pages"],
                 "changed": result["changed"],
                 "redaction_matches": result["matches"],
+                "text_fallback": result.get("text_fallback"),
                 "trigger_reasons": inspections[rel]["reasons"],
                 "known_private_identifier_hits_after": result["visible_hits"],
                 "decoded_private_identifier_hits_after": result["post"].get("decoded_private_hits") or [],
@@ -872,7 +1112,7 @@ def main() -> None:
             })
 
     report = {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "policy_file": POLICY.relative_to(ROOT).as_posix(),
         "policy_sha256": policy_sha,
         "authenticated_private_policy_identity": authenticated_policy_identity,
@@ -881,6 +1121,7 @@ def main() -> None:
         "changed_derivative_count": sum(1 for row in rows if row["changed"]),
         "registered_hardened_count": sum(1 for row in rows if row["registered"] and row["changed"]),
         "unregistered_hardened_count": sum(1 for row in rows if not row["registered"] and row["changed"]),
+        "text_fallback_count": sum(1 for row in rows if row.get("text_fallback")),
         "hard_failure_count": len(failures),
         "hard_failures": failures,
         "documents": rows,
@@ -903,7 +1144,12 @@ if __name__ == "__main__":
         worker_inspect(sys.argv[2])
     elif len(sys.argv) >= 3 and sys.argv[1] == "--worker-visible":
         forbidden_hits_worker(sys.argv[2])
-    elif len(sys.argv) >= 5 and sys.argv[1] == "--worker-candidate":
-        worker_candidate(sys.argv[2], sys.argv[3] == "1", json.loads(sys.argv[4]))
+    elif len(sys.argv) >= 6 and sys.argv[1] == "--worker-candidate":
+        worker_candidate(
+            sys.argv[2],
+            sys.argv[3],
+            sys.argv[4] == "1",
+            json.loads(sys.argv[5]),
+        )
     else:
         main()

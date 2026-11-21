@@ -32,7 +32,7 @@ jobs:
       - name: Install audit dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq poppler-utils qpdf
+          sudo apt-get install -y -qq mupdf-tools poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
       - name: Provision private redaction policy
         env:
@@ -138,7 +138,7 @@ jobs:
       - name: Install audit dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq poppler-utils qpdf
+          sudo apt-get install -y -qq mupdf-tools poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check pymupdf==2.1 reportlab==5.1.0 pillow==13.0.0
       - name: Provision private redaction policy
         env:
@@ -186,7 +186,7 @@ jobs:
       - name: Install audit dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq poppler-utils qpdf
+          sudo apt-get install -y -qq mupdf-tools poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check pymupdf==2.1 reportlab==5.1.0 pillow==13.0.0
       - name: Provision private redaction policy
         env:
