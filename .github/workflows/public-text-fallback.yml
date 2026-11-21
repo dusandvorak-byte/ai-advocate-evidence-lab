@@ -22,4 +22,6 @@ jobs:
       - name: Install fixed PDF dependencies
         run: python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pymupdf==2.1
       - name: Run fallback regressions
-        run: python3 test/public_text_fallback.test.py
+        run: |
+          python3 test/public_text_fallback.test.py
+          python3 test/hardener_text_fallback.test.py
