@@ -168,6 +168,12 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
     byte_hits = sorted(set(forbidden_public_identifier_byte_hits(text_bytes, matchers))) if text_scan_ok else []
     text = text_bytes.decode("utf-8", errors="ignore")
     text_private_hits = sorted(set(byte_hits + forbidden_public_identifiers(text))) if text_scan_ok else []
+    text_casefold = text.casefold()
+    redaction_rule_ids = sorted({
+        rule["id"]
+        for rule in private_pdf_rules()[0]
+        if any(variant.casefold() in text_casefold for variant in rule["variants"])
+    }) if text_scan_ok else []
 
     doc = fitz.open(path)
     try:
@@ -196,6 +202,7 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
         "reasons": reasons,
         "visible_private_hits": visible_hits,
         "text_private_hits": text_private_hits,
+        "text_redaction_rule_ids": redaction_rule_ids,
         "metadata_private_hits": metadata_hits,
         "text_scan_ok": text_scan_ok,
         "xmp_present": bool(xmp),
@@ -289,18 +296,10 @@ def candidate_strategy(before_fast: dict, force_rewrite: bool) -> str:
     return "verify_only"
 
 
-def targeted_pdf_rules(rules: list[dict], text_private_hits: list[str]) -> list[dict]:
-    """Limit expensive page.search_for calls to rule indexes proven by pdftotext."""
-    indexes = set()
-    for hit in text_private_hits or []:
-        match = re.fullmatch(r"private_raw_match_(\d+)", str(hit))
-        if match:
-            indexes.add(int(match.group(1)))
-    return [
-        rule
-        for index, rule in enumerate(rules, start=1)
-        if index in indexes
-    ]
+def targeted_pdf_rules(rules: list[dict], rule_ids: list[str]) -> list[dict]:
+    """Limit expensive page.search_for calls to rule IDs proven by pdftotext."""
+    selected = set(str(rule_id) for rule_id in (rule_ids or []))
+    return [rule for rule in rules if rule["id"] in selected]
 
 
 def canonicalize_pdf_qpdf(path: Path) -> bytes:
@@ -533,6 +532,7 @@ def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) 
             "reasons": inspection.get("reasons") or [],
             "visible_private_hits": inspection.get("visible_private_hits") or [],
             "text_private_hits": inspection.get("text_private_hits") or [],
+            "text_redaction_rule_ids": inspection.get("text_redaction_rule_ids") or [],
             "metadata_private_hits": inspection.get("metadata_private_hits") or [],
             "xmp_present": bool(inspection.get("xmp_present")),
         }, ensure_ascii=False),
@@ -627,8 +627,12 @@ def worker_candidate(rel: str, force_rewrite: bool, before_fast: dict) -> None:
         if strategy == "redact":
             rules_for_worker = targeted_pdf_rules(
                 pdf_rules,
-                before_fast.get("text_private_hits") or before_fast.get("visible_private_hits") or [],
+                before_fast.get("text_redaction_rule_ids") or [],
             )
+            if not rules_for_worker:
+                # Fail safe: never suppress a redaction just because the optimization
+                # could not map the fast-scan hit to an explicit authenticated rule.
+                rules_for_worker = pdf_rules
         data, matches = harden_pdf(
             path,
             rules_for_worker,
