@@ -169,6 +169,10 @@ def _pdf_decoded_string_payloads(raw: bytes) -> list[bytes]:
                     pass
                 i = j + 1
                 continue
+            # A malformed or unterminated candidate must never restart a scan
+            # over the same tail. Resume at the first byte not yet examined.
+            i = max(i + 1, j)
+            continue
 
         # PDF literal string with balanced parentheses and PDF escape/octal decoding.
         if byte == 0x28:
@@ -231,8 +235,11 @@ def _pdf_decoded_string_payloads(raw: bytes) -> list[bytes]:
                 j += 1
             if depth == 0 and out:
                 payloads.append(bytes(out))
-                i = j
-                continue
+            # Balanced and malformed strings both advance monotonically. Raw
+            # bytes remain separately scanned, so fail-closed literal coverage
+            # is preserved without quadratic rescanning of binary stream data.
+            i = max(i + 1, j)
+            continue
         i += 1
 
     return payloads
