@@ -22,7 +22,7 @@ jobs:
       - name: Install fixed PDF dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq poppler-utils
+          sudo apt-get install -y -qq mupdf-tools poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pymupdf==2.1
       - name: Run fallback regressions
         run: |
