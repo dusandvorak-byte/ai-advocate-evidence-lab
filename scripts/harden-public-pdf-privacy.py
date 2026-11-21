@@ -665,6 +665,11 @@ def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) 
 
     try:
         stage = create_candidate_stage(path)
+        stage_source_sha = sha256_file(stage)
+        if stage_source_sha != before_sha:
+            return unchanged_failure(
+                f"candidate stage source SHA verification failed for {rel}"
+            )
         stage_rel = stage.relative_to(WEB).as_posix()
         worker_input = {
             "page_count": before_pages,
@@ -747,6 +752,21 @@ def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) 
                     f"candidate staged SHA verification failed for {rel}",
                     candidate,
                 )
+            try:
+                current_source_sha = sha256_file(path)
+            except (OSError, RuntimeError) as exc:
+                return unchanged_failure(
+                    f"canonical PDF became unverifiable during privacy hardening for {rel}: "
+                    + type(exc).__name__,
+                    candidate,
+                )
+            if current_source_sha != before_sha:
+                concurrent = unchanged_failure(
+                    f"canonical PDF changed during privacy hardening for {rel}",
+                    candidate,
+                )
+                concurrent["after_sha"] = current_source_sha
+                return concurrent
             commit_candidate_stage(stage, path)
             stage = None
             committed = dict(candidate)

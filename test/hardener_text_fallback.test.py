@@ -265,6 +265,45 @@ class HardenerTextFallbackTests(unittest.TestCase):
         self.assertEqual(self.pdf.read_bytes(), self.original_bytes)
         self.assertTrue(any("provenance" in failure for failure in result["failures"]))
 
+    def test_parent_rejects_stage_source_mismatch_before_worker(self):
+        inspection = {"page_count": 1, "reasons": ["private_match"]}
+        original_create = self.globals["create_candidate_stage"]
+
+        def mismatched_stage(path):
+            stage = original_create(path)
+            stage.write_bytes(b"mismatched-stage-source")
+            return stage
+
+        self.globals["create_candidate_stage"] = mismatched_stage
+        with mock.patch.object(self.globals["subprocess"], "run") as worker:
+            result = self.ns["process_candidate_isolated"]("sample.pdf", True, inspection)
+
+        worker.assert_not_called()
+        self.assertFalse(result["changed"])
+        self.assertEqual(self.pdf.read_bytes(), self.original_bytes)
+        self.assertTrue(any("stage source SHA" in failure for failure in result["failures"]))
+        self.assertEqual(list(self.web.glob(".sample.pdf.*.candidate.pdf")), [])
+
+    def test_parent_refuses_to_overwrite_concurrent_canonical_change(self):
+        inspection = {"page_count": 1, "reasons": ["private_match"]}
+        verified = b"verified-staged-pdf"
+        concurrent = b"concurrent-external-update"
+
+        def successful_worker(args, **kwargs):
+            stage = self.web / args[4]
+            stage.write_bytes(verified)
+            self.pdf.write_bytes(concurrent)
+            payload = self.candidate_payload(verified)
+            return SimpleNamespace(returncode=0, stdout=json.dumps({"candidate": payload}) + "\n", stderr="")
+
+        with mock.patch.object(self.globals["subprocess"], "run", side_effect=successful_worker):
+            result = self.ns["process_candidate_isolated"]("sample.pdf", True, inspection)
+
+        self.assertFalse(result["changed"])
+        self.assertEqual(self.pdf.read_bytes(), concurrent)
+        self.assertEqual(result["after_sha"], hashlib.sha256(concurrent).hexdigest())
+        self.assertTrue(any("changed during privacy hardening" in failure for failure in result["failures"]))
+        self.assertEqual(list(self.web.glob(".sample.pdf.*.candidate.pdf")), [])
     def test_raw_private_hit_is_reported_without_touching_canonical(self):
         self.install_successful_fallback()
         self.globals["forbidden_public_identifier_byte_hits"] = (
