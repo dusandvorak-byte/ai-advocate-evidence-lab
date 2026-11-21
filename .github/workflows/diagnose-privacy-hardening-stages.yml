@@ -1,4 +1,4 @@
-name: Diagnose qpdf warning-tolerant retry on residual corpus
+name: Diagnose alternate bounded PDF transport on residual corpus
 
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y -qq poppler-utils qpdf
+          sudo apt-get install -y -qq ghostscript mupdf-tools poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
 
       - name: Recover fixed trusted harness
@@ -68,13 +68,14 @@ jobs:
           node scripts/reconstruct-pre-hardening-tree.mjs > "$RUNNER_TEMP/reconstruct.log"
           echo 'pre-hardening tree reconstructed'
 
-      - name: Test warning-tolerant qpdf recovery on the two opaque failures
+      - name: Test bounded mutool and Ghostscript transports on the remaining opaque failure
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           import ast
           import json
+          import resource
           import runpy
           import subprocess
           import sys
@@ -98,83 +99,136 @@ jobs:
           if not isinstance(targets, list) or len(targets) != 17:
               raise SystemExit('unexpected trusted target inventory')
 
-          hardener = runpy.run_path(str(root / 'scripts/harden-public-pdf-privacy.py'), run_name='qpdf_warning_retry')
+          source = root / 'web' / targets[13]
+          hardener = runpy.run_path(str(root / 'scripts/harden-public-pdf-privacy.py'), run_name='alternate_transport_diagnostic')
           matchers = hardener['prepared_private_byte_matchers']()
-          results = []
+          max_output = 128 * 1024 * 1024
 
-          def identities(path):
+          def limit_child():
+              memory = 768 * 1024 * 1024
+              resource.setrlimit(resource.RLIMIT_AS, (memory, memory))
+              resource.setrlimit(resource.RLIMIT_FSIZE, (max_output, max_output))
+              resource.setrlimit(resource.RLIMIT_CPU, (90, 90))
+
+          def semantic_facts(path):
               doc = fitz.open(path)
               try:
-                  values = [
-                      fallback.normalized_text_identity(
-                          fallback.clean_text(page.get_text('text', sort=True))
+                  identities = []
+                  dimensions = []
+                  for page in doc:
+                      identities.append(
+                          fallback.normalized_text_identity(
+                              fallback.clean_text(page.get_text('text', sort=True))
+                          )
                       )
-                      for page in doc
-                  ]
-                  return values, doc.page_count
+                      dimensions.append((round(float(page.rect.width), 3), round(float(page.rect.height), 3)))
+                  return identities, dimensions, doc.page_count
               finally:
                   doc.close()
 
-          for opaque_index in (14, 17):
-              source = root / 'web' / targets[opaque_index - 1]
-              row = {'index': opaque_index}
-              with tempfile.TemporaryDirectory(prefix='qpdf-warning-retry-') as tmp:
-                  normalized = Path(tmp) / 'normalized.pdf'
-                  proc = subprocess.run(
-                      [
-                          'qpdf',
-                          '--warning-exit-0',
-                          '--deterministic-id',
-                          '--object-streams=generate',
-                          '--stream-data=compress',
-                          '--recompress-flate',
-                          str(source),
-                          str(normalized),
-                      ],
-                      stdout=subprocess.PIPE,
-                      stderr=subprocess.STDOUT,
-                      timeout=60,
-                      check=False,
-                  )
-                  row.update({
-                      'qpdf_returncode': proc.returncode,
-                      'output_exists': normalized.is_file(),
-                      'output_nonempty': normalized.is_file() and normalized.stat().st_size > 0,
-                  })
-                  if proc.returncode != 0 or not row['output_nonempty']:
-                      row['status'] = 'qpdf_failed'
+          original_identities, original_dimensions, original_pages = semantic_facts(source)
+          methods = [
+              (
+                  'mutool-clean',
+                  lambda output: [
+                      'mutool', 'clean', '-gggg', '-z', str(source), str(output)
+                  ],
+              ),
+              (
+                  'ghostscript-pdfwrite',
+                  lambda output: [
+                      'gs', '-q', '-dSAFER', '-dBATCH', '-dNOPAUSE',
+                      '-sDEVICE=pdfwrite', '-dCompatibilityLevel=1.7',
+                      '-dAutoRotatePages=/None',
+                      f'-sOutputFile={output}', str(source),
+                  ],
+              ),
+          ]
+          results = []
+
+          for method, command in methods:
+              row = {'method': method}
+              with tempfile.TemporaryDirectory(prefix='alternate-pdf-transport-') as tmp:
+                  tmpdir = Path(tmp)
+                  normalized = tmpdir / 'normalized.pdf'
+                  log = tmpdir / 'tool.log'
+                  try:
+                      with log.open('wb') as stream:
+                          proc = subprocess.run(
+                              command(normalized),
+                              stdout=stream,
+                              stderr=subprocess.STDOUT,
+                              timeout=120,
+                              check=False,
+                              preexec_fn=limit_child,
+                          )
+                      row['returncode'] = proc.returncode
+                  except subprocess.TimeoutExpired:
+                      row['status'] = 'timeout'
+                      results.append(row)
+                      continue
+                  except (OSError, ValueError) as exc:
+                      row['status'] = 'launch_failure'
+                      row['exception'] = type(exc).__name__
                       results.append(row)
                       continue
 
-                  original_ids, original_pages = identities(source)
-                  normalized_ids, normalized_pages = identities(normalized)
+                  row['output_exists'] = normalized.is_file()
+                  row['output_nonempty'] = row['output_exists'] and normalized.stat().st_size > 0
+                  row['output_bounded'] = row['output_nonempty'] and normalized.stat().st_size <= max_output
+                  if proc.returncode != 0 or not row['output_bounded']:
+                      row['status'] = 'transport_failed'
+                      results.append(row)
+                      continue
+
+                  try:
+                      normalized_identities, normalized_dimensions, normalized_pages = semantic_facts(normalized)
+                  except Exception as exc:
+                      row['status'] = 'normalized_parse_failure'
+                      row['exception'] = type(exc).__name__
+                      results.append(row)
+                      continue
+
                   row['semantic_match'] = bool(
-                      original_pages == normalized_pages
-                      and original_ids == normalized_ids
+                      normalized_pages == original_pages
+                      and normalized_identities == original_identities
+                      and normalized_dimensions == original_dimensions
                   )
                   if not row['semantic_match']:
                       row['status'] = 'semantic_mismatch'
                       results.append(row)
                       continue
 
-                  poppler_pages = fallback.extract_poppler_pages(normalized, original_pages)
+                  try:
+                      poppler_pages = fallback.extract_poppler_pages(normalized, original_pages)
+                  except fallback.TextFallbackError:
+                      row['status'] = 'poppler_failed_after_transport'
+                      results.append(row)
+                      continue
                   row['poppler_nonempty_all_pages'] = all(
                       fallback.normalized_text_identity(page)
                       for page in poppler_pages
                   )
                   if not row['poppler_nonempty_all_pages']:
-                      row['status'] = 'one_sided_after_retry'
+                      row['status'] = 'one_sided_after_transport'
                       results.append(row)
                       continue
 
-                  out = Path(tmp) / 'public.pdf'
-                  facts = fallback.build_public_text_copy(
-                      normalized,
-                      out,
-                      redact_text=redact_public_text,
-                      forbidden_text=forbidden_public_identifiers,
-                  )
-                  post = hardener['inspect_pdf_deep'](out, matchers)
+                  out = tmpdir / 'public.pdf'
+                  try:
+                      facts = fallback.build_public_text_copy(
+                          normalized,
+                          out,
+                          redact_text=redact_public_text,
+                          forbidden_text=forbidden_public_identifiers,
+                      )
+                      post = hardener['inspect_pdf_deep'](out, matchers)
+                  except Exception as exc:
+                      row['status'] = 'public_copy_failure'
+                      row['exception'] = type(exc).__name__
+                      results.append(row)
+                      continue
+
                   row['post_clean'] = bool(
                       facts.get('deterministic')
                       and facts.get('source_page_count') == facts.get('output_page_count')
@@ -192,15 +246,15 @@ jobs:
 
           summary = {
               'target_sha': '3a804453b4f433d153f00a59300f012c8422a472',
-              'tested_count': len(results),
-              'clean_count': sum(1 for row in results if row.get('status') == 'clean'),
+              'tested_methods': len(results),
+              'clean_methods': [row['method'] for row in results if row.get('status') == 'clean'],
               'results': results,
               'document_paths_logged': False,
               'document_text_logged': False,
-              'qpdf_diagnostics_logged': False,
+              'tool_diagnostics_logged': False,
               'secret_values_logged': False,
           }
           print(json.dumps(summary, ensure_ascii=False))
-          if summary['clean_count'] != 2:
+          if not summary['clean_methods']:
               raise SystemExit(1)
           PY
