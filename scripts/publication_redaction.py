@@ -136,111 +136,166 @@ def redact_public_text(text: str) -> str:
     return out
 
 
+def _decode_pdf_escapes(raw: bytes) -> bytes:
+    """Decode PDF backslash/octal escapes in one conservative linear pass."""
+    out = bytearray()
+    n = len(raw)
+    i = 0
+    escapes = {
+        ord("n"): 0x0A,
+        ord("r"): 0x0D,
+        ord("t"): 0x09,
+        ord("b"): 0x08,
+        ord("f"): 0x0C,
+        ord("("): 0x28,
+        ord(")"): 0x29,
+        ord("\\"): 0x5C,
+    }
+    while i < n:
+        byte = raw[i]
+        if byte != 0x5C:
+            out.append(byte)
+            i += 1
+            continue
+        i += 1
+        if i >= n:
+            break
+        esc = raw[i]
+        if esc in escapes:
+            out.append(escapes[esc])
+            i += 1
+            continue
+        if 0x30 <= esc <= 0x37:
+            digits = bytearray([esc])
+            i += 1
+            while i < n and len(digits) < 3 and 0x30 <= raw[i] <= 0x37:
+                digits.append(raw[i])
+                i += 1
+            out.append(int(digits.decode("ascii"), 8) & 0xFF)
+            continue
+        if esc == 0x0D:
+            i += 1
+            if i < n and raw[i] == 0x0A:
+                i += 1
+            continue
+        if esc == 0x0A:
+            i += 1
+            continue
+        out.append(esc)
+        i += 1
+    return bytes(out)
+
+
 def _pdf_decoded_string_payloads(raw: bytes) -> list[bytes]:
     payloads: list[bytes] = []
     n = len(raw)
-    i = 0
     hex_chars = b"0123456789abcdefABCDEF"
 
+    # Scan hex strings independently so malformed literal-string bytes in an
+    # uncompressed stream cannot hide a later valid <...> value.
+    i = 0
     while i < n:
-        byte = raw[i]
-
-        # PDF hex string: <...>, excluding dictionary delimiters <<...>>.
-        if byte == 0x3C and not (i + 1 < n and raw[i + 1] == 0x3C):
-            j = i + 1
-            buf = bytearray()
-            valid = True
-            while j < n and raw[j] != 0x3E:
-                b = raw[j]
-                if b in b" \t\r\n\x0c\x00":
-                    j += 1
-                    continue
-                if b not in hex_chars:
-                    valid = False
-                    break
-                buf.append(b)
+        if raw[i] != 0x3C or (i + 1 < n and raw[i + 1] == 0x3C):
+            i += 1
+            continue
+        j = i + 1
+        buf = bytearray()
+        valid = True
+        while j < n and raw[j] != 0x3E:
+            byte = raw[j]
+            if byte in b" \t\r\n\x0c\x00":
                 j += 1
-            if valid and j < n and raw[j] == 0x3E and buf:
-                if len(buf) % 2:
-                    buf.append(ord("0"))
-                try:
-                    payloads.append(bytes.fromhex(buf.decode("ascii")))
-                except ValueError:
-                    pass
-                i = j + 1
                 continue
-            # A malformed or unterminated candidate must never restart a scan
-            # over the same tail. Resume at the first byte not yet examined.
+            if byte not in hex_chars:
+                valid = False
+                break
+            buf.append(byte)
+            j += 1
+        if valid and j < n and raw[j] == 0x3E and buf:
+            if len(buf) % 2:
+                buf.append(ord("0"))
+            try:
+                payloads.append(bytes.fromhex(buf.decode("ascii")))
+            except ValueError:
+                pass
+            i = j + 1
+        else:
             i = max(i + 1, j)
-            continue
 
-        # PDF literal string with balanced parentheses and PDF escape/octal decoding.
-        if byte == 0x28:
-            j = i + 1
-            depth = 1
-            out = bytearray()
-            while j < n and depth:
-                b = raw[j]
-                if b == 0x5C:  # backslash
-                    j += 1
-                    if j >= n:
-                        break
-                    esc = raw[j]
-                    escapes = {
-                        ord("n"): 0x0A,
-                        ord("r"): 0x0D,
-                        ord("t"): 0x09,
-                        ord("b"): 0x08,
-                        ord("f"): 0x0C,
-                        ord("("): 0x28,
-                        ord(")"): 0x29,
-                        ord("\\"): 0x5C,
-                    }
-                    if esc in escapes:
-                        out.append(escapes[esc])
-                        j += 1
-                        continue
-                    if 0x30 <= esc <= 0x37:
-                        digits = bytearray([esc])
-                        j += 1
-                        while j < n and len(digits) < 3 and 0x30 <= raw[j] <= 0x37:
-                            digits.append(raw[j])
-                            j += 1
-                        out.append(int(digits.decode("ascii"), 8) & 0xFF)
-                        continue
-                    if esc == 0x0D:
-                        j += 1
-                        if j < n and raw[j] == 0x0A:
-                            j += 1
-                        continue
-                    if esc == 0x0A:
-                        j += 1
-                        continue
-                    out.append(esc)
-                    j += 1
-                    continue
-                if b == 0x28:
-                    depth += 1
-                    if depth > 1:
-                        out.append(b)
-                    j += 1
-                    continue
-                if b == 0x29:
-                    depth -= 1
-                    if depth:
-                        out.append(b)
-                    j += 1
-                    continue
-                out.append(b)
-                j += 1
-            if depth == 0 and out:
-                payloads.append(bytes(out))
-            # Balanced and malformed strings both advance monotonically. Raw
-            # bytes remain separately scanned, so fail-closed literal coverage
-            # is preserved without quadratic rescanning of binary stream data.
-            i = max(i + 1, j)
+    # Parse balanced literal strings. A malformed candidate advances to the
+    # first byte not yet examined instead of rescanning the same tail.
+    i = 0
+    while i < n:
+        if raw[i] != 0x28:
+            i += 1
             continue
-        i += 1
+        j = i + 1
+        depth = 1
+        out = bytearray()
+        while j < n and depth:
+            byte = raw[j]
+            if byte == 0x5C:
+                escape_start = j
+                j += 1
+                if j >= n:
+                    break
+                esc = raw[j]
+                escapes = {
+                    ord("n"): 0x0A,
+                    ord("r"): 0x0D,
+                    ord("t"): 0x09,
+                    ord("b"): 0x08,
+                    ord("f"): 0x0C,
+                    ord("("): 0x28,
+                    ord(")"): 0x29,
+                    ord("\\"): 0x5C,
+                }
+                if esc in escapes:
+                    out.append(escapes[esc])
+                    j += 1
+                    continue
+                if 0x30 <= esc <= 0x37:
+                    digits = bytearray([esc])
+                    j += 1
+                    while j < n and len(digits) < 3 and 0x30 <= raw[j] <= 0x37:
+                        digits.append(raw[j])
+                        j += 1
+                    out.append(int(digits.decode("ascii"), 8) & 0xFF)
+                    continue
+                if esc == 0x0D:
+                    j += 1
+                    if j < n and raw[j] == 0x0A:
+                        j += 1
+                    continue
+                if esc == 0x0A:
+                    j += 1
+                    continue
+                out.extend(raw[escape_start + 1:j + 1])
+                j += 1
+                continue
+            if byte == 0x28:
+                depth += 1
+                if depth > 1:
+                    out.append(byte)
+                j += 1
+                continue
+            if byte == 0x29:
+                depth -= 1
+                if depth:
+                    out.append(byte)
+                j += 1
+                continue
+            out.append(byte)
+            j += 1
+        if depth == 0 and out:
+            payloads.append(bytes(out))
+        i = max(i + 1, j)
+
+    # A separate linear escape pass preserves fail-closed detection of an
+    # octal/backslash-encoded value after malformed binary literal bytes.
+    escaped = _decode_pdf_escapes(raw)
+    if escaped != raw:
+        payloads.append(escaped)
 
     return payloads
 
