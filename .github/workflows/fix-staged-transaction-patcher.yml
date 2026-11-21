@@ -1,0 +1,50 @@
+name: Repair staged transaction patcher
+
+on:
+  push:
+    branches: [fix/privacy-text-fallback-clean-20261121]
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - name: Remove nonessential sanitization replacement from patcher
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('.github/workflows/apply-staged-candidate-transaction.yml')
+          text = path.read_text('utf-8')
+          marker = 'old_worker_error ='
+          start = text.index(marker)
+          start = text.rfind('\n', 0, start) + 1
+          next_marker = "start = text.index('def process_candidate_isolated(')"
+          end = text.index(next_marker, start)
+          end = text.rfind('\n', 0, end) + 1
+          text = text[:start] + text[end:]
+          if marker in text:
+              raise SystemExit('optional sanitization block still present')
+          path.write_text(text, 'utf-8')
+          PY
+          git diff --check
+          test "$(git diff --name-only)" = ".github/workflows/apply-staged-candidate-transaction.yml"
+      - name: Commit repaired patcher
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .github/workflows/apply-staged-candidate-transaction.yml
+          git commit -m 'Repair staged transaction patcher guard'
+          git push origin HEAD:fix/privacy-text-fallback-clean-20261121
