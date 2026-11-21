@@ -1,0 +1,71 @@
+name: Preserve unregistered hardening rows
+
+on:
+  push:
+    branches: [fix/justice-slalom-hardened-provenance-20261121]
+    paths: [.github/workflows/repair-unregistered-hardening-rows.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Add unregistered-row regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/repair-unregistered-hardening-rows.py test
+          git diff --check
+          test "$(git diff --name-only)" = "test/justice-slalom-pdf-provenance.test.mjs"
+
+      - name: Prove the regression is red
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          node --test test/justice-slalom-pdf-provenance.test.mjs > "$RUNNER_TEMP/red.log" 2>&1
+          status=$?
+          set -e
+          if [ "$status" -eq 0 ]; then
+            cat "$RUNNER_TEMP/red.log"
+            echo 'unregistered-row regression unexpectedly passed before implementation' >&2
+            exit 1
+          fi
+          grep -q 'unregistered evidence rows without IDs remain non-authoritative' "$RUNNER_TEMP/red.log"
+
+      - name: Allow unregistered rows without indexing them
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/repair-unregistered-hardening-rows.py implementation
+          node --check scripts/justice-slalom-pdf-provenance.mjs
+          git diff --check
+          changed="$(git diff --name-only | sort)"
+          expected="$(printf '%s\n' scripts/justice-slalom-pdf-provenance.mjs test/justice-slalom-pdf-provenance.test.mjs | sort)"
+          test "$changed" = "$expected"
+
+      - name: Run focused provenance regressions
+        run: node --test test/justice-slalom-pdf-provenance.test.mjs
+
+      - name: Commit verified row-shape handling
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/justice-slalom-pdf-provenance.mjs test/justice-slalom-pdf-provenance.test.mjs
+          git diff --cached --quiet && exit 0
+          git commit -m 'Allow unregistered hardening evidence rows'
+          git push origin HEAD:fix/justice-slalom-hardened-provenance-20261121
