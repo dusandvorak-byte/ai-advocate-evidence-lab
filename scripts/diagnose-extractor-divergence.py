@@ -42,6 +42,14 @@ def alnum_identity(value: str) -> str:
     return "".join(char for char in normalized if char.isalnum())
 
 
+def strip_marks(value: str) -> str:
+    return "".join(
+        char
+        for char in unicodedata.normalize("NFKD", value).casefold()
+        if not unicodedata.combining(char)
+    )
+
+
 def digest(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
@@ -57,6 +65,37 @@ def multiset_overlap(left: list[str], right: list[str]) -> tuple[int, float, flo
     )
 
 
+def expanded_difference(left: list[str], right: list[str]) -> list[str]:
+    counter = collections.Counter(left) - collections.Counter(right)
+    return sorted(token for token, count in counter.items() for _ in range(count))
+
+
+def token_descriptor(token: str) -> dict:
+    return {
+        "sha256": digest(token),
+        "length": len(token),
+        "is_alpha": token.isalpha(),
+        "is_digit": token.isdigit(),
+        "is_ascii": token.isascii(),
+    }
+
+
+def levenshtein(left: str, right: str) -> int:
+    if len(left) < len(right):
+        left, right = right, left
+    previous = list(range(len(right) + 1))
+    for i, lchar in enumerate(left, start=1):
+        current = [i]
+        for j, rchar in enumerate(right, start=1):
+            current.append(min(
+                current[-1] + 1,
+                previous[j] + 1,
+                previous[j - 1] + (lchar != rchar),
+            ))
+        previous = current
+    return previous[-1]
+
+
 def page_metrics(fitz_text: str, poppler_text: str, page_number: int) -> dict:
     fitz_identity = normalized_text_identity(fitz_text)
     poppler_identity = normalized_text_identity(poppler_text)
@@ -65,16 +104,27 @@ def page_metrics(fitz_text: str, poppler_text: str, page_number: int) -> dict:
     overlap, fitz_coverage, poppler_coverage = multiset_overlap(fitz_tokens, poppler_tokens)
     fitz_counter = collections.Counter(fitz_tokens)
     poppler_counter = collections.Counter(poppler_tokens)
-    sequence_ratio = difflib.SequenceMatcher(
-        None,
-        fitz_tokens,
-        poppler_tokens,
-        autojunk=False,
-    ).ratio()
+    sequence = difflib.SequenceMatcher(None, fitz_tokens, poppler_tokens, autojunk=False)
+    sequence_ratio = sequence.ratio()
     fitz_alnum = alnum_identity(fitz_text)
     poppler_alnum = alnum_identity(poppler_text)
     shorter_identity, longer_identity = sorted((fitz_identity, poppler_identity), key=len)
     shorter_alnum, longer_alnum = sorted((fitz_alnum, poppler_alnum), key=len)
+    fitz_only = expanded_difference(fitz_tokens, poppler_tokens)
+    poppler_only = expanded_difference(poppler_tokens, fitz_tokens)
+    fitz_unique_joined = "".join(fitz_only)
+    poppler_unique_joined = "".join(poppler_only)
+    opcodes = [
+        {
+            "tag": tag,
+            "fitz_start": i1,
+            "fitz_count": i2 - i1,
+            "poppler_start": j1,
+            "poppler_count": j2 - j1,
+        }
+        for tag, i1, i2, j1, j2 in sequence.get_opcodes()
+        if tag != "equal"
+    ]
     return {
         "page": page_number,
         "fitz_identity_length": len(fitz_identity),
@@ -85,14 +135,24 @@ def page_metrics(fitz_text: str, poppler_text: str, page_number: int) -> dict:
         "fitz_token_coverage": round(fitz_coverage, 6),
         "poppler_token_coverage": round(poppler_coverage, 6),
         "sequence_ratio": round(sequence_ratio, 6),
-        "fitz_only_token_occurrences": sum((fitz_counter - poppler_counter).values()),
-        "poppler_only_token_occurrences": sum((poppler_counter - fitz_counter).values()),
+        "fitz_only_token_occurrences": len(fitz_only),
+        "poppler_only_token_occurrences": len(poppler_only),
         "identity_equal": fitz_identity == poppler_identity,
         "identity_containment": bool(shorter_identity and shorter_identity in longer_identity),
         "alnum_equal": fitz_alnum == poppler_alnum,
         "alnum_containment": bool(shorter_alnum and shorter_alnum in longer_alnum),
         "token_sequence_equal": fitz_tokens == poppler_tokens,
         "token_multiset_equal": fitz_counter == poppler_counter,
+        "unique_join_equal": fitz_unique_joined == poppler_unique_joined,
+        "unique_join_mark_stripped_equal": strip_marks(fitz_unique_joined) == strip_marks(poppler_unique_joined),
+        "unique_join_levenshtein": levenshtein(fitz_unique_joined, poppler_unique_joined),
+        "unique_join_sequence_ratio": round(
+            difflib.SequenceMatcher(None, fitz_unique_joined, poppler_unique_joined, autojunk=False).ratio(),
+            6,
+        ),
+        "fitz_only_tokens": [token_descriptor(token) for token in fitz_only],
+        "poppler_only_tokens": [token_descriptor(token) for token in poppler_only],
+        "diff_opcodes": opcodes,
         "fitz_identity_sha256": digest(fitz_identity),
         "poppler_identity_sha256": digest(poppler_identity),
     }
@@ -152,7 +212,7 @@ def main() -> int:
         "private_literals_logged": False,
     }
     payload = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "purpose": "sanitized MuPDF/Poppler divergence characterization",
         "summary": summary,
         "documents": documents,
