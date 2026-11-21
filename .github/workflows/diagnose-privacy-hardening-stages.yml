@@ -1,73 +1,53 @@
-name: Diagnose residual privacy hardening failures
+name: Diagnose bounded qpdf retry on residual corpus
 
 on:
   push:
     branches: [diag/privacy-residuals-20261121]
-  workflow_dispatch:
 
 permissions:
   contents: read
 
 env:
-  NODE_VERSION: '24'
-  FALLBACK_CANDIDATE_SHA: '3161ab66ce6a1dae2eabad6ce584c650b51fa9a9'
+  TARGET_SHA: '3a804453b4f433d153f00a59300f012c8422a472'
+  HARNESS_SHA: '745ef7899f65525770f67f59a9cede2a2adfb7f9'
 
 jobs:
   diagnose:
-    name: Exact production fallback verification
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
-      - name: Checkout diagnostic harness
+      - name: Checkout exact PR implementation
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ env.TARGET_SHA }}
 
-      - name: Overlay exact fallback candidate
-        shell: bash
-        run: |
-          set -euo pipefail
-          git fetch --no-tags --depth=1 origin fix/privacy-text-fallback-clean-20261121
-          test "$(git rev-parse FETCH_HEAD)" = "$FALLBACK_CANDIDATE_SHA"
-          git checkout FETCH_HEAD -- \
-            scripts/publication_redaction.py \
-            scripts/harden-public-pdf-privacy.py \
-            scripts/public_text_fallback.py \
-            test/publication_redaction_complexity.test.py \
-            test/hardener_extracted_text_mode.test.py \
-            test/public_text_fallback.test.py \
-            test/hardener_text_fallback.test.py
-          mkdir -p review-artifacts
-          printf '{"fallback_candidate_sha":"%s"}\n' "$FALLBACK_CANDIDATE_SHA" > review-artifacts/fallback-candidate.json
-
-      - name: Use Python 3.12
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12.16'
 
-      - name: Use Node.js 24
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: '24'
 
-      - name: Install fixed PDF tooling and verify exact candidate regressions
+      - name: Install fixed PDF tooling
         shell: bash
         run: |
           set -euo pipefail
           sudo apt-get update -qq
           sudo apt-get install -y -qq poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
-          node --check scripts/reconstruct-pre-hardening-tree.mjs
-          python3 -m py_compile scripts/harden-public-pdf-privacy.py
-          python3 -m py_compile scripts/public_text_fallback.py
-          python3 -m py_compile scripts/verify-production-text-fallback-all.py
-          python3 -m py_compile scripts/diagnose-extractor-divergence.py
-          python3 test/publication_redaction_complexity.test.py
-          python3 test/hardener_extracted_text_mode.test.py
-          python3 test/public_text_fallback.test.py
-          python3 test/hardener_text_fallback.test.py
 
-      - name: Provision authenticated private policy in runner temp
+      - name: Recover trusted reconstruction harness only
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$TARGET_SHA"
+          git show "$HARNESS_SHA:scripts/reconstruct-pre-hardening-tree.mjs" > scripts/reconstruct-pre-hardening-tree.mjs
+          git show "$HARNESS_SHA:scripts/verify-production-text-fallback-all.py" > "$RUNNER_TEMP/all17.py"
+          node --check scripts/reconstruct-pre-hardening-tree.mjs
+
+      - name: Provision authenticated private policy
         shell: bash
         env:
           PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
@@ -76,29 +56,163 @@ jobs:
           set -euo pipefail
           test -n "$PRIVATE_POLICY_B64"
           test -n "$PRIVATE_POLICY_HMAC_KEY"
-          POLICY_PATH="$RUNNER_TEMP/evidence-lab-private-redaction-policy.json"
-          printf '%s' "$PRIVATE_POLICY_B64" | base64 --decode > "$POLICY_PATH"
-          chmod 600 "$POLICY_PATH"
-          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=$POLICY_PATH" >> "$GITHUB_ENV"
+          policy="$RUNNER_TEMP/evidence-lab-private-redaction-policy.json"
+          printf '%s' "$PRIVATE_POLICY_B64" | base64 --decode > "$policy"
+          chmod 600 "$policy"
+          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=$policy" >> "$GITHUB_ENV"
           echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY=$PRIVATE_POLICY_HMAC_KEY" >> "$GITHUB_ENV"
 
-      - name: Reconstruct the exact pre-hardening public tree
+      - name: Reconstruct exact pre-hardening public tree
         run: node scripts/reconstruct-pre-hardening-tree.mjs
 
-      - name: Characterize extractor divergence without logging document text
-        run: python3 scripts/diagnose-extractor-divergence.py
+      - name: Prove qpdf normalization recovers only the two bounded Poppler failures
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import ast
+          import json
+          import runpy
+          import subprocess
+          import sys
+          import tempfile
+          from pathlib import Path
 
-      - name: Verify exact production fallback on all seventeen residual PDFs
-        run: python3 scripts/verify-production-text-fallback-all.py
+          import fitz
 
-      - name: Upload sanitized exact-candidate evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: production-text-fallback-all17-3161ab6
-          path: |
-            review-artifacts/production-text-fallback-all17.json
-            review-artifacts/extractor-divergence-diagnostic.json
-            review-artifacts/fallback-candidate.json
-          if-no-files-found: error
-          retention-days: 7
+          root = Path.cwd()
+          sys.path.insert(0, str(root / 'scripts'))
+          import public_text_fallback as fallback
+          from publication_redaction import forbidden_public_identifiers, redact_public_text
+
+          verifier = Path('/home/runner/work/_temp/all17.py')
+          if not verifier.is_file():
+              candidates = list(Path('/home/runner/work/_temp').glob('all17.py'))
+              if len(candidates) != 1:
+                  raise SystemExit('trusted target inventory unavailable')
+              verifier = candidates[0]
+          tree = ast.parse(verifier.read_text('utf-8'))
+          targets = None
+          for node in tree.body:
+              if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == 'TARGETS' for t in node.targets):
+                  targets = ast.literal_eval(node.value)
+                  break
+          if not isinstance(targets, list) or len(targets) != 17:
+              raise SystemExit('unexpected trusted target inventory')
+
+          hardener = runpy.run_path(str(root / 'scripts/harden-public-pdf-privacy.py'), run_name='qpdf_retry_diagnostic')
+          matchers = hardener['prepared_private_byte_matchers']()
+          baseline_clean = 0
+          retry_candidates = 0
+          retry_clean = 0
+          other_errors = 0
+          opaque_failures = []
+
+          def mupdf_identities(path):
+              doc = fitz.open(path)
+              try:
+                  return [
+                      fallback.normalized_text_identity(
+                          fallback.clean_text(page.get_text('text', sort=True))
+                      )
+                      for page in doc
+                  ], doc.page_count
+              finally:
+                  doc.close()
+
+          for index, rel in enumerate(targets, 1):
+              source = root / 'web' / rel
+              try:
+                  with tempfile.TemporaryDirectory(prefix='baseline-fallback-') as tmp:
+                      out = Path(tmp) / 'public.pdf'
+                      fallback.build_public_text_copy(
+                          source,
+                          out,
+                          redact_text=redact_public_text,
+                          forbidden_text=forbidden_public_identifiers,
+                      )
+                  baseline_clean += 1
+                  continue
+              except fallback.TextFallbackError as exc:
+                  if str(exc) != 'Poppler extraction failed or exceeded its resource limit':
+                      other_errors += 1
+                      opaque_failures.append({'index': index, 'code': 'non_retryable'})
+                      continue
+
+              retry_candidates += 1
+              with tempfile.TemporaryDirectory(prefix='qpdf-retry-diagnostic-') as tmp:
+                  normalized = Path(tmp) / 'normalized.pdf'
+                  proc = subprocess.run(
+                      [
+                          'qpdf',
+                          '--deterministic-id',
+                          '--object-streams=generate',
+                          '--stream-data=compress',
+                          '--recompress-flate',
+                          str(source),
+                          str(normalized),
+                      ],
+                      stdout=subprocess.PIPE,
+                      stderr=subprocess.STDOUT,
+                      timeout=60,
+                      check=False,
+                  )
+                  if proc.returncode != 0 or not normalized.is_file() or normalized.stat().st_size == 0:
+                      opaque_failures.append({'index': index, 'code': 'qpdf_failed'})
+                      continue
+                  original_ids, original_pages = mupdf_identities(source)
+                  normalized_ids, normalized_pages = mupdf_identities(normalized)
+                  if original_pages != normalized_pages or original_ids != normalized_ids:
+                      opaque_failures.append({'index': index, 'code': 'semantic_mismatch'})
+                      continue
+                  poppler_pages = fallback.extract_poppler_pages(normalized, original_pages)
+                  if any(not fallback.normalized_text_identity(page) for page in poppler_pages):
+                      opaque_failures.append({'index': index, 'code': 'one_sided_after_retry'})
+                      continue
+                  out = Path(tmp) / 'public.pdf'
+                  facts = fallback.build_public_text_copy(
+                      normalized,
+                      out,
+                      redact_text=redact_public_text,
+                      forbidden_text=forbidden_public_identifiers,
+                  )
+                  post = hardener['inspect_pdf_deep'](out, matchers)
+                  clean = bool(
+                      facts.get('deterministic')
+                      and facts.get('source_page_count') == facts.get('output_page_count')
+                      and facts.get('nonempty_page_count') == facts.get('source_page_count')
+                      and not (post.get('reasons') or [])
+                      and not (post.get('visible_private_hits') or [])
+                      and not (post.get('decoded_private_hits') or [])
+                      and post.get('text_scan_ok')
+                      and post.get('decoded_scan_ok')
+                      and post.get('pdf_revision_markers_bound')
+                      and post.get('pdf_single_revision_only')
+                  )
+                  if clean:
+                      retry_clean += 1
+                  else:
+                      opaque_failures.append({'index': index, 'code': 'post_verification_failed'})
+
+          summary = {
+              'target_count': len(targets),
+              'baseline_clean': baseline_clean,
+              'retry_candidates': retry_candidates,
+              'retry_clean': retry_clean,
+              'other_errors': other_errors,
+              'opaque_failures': opaque_failures,
+              'target_sha': '3a804453b4f433d153f00a59300f012c8422a472',
+              'document_paths_logged': False,
+              'document_text_logged': False,
+              'secret_values_logged': False,
+          }
+          print(json.dumps(summary, ensure_ascii=False))
+          if not (
+              baseline_clean == 15
+              and retry_candidates == 2
+              and retry_clean == 2
+              and other_errors == 0
+              and not opaque_failures
+          ):
+              raise SystemExit(1)
+          PY
