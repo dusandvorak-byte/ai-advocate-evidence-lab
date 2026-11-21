@@ -387,3 +387,18 @@ test('hardening evidence row without an ID field fails closed', () => {
   assert.equal(result.hardeningReportOk, false);
   assert.equal(result.hardeningById.size, 0);
 });
+
+
+test('malformed concrete hardening evidence IDs fail closed', () => {
+  for (const malformedId of [' ', 'not-a-document-id', 'doc-OK']) {
+    const malformed = { ...hardenedRow(), id: malformedId };
+    const result = indexJusticeSlalomHardeningEvidence({
+      hard_failure_count: 0,
+      hard_failures: [],
+      documents: [hardenedRow(), malformed],
+    });
+
+    assert.equal(result.hardeningReportOk, false, malformedId);
+    assert.equal(result.hardeningById.size, 0, malformedId);
+  }
+});

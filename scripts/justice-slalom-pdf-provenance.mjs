@@ -4,6 +4,7 @@ const publicCopyKinds = new Set([
 ]);
 const redactedOriginalKind = 'redacted_original_from_user_binary';
 const SHA256_RE = /^[0-9a-f]{64}$/i;
+const DOCUMENT_ID_RE = /^doc-[a-z0-9-]+$/;
 const validSha256 = value => typeof value === 'string' && SHA256_RE.test(value);
 
 
@@ -13,7 +14,7 @@ export const indexJusticeSlalomHardeningEvidence = report => {
     row
     && typeof row === 'object'
     && Object.prototype.hasOwnProperty.call(row, 'id')
-    && (row.id === null || (typeof row.id === 'string' && row.id.length > 0))
+    && (row.id === null || (typeof row.id === 'string' && DOCUMENT_ID_RE.test(row.id)))
   ));
   const indexedRows = rowShapesValid
     ? rows.filter(row => typeof row.id === 'string' && row.id.length > 0)
