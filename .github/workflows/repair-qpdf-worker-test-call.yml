@@ -31,34 +31,38 @@ jobs:
 
           path = Path('test/publication_redaction.test.py')
           text = path.read_text('utf-8')
-          old = '''        worker_globals["inspect_pdf_deep"] = forbidden_deep_inspection
-        ns["worker_candidate"](
-            "sample.pdf",
-            True,
-            {
-                "page_count": 1,
-                "reasons": ["revision_envelope"],
-                "xmp_present": False,
-            },
-        )
-'''
-          new = '''        worker_globals["inspect_pdf_deep"] = forbidden_deep_inspection
-        original_bytes = pdf.read_bytes()
-        stage = self.tmpdir / ".sample.pdf.qpdf-post-test.candidate.pdf"
-        stage.write_bytes(original_bytes)
-        ns["worker_candidate"](
-            "sample.pdf",
-            stage.relative_to(self.tmpdir).as_posix(),
-            True,
-            {
-                "page_count": 1,
-                "reasons": ["revision_envelope"],
-                "xmp_present": False,
-                "source_sha256": hashlib.sha256(original_bytes).hexdigest(),
-            },
-        )
-        self.assertEqual(pdf.read_bytes(), original_bytes)
-'''
+          old = "\n".join([
+              '        worker_globals["inspect_pdf_deep"] = forbidden_deep_inspection',
+              '        ns["worker_candidate"](',
+              '            "sample.pdf",',
+              '            True,',
+              '            {',
+              '                "page_count": 1,',
+              '                "reasons": ["revision_envelope"],',
+              '                "xmp_present": False,',
+              '            },',
+              '        )',
+              '',
+          ])
+          new = "\n".join([
+              '        worker_globals["inspect_pdf_deep"] = forbidden_deep_inspection',
+              '        original_bytes = pdf.read_bytes()',
+              '        stage = self.tmpdir / ".sample.pdf.qpdf-post-test.candidate.pdf"',
+              '        stage.write_bytes(original_bytes)',
+              '        ns["worker_candidate"](',
+              '            "sample.pdf",',
+              '            stage.relative_to(self.tmpdir).as_posix(),',
+              '            True,',
+              '            {',
+              '                "page_count": 1,',
+              '                "reasons": ["revision_envelope"],',
+              '                "xmp_present": False,',
+              '                "source_sha256": hashlib.sha256(original_bytes).hexdigest(),',
+              '            },',
+              '        )',
+              '        self.assertEqual(pdf.read_bytes(), original_bytes)',
+              '',
+          ])
           if text.count(old) != 1:
               raise SystemExit(f'unexpected stale call-site count: {text.count(old)}')
           path.write_text(text.replace(old, new), 'utf-8')
