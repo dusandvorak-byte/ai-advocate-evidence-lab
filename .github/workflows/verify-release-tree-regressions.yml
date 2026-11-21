@@ -7,21 +7,131 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: release-tree-repair-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  regressions:
+  trusted:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12.16'
-      - name: Install test dependencies
+      - name: Install fixed dependencies
         run: |
+          set -euo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y -qq qpdf poppler-utils
-          python3 -m pip install --disable-pip-version-check pymupdf==2.1 reportlab==5.1.0 pillow==13.0.0
-      - name: Run privacy and release-tree regressions
+          sudo apt-get install -y -qq mupdf-tools poppler-utils qpdf
+          python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
+      - name: Prove synthetic regressions green
         run: python3 test/publication_redaction.test.py
+      - name: Provision authenticated private policy
+        env:
+          PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
+          PRIVATE_POLICY_HMAC_KEY: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$PRIVATE_POLICY_B64"
+          test -n "$PRIVATE_POLICY_HMAC_KEY"
+          policy="$RUNNER_TEMP/evidence-lab-private-redaction-policy.json"
+          printf '%s' "$PRIVATE_POLICY_B64" | base64 --decode > "$policy"
+          chmod 600 "$policy"
+          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=$policy" >> "$GITHUB_ENV"
+          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY=$PRIVATE_POLICY_HMAC_KEY" >> "$GITHUB_ENV"
+          cp project-memory/documents-2026.json "$RUNNER_TEMP/canonical-documents-2026-prebuild.json"
+          echo "EVIDENCE_LAB_CANONICAL_REGISTRY=$RUNNER_TEMP/canonical-documents-2026-prebuild.json" >> "$GITHUB_ENV"
+      - name: Materialize exact trusted public tree
+        run: |
+          set -euo pipefail
+          node scripts/recover-historical-binary-blobs.mjs
+          node scripts/materialize-godot-pdf-bundle.mjs
+          node scripts/materialize-godot-state-bundle-2026-08-24.mjs
+          python3 scripts/materialize-uoou-2026-08-26.py
+          python3 scripts/materialize-euda-2026-09-25.py
+          python3 scripts/materialize-state-pdfs-2026-09-03.py
+          node scripts/prepare-md-english-build.mjs
+          node scripts/build-site.mjs
+          node scripts/cleanup-godot-duplicate-timers.mjs
+          node scripts/patch-godot-reverse-reactions.mjs
+          node scripts/finalize-public-labels.mjs
+          node scripts/finalize-md-english-surfaces.mjs
+          node scripts/build-justice-slalom.mjs
+          node scripts/repair-chronology-deep-links.mjs
+          node scripts/validate-chronology-deep-links.mjs
+          node scripts/audit-godot-pdf-links.mjs
+          node scripts/build-language-access.mjs
+          node scripts/validate-release-exclusions.mjs
+          node scripts/validate-public-navigation.mjs
+      - name: Assemble exact staged release tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf release-site
+          mkdir -p release-site
+          cp -a web/. release-site/
+          mkdir -p release-site/web
+          cp -a web/. release-site/web/
+          version="${GITHUB_SHA:0:12}"
+          while IFS= read -r -d '' html_file; do
+            sed -E -i "s#src=\"live-dockets\\.js(\\?v=[^\"]*)?\"#src=\"live-dockets.js?v=${version}\"#g" "$html_file"
+            sed -E -i "s#src=\"news-feed\\.js(\\?v=[^\"]*)?\"#src=\"news-feed.js?v=${version}\"#g" "$html_file"
+            sed -E -i "s#href=\"/ai-advocate-evidence-lab/justice-slalom\\.css(\\?v=[^\"]*)?\"#href=\"/ai-advocate-evidence-lab/justice-slalom.css?v=${version}\"#g" "$html_file"
+          done < <(find release-site -type f -name '*.html' -print0)
+          sed -E -i "s#const cssHref = 'home-rollups\\.css(\\?v=[^']*)?'#const cssHref = 'home-rollups.css?v=${version}'#g" release-site/live-dockets.js release-site/web/live-dockets.js
+          sed -E -i "s#const liveDocketsCssHref = 'live-dockets\\.css(\\?v=[^']*)?'#const liveDocketsCssHref = 'live-dockets.css?v=${version}'#g" release-site/live-dockets.js release-site/web/live-dockets.js
+          touch release-site/.nojekyll release-site/web/.nojekyll
+          printf '%s\n' "$GITHUB_SHA" > release-site/.source-commit
+          printf '%s\n' "$GITHUB_SHA" > release-site/web/.source-commit
+      - name: Reverify exact staged canonical provenance
+        env:
+          EVIDENCE_LAB_REQUIRE_TRUSTED_PROVENANCE_ROOT: '1'
+          EVIDENCE_LAB_PUBLICATION_ROOT: ${{ github.workspace }}/release-site
+          EVIDENCE_LAB_CANONICAL_PROVENANCE_CONTRACT_SHA256: ${{ secrets.EVIDENCE_LAB_CANONICAL_PROVENANCE_CONTRACT_SHA256 }}
+        run: |
+          set -euo pipefail
+          test -n "$EVIDENCE_LAB_CANONICAL_PROVENANCE_CONTRACT_SHA256"
+          python3 scripts/validate-canonical-pdf-sha-provenance.py
+      - name: Audit exact staged PDF tree in parallel
+        env:
+          EVIDENCE_LAB_PUBLICATION_ROOT: ${{ github.workspace }}/release-site
+          EXPECTED_HEAD_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf review-artifacts/release-audit-fragments
+          python3 scripts/audit-release-evidence-sliced.py generated
+          python3 scripts/audit-release-evidence-sliced.py registry
+          pids=()
+          for i in 0 1 2 3 4 5 6 7; do
+            python3 scripts/audit-release-evidence-sliced.py pdf-shard "$i" 8 >"/tmp/release-tree-shard-$i.log" 2>&1 &
+            pids+=("$!")
+          done
+          failed=0
+          for i in 0 1 2 3 4 5 6 7; do
+            if ! wait "${pids[$i]}"; then failed=1; fi
+            cat "/tmp/release-tree-shard-$i.log"
+          done
+          test "$failed" = 0
+          python3 scripts/audit-release-evidence-sliced.py okte
+          python3 scripts/audit-release-evidence-sliced.py redacted
+          python3 scripts/audit-release-evidence-sliced.py assemble 8
+          grep -q '"hard_failure_count": 0' review-artifacts/release-evidence-audit.json
+      - name: Upload sanitized repair evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-tree-repair-evidence-${{ github.sha }}
+          path: |
+            review-artifacts/release-evidence-audit.json
+            project-memory/privacy-hardening-report.json
+          if-no-files-found: warn
+          retention-days: 7
