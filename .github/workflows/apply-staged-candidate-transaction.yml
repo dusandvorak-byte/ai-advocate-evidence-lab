@@ -29,6 +29,7 @@ jobs:
           python3 - <<'PATCHER'
           import subprocess
           import textwrap
+          from pathlib import Path
 
           source_sha = "f8109ef6e4e1e39ad022b5f9c87894d5fb638651"
           source_path = ".github/workflows/apply-staged-candidate-transaction.yml"
@@ -52,8 +53,41 @@ jobs:
           if optional_marker in patcher:
               raise SystemExit("optional isolated-worker rewrite still present")
 
+          cli_marker = "old_cli = '''"
+          cli_start = patcher.index(cli_marker)
+          cli_start = patcher.rfind("\n", 0, cli_start) + 1
+          cli_end_marker = "text = text.replace(old_cli, new_cli)"
+          cli_end = patcher.index(cli_end_marker, cli_start) + len(cli_end_marker)
+          cli_end_line = patcher.find("\n", cli_end)
+          if cli_end_line < 0:
+              raise SystemExit("unterminated historical CLI rewrite block")
+          patcher = patcher[:cli_start] + patcher[cli_end_line + 1:]
+          if cli_marker in patcher or cli_end_marker in patcher:
+              raise SystemExit("historical CLI rewrite block still present")
+
           scope = {}
           exec(compile(patcher, f"{source_sha}:{source_path}:embedded", "exec"), scope, scope)
+
+          target = Path("scripts/harden-public-pdf-privacy.py")
+          text = target.read_text("utf-8")
+          old_cli = (
+              '    elif len(sys.argv) >= 5 and sys.argv[1] == "--worker-candidate":\n'
+              '        worker_candidate(sys.argv[2], sys.argv[3] == "1", json.loads(sys.argv[4]))\n'
+          )
+          new_cli = (
+              '    elif len(sys.argv) >= 6 and sys.argv[1] == "--worker-candidate":\n'
+              '        worker_candidate(\n'
+              '            sys.argv[2],\n'
+              '            sys.argv[3],\n'
+              '            sys.argv[4] == "1",\n'
+              '            json.loads(sys.argv[5]),\n'
+              '        )\n'
+          )
+          if text.count(old_cli) != 1:
+              raise SystemExit("unexpected current candidate CLI block")
+          if new_cli in text:
+              raise SystemExit("candidate CLI block was already rewritten")
+          target.write_text(text.replace(old_cli, new_cli), "utf-8")
           PATCHER
           python3 -m py_compile scripts/harden-public-pdf-privacy.py
           git diff --check
