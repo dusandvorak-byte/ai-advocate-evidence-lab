@@ -9,19 +9,25 @@ const validSha256 = value => typeof value === 'string' && SHA256_RE.test(value);
 
 export const indexJusticeSlalomHardeningEvidence = report => {
   const rows = Array.isArray(report?.documents) ? report.documents : null;
-  const ids = rows?.map(row => row?.id) || [];
-  const idsValid = rows !== null
-    && ids.every(id => typeof id === 'string' && id.length > 0);
-  const idsUnique = idsValid && new Set(ids).size === ids.length;
+  const rowShapesValid = rows !== null && rows.every(row => Boolean(
+    row
+    && typeof row === 'object'
+    && (row.id == null || (typeof row.id === 'string' && row.id.length > 0))
+  ));
+  const indexedRows = rowShapesValid
+    ? rows.filter(row => typeof row.id === 'string' && row.id.length > 0)
+    : [];
+  const ids = indexedRows.map(row => row.id);
+  const idsUnique = new Set(ids).size === ids.length;
   const reportClean = report?.hard_failure_count === 0
     && Array.isArray(report?.hard_failures)
     && report.hard_failures.length === 0;
-  const hardeningReportOk = Boolean(reportClean && idsUnique);
+  const hardeningReportOk = Boolean(reportClean && rowShapesValid && idsUnique);
 
   return {
     hardeningReportOk,
     hardeningById: hardeningReportOk
-      ? new Map(rows.map(row => [row.id, row]))
+      ? new Map(indexedRows.map(row => [row.id, row]))
       : new Map(),
   };
 };

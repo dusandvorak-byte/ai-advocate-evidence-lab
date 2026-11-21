@@ -349,3 +349,27 @@ test('unique clean hardening evidence is indexed', () => {
   assert.equal(result.hardeningById.size, 1);
   assert.equal(result.hardeningById.get('doc-test').output_sha256, HARDENED_SHA);
 });
+
+
+test('unregistered evidence rows without IDs remain non-authoritative', () => {
+  const result = indexJusticeSlalomHardeningEvidence({
+    hard_failure_count: 0,
+    hard_failures: [],
+    documents: [
+      hardenedRow(),
+      {
+        id: null,
+        changed: true,
+        public_path: 'documents/unregistered.pdf',
+        input_sha256: '5'.repeat(64),
+        output_sha256: '6'.repeat(64),
+        known_private_identifier_hits_after: [],
+        decoded_private_identifier_hits_after: [],
+      },
+    ],
+  });
+
+  assert.equal(result.hardeningReportOk, true);
+  assert.equal(result.hardeningById.size, 1);
+  assert.equal(result.hardeningById.has(null), false);
+});
