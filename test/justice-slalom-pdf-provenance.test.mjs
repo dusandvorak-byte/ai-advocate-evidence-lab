@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {
   evaluateJusticeSlalomPdfProvenance,
   evaluatePinnedJusticeSlalomOriginal,
+  indexJusticeSlalomHardeningEvidence,
 } from '../scripts/justice-slalom-pdf-provenance.mjs';
 
 const SOURCE_SHA = '1'.repeat(64);
@@ -321,4 +322,30 @@ test('pinned uploaded original rejects a mismatched authenticated source SHA', (
 
   assert.equal(result.sourcePinned, false);
   assert.equal(result.provenanceOk, false);
+});
+
+
+test('duplicate hardening evidence IDs fail closed', () => {
+  const first = hardenedRow();
+  const second = { ...hardenedRow(), output_sha256: '4'.repeat(64) };
+  const result = indexJusticeSlalomHardeningEvidence({
+    hard_failure_count: 0,
+    hard_failures: [],
+    documents: [first, second],
+  });
+
+  assert.equal(result.hardeningReportOk, false);
+  assert.equal(result.hardeningById.size, 0);
+});
+
+test('unique clean hardening evidence is indexed', () => {
+  const result = indexJusticeSlalomHardeningEvidence({
+    hard_failure_count: 0,
+    hard_failures: [],
+    documents: [hardenedRow()],
+  });
+
+  assert.equal(result.hardeningReportOk, true);
+  assert.equal(result.hardeningById.size, 1);
+  assert.equal(result.hardeningById.get('doc-test').output_sha256, HARDENED_SHA);
 });

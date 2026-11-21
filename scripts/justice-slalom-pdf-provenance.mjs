@@ -6,6 +6,26 @@ const redactedOriginalKind = 'redacted_original_from_user_binary';
 const SHA256_RE = /^[0-9a-f]{64}$/i;
 const validSha256 = value => typeof value === 'string' && SHA256_RE.test(value);
 
+
+export const indexJusticeSlalomHardeningEvidence = report => {
+  const rows = Array.isArray(report?.documents) ? report.documents : null;
+  const ids = rows?.map(row => row?.id) || [];
+  const idsValid = rows !== null
+    && ids.every(id => typeof id === 'string' && id.length > 0);
+  const idsUnique = idsValid && new Set(ids).size === ids.length;
+  const reportClean = report?.hard_failure_count === 0
+    && Array.isArray(report?.hard_failures)
+    && report.hard_failures.length === 0;
+  const hardeningReportOk = Boolean(reportClean && idsUnique);
+
+  return {
+    hardeningReportOk,
+    hardeningById: hardeningReportOk
+      ? new Map(rows.map(row => [row.id, row]))
+      : new Map(),
+  };
+};
+
 export const declaredJusticeSlalomPdfKind = doc => {
   const sourceKind = doc.justice_slalom?.source_kind;
   if (sourceKind === redactedOriginalKind) return 'redacted_original';

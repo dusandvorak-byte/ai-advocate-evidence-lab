@@ -4,6 +4,7 @@ import path from 'node:path';
 import {
   evaluateJusticeSlalomPdfProvenance,
   evaluatePinnedJusticeSlalomOriginal,
+  indexJusticeSlalomHardeningEvidence,
 } from './justice-slalom-pdf-provenance.mjs';
 
 const fail = message => { throw new Error(`JUSTICE-SLALOM-GATE: ${message}`); };
@@ -11,11 +12,8 @@ const uoouMaterializer = await readFile('scripts/materialize-uoou-submission-202
 if (!uoouMaterializer.includes('37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74') || !uoouMaterializer.includes('lzma.decompress')) fail('materializace binárního originálu ÚOOÚ není svázána s ověřeným SHA');
 const memory = JSON.parse(await readFile('project-memory/documents-2026.json','utf8'));
 const privacyHardening = JSON.parse(await readFile('project-memory/privacy-hardening-report.json','utf8'));
-const hardeningById = new Map((privacyHardening.documents || []).map(item => [item.id, item]));
-const hardeningReportOk = privacyHardening.hard_failure_count === 0
-  && Array.isArray(privacyHardening.hard_failures)
-  && privacyHardening.hard_failures.length === 0;
-if (!hardeningReportOk) fail('privacy hardening report obsahuje chyby');
+const { hardeningById, hardeningReportOk } = indexJusticeSlalomHardeningEvidence(privacyHardening);
+if (!hardeningReportOk) fail('privacy hardening report obsahuje chyby nebo duplicitní ID dokumentů');
 const published = JSON.parse(await readFile('web/data/justice-slalom.json','utf8'));
 const manifest = JSON.parse(await readFile('web/data/build-manifest.json','utf8'));
 const items = memory.documents.filter(item => item.justice_slalom);

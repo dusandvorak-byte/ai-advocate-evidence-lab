@@ -1,18 +1,18 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
-import { evaluateJusticeSlalomPdfProvenance } from './justice-slalom-pdf-provenance.mjs';
+import {
+  evaluateJusticeSlalomPdfProvenance,
+  indexJusticeSlalomHardeningEvidence,
+} from './justice-slalom-pdf-provenance.mjs';
 
 // Terminal publication step. The timer builder still supplies internal case history
 // to earlier generators; no timer card or timer script is shipped in public HTML.
 const documents = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8')).documents;
 const institutions = JSON.parse(await readFile('project-memory/institutions.json', 'utf8')).institutions;
 const privacyHardening = JSON.parse(await readFile('project-memory/privacy-hardening-report.json', 'utf8'));
-const hardeningById = new Map((privacyHardening.documents || []).map(item => [item.id, item]));
-const hardeningReportOk = privacyHardening.hard_failure_count === 0
-  && Array.isArray(privacyHardening.hard_failures)
-  && privacyHardening.hard_failures.length === 0;
-if (!hardeningReportOk) throw new Error('JUSTICE-SLALOM: privacy hardening report contains failures');
+const { hardeningById, hardeningReportOk } = indexJusticeSlalomHardeningEvidence(privacyHardening);
+if (!hardeningReportOk) throw new Error('JUSTICE-SLALOM: privacy hardening report contains failures or ambiguous document IDs');
 const names = new Map(institutions.map(item => [item.id, item.name]));
 const entries = documents.filter(item => item.justice_slalom);
 const expectedArchiveNumbers = Array.from({ length: 47 }, (_, index) => index + 2);
