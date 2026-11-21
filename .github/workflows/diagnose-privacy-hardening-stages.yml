@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 env:
-  TARGET_SHA: '88b95115458b6b9b7f76532746408272bf469d7b'
+  TARGET_SHA: '15a9bcb9c6e711b7341a3c4755af44786b0d0d57'
   HARNESS_SHA: '745ef7899f65525770f67f59a9cede2a2adfb7f9'
 
 jobs:
