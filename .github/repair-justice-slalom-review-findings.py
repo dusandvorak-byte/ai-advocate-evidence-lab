@@ -107,7 +107,7 @@ test('upload inventory SHA override rejects a mismatched hardening input', () =>
   assert.equal(wrongInventory.policyHardened, false);
 });
 '''
-    path.write_text(text.rstrip() + tests + "\n", "utf-8")
+    path.write_text(text.rstrip() + tests.rstrip() + "\n", "utf-8")
 
 
 def implement() -> None:
