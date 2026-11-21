@@ -64,6 +64,16 @@ class PublicationRedactionComplexityTests(unittest.TestCase):
         raw = b"(x\\()" * count
         self.assertEqual(sum(1 for _ in redaction._iter_pdf_decoded_string_payloads(raw)), count)
 
+    def test_overlapping_nested_escape_scans_fail_closed_before_superlinear_work(self):
+        depth = 320
+        continuation_region = b"\\\n" * 2048
+        raw = b"(" * depth + continuation_region + b")" * depth
+        started = time.perf_counter()
+        with self.assertRaises(redaction.RedactionPolicyError):
+            list(redaction._iter_pdf_decoded_string_payloads(raw))
+        elapsed = time.perf_counter() - started
+        self.assertLess(elapsed, 1.0, f"nested overlap scan took {elapsed:.3f}s")
+
     def test_unmatched_literal_stack_is_bounded_fail_closed(self):
         raw = b"(" * (redaction.MAX_PDF_LITERAL_STACK_DEPTH + 1)
         with self.assertRaises(redaction.RedactionPolicyError):
