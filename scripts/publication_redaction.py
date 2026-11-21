@@ -11,6 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_PATH = ROOT / "project-memory/private-redaction-policy-contract.json"
+MAX_PDF_LITERAL_STACK_DEPTH = 262_144
 
 
 class RedactionPolicyError(RuntimeError):
@@ -192,13 +193,19 @@ def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
     """Yield decoded PDF string payloads with linear CPU and bounded memory.
 
     QDF streams contain arbitrary binary bytes. Hex and literal strings are
-    therefore recovered in independent monotonic passes so one malformed
-    prefix cannot hide a later valid candidate. The cumulative decoded payload
-    budget is proportional to the input; exceeding it raises and fails closed.
+    recovered in independent monotonic passes. A strict PDF pass preserves
+    valid escaping; a permissive recovery pass prevents malformed binary
+    prefixes from hiding later candidates. Both stack and payload growth are
+    bounded and fail closed.
     """
     n = len(raw)
-    remaining_budget = max(1_048_576, n * 2)
+    remaining_budget = max(1_048_576, n * 4)
     hex_chars = b"0123456789abcdefABCDEF"
+
+    def push_bounded(stack: array, offset: int) -> None:
+        if len(stack) >= MAX_PDF_LITERAL_STACK_DEPTH:
+            raise RedactionPolicyError("PDF literal nesting limit exceeded")
+        stack.append(offset)
 
     # Independent hex-string pass, excluding dictionary delimiters <<...>>.
     i = 0
@@ -218,6 +225,8 @@ def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
                 valid = False
                 break
             buf.append(byte)
+            if len(buf) > remaining_budget * 2:
+                raise RedactionPolicyError("decoded PDF string payload budget exceeded")
             j += 1
         if valid and j < n and raw[j] == 0x3E and buf:
             if len(buf) % 2:
@@ -235,14 +244,13 @@ def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
         else:
             i = max(i + 1, j)
 
-    # Literal-string pass. A compact stack preserves inner balanced strings
-    # even when unmatched binary '(' bytes precede them. Escaped parentheses
-    # never affect structure. Each byte is visited once by the structural scan.
-    opens = array("Q")
+    # Strict PDF literal pass. Backslash escaping applies only while a literal
+    # string is open; a top-level backslash never hides the next opener.
+    strict_opens = array("Q")
     i = 0
     while i < n:
         byte = raw[i]
-        if byte == 0x5C:
+        if byte == 0x5C and strict_opens:
             if i + 1 >= n:
                 i += 1
                 continue
@@ -253,9 +261,29 @@ def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
                 i += 2
             continue
         if byte == 0x28:
-            opens.append(i)
-        elif byte == 0x29 and opens:
-            start = opens.pop()
+            push_bounded(strict_opens, i)
+        elif byte == 0x29 and strict_opens:
+            start = strict_opens.pop()
+            payload = _decode_pdf_escapes(raw[start + 1:i])
+            if payload:
+                if len(payload) > remaining_budget:
+                    raise RedactionPolicyError("decoded PDF string payload budget exceeded")
+                remaining_budget -= len(payload)
+                yield payload
+        i += 1
+
+    # Permissive recovery pass. It deliberately ignores escape semantics and
+    # treats every balanced pair as a candidate. This may add conservative
+    # duplicates, but prevents a malformed outer literal from hiding a later
+    # UTF-16/octal payload. The same hard stack and payload budgets apply.
+    recovery_opens = array("Q")
+    i = 0
+    while i < n:
+        byte = raw[i]
+        if byte == 0x28:
+            push_bounded(recovery_opens, i)
+        elif byte == 0x29 and recovery_opens:
+            start = recovery_opens.pop()
             payload = _decode_pdf_escapes(raw[start + 1:i])
             if payload:
                 if len(payload) > remaining_budget:
