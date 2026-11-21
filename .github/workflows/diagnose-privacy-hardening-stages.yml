@@ -10,6 +10,7 @@ permissions:
 
 env:
   NODE_VERSION: '24'
+  SCANNER_CANDIDATE_SHA: '279285e008eeb225e65bce6fc74f53e2c1da08b7'
 
 jobs:
   diagnose:
@@ -17,10 +18,24 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
-      - name: Checkout exact diagnostic revision
+      - name: Checkout diagnostic harness
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Overlay exact scanner candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin fix/linear-pdf-byte-scanner-20261121
+          test "$(git rev-parse FETCH_HEAD)" = "$SCANNER_CANDIDATE_SHA"
+          git checkout FETCH_HEAD -- \
+            scripts/publication_redaction.py \
+            scripts/harden-public-pdf-privacy.py \
+            test/publication_redaction_complexity.test.py \
+            test/hardener_extracted_text_mode.test.py
+          mkdir -p review-artifacts
+          printf '{"scanner_candidate_sha":"%s"}\n' "$SCANNER_CANDIDATE_SHA" > review-artifacts/scanner-candidate.json
 
       - name: Use Python 3.12
         uses: actions/setup-python@v5
@@ -32,7 +47,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install bounded PDF tooling
+      - name: Install bounded PDF tooling and verify scanner regressions
         shell: bash
         run: |
           set -euo pipefail
@@ -42,6 +57,8 @@ jobs:
           node --check scripts/reconstruct-pre-hardening-tree.mjs
           python3 -m py_compile scripts/diagnose-pdf-hardening-stages.py
           python3 -m py_compile scripts/harden-public-pdf-privacy.py
+          python3 test/publication_redaction_complexity.test.py
+          python3 test/hardener_extracted_text_mode.test.py
 
       - name: Provision authenticated private policy in runner temp
         shell: bash
@@ -68,7 +85,9 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: privacy-hardening-residual-diagnostic
-          path: review-artifacts/privacy-hardening-residual-diagnostic.json
+          name: privacy-hardening-residual-diagnostic-279285e
+          path: |
+            review-artifacts/privacy-hardening-residual-diagnostic.json
+            review-artifacts/scanner-candidate.json
           if-no-files-found: error
           retention-days: 7
