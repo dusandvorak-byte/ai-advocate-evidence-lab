@@ -190,14 +190,7 @@ def _decode_pdf_escapes(raw: bytes) -> bytes:
 
 
 def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
-    """Yield decoded PDF string payloads with linear CPU and bounded memory.
-
-    QDF streams contain arbitrary binary bytes. Hex and literal strings are
-    recovered in independent monotonic passes. A strict PDF pass preserves
-    valid escaping; a permissive recovery pass prevents malformed binary
-    prefixes from hiding later candidates. Both stack and payload growth are
-    bounded and fail closed.
-    """
+    """Yield decoded PDF string payloads with linear CPU and bounded memory."""
     n = len(raw)
     remaining_budget = max(1_048_576, n * 4)
     hex_chars = b"0123456789abcdefABCDEF"
@@ -207,7 +200,6 @@ def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
             raise RedactionPolicyError("PDF literal nesting limit exceeded")
         stack.append(offset)
 
-    # Independent hex-string pass, excluding dictionary delimiters <<...>>.
     i = 0
     while i < n:
         if raw[i] != 0x3C or (i + 1 < n and raw[i + 1] == 0x3C):
@@ -244,8 +236,6 @@ def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
         else:
             i = max(i + 1, j)
 
-    # Strict PDF literal pass. Backslash escaping applies only while a literal
-    # string is open; a top-level backslash never hides the next opener.
     strict_opens = array("Q")
     i = 0
     while i < n:
@@ -272,39 +262,38 @@ def _iter_pdf_decoded_string_payloads(raw: bytes) -> Iterator[bytes]:
                 yield payload
         i += 1
 
-    # Permissive recovery pass. It deliberately ignores escape semantics and
-    # treats every balanced pair as a candidate. This may add conservative
-    # duplicates, but prevents a malformed outer literal from hiding a later
-    # UTF-16/octal payload. The same hard stack and payload budgets apply.
     recovery_opens = array("Q")
+    backslash_run = 0
     i = 0
     while i < n:
         byte = raw[i]
+        if byte == 0x5C:
+            backslash_run += 1
+            i += 1
+            continue
+        escaped = bool(backslash_run % 2)
+        backslash_run = 0
         if byte == 0x28:
             push_bounded(recovery_opens, i)
-        elif byte == 0x29 and recovery_opens:
-            start = recovery_opens.pop()
-            payload = _decode_pdf_escapes(raw[start + 1:i])
-            if payload:
-                if len(payload) > remaining_budget:
-                    raise RedactionPolicyError("decoded PDF string payload budget exceeded")
-                remaining_budget -= len(payload)
-                yield payload
+        elif byte == 0x29:
+            if escaped:
+                push_bounded(recovery_opens, i)
+            elif recovery_opens:
+                start = recovery_opens.pop()
+                payload = _decode_pdf_escapes(raw[start + 1:i])
+                if payload:
+                    if len(payload) > remaining_budget:
+                        raise RedactionPolicyError("decoded PDF string payload budget exceeded")
+                    remaining_budget -= len(payload)
+                    yield payload
         i += 1
 
 
 def _pdf_decoded_string_payloads(raw: bytes) -> list[bytes]:
-    """Compatibility wrapper used by focused tests; production scans stream."""
     return list(_iter_pdf_decoded_string_payloads(raw))
 
 
 def prepared_private_byte_matchers() -> tuple[tuple[str, re.Pattern[str]], ...]:
-    """Authenticate the current private policy and compile opaque byte-scan matchers.
-
-    Callers performing many scans over one immutable PDF may prepare once and
-    reuse the returned tuple. Calls without an explicit prepared tuple still
-    authenticate the current policy, preserving policy/env change detection.
-    """
     _, data, _ = authenticated_private_policy_document()
     items = list(data.get("rules") or []) + list(data.get("forbidden") or [])
     compiled = []
@@ -337,10 +326,7 @@ def forbidden_public_identifier_byte_hits(
 
     def scan_candidate(candidate: bytes) -> bool:
         for encoding in encodings:
-            try:
-                text = candidate.decode(encoding, errors="ignore")
-            except LookupError:
-                continue
+            text = candidate.decode(encoding, errors="ignore")
             for opaque, pattern in matchers:
                 if opaque not in matched and pattern.search(text):
                     matched.add(opaque)
@@ -358,8 +344,6 @@ def forbidden_public_identifier_byte_hits(
 
 def forbidden_public_identifiers(text: str) -> list[str]:
     _, rules, forbidden, _ = load_private_policy()
-    # Post-check every redaction rule as well as the explicit forbidden list.
-    # De-duplicate identical matcher expressions so reporting stays stable and opaque.
     combined = []
     seen = set()
     for _, pattern, _ in rules:
@@ -377,5 +361,4 @@ def forbidden_public_identifiers(text: str) -> list[str]:
 
 if __name__ == "__main__":
     import sys
-
     sys.stdout.write(redact_public_text(sys.stdin.read()))
