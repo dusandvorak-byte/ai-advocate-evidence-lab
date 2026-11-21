@@ -277,7 +277,7 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y -qq poppler-utils qpdf
+          sudo apt-get install -y -qq mupdf-tools poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
           # Synthetic privacy tests use qpdf and must run after its installation.
           python3 test/publication_redaction.test.py
