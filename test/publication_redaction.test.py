@@ -281,15 +281,21 @@ private.person@example.invalid
             raise AssertionError("qpdf rewrite must not re-enter inspect_pdf_deep")
 
         worker_globals["inspect_pdf_deep"] = forbidden_deep_inspection
+        original_bytes = pdf.read_bytes()
+        stage = self.tmpdir / ".sample.pdf.qpdf-post-test.candidate.pdf"
+        stage.write_bytes(original_bytes)
         ns["worker_candidate"](
             "sample.pdf",
+            stage.relative_to(self.tmpdir).as_posix(),
             True,
             {
                 "page_count": 1,
                 "reasons": ["revision_envelope"],
                 "xmp_present": False,
+                "source_sha256": hashlib.sha256(original_bytes).hexdigest(),
             },
         )
+        self.assertEqual(pdf.read_bytes(), original_bytes)
 
     def test_targeted_pdf_rules_selects_only_detected_rule_indexes(self):
         self.write_policy_and_contract()
