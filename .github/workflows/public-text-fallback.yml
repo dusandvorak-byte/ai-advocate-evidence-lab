@@ -2,7 +2,7 @@ name: Verify deterministic public text fallback
 
 on:
   push:
-    branches: [fix/privacy-text-fallback-20261121]
+    branches: [fix/privacy-text-fallback-clean-20261121]
   pull_request:
     branches: [main, fix/linear-pdf-byte-scanner-20261121]
 
@@ -20,7 +20,10 @@ jobs:
         with:
           python-version: '3.12.16'
       - name: Install fixed PDF dependencies
-        run: python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pymupdf==2.1
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pymupdf==2.1
       - name: Run fallback regressions
         run: |
           python3 test/public_text_fallback.test.py
