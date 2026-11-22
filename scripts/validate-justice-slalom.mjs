@@ -130,8 +130,19 @@ const uoouEvaluation = evaluatePinnedJusticeSlalomOriginal({
 if (!uoouEvaluation.provenanceOk) fail('ÚOOÚ 2. 10. 2026 nemá korektně svázaný originál nebo ověřenou veřejnou derivaci');
 if (!published.rows.some(row => row.document_id === uoouOriginal.id && row.date === '2026-10-02' && row.recipient_id === 'CZ-UOOU' && row.pdf_kind === uoouEvaluation.effectiveKind)) fail('ÚOOÚ 2. 10. 2026 chybí v Justičním slalomu se správným označením PDF');
 const uocrOriginal = items.find(item => item.id === 'doc-cz-dd-2026-10-01-uocr-pro-bono');
-if (!uocrOriginal || uocrOriginal.justice_slalom.source_kind !== 'original_pdf_uploaded_by_user' || uocrOriginal.justice_slalom.source_sha256 !== '12bd631ab89609b80fb07baffa0d910d4af266f6e849d054371e3d9492786dd7') fail('Dopis Unii obhájců 1. 10. 2026 není veden jako původní PDF');
-if (!published.rows.some(row => row.document_id === uocrOriginal.id && row.recipient_id === 'CZ-UOCR' && row.pdf_kind === 'original')) fail('Dopis Unii obhájců 1. 10. 2026 chybí v Justičním slalomu');
+if (!uocrOriginal) fail('Dopis Unii obhájců 1. 10. 2026 chybí v kanonickém registru');
+const uocrExpectedSourceSha = '12bd631ab89609b80fb07baffa0d910d4af266f6e849d054371e3d9492786dd7';
+const uocrBytes = await readFile(`web/${uocrOriginal.public.pdf}`).catch(() => fail('Dopis Unii obhájců 1. 10. 2026 nemá dostupné veřejné PDF'));
+const uocrDigest = createHash('sha256').update(uocrBytes).digest('hex');
+const uocrEvaluation = evaluatePinnedJusticeSlalomOriginal({
+  doc: uocrOriginal,
+  digest: uocrDigest,
+  expectedSourceSha: uocrExpectedSourceSha,
+  hardeningById,
+  hardeningReportOk,
+});
+if (!uocrEvaluation.provenanceOk) fail('Dopis Unii obhájců 1. 10. 2026 nemá korektně svázaný originál nebo ověřenou veřejnou derivaci');
+if (!published.rows.some(row => row.document_id === uocrOriginal.id && row.recipient_id === 'CZ-UOCR' && row.pdf_kind === uocrEvaluation.effectiveKind)) fail('Dopis Unii obhájců 1. 10. 2026 nemá správné označení veřejného PDF');
 const publicCopies = uploads.filter(upload => upload.public_sha256);
 if (publicCopies.length !== 9) fail('chybí devět prověřených veřejných kopií');
 for (const upload of publicCopies) {
