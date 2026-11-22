@@ -1,5 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import { runInNewContext } from 'node:vm';
 
 import {
   evaluateJusticeSlalomPdfProvenance,
@@ -400,5 +403,17 @@ test('malformed concrete hardening evidence IDs fail closed', () => {
 
     assert.equal(result.hardeningReportOk, false, malformedId);
     assert.equal(result.hardeningById.size, 0, malformedId);
+  }
+});
+
+test('Justice Slalom UOOU and UOCR digest expressions use imported SHA-256', () => {
+  const source = readFileSync(new URL('../scripts/validate-justice-slalom.mjs', import.meta.url), 'utf8');
+  const bytes = Buffer.from('%PDF-1.7 synthetic regression fixture');
+  const expected = createHash('sha256').update(bytes).digest('hex');
+  for (const [digestName, bytesName] of [['uoouDigest', 'uoouBytes'], ['uocrDigest', 'uocrBytes']]) {
+    const assignment = source.split('\n').find(line => line.startsWith('const ' + digestName + ' = '));
+    assert.ok(assignment, digestName + ' assignment must exist');
+    const actual = runInNewContext(assignment + '\n' + digestName + ';', { [bytesName]: bytes, createHash });
+    assert.equal(actual, expected, digestName + ' must hash the public PDF bytes');
   }
 });
