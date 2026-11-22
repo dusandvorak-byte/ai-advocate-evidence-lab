@@ -65,6 +65,8 @@ await run('scripts/build-late-evidence-2026-11-02.mjs');
 await run('scripts/ensure-generated-state-pdfs.mjs');
 await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');
+// Resolve PDF ownership before hardening records each document's public digest.
+await run('scripts/reconcile-public-pdfs.mjs');
 await runPython('scripts/harden-public-pdf-privacy.py');
 await run('scripts/reconcile-public-pdfs.mjs');
 await runPython('scripts/sync-deterministic-public-sha.py');
