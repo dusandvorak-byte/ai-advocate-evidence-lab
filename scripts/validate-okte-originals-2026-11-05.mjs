@@ -18,6 +18,9 @@ must(new Set(annexes.map(a=>a.reference)).size===10,'duplicate report reference 
 const parent=parentRegistry.documents.find(d=>d.id===parentId);
 must(parent?.reference==='KRPM-145410-2/ČJ-2026-1400AP-106','wrong parent police reply');
 const canonicalById=new Map(canonical.documents.map(d=>[d.id,d]));
+const finalParent=canonicalById.get(parentId);
+must(finalParent?.evidence_note?.includes('druh veřejné kopie a SHA-256')
+  &&finalParent.evidence_note.includes('SHA-256 archivovaného zdroje'),'public parent registry must describe both copy types');
 const sourceIds=new Set(annexes.map(a=>a.id));
 const links=parent.relations?.filter(r=>r.type==='priloha'&&sourceIds.has(r.target_id))||[];
 must(links.length===10,'parent must link all ten annexes');

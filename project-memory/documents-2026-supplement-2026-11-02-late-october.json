@@ -166,7 +166,7 @@
         }
       ],
       "recipients": [],
-      "evidence_note": "KŘP Olomouckého kraje odpovědělo 30. 10. 2026 na informační žádost z 15. 10. 2026. Uvádí cenu vyhledání 417 Kč za hodinu a očekávanou úhradu nad žadatelův limit 500 Kč; pět spisů z let 2009–2014 označuje za skartované, pět spisů 2015–2019 za vedené pouze elektronicky. Součástí odpovědi bylo deset samostatných souborových příloh: původních odborných vyjádření OKTE Frýdek-Místek, datovaných 2009–2020. Každý z deseti originálů je samostatně registrován a veřejně dostupný v binárně shodné podobě; odkazuje na něj evidenční stránka odpovědi. Trestní podnět byl podle policie předán ÚO Prostějov. Datum doručení není doloženo."
+      "evidence_note": "KŘP Olomouckého kraje odpovědělo 30. 10. 2026 na informační žádost z 15. 10. 2026. Uvádí cenu vyhledání 417 Kč za hodinu a očekávanou úhradu nad žadatelův limit 500 Kč; pět spisů z let 2009–2014 označuje za skartované, pět spisů 2015–2019 za vedené pouze elektronicky. Součástí odpovědi bylo deset samostatných souborových příloh: původních odborných vyjádření OKTE Frýdek-Místek, datovaných 2009–2020. Všech deset příloh je samostatně registrováno. Evidenční stránka odpovědi uvádí druh veřejné kopie a SHA-256 každé přílohy. U upravené kopie uvádí také SHA-256 archivovaného zdroje. Trestní podnět byl podle policie předán ÚO Prostějov. Datum doručení není doloženo."
     },
     {
       "id": "doc-cz-dd-2026-10-28-nsz-kratke-shrnuti-trestniho-podnetu",
