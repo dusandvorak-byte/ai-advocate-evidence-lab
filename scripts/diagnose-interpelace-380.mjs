@@ -20,8 +20,7 @@ const expected = [
 ];
 for (let i = 0; i < paths.length; i++) {
   const file = resolve('web', paths[i]);
-  const out = { stage, file: paths[i], expected };
-  delete out.expected;
+  const out = { stage, file: paths[i] };
   try {
     const bytes = await readFile(file);
     const metadata = await stat(file);
