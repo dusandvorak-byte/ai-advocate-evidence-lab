@@ -1069,6 +1069,9 @@ def main() -> None:
                 status = str(public.get("verification_status") or "published")
                 status_parts = [part.strip() for part in status.split(";") if part.strip()]
                 status_parts.append("publication_policy_hardened")
+                if rel.startswith("documents/okte-originaly-2026-10-30/") and result["after_sha"] != result["before_sha"]:
+                    status_parts = [part for part in status_parts if part != "byte_identical_police_provided_original"]
+                    status_parts.append("okte_structural_public_copy" if result["strategy"] == "qpdf_rewrite" else "not_byte_identical_original")
                 if result.get("text_fallback"):
                     status_parts.extend([
                         "verified_deterministic_public_text_copy",
@@ -1098,6 +1101,7 @@ def main() -> None:
                 "output_sha256": result["after_sha"],
                 "page_count": result["after_pages"],
                 "changed": result["changed"],
+                "strategy": result.get("strategy"),
                 "redaction_matches": result["matches"],
                 "text_fallback": result.get("text_fallback"),
                 "trigger_reasons": inspections[rel]["reasons"],

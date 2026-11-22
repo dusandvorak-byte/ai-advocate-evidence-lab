@@ -12,7 +12,7 @@ const short={
  nsz22:'Final original 22-page conditional NSZ intervention complaint dated 28 October 2026; court filing for 17 November is conditional, not yet evidenced.',
  ncoz:'Cassation complaint, case 18 A 17/2026, dated 30 October 2026. Full Czech-language text transcription, not the original PDF. Court receipt is unverified.',
  'ospro-nov1':'Urgent evidence supplement in criminal-reopening matters 15 Nt 3104/2026 and 15 Nt 3106/2026 dated 1 November 2026. Evidence annotation only, not a full original document.',
- krpm:'Original two-page Olomouc Regional Police response dated 30 October 2026. Its ten separately supplied historical OKTE expert-report PDF annexes are now linked below as byte-identical public originals, with SHA-256 provenance. The 2026 reply remains one incoming Godot record.',
+ krpm:'Original two-page Olomouc Regional Police response dated 30 October 2026. Its ten historical OKTE expert-report annexes are linked below with SHA-256 provenance. The 2026 reply remains one incoming Godot record.',
  'nsz-short':'Two-page summary of correspondence with the Supreme Public Prosecutor dated 28 October 2026. Evidence annotation only. Full original is referenced at Konopí je lék.cz.',
  'ospro-3105':'District Court of Prostějov notice on case 15 Nt 3105/2026 dated 30 October 2026. Evidence annotation only; this is not a ruling in pending case 15 Nt 3106/2026.',
  'ospro-3103':'District Court of Prostějov notice on case 15 Nt 3103/2026 dated 30 October 2026. Full text transcription, not the original PDF; this is not a ruling in pending case 15 Nt 3104/2026.'

@@ -70,6 +70,7 @@ await run('scripts/reconcile-public-pdfs.mjs');
 await runPython('scripts/harden-public-pdf-privacy.py');
 await run('scripts/reconcile-public-pdfs.mjs');
 await runPython('scripts/sync-deterministic-public-sha.py');
+await run('scripts/refresh-okte-public-annexes.mjs');
 await run('scripts/audit-registries.mjs');
 
 const documentsRegistry = await readJson(source.documents);

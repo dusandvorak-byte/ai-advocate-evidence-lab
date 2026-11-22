@@ -165,7 +165,7 @@ const renderChronologyRow = (item, index) => {
   const number = chronologyNumber(index);
   const sourceFilings = filingsForState(item);
   const remedies = remediesForState(item);
-  const okteAnnexLink = item.id === 'doc-cz-pcr-krpo-2026-10-30-krpm-145410-2' ? ' · <a href="listiny/2026-11-02-evidence-krpm.html#okte-originaly">10 původních příloh OKTE</a>' : '';
+  const okteAnnexLink = item.id === 'doc-cz-pcr-krpo-2026-10-30-krpm-145410-2' ? ' · <a href="listiny/2026-11-02-evidence-krpm.html#okte-originaly">10 příloh OKTE</a>' : '';
   return `<tr id="${escapeHtml(item.id)}" data-state-love-id="${escapeHtml(item.id)}" data-row-number="${number}" data-issue-date="${escapeHtml(item.issue_date)}" data-submission-side="incoming_from_state_or_public_institution"><td class="slalom-number">${number}</td><td><time datetime="${escapeHtml(item.issue_date)}">${escapeHtml(formatDate(item.issue_date))}</time></td><td>${escapeHtml(subjectName)}</td><td>${escapeHtml(referenceText(item))}</td><td>${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a>${okteAnnexLink}</td><td class="state-love-relation-cell">${renderRelated(sourceFilings)}</td><td class="state-love-relation-cell">${renderRelated(remedies)}</td></tr>`;
 };
 
