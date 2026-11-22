@@ -9,7 +9,7 @@ import fitz
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from publication_redaction import forbidden_public_identifiers, forbidden_public_identifier_byte_hits, prepared_private_byte_matchers
-from provenance_hardening_bridge import verify_hardening_bridge
+from provenance_hardening_bridge import is_okte_structural_repair, verify_hardening_bridge
 WEB = ROOT / "web"
 PUBLICATION_ROOT = Path(os.environ.get("EVIDENCE_LAB_PUBLICATION_ROOT", str(WEB))).resolve()
 CANONICAL_REGISTRY = Path(os.environ.get("EVIDENCE_LAB_CANONICAL_REGISTRY", str(ROOT / "project-memory/documents-2026.json"))).resolve()
@@ -973,9 +973,12 @@ def audit_okte(precomputed_facts=None):
         equivalent = False
         if transformed and approved.get(item["id"]) == source_expected and source_record.get("sha256") == source_expected:
             matches = [row for row in hardening_rows if row.get("id") == item["id"]]
-            if len(matches) == 1 and matches[0].get("strategy") == "qpdf_rewrite" and verify_hardening_bridge(
+            repair = matches[0] if len(matches) == 1 else {}
+            if is_okte_structural_repair(
+                repair.get("strategy"), repair.get("redaction_matches"), repair.get("text_fallback"),
+            ) and verify_hardening_bridge(
                 hardening_report=hardening,
-                hardening_row=matches[0],
+                hardening_row=repair,
                 document_id=item["id"],
                 public_path=rel,
                 input_sha256=source_expected,

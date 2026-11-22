@@ -9,6 +9,15 @@ def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def is_okte_structural_repair(strategy, redaction_matches, text_fallback) -> bool:
+    """Allow structural and metadata repairs with no text transformation."""
+    return (
+        strategy in ("qpdf_rewrite", "pymupdf_metadata")
+        and redaction_matches == []
+        and text_fallback is None
+    )
+
+
 def verify_hardening_bridge(
     *,
     hardening_report: dict,
