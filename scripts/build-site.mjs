@@ -19,8 +19,8 @@ const output = { article: 'web/zpravy/04082026-010.html', home: 'web/index.html'
 const correctTitle = 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?';
 const wrongTitle = 'Pavouk český křižák z Branibor';
 const readJson = async file => JSON.parse(await readFile(file, 'utf8'));
-const run = script => new Promise((resolve, reject) => {
-  const child = spawn(globalThis.process.execPath, [script], { stdio: 'inherit' });
+const run = (script, ...args) => new Promise((resolve, reject) => {
+  const child = spawn(globalThis.process.execPath, [script, ...args], { stdio: 'inherit' });
   child.on('error', reject);
   child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${script} skončil kódem ${code}`)));
 });
@@ -67,7 +67,10 @@ await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');
 // Resolve PDF ownership before hardening records each document's public digest.
 await run('scripts/reconcile-public-pdfs.mjs');
+// Read-only checkpoint: verify historical source provenance around privacy hardening.
+await run('scripts/diagnose-interpelace-380.mjs', 'before-hardening');
 await runPython('scripts/harden-public-pdf-privacy.py');
+await run('scripts/diagnose-interpelace-380.mjs', 'after-hardening');
 await run('scripts/reconcile-public-pdfs.mjs');
 await runPython('scripts/sync-deterministic-public-sha.py');
 await run('scripts/refresh-okte-public-annexes.mjs');

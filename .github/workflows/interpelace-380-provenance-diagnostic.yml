@@ -1,0 +1,35 @@
+name: Historical interpellation 380 provenance diagnostic (no secrets)
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/diagnose-interpelace-380.mjs'
+      - 'scripts/build-site.mjs'
+      - '.github/workflows/trusted-pdf-shard-diagnostic.yml'
+      - '.github/workflows/interpelace-380-provenance-diagnostic.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  historical-originals:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install PDF metadata inspector
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Validate read-only diagnostic syntax
+        run: node --check scripts/diagnose-interpelace-380.mjs
+      - name: Snapshot both historical originals at checkout
+        run: node scripts/diagnose-interpelace-380.mjs checkout
+      - name: Recover unrelated historical Git blobs as in trusted workflow
+        run: node scripts/recover-historical-binary-blobs.mjs
+      - name: Snapshot both historical originals after recovery
+        run: node scripts/diagnose-interpelace-380.mjs after-recovery
