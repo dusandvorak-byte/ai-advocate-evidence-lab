@@ -409,7 +409,7 @@ jobs:
       - name: Assemble sliced release evidence audit
         env:
           EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-          EXPECTED_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          EXPECTED_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: |
           python3 scripts/audit-release-evidence-sliced.py assemble 8
           grep -q '"hard_failure_count": 0' review-artifacts/release-evidence-audit.json
