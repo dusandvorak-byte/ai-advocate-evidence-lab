@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "authorization_scope": "publish-evidence-lab-gh-pages",
-  "authorized": false,
-  "authorized_target_sha": null,
-  "note": "Set authorized=true and authorized_target_sha to the immediately preceding verified main SHA in a commit that changes only this file."
+  "authorized": true,
+  "authorized_target_sha": "704741f73f87a0bef97e0e209c20b094ad7b9ac1",
+  "note": "Release only the verified Evidence Lab public tree for the immediately preceding main SHA; user-requested production publication, subject to zero hard-failure/privacy/provenance gates and live verification."
 }
