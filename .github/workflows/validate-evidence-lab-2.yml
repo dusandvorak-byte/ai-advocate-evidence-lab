@@ -47,6 +47,9 @@ jobs:
           node --check scripts/ekk-public-text-provenance.mjs
           node --check scripts/validate-ekk-evidence-2026-10-02.mjs
           node --test test/state-release-pdf-provenance.test.mjs
+          python3 test/audit_git_lineage.test.py -v
+          python3 test/workflow_git_lineage_binding.test.py -v
+          python3 -m py_compile scripts/audit-release-evidence-sliced.py scripts/audit_git_lineage.py
           node --check scripts/ensure-generated-state-pdfs.mjs
           node --check scripts/validate-justice-slalom.mjs
           node --test test/justice-slalom-pdf-provenance.test.mjs
@@ -407,7 +410,7 @@ jobs:
       - name: Assemble sliced release evidence audit
         env:
           EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-          EXPECTED_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          EXPECTED_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: |
           python3 scripts/audit-release-evidence-sliced.py assemble 8
           grep -q '"hard_failure_count": 0' review-artifacts/release-evidence-audit.json

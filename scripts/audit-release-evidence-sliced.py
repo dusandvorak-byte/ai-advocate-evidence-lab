@@ -6,6 +6,7 @@ import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+from audit_git_lineage import check_lineage
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT_PATH = ROOT / "scripts" / "audit-release-evidence-2026-11-13.py"
@@ -274,30 +275,37 @@ def cmd_assemble(count):
     failures = fragment_failures + reconciliation_fail + id68_fail + hardening_fail + okte_fail + redact_fail
     checkout_sha = current_checkout_sha()
     expected_head = os.environ.get("EXPECTED_HEAD_SHA", "").strip()
-    expected_base = os.environ.get("EXPECTED_BASE_SHA", "").strip()
-    expected_base_source = "workflow_event" if expected_base else "remote_main_derived"
-    if expected_head and checkout_sha != expected_head:
-        failures.append(f"checkout SHA {checkout_sha} != expected PR head {expected_head}")
+    event_base = os.environ.get("EXPECTED_BASE_SHA", "").strip()
 
-    remote = subprocess.run(["git", "ls-remote", "origin", "refs/heads/main"], check=False, capture_output=True, text=True)
+    remote = subprocess.run(
+        ["git", "ls-remote", "origin", "refs/heads/main"],
+        check=False, capture_output=True, text=True,
+    )
     remote_main_sha = remote.stdout.split()[0] if remote.returncode == 0 and remote.stdout.strip() else None
-    if not remote_main_sha:
-        failures.append("cannot verify current remote main SHA")
-    if not expected_base:
-        expected_base = remote_main_sha or ""
-    merge_base = None
-    base_is_ancestor = None
-    if expected_base:
-        ancestor = subprocess.run(["git", "merge-base", "--is-ancestor", expected_base, checkout_sha], capture_output=True, text=True)
-        base_is_ancestor = ancestor.returncode == 0
-        if not base_is_ancestor:
-            failures.append(f"expected base {expected_base} is not an ancestor of checkout {checkout_sha}")
-        merge = subprocess.run(["git", "merge-base", expected_base, checkout_sha], check=False, capture_output=True, text=True)
-        merge_base = merge.stdout.strip() or None
-        if merge.returncode != 0 or merge_base != expected_base:
-            failures.append(f"merge-base mismatch: expected {expected_base}, got {merge_base or 'none'}")
-        if remote_main_sha and remote_main_sha != expected_base:
-            failures.append(f"main advanced during validation: expected {expected_base}, remote main is {remote_main_sha}")
+    # A later push can advance remote main while an event-bound audit runs.
+    # Fetch its object for the ancestry check but never substitute it as base.
+    if remote_main_sha:
+        probe = subprocess.run(["git", "cat-file", "-e", remote_main_sha + "^{commit}"], capture_output=True)
+        if probe.returncode != 0:
+            fetch = subprocess.run(
+                ["git", "fetch", "--no-tags", "origin", "refs/heads/main"],
+                capture_output=True, text=True,
+            )
+            if fetch.returncode != 0:
+                failures.append("cannot fetch remote main object for independent ancestry check")
+    def git_command(args):
+        return subprocess.run(args, capture_output=True, text=True)
+
+    expected_base, expected_base_source, base_is_ancestor, merge_base, lineage_failures = check_lineage(
+        checkout=checkout_sha,
+        expected_head=expected_head,
+        expected_base=event_base,
+        remote_main=remote_main_sha,
+        github_actions=os.environ.get("GITHUB_ACTIONS") == "true",
+        run=git_command,
+        event_name=os.environ.get("GITHUB_EVENT_NAME", "push"),
+    )
+    failures.extend(lineage_failures)
 
     report = {
         "schema_version": "1.1-sliced",
