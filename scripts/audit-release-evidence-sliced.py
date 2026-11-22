@@ -241,7 +241,7 @@ def cmd_assemble(count):
     all_web_pdfs.sort(key=lambda row: row["published_path"])
 
     reconciliation, reconciliation_fail = audit.audit_registry_reconciliation(all_web_pdfs)
-    id68_fidelity, id68_fail = audit.audit_id68_fidelity(all_web_pdfs)
+    id68_fidelity, id68_fail = audit.audit_id68_fidelity(all_web_pdfs, generated)
 
     precomputed_facts = {}
     for row in all_web_pdfs:

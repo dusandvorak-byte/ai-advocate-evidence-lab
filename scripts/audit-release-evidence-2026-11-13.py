@@ -15,6 +15,8 @@ CANONICAL_REGISTRY = Path(os.environ.get("EVIDENCE_LAB_CANONICAL_REGISTRY", str(
 OUT = ROOT / "review-artifacts" / "release-evidence-audit.json"
 LIVE_BASE = "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/"
 EXCLUDED_ID69_SHA256 = "e73fcf803f59c4ed58cfb0ff01ee773cfedbd2782426132d3feeb715655d0ca2"
+ID68_PATH = "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf"
+ID68_TRANSCRIPT_SHA256 = "141f60f5f6c77fbffaf236ee9746c917db611d4072d20dbba6e31b89d33c8876"
 
 def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
@@ -537,6 +539,14 @@ def audit_generated():
                 f"known private identifier leaked into public derivative {target.relative_to(ROOT)}: "
                 f"{facts['known_private_identifier_hits']}"
             )
+        rebuild_sha = None
+        if target == WEB / ID68_PATH and len(source_rows) == 1 and source_rows[0]["sha256"] == ID68_TRANSCRIPT_SHA256:
+            renderer = runpy.run_path(str(ROOT / generator), run_name="id68_fidelity_rebuild")
+            renderer["register_state_font"]()
+            with tempfile.TemporaryDirectory(prefix="id68-fidelity-") as temporary:
+                rebuilt = Path(temporary) / target.name
+                renderer["make_pdf"](rebuilt, sources)
+                rebuild_sha = sha256_file(rebuilt)
         out.append({
             "output": target.relative_to(ROOT).as_posix(),
             "generator": generator,
@@ -545,6 +555,7 @@ def audit_generated():
             "generator_declared_original_sha256": declared_original_sha,
             "output_sha256": sha256_file(target),
             "output_size_bytes": target.stat().st_size,
+            **({"id68_rebuilt_sha256": rebuild_sha} if target == WEB / ID68_PATH else {}),
             **facts,
         })
     return out, failures
@@ -845,20 +856,27 @@ def audit_registry_reconciliation(staged_rows: list[dict]):
     }, failures
 
 
-def audit_id68_fidelity(staged_rows: list[dict]):
+def audit_id68_fidelity(staged_rows: list[dict], generated_rows: list[dict]):
     id68 = "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021-priloha-1"
-    expected_path = "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf"
+    expected_path = ID68_PATH
     expected_source_sha = "a9ea7ffed4f9eb7f759287dd949ce6bcb4027dd86a1e5c53fabaa2abc59331dd"
-    expected_public_sha = "336af9dff0ad906759d2bddae8868970026bfef063e516bb2c148ff74ea64e32"
     canonical = json.loads(CANONICAL_REGISTRY.read_text("utf-8"))
+    final = json.loads((PUBLICATION_ROOT / "data/documents-2026.json").read_text("utf-8"))
     item = next((x for x in canonical.get("documents", []) if x.get("id") == id68), None)
+    final_item = next((x for x in final.get("documents", []) if x.get("id") == id68), None)
     failures = []
     if not item:
         return {"id": id68, "status": "FAIL_MISSING_CANONICAL_RECORD"}, ["ID68 canonical record missing"]
 
     public = item.get("public") or {}
+    final_public = (final_item or {}).get("public") or {}
     root_row = next((r for r in staged_rows if r.get("published_path") == expected_path), None)
     mirror_row = next((r for r in staged_rows if r.get("published_path") == "web/" + expected_path), None)
+    generated = next((row for row in generated_rows if row.get("output") == "web/" + expected_path), {})
+    rebuild_sha = generated.get("id68_rebuilt_sha256")
+    stage_sha = root_row.get("sha256") if root_row else None
+    verified_output = bool(stage_sha and stage_sha == generated.get("output_sha256") == rebuild_sha)
+    mirror_required = PUBLICATION_ROOT != WEB
     source_text_path = ROOT / "project-memory/state-text-sources-2026-08-25/68-00.txt"
     source_text_value = source_text_path.read_text("utf-8") if source_text_path.is_file() else ""
 
@@ -866,15 +884,17 @@ def audit_id68_fidelity(staged_rows: list[dict]):
         "source_sha_recorded": public.get("source_original_sha256") == expected_source_sha,
         "source_page_count_recorded": public.get("source_original_page_count") == 2,
         "public_path_expected": public.get("pdf") == expected_path,
-        "public_sha_expected": public.get("sha256") == expected_public_sha,
+        "source_transcript_sha_matches": source_text_path.is_file() and sha256_file(source_text_path) == ID68_TRANSCRIPT_SHA256,
         "public_page_count_recorded": public.get("public_derivative_page_count") == 4,
         "public_staged_root_present": root_row is not None,
-        "public_staged_mirror_present": mirror_row is not None,
-        "public_staged_sha_expected": bool(root_row and root_row.get("sha256") == expected_public_sha),
+        "public_staged_mirror_matches": not mirror_required or bool(mirror_row and stage_sha and mirror_row.get("sha256") == stage_sha),
+        "public_staged_sha_matches_rebuilt_verified_transcript": verified_output,
+        "final_registry_path_and_sha_match": bool(stage_sha and final_public.get("pdf") == expected_path and final_public.get("sha256") == stage_sha),
         "public_staged_page_count_expected": bool(root_row and root_row.get("page_count") == 4),
         "fidelity_class_explicit": public.get("fidelity_class") == "verified_textual_public_copy_not_render_faithful",
-        "not_byte_identical_status_explicit": "not_byte_identical_original" in str(public.get("verification_status") or ""),
-        "visual_facsimile_not_claimed": "visual_facsimile_not_claimed" in str(public.get("verification_status") or ""),
+        "final_fidelity_class_explicit": final_public.get("fidelity_class") == public.get("fidelity_class"),
+        "not_byte_identical_status_explicit": "not_byte_identical_original" in str(final_public.get("verification_status") or ""),
+        "visual_facsimile_not_claimed": "visual_facsimile_not_claimed" in str(final_public.get("verification_status") or ""),
         "verified_source_text_has_table_1": "Tabulka č. 1" in source_text_value,
         "verified_source_text_has_scheme_1": "Schéma č. 1" in source_text_value,
     }
@@ -885,7 +905,8 @@ def audit_id68_fidelity(staged_rows: list[dict]):
         "id": id68,
         "source_original_sha256": expected_source_sha,
         "source_original_page_count": 2,
-        "public_derivative_sha256": expected_public_sha,
+        "public_derivative_sha256": stage_sha,
+        "rebuilt_public_derivative_sha256": rebuild_sha,
         "public_derivative_page_count": root_row.get("page_count") if root_row else None,
         "fidelity_class": public.get("fidelity_class"),
         "render_faithful_facsimile_claimed": False,
@@ -1026,7 +1047,7 @@ def main():
     registry_derivatives, registry_fail = audit_registry_public_derivatives()
     all_web_pdfs, all_web_fail = audit_all_web_pdfs()
     reconciliation, reconciliation_fail = audit_registry_reconciliation(all_web_pdfs)
-    id68_fidelity, id68_fail = audit_id68_fidelity(all_web_pdfs)
+    id68_fidelity, id68_fail = audit_id68_fidelity(all_web_pdfs, generated)
     hardening_path = ROOT / "project-memory/privacy-hardening-report.json"
     hardening = json.loads(hardening_path.read_text("utf-8"))
     hardening_fail = list(hardening.get("hard_failures") or [])
