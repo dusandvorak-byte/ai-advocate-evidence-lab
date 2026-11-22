@@ -248,6 +248,20 @@ private.person@example.invalid
             "pymupdf_metadata",
         )
 
+    def test_source_page_count_keeps_qpdf_warnings_separate_from_the_count(self):
+        ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"))
+        qpdf = ns["subprocess"]
+        source = self.tmpdir / "source.pdf"
+        warning = qpdf.CompletedProcess([], 3, b"4\n", b"synthetic warning")
+        with mock.patch.object(qpdf, "run", return_value=warning) as run:
+            self.assertEqual(ns["qpdf_page_count"](source), 4)
+            self.assertEqual(run.call_args.kwargs["stderr"], qpdf.PIPE)
+            self.assertFalse(ns["qpdf_structure_valid"](source))
+        error = qpdf.CompletedProcess([], 2, b"4\n", b"synthetic error")
+        with mock.patch.object(qpdf, "run", return_value=error):
+            with self.assertRaises(RuntimeError):
+                ns["qpdf_page_count"](source)
+
     def test_qpdf_rewrite_worker_does_not_reenter_deep_pymupdf_inspection(self):
         self.write_policy_and_contract()
         ns = runpy.run_path(

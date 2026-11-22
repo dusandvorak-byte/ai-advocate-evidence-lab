@@ -12,7 +12,7 @@ def sha256_file(path: Path) -> str:
 def is_okte_structural_repair(strategy, redaction_matches, text_fallback) -> bool:
     """Allow structural and metadata repairs with no text transformation."""
     return (
-        strategy in ("qpdf_rewrite", "pymupdf_metadata")
+        strategy in ("qpdf_rewrite", "pymupdf_metadata", "pymupdf_rewrite")
         and redaction_matches == []
         and text_fallback is None
     )

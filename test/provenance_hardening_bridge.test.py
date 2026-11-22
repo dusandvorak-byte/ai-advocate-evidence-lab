@@ -58,6 +58,7 @@ class HardeningBridgeRegressionTest(unittest.TestCase):
     def test_okte_structural_repair_rejects_text_changes(self):
         self.assertTrue(is_okte_structural_repair("qpdf_rewrite", [], None))
         self.assertTrue(is_okte_structural_repair("pymupdf_metadata", [], None))
+        self.assertTrue(is_okte_structural_repair("pymupdf_rewrite", [], None))
         self.assertFalse(is_okte_structural_repair("redact", [], None))
         self.assertFalse(is_okte_structural_repair("pymupdf_metadata", [{"page": 1}], None))
         self.assertFalse(is_okte_structural_repair("pymupdf_metadata", [], {}))
