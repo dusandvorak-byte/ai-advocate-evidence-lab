@@ -155,6 +155,8 @@ jobs:
           cp -a /tmp/evidence-audit/tree/release-site/. /tmp/verified-site/
           test "$(cat /tmp/verified-site/.source-commit)" = "$AUDIT_TARGET_SHA"
           test "$(cat /tmp/verified-site/web/.source-commit)" = "$AUDIT_TARGET_SHA"
+          test -f /tmp/verified-site/.nojekyll
+          test -f /tmp/verified-site/web/.nojekyll
           python3 scripts/validate-staged-legacy-pdf-provenance.py "$report" /tmp/verified-site
 
       - name: Potvrdit preflight-only režim bez publikace

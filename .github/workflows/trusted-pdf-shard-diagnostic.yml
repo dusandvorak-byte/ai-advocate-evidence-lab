@@ -117,8 +117,17 @@ jobs:
           path: |
             web
             release-site
+            !web/**/.*
+            !web/**/.*/**
+            !release-site/**/.*
+            !release-site/**/.*/**
+            release-site/.source-commit
+            release-site/web/.source-commit
+            release-site/.nojekyll
+            release-site/web/.nojekyll
             project-memory/documents-2026.json
             project-memory/privacy-hardening-report.json
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 3
 
