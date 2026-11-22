@@ -41,6 +41,7 @@ jobs:
 
       - name: Staticky ověřit privacy a release guardy
         run: |
+          node --check scripts/diagnose-four-records-provenance.mjs
           node --check scripts/validate-release-exclusions.mjs
           node --check scripts/state-release-pdf-provenance.mjs
           node --check scripts/validate-state-release-2026-09-29.mjs
