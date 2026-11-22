@@ -1,10 +1,12 @@
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { verifiedEkkPublicCopy } from './ekk-public-text-provenance.mjs';
 
 const fail = message => { throw new Error(`EKK-2026-10-02-GATE: ${message}`); };
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 const registry = JSON.parse(await readFile('project-memory/documents-2026-supplement-2026-10-02-ekk-os-pro.json','utf8'));
 const canonical = JSON.parse(await readFile('project-memory/documents-2026.json','utf8'));
+const hardening = JSON.parse(await readFile('project-memory/privacy-hardening-report.json','utf8'));
 const mainId = 'doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh';
 const annexId = 'doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026';
 const main = registry.documents?.find(x=>x.id===mainId);
@@ -36,12 +38,8 @@ for (const [item, expectedPages] of [[main,5],[annex,33]]) {
   // is updated to reflect the exact bytes of the final public, privacy-hardened PDF.
   const canonicalItem = canonical.documents?.find(entry => entry.id === item.id);
   if (!canonicalItem || canonicalItem.public?.pdf !== item.public.pdf) fail(`PDF ${item.id} chybí v konečném kanonickém registru nebo má jinou cestu`);
-  const status = String(canonicalItem.public?.verification_status || '');
-  if (!/^[a-f0-9]{64}$/i.test(String(canonicalItem.public?.sha256 || '')) ||
-      !String(item.public?.verification_status || '').includes('verified_text_public_copy') ||
-      !status.includes('verified_text_public_copy') ||
-      !status.includes('publication_policy_hardened') ||
-      hash !== canonicalItem.public.sha256) fail(`PDF ${item.id} nemá ověřenou veřejnou textovou provenienci finální zredigované kopie`);
+  if (!verifiedEkkPublicCopy({ sourceDoc: item, finalDoc: canonicalItem, digest: hash, report: hardening }))
+    fail(`PDF ${item.id} nemá ověřenou veřejnou textovou provenienci finální veřejné kopie`);
   if (pageCount !== expectedPages) fail(`PDF ${item.id} má ${pageCount} stran místo ${expectedPages}`);
 }
 const slalom = JSON.parse(await readFile('web/data/justice-slalom.json','utf8'));
