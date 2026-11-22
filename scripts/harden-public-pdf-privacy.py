@@ -66,6 +66,8 @@ def sha256_bytes(data: bytes) -> str:
 
 CANDIDATE_STAGE_SUFFIX = ".candidate.pdf"
 COPY_CHUNK_BYTES = 1024 * 1024
+# A fallback normalization can run between two full, separately timed checks.
+CANDIDATE_WORKER_TIMEOUT_SECONDS = 600
 
 
 def sha256_file(path: Path) -> str:
@@ -513,18 +515,20 @@ def qpdf_page_count(path: Path) -> int:
         proc = subprocess.run(
             ["qpdf", "--show-npages", str(path)],
             stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
+            stderr=subprocess.PIPE,
             timeout=20,
         )
     except (OSError, subprocess.TimeoutExpired) as exc:
         raise RuntimeError(f"qpdf page-count failed: {type(exc).__name__}") from exc
-    if proc.returncode != 0:
-        raise RuntimeError(
-            "qpdf page-count failed: "
-            + proc.stdout.decode("utf-8", errors="replace")[-1000:]
-        )
+    # Warnings may accompany a useful count for the immutable input. The
+    # repaired output still needs a strict structure check before commit.
+    if proc.returncode not in (0, 3):
+        raise RuntimeError(f"qpdf page-count failed with exit code {proc.returncode}")
     try:
-        return int(proc.stdout.decode("ascii", errors="strict").strip())
+        count = int(proc.stdout.decode("ascii", errors="strict").strip())
+        if count < 1:
+            raise ValueError("no pages")
+        return count
     except (ValueError, UnicodeError) as exc:
         raise RuntimeError("qpdf page-count returned invalid output") from exc
 
@@ -727,7 +731,7 @@ def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) 
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
-                timeout=330,
+                timeout=CANDIDATE_WORKER_TIMEOUT_SECONDS,
             )
         except subprocess.TimeoutExpired:
             return unchanged_failure(
