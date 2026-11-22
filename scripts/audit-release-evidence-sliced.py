@@ -303,6 +303,7 @@ def cmd_assemble(count):
         remote_main=remote_main_sha,
         github_actions=os.environ.get("GITHUB_ACTIONS") == "true",
         run=git_command,
+        event_name=os.environ.get("GITHUB_EVENT_NAME", "push"),
     )
     failures.extend(lineage_failures)
 
