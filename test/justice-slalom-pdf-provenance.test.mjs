@@ -1,5 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import { runInNewContext } from 'node:vm';
 
 import {
   evaluateJusticeSlalomPdfProvenance,
@@ -401,4 +404,15 @@ test('malformed concrete hardening evidence IDs fail closed', () => {
     assert.equal(result.hardeningReportOk, false, malformedId);
     assert.equal(result.hardeningById.size, 0, malformedId);
   }
+});
+
+
+test('Justicni slalom digest uses a defined SHA-256 expression for pinned UOOU document', () => {
+  const source = readFileSync(new URL('../scripts/validate-justice-slalom.mjs', import.meta.url), 'utf8');
+  const assignment = source.match(/^const uoouDigest = [^\n]+;$/m)?.[0];
+  assert.ok(assignment, 'UOOU digest assignment must exist');
+  const uoouBytes = Buffer.from('%PDF-1.7 synthetic regression fixture');
+  const actual = runInNewContext(`${assignment}\nuoouDigest;`, { uoouBytes, createHash });
+  const expected = createHash('sha256').update(uoouBytes).digest('hex');
+  assert.equal(actual, expected);
 });
