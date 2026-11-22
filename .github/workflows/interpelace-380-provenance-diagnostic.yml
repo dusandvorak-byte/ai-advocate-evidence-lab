@@ -22,6 +22,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Install PDF metadata inspector
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
       - name: Validate read-only diagnostic syntax
         run: node --check scripts/diagnose-interpelace-380.mjs
       - name: Snapshot both historical originals at checkout
