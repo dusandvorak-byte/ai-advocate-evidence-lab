@@ -520,10 +520,9 @@ jobs:
           ! grep -q 'background:#ffeb3b' /tmp/live-styles.css
 
           fetch_pdf_until_sha() {
-            rel="$1"
-            local_file="$2"
-            target="$3"
-            expected="$(sha256sum "$local_file" | cut -d' ' -f1)"
+            local rel="$1" target="$2"
+            local expected actual attempt
+            expected="$(sha256sum "/tmp/verified-site/$rel" | cut -d' ' -f1)"
             for attempt in {1..12}; do
               rm -f "$target"
               if curl -fsSL --connect-timeout 10 --max-time 30 "$base/$rel$stamp&pdf_try=$attempt" -o "$target"; then
@@ -543,32 +542,32 @@ jobs:
               sleep 5
             done
           }
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf" "web/documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf" /tmp/live-slalom.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf" "web/documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf" /tmp/live-ospro.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/086-podani-2026-10-01.pdf" "web/documents/justice-slalom/2026-10/086-podani-2026-10-01.pdf" /tmp/live-uocr.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/087-podani-2026-10-01.pdf" "web/documents/justice-slalom/2026-10/087-podani-2026-10-01.pdf" /tmp/live-18a17.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/088-podani-2026-10-01.pdf" "web/documents/justice-slalom/2026-10/088-podani-2026-10-01.pdf" /tmp/live-18a23.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/084-podani-2026-10-01.pdf" /tmp/live-slalom.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/085-podani-2026-10-01.pdf" /tmp/live-ospro.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/086-podani-2026-10-01.pdf" /tmp/live-uocr.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/087-podani-2026-10-01.pdf" /tmp/live-18a17.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/088-podani-2026-10-01.pdf" /tmp/live-18a23.pdf
 
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/089-podani-2026-10-02-original.pdf" "web/documents/justice-slalom/2026-10/089-podani-2026-10-02-original.pdf" /tmp/live-uoou-1002.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/090-podani-2026-10-02-verejna-textova-kopie.pdf" "web/documents/justice-slalom/2026-10/090-podani-2026-10-02-verejna-textova-kopie.pdf" /tmp/live-ekk-1002.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/091-priloha-dukazni-chronologie-2008-2026-verejna-textova-kopie.pdf" "web/documents/justice-slalom/2026-10/091-priloha-dukazni-chronologie-2008-2026-verejna-textova-kopie.pdf" /tmp/live-ekk-chronology-1002.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf" "web/documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf" /tmp/live-ks315.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf" "web/documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf" /tmp/live-prima-1002.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf" "web/documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf" /tmp/live-ms191.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf" "web/documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf" /tmp/live-a17-reaction-1004.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf" "web/documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf" /tmp/live-chronology-1004.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf" "web/documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf" /tmp/live-key-evidence-1004.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava.pdf" "web/documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava.pdf" /tmp/live-ks-ostrava-1004.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank.pdf" "web/documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank.pdf" /tmp/live-cnb-1006.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf" "web/documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf" /tmp/live-ms-1006.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf" "web/documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf" /tmp/live-eu-ombudsman-1006.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07.pdf" "web/documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07.pdf" /tmp/live-mv-1007.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz.pdf" "web/documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz.pdf" /tmp/live-slalom-1006-nsz-vsz.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf" "web/documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf" /tmp/live-slalom-1008.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/116-eu-ombudsman-202602199-2026-10-07.pdf" "web/documents/report-04082026-010/116-eu-ombudsman-202602199-2026-10-07.pdf" /tmp/live-omb-1007.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf" "web/documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf" /tmp/live-ms15ad13.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf" "web/documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf" /tmp/live-ms15ad17.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/104-podani-2026-10-12-osz-os-prostejov-redigovany-original.pdf" "web/documents/justice-slalom/2026-10/104-podani-2026-10-12-osz-os-prostejov-redigovany-original.pdf" /tmp/live-osz-os-1012.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/089-podani-2026-10-02-original.pdf" /tmp/live-uoou-1002.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/090-podani-2026-10-02-verejna-textova-kopie.pdf" /tmp/live-ekk-1002.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/091-priloha-dukazni-chronologie-2008-2026-verejna-textova-kopie.pdf" /tmp/live-ekk-chronology-1002.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf" /tmp/live-ks315.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/092-podani-2026-10-02.pdf" /tmp/live-prima-1002.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf" /tmp/live-ms191.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/093-podani-2026-10-04.pdf" /tmp/live-a17-reaction-1004.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/094-priloha-dukazni-chronologie-2008-2026-original.pdf" /tmp/live-chronology-1004.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/095-podani-2026-10-04-klicove-dukazy.pdf" /tmp/live-key-evidence-1004.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/096-podani-2026-10-04-ks-ostrava.pdf" /tmp/live-ks-ostrava-1004.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank.pdf" /tmp/live-cnb-1006.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/098-podani-2026-10-06-ms-praha-18a17-18a23.pdf" /tmp/live-ms-1006.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/112-complaint-european-ombudsman-euda-2026-10-06.pdf" /tmp/live-eu-ombudsman-1006.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/115-mv-134798-4-so-2026-2026-10-07.pdf" /tmp/live-mv-1007.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz.pdf" /tmp/live-slalom-1006-nsz-vsz.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf" /tmp/live-slalom-1008.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/116-eu-ombudsman-202602199-2026-10-07.pdf" /tmp/live-omb-1007.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf" /tmp/live-ms15ad13.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf" /tmp/live-ms15ad17.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/104-podani-2026-10-12-osz-os-prostejov-redigovany-original.pdf" /tmp/live-osz-os-1012.pdf
           # Confirm the actual gh-pages tree contains the expected bytes before testing CDN propagation.
           pdf_rel="documents/justice-slalom/2026-10/105-podani-2026-10-15-police-thc-trestni-podnet-redigovany-original.pdf"
           pdf_local="web/$pdf_rel"
@@ -584,26 +583,26 @@ jobs:
           test -s /tmp/evidence-verify-live-pdf.mjs
           test "$(sha256sum /tmp/evidence-verify-live-pdf.mjs | awk '{print $1}')" = "$(cat /tmp/evidence-verify-live-pdf.sha256)"
           node /tmp/evidence-verify-live-pdf.mjs "$base/$pdf_rel" "$pdf_local" "$AUDIT_TARGET_SHA" "" /tmp/live-police-1015.pdf
-          fetch_pdf_until_sha "documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-redigovany-original.pdf" "web/documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-redigovany-original.pdf" /tmp/live-omb-supp-1015.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/119-euda-access-followup-2026-10-15-verejna-kopie.pdf" "web/documents/report-04082026-010/119-euda-access-followup-2026-10-15-verejna-kopie.pdf" /tmp/live-euda-1015.pdf
+          fetch_pdf_until_sha "documents/justice-slalom/2026-10/106-podani-2026-10-15-ombudsman-202602199-redigovany-original.pdf" /tmp/live-omb-supp-1015.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/119-euda-access-followup-2026-10-15-verejna-kopie.pdf" /tmp/live-euda-1015.pdf
           # Verify all ten audited public annexes of the Olomouc Police response.
           shopt -s nullglob
-          okte_originals=(web/documents/okte-originaly-2026-10-30/*.pdf)
+          okte_originals=(/tmp/verified-site/documents/okte-originaly-2026-10-30/*.pdf)
           test "${#okte_originals[@]}" -eq 10
           curl -fsSL --retry 4 --retry-delay 3 --retry-all-errors "$base/listiny/2026-11-02-evidence-krpm.html$stamp" -o /tmp/live-okte-olomouc-parent.html
           for local_original in "${okte_originals[@]}"; do
-            okte_rel="${local_original#web/}"
+            okte_rel="${local_original#/tmp/verified-site/}"
             expected_okte="$(sha256sum "$local_original" | cut -d' ' -f1)"
             git_okte="$(git show "FETCH_HEAD:$okte_rel" | sha256sum | cut -d' ' -f1)"
             test "$expected_okte" = "$git_okte" || { echo "OKTE_GH_PAGES_SHA_MISMATCH $okte_rel" >&2; exit 1; }
             grep -Fq "$okte_rel" /tmp/live-okte-olomouc-parent.html || { echo "OKTE_PARENT_LINK_MISSING $okte_rel" >&2; exit 1; }
-            fetch_pdf_until_sha "$okte_rel" "$local_original" "/tmp/live-okte-$(basename "$local_original")"
+            fetch_pdf_until_sha "$okte_rel" "/tmp/live-okte-$(basename "$local_original")"
           done
           echo "LIVE_OKTE_ANNEXES_VERIFIED: 10 independent URLs, audited public SHA256 and parent links."
-          fetch_pdf_until_sha "documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf" "web/documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf" /tmp/live-ms186.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/108-ncoz-4346-2-cj-2026-410012-2026-05-20.pdf" "web/documents/report-04082026-010/108-ncoz-4346-2-cj-2026-410012-2026-05-20.pdf" /tmp/live-ncoz.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf" "web/documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf" /tmp/live-euda-1001.pdf
-          fetch_pdf_until_sha "documents/report-04082026-010/106-ksz-brno-1-spr-338-2026-5-2026-10-01.pdf" "web/documents/report-04082026-010/106-ksz-brno-1-spr-338-2026-5-2026-10-01.pdf" /tmp/live-ksz.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/107-ms-praha-18-a-17-2026-186-2026-09-30.pdf" /tmp/live-ms186.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/108-ncoz-4346-2-cj-2026-410012-2026-05-20.pdf" /tmp/live-ncoz.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/109-euda-comparability-thc-access-documents-2026-10-01-verejna-kopie.pdf" /tmp/live-euda-1001.pdf
+          fetch_pdf_until_sha "documents/report-04082026-010/106-ksz-brno-1-spr-338-2026-5-2026-10-01.pdf" /tmp/live-ksz.pdf
           curl -fsSL --retry 12 --retry-delay 5 --retry-all-errors "$base/documents/report-04082026-010/105-msz-praha-3-kzn-974-2026-114-2026-10-01-verejna-kopie.pdf$stamp" -o /tmp/live-msz.pdf
           test "$(head -c 5 /tmp/live-slalom.pdf)" = '%PDF-'
           test "$(head -c 5 /tmp/live-ospro.pdf)" = '%PDF-'
