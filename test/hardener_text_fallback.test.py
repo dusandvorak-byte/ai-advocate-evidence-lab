@@ -195,6 +195,27 @@ class HardenerTextFallbackTests(unittest.TestCase):
         self.assertEqual(self.pdf.read_bytes(), self.original_bytes)
         self.assertTrue(candidate["changed"])
 
+    def test_parent_recovers_source_page_count_when_initial_inspection_is_unknown(self):
+        inspection = {"page_count": None, "reasons": ["private_match"]}
+        verified = b"verified-staged-pdf"
+        observed = {}
+
+        def successful_worker(args, **kwargs):
+            stage = self.web / args[4]
+            observed["worker_input"] = json.loads(args[7])
+            stage.write_bytes(verified)
+            payload = self.candidate_payload(verified)
+            payload["before_pages"] = 1
+            return SimpleNamespace(returncode=0, stdout=json.dumps({"candidate": payload}) + "\n", stderr="")
+
+        self.globals["qpdf_page_count"] = lambda path: 1
+        with mock.patch.object(self.globals["subprocess"], "run", side_effect=successful_worker):
+            result = self.ns["process_candidate_isolated"]("sample.pdf", True, inspection)
+
+        self.assertEqual(observed["worker_input"]["page_count"], 1)
+        self.assertEqual(result["before_pages"], 1)
+        self.assertTrue(result["changed"])
+
     def test_parent_timeout_leaves_canonical_unchanged_and_cleans_stage(self):
         inspection = {"page_count": 1, "reasons": ["private_match"]}
         with mock.patch.object(
