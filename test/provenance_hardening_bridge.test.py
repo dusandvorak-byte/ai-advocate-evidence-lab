@@ -10,7 +10,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from provenance_hardening_bridge import verify_hardening_bridge
+from provenance_hardening_bridge import is_okte_structural_repair, verify_hardening_bridge
 
 
 def digest(data: bytes) -> str:
@@ -54,6 +54,14 @@ class HardeningBridgeRegressionTest(unittest.TestCase):
 
     def test_valid_chain_passes(self):
         self.assertTrue(self.verify())
+
+    def test_okte_structural_repair_rejects_text_changes(self):
+        self.assertTrue(is_okte_structural_repair("qpdf_rewrite", [], None))
+        self.assertTrue(is_okte_structural_repair("pymupdf_metadata", [], None))
+        self.assertFalse(is_okte_structural_repair("redact", [], None))
+        self.assertFalse(is_okte_structural_repair("pymupdf_metadata", [{"page": 1}], None))
+        self.assertFalse(is_okte_structural_repair("pymupdf_metadata", [], {}))
+        self.assertFalse(is_okte_structural_repair("pymupdf_metadata", None, None))
 
     def test_deleted_final_pdf_fails(self):
         self.final.unlink()

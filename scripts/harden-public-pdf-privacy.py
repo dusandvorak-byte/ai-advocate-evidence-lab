@@ -23,12 +23,15 @@ from publication_redaction import (
     redact_public_text,
 )
 from public_text_fallback import atomic_replace_bytes, build_public_text_copy
+from provenance_hardening_bridge import is_okte_structural_repair
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
 REGISTRY = ROOT / "project-memory/documents-2026.json"
 REPORT = ROOT / "project-memory/privacy-hardening-report.json"
 POLICY = ROOT / "scripts/publication_redaction.py"
+OKTE_STRUCTURAL_COPY_APPROVALS = ROOT / "project-memory/okte-structural-public-copies.json"
+OKTE_ANNEX_DIRECTORY = "documents/okte-originaly-2026-10-30/"
 
 DERIVATIVE_MARKERS = ("generated", "public_copy", "text_copy", "redacted", "not_byte_identical")
 FILENAME_DERIVATIVE = re.compile(r"(?i)(verejna|veřejná|textova|textová|redigovan|public[-_ ]?copy)")
@@ -980,6 +983,7 @@ def main() -> None:
     policy_sha = sha256_file(POLICY)
     pdf_rules, authenticated_policy_identity = private_pdf_rules()
     matchers = prepared_private_byte_matchers()
+    approved_okte = json.loads(OKTE_STRUCTURAL_COPY_APPROVALS.read_text("utf-8"))["records"]
     rows = []
     failures = []
 
@@ -1069,9 +1073,13 @@ def main() -> None:
                 status = str(public.get("verification_status") or "published")
                 status_parts = [part.strip() for part in status.split(";") if part.strip()]
                 status_parts.append("publication_policy_hardened")
-                if rel.startswith("documents/okte-originaly-2026-10-30/") and result["after_sha"] != result["before_sha"]:
+                if rel.startswith(OKTE_ANNEX_DIRECTORY) and result["after_sha"] != result["before_sha"]:
                     status_parts = [part for part in status_parts if part != "byte_identical_police_provided_original"]
-                    status_parts.append("okte_structural_public_copy" if result["strategy"] == "qpdf_rewrite" else "not_byte_identical_original")
+                    approved_structure = (
+                        approved_okte.get(item["id"]) == result["before_sha"]
+                        and is_okte_structural_repair(result.get("strategy"), result["matches"], result.get("text_fallback"))
+                    )
+                    status_parts.append("okte_structural_public_copy" if approved_structure else "not_byte_identical_original")
                 if result.get("text_fallback"):
                     status_parts.extend([
                         "verified_deterministic_public_text_copy",
