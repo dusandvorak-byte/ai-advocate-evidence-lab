@@ -110,6 +110,27 @@ jobs:
           test -n "$EVIDENCE_LAB_CANONICAL_PROVENANCE_CONTRACT_SHA256"
           python3 scripts/validate-canonical-pdf-sha-provenance.py
 
+      - name: Verify hidden release marker allowlist before artifact upload
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat release-site/.source-commit)" = "$GITHUB_SHA"
+          test "$(cat release-site/web/.source-commit)" = "$GITHUB_SHA"
+          test -f release-site/.nojekyll
+          test -f release-site/web/.nojekyll
+          while IFS= read -r -d '' hidden_path; do
+            case "$hidden_path" in
+              web/.nojekyll|release-site/.nojekyll|release-site/.source-commit|release-site/web/.nojekyll|release-site/web/.source-commit)
+                ;;
+              *)
+                echo "Refusing unexpected hidden artifact content: $hidden_path" >&2
+                exit 1
+                ;;
+            esac
+          done < <(find web release-site -mindepth 1 -name '.*' -print0)
+          test -z "$(find web release-site -type l -print -quit)"
+          echo "Hidden artifact markers are strictly allowlisted and SHA-bound."
+
       - name: Upload prepared public tree and hardening report
         uses: actions/upload-artifact@v4
         with:
@@ -120,6 +141,7 @@ jobs:
             project-memory/documents-2026.json
             project-memory/privacy-hardening-report.json
           if-no-files-found: error
+          include-hidden-files: true
           retention-days: 3
 
   slices:
