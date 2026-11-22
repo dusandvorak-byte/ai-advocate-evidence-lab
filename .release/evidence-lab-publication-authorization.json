@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "authorization_scope": "publish-evidence-lab-gh-pages",
-  "authorized": false,
-  "authorized_target_sha": null,
-  "note": "Set authorized=true and authorized_target_sha to the immediately preceding verified main SHA in a commit that changes only this file."
+  "authorized": true,
+  "authorized_target_sha": "ea399796f6cc42a9a85244f169462b6a16c7168b",
+  "note": "Release exact audited public tree from the immediately preceding main SHA; publish only after authoritative trusted PDF shard audit and independent full validation pass with zero hard failures and preserved privacy and source provenance."
 }
