@@ -284,7 +284,12 @@ def cmd_assemble(count):
     if not remote_main_sha:
         failures.append("cannot verify current remote main SHA")
     if not expected_base:
-        expected_base = remote_main_sha or ""
+        # GitHub push/PR evidence is immutable: never substitute mutable
+        # remote main when the workflow omitted its event-bound base SHA.
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            failures.append("EXPECTED_BASE_SHA missing from immutable GitHub event")
+        else:
+            expected_base = remote_main_sha or ""
     merge_base = None
     base_is_ancestor = None
     if expected_base:
@@ -296,8 +301,18 @@ def cmd_assemble(count):
         merge_base = merge.stdout.strip() or None
         if merge.returncode != 0 or merge_base != expected_base:
             failures.append(f"merge-base mismatch: expected {expected_base}, got {merge_base or 'none'}")
-        if remote_main_sha and remote_main_sha != expected_base:
-            failures.append(f"main advanced during validation: expected {expected_base}, remote main is {remote_main_sha}")
+        if remote_main_sha:
+            # main may legitimately advance after this run starts. Confirm
+            # checkout remains in its ancestry; never use its mutable tip as
+            # this run's expected base.
+            remote_ancestor = subprocess.run(
+                ["git", "merge-base", "--is-ancestor", checkout_sha, remote_main_sha],
+                capture_output=True, text=True,
+            )
+            if remote_ancestor.returncode != 0:
+                failures.append(
+                    f"remote main diverged from audited checkout {checkout_sha}: {remote_main_sha}"
+                )
 
     report = {
         "schema_version": "1.1-sliced",
