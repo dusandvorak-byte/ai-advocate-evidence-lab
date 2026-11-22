@@ -28,7 +28,7 @@ for (let i = 0; i < paths.length; i++) {
     let pages = null;
     try {
       const pdfinfo = execFileSync('pdfinfo', [file], { encoding: 'utf8', timeout: 10000, stdio: ['ignore','pipe','ignore'] });
-      const match = pdfinfo.match(/^Pages:\\s+(\\d+)\\s*$/m);
+      const match = pdfinfo.match(/^Pages:\s+(\d+)\s*$/m);
       pages = match ? Number(match[1]) : null;
     } catch { pages = null; }
     const sha256 = createHash('sha256').update(bytes).digest('hex');
