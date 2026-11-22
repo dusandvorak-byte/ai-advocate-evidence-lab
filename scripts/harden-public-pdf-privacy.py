@@ -685,6 +685,8 @@ def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) 
     path = WEB / rel
     before_sha = sha256_file(path)
     before_pages = inspection.get("page_count")
+    if before_pages is None:
+        before_pages = qpdf_page_count(path)
     stage: Path | None = None
 
     def unchanged_failure(message: str, candidate: dict | None = None) -> dict:
