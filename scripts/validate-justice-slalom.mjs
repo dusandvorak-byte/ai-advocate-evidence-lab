@@ -119,7 +119,7 @@ const uoouOriginal = items.find(item => item.id === 'doc-cz-dd-2026-10-02-uoou-s
 if (!uoouOriginal) fail('ÚOOÚ 2. 10. 2026 chybí v kanonickém registru');
 const uoouExpectedSourceSha = '37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74';
 const uoouBytes = await readFile(`web/${uoouOriginal.public.pdf}`).catch(() => fail('ÚOOÚ 2. 10. 2026 nemá dostupné veřejné PDF'));
-const uoouDigest = sha(uoouBytes);
+const uoouDigest = createHash('sha256').update(uoouBytes).digest('hex');
 const uoouEvaluation = evaluatePinnedJusticeSlalomOriginal({
   doc: uoouOriginal,
   digest: uoouDigest,
