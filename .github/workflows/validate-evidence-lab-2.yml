@@ -47,6 +47,8 @@ jobs:
           node --check scripts/ekk-public-text-provenance.mjs
           node --check scripts/validate-ekk-evidence-2026-10-02.mjs
           node --test test/state-release-pdf-provenance.test.mjs
+          python3 -m unittest discover -s test -p 'audit_git_lineage.test.py' -v
+          python3 -m py_compile scripts/audit-release-evidence-sliced.py scripts/audit_git_lineage.py
           node --check scripts/ensure-generated-state-pdfs.mjs
           node --check scripts/validate-justice-slalom.mjs
           node --test test/justice-slalom-pdf-provenance.test.mjs
