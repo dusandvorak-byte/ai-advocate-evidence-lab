@@ -5,7 +5,7 @@ import subprocess
 SHA = re.compile(r"^[0-9a-f]{40}$")
 
 
-def check_lineage(*, checkout, expected_head, expected_base, remote_main, github_actions, run):
+def check_lineage(*, checkout, expected_head, expected_base, remote_main, github_actions, run, event_name="push"):
     """Return validated base, source, ancestry details and blocking failures.
 
     run(args) returns a subprocess.CompletedProcess-like object.
@@ -40,9 +40,14 @@ def check_lineage(*, checkout, expected_head, expected_base, remote_main, github
         if merge_base != expected_base:
             failures.append(f"merge-base mismatch: expected {expected_base}, got {merge_base or 'none'}")
     if SHA.fullmatch(remote_main or "") and SHA.fullmatch(checkout):
-        # Caller fetches remote tip if missing. A newer descendant is fine:
-        # an immutable event-bound audit must not fail solely due to later pushes.
-        descendant = run(["git", "merge-base", "--is-ancestor", checkout, remote_main])
-        if descendant.returncode != 0:
-            failures.append(f"remote main diverged from audited checkout {checkout}: {remote_main}")
+        # A main push can be audited while later main commits arrive.
+        # A PR must be based on the current main, not an unrelated branch.
+        if event_name == "pull_request":
+            relation = run(["git", "merge-base", "--is-ancestor", remote_main, checkout])
+            if relation.returncode != 0:
+                failures.append(f"remote main is not an ancestor of PR checkout {checkout}: {remote_main}")
+        else:
+            relation = run(["git", "merge-base", "--is-ancestor", checkout, remote_main])
+            if relation.returncode != 0:
+                failures.append(f"remote main diverged from audited checkout {checkout}: {remote_main}")
     return expected_base, source, base_is_ancestor, merge_base, failures
