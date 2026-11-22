@@ -67,7 +67,10 @@ await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');
 // Resolve PDF ownership before hardening records each document's public digest.
 await run('scripts/reconcile-public-pdfs.mjs');
+// Read-only checkpoint: verify historical source provenance around privacy hardening.
+await run('scripts/diagnose-interpelace-380.mjs', 'before-hardening');
 await runPython('scripts/harden-public-pdf-privacy.py');
+await run('scripts/diagnose-interpelace-380.mjs', 'after-hardening');
 await run('scripts/reconcile-public-pdfs.mjs');
 await runPython('scripts/sync-deterministic-public-sha.py');
 await run('scripts/refresh-okte-public-annexes.mjs');
