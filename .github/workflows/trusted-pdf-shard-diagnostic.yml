@@ -57,7 +57,9 @@ jobs:
         run: |
           set -euo pipefail
           python3 test/publication_redaction.test.py
+          node scripts/diagnose-interpelace-380.mjs checkout
           node scripts/recover-historical-binary-blobs.mjs
+          node scripts/diagnose-interpelace-380.mjs after-recovery
           node scripts/materialize-godot-pdf-bundle.mjs
           node scripts/materialize-godot-state-bundle-2026-08-24.mjs
           python3 scripts/materialize-uoou-2026-08-26.py
