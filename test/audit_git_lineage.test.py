@@ -28,11 +28,11 @@ class ImmutableAuditBaseTests(unittest.TestCase):
         self.run = git_graph({(BASE, HEAD), (HEAD, LATER), (HEAD, HEAD)}, {(BASE, HEAD): BASE, (HEAD, HEAD): HEAD})
 
     def verify(self, *, checkout=HEAD, expected_head=HEAD, expected_base=BASE,
-               remote_main=LATER, github_actions=True, run=None):
+               remote_main=LATER, github_actions=True, run=None, event_name="push"):
         return check_lineage(
             checkout=checkout, expected_head=expected_head,
             expected_base=expected_base, remote_main=remote_main,
-            github_actions=github_actions, run=run or self.run
+            github_actions=github_actions, run=run or self.run, event_name=event_name
         )
 
     def test_remote_main_can_advance_to_descendant_during_audit(self):
@@ -57,6 +57,13 @@ class ImmutableAuditBaseTests(unittest.TestCase):
         failures = self.verify(expected_base=LATER)[-1]
         self.assertTrue(any("not an ancestor" in f for f in failures))
         self.assertTrue(any("merge-base mismatch" in f for f in failures))
+
+    def test_pr_based_on_remote_main_is_valid(self):
+        self.assertEqual(self.verify(remote_main=BASE, event_name="pull_request")[-1], [])
+
+    def test_pr_divergent_from_remote_main_fails_closed(self):
+        failures = self.verify(remote_main=DIVERGED, event_name="pull_request")[-1]
+        self.assertTrue(any("not an ancestor of PR checkout" in f for f in failures))
 
     def test_identical_checkout_and_remote_is_valid(self):
         self.assertEqual(self.verify(remote_main=HEAD)[-1], [])
