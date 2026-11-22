@@ -281,7 +281,7 @@ def decoded_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
 
 
 def inspect_pdf_fast(path: Path, matchers) -> dict:
-    """Fast candidate selection using native text extraction and cheap metadata/envelope checks."""
+    """Inspect both text channels and the PDF structure before choosing a repair."""
     raw = path.read_bytes()
     envelope = pdf_revision_envelope(raw)
     raw_private_hits = sorted(set(
@@ -302,26 +302,30 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
         text_bytes = b""
 
     byte_hits = sorted(set(forbidden_public_identifier_byte_hits(text_bytes, matchers, scan_pdf_strings=False))) if text_scan_ok else []
-    text = text_bytes.decode("utf-8", errors="ignore")
-    text_private_hits = sorted(set(byte_hits + forbidden_public_identifiers(text))) if text_scan_ok else []
-    text_casefold = text.casefold()
-    redaction_rule_ids = sorted({
-        rule["id"]
-        for rule in private_pdf_rules()[0]
-        if any(variant.casefold() in text_casefold for variant in rule["variants"])
-    }) if text_scan_ok else []
+    poppler_text = text_bytes.decode("utf-8", errors="ignore")
 
     doc = fitz.open(path)
     try:
         page_count = doc.page_count
+        mupdf_text = "\n".join(page.get_text("text") for page in doc)
         metadata_text = "\n".join(str(v) for v in (doc.metadata or {}).values() if v)
         xmp = doc.get_xml_metadata() or ""
         embedded_file_count = doc.embfile_count() if hasattr(doc, "embfile_count") else 0
     finally:
         doc.close()
 
-    metadata_hits = sorted(set(forbidden_public_identifiers(metadata_text + "\n" + xmp)))
-    visible_hits = sorted(set(text_private_hits + metadata_hits))
+    text = "\n".join((mupdf_text, poppler_text))
+    text_private_hits = sorted(set(byte_hits + forbidden_public_identifiers(text)))
+    metadata = "\n".join((metadata_text, xmp))
+    metadata_hits = forbidden_public_identifiers(metadata)
+    visible_hits = sorted(set(byte_hits + forbidden_public_identifiers(text + "\n" + metadata)))
+    text_casefold = text.casefold()
+    redaction_rule_ids = sorted({
+        rule["id"]
+        for rule in private_pdf_rules()[0]
+        if any(variant.casefold() in text_casefold for variant in rule["variants"])
+    }) if text_private_hits else []
+    structure_ok = qpdf_structure_valid(path)
     suspicious_metadata = bool(SUSPICIOUS_METADATA.search(metadata_text + "\n" + xmp))
 
     reasons = []
@@ -335,6 +339,8 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
         reasons.append("suspicious_metadata")
     if not text_scan_ok:
         reasons.append("text_scan_failed")
+    if not structure_ok:
+        reasons.append("qpdf_invalid")
 
     return {
         "page_count": page_count,
@@ -346,6 +352,7 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
         "text_redaction_rule_ids": redaction_rule_ids,
         "metadata_private_hits": metadata_hits,
         "text_scan_ok": text_scan_ok,
+        "qpdf_structurally_valid": structure_ok,
         "xmp_present": bool(xmp),
         **envelope,
     }
@@ -429,7 +436,7 @@ def candidate_strategy(before_fast: dict, force_rewrite: bool) -> str:
         # Conservative compatibility fallback for older/synthetic inspection payloads
         # that do not distinguish page text from metadata.
         return "redact"
-    qpdf_only_reasons = {"revision_envelope", "text_scan_failed"}
+    qpdf_only_reasons = {"revision_envelope", "text_scan_failed", "qpdf_invalid"}
     if force_rewrite and reasons and reasons.issubset(qpdf_only_reasons):
         return "qpdf_rewrite"
     if force_rewrite:
@@ -454,7 +461,21 @@ def requires_text_fallback(post: dict) -> bool:
         or not post.get("decoded_scan_ok")
         or not post.get("pdf_revision_markers_bound")
         or not post.get("pdf_single_revision_only")
+        or post.get("qpdf_structurally_valid") is False
     )
+
+
+def qpdf_structure_valid(path: Path) -> bool:
+    try:
+        result = subprocess.run(
+            ["qpdf", "--check", str(path)],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            timeout=30,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+    return result.returncode == 0
 
 
 def canonicalize_pdf_qpdf(path: Path) -> bytes:
@@ -463,6 +484,7 @@ def canonicalize_pdf_qpdf(path: Path) -> bytes:
         proc = subprocess.run(
             [
                 "qpdf",
+                "--warning-exit-0",
                 "--deterministic-id",
                 "--object-streams=generate",
                 "--stream-data=compress",
@@ -476,8 +498,7 @@ def canonicalize_pdf_qpdf(path: Path) -> bytes:
         )
         if proc.returncode != 0:
             raise RuntimeError(
-                "qpdf canonical rewrite failed: "
-                + proc.stdout.decode("utf-8", errors="replace")[-2000:]
+                f"qpdf canonical rewrite failed (exit {proc.returncode})"
             )
         return out.read_bytes()
     finally:
@@ -505,54 +526,14 @@ def qpdf_page_count(path: Path) -> int:
         raise RuntimeError("qpdf page-count returned invalid output") from exc
 
 
-def pdftotext_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
-    try:
-        proc = subprocess.run(
-            ["pdftotext", "-enc", "UTF-8", str(path), "-"],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.DEVNULL,
-            timeout=30,
-        )
-    except (OSError, subprocess.TimeoutExpired):
-        return [], False
-    if proc.returncode != 0:
-        return [], False
-    text_bytes = proc.stdout
-    byte_hits = forbidden_public_identifier_byte_hits(text_bytes, matchers, scan_pdf_strings=False)
-    text = text_bytes.decode("utf-8", errors="ignore")
-    return sorted(set(byte_hits + forbidden_public_identifiers(text))), True
-
-
 def inspect_qpdf_rewrite_post(path: Path, matchers) -> dict:
-    """Bounded post-verification for qpdf-only rewrites; deliberately avoids PyMuPDF."""
-    raw = path.read_bytes()
-    envelope = pdf_revision_envelope(raw)
-    page_count = qpdf_page_count(path)
-    raw_private_hits = sorted(set(
-        forbidden_public_identifier_byte_hits(raw, matchers)
-    ))
-    visible_hits, text_scan_ok = pdftotext_private_hits(path, matchers)
+    """Check the rewritten stage with both text readers and the native object scan."""
+    inspection = inspect_pdf_fast(path, matchers)
     decoded_hits, decoded_ok = decoded_private_hits(path, matchers)
-    reasons = []
-    if not envelope["pdf_revision_markers_bound"] or not envelope["pdf_single_revision_only"]:
-        reasons.append("revision_envelope")
-    if visible_hits or decoded_hits:
-        reasons.append("private_match")
-    if not text_scan_ok:
-        reasons.append("text_scan_failed")
-    if not decoded_ok:
-        reasons.append("decoded_scan_failed")
     return {
-        "page_count": page_count,
-        "reasons": reasons,
-        "visible_private_hits": visible_hits,
-        "raw_private_hits": raw_private_hits,
-        "embedded_file_count": 0,
-        "text_scan_ok": text_scan_ok,
-        "xmp_present": False,
+        **inspection,
         "decoded_private_hits": decoded_hits,
         "decoded_scan_ok": decoded_ok,
-        **envelope,
     }
 
 
@@ -619,7 +600,7 @@ def harden_pdf(
         return None, []
 
     out = path.with_name(path.name + ".privacy.tmp.pdf")
-    doc.save(out, garbage=4, clean=True, deflate=True)
+    doc.save(out, garbage=4, clean=True, deflate=True, no_new_id=True)
     doc.close()
     data = out.read_bytes()
     out.unlink(missing_ok=True)
@@ -967,6 +948,8 @@ def worker_candidate(
         local_failures.append(f"decoded privacy scan failed after hardening: {rel}")
     if not post.get("pdf_revision_markers_bound") or not post.get("pdf_single_revision_only"):
         local_failures.append(f"PDF revision envelope remains noncanonical after hardening: {rel}")
+    if post.get("qpdf_structurally_valid") is False:
+        local_failures.append(f"qpdf structural check failed after hardening: {rel}")
     if raw_fallback_hits:
         local_failures.append(
             f"raw private identifier remains after text fallback: {rel}: {raw_fallback_hits}"
@@ -1086,6 +1069,9 @@ def main() -> None:
                 status = str(public.get("verification_status") or "published")
                 status_parts = [part.strip() for part in status.split(";") if part.strip()]
                 status_parts.append("publication_policy_hardened")
+                if rel.startswith("documents/okte-originaly-2026-10-30/") and result["after_sha"] != result["before_sha"]:
+                    status_parts = [part for part in status_parts if part != "byte_identical_police_provided_original"]
+                    status_parts.append("okte_structural_public_copy" if result["strategy"] == "qpdf_rewrite" else "not_byte_identical_original")
                 if result.get("text_fallback"):
                     status_parts.extend([
                         "verified_deterministic_public_text_copy",
@@ -1115,6 +1101,7 @@ def main() -> None:
                 "output_sha256": result["after_sha"],
                 "page_count": result["after_pages"],
                 "changed": result["changed"],
+                "strategy": result.get("strategy"),
                 "redaction_matches": result["matches"],
                 "text_fallback": result.get("text_fallback"),
                 "trigger_reasons": inspections[rel]["reasons"],

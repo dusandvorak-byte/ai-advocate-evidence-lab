@@ -6,6 +6,7 @@ import runpy
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 import fitz
 from pathlib import Path
@@ -296,6 +297,46 @@ private.person@example.invalid
             },
         )
         self.assertEqual(pdf.read_bytes(), original_bytes)
+
+    def test_candidate_routes_mupdf_only_private_text_to_hardening(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"))
+        source = self.tmpdir / "mupdf-channel.pdf"
+        with fitz.open() as doc:
+            doc.new_page().insert_text((45, 45), "private.person@example.invalid")
+            doc.save(source)
+
+        original_run = ns["subprocess"].run
+
+        def poppler_misses_private_text(command, *args, **kwargs):
+            if command[0] == "pdftotext":
+                return subprocess_result
+            return original_run(command, *args, **kwargs)
+
+        subprocess_result = mock.Mock(returncode=0, stdout=b"Public text only")
+        matchers = redaction.prepared_private_byte_matchers()
+        with mock.patch.object(ns["subprocess"], "run", side_effect=poppler_misses_private_text):
+            result = ns["inspect_pdf_fast"](source, matchers)
+
+        self.assertTrue(result["text_scan_ok"])
+        self.assertIn("private_match_1", result["visible_private_hits"])
+        self.assertEqual(ns["candidate_strategy"](result, True), "redact")
+
+    def test_id68_rendering_rebuilds_from_pinned_transcript(self):
+        self.write_policy_and_contract()
+        audit = runpy.run_path(str(ROOT / "scripts/audit-release-evidence-2026-11-13.py"))
+        renderer = runpy.run_path(str(ROOT / "scripts/materialize-godot-state-text-pdfs.py"))
+        filename = Path(audit["ID68_PATH"]).name
+        sources = renderer["SOURCES"][filename]
+        self.assertEqual(audit["sha256_file"](sources[0]), audit["ID68_TRANSCRIPT_SHA256"])
+        renderer["register_state_font"]()
+        first = self.tmpdir / "first" / filename
+        second = self.tmpdir / "second" / filename
+        renderer["make_pdf"](first, sources)
+        renderer["make_pdf"](second, sources)
+        self.assertEqual(audit["sha256_file"](first), audit["sha256_file"](second))
+        with fitz.open(first) as doc:
+            self.assertEqual(doc.page_count, 4)
 
     def test_targeted_pdf_rules_selects_only_detected_rule_indexes(self):
         self.write_policy_and_contract()

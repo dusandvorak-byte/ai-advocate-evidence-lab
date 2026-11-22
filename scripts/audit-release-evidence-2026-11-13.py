@@ -9,12 +9,15 @@ import fitz
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from publication_redaction import forbidden_public_identifiers, forbidden_public_identifier_byte_hits, prepared_private_byte_matchers
+from provenance_hardening_bridge import verify_hardening_bridge
 WEB = ROOT / "web"
 PUBLICATION_ROOT = Path(os.environ.get("EVIDENCE_LAB_PUBLICATION_ROOT", str(WEB))).resolve()
 CANONICAL_REGISTRY = Path(os.environ.get("EVIDENCE_LAB_CANONICAL_REGISTRY", str(ROOT / "project-memory/documents-2026.json"))).resolve()
 OUT = ROOT / "review-artifacts" / "release-evidence-audit.json"
 LIVE_BASE = "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/"
 EXCLUDED_ID69_SHA256 = "e73fcf803f59c4ed58cfb0ff01ee773cfedbd2782426132d3feeb715655d0ca2"
+ID68_PATH = "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf"
+ID68_TRANSCRIPT_SHA256 = "141f60f5f6c77fbffaf236ee9746c917db611d4072d20dbba6e31b89d33c8876"
 
 def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
@@ -537,6 +540,14 @@ def audit_generated():
                 f"known private identifier leaked into public derivative {target.relative_to(ROOT)}: "
                 f"{facts['known_private_identifier_hits']}"
             )
+        rebuild_sha = None
+        if target == WEB / ID68_PATH and len(source_rows) == 1 and source_rows[0]["sha256"] == ID68_TRANSCRIPT_SHA256:
+            renderer = runpy.run_path(str(ROOT / generator), run_name="id68_fidelity_rebuild")
+            renderer["register_state_font"]()
+            with tempfile.TemporaryDirectory(prefix="id68-fidelity-") as temporary:
+                rebuilt = Path(temporary) / target.name
+                renderer["make_pdf"](rebuilt, sources)
+                rebuild_sha = sha256_file(rebuilt)
         out.append({
             "output": target.relative_to(ROOT).as_posix(),
             "generator": generator,
@@ -545,6 +556,7 @@ def audit_generated():
             "generator_declared_original_sha256": declared_original_sha,
             "output_sha256": sha256_file(target),
             "output_size_bytes": target.stat().st_size,
+            **({"id68_rebuilt_sha256": rebuild_sha} if target == WEB / ID68_PATH else {}),
             **facts,
         })
     return out, failures
@@ -845,20 +857,27 @@ def audit_registry_reconciliation(staged_rows: list[dict]):
     }, failures
 
 
-def audit_id68_fidelity(staged_rows: list[dict]):
+def audit_id68_fidelity(staged_rows: list[dict], generated_rows: list[dict]):
     id68 = "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021-priloha-1"
-    expected_path = "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf"
+    expected_path = ID68_PATH
     expected_source_sha = "a9ea7ffed4f9eb7f759287dd949ce6bcb4027dd86a1e5c53fabaa2abc59331dd"
-    expected_public_sha = "336af9dff0ad906759d2bddae8868970026bfef063e516bb2c148ff74ea64e32"
     canonical = json.loads(CANONICAL_REGISTRY.read_text("utf-8"))
+    final = json.loads((PUBLICATION_ROOT / "data/documents-2026.json").read_text("utf-8"))
     item = next((x for x in canonical.get("documents", []) if x.get("id") == id68), None)
+    final_item = next((x for x in final.get("documents", []) if x.get("id") == id68), None)
     failures = []
     if not item:
         return {"id": id68, "status": "FAIL_MISSING_CANONICAL_RECORD"}, ["ID68 canonical record missing"]
 
     public = item.get("public") or {}
+    final_public = (final_item or {}).get("public") or {}
     root_row = next((r for r in staged_rows if r.get("published_path") == expected_path), None)
     mirror_row = next((r for r in staged_rows if r.get("published_path") == "web/" + expected_path), None)
+    generated = next((row for row in generated_rows if row.get("output") == "web/" + expected_path), {})
+    rebuild_sha = generated.get("id68_rebuilt_sha256")
+    stage_sha = root_row.get("sha256") if root_row else None
+    verified_output = bool(stage_sha and stage_sha == generated.get("output_sha256") == rebuild_sha)
+    mirror_required = PUBLICATION_ROOT != WEB
     source_text_path = ROOT / "project-memory/state-text-sources-2026-08-25/68-00.txt"
     source_text_value = source_text_path.read_text("utf-8") if source_text_path.is_file() else ""
 
@@ -866,15 +885,17 @@ def audit_id68_fidelity(staged_rows: list[dict]):
         "source_sha_recorded": public.get("source_original_sha256") == expected_source_sha,
         "source_page_count_recorded": public.get("source_original_page_count") == 2,
         "public_path_expected": public.get("pdf") == expected_path,
-        "public_sha_expected": public.get("sha256") == expected_public_sha,
+        "source_transcript_sha_matches": source_text_path.is_file() and sha256_file(source_text_path) == ID68_TRANSCRIPT_SHA256,
         "public_page_count_recorded": public.get("public_derivative_page_count") == 4,
         "public_staged_root_present": root_row is not None,
-        "public_staged_mirror_present": mirror_row is not None,
-        "public_staged_sha_expected": bool(root_row and root_row.get("sha256") == expected_public_sha),
+        "public_staged_mirror_matches": not mirror_required or bool(mirror_row and stage_sha and mirror_row.get("sha256") == stage_sha),
+        "public_staged_sha_matches_rebuilt_verified_transcript": verified_output,
+        "final_registry_path_and_sha_match": bool(stage_sha and final_public.get("pdf") == expected_path and final_public.get("sha256") == stage_sha),
         "public_staged_page_count_expected": bool(root_row and root_row.get("page_count") == 4),
         "fidelity_class_explicit": public.get("fidelity_class") == "verified_textual_public_copy_not_render_faithful",
-        "not_byte_identical_status_explicit": "not_byte_identical_original" in str(public.get("verification_status") or ""),
-        "visual_facsimile_not_claimed": "visual_facsimile_not_claimed" in str(public.get("verification_status") or ""),
+        "final_fidelity_class_explicit": final_public.get("fidelity_class") == public.get("fidelity_class"),
+        "not_byte_identical_status_explicit": "not_byte_identical_original" in str(final_public.get("verification_status") or ""),
+        "visual_facsimile_not_claimed": "visual_facsimile_not_claimed" in str(final_public.get("verification_status") or ""),
         "verified_source_text_has_table_1": "Tabulka č. 1" in source_text_value,
         "verified_source_text_has_scheme_1": "Schéma č. 1" in source_text_value,
     }
@@ -885,12 +906,25 @@ def audit_id68_fidelity(staged_rows: list[dict]):
         "id": id68,
         "source_original_sha256": expected_source_sha,
         "source_original_page_count": 2,
-        "public_derivative_sha256": expected_public_sha,
+        "public_derivative_sha256": stage_sha,
+        "rebuilt_public_derivative_sha256": rebuild_sha,
         "public_derivative_page_count": root_row.get("page_count") if root_row else None,
         "fidelity_class": public.get("fidelity_class"),
         "render_faithful_facsimile_claimed": False,
         "checks": checks,
     }, failures
+
+
+def okte_structural_copy_matches_source(source: bytes, public_pdf: Path, page_count: int) -> bool:
+    with fitz.open(stream=source, filetype="pdf") as original, fitz.open(public_pdf) as public:
+        if original.page_count != page_count or public.page_count != page_count:
+            return False
+        for source_page, public_page in zip(original, public):
+            if source_page.rect != public_page.rect or source_page.get_text() != public_page.get_text():
+                return False
+            if source_page.get_pixmap().samples != public_page.get_pixmap().samples:
+                return False
+        return True
 
 
 def audit_okte(precomputed_facts=None):
@@ -899,6 +933,13 @@ def audit_okte(precomputed_facts=None):
     transcript_path = ROOT / "project-memory/source-transcripts/2026-11-02-krpm-pages.json"
     annexes = json.loads(annex_path.read_text("utf-8"))["documents"]
     parents = json.loads(parent_path.read_text("utf-8"))["documents"]
+    approved = json.loads((ROOT / "project-memory/okte-structural-public-copies.json").read_text("utf-8"))["records"]
+    manifest = json.loads((ROOT / "project-memory/binary-sources/manifest.json").read_text("utf-8"))["files"]
+    sources = {row["target"]: row for row in manifest}
+    final = json.loads((PUBLICATION_ROOT / "data/documents-2026.json").read_text("utf-8"))["documents"]
+    final_by_id = {row["id"]: row["public"] for row in final if row.get("public")}
+    hardening = json.loads((ROOT / "project-memory/privacy-hardening-report.json").read_text("utf-8"))
+    hardening_rows = hardening.get("documents", [])
     parent = next(x for x in parents if x["id"] == "doc-cz-pcr-krpo-2026-10-30-krpm-145410-2")
     transcript = json.loads(transcript_path.read_text("utf-8"))
     transcript_text = "\n".join(transcript.get("pages", []))
@@ -918,7 +959,7 @@ def audit_okte(precomputed_facts=None):
     for item in annexes:
         pub = item["public"]
         rel = pub["pdf"]
-        local = WEB / rel
+        local = PUBLICATION_ROOT / rel
         if not local.exists():
             failures.append(f"missing local OKTE original {rel}")
             continue
@@ -926,13 +967,46 @@ def audit_okte(precomputed_facts=None):
         facts = (precomputed_facts or {}).get(rel) or pdf_facts(local)
         expected = pub["sha256"]
         source_expected = pub["source_original_sha256"]
+        final_public = final_by_id.get(item["id"], {})
+        transformed = local_sha != source_expected
+        source_record = sources.get("web/" + rel, {})
+        equivalent = False
+        if transformed and approved.get(item["id"]) == source_expected and source_record.get("sha256") == source_expected:
+            matches = [row for row in hardening_rows if row.get("id") == item["id"]]
+            if len(matches) == 1 and matches[0].get("strategy") == "qpdf_rewrite" and verify_hardening_bridge(
+                hardening_report=hardening,
+                hardening_row=matches[0],
+                document_id=item["id"],
+                public_path=rel,
+                input_sha256=source_expected,
+                expected_output_sha256=local_sha,
+                final_public_pdf=local,
+            ):
+                source_bytes = base64.b64decode("".join(
+                    (ROOT / chunk).read_text("ascii").strip() for chunk in source_record["chunks"]
+                ), validate=True)
+                equivalent = (
+                    sha256_bytes(source_bytes) == source_expected
+                    and len(source_bytes) == pub["source_original_size_bytes"]
+                    and okte_structural_copy_matches_source(source_bytes, local, pub["source_original_page_count"])
+                )
         live = fetch_live(rel)
         checks = {
-            "registry_public_equals_source_original": expected == source_expected,
-            "local_sha_matches_registry": local_sha == expected,
+            "source_registry_matches_pinned_original": expected == source_expected == source_record.get("sha256"),
+            "staged_pdf_matches_final_registry": final_public.get("pdf") == rel and final_public.get("sha256") == local_sha,
+            "identity_is_exact_original_or_approved_structural_copy": not transformed or equivalent,
+            "changed_output_is_labelled": not transformed or (
+                "okte_structural_public_copy" in str(final_public.get("verification_status") or "").split("; ")
+                and final_public.get("source_original_sha256") == source_expected
+            ),
             "local_page_count_matches_registry": facts["page_count"] == pub["source_original_page_count"],
+            "staged_machine_privacy_verified": facts["machine_privacy_status"] in {
+                "NO_OBVIOUS_HIGH_RISK_PATTERN", "FLAGGED_FOR_HUMAN_CONTENT_REVIEW",
+            },
             "live_http_200": live.get("http_status") == 200,
-            "live_sha_matches_registry": live.get("sha256") == expected,
+            "live_sha_matches_pinned_original_or_verified_copy": live.get("sha256") == source_expected or (
+                equivalent and live.get("sha256") == local_sha
+            ),
         }
         if not all(checks.values()):
             failures.append(f"OKTE verification failed for {item['id']}: {checks}")
@@ -943,6 +1017,7 @@ def audit_okte(precomputed_facts=None):
             "expected_sha256": expected,
             "source_original_sha256": source_expected,
             "local_sha256": local_sha,
+            "byte_identical_original": not transformed,
             "page_count": facts["page_count"],
             "expected_page_count": pub["source_original_page_count"],
             "live": live,
@@ -1026,7 +1101,7 @@ def main():
     registry_derivatives, registry_fail = audit_registry_public_derivatives()
     all_web_pdfs, all_web_fail = audit_all_web_pdfs()
     reconciliation, reconciliation_fail = audit_registry_reconciliation(all_web_pdfs)
-    id68_fidelity, id68_fail = audit_id68_fidelity(all_web_pdfs)
+    id68_fidelity, id68_fail = audit_id68_fidelity(all_web_pdfs, generated)
     hardening_path = ROOT / "project-memory/privacy-hardening-report.json"
     hardening = json.loads(hardening_path.read_text("utf-8"))
     hardening_fail = list(hardening.get("hard_failures") or [])

@@ -22,7 +22,7 @@ class HardenerExtractedTextModeTests(unittest.TestCase):
             if node.args[0].id == "text_bytes":
                 calls.append(node)
 
-        self.assertEqual(len(calls), 2, "expected both pdftotext call sites")
+        self.assertTrue(calls, "expected the shared pdftotext scan")
         for call in calls:
             keyword = next(
                 (item for item in call.keywords if item.arg == "scan_pdf_strings"),

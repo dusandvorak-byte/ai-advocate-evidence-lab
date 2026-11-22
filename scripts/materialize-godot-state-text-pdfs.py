@@ -122,6 +122,7 @@ def make_pdf(target: Path, source_paths: list[Path]):
         bottomMargin=18 * mm,
         title=target.stem,
         author="Evidence Lab / veřejná kopie z ověřeného textového přepisu",
+        invariant=1,
     )
 
     story = [
@@ -147,9 +148,15 @@ def make_pdf(target: Path, source_paths: list[Path]):
         raise SystemExit(f"Generated file is not a PDF: {target}")
 
 
-def main():
+def register_state_font():
+    if "StateUnicode" in pdfmetrics.getRegisteredFontNames():
+        return
     font = find_font()
     pdfmetrics.registerFont(TTFont("StateUnicode", str(font)))
+
+
+def main():
+    register_state_font()
     OUT.mkdir(parents=True, exist_ok=True)
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
     for excluded in EXCLUDED_OUTPUTS:
@@ -182,7 +189,13 @@ def main():
         if intended in generated:
             public["pdf"] = intended
             public["sha256"] = generated[intended]
-            public["verification_status"] = "generated_public_copy_from_verified_text; not_byte_identical_original"
+            status = [
+                "generated_public_copy_from_verified_text",
+                "not_byte_identical_original",
+            ]
+            if public.get("fidelity_class") == "verified_textual_public_copy_not_render_faithful":
+                status.extend(["textual_fidelity_verified", "visual_facsimile_not_claimed"])
+            public["verification_status"] = "; ".join(status)
             item["public"] = public
             patched += 1
     if patched != len(SOURCES):
