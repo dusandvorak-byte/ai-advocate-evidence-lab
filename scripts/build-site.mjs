@@ -19,8 +19,8 @@ const output = { article: 'web/zpravy/04082026-010.html', home: 'web/index.html'
 const correctTitle = 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?';
 const wrongTitle = 'Pavouk český křižák z Branibor';
 const readJson = async file => JSON.parse(await readFile(file, 'utf8'));
-const run = script => new Promise((resolve, reject) => {
-  const child = spawn(globalThis.process.execPath, [script], { stdio: 'inherit' });
+const run = (script, ...args) => new Promise((resolve, reject) => {
+  const child = spawn(globalThis.process.execPath, [script, ...args], { stdio: 'inherit' });
   child.on('error', reject);
   child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${script} skončil kódem ${code}`)));
 });
