@@ -44,6 +44,8 @@ jobs:
           node --check scripts/validate-release-exclusions.mjs
           node --check scripts/state-release-pdf-provenance.mjs
           node --check scripts/validate-state-release-2026-09-29.mjs
+          node --check scripts/ekk-public-text-provenance.mjs
+          node --check scripts/validate-ekk-evidence-2026-10-02.mjs
           node --test test/state-release-pdf-provenance.test.mjs
           node --check scripts/ensure-generated-state-pdfs.mjs
           node --check scripts/validate-justice-slalom.mjs
