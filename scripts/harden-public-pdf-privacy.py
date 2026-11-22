@@ -685,8 +685,6 @@ def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) 
     path = WEB / rel
     before_sha = sha256_file(path)
     before_pages = inspection.get("page_count")
-    if before_pages is None:
-        before_pages = qpdf_page_count(path)
     stage: Path | None = None
 
     def unchanged_failure(message: str, candidate: dict | None = None) -> dict:
@@ -715,6 +713,8 @@ def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) 
             return unchanged_failure(
                 f"candidate stage source SHA verification failed for {rel}"
             )
+        if before_pages is None:
+            before_pages = qpdf_page_count(stage)
         stage_rel = stage.relative_to(WEB).as_posix()
         worker_input = {
             "page_count": before_pages,

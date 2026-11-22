@@ -202,19 +202,71 @@ class HardenerTextFallbackTests(unittest.TestCase):
 
         def successful_worker(args, **kwargs):
             stage = self.web / args[4]
-            observed["worker_input"] = json.loads(args[7])
+            observed["worker_input"] = json.loads(args[6])
             stage.write_bytes(verified)
             payload = self.candidate_payload(verified)
             payload["before_pages"] = 1
             return SimpleNamespace(returncode=0, stdout=json.dumps({"candidate": payload}) + "\n", stderr="")
 
-        self.globals["qpdf_page_count"] = lambda path: 1
+        def source_page_count(path):
+            self.assertNotEqual(path, self.pdf)
+            self.assertEqual(path.read_bytes(), self.original_bytes)
+            return 1
+
+        self.globals["qpdf_page_count"] = source_page_count
         with mock.patch.object(self.globals["subprocess"], "run", side_effect=successful_worker):
             result = self.ns["process_candidate_isolated"]("sample.pdf", True, inspection)
 
         self.assertEqual(observed["worker_input"]["page_count"], 1)
         self.assertEqual(result["before_pages"], 1)
         self.assertTrue(result["changed"])
+
+    def test_page_count_recovery_ignores_temporary_canonical_replacement(self):
+        inspection = {"page_count": None, "reasons": ["private_match"]}
+        with fitz.open() as replacement:
+            replacement.new_page()
+            replacement.new_page()
+            replacement_bytes = replacement.tobytes()
+
+        def source_page_count(path):
+            self.pdf.write_bytes(replacement_bytes)
+            try:
+                with fitz.open(path) as source:
+                    return source.page_count
+            finally:
+                self.pdf.write_bytes(self.original_bytes)
+
+        def page_changing_worker(args, **kwargs):
+            stage = self.web / args[4]
+            before_pages = json.loads(args[6])["page_count"]
+            stage.write_bytes(replacement_bytes)
+            payload = self.candidate_payload(replacement_bytes)
+            payload["before_pages"] = before_pages
+            payload["after_pages"] = 2
+            if before_pages != 2:
+                payload["failures"] = ["page-count changed during privacy hardening"]
+            return SimpleNamespace(returncode=0, stdout=json.dumps({"candidate": payload}) + "\n", stderr="")
+
+        self.globals["qpdf_page_count"] = source_page_count
+        with mock.patch.object(self.globals["subprocess"], "run", side_effect=page_changing_worker):
+            result = self.ns["process_candidate_isolated"]("sample.pdf", True, inspection)
+
+        self.assertFalse(result["changed"])
+        self.assertEqual(result["before_pages"], 1)
+        self.assertTrue(result["failures"])
+        self.assertEqual(self.pdf.read_bytes(), self.original_bytes)
+        self.assertEqual(list(self.web.glob(".sample.pdf.*.candidate.pdf")), [])
+
+    def test_source_page_count_failure_preserves_canonical_and_cleans_stage(self):
+        inspection = {"page_count": None, "reasons": ["private_match"]}
+        self.globals["qpdf_page_count"] = mock.Mock(side_effect=RuntimeError("synthetic count failure"))
+        with mock.patch.object(self.globals["subprocess"], "run") as worker:
+            with self.assertRaisesRegex(RuntimeError, "synthetic count failure"):
+                self.ns["process_candidate_isolated"]("sample.pdf", True, inspection)
+
+        worker.assert_not_called()
+        self.assertEqual(self.pdf.read_bytes(), self.original_bytes)
+        self.assertEqual(list(self.web.glob(".sample.pdf.*.candidate.pdf")), [])
 
     def test_parent_timeout_leaves_canonical_unchanged_and_cleans_stage(self):
         inspection = {"page_count": 1, "reasons": ["private_match"]}
