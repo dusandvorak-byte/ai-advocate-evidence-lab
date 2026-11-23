@@ -48,15 +48,27 @@ const originals = [
 // Immutable supplements pin the uploaded ORIGINAL SHA; the trusted scanner may
 // redact the public copy only with a clean exact-SHA authenticated report.
 const originalInventories=new Map([...batch.documents,...ombBatch.documents].map(d=>[d.id,d]));
+// Exact pinned publication annotations. Pattern-based checks cannot reject
+// negated redaction ("not a redacted copy") or paraphrased original claims.
+const OCT6_APPROVED_PUBLIC_LABELS = {
+  "doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet": {
+    "cs": "Podání Edukativní konopné kliniky ze dne 6. 10. 2026 je výslovně adresováno České národní bance datovou schránkou a Ombudsmanovi Raiffeisenbank. Původní PDF dodané uživatelem je uchováno jako samostatný důkazní originál se zdrojovým SHA-256; veřejně zpřístupňované PDF je redigovanou kopií s odlišným SHA-256.",
+    "en": "A filing dated 6 October 2026 by the Educational Cannabis Clinic to the Czech National Bank and the Raiffeisenbank Ombudsman. It challenges repeated AML/KYC questionnaire requests under Section 9 of Act No. 253/2008 in the context of a very low-turnover association account and encloses the bank’s same-day request warning that services may be restricted or the relationship terminated if the questionnaire is not provided by 13 October 2026. The public copy limits private contact information and the name of another natural person."
+  },
+  "doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni": {
+    "cs": "Podání Městskému soudu v Praze ze dne 6. 10. 2026 je společným důkazním doplněním pro sp. zn. 18 A 17/2026 a 18 A 23/2026. Původní PDF dodané uživatelem je uchováno jako samostatný důkazní originál se zdrojovým SHA-256; veřejně zpřístupňované PDF je redigovanou kopií s odlišným SHA-256.",
+    "en": "A joint urgent evidentiary supplement dated 6 October 2026 for Prague Municipal Court cases 18 A 17/2026 and 18 A 23/2026. It expressly does not alter the defendants, factual core or relief sought and presents subsequent evidence concerning disputed forensic practices in analysing THC content in seized cannabis, THCA-to-THC conversion during heating and the possible legislative overlay of earlier practice. The public copy omits the claimant’s date of birth and private home address."
+  },
+  "doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936": {
+    "cs": "Cannabis is The Cure, z. s. podalo dne 6. 10. 2026 v 11:39 CEST stížnost prostřednictvím oficiálního formuláře Evropského ombudsmana. Formulář eviduje EOWEB_COMPLAINT_ID 59936. Stížnost namítá možný nesprávný úřední postup EUDA při zajišťování, kontrole, interpretaci a zveřejňování evropských údajů o obsahu THC a žádá přezkum metodické auditní stopy, definice THC/THCA, vzorkování, homogenizace, sušení, skladování, analytických metod a nejistoty měření. Uživatelem dodaný originál je archivován s původním SHA-256. Veřejně zpřístupňovaný soubor je bezpečnostně redigovaná kopie s vlastním odlišným SHA-256.",
+    "en": "Complaint filed on 6 October 2026 by Cannabis is The Cure, z. s. through the European Ombudsman’s official complaint form, EOWEB_COMPLAINT_ID 59936. The complaint concerns EUDA’s handling, methodological comparability and transparent interpretation of European THC data, including THC/THCA definitions, sampling, homogenisation, drying, storage, analytical methods and measurement uncertainty. The original supplied by the user is retained with its original SHA-256; the public PDF is a privacy-redacted derivative with a separate SHA-256."
+  }
+};
 for (const id of [cnbId,msId,ombId]) {
-  const historicalNote=String(originalInventories.get(id)?.evidence_note||'');
-  const englishNote=String(translations.documents?.[id]||'');
-  must(historicalNote.includes('originál') && /redigovan/i.test(historicalNote) &&
-    !/Veřejný soubor je byte-identický/i.test(historicalNote),
-    'OCT6 důkazní anotace nesmí vydávat redigovanou kopii za originál: '+id);
-  must(!/published PDF is the byte-identical original/i.test(englishNote) &&
-    /public (?:PDF|copy).*?(?:redact|limit|omit)/i.test(englishNote),
-    'anglická veřejná anotace zkresluje původ/redakci PDF: '+id);
+  const expected=OCT6_APPROVED_PUBLIC_LABELS[id];
+  must(expected && originalInventories.get(id)?.evidence_note === expected.cs &&
+    translations.documents?.[id] === expected.en,
+    'změna schváleného popisku provenance/redakce veřejného PDF vyžaduje review: '+id);
 }
 
 const proofById=new Map();
