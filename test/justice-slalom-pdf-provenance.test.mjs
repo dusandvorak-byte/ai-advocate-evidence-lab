@@ -690,3 +690,45 @@ test('interpelace 380 retains independent original and hardened public identitie
   assert.throws(() => verifyHistoricPdfIdentity(spec, source, Buffer.from('fake')),
     /Pinned public PDF identity mismatch/);
 });
+
+
+import { validatePublicationBatch } from '../scripts/validate-publication-batch.mjs';
+
+test('candidate standalone manifest rejects absent human approval, SHA drift and duplicate paths', () => {
+  const item = () => ({
+    document_id: 'doc-example-2026-11-23',
+    issuer: 'state', case_ids: ['case-demo'],
+    source_original_sha256: 'a'.repeat(64), public_sha256: 'b'.repeat(64),
+    public_path: 'documents/demo/test.pdf',
+    privacy_review: {
+      decision: 'approved_for_publication', reviewer: 'example', receipt: 'demo-receipt',
+    },
+    approval: {
+      authorized_public_sha256: 'b'.repeat(64), authorized_by: 'du-demo', receipt: 'approval-demo',
+    },
+  });
+  const wrap = items => ({ schema_version: '1', batch_id: 'demo-release', items });
+  assert.equal(validatePublicationBatch(wrap([item()])).count, 1);
+  for (const damage of [
+    x => { x.approval.authorized_public_sha256 = 'f'.repeat(64); },
+    x => { x.privacy_review.decision = 'unreviewed'; },
+    x => { x.privacy_review.receipt = ''; },
+    x => { x.approval.receipt = ''; },
+    x => { x.public_path = 'documents/../secret.pdf'; },
+    x => { x.public_path = 'documents//test.pdf'; },
+    x => { x.document_id = 'bad'; },
+    x => { x.public_sha256 = 'wrong'; },
+    x => { x.issuer = 'unknown'; },
+  ]) {
+    const x = item();
+    damage(x);
+    assert.throws(() => validatePublicationBatch(wrap([x])), /PUBLICATION_MANIFEST_INVALID/);
+  }
+  assert.throws(() => validatePublicationBatch(wrap([item(), item()])), /document identity/);
+  const second = item();
+  second.document_id = 'doc-example-2026-11-24';
+  assert.throws(() => validatePublicationBatch(wrap([item(), second])), /public path/);
+  assert.throws(() => validatePublicationBatch({
+    ...wrap([item()]), release_mode: 'publish',
+  }), /unknown release_mode/);
+});
