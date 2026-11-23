@@ -21,7 +21,7 @@ def fixture():
     run = dict(
         head_sha=TARGET, event="push", head_branch="main", status="completed",
         conclusion="success", name="Ověřit Evidence Lab 2.0",
-        path=".github/workflows/validate-evidence-lab-2.yml",
+        path=".github/workflows/validate-evidence-lab-2.yml@refs/heads/main",
         run_started_at=EARLY, updated_at=FINISHED,
     )
     jobs = [dict(name="Trusted build se secret-backed privacy policy",
