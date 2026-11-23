@@ -7,7 +7,7 @@ The purpose is to let the publishing pipeline ingest an already approved, immuta
 ## Contract
 - Schema: `schemas/publication-batch-v1.schema.json`.
 - Deterministic fail-closed parser: `scripts/validate-publication-batch.mjs`.
-- Required per item: stable document ID; issuing party; case IDs; original SHA-256; *separate* public-copy SHA-256; target `documents/...pdf` path; individual privacy-review identity and evidence receipt; human publication authorization explicitly referencing the **same** public-copy SHA; no duplicate IDs, paths or parent traversal.
+- Required per item: stable document ID; issuing party; case IDs; original SHA-256; *separate* public-copy SHA-256; target `documents/...pdf` path; individual privacy-review identity and evidence receipt **bound to the exact reviewed_public_sha256**; human publication authorization explicitly referencing the **same** public-copy SHA; no duplicate IDs, paths or parent traversal.
 - A file with the same original/public SHA is unchanged; differing hashes identify a separate derivative and must never be represented as an original.
 - This manifest does **not** contain private original PDF bytes. Reviewed public candidate bytes live in approved restricted staging. The actual publisher must verify their SHA-256 and page rendering, check legal/privacy review, preserve ID69 withdrawal and validate exact deployment inventory.
 - The fields `receipt` are identifiers **only**. A malicious caller can fabricate strings: the release owner must authenticate receipts with the authoritative approval/review systems, and confirm human identity and approval timing. Static schema/validator does NOT perform that authentication.
@@ -28,6 +28,7 @@ The purpose is to let the publishing pipeline ingest an already approved, immuta
     "public_path": "documents/examples/sample.pdf",
     "privacy_review": {
       "decision": "approved_for_publication",
+      "reviewed_public_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
       "reviewer": "example-reviewer",
       "receipt": "example-only-no-proof"
     },
