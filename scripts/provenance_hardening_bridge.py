@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import fcntl
 import os
+import subprocess
 import stat
 import tempfile
 from pathlib import Path
@@ -91,6 +92,54 @@ def verify_unchanged_public_copy_scan(
         if inspection.get(key) != []:
             return False
     return sha256_file(final_public_pdf) == expected_sha256
+
+
+
+def qpdf_decoded_bytes_sealed(path: Path, *, max_bytes: int = 128 * 1024 * 1024) -> bytes:
+    """QPDF output goes to an anonymous kernel FD, never a swappable /tmp path.
+
+    The kernel seals the completed output before the parent inspects bytes.
+    A failed, empty or oversize expansion is rejected; no clean result is
+    produced from an unauthenticated decoded-stream artifact.
+    """
+    required = ("F_ADD_SEALS", "F_GET_SEALS", "F_SEAL_WRITE", "F_SEAL_SHRINK",
+                "F_SEAL_GROW", "F_SEAL_SEAL")
+    if not hasattr(os, "memfd_create") or not hasattr(os, "MFD_ALLOW_SEALING"):
+        raise RuntimeError("anonymous sealed qpdf output unsupported")
+    if not all(hasattr(fcntl, field) for field in required):
+        raise RuntimeError("qpdf output kernel sealing unavailable")
+    fd = os.memfd_create("evidence-qpdf-decoded", os.MFD_ALLOW_SEALING | getattr(os, "MFD_CLOEXEC", 0))
+    try:
+        proc = subprocess.run(
+            [
+                "qpdf", "--qdf", "--preserve-unreferenced",
+                "--object-streams=disable", "--stream-data=uncompress",
+                str(path), "-",
+            ],
+            stdout=fd, stderr=subprocess.PIPE, timeout=120,
+        )
+        if proc.returncode != 0:
+            raise RuntimeError("qpdf decoded-stream extraction failed")
+        size = os.fstat(fd).st_size
+        if size <= 0 or size > max_bytes:
+            raise RuntimeError("qpdf decoded-stream output out of bounds")
+        seals = fcntl.F_SEAL_WRITE | fcntl.F_SEAL_SHRINK | fcntl.F_SEAL_GROW | fcntl.F_SEAL_SEAL
+        fcntl.fcntl(fd, fcntl.F_ADD_SEALS, seals)
+        if (fcntl.fcntl(fd, fcntl.F_GET_SEALS) & seals) != seals:
+            raise RuntimeError("qpdf output could not be kernel-sealed")
+        os.lseek(fd, 0, os.SEEK_SET)
+        chunks = []
+        while True:
+            chunk = os.read(fd, min(1024 * 1024, size))
+            if not chunk:
+                break
+            chunks.append(chunk)
+        decoded = b"".join(chunks)
+        if len(decoded) != size:
+            raise RuntimeError("sealed qpdf output length changed")
+        return decoded
+    finally:
+        os.close(fd)
 
 
 def certify_four_record_public_copy(
