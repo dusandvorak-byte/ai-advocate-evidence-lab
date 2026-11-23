@@ -267,14 +267,15 @@ class ProductionFourRecordSnapshotTest(unittest.TestCase):
             self.run_caller(adversarial_scan)
         self.assertEqual(self.pdf.read_bytes(), b"source-path-mutation")
 
-    def test_tampered_snapshot_fails(self):
+    def test_kernel_sealed_snapshot_rejects_tamper_attempt(self):
         def tamper_snapshot(scanned):
             result = self.clean_scan(scanned)
-            scanned.chmod(0o600)
-            scanned.write_bytes(b"mutated-snapshot")
+            with self.assertRaises(PermissionError):
+                scanned.write_bytes(b"mutated-snapshot")
             return result
-        with self.assertRaises(RuntimeError):
-            self.run_caller(tamper_snapshot)
+        row = self.run_caller(tamper_snapshot)
+        self.assertEqual(row["output_sha256"], self.sha)
+        self.assertEqual(self.pdf.read_bytes(), b"%PDF-1.4\\ntext-copy\\n%%EOF\\n")
 
     def test_wrong_expected_digest_and_source_provenance_fail(self):
         self.item["public"]["sha256"] = digest(b"wrong")
