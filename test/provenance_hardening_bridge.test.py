@@ -190,7 +190,9 @@ class ProductionFourRecordSnapshotTest(unittest.TestCase):
         self.assertNotEqual(scanned, self.pdf)
         self.assertEqual(scanned.read_bytes(), self.pdf.read_bytes())
         self.assertNotEqual(scanned.stat().st_ino, self.pdf.stat().st_ino)
-        self.assertEqual(scanned.parent.stat().st_mode & 0o777, 0o700)
+        self.assertTrue(str(scanned).startswith("/proc/"))
+        with self.assertRaises(PermissionError):
+            scanned.write_bytes(b"cannot-rewrite-sealed-pdf")
         return {
             "reasons": [], "text_scan_ok": True, "decoded_scan_ok": True,
             "qpdf_structurally_valid": True,
@@ -213,7 +215,7 @@ class ProductionFourRecordSnapshotTest(unittest.TestCase):
         old_inode = self.pdf.stat().st_ino
         row = self.run_caller()
         self.assertEqual(len(self.calls), 1)
-        self.assertEqual(row["strategy"], "clean_unchanged_authenticated_private_snapshot")
+        self.assertEqual(row["strategy"], "kernel_sealed_authenticated_deep_scan")
         self.assertEqual(row["output_sha256"], self.sha)
         self.assertEqual(self.pdf.read_bytes(), b"%PDF-1.4\\ntext-copy\\n%%EOF\\n")
         self.assertNotEqual(old_inode, self.pdf.stat().st_ino)
@@ -251,6 +253,19 @@ class ProductionFourRecordSnapshotTest(unittest.TestCase):
             self.run_caller(replace_original)
         self.assertEqual(self.pdf.read_bytes(), b"attacker-mutation")
         self.assertNotIn("publication_policy_hardened; publication_policy_hardened", self.item["public"]["verification_status"])
+
+    def test_same_uid_path_swap_cannot_change_kernel_sealed_scan(self):
+        def adversarial_scan(scanned):
+            result = self.clean_scan(scanned)
+            with self.assertRaises(PermissionError):
+                scanned.write_bytes(b"replacement data")
+            # Replacing the public source path cannot change the sealed FD.
+            self.pdf.write_bytes(b"source-path-mutation")
+            self.assertEqual(scanned.read_bytes(), b"%PDF-1.4\\ntext-copy\\n%%EOF\\n")
+            return result
+        with self.assertRaises(RuntimeError):
+            self.run_caller(adversarial_scan)
+        self.assertEqual(self.pdf.read_bytes(), b"source-path-mutation")
 
     def test_tampered_snapshot_fails(self):
         def tamper_snapshot(scanned):
