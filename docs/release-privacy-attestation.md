@@ -18,8 +18,9 @@ A release must **fail closed** unless all of these are independently verified:
 4. That human left a GitHub **APPROVED review**, on the exact authorization PR head commit,
    whose entire review body is the exact string described below. Informal PR comments,
    Codex automated reviews and the author's own signoff do not qualify.
-5. All the existing staged SHA, original/public copy, privacy and live-production checks
-   continue to apply.
+5. Authorization PR is **merged by an identifiable human operator**, distinct from the privacy reviewer, **after** both audits and the human attestation. Bot/auto-merge or pre-audit merge cannot authorize production.
+6. At promotion, `main` is rechecked against the exact authorization merge SHA, and the existing `gh-pages` release provenance is checked for ancestry. Publication uses a **fast-forward-only push** based on the current `gh-pages` HEAD, never `git push --force`. A newer published release cannot be overwritten by a stale workflow.
+7. All the existing staged SHA, original/public copy, privacy and live-production checks continue to apply.
 
 ## Administrator setup before release
 Configure repository variable `EVIDENCE_LAB_PRIVACY_REVIEWER` to the exact GitHub login of a
@@ -50,7 +51,7 @@ differs or the attestation does not match exactly.
 
 ## Deployment and verification
 The authorization PR remains Draft until all audits pass and the human completes the
-review. Its merge and production promotion require separate operator approval.
+review. Its merge and production promotion require a **subsequent explicit human operator merge**; a bot merge or auto-merge does not satisfy this gate. The operator must not be the privacy reviewer.
 On a subsequent approved authorization-only merge, verify the resulting `gh-pages` commit,
 GitHub Pages deployment, public PDF HTTP responses and exact SHA-256 matches independently.
 
@@ -65,3 +66,6 @@ receipt as the authoritative release evidence.
 
 Rollback: revert this workflow-only change on a protected branch after review. No source
 PDF, privacy rules or already-live content are modified by these gating changes.
+
+## Concurrency limitation
+A remote GitHub commit to `main` and a separate `gh-pages` branch update are not a single server-side transaction. Fast-forward-only deployment and repeated live `main` checks prevent stale jobs from overwriting a *newer published* release, while a main drift during the final push makes the workflow fail and requires human reconciliation. Administrators should freeze unrelated `main` changes during the short final promotion. Do not claim this eliminates every transient cross-ref race.
