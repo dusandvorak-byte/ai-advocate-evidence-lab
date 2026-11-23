@@ -9,6 +9,7 @@ import {
   evaluatePinnedJusticeSlalomOriginal,
   policyHardenedCopyOk,
   approvedOct6PublicLabelsMatch,
+  publicPdfIsDerivative,
   indexJusticeSlalomHardeningEvidence,
 } from '../scripts/justice-slalom-pdf-provenance.mjs';
 
@@ -480,6 +481,32 @@ test('Oct 6 exact publication labels reject paraphrases, negations and source/pu
   ]) assert.equal(testLabels(approvedCs, falseEn), false, falseEn);
   assert.equal(testLabels(undefined, approvedEn), false);
   assert.equal(testLabels(approvedCs, null), false);
+});
+
+test('public evidence-page link labels honor hardened provenance over unchanged PDF filename', () => {
+  const sourceSha = 'a'.repeat(64);
+  const publicSha = 'b'.repeat(64);
+  const filepath = 'documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank.pdf';
+  assert.equal(publicPdfIsDerivative({
+    public: { pdf: filepath, sha256: publicSha, source_original_sha256: sourceSha,
+      verification_status: 'source_pdf_received_binary_original; publication_policy_hardened' },
+  }), true, 'hardened copy must not be labeled as an original');
+  assert.equal(publicPdfIsDerivative({
+    public: { pdf: filepath, sha256: publicSha, source_original_sha256: sourceSha,
+      verification_status: 'source_pdf_received_binary_original' },
+  }), true, 'different original/public SHA alone requires public-copy label');
+  assert.equal(publicPdfIsDerivative({
+    public: { pdf: filepath, sha256: sourceSha, source_original_sha256: sourceSha,
+      verification_status: 'source_pdf_received_binary_original' },
+  }), false, 'unchanged original remains labeled as original');
+  assert.equal(publicPdfIsDerivative({
+    public: { pdf: filepath, sha256: sourceSha, source_original_sha256: sourceSha,
+      verification_status: 'publication_policy_hardened' },
+  }), true, 'explicit hardened status must always classify as a public copy');
+  assert.equal(publicPdfIsDerivative({
+    public: { pdf: null, sha256: publicSha, source_original_sha256: sourceSha,
+      verification_status: 'publication_policy_hardened' },
+  }), false, 'no published PDF is not a public copy link');
 });
 
 test('duplicate hardening evidence IDs fail closed', () => {
