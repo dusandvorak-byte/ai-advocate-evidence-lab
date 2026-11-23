@@ -70,7 +70,10 @@ const mayPublishPdf = doc => Boolean(institutionMap.has(doc.institution_id) || i
 const hasVerifiedPublicCopyStatus = doc => {
   const status = String(doc.public.verification_status || '').split(';').map(part => part.trim());
   return status.includes('publication_policy_hardened')
-    || (status.includes('generated_public_copy_from_verified_text') && status.includes('not_byte_identical_original'));
+    || (status.includes('generated_public_copy_from_verified_text') && status.includes('not_byte_identical_original'))
+    // Preserve a source-attested deterministic copy through index reconciliation.
+    // Privacy certification is performed later by the authenticated PDF scanner.
+    || (status.includes('verified_deterministic_public_text_copy') && status.includes('not_byte_identical_original'));
 };
 
 const sourceFiles = (await readdir(memoryDir))

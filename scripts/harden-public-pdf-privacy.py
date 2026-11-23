@@ -23,7 +23,7 @@ from publication_redaction import (
     redact_public_text,
 )
 from public_text_fallback import atomic_replace_bytes, build_public_text_copy
-from provenance_hardening_bridge import is_okte_structural_repair
+from provenance_hardening_bridge import is_okte_structural_repair, certify_four_record_public_copy, qpdf_decoded_bytes_sealed
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
@@ -253,36 +253,12 @@ def pdf_revision_envelope(raw: bytes) -> dict:
 
 
 def decoded_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
-    tmp_name = None
+    """Decoded stream scan is fail closed and uses kernel-sealed qpdf output."""
     try:
-        with tempfile.NamedTemporaryFile(prefix="evidence-harden-", suffix=".qdf.pdf", delete=False) as tmp:
-            tmp_name = tmp.name
-        proc = subprocess.run(
-            [
-                "qpdf",
-                "--qdf",
-                "--preserve-unreferenced",
-                "--object-streams=disable",
-                "--stream-data=uncompress",
-                str(path),
-                tmp_name,
-            ],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            timeout=120,
-        )
-        if proc.returncode != 0:
-            return ["__decoded_stream_scan_failed__"], False
-        decoded = Path(tmp_name).read_bytes()
+        decoded = qpdf_decoded_bytes_sealed(path)
         return sorted(set(forbidden_public_identifier_byte_hits(decoded, matchers))), True
-    except (OSError, subprocess.TimeoutExpired):
+    except (OSError, RuntimeError, subprocess.TimeoutExpired, ValueError):
         return ["__decoded_stream_scan_failed__"], False
-    finally:
-        if tmp_name:
-            try:
-                Path(tmp_name).unlink(missing_ok=True)
-            except OSError:
-                pass
 
 
 def inspect_pdf_fast(path: Path, matchers) -> dict:
@@ -377,39 +353,6 @@ def inspect_pdf_deep(path: Path, matchers) -> dict:
         "decoded_private_hits": decoded_hits,
         "decoded_scan_ok": decoded_ok,
     }
-
-
-def decoded_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
-    tmp_name = None
-    try:
-        with tempfile.NamedTemporaryFile(prefix="evidence-harden-", suffix=".qdf.pdf", delete=False) as tmp:
-            tmp_name = tmp.name
-        proc = subprocess.run(
-            [
-                "qpdf",
-                "--qdf",
-                "--preserve-unreferenced",
-                "--object-streams=disable",
-                "--stream-data=uncompress",
-                str(path),
-                tmp_name,
-            ],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            timeout=120,
-        )
-        if proc.returncode != 0:
-            return ["__decoded_stream_scan_failed__"], False
-        decoded = Path(tmp_name).read_bytes()
-        return sorted(set(forbidden_public_identifier_byte_hits(decoded, matchers))), True
-    except (OSError, subprocess.TimeoutExpired):
-        return ["__decoded_stream_scan_failed__"], False
-    finally:
-        if tmp_name:
-            try:
-                Path(tmp_name).unlink(missing_ok=True)
-            except OSError:
-                pass
 
 
 def forbidden_hits(path: Path) -> list[str]:
@@ -1137,6 +1080,39 @@ def main() -> None:
                 "decoded_private_identifier_hits_after": result["post"].get("decoded_private_hits") or [],
                 "registered": False,
             })
+
+    # Source-verified deterministic text copies can pass a clean, unchanged
+    # authenticated PDF scan. Earlier link reconciliation must retain their
+    # generated-copy provenance; never fabricate a marker for arbitrary PDFs.
+    source_sha_by_id = {
+        "doc-cz-ks-brn-2026-09-03-9-to-315-2026-140":
+            "e565b7e3bb122f00ff04720f1acce031525c1b9c2a2457a87cdac96055ec64a6",
+        "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191":
+            "394d9db7e01099561138c77382e162b59810a4fdb77f1114b471fdc2e336f293",
+    }
+    path_by_id = {
+        "doc-cz-ks-brn-2026-09-03-9-to-315-2026-140":
+            "documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf",
+        "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191":
+            "documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf",
+    }
+    for item in registry["documents"]:
+        document_id = item.get("id")
+        if document_id not in source_sha_by_id:
+            continue
+        try:
+            row = certify_four_record_public_copy(
+                item=item,
+                expected_original_sha256=source_sha_by_id[document_id],
+                expected_public_path=path_by_id[document_id],
+                web_root=WEB,
+                deep_scan=lambda snapshot: inspect_pdf_deep(snapshot, matchers),
+            )
+            if not any(existing.get("id") == document_id and existing.get("public_path") == path_by_id[document_id] for existing in rows):
+                rows.append(row)
+        except Exception as exc:
+            failures.append(f"Four-records private snapshot privacy proof failed: {document_id}: {type(exc).__name__}")
+
 
     report = {
         "schema_version": "1.2",
