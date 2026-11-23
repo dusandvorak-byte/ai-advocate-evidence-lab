@@ -48,6 +48,17 @@ const originals = [
 // Immutable supplements pin the uploaded ORIGINAL SHA; the trusted scanner may
 // redact the public copy only with a clean exact-SHA authenticated report.
 const originalInventories=new Map([...batch.documents,...ombBatch.documents].map(d=>[d.id,d]));
+for (const id of [cnbId,msId,ombId]) {
+  const historicalNote=String(originalInventories.get(id)?.evidence_note||'');
+  const englishNote=String(translations.documents?.[id]||'');
+  must(historicalNote.includes('originál') && /redigovan/i.test(historicalNote) &&
+    !/Veřejný soubor je byte-identický/i.test(historicalNote),
+    'OCT6 důkazní anotace nesmí vydávat redigovanou kopii za originál: '+id);
+  must(!/published PDF is the byte-identical original/i.test(englishNote) &&
+    /public (?:PDF|copy).*?(?:redact|limit|omit)/i.test(englishNote),
+    'anglická veřejná anotace zkresluje původ/redakci PDF: '+id);
+}
+
 const proofById=new Map();
 for (const [id,pdf,expectedSha] of originals) {
   const d=canonicalById.get(id);
