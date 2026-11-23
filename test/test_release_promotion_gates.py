@@ -55,6 +55,12 @@ class PromotionGateTests(unittest.TestCase):
             self.assertIn("if: env.RELEASE_MODE == 'publish'", excerpt)
         self.assertIn("scripts/verify-release-promotion-gates.py human", workflow[human:publish])
         self.assertIn("gate[\"validate_full_build\"]", workflow[full:human])
+        push_block = workflow[publish:workflow.index("name: Ověřit živou produkci po publikaci")]
+        self.assertNotIn("git push --force", push_block)
+        self.assertIn("git merge-base --is-ancestor", push_block)
+        self.assertIn("git push origin HEAD:refs/heads/gh-pages", push_block)
+        self.assertGreaterEqual(push_block.count('git ls-remote origin refs/heads/main'), 2)
+
 
     def test_success_only_on_exact_verified_attested_release(self):
         run, jobs, prs, reviews, detail = fixture()
