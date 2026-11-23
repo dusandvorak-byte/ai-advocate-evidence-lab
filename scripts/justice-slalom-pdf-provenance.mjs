@@ -11,6 +11,27 @@ const validSha256 = value => typeof value === 'string' && SHA256_RE.test(value);
 // An exact-HMAC-bound caller may require the producer's authenticated policy
 // identity. Ordinary consumers retain their existing report validation; the
 // four-record release gate requires this stronger, binding-contract check.
+// Exact approved publication wording avoids heuristic acceptance of false
+// provenance claims such as "original, not a redacted copy".
+// The published PDF label must follow verified public provenance, never only
+// its filename (redacted derivatives may retain an original-style basename).
+export const publicPdfIsDerivative = doc => {
+  const pub = doc?.public;
+  if (!pub?.pdf) return false;
+  const sourceSha = pub.source_original_sha256 || doc?.justice_slalom?.source_sha256;
+  const publicSha = pub.sha256;
+  return Boolean(
+    String(pub.verification_status || '').includes('publication_policy_hardened')
+    || (typeof sourceSha === 'string' && /^[0-9a-f]{64}$/.test(sourceSha)
+        && typeof publicSha === 'string' && /^[0-9a-f]{64}$/.test(publicSha)
+        && sourceSha !== publicSha)
+  );
+};
+
+export const approvedOct6PublicLabelsMatch = ({ actualCs, actualEn, approvedCs, approvedEn }) =>
+  typeof actualCs === 'string' && typeof actualEn === 'string'
+  && actualCs === approvedCs && actualEn === approvedEn;
+
 export const indexJusticeSlalomHardeningEvidence = (report, { expectedAuthenticatedPolicyIdentity } = {}) => {
   const rows = Array.isArray(report?.documents) ? report.documents : null;
   const rowShapesValid = rows !== null && rows.every(row => Boolean(

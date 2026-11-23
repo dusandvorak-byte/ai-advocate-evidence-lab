@@ -7,6 +7,9 @@ import { runInNewContext } from 'node:vm';
 import {
   evaluateJusticeSlalomPdfProvenance,
   evaluatePinnedJusticeSlalomOriginal,
+  policyHardenedCopyOk,
+  approvedOct6PublicLabelsMatch,
+  publicPdfIsDerivative,
   indexJusticeSlalomHardeningEvidence,
 } from '../scripts/justice-slalom-pdf-provenance.mjs';
 
@@ -392,6 +395,118 @@ test('four-record uploaded originals accept only exact source-bound privacy deri
       ...evidence,
     }).provenanceOk, false, id + ': substituted original SHA must fail');
   }
+});
+
+// Oct 6 documented originals (ČNB, MS Praha, EU Ombudsman) must remain
+// source-pinned while their public redacted derivatives are independently bound.
+test('Oct 6 redacted public copies require authenticated exact-source evidence', () => {
+  const uploaded = [
+    ['doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet', 'a5e5890356ca4f7d520bdda7cbdbff1ffee92f9da9fffa37c9556f991e8252d4'],
+    ['doc-cz-dd-2026-10-06-ms-praha-18a17-18a23-dukazni-doplneni', '6fac4edb59d7e5f67519ec853d810f9fc4a41e5946698ba54b1e7777d173082e'],
+    ['doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936', '34254d11c01f91e8a12cb99800e8d16ca9ec715a6703d765401ddcd79595e434'],
+  ];
+  for (const [id, sourceSha] of uploaded) {
+    const doc = {
+      ...makeDoc({
+        sourceKind: id.includes('ombudsman') ? 'none' : 'original_pdf_uploaded_by_user',
+        publicSha: HARDENED_SHA, sourceSha,
+        verificationStatus: 'published; publication_policy_hardened',
+      }),
+      id,
+    };
+    const row = { ...hardenedRow({ inputSha: sourceSha }), id };
+    const report = {
+      hard_failure_count: 0, hard_failures: [],
+      authenticated_private_policy_identity: POLICY_IDENTITY,
+      documents: [row],
+    };
+    const options = { expectedAuthenticatedPolicyIdentity: POLICY_IDENTITY };
+    const valid = indexJusticeSlalomHardeningEvidence(report, options);
+    assert.equal(valid.hardeningReportOk, true, id);
+    assert.equal(policyHardenedCopyOk({
+      doc, digest: HARDENED_SHA, expectedInputSha: sourceSha, ...valid,
+    }), true, id);
+    for (const identity of [undefined, null, '', 'b'.repeat(64)]) {
+      const bad = indexJusticeSlalomHardeningEvidence({
+        ...report, authenticated_private_policy_identity: identity,
+      }, options);
+      assert.equal(bad.hardeningReportOk, false, id + ': unauthenticated privacy report');
+      assert.equal(policyHardenedCopyOk({
+        doc, digest: HARDENED_SHA, expectedInputSha: sourceSha, ...bad,
+      }), false, id + ': unauthenticated copy must fail');
+    }
+    for (const damagedRow of [
+      { ...row, input_sha256: 'f'.repeat(64) },
+      { ...row, output_sha256: 'f'.repeat(64) },
+      { ...row, known_private_identifier_hits_after: ['synthetic-privacy-hit'] },
+      { ...row, decoded_private_identifier_hits_after: ['synthetic-privacy-hit'] },
+      { ...row, public_path: 'documents/wrong-file.pdf' },
+    ]) {
+      assert.equal(policyHardenedCopyOk({
+        doc, digest: HARDENED_SHA, expectedInputSha: sourceSha,
+        ...indexJusticeSlalomHardeningEvidence({
+          ...report, documents: [damagedRow],
+        }, options),
+      }), false, id + ': tampered report evidence must fail');
+    }
+    if(!id.includes('ombudsman')) {
+      const proof = evaluatePinnedJusticeSlalomOriginal({
+        doc, digest: HARDENED_SHA, expectedSourceSha: sourceSha, ...valid,
+      });
+      assert.equal(proof.provenanceOk, true, id);
+      assert.equal(proof.effectiveKind, 'redacted_public_copy', id);
+    }
+  }
+});
+
+test('Oct 6 exact publication labels reject paraphrases, negations and source/public confusion', () => {
+  const approvedCs = 'Originál je zachován; veřejný soubor je redigovaná kopie.';
+  const approvedEn = 'The uploaded original is archived; the public PDF is a privacy-redacted derivative.';
+  const testLabels = (actualCs,actualEn) => approvedOct6PublicLabelsMatch({
+    actualCs, actualEn, approvedCs, approvedEn,
+  });
+  assert.equal(testLabels(approvedCs, approvedEn), true);
+  for(const falseCs of [
+    'Veřejné PDF je byte-identický originál, nikoli redigovaná kopie.',
+    'Veřejný soubor je původní originál; redigovaná kopie neexistuje.',
+    'Originál je zachován; veřejný soubor není redigovaná kopie.',
+    'Public PDF is an original; redigovaná kopie.',
+    approvedCs + ' Kopie je ve skutečnosti originál.',
+  ]) assert.equal(testLabels(falseCs, approvedEn), false, falseCs);
+  for(const falseEn of [
+    'The public PDF is the original, not a redacted copy.',
+    'The public PDF is a byte-identical original, not a privacy-redacted derivative.',
+    'The public PDF is not a privacy-redacted derivative.',
+    approvedEn + ' The public PDF is the original.',
+  ]) assert.equal(testLabels(approvedCs, falseEn), false, falseEn);
+  assert.equal(testLabels(undefined, approvedEn), false);
+  assert.equal(testLabels(approvedCs, null), false);
+});
+
+test('public evidence-page link labels honor hardened provenance over unchanged PDF filename', () => {
+  const sourceSha = 'a'.repeat(64);
+  const publicSha = 'b'.repeat(64);
+  const filepath = 'documents/justice-slalom/2026-10/097-podani-2026-10-06-cnb-raiffeisenbank.pdf';
+  assert.equal(publicPdfIsDerivative({
+    public: { pdf: filepath, sha256: publicSha, source_original_sha256: sourceSha,
+      verification_status: 'source_pdf_received_binary_original; publication_policy_hardened' },
+  }), true, 'hardened copy must not be labeled as an original');
+  assert.equal(publicPdfIsDerivative({
+    public: { pdf: filepath, sha256: publicSha, source_original_sha256: sourceSha,
+      verification_status: 'source_pdf_received_binary_original' },
+  }), true, 'different original/public SHA alone requires public-copy label');
+  assert.equal(publicPdfIsDerivative({
+    public: { pdf: filepath, sha256: sourceSha, source_original_sha256: sourceSha,
+      verification_status: 'source_pdf_received_binary_original' },
+  }), false, 'unchanged original remains labeled as original');
+  assert.equal(publicPdfIsDerivative({
+    public: { pdf: filepath, sha256: sourceSha, source_original_sha256: sourceSha,
+      verification_status: 'publication_policy_hardened' },
+  }), true, 'explicit hardened status must always classify as a public copy');
+  assert.equal(publicPdfIsDerivative({
+    public: { pdf: null, sha256: publicSha, source_original_sha256: sourceSha,
+      verification_status: 'publication_policy_hardened' },
+  }), false, 'no published PDF is not a public copy link');
 });
 
 test('duplicate hardening evidence IDs fail closed', () => {

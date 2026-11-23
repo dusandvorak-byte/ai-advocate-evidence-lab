@@ -1,4 +1,5 @@
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { publicPdfIsDerivative } from './justice-slalom-pdf-provenance.mjs';
 
 const articlePath = 'web/zpravy/04082026-010.html';
 const homePath = 'web/index.html';
@@ -208,7 +209,7 @@ for (const item of documents) {
   const institution = institutionMap.get(item.institution_id);
   const name = institution?.name_cs || institution?.name || item.institution_id;
   const published = item.public || {};
-  const publicCopy = /redacted|redigovan|public.copy|verejna.kopie|generated_public_copy/i.test(`${published.verification_status || ''} ${published.pdf || ''}`);
+  const publicCopy = publicPdfIsDerivative(item) || /redacted|redigovan|public.copy|verejna.kopie|generated_public_copy/i.test(`${published.verification_status || ''} ${published.pdf || ''}`);
   const pdfLabel = publicCopy ? 'Otevřít redigovanou veřejnou kopii PDF' : 'Otevřít originální listinu v PDF';
   const directPdf = published.pdf
     ? `<p><a href="${escapeHtml(normalizePublicPath(published.pdf))}" target="_blank" rel="noopener">${pdfLabel}</a></p>`
