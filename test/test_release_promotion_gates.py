@@ -161,7 +161,7 @@ class PromotionGateTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     gates.validate_human_review(prs, reviews, reviewer, MERGE, TARGET, AUDIT_ID, FINISHED, FINISHED, detail)
         with self.assertRaises(ValueError):
-            gates.validate_human_review(prs, reviews, "privacy-reviewer", MERGE, TARGET, 0, FINISHED, FINISHED)
+            gates.validate_human_review(prs, reviews, "privacy-reviewer", MERGE, TARGET, 0, FINISHED, FINISHED, detail)
 
 
 if __name__ == "__main__":
