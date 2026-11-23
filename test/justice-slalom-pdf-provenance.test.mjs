@@ -701,7 +701,7 @@ test('candidate standalone manifest rejects absent human approval, SHA drift and
     source_original_sha256: 'a'.repeat(64), public_sha256: 'b'.repeat(64),
     public_path: 'documents/demo/test.pdf',
     privacy_review: {
-      decision: 'approved_for_publication', reviewer: 'example', receipt: 'demo-receipt',
+      decision: 'approved_for_publication', reviewed_public_sha256: 'b'.repeat(64), reviewer: 'example', receipt: 'demo-receipt',
     },
     approval: {
       authorized_public_sha256: 'b'.repeat(64), authorized_by: 'du-demo', receipt: 'approval-demo',
@@ -712,6 +712,7 @@ test('candidate standalone manifest rejects absent human approval, SHA drift and
   for (const damage of [
     x => { x.approval.authorized_public_sha256 = 'f'.repeat(64); },
     x => { x.privacy_review.decision = 'unreviewed'; },
+    x => { x.privacy_review.reviewed_public_sha256 = 'f'.repeat(64); },
     x => { x.privacy_review.receipt = ''; },
     x => { x.approval.receipt = ''; },
     x => { x.public_path = 'documents/../secret.pdf'; },
