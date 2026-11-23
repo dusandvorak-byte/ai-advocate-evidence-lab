@@ -1166,27 +1166,37 @@ def main() -> None:
         if "verified_deterministic_public_text_copy" not in status or "not_byte_identical_original" not in status:
             failures.append(f"Four-records deterministic source provenance missing: {document_id}")
             continue
-        if "publication_policy_hardened" in status:
-            continue  # Changed candidates already received their authenticated review receipt.
-        inspection = inspections.get(rel)
+        # Do not trust a status marker from a prior run, or fast-only fleet
+        # inspections. Deep-scan the exact final bytes and bind both adjacent
+        # SHA readings to the canonical digest for this invocation.
         pdf = WEB / rel
-        if not inspection or not verify_unchanged_public_copy_scan(
+        try:
+            scan_sha_before = sha256_file(pdf)
+            inspection = inspect_pdf_deep(pdf, matchers)
+            scan_sha_after = sha256_file(pdf)
+            inspection["scanned_sha256_before"] = scan_sha_before
+            inspection["scanned_sha256_after"] = scan_sha_after
+        except Exception as exc:
+            failures.append(f"Four-records deep PDF privacy scan failed: {document_id}: {type(exc).__name__}")
+            continue
+        if not verify_unchanged_public_copy_scan(
             inspection=inspection, final_public_pdf=pdf, expected_sha256=str(public.get("sha256") or ""),
         ):
-            failures.append(f"Four-records clean unchanged PDF privacy proof missing: {document_id}")
+            failures.append(f"Four-records exact-byte deep PDF privacy proof missing: {document_id}")
             continue
         public["verification_status"] = "; ".join(dict.fromkeys(status + ["publication_policy_hardened"]))
         item["public"] = public
-        rows.append({
-            "id": document_id, "public_path": rel,
-            "input_sha256": public["sha256"],
-            "output_sha256": public["sha256"],
-            "page_count": inspection.get("page_count"),
-            "changed": False, "strategy": "clean_unchanged_authenticated_scan",
-            "redaction_matches": [], "text_fallback": None,
-            "trigger_reasons": [], "known_private_identifier_hits_after": [],
-            "decoded_private_identifier_hits_after": [], "registered": True,
-        })
+        if not any(row.get("id") == document_id and row.get("public_path") == rel for row in rows):
+            rows.append({
+                "id": document_id, "public_path": rel,
+                "input_sha256": scan_sha_before,
+                "output_sha256": scan_sha_after,
+                "page_count": inspection.get("page_count"),
+                "changed": False, "strategy": "clean_unchanged_authenticated_deep_scan",
+                "redaction_matches": [], "text_fallback": None,
+                "trigger_reasons": [], "known_private_identifier_hits_after": [],
+                "decoded_private_identifier_hits_after": [], "registered": True,
+            })
 
     report = {
         "schema_version": "1.2",
