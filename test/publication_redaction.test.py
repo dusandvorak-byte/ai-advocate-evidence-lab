@@ -23,6 +23,7 @@ from canonical_pdf_provenance_contract import (
     validate_trusted_contract_root,
 )
 from trusted_preflight_report import sanitize_output_row
+from provenance_hardening_bridge import qpdf_decoded_bytes_sealed
 
 PUBLIC_CONTRACT = json.loads((ROOT / "project-memory/private-redaction-policy-contract.json").read_text("utf-8"))
 
@@ -92,6 +93,21 @@ class PublicationRedactionTests(unittest.TestCase):
         self.contract_path.write_text(json.dumps(contract), "utf-8")
         self.policy_path.write_text(json.dumps(payload), "utf-8")
         os.environ["EVIDENCE_LAB_PRIVATE_REDACTION_POLICY"] = str(self.policy_path)
+
+    def test_real_qpdf_stdout_is_scanned_from_sealed_fd(self):
+        # Runs in the no-secrets synthetic privacy job after qpdf installation.
+        pdf = self.tmpdir / "synthetic-decoded.pdf"
+        doc = fitz.open()
+        try:
+            page = doc.new_page()
+            page.insert_text((72, 72), "SYNTHETIC_QPDF_DECODED_MARKER")
+            doc.save(pdf, garbage=4, deflate=True)
+        finally:
+            doc.close()
+        decoded = qpdf_decoded_bytes_sealed(pdf)
+        self.assertTrue(decoded.startswith(b"%PDF-"))
+        self.assertIn(b"SYNTHETIC_QPDF_DECODED_MARKER", decoded)
+        self.assertFalse(list(self.tmpdir.glob("*.qdf.pdf")))
 
     def test_requires_private_policy(self):
         contract = dict(PUBLIC_CONTRACT)
