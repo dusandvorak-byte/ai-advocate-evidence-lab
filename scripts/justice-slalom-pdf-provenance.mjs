@@ -8,7 +8,10 @@ const DOCUMENT_ID_RE = /^doc-[a-z0-9-]+$/;
 const validSha256 = value => typeof value === 'string' && SHA256_RE.test(value);
 
 
-export const indexJusticeSlalomHardeningEvidence = report => {
+// An exact-HMAC-bound caller may require the producer's authenticated policy
+// identity. Ordinary consumers retain their existing report validation; the
+// four-record release gate requires this stronger, binding-contract check.
+export const indexJusticeSlalomHardeningEvidence = (report, { expectedAuthenticatedPolicyIdentity } = {}) => {
   const rows = Array.isArray(report?.documents) ? report.documents : null;
   const rowShapesValid = rows !== null && rows.every(row => Boolean(
     row
@@ -24,7 +27,12 @@ export const indexJusticeSlalomHardeningEvidence = report => {
   const reportClean = report?.hard_failure_count === 0
     && Array.isArray(report?.hard_failures)
     && report.hard_failures.length === 0;
-  const hardeningReportOk = Boolean(reportClean && rowShapesValid && idsUnique);
+  const policyIdentityOk = expectedAuthenticatedPolicyIdentity === undefined || Boolean(
+    typeof expectedAuthenticatedPolicyIdentity === 'string'
+    && SHA256_RE.test(expectedAuthenticatedPolicyIdentity)
+    && report?.authenticated_private_policy_identity === expectedAuthenticatedPolicyIdentity
+  );
+  const hardeningReportOk = Boolean(reportClean && rowShapesValid && idsUnique && policyIdentityOk);
 
   return {
     hardeningReportOk,
