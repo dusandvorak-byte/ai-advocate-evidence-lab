@@ -2,6 +2,6 @@
   "schema_version": 1,
   "authorization_scope": "publish-evidence-lab-gh-pages",
   "authorized": true,
-  "authorized_target_sha": "f39a375ec5c28b9e2ad8ced0c2d993498e6e374c",
-  "note": "Candidate exact-SHA Evidence Lab production release of main@f39a375ec5c28b9e2ad8ced0c2d993498e6e374c, contingent on completed successful trusted secret-backed full validation, all PDF shards, privacy audit, independent human privacy review, exact-SHA staging reconciliation, excluded ID69 and independently verified live output. No release on PR creation."
+  "authorized_target_sha": "721e72468c5614313cf4ef8690df898cbded4cd0",
+  "note": "Candidate only: exact-SHA Evidence Lab production release of main@721e72468c5614313cf4ef8690df898cbded4cd0. No merge/publish unless trusted secret-backed full validation and authoritative exact-SHA PDF shard audit pass, privacy hard failures are zero, ID69 is absent, human content/privacy review is completed, staged provenance is verified, and authorization is separately approved. Verify live effect after any subsequent release."
 }
