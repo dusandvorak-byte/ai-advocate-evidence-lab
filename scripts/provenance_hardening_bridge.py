@@ -60,6 +60,11 @@ def verify_unchanged_public_copy_scan(
         return False
     if not final_public_pdf.is_file():
         return False
+    # The deep scan must attest to the same bytes that are being certified.
+    if inspection.get("scanned_sha256_before") != expected_sha256:
+        return False
+    if inspection.get("scanned_sha256_after") != expected_sha256:
+        return False
     if inspection.get("reasons") != []:
         return False
     if inspection.get("text_scan_ok") is not True:
