@@ -2,15 +2,18 @@
 from __future__ import annotations
 
 import hashlib
+import os
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from provenance_hardening_bridge import is_okte_structural_repair, verify_hardening_bridge, verify_unchanged_public_copy_scan, certify_four_record_public_copy
+from provenance_hardening_bridge import is_okte_structural_repair, verify_hardening_bridge, verify_unchanged_public_copy_scan, certify_four_record_public_copy, qpdf_decoded_bytes_sealed
 
 
 def digest(data: bytes) -> str:
@@ -301,6 +304,62 @@ class ProductionFourRecordSnapshotTest(unittest.TestCase):
                 return result
             with self.subTest(field=field), self.assertRaises(RuntimeError):
                 self.run_caller(bad)
+
+
+
+
+class QpdfSealedOutputRegressionTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.input = Path(self.tmp.name) / "synthetic.pdf"
+        self.input.write_bytes(b"%PDF-1.4\\n%%EOF\\n")
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_qpdf_writes_to_anonymous_sealed_fd_not_public_tmp_path(self):
+        payload = b"%PDF-1.4\\nstream\\nSYNTHETIC_PRIVATE_IDENTIFIER\\nendstream\\n%%EOF\\n"
+        seen = []
+        def produce(command, *, stdout, stderr, timeout):
+            seen.append(command)
+            self.assertEqual(command[-1], "-")
+            self.assertEqual(command[-2], str(self.input))
+            self.assertIsInstance(stdout, int)
+            self.assertEqual(stderr, subprocess.PIPE)
+            self.assertEqual(timeout, 120)
+            self.assertEqual(os.fstat(stdout).st_nlink, 0)
+            os.write(stdout, payload)
+            return subprocess.CompletedProcess(command, 0)
+        with patch("provenance_hardening_bridge.subprocess.run", side_effect=produce):
+            self.assertEqual(qpdf_decoded_bytes_sealed(self.input), payload)
+        self.assertEqual(len(seen), 1)
+        self.assertEqual(list(Path(self.tmp.name).iterdir()), [self.input])
+
+    def test_qpdf_failure_or_empty_output_is_not_clean(self):
+        def failed(command, *, stdout, stderr, timeout):
+            return subprocess.CompletedProcess(command, 2)
+        with patch("provenance_hardening_bridge.subprocess.run", side_effect=failed):
+            with self.assertRaises(RuntimeError):
+                qpdf_decoded_bytes_sealed(self.input)
+        def empty(command, *, stdout, stderr, timeout):
+            return subprocess.CompletedProcess(command, 0)
+        with patch("provenance_hardening_bridge.subprocess.run", side_effect=empty):
+            with self.assertRaises(RuntimeError):
+                qpdf_decoded_bytes_sealed(self.input)
+
+    def test_oversize_decoded_output_is_rejected(self):
+        def produce(command, *, stdout, stderr, timeout):
+            os.write(stdout, b"too large")
+            return subprocess.CompletedProcess(command, 0)
+        with patch("provenance_hardening_bridge.subprocess.run", side_effect=produce):
+            with self.assertRaises(RuntimeError):
+                qpdf_decoded_bytes_sealed(self.input, max_bytes=2)
+
+    def test_qpdf_timeout_is_not_clean(self):
+        with patch("provenance_hardening_bridge.subprocess.run",
+                   side_effect=subprocess.TimeoutExpired("qpdf", 120)):
+            with self.assertRaises(subprocess.TimeoutExpired):
+                qpdf_decoded_bytes_sealed(self.input)
 
 
 
