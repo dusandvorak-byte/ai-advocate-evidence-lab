@@ -32,7 +32,7 @@ def validate_full_build(run, jobs, target):
              "trusted build must be a main push")
     _require(run.get("status") == "completed" and run.get("conclusion") == "success",
              "trusted full validation did not succeed")
-    _require(str(run.get("path") or "").endswith("/validate-evidence-lab-2.yml"),
+    _require(str(run.get("path") or "").split("@", 1)[0].endswith("/validate-evidence-lab-2.yml"),
              "wrong trusted validation workflow")
     _require(run.get("name") == "Ověřit Evidence Lab 2.0",
              "unexpected trusted workflow identity")
