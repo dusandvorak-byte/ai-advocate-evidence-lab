@@ -17,11 +17,11 @@ const suit='doc-cs-dd-2026-08-31-slalom-augsep-043';
 const complaint='doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936';
 
 const expected=new Map([
- [d6,{side:'outgoing',date:'2026-10-06',pdf:'documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz.pdf',sha:'c831604cc60860d0dee289ea4a39bb61aa5a006f720ad975bcf1ef590fb9c0a7',size:86287,pages:5,rows:3}],
- [d8,{side:'outgoing',date:'2026-10-08',pdf:'documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf',sha:'9490a2cde83d76ec9b9fcf838df622e706725de651ed3b807a46e0f3b57fcda3',size:156145,pages:9,rows:6}],
- [omb,{side:'incoming',date:'2026-10-07',pdf:'documents/report-04082026-010/116-eu-ombudsman-202602199-2026-10-07.pdf',sha:'8da9712f3ea540ce2b5f6364175b06eb9e95dfa826506f7be758d998ab9fcdc2',size:53281,pages:2}],
- [ms13,{side:'incoming',date:'2026-10-06',pdf:'documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf',sha:'25ecfff3def2fe8b328cc90bf970801b2778038befb9e0330e6abeb968c1a2c8',size:181141,pages:4}],
- [ms17,{side:'incoming',date:'2026-10-07',pdf:'documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf',sha:'72c6162e095559546988d4f8b0e2423a486d6213c4881fb2b240b44fd5275383',size:109261,pages:1}],
+ [d6,{side:'outgoing',date:'2026-10-06',pdf:'documents/justice-slalom/2026-10/099-podani-2026-10-06-nsz-vsz.pdf',sha:'c831604cc60860d0dee289ea4a39bb61aa5a006f720ad975bcf1ef590fb9c0a7',publicSha:'2d96160c68d5cc8a7f696627d8e3599f604edf25f5ca4a31227375e963d1c1fa',size:86287,pages:5,rows:3}],
+ [d8,{side:'outgoing',date:'2026-10-08',pdf:'documents/justice-slalom/2026-10/100-podani-2026-10-08-kpr-nsz-msp-ppr-mv-ospro.pdf',sha:'9490a2cde83d76ec9b9fcf838df622e706725de651ed3b807a46e0f3b57fcda3',publicSha:'1d214d32da58ef5ce6ec94eea3df57670c5da9e9e2ecc3e3ba451e71e30c4ed6',size:156145,pages:9,rows:6}],
+ [omb,{side:'incoming',date:'2026-10-07',pdf:'documents/report-04082026-010/116-eu-ombudsman-202602199-2026-10-07.pdf',sha:'8da9712f3ea540ce2b5f6364175b06eb9e95dfa826506f7be758d998ab9fcdc2',publicSha:'21a1347b0ac3db0404940a07fd76bf1aff978e1648fd9c686ca3f4f868616564',size:53281,pages:2}],
+ [ms13,{side:'incoming',date:'2026-10-06',pdf:'documents/report-04082026-010/117-ms-praha-15-ad-14-2026-13-2026-10-06.pdf',sha:'25ecfff3def2fe8b328cc90bf970801b2778038befb9e0330e6abeb968c1a2c8',publicSha:'55e7082daad163019ced6ab12d5299e94b82a4b2e4db06185c387e7956454e9e',size:181141,pages:4}],
+ [ms17,{side:'incoming',date:'2026-10-07',pdf:'documents/report-04082026-010/118-ms-praha-15-ad-14-2026-17-2026-10-07.pdf',sha:'72c6162e095559546988d4f8b0e2423a486d6213c4881fb2b240b44fd5275383',publicSha:'1bbcb1794a19d9f8b9a2502a5498142e7f7e0689579e1feb81e3a96d30a0c646',size:109261,pages:1}],
 ]);
 
 const source=await readJson(batchPath);
@@ -61,6 +61,7 @@ for(const [id,spec] of expected){
    bytes.subarray(-2048).toString('latin1').includes('%%EOF'),
    'neplatný veřejný PDF '+id);
  const digest=sha256(bytes);
+ must(digest===spec.publicSha,'veřejné PDF nemá nezávisle připnutý výstupní SHA '+id);
  must(published.public?.sha256===digest,'veřejný PDF nemá odpovídající kanonický SHA '+id);
  const row=hardeningById.get(id);
  must(row?.page_count===spec.pages && row?.input_sha256===spec.sha &&
