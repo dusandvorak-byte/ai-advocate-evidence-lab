@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { evaluatePinnedJusticeSlalomOriginal, indexJusticeSlalomHardeningEvidence, policyHardenedCopyOk } from './justice-slalom-pdf-provenance.mjs';
+import { approvedOct6PublicLabelsMatch, evaluatePinnedJusticeSlalomOriginal, indexJusticeSlalomHardeningEvidence, policyHardenedCopyOk } from './justice-slalom-pdf-provenance.mjs';
 
 const readJson = async path => JSON.parse(await readFile(path, 'utf8'));
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -66,8 +66,11 @@ const OCT6_APPROVED_PUBLIC_LABELS = {
 };
 for (const id of [cnbId,msId,ombId]) {
   const expected=OCT6_APPROVED_PUBLIC_LABELS[id];
-  must(expected && originalInventories.get(id)?.evidence_note === expected.cs &&
-    translations.documents?.[id] === expected.en,
+  must(expected && approvedOct6PublicLabelsMatch({
+    actualCs: originalInventories.get(id)?.evidence_note,
+    actualEn: translations.documents?.[id],
+    approvedCs: expected.cs, approvedEn: expected.en,
+  }),
     'změna schváleného popisku provenance/redakce veřejného PDF vyžaduje review: '+id);
 }
 
