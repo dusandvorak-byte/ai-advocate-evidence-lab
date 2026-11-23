@@ -57,8 +57,24 @@ for(const item of [ks,ms]){
 // produce a DIFFERENT public SHA, but only when the authenticated report binds
 // the exact original to the clean derivative. Never change expected source SHAs.
 const privacyReport=JSON.parse(await readFile('project-memory/privacy-hardening-report.json','utf8'));
-const {hardeningById,hardeningReportOk}=indexJusticeSlalomHardeningEvidence(privacyReport);
-if(!hardeningReportOk) fail('neplatný nebo nejednoznačný report ochrany soukromí');
+const privateContract=JSON.parse(await readFile('project-memory/private-redaction-policy-contract.json','utf8'));
+const bindingIdentity=privateContract.approved_policy_hmac;
+if(privateContract.status!=='binding' ||
+   privateContract.policy_id!=='evidence-lab-private-redaction-policy' ||
+   privateContract.revision!==1 ||
+   privateContract.revision_token!=='2026-11-17-v1' ||
+   privateContract.hmac_algorithm!=='sha256' ||
+   !/^[0-9a-f]{64}$/.test(String(bindingIdentity||'')))
+  fail('chybí platný závazný kontrakt autentizované privátní politiky');
+const publicRedactionScript=await readFile('scripts/publication_redaction.py');
+if(privacyReport.schema_version!=='1.2' ||
+   privacyReport.policy_file!=='scripts/publication_redaction.py' ||
+   privacyReport.policy_sha256!==sha256(publicRedactionScript))
+  fail('privacy report nemá správnou identitu veřejného skeneru');
+const {hardeningById,hardeningReportOk}=indexJusticeSlalomHardeningEvidence(
+  privacyReport, {expectedAuthenticatedPolicyIdentity:bindingIdentity},
+);
+if(!hardeningReportOk) fail('privacy report není kryptograficky svázán s autentizovanou privátní politikou nebo obsahuje chyby');
 for(const item of [prima,reaction]){
   const originalSha=originals[item.id];
   if(item.public.sha256!==originalSha || item.public.source_original_sha256!==originalSha ||
