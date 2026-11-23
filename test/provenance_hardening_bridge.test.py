@@ -10,7 +10,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from provenance_hardening_bridge import is_okte_structural_repair, verify_hardening_bridge
+from provenance_hardening_bridge import is_okte_structural_repair, verify_hardening_bridge, verify_unchanged_public_copy_scan
 
 
 def digest(data: bytes) -> str:
@@ -90,6 +90,56 @@ class HardeningBridgeRegressionTest(unittest.TestCase):
 
     def test_nonzero_hard_failures_fail(self):
         self.assertFalse(self.verify(hardening_report={"hard_failure_count": 1}))
+
+
+
+class UnchangedCopyPrivacyProofRegressionTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.file = Path(self.tmp.name) / "copy.pdf"
+        self.file.write_bytes(b"%PDF-1.4\\npublic-copy\\n%%EOF\\n")
+        self.sha = digest(self.file.read_bytes())
+        self.inspection = {
+            "reasons": [],
+            "text_scan_ok": True,
+            "decoded_scan_ok": True,
+            "qpdf_structurally_valid": True,
+            "pdf_revision_markers_bound": True,
+            "pdf_single_revision_only": True,
+            "visible_private_hits": [],
+            "raw_private_hits": [],
+            "decoded_private_hits": [],
+            "metadata_private_hits": [],
+        }
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def check(self, **overrides):
+        data = {"inspection": self.inspection, "final_public_pdf": self.file, "expected_sha256": self.sha}
+        data.update(overrides)
+        return verify_unchanged_public_copy_scan(**data)
+
+    def test_clean_unchanged_copy_is_certified(self):
+        self.assertTrue(self.check())
+
+    def test_private_hits_fail_closed(self):
+        for field in ("visible_private_hits", "raw_private_hits", "decoded_private_hits", "metadata_private_hits"):
+            self.assertFalse(self.check(inspection={**self.inspection, field: ["test-private-hit"]}))
+
+    def test_incomplete_or_invalid_scans_fail_closed(self):
+        for field in ("text_scan_ok", "decoded_scan_ok", "qpdf_structurally_valid", "pdf_revision_markers_bound", "pdf_single_revision_only"):
+            self.assertFalse(self.check(inspection={**self.inspection, field: False}))
+        self.assertFalse(self.check(inspection={**self.inspection, "reasons": ["private_match"]}))
+        self.assertFalse(self.check(inspection={"reasons": []}))
+
+    def test_tampered_bytes_or_digest_fail(self):
+        self.assertFalse(self.check(expected_sha256=digest(b"wrong")))
+        self.file.write_bytes(b"changed")
+        self.assertFalse(self.check())
+        self.file.unlink()
+        self.assertFalse(self.check())
+
 
 
 if __name__ == "__main__":
