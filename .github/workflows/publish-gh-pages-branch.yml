@@ -159,6 +159,70 @@ jobs:
           test -f /tmp/verified-site/web/.nojekyll
           python3 scripts/validate-staged-legacy-pdf-provenance.py "$report" /tmp/verified-site
 
+      - name: Vynutit úspěch úplného trusted secret-backed buildu na přesném SHA
+        if: env.RELEASE_MODE == 'publish'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          deadline=$((SECONDS + 5100))
+          trusted_id=""
+          while [ "$SECONDS" -lt "$deadline" ]; do
+            gh api "repos/$GITHUB_REPOSITORY/actions/workflows/validate-evidence-lab-2.yml/runs?head_sha=$AUDIT_TARGET_SHA&branch=main&event=push&per_page=100" > /tmp/evidence-trusted-list.json
+            trusted_id="$(jq -r '.workflow_runs | sort_by(.created_at) | last | .id // empty' /tmp/evidence-trusted-list.json)"
+            if [ -n "$trusted_id" ]; then
+              gh api "repos/$GITHUB_REPOSITORY/actions/runs/$trusted_id" > /tmp/evidence-trusted-run.json
+              state="$(jq -r '.status' /tmp/evidence-trusted-run.json)"
+              if [ "$state" = "completed" ]; then
+                gh api "repos/$GITHUB_REPOSITORY/actions/runs/$trusted_id/jobs?per_page=100" > /tmp/evidence-trusted-jobs.json
+                python3 - "$AUDIT_TARGET_SHA" <<'PY'
+          import json, sys
+          from pathlib import Path
+          sys.path.insert(0, "scripts")
+          from importlib.machinery import SourceFileLoader
+          gate = SourceFileLoader("promotion_gate", "scripts/verify-release-promotion-gates.py").load_module()
+          jobs = json.loads(Path("/tmp/evidence-trusted-jobs.json").read_text())
+          if jobs.get("total_count") != len(jobs.get("jobs") or []):
+              raise SystemExit("trusted validation jobs list incomplete")
+          gate.validate_full_build(json.loads(Path("/tmp/evidence-trusted-run.json").read_text()), jobs["jobs"], sys.argv[1])
+          PY
+                break
+              fi
+            fi
+            sleep 10
+          done
+          test -n "$trusted_id"
+          test "$(jq -r '.status' /tmp/evidence-trusted-run.json)" = completed
+          echo "TRUSTED_FULL_RUN_ID=$trusted_id" >> "$GITHUB_ENV"
+          echo "TRUSTED_FULL_COMPLETED_AT=$(jq -r '.updated_at' /tmp/evidence-trusted-run.json)" >> "$GITHUB_ENV"
+          echo "Trusted full validation: PASS on exact parent SHA $AUDIT_TARGET_SHA"
+
+      - name: Vynutit nezávislé lidské potvrzení privacy na přesném SHA
+        if: env.RELEASE_MODE == 'publish'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRIVACY_REVIEWER_LOGIN: ${{ vars.EVIDENCE_LAB_PRIVACY_REVIEWER }}
+        run: |
+          set -euo pipefail
+          test -n "$PRIVACY_REVIEWER_LOGIN" || { echo "No dedicated human privacy reviewer configured"; exit 1; }
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$DIAGNOSTIC_RUN_ID" > /tmp/evidence-shard-run.json
+          test "$(jq -r '.status' /tmp/evidence-shard-run.json)" = completed
+          test "$(jq -r '.conclusion' /tmp/evidence-shard-run.json)" = success
+          test "$(jq -r '.head_sha' /tmp/evidence-shard-run.json)" = "$AUDIT_TARGET_SHA"
+          gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/pulls?per_page=100" > /tmp/evidence-merged-prs.json
+          pr_number="$(jq -r --arg sha "$GITHUB_SHA" '[.[] | select(.merge_commit_sha == $sha and .merged_at != null and .base.ref == "main")] | if length == 1 then .[0].number else empty end' /tmp/evidence-merged-prs.json)"
+          test -n "$pr_number" || { echo "No exact merged release authorization PR"; exit 1; }
+          gh api "repos/$GITHUB_REPOSITORY/pulls/$pr_number/reviews?per_page=100" > /tmp/evidence-pr-reviews.json
+          test "$(jq 'length' /tmp/evidence-pr-reviews.json)" -lt 100 || { echo "Review pagination exceeds safe bound"; exit 1; }
+          python3 scripts/verify-release-promotion-gates.py human \
+            /tmp/evidence-merged-prs.json /tmp/evidence-pr-reviews.json \
+            "$PRIVACY_REVIEWER_LOGIN" "$GITHUB_SHA" "$AUDIT_TARGET_SHA" \
+            "$DIAGNOSTIC_RUN_ID" \
+            "$(jq -r '.updated_at' /tmp/evidence-shard-run.json)" \
+            "$TRUSTED_FULL_COMPLETED_AT"
+
       - name: Potvrdit preflight-only režim bez publikace
         if: env.RELEASE_MODE != 'publish'
         run: |
