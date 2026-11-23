@@ -14,6 +14,7 @@ const SOURCE_SHA = '1'.repeat(64);
 const PUBLIC_SHA = '2'.repeat(64);
 const HARDENED_SHA = '3'.repeat(64);
 const PDF_PATH = 'documents/justice-slalom/example.pdf';
+const POLICY_IDENTITY = 'a'.repeat(64);
 
 const makeDoc = ({
   sourceKind = 'original_pdf_in_user_archive',
@@ -347,9 +348,30 @@ test('four-record uploaded originals accept only exact source-bound privacy deri
       id,
     };
     const row = { ...hardenedRow({ inputSha: sourceSha }), id };
-    const evidence = indexJusticeSlalomHardeningEvidence({
-      hard_failure_count: 0, hard_failures: [], documents: [row],
-    });
+    const authenticatedReport = {
+      hard_failure_count: 0, hard_failures: [],
+      authenticated_private_policy_identity: POLICY_IDENTITY,
+      documents: [row],
+    };
+    const evidence = indexJusticeSlalomHardeningEvidence(
+      authenticatedReport, { expectedAuthenticatedPolicyIdentity: POLICY_IDENTITY },
+    );
+    assert.equal(evidence.hardeningReportOk, true, id + ': report identity matches binding policy');
+    for (const invalidIdentity of [undefined, null, '', 'b'.repeat(64)]) {
+      const badReport = { ...authenticatedReport, authenticated_private_policy_identity: invalidIdentity };
+      const invalid = indexJusticeSlalomHardeningEvidence(
+        badReport, { expectedAuthenticatedPolicyIdentity: POLICY_IDENTITY },
+      );
+      assert.equal(invalid.hardeningReportOk, false, id + ': unauthenticated report denied');
+      assert.equal(evaluatePinnedJusticeSlalomOriginal({
+        doc, digest: HARDENED_SHA, expectedSourceSha: sourceSha,
+        ...invalid,
+      }).provenanceOk, false, id + ': unauthenticated derivative denied');
+    }
+    const wrongPolicy = indexJusticeSlalomHardeningEvidence(
+      authenticatedReport, { expectedAuthenticatedPolicyIdentity: 'b'.repeat(64) },
+    );
+    assert.equal(wrongPolicy.hardeningReportOk, false, id + ': wrong binding identity denied');
     const proof = evaluatePinnedJusticeSlalomOriginal({
       doc, digest: HARDENED_SHA, expectedSourceSha: sourceSha,
       ...evidence,
