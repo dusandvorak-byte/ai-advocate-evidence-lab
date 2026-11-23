@@ -23,7 +23,7 @@ from publication_redaction import (
     redact_public_text,
 )
 from public_text_fallback import atomic_replace_bytes, build_public_text_copy
-from provenance_hardening_bridge import is_okte_structural_repair, verify_unchanged_public_copy_scan
+from provenance_hardening_bridge import is_okte_structural_repair, certify_four_record_public_copy
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
@@ -1147,56 +1147,29 @@ def main() -> None:
         "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191":
             "394d9db7e01099561138c77382e162b59810a4fdb77f1114b471fdc2e336f293",
     }
+    path_by_id = {
+        "doc-cz-ks-brn-2026-09-03-9-to-315-2026-140":
+            "documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf",
+        "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191":
+            "documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf",
+    }
     for item in registry["documents"]:
         document_id = item.get("id")
         if document_id not in source_sha_by_id:
             continue
-        public = item.get("public") or {}
-        rel = str(public.get("pdf") or "")
-        expected_rel = {
-            "doc-cz-ks-brn-2026-09-03-9-to-315-2026-140":
-                "documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf",
-            "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191":
-                "documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf",
-        }[document_id]
-        status = [part.strip() for part in str(public.get("verification_status") or "").split(";") if part.strip()]
-        if rel != expected_rel or public.get("source_original_sha256") != source_sha_by_id[document_id]:
-            failures.append(f"Four-records public-copy provenance path/source mismatch: {document_id}")
-            continue
-        if "verified_deterministic_public_text_copy" not in status or "not_byte_identical_original" not in status:
-            failures.append(f"Four-records deterministic source provenance missing: {document_id}")
-            continue
-        # Do not trust a status marker from a prior run, or fast-only fleet
-        # inspections. Deep-scan the exact final bytes and bind both adjacent
-        # SHA readings to the canonical digest for this invocation.
-        pdf = WEB / rel
         try:
-            scan_sha_before = sha256_file(pdf)
-            inspection = inspect_pdf_deep(pdf, matchers)
-            scan_sha_after = sha256_file(pdf)
-            inspection["scanned_sha256_before"] = scan_sha_before
-            inspection["scanned_sha256_after"] = scan_sha_after
+            row = certify_four_record_public_copy(
+                item=item,
+                expected_original_sha256=source_sha_by_id[document_id],
+                expected_public_path=path_by_id[document_id],
+                web_root=WEB,
+                deep_scan=lambda snapshot: inspect_pdf_deep(snapshot, matchers),
+            )
+            if not any(existing.get("id") == document_id and existing.get("public_path") == path_by_id[document_id] for existing in rows):
+                rows.append(row)
         except Exception as exc:
-            failures.append(f"Four-records deep PDF privacy scan failed: {document_id}: {type(exc).__name__}")
-            continue
-        if not verify_unchanged_public_copy_scan(
-            inspection=inspection, final_public_pdf=pdf, expected_sha256=str(public.get("sha256") or ""),
-        ):
-            failures.append(f"Four-records exact-byte deep PDF privacy proof missing: {document_id}")
-            continue
-        public["verification_status"] = "; ".join(dict.fromkeys(status + ["publication_policy_hardened"]))
-        item["public"] = public
-        if not any(row.get("id") == document_id and row.get("public_path") == rel for row in rows):
-            rows.append({
-                "id": document_id, "public_path": rel,
-                "input_sha256": scan_sha_before,
-                "output_sha256": scan_sha_after,
-                "page_count": inspection.get("page_count"),
-                "changed": False, "strategy": "clean_unchanged_authenticated_deep_scan",
-                "redaction_matches": [], "text_fallback": None,
-                "trigger_reasons": [], "known_private_identifier_hits_after": [],
-                "decoded_private_identifier_hits_after": [], "registered": True,
-            })
+            failures.append(f"Four-records private snapshot privacy proof failed: {document_id}: {type(exc).__name__}")
+
 
     report = {
         "schema_version": "1.2",
