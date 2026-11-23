@@ -101,6 +101,8 @@ class UnchangedCopyPrivacyProofRegressionTest(unittest.TestCase):
         self.sha = digest(self.file.read_bytes())
         self.inspection = {
             "reasons": [],
+            "scanned_sha256_before": self.sha,
+            "scanned_sha256_after": self.sha,
             "text_scan_ok": True,
             "decoded_scan_ok": True,
             "qpdf_structurally_valid": True,
@@ -132,6 +134,20 @@ class UnchangedCopyPrivacyProofRegressionTest(unittest.TestCase):
             self.assertFalse(self.check(inspection={**self.inspection, field: False}))
         self.assertFalse(self.check(inspection={**self.inspection, "reasons": ["private_match"]}))
         self.assertFalse(self.check(inspection={"reasons": []}))
+
+    def test_fast_only_scan_is_never_enough(self):
+        fast_only = {key: value for key, value in self.inspection.items()
+                     if key not in ("decoded_scan_ok", "decoded_private_hits")}
+        self.assertFalse(self.check(inspection=fast_only))
+
+    def test_scan_must_bind_exact_bytes_before_and_after(self):
+        for field in ("scanned_sha256_before", "scanned_sha256_after"):
+            self.assertFalse(self.check(inspection={**self.inspection, field: digest(b"other")}))
+            self.assertFalse(self.check(inspection={k: v for k, v in self.inspection.items() if k != field}))
+
+    def test_stale_marker_is_not_proof_of_scanned_bytes(self):
+        stale = {**self.inspection, "scanned_sha256_before": digest(b"old")}
+        self.assertFalse(self.check(inspection=stale))
 
     def test_tampered_bytes_or_digest_fail(self):
         self.assertFalse(self.check(expected_sha256=digest(b"wrong")))
