@@ -46,7 +46,7 @@ def validate_full_build(run, jobs, target):
 
 
 def validate_human_review(prs, reviews, reviewer, merge_sha, target, audit_run_id,
-                          audit_completed, full_completed):
+                          audit_completed, full_completed, pr_detail):
     _require(bool(_SHA.fullmatch(merge_sha)) and bool(_SHA.fullmatch(target)),
              "invalid exact-SHA identity")
     _require(isinstance(reviewer, str) and bool(re.fullmatch(r"[A-Za-z0-9-]{1,39}", reviewer)),
@@ -57,6 +57,19 @@ def validate_human_review(prs, reviews, reviewer, merge_sha, target, audit_run_i
               and p.get("merged_at") and (p.get("base") or {}).get("ref") == "main"]
     _require(len(merged) == 1, "cannot independently identify exact merged authorization PR")
     pr = merged[0]
+    _require(isinstance(pr_detail, dict) and pr_detail.get("number") == pr.get("number"),
+             "merged PR detail is absent or points to a different PR")
+    _require(pr_detail.get("merge_commit_sha") == merge_sha and pr_detail.get("merged_at"),
+             "operator verification not bound to exact merged authorization commit")
+    operator = pr_detail.get("merged_by") or {}
+    _require(operator.get("type") == "User" and
+             bool(re.fullmatch(r"[A-Za-z0-9-]{1,39}", operator.get("login") or "")),
+             "publication requires an identifiable human operator merge")
+    _require(operator["login"].lower() != reviewer.lower(),
+             "release operator must be independent from privacy reviewer")
+    _require(_timestamp(pr_detail["merged_at"]) >= _timestamp(audit_completed) and
+             _timestamp(pr_detail["merged_at"]) >= _timestamp(full_completed),
+             "release was merged before trusted audit completion")
     head = (pr.get("head") or {}).get("sha")
     _require(bool(head and _SHA.fullmatch(head)), "invalid authorization PR head")
     author = (pr.get("user") or {}).get("login", "")
@@ -79,6 +92,8 @@ def validate_human_review(prs, reviews, reviewer, merge_sha, target, audit_run_i
              "human review predates trusted shard audit")
     _require(approved_at >= _timestamp(full_completed),
              "human review predates trusted full validation")
+    _require(_timestamp(pr_detail["merged_at"]) >= approved_at,
+             "release operator merged before the human privacy attestation")
     return True
 
 
@@ -91,7 +106,7 @@ def main():
     full.add_argument("target")
     human = sub.add_parser("human")
     for arg in ("prs", "reviews", "reviewer", "merge_sha", "target",
-                "audit_run_id", "audit_completed", "full_completed"):
+                "audit_run_id", "audit_completed", "full_completed", "pr_detail"):
         human.add_argument(arg)
     args = p.parse_args()
     if args.mode == "trusted":
@@ -101,7 +116,8 @@ def main():
         validate_human_review(json.loads(Path(args.prs).read_text()),
                               json.loads(Path(args.reviews).read_text()), args.reviewer,
                               args.merge_sha, args.target, int(args.audit_run_id),
-                              args.audit_completed, args.full_completed)
+                              args.audit_completed, args.full_completed,
+                              json.loads(Path(args.pr_detail).read_text()))
     print("EXACT_SHA_RELEASE_PROMOTION_GATES_PASS")
 
 
