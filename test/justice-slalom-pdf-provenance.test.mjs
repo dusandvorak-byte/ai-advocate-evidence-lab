@@ -328,6 +328,50 @@ test('pinned uploaded original rejects a mismatched authenticated source SHA', (
 });
 
 
+// Regression for the 2 Oct FTV Prima and 4 Oct NCOZ/MS Praha documents:
+// the archive retains the uploaded binary SHA, while the public bytes can
+// differ ONLY after the authenticated privacy report binds input and output.
+test('four-record uploaded originals accept only exact source-bound privacy derivatives', () => {
+  const uploaded = [
+    ['doc-cz-ekk-2026-10-02-os-praha10-ftv-prima-doplneni-zaloby', '483f849dbe816df2bfaac7b8d7a5b7be2dc2a796b711c7aec9c880fc34f6a457'],
+    ['doc-cz-dd-2026-10-04-ncoz-ms-pha-18-a-17-reakce', '3dd1854522b5bcb9d0f87f9d14f199881915e80bc91a9850a04ac404f33981a2'],
+  ];
+  for (const [id, sourceSha] of uploaded) {
+    const doc = {
+      ...makeDoc({
+        sourceKind: 'original_pdf_uploaded_by_user',
+        publicSha: HARDENED_SHA,
+        sourceSha,
+        verificationStatus: 'published; publication_policy_hardened',
+      }),
+      id,
+    };
+    const row = { ...hardenedRow({ inputSha: sourceSha }), id };
+    const evidence = indexJusticeSlalomHardeningEvidence({
+      hard_failure_count: 0, hard_failures: [], documents: [row],
+    });
+    const proof = evaluatePinnedJusticeSlalomOriginal({
+      doc, digest: HARDENED_SHA, expectedSourceSha: sourceSha,
+      ...evidence,
+    });
+    assert.equal(proof.provenanceOk, true, id);
+    assert.equal(proof.effectiveKind, 'redacted_public_copy', id);
+    assert.equal(evaluatePinnedJusticeSlalomOriginal({
+      doc, digest: HARDENED_SHA, expectedSourceSha: sourceSha,
+      hardeningById: new Map(), hardeningReportOk: true,
+    }).provenanceOk, false, id + ': missing report must fail');
+    assert.equal(evaluatePinnedJusticeSlalomOriginal({
+      doc, digest: HARDENED_SHA, expectedSourceSha: sourceSha,
+      hardeningById: new Map([[id, { ...row, known_private_identifier_hits_after: ['synthetic-private-hit'] }]]),
+      hardeningReportOk: true,
+    }).provenanceOk, false, id + ': privacy match must fail');
+    assert.equal(evaluatePinnedJusticeSlalomOriginal({
+      doc, digest: HARDENED_SHA, expectedSourceSha: '9'.repeat(64),
+      ...evidence,
+    }).provenanceOk, false, id + ': substituted original SHA must fail');
+  }
+});
+
 test('duplicate hardening evidence IDs fail closed', () => {
   const first = hardenedRow();
   const second = { ...hardenedRow(), output_sha256: '4'.repeat(64) };
