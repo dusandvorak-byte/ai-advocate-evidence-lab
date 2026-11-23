@@ -23,7 +23,7 @@ from publication_redaction import (
     redact_public_text,
 )
 from public_text_fallback import atomic_replace_bytes, build_public_text_copy
-from provenance_hardening_bridge import is_okte_structural_repair
+from provenance_hardening_bridge import is_okte_structural_repair, verify_unchanged_public_copy_scan
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
@@ -1137,6 +1137,56 @@ def main() -> None:
                 "decoded_private_identifier_hits_after": result["post"].get("decoded_private_hits") or [],
                 "registered": False,
             })
+
+    # Source-verified deterministic text copies can pass a clean, unchanged
+    # authenticated PDF scan. Earlier link reconciliation must retain their
+    # generated-copy provenance; never fabricate a marker for arbitrary PDFs.
+    source_sha_by_id = {
+        "doc-cz-ks-brn-2026-09-03-9-to-315-2026-140":
+            "e565b7e3bb122f00ff04720f1acce031525c1b9c2a2457a87cdac96055ec64a6",
+        "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191":
+            "394d9db7e01099561138c77382e162b59810a4fdb77f1114b471fdc2e336f293",
+    }
+    for item in registry["documents"]:
+        document_id = item.get("id")
+        if document_id not in source_sha_by_id:
+            continue
+        public = item.get("public") or {}
+        rel = str(public.get("pdf") or "")
+        expected_rel = {
+            "doc-cz-ks-brn-2026-09-03-9-to-315-2026-140":
+                "documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf",
+            "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191":
+                "documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf",
+        }[document_id]
+        status = [part.strip() for part in str(public.get("verification_status") or "").split(";") if part.strip()]
+        if rel != expected_rel or public.get("source_original_sha256") != source_sha_by_id[document_id]:
+            failures.append(f"Four-records public-copy provenance path/source mismatch: {document_id}")
+            continue
+        if "verified_deterministic_public_text_copy" not in status or "not_byte_identical_original" not in status:
+            failures.append(f"Four-records deterministic source provenance missing: {document_id}")
+            continue
+        if "publication_policy_hardened" in status:
+            continue  # Changed candidates already received their authenticated review receipt.
+        inspection = inspections.get(rel)
+        pdf = WEB / rel
+        if not inspection or not verify_unchanged_public_copy_scan(
+            inspection=inspection, final_public_pdf=pdf, expected_sha256=str(public.get("sha256") or ""),
+        ):
+            failures.append(f"Four-records clean unchanged PDF privacy proof missing: {document_id}")
+            continue
+        public["verification_status"] = "; ".join(dict.fromkeys(status + ["publication_policy_hardened"]))
+        item["public"] = public
+        rows.append({
+            "id": document_id, "public_path": rel,
+            "input_sha256": public["sha256"],
+            "output_sha256": public["sha256"],
+            "page_count": inspection.get("page_count"),
+            "changed": False, "strategy": "clean_unchanged_authenticated_scan",
+            "redaction_matches": [], "text_fallback": None,
+            "trigger_reasons": [], "known_private_identifier_hits_after": [],
+            "decoded_private_identifier_hits_after": [], "registered": True,
+        })
 
     report = {
         "schema_version": "1.2",
