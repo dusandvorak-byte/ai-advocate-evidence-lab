@@ -720,12 +720,29 @@ test('candidate standalone manifest rejects absent human approval, SHA drift and
     x => { x.document_id = 'bad'; },
     x => { x.public_sha256 = 'wrong'; },
     x => { x.issuer = 'unknown'; },
+    x => { x.document_id = ['doc-example-2026-11-23']; },
+    x => { x.document_id = { toString: () => 'doc-example-2026-11-23' }; },
+    x => { x.public_path = ['documents/demo/test.pdf']; },
+    x => { x.source_original_sha256 = ['a'.repeat(64)]; },
+    x => { x.public_sha256 = ['b'.repeat(64)]; },
+    x => { x.privacy_review.reviewer = ['example']; },
+    x => { x.privacy_review.receipt = ['demo-receipt']; },
+    x => { x.approval.authorized_by = ['du-demo']; },
+    x => { x.approval.receipt = ['approval-demo']; },
+
   ]) {
     const x = item();
     damage(x);
     assert.throws(() => validatePublicationBatch(wrap([x])), /PUBLICATION_MANIFEST_INVALID/);
   }
   assert.throws(() => validatePublicationBatch(wrap([item(), item()])), /document identity/);
+  const a = item(); const b = item();
+  a.document_id = ['doc-example-2026-11-23'];
+  b.document_id = ['doc-example-2026-11-23'];
+  b.public_path = 'documents/demo/other.pdf';
+  assert.throws(() => validatePublicationBatch(wrap([a, b])), /document identity/);
+  assert.throws(() => validatePublicationBatch({ ...wrap([item()]), batch_id: ['demo-release'] }), /schema\/batch/);
+
   const second = item();
   second.document_id = 'doc-example-2026-11-24';
   assert.throws(() => validatePublicationBatch(wrap([item(), second])), /public path/);
