@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evidence Lab publication batch manifest v1 (candidate contract, not release authorization)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "batch_id",
+    "items"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1"
+    },
+    "batch_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{4,79}$"
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "document_id",
+          "issuer",
+          "case_ids",
+          "source_original_sha256",
+          "public_sha256",
+          "public_path",
+          "privacy_review",
+          "approval"
+        ],
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "pattern": "^doc-[a-z0-9-]{4,180}$"
+          },
+          "issuer": {
+            "enum": [
+              "state",
+              "user",
+              "alliance",
+              "other"
+            ]
+          },
+          "case_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "source_original_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "public_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "public_path": {
+            "type": "string",
+            "pattern": "^documents/[a-zA-Z0-9_./-]+\\.pdf$",
+            "not": {
+              "pattern": "(^|/)\\.\\.?(/|$)"
+            }
+          },
+          "privacy_review": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "decision",
+              "reviewer",
+              "receipt"
+            ],
+            "properties": {
+              "decision": {
+                "const": "approved_for_publication"
+              },
+              "reviewer": {
+                "type": "string",
+                "minLength": 1
+              },
+              "receipt": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "approval": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "authorized_public_sha256",
+              "authorized_by",
+              "receipt"
+            ],
+            "properties": {
+              "authorized_public_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "authorized_by": {
+                "type": "string",
+                "minLength": 1
+              },
+              "receipt": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
