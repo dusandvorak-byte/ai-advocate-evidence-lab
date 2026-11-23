@@ -23,7 +23,7 @@ from publication_redaction import (
     redact_public_text,
 )
 from public_text_fallback import atomic_replace_bytes, build_public_text_copy
-from provenance_hardening_bridge import is_okte_structural_repair, certify_four_record_public_copy
+from provenance_hardening_bridge import is_okte_structural_repair, certify_four_record_public_copy, qpdf_decoded_bytes_sealed
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
@@ -253,36 +253,12 @@ def pdf_revision_envelope(raw: bytes) -> dict:
 
 
 def decoded_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
-    tmp_name = None
+    """Decoded stream scan is fail closed and uses kernel-sealed qpdf output."""
     try:
-        with tempfile.NamedTemporaryFile(prefix="evidence-harden-", suffix=".qdf.pdf", delete=False) as tmp:
-            tmp_name = tmp.name
-        proc = subprocess.run(
-            [
-                "qpdf",
-                "--qdf",
-                "--preserve-unreferenced",
-                "--object-streams=disable",
-                "--stream-data=uncompress",
-                str(path),
-                tmp_name,
-            ],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            timeout=120,
-        )
-        if proc.returncode != 0:
-            return ["__decoded_stream_scan_failed__"], False
-        decoded = Path(tmp_name).read_bytes()
+        decoded = qpdf_decoded_bytes_sealed(path)
         return sorted(set(forbidden_public_identifier_byte_hits(decoded, matchers))), True
-    except (OSError, subprocess.TimeoutExpired):
+    except (OSError, RuntimeError, subprocess.TimeoutExpired, ValueError):
         return ["__decoded_stream_scan_failed__"], False
-    finally:
-        if tmp_name:
-            try:
-                Path(tmp_name).unlink(missing_ok=True)
-            except OSError:
-                pass
 
 
 def inspect_pdf_fast(path: Path, matchers) -> dict:
@@ -377,39 +353,6 @@ def inspect_pdf_deep(path: Path, matchers) -> dict:
         "decoded_private_hits": decoded_hits,
         "decoded_scan_ok": decoded_ok,
     }
-
-
-def decoded_private_hits(path: Path, matchers) -> tuple[list[str], bool]:
-    tmp_name = None
-    try:
-        with tempfile.NamedTemporaryFile(prefix="evidence-harden-", suffix=".qdf.pdf", delete=False) as tmp:
-            tmp_name = tmp.name
-        proc = subprocess.run(
-            [
-                "qpdf",
-                "--qdf",
-                "--preserve-unreferenced",
-                "--object-streams=disable",
-                "--stream-data=uncompress",
-                str(path),
-                tmp_name,
-            ],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            timeout=120,
-        )
-        if proc.returncode != 0:
-            return ["__decoded_stream_scan_failed__"], False
-        decoded = Path(tmp_name).read_bytes()
-        return sorted(set(forbidden_public_identifier_byte_hits(decoded, matchers))), True
-    except (OSError, subprocess.TimeoutExpired):
-        return ["__decoded_stream_scan_failed__"], False
-    finally:
-        if tmp_name:
-            try:
-                Path(tmp_name).unlink(missing_ok=True)
-            except OSError:
-                pass
 
 
 def forbidden_hits(path: Path) -> list[str]:
