@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { evaluatePinnedJusticeSlalomOriginal, indexJusticeSlalomHardeningEvidence, policyHardenedCopyOk } from './justice-slalom-pdf-provenance.mjs';
 
 const fail=message=>{throw new Error('GODOT-SLALOM-2026-10-08: '+message);};
 const must=(condition,message)=>{if(!condition) fail(message);};
@@ -24,6 +25,25 @@ const expected=new Map([
 ]);
 
 const source=await readJson(batchPath);
+const canonical=await readJson('project-memory/documents-2026.json');
+const docs=new Map(canonical.documents.map(x=>[x.id,x]));
+const hardening=await readJson('project-memory/privacy-hardening-report.json');
+const policyContract=await readJson('project-memory/private-redaction-policy-contract.json');
+must(policyContract.status==='binding' &&
+  policyContract.policy_id==='evidence-lab-private-redaction-policy' &&
+  policyContract.revision===1 &&
+  policyContract.revision_token==='2026-11-17-v1' &&
+  policyContract.hmac_algorithm==='sha256' &&
+  /^[0-9a-f]{64}$/.test(String(policyContract.approved_policy_hmac||'')),
+  'chybí závazný redakční HMAC kontrakt');
+must(hardening.schema_version==='1.2' && hardening.policy_file==='scripts/publication_redaction.py' &&
+  hardening.policy_sha256===sha256(await readFile('scripts/publication_redaction.py')),
+  'privacy hardening report neodpovídá autentizovanému skeneru');
+const {hardeningReportOk,hardeningById}=indexJusticeSlalomHardeningEvidence(hardening,{
+  expectedAuthenticatedPolicyIdentity:policyContract.approved_policy_hmac,
+});
+must(hardeningReportOk,'privacy report nemá autorizovanou HMAC identitu nebo obsahuje hard failures');
+const resolvedPublicProofs=new Map();
 must(source.documents?.length===5,'release packet musí obsahovat 5 dokumentů');
 const packet=new Map(source.documents.map(x=>[x.id,x]));
 for(const [id,spec] of expected){
@@ -33,9 +53,29 @@ for(const [id,spec] of expected){
  must(d.public?.sha256===spec.sha&&d.public?.source_original_sha256===spec.sha,'SHA provenance nesouhlasí '+id);
  must(d.public?.source_original_size_bytes===spec.size&&d.public?.source_original_page_count===spec.pages,'source metadata nesouhlasí '+id);
  must(String(d.public?.verification_status||'').includes('source_pdf_received_binary_original'),'není deklarován binární originál '+id);
+ const published=docs.get(id);
+ must(published?.public?.pdf===spec.pdf && published.public?.source_original_sha256===spec.sha,
+   'kanonický registr ztratil zdrojový originál '+id);
  const bytes=await readFile('web/'+spec.pdf);
- must(bytes.length===spec.size&&bytes.subarray(0,5).toString()==='%PDF-'&&bytes.subarray(-2048).toString('latin1').includes('%%EOF'),'neplatný veřejný PDF '+id);
- must(sha256(bytes)===spec.sha,'veřejný PDF není byte-identický '+id);
+ must(bytes.length>0 && bytes.subarray(0,5).toString()==='%PDF-' &&
+   bytes.subarray(-2048).toString('latin1').includes('%%EOF'),
+   'neplatný veřejný PDF '+id);
+ const digest=sha256(bytes);
+ must(published.public?.sha256===digest,'veřejný PDF nemá odpovídající kanonický SHA '+id);
+ const row=hardeningById.get(id);
+ must(row?.page_count===spec.pages && row?.input_sha256===spec.sha &&
+   row?.output_sha256===digest,'veřejná redigovaná kopie nemá úplný audit zdroje a stran '+id);
+ const hardened=policyHardenedCopyOk({doc:published,digest,expectedInputSha:spec.sha,
+   hardeningById,hardeningReportOk});
+ must(hardened, 'veřejná kopie není ověřená autentizovaným privacy reportem '+id);
+ if(spec.side==='outgoing'){
+   const proof=evaluatePinnedJusticeSlalomOriginal({doc:published,digest,
+     expectedSourceSha:spec.sha,hardeningById,hardeningReportOk});
+   must(proof.provenanceOk && proof.policyHardened &&
+     proof.effectiveKind==='redacted_public_copy',
+     'Justiční slalom: původní SHA a redigovaný výstup nejsou spojené '+id);
+ }
+ resolvedPublicProofs.set(id,{digest,kind:'redacted_public_copy'});
  if(spec.side==='outgoing'){
    must(d.document_type==='user_submission'&&d.submission_side==='outgoing_from_user_or_alliance','vlastní podání má chybnou klasifikaci '+id);
    must(d.justice_slalom&&d.justice_slalom.recipients?.length===spec.rows,'vlastní podání nemá správné Slalom metadata '+id);
@@ -51,8 +91,6 @@ must(packet.get(ms17).received_date===null&&packet.get(ms17).reference==='15 Ad 
 must(packet.get(omb).relations?.some(r=>r.type==='reakce_na'&&r.target_id===complaint),'ombudsman není napojen na stížnost 6. 10.');
 for(const id of [ms13,ms17]) must(packet.get(id).relations?.some(r=>r.type==='reakce_na'&&r.target_id===suit),id+' není napojen na žalobu 31. 8.');
 
-const canonical=await readJson('project-memory/documents-2026.json');
-const docs=new Map(canonical.documents.map(x=>[x.id,x]));
 for(const id of expected.keys()) must(docs.has(id),'kanonický registr po buildu postrádá '+id);
 
 const slalom=await readJson('web/data/justice-slalom.json');
@@ -60,7 +98,9 @@ const rows=slalom.rows||[];
 for(const id of [d6,d8]){
  const spec=expected.get(id), rr=rows.filter(r=>r.document_id===id);
  must(rr.length===spec.rows,`Justiční slalom má pro ${id} ${rr.length} řádků místo ${spec.rows}`);
- must(rr.every(r=>r.pdf===spec.pdf&&r.pdf_kind==='original'),'Slalom neodkazuje na originální PDF '+id);
+ must(rr.every(r=>r.pdf===spec.pdf && r.pdf_kind==='redacted_public_copy' &&
+   r.pdf_sha256===resolvedPublicProofs.get(id).digest),
+   'Slalom neodkazuje na autentizované redigované veřejné PDF '+id);
 }
 for(const id of [omb,ms13,ms17]) must(!rows.some(r=>r.document_id===id),'státní listina se chybně objevila ve Slalomu '+id);
 
@@ -102,4 +142,4 @@ must(c15?.decision_document_id===ms13&&c15?.latest_state_document_id===ms17&&c15
 const translations=await readJson('project-memory/english-godot-translations.json');
 for(const id of expected.keys()) must(Boolean(translations.documents?.[id]),'chybí EN anotace '+id);
 
-console.log('GODOT/SLALOM 8. 10. OK: státní listiny jsou hlavní řádky Godota; vlastní podání 6. a 8. 10. jsou v Justičním slalomu a jen vztahově v Godotu; všech 5 PDF je byte-identických s originály.');
+console.log('GODOT/SLALOM 8. 10. OK: zdrojové původní SHA všech 5 listin zachovány; redigované veřejné PDF autentizované reportem a přesným výstupním SHA; Godot/Slalom vztahy souhlasí.');
