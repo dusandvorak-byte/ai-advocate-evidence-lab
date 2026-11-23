@@ -215,6 +215,7 @@ jobs:
           gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/pulls?per_page=100" > /tmp/evidence-merged-prs.json
           pr_number="$(jq -r --arg sha "$GITHUB_SHA" '[.[] | select(.merge_commit_sha == $sha and .merged_at != null and .base.ref == "main")] | if length == 1 then .[0].number else empty end' /tmp/evidence-merged-prs.json)"
           test -n "$pr_number" || { echo "No exact merged release authorization PR"; exit 1; }
+          gh api "repos/$GITHUB_REPOSITORY/pulls/$pr_number" > /tmp/evidence-merged-pr-detail.json
           gh api "repos/$GITHUB_REPOSITORY/pulls/$pr_number/reviews?per_page=100" > /tmp/evidence-pr-reviews.json
           test "$(jq 'length' /tmp/evidence-pr-reviews.json)" -lt 100 || { echo "Review pagination exceeds safe bound"; exit 1; }
           python3 scripts/verify-release-promotion-gates.py human \
@@ -222,7 +223,8 @@ jobs:
             "$PRIVACY_REVIEWER_LOGIN" "$GITHUB_SHA" "$AUDIT_TARGET_SHA" \
             "$DIAGNOSTIC_RUN_ID" \
             "$(jq -r '.updated_at' /tmp/evidence-shard-run.json)" \
-            "$TRUSTED_FULL_COMPLETED_AT"
+            "$TRUSTED_FULL_COMPLETED_AT" \
+            /tmp/evidence-merged-pr-detail.json
 
       - name: Potvrdit preflight-only režim bez publikace
         if: env.RELEASE_MODE != 'publish'
