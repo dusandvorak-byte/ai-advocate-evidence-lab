@@ -39,6 +39,20 @@ def fixture():
 
 
 class PromotionGateTests(unittest.TestCase):
+    def test_publisher_wiring_runs_both_gates_before_gh_pages_write(self):
+        workflow = (Path(__file__).resolve().parents[1] /
+                    ".github/workflows/publish-gh-pages-branch.yml").read_text("utf-8")
+        full = workflow.index("name: Vynutit úspěch úplného trusted secret-backed buildu")
+        human = workflow.index("name: Vynutit nezávislé lidské potvrzení privacy")
+        publish = workflow.index("name: Publikovat ověřené soubory do jediné větve gh-pages")
+        self.assertLess(full, human)
+        self.assertLess(human, publish)
+        self.assertIn("pull-requests: read", workflow)
+        for excerpt in (workflow[full:human], workflow[human:publish]):
+            self.assertIn("if: env.RELEASE_MODE == 'publish'", excerpt)
+        self.assertIn("scripts/verify-release-promotion-gates.py human", workflow[human:publish])
+        self.assertIn("gate[\"validate_full_build\"]", workflow[full:human])
+
     def test_success_only_on_exact_verified_attested_release(self):
         run, jobs, prs, reviews = fixture()
         self.assertTrue(gates.validate_full_build(run, jobs, TARGET))
