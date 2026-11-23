@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from publication_redaction import forbidden_public_identifiers, forbidden_public_identifier_byte_hits, prepared_private_byte_matchers
 from provenance_hardening_bridge import is_okte_structural_repair, verify_hardening_bridge
+from live_release_sha import accepted_live_public_sha
 WEB = ROOT / "web"
 PUBLICATION_ROOT = Path(os.environ.get("EVIDENCE_LAB_PUBLICATION_ROOT", str(WEB))).resolve()
 CANONICAL_REGISTRY = Path(os.environ.get("EVIDENCE_LAB_CANONICAL_REGISTRY", str(ROOT / "project-memory/documents-2026.json"))).resolve()
@@ -1078,8 +1079,13 @@ def audit_redacted_analysis(precomputed_facts=None):
         "xmp_removed_now": not facts["xmp_present"],
         "no_known_private_identifiers_now": not facts["known_private_identifier_hits"],
         "live_http_200_pre_release": live.get("http_status") == 200,
-        "live_still_matches_pre_release_reviewed_copy": live.get("sha256") == privacy["sha256"],
     }
+    # The publish workflow may already have promoted the audited final PDF.
+    # All independent provenance, privacy and content guards must pass first.
+    # A third (neither reviewed nor audited) live digest remains a hard failure.
+    checks["live_matches_reviewed_or_audited_public_copy"] = accepted_live_public_sha(
+        live.get("sha256"), privacy["sha256"], actual["sha256"], all(checks.values())
+    )
     if not all(checks.values()):
         failures.append(f"redacted analysis verification failed: {checks}")
     return {
