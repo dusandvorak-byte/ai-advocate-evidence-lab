@@ -58,6 +58,47 @@ const hardenedRow = ({
   decoded_private_identifier_hits_after: decodedHits,
 });
 
+test('Oct 6-8 five-file privacy derivation preserves original SHA and fails closed on tampering', () => {
+  const specs = [
+    ['doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni','c831604cc60860d0dee289ea4a39bb61aa5a006f720ad975bcf1ef590fb9c0a7','2d96160c68d5cc8a7f696627d8e3599f604edf25f5ca4a31227375e963d1c1fa',true],
+    ['doc-cz-ekk-dd-2026-10-08-kpr-nsz-msp-pp-mv-ospro-dukazni-doplneni','9490a2cde83d76ec9b9fcf838df622e706725de651ed3b807a46e0f3b57fcda3','1d214d32da58ef5ce6ec94eea3df57670c5da9e9e2ecc3e3ba451e71e30c4ed6',true],
+    ['doc-eu-omb-2026-10-07-202602199-registration','8da9712f3ea540ce2b5f6364175b06eb9e95dfa826506f7be758d998ab9fcdc2','21a1347b0ac3db0404940a07fd76bf1aff978e1648fd9c686ca3f4f868616564',false],
+    ['doc-cz-ms-pha-2026-10-06-15-ad-14-2026-13','25ecfff3def2fe8b328cc90bf970801b2778038befb9e0330e6abeb968c1a2c8','55e7082daad163019ced6ab12d5299e94b82a4b2e4db06185c387e7956454e9e',false],
+    ['doc-cz-ms-pha-2026-10-07-15-ad-14-2026-17','72c6162e095559546988d4f8b0e2423a486d6213c4881fb2b240b44fd5275383','1bbcb1794a19d9f8b9a2502a5498142e7f7e0689579e1feb81e3a96d30a0c646',false],
+  ];
+  for(const [id,sourceSha,outputSha,isSlalom] of specs) {
+    const doc = { ...makeDoc({
+      publicSha:outputSha,sourceSha,
+      sourceKind:isSlalom?'original_pdf_uploaded_by_user':'none',
+      verificationStatus:'source_pdf_received_binary_original; publication_policy_hardened',
+    }), id };
+    const goodRow={ ...hardenedRow({inputSha:sourceSha,outputSha}),id };
+    const verified={
+      doc,digest:outputSha,expectedInputSha:sourceSha,
+      hardeningReportOk:true,hardeningById:new Map([[id,goodRow]]),
+    };
+    assert.equal(policyHardenedCopyOk(verified),true,id);
+    assert.equal(policyHardenedCopyOk({...verified,hardeningReportOk:false}),false,id+' requires authenticated report');
+    for(const changedRow of [
+      {...goodRow,input_sha256:'f'.repeat(64)},
+      {...goodRow,output_sha256:'f'.repeat(64)},
+      {...goodRow,public_path:'documents/other.pdf'},
+      {...goodRow,known_private_identifier_hits_after:['synthetic-hit']},
+      {...goodRow,decoded_private_identifier_hits_after:['synthetic-hit']},
+    ]) assert.equal(policyHardenedCopyOk({
+      ...verified,hardeningById:new Map([[id,changedRow]]),
+    }),false,id+' must reject altered provenance/privacy');
+    if(isSlalom){
+      const p=evaluatePinnedJusticeSlalomOriginal({
+        doc,digest:outputSha,expectedSourceSha:sourceSha,
+        hardeningReportOk:true,hardeningById:new Map([[id,goodRow]]),
+      });
+      assert.equal(p.provenanceOk,true,id);
+      assert.equal(p.effectiveKind,'redacted_public_copy',id);
+    }
+  }
+});
+
 test('byte-identical original remains an original', () => {
   const doc = makeDoc();
   const result = evaluateJusticeSlalomPdfProvenance({
