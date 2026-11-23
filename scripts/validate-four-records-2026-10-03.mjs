@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { evaluatePinnedJusticeSlalomOriginal, indexJusticeSlalomHardeningEvidence } from './justice-slalom-pdf-provenance.mjs';
 
 const fail = message => { throw new Error(`FOUR-RECORDS-2026-10-03-GATE: ${message}`); };
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -52,13 +53,34 @@ for(const item of [ks,ms]){
      !String(final.public?.verification_status || '').includes('publication_policy_hardened') ||
      sha256(bytes) !== final.public.sha256) fail(item.id+': finální zredigovaná veřejná kopie nemá ověřenou provenienci/hash');
 }
+// This supplement is an immutable ORIGINAL inventory. Privacy hardening may
+// produce a DIFFERENT public SHA, but only when the authenticated report binds
+// the exact original to the clean derivative. Never change expected source SHAs.
+const privacyReport=JSON.parse(await readFile('project-memory/privacy-hardening-report.json','utf8'));
+const {hardeningById,hardeningReportOk}=indexJusticeSlalomHardeningEvidence(privacyReport);
+if(!hardeningReportOk) fail('neplatný nebo nejednoznačný report ochrany soukromí');
 for(const item of [prima,reaction]){
+  const originalSha=originals[item.id];
+  if(item.public.sha256!==originalSha || item.public.source_original_sha256!==originalSha ||
+     item.justice_slalom?.source_kind!=='original_pdf_uploaded_by_user' ||
+     item.justice_slalom?.source_sha256!==originalSha ||
+     !String(item.public.verification_status||'').includes('source_pdf_received_binary_original'))
+    fail(item.id+': důkazní originál není v původní inventuře kryptograficky doložen');
+  const final=canonical.docs.get(item.id);
+  if(!final || final.public?.pdf!==item.public.pdf || final.justice_slalom?.source_sha256!==originalSha)
+    fail(item.id+': kanonický veřejný záznam ztratil vazbu na doložený originál');
   const bytes=await readFile('web/'+item.public.pdf);
-  if(!bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF')) fail(item.id+': originální PDF je neúplné');
-  if(sha256(bytes)!==originals[item.id] || item.public.sha256!==originals[item.id]) fail(item.id+': veřejný soubor není byte-identický s nahraným originálem');
-  if(item.justice_slalom?.source_kind!=='original_pdf_uploaded_by_user' || item.justice_slalom?.source_sha256!==originals[item.id]) fail(item.id+': Justiční slalom nevede binární originál');
-  if(item.justice_slalom?.public_copy_manifest || item.justice_slalom?.public_sha256) fail(item.id+': u binárního originálu zůstala metadata veřejné kopie');
-  if(!String(item.public.verification_status||'').includes('source_pdf_received_binary_original')) fail(item.id+': chybí stav binárního originálu');
+  if(!bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF'))
+    fail(item.id+': veřejné PDF je neúplné');
+  const digest=sha256(bytes);
+  const proof=evaluatePinnedJusticeSlalomOriginal({
+    doc:final, digest, expectedSourceSha:originalSha, hardeningById, hardeningReportOk,
+  });
+  if(!proof.provenanceOk) fail(item.id+': chybí autentizované provázání originálu, veřejného SHA a privacy reportu');
+  if(digest===originalSha && proof.effectiveKind!=='original')
+    fail(item.id+': byte-identický originál má nesprávný veřejný typ');
+  if(digest!==originalSha && (!proof.policyHardened || proof.effectiveKind!=='redacted_public_copy'))
+    fail(item.id+': změněná veřejná kopie nebyla výslovně autorizována authenticated privacy scanem');
 }
 
 const institutions=JSON.parse(await readFile('project-memory/institutions.json','utf8'));
@@ -100,7 +122,14 @@ if(!cz.includes('9 To 315/2026-140') || !cz.includes('18 A 17/2026-191')) fail('
 
 const slalom=JSON.parse(await readFile('web/data/justice-slalom.json','utf8'));
 for(const item of [prima,reaction]){
+  const final=canonical.docs.get(item.id);
+  const digest=sha256(await readFile('web/'+item.public.pdf));
+  const proof=evaluatePinnedJusticeSlalomOriginal({
+    doc:final, digest, expectedSourceSha:originals[item.id], hardeningById, hardeningReportOk,
+  });
   const rows=slalom.rows?.filter(r=>r.document_id===item.id)||[];
-  if(!rows.length || rows.some(r=>r.pdf_kind!=='original' || r.pdf!==item.public.pdf)) fail(item.id+': Justiční slalom neodkazuje na původní PDF');
+  if(!rows.length || rows.some(r=>r.pdf_kind!==proof.effectiveKind ||
+     r.pdf!==item.public.pdf || r.pdf_sha256!==digest))
+    fail(item.id+': Justiční slalom má chybný typ veřejné kopie, odkaz nebo SHA');
 }
-console.log('Čtyři listiny: státní veřejné kopie zachovány; FTV Prima a reakce 4. 10. publikují byte-identické originály; vazby CZ/EN a Justiční slalom OK.');
+console.log('Čtyři listiny: státní veřejné kopie zachovány; FTV Prima a reakce 4. 10. kryptograficky vážou nahrané originály na případné autentizované redigované veřejné kopie; CZ/EN a Justiční slalom OK.');
