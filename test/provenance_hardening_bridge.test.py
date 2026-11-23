@@ -10,7 +10,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from provenance_hardening_bridge import is_okte_structural_repair, verify_hardening_bridge, verify_unchanged_public_copy_scan
+from provenance_hardening_bridge import is_okte_structural_repair, verify_hardening_bridge, verify_unchanged_public_copy_scan, certify_four_record_public_copy
 
 
 def digest(data: bytes) -> str:
@@ -155,6 +155,136 @@ class UnchangedCopyPrivacyProofRegressionTest(unittest.TestCase):
         self.assertFalse(self.check())
         self.file.unlink()
         self.assertFalse(self.check())
+
+
+
+
+
+class ProductionFourRecordSnapshotTest(unittest.TestCase):
+    """Exercises the same production decision function invoked by main."""
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name) / "web"
+        self.root.mkdir()
+        self.rel = "documents/public.pdf"
+        self.pdf = self.root / self.rel
+        self.pdf.parent.mkdir()
+        self.pdf.write_bytes(b"%PDF-1.4\\ntext-copy\\n%%EOF\\n")
+        self.sha = digest(self.pdf.read_bytes())
+        self.original_sha = digest(b"source original")
+        self.item = {
+            "id": "doc-test", "public": {
+                "pdf": self.rel,
+                "sha256": self.sha,
+                "source_original_sha256": self.original_sha,
+                "verification_status": "verified_deterministic_public_text_copy; not_byte_identical_original; publication_policy_hardened",
+            },
+        }
+        self.calls = []
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def clean_scan(self, scanned):
+        self.calls.append(scanned)
+        self.assertNotEqual(scanned, self.pdf)
+        self.assertEqual(scanned.read_bytes(), self.pdf.read_bytes())
+        self.assertNotEqual(scanned.stat().st_ino, self.pdf.stat().st_ino)
+        self.assertEqual(scanned.parent.stat().st_mode & 0o777, 0o700)
+        return {
+            "reasons": [], "text_scan_ok": True, "decoded_scan_ok": True,
+            "qpdf_structurally_valid": True,
+            "pdf_revision_markers_bound": True, "pdf_single_revision_only": True,
+            "visible_private_hits": [], "raw_private_hits": [],
+            "decoded_private_hits": [], "metadata_private_hits": [],
+            "page_count": 1,
+        }
+
+    def run_caller(self, scan=None):
+        return certify_four_record_public_copy(
+            item=self.item,
+            expected_original_sha256=self.original_sha,
+            expected_public_path=self.rel,
+            web_root=self.root,
+            deep_scan=scan or self.clean_scan,
+        )
+
+    def test_clean_snapshot_passes_and_exact_snapshot_is_promoted(self):
+        old_inode = self.pdf.stat().st_ino
+        row = self.run_caller()
+        self.assertEqual(len(self.calls), 1)
+        self.assertEqual(row["strategy"], "clean_unchanged_authenticated_private_snapshot")
+        self.assertEqual(row["output_sha256"], self.sha)
+        self.assertEqual(self.pdf.read_bytes(), b"%PDF-1.4\\ntext-copy\\n%%EOF\\n")
+        self.assertNotEqual(old_inode, self.pdf.stat().st_ino)
+        self.assertEqual(self.item["public"]["verification_status"].count("publication_policy_hardened"), 1)
+
+    def test_existing_marker_never_skips_scan(self):
+        with self.assertRaises(RuntimeError):
+            self.run_caller(lambda path: {"reasons": [], "text_scan_ok": True})
+        self.assertEqual(self.pdf.read_bytes(), b"%PDF-1.4\\ntext-copy\\n%%EOF\\n")
+
+    def test_decoded_only_hit_fails_even_with_existing_marker(self):
+        def compromised(scanned):
+            result = self.clean_scan(scanned)
+            result["decoded_private_hits"] = ["synthetic-private-marker"]
+            return result
+        with self.assertRaises(RuntimeError):
+            self.run_caller(compromised)
+        self.assertEqual(len(self.calls), 1)
+
+    def test_fast_only_scan_fails_production_caller(self):
+        def fast_only(scanned):
+            result = self.clean_scan(scanned)
+            result.pop("decoded_scan_ok")
+            result.pop("decoded_private_hits")
+            return result
+        with self.assertRaises(RuntimeError):
+            self.run_caller(fast_only)
+
+    def test_replaced_source_during_snapshot_scan_fails(self):
+        def replace_original(scanned):
+            result = self.clean_scan(scanned)
+            self.pdf.write_bytes(b"attacker-mutation")
+            return result
+        with self.assertRaises(RuntimeError):
+            self.run_caller(replace_original)
+        self.assertEqual(self.pdf.read_bytes(), b"attacker-mutation")
+        self.assertNotIn("publication_policy_hardened; publication_policy_hardened", self.item["public"]["verification_status"])
+
+    def test_tampered_snapshot_fails(self):
+        def tamper_snapshot(scanned):
+            result = self.clean_scan(scanned)
+            scanned.chmod(0o600)
+            scanned.write_bytes(b"mutated-snapshot")
+            return result
+        with self.assertRaises(RuntimeError):
+            self.run_caller(tamper_snapshot)
+
+    def test_wrong_expected_digest_and_source_provenance_fail(self):
+        self.item["public"]["sha256"] = digest(b"wrong")
+        with self.assertRaises(RuntimeError):
+            self.run_caller()
+        self.item["public"]["sha256"] = self.sha
+        self.item["public"]["source_original_sha256"] = digest(b"other original")
+        with self.assertRaises(RuntimeError):
+            self.run_caller()
+
+    def test_symlink_path_fails_closed(self):
+        other = self.pdf.with_name("other.pdf")
+        self.pdf.rename(other)
+        self.pdf.symlink_to(other)
+        with self.assertRaises(RuntimeError):
+            self.run_caller()
+
+    def test_all_deep_scan_gates_are_fail_closed(self):
+        for field in ("text_scan_ok", "decoded_scan_ok", "qpdf_structurally_valid", "pdf_revision_markers_bound", "pdf_single_revision_only"):
+            def bad(scanned, field=field):
+                result = self.clean_scan(scanned)
+                result[field] = False
+                return result
+            with self.subTest(field=field), self.assertRaises(RuntimeError):
+                self.run_caller(bad)
 
 
 
