@@ -8,6 +8,7 @@ import {
   evaluateJusticeSlalomPdfProvenance,
   evaluatePinnedJusticeSlalomOriginal,
   policyHardenedCopyOk,
+  approvedOct6PublicLabelsMatch,
   indexJusticeSlalomHardeningEvidence,
 } from '../scripts/justice-slalom-pdf-provenance.mjs';
 
@@ -455,6 +456,30 @@ test('Oct 6 redacted public copies require authenticated exact-source evidence',
       assert.equal(proof.effectiveKind, 'redacted_public_copy', id);
     }
   }
+});
+
+test('Oct 6 exact publication labels reject paraphrases, negations and source/public confusion', () => {
+  const approvedCs = 'Originál je zachován; veřejný soubor je redigovaná kopie.';
+  const approvedEn = 'The uploaded original is archived; the public PDF is a privacy-redacted derivative.';
+  const testLabels = (actualCs,actualEn) => approvedOct6PublicLabelsMatch({
+    actualCs, actualEn, approvedCs, approvedEn,
+  });
+  assert.equal(testLabels(approvedCs, approvedEn), true);
+  for(const falseCs of [
+    'Veřejné PDF je byte-identický originál, nikoli redigovaná kopie.',
+    'Veřejný soubor je původní originál; redigovaná kopie neexistuje.',
+    'Originál je zachován; veřejný soubor není redigovaná kopie.',
+    'Public PDF is an original; redigovaná kopie.',
+    approvedCs + ' Kopie je ve skutečnosti originál.',
+  ]) assert.equal(testLabels(falseCs, approvedEn), false, falseCs);
+  for(const falseEn of [
+    'The public PDF is the original, not a redacted copy.',
+    'The public PDF is a byte-identical original, not a privacy-redacted derivative.',
+    'The public PDF is not a privacy-redacted derivative.',
+    approvedEn + ' The public PDF is the original.',
+  ]) assert.equal(testLabels(approvedCs, falseEn), false, falseEn);
+  assert.equal(testLabels(undefined, approvedEn), false);
+  assert.equal(testLabels(approvedCs, null), false);
 });
 
 test('duplicate hardening evidence IDs fail closed', () => {
