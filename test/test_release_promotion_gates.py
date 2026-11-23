@@ -35,7 +35,10 @@ def fixture():
                     author_association="COLLABORATOR",
                     state="APPROVED", commit_id=PRHEAD, submitted_at=LATE,
                     body=f"EVIDENCE-LAB PRIVACY APPROVED target={TARGET} audit_run={AUDIT_ID}")]
-    return run, jobs, prs, reviews
+    detail = dict(number=123, merge_commit_sha=MERGE, merged_at="2026-11-23T20:00:00Z",
+                  merged_by=dict(login="release-operator", type="User"))
+    prs[0]["number"] = 123
+    return run, jobs, prs, reviews, detail
 
 
 class PromotionGateTests(unittest.TestCase):
@@ -54,10 +57,10 @@ class PromotionGateTests(unittest.TestCase):
         self.assertIn("gate[\"validate_full_build\"]", workflow[full:human])
 
     def test_success_only_on_exact_verified_attested_release(self):
-        run, jobs, prs, reviews = fixture()
+        run, jobs, prs, reviews, detail = fixture()
         self.assertTrue(gates.validate_full_build(run, jobs, TARGET))
         self.assertTrue(gates.validate_human_review(
-            prs, reviews, "privacy-reviewer", MERGE, TARGET, AUDIT_ID, FINISHED, FINISHED))
+            prs, reviews, "privacy-reviewer", MERGE, TARGET, AUDIT_ID, FINISHED, FINISHED, detail))
 
     def test_full_build_must_be_trusted_successful_exact_main_push(self):
         for field, wrong in (
@@ -67,7 +70,7 @@ class PromotionGateTests(unittest.TestCase):
             ("path", ".github/workflows/synthetic.yml"),
         ):
             with self.subTest(field=field):
-                run, jobs, _, _ = fixture()
+                run, jobs, _, _, _ = fixture()
                 run[field] = wrong
                 with self.assertRaises(ValueError):
                     gates.validate_full_build(run, jobs, TARGET)
@@ -75,11 +78,11 @@ class PromotionGateTests(unittest.TestCase):
     def test_no_empty_skipped_or_failed_trusted_job(self):
         for job_status in ("skipped", "failure", "cancelled", None):
             with self.subTest(job_status=job_status):
-                run, jobs, _, _ = fixture()
+                run, jobs, _, _, _ = fixture()
                 jobs[0]["conclusion"] = job_status
                 with self.assertRaises(ValueError):
                     gates.validate_full_build(run, jobs, TARGET)
-        run, jobs, _, _ = fixture()
+        run, jobs, _, _, _ = fixture()
         with self.assertRaises(ValueError):
             gates.validate_full_build(run, jobs[1:], TARGET)
 
@@ -100,7 +103,7 @@ class PromotionGateTests(unittest.TestCase):
         )
         for title, attack in cases:
             with self.subTest(attack=title):
-                _, _, prs, reviews = fixture()
+                _, _, prs, reviews, detail = fixture()
                 reviewer = "privacy-reviewer"
                 if attack == "wrong-reviewer":
                     reviewer = "another-allowed-reviewer"
@@ -127,14 +130,30 @@ class PromotionGateTests(unittest.TestCase):
                 elif attack == "dismissal":
                     reviews.append(dict(reviews[0], state="DISMISSED", submitted_at="2026-11-23T20:00:00Z"))
                 with self.assertRaises(ValueError):
-                    gates.validate_human_review(prs, reviews, reviewer, MERGE, TARGET, AUDIT_ID, FINISHED, FINISHED)
+                    gates.validate_human_review(prs, reviews, reviewer, MERGE, TARGET, AUDIT_ID, FINISHED, FINISHED, detail)
+
+    def test_automated_or_preaudit_merge_is_denied(self):
+        _, _, prs, reviews, detail = fixture()
+        for wrong in (
+            {"merged_by": {"login": "github-actions[bot]", "type": "Bot"}},
+            {"merged_at": EARLY},
+            {"merged_by": {"login": "privacy-reviewer", "type": "User"}},
+            {"merge_commit_sha": "f" * 40},
+            {"number": 999},
+        ):
+            with self.subTest(wrong=wrong):
+                copy_detail = dict(detail, **wrong)
+                with self.assertRaises(ValueError):
+                    gates.validate_human_review(
+                        prs, reviews, "privacy-reviewer", MERGE, TARGET, AUDIT_ID,
+                        FINISHED, FINISHED, copy_detail)
 
     def test_missing_reviewer_and_missing_audit_id_fail_closed(self):
-        _, _, prs, reviews = fixture()
+        _, _, prs, reviews, detail = fixture()
         for reviewer in ("", "privacy reviewer", "robot[bot]"):
             with self.subTest(reviewer=reviewer):
                 with self.assertRaises(ValueError):
-                    gates.validate_human_review(prs, reviews, reviewer, MERGE, TARGET, AUDIT_ID, FINISHED, FINISHED)
+                    gates.validate_human_review(prs, reviews, reviewer, MERGE, TARGET, AUDIT_ID, FINISHED, FINISHED, detail)
         with self.assertRaises(ValueError):
             gates.validate_human_review(prs, reviews, "privacy-reviewer", MERGE, TARGET, 0, FINISHED, FINISHED)
 
