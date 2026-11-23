@@ -44,3 +44,40 @@ def verify_hardening_bridge(
     if not final_public_pdf.is_file():
         return False
     return sha256_file(final_public_pdf) == expected_output_sha256
+
+
+def verify_unchanged_public_copy_scan(
+    *,
+    inspection: dict,
+    final_public_pdf: Path,
+    expected_sha256: str,
+) -> bool:
+    """An unchanged generated public copy is privacy-certified only when
+    its exact bytes were scanned cleanly by the authenticated policy runner.
+    Do not infer certification from an absent candidate/report row alone.
+    """
+    if not isinstance(expected_sha256, str) or len(expected_sha256) != 64:
+        return False
+    if not final_public_pdf.is_file():
+        return False
+    if inspection.get("reasons") != []:
+        return False
+    if inspection.get("text_scan_ok") is not True:
+        return False
+    if inspection.get("decoded_scan_ok") is not True:
+        return False
+    if inspection.get("qpdf_structurally_valid") is not True:
+        return False
+    if inspection.get("pdf_revision_markers_bound") is not True:
+        return False
+    if inspection.get("pdf_single_revision_only") is not True:
+        return False
+    for key in (
+        "visible_private_hits",
+        "raw_private_hits",
+        "decoded_private_hits",
+        "metadata_private_hits",
+    ):
+        if inspection.get(key) != []:
+            return False
+    return sha256_file(final_public_pdf) == expected_sha256
