@@ -243,7 +243,20 @@ jobs:
           sha256sum scripts/verify-live-pdf.mjs | awk '{print $1}' > /tmp/evidence-verify-live-pdf.sha256
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout --orphan gh-pages-publish
+          # Fail closed if a newer main or already-published release supersedes us.
+          current_main="$(git ls-remote origin refs/heads/main | cut -f1)"
+          test "$current_main" = "$GITHUB_SHA" || { echo "main drift before gh-pages staging" >&2; exit 1; }
+          git fetch --no-tags origin refs/heads/gh-pages:refs/remotes/origin/gh-pages
+          previous_pages_sha="$(git rev-parse refs/remotes/origin/gh-pages)"
+          previous_source="$(git show "$previous_pages_sha:.source-commit")"
+          [[ "$previous_source" =~ ^[0-9a-f]{40}$ ]] || { echo "unidentified existing gh-pages source" >&2; exit 1; }
+          git merge-base --is-ancestor "$previous_source" "$AUDIT_TARGET_SHA" || {
+            echo "Refusing to roll back a newer or unrelated gh-pages release" >&2
+            exit 1
+          }
+          # The publication commit is a child of the actual deployed head.
+          # A non-fast-forward push fails if a concurrent release has advanced gh-pages.
+          git checkout -B gh-pages-publish "$previous_pages_sha"
           git rm -rf .
           git clean -fdx
           cp -a /tmp/verified-site/. .
@@ -310,7 +323,15 @@ jobs:
           PY
 
           git commit -m "Publish verified Evidence Lab 2.0 from $AUDIT_TARGET_SHA"
-          git push --force origin HEAD:gh-pages
+          current_main="$(git ls-remote origin refs/heads/main | cut -f1)"
+          test "$current_main" = "$GITHUB_SHA" || { echo "main changed: abort stale publication" >&2; exit 1; }
+          # No force push: concurrent/newer gh-pages releases cannot be overwritten.
+          git push origin HEAD:refs/heads/gh-pages
+          published_main="$(git ls-remote origin refs/heads/main | cut -f1)"
+          test "$published_main" = "$GITHUB_SHA" || {
+            echo "main advanced during publication: release is stale; operator reconciliation required" >&2
+            exit 1
+          }
 
       - name: Ověřit živou produkci po publikaci
         if: env.RELEASE_MODE == 'publish'
