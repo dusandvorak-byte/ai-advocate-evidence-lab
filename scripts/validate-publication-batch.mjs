@@ -29,8 +29,9 @@ export function validatePublicationBatch(manifest) {
       x.public_path.split('/').some(v => v === '..' || v === '.') ||
       paths.has(x.public_path)) fail('public path');
     paths.add(x.public_path);
-    fields(x.privacy_review, ['decision','reviewer','receipt'], 'privacy');
-    if (x.privacy_review.decision !== 'approved_for_publication' ||
+    fields(x.privacy_review, ['decision','reviewer','receipt','reviewed_public_sha256'], 'privacy');
+    if (x.privacy_review.reviewed_public_sha256 !== x.public_sha256 ||
+      x.privacy_review.decision !== 'approved_for_publication' ||
       !x.privacy_review.reviewer?.trim() || !x.privacy_review.receipt?.trim()) fail('privacy decision');
     fields(x.approval, ['authorized_public_sha256','authorized_by','receipt'], 'approval');
     if (x.approval.authorized_public_sha256 !== x.public_sha256 ||
