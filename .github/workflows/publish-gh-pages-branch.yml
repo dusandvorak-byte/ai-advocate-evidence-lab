@@ -7,6 +7,7 @@ on:
 permissions:
   actions: read
   contents: write
+  pull-requests: read
 
 env:
   NODE_VERSION: '24'
@@ -180,12 +181,12 @@ jobs:
           import json, sys
           from pathlib import Path
           sys.path.insert(0, "scripts")
-          from importlib.machinery import SourceFileLoader
-          gate = SourceFileLoader("promotion_gate", "scripts/verify-release-promotion-gates.py").load_module()
+          import runpy
+          gate = runpy.run_path("scripts/verify-release-promotion-gates.py")
           jobs = json.loads(Path("/tmp/evidence-trusted-jobs.json").read_text())
           if jobs.get("total_count") != len(jobs.get("jobs") or []):
               raise SystemExit("trusted validation jobs list incomplete")
-          gate.validate_full_build(json.loads(Path("/tmp/evidence-trusted-run.json").read_text()), jobs["jobs"], sys.argv[1])
+          gate["validate_full_build"](json.loads(Path("/tmp/evidence-trusted-run.json").read_text()), jobs["jobs"], sys.argv[1])
           PY
                 break
               fi
