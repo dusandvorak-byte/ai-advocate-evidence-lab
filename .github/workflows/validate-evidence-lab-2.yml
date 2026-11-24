@@ -56,6 +56,7 @@ jobs:
           node --test test/justice-slalom-pdf-provenance.test.mjs
           node --test test/release-cache-version.test.mjs
           node --test test/reconciliation-reference-index.test.mjs
+          python3 test/release-audit-poll.test.py
           node --test test/late-original-public-provenance.test.mjs
           python3 test/test_live_release_sha.py -v
           python3 -m py_compile scripts/publication_redaction.py
