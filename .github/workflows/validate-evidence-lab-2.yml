@@ -42,6 +42,7 @@ jobs:
 
       - name: Staticky ověřit privacy a release guardy
         run: |
+          node --test test/validate-public-navigation.test.mjs
           node --check scripts/diagnose-four-records-provenance.mjs
           node --check scripts/validate-release-exclusions.mjs
           node --check scripts/state-release-pdf-provenance.mjs
@@ -56,7 +57,6 @@ jobs:
           node --check scripts/validate-justice-slalom.mjs
           node --test test/justice-slalom-pdf-provenance.test.mjs
           node --test test/release-cache-version.test.mjs
-          node --test test/validate-public-navigation.test.mjs
           node --test test/plan-incremental-release.test.mjs
           node --test test/assemble-incremental-stage.test.mjs
           node --check scripts/build-site.mjs
