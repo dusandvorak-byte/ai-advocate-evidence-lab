@@ -78,7 +78,7 @@ jobs:
 
       - name: Evaluate SHA candidate provenance without exposing PDF text
         run: |
-          python3 -m pip install --disable-pip-version-check pymupdf==2.1
+          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 pymupdf==2.1
           python3 scripts/evaluate-canonical-pdf-provenance.py
 
       - name: Upload canonical SHA provenance evaluation
@@ -93,7 +93,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m pip install --disable-pip-version-check reportlab==5.1.0
+          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 reportlab==5.1.0
           rm -rf "$RUNNER_TEMP/evidence-lab-deterministic-rebuild"
           mkdir -p "$RUNNER_TEMP/evidence-lab-deterministic-rebuild"
           EVIDENCE_LAB_VERIFIED_COPY_OUT="$RUNNER_TEMP/evidence-lab-deterministic-rebuild" \
@@ -155,8 +155,7 @@ jobs:
 
       - name: Spustit pouze syntetické privacy regrese bez repository Secrets
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq qpdf
+          bash scripts/ensure-ci-pdf-tools.sh qpdf
           python3 test/publication_redaction.test.py
 
       - name: Fail closed on canonical PDF records without SHA-256 provenance
@@ -264,7 +263,7 @@ jobs:
 
       - name: Enforce binding privacy redaction in generated public copies
         run: |
-          python3 -m pip install --disable-pip-version-check pymupdf==2.1
+          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 pymupdf==2.1
           python3 -m py_compile scripts/publication_redaction.py
           python3 -m py_compile scripts/harden-public-pdf-privacy.py
           python3 -m py_compile scripts/generated_pdf_signatures.py
@@ -288,9 +287,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq mupdf-tools poppler-utils qpdf
-          python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
+          bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
+          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
           # Synthetic privacy tests use qpdf and must run after its installation.
           python3 test/publication_redaction.test.py
 
