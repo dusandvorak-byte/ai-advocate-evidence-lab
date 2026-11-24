@@ -313,6 +313,12 @@
       "batch_date": "2026-10-15"
     },
     {
+      "path": "project-memory/documents-2026-supplement-2026-10-19.json",
+      "role": "batch",
+      "batch_date": "2026-10-19",
+      "public_status": "MV verified-source original; pending trusted publication gates"
+    },
+    {
       "path": "project-memory/documents-2026-supplement-2026-10-19-euda-reply.json",
       "role": "batch",
       "batch_date": "2026-10-19"
