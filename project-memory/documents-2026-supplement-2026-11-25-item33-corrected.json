@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-11-25",
+  "description": "Corrected public copy of scanned item 33, approved by the owner on 2026-11-25.",
+  "documents": [
+    {
+      "id": "doc-cz-batch-2026-11-24-33-stiznost-ministerstvu-spravedlnosti",
+      "user_title": "Stížnost Ministerstvu spravedlnosti podle informačního zákona",
+      "issue_date": "2026-11-05",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "MSP-898/2026-OP-OSV",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-33-stiznost-ministerstvu-spravedlnosti.html",
+        "pdf": "documents/2026-11-05/33-stiznost-ministerstvu-spravedlnosti-opravena-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-05/33-stiznost-ministerstvu-spravedlnosti-opravena-verejna-kopie.pdf",
+        "sha256": "de311b800c49aec70c2db4c1bad9cb1f2e37a833567d090d351a4eae4ca9e0f9",
+        "source_original_sha256": "1a1ac6519ce20680c1973af528e56bf0ff4bc9632ad479171d11e5a0b177c35f",
+        "source_original_size_bytes": 8010497,
+        "source_original_page_count": 60,
+        "source_public_size_bytes": 8136843,
+        "verification_status": "redacted_original_from_user_binary; image_page21_privacy_repair; source_and_public_sha256_verified; owner_approved_exact_corrected_copy_2026-11-25",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-25-item33-corrected.json",
+        "public_copy_note": "Opravená veřejná kopie: na obrazové straně 21 jsou nevratně odstraněny přesné osobní údaje; původní PDF má samostatný SHA-256."
+      },
+      "evidence_note": "Položka 33 schváleného soupisu je zařazena k 2026-11-05. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 60 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené. Přesná opravená kopie byla uživatelem schválena ke zveřejnění dne 2026-11-25.",
+      "author_cs": "Mgr. Dušan Dvořák",
+      "author_en": "Mgr. Dušan Dvořák",
+      "recipients": [
+        {
+          "institution_id": "CZ-MSP",
+          "role": "primary",
+          "reference": "MSP-898/2026-OP-OSV"
+        }
+      ]
+    }
+  ]
+}
