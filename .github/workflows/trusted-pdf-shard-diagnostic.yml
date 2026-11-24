@@ -154,8 +154,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          python3 scripts/fetch-pinned-late-baseline.py "$RUNNER_TEMP/pinned-late-baseline"
-          echo "EVIDENCE_LAB_PINNED_LATE_BASELINE=$RUNNER_TEMP/pinned-late-baseline/prior" >> "$GITHUB_ENV"
+          echo "EVIDENCE_LAB_ENFORCE_LATE_PINS=1" >> "$GITHUB_ENV"
+          if python3 scripts/fetch-pinned-late-baseline.py "$RUNNER_TEMP/pinned-late-baseline"; then
+            echo "EVIDENCE_LAB_PINNED_LATE_BASELINE=$RUNNER_TEMP/pinned-late-baseline/prior" >> "$GITHUB_ENV"
+          else
+            echo "::warning::Pinned prior artifact unavailable or unverified; use canonical hardening and exact early pin checks."
+          fi
 
       - name: Snapshot canonical registry before build reconciliation
         run: |
