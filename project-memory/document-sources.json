@@ -391,6 +391,12 @@
       "path": "project-memory/documents-2026-supplement-2026-11-04-rrku54-annexes.json",
       "role": "batch",
       "batch_date": "2026-11-04"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-11-23-ct-pilot.json",
+      "role": "batch",
+      "batch_date": "2026-11-24",
+      "public_status": "User-approved exact public PDF; pending trusted release audit and production promotion"
     }
   ]
 }

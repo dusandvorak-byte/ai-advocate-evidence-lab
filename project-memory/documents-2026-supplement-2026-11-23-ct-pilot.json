@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-11-24",
+  "status": "reviewed_source",
+  "description": "Exact user-approved CT pilot, pending release gates.",
+  "documents": [
+    {
+      "id": "doc-cz-dd-2026-11-23-os-praha4-10-c-69-2026-ct-doplneni",
+      "user_title": "Doplnění před prvním jednáním ve věci žaloby proti České televizi",
+      "issue_date": "2026-11-23",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "10 C 69/2026",
+      "case_ids": [
+        "case-cz-os-praha4-10c69-2026"
+      ],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "inspected PDF; date does not certify dispatch or service",
+      "topics": [
+        "Česká televize",
+        "ochrana osobnosti",
+        "doplnění žaloby",
+        "policejní metodika"
+      ],
+      "relations": [],
+      "author_cs": "Mgr. Dušan Dvořák",
+      "author_en": "Mgr. Dušan Dvořák",
+      "recipients": [
+        {
+          "institution_id": "CZ-OS-PHA4",
+          "role": "primary",
+          "reference": "10 C 69/2026"
+        },
+        {
+          "institution_id": "CZ-CT",
+          "role": "copy",
+          "reference": "10 C 69/2026"
+        }
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/2026-11-23/2026-11-23-os-praha4-10-c-69-2026-ct-doplneni.pdf",
+        "intended_pdf": "documents/2026-11-23/2026-11-23-os-praha4-10-c-69-2026-ct-doplneni.pdf",
+        "sha256": "13762205a406156e15e488c3936523facd10ee55f24c5c7fa908f924440a7aa8",
+        "source_original_sha256": "fed3669ffdef7f3fdd6be4a79dd330eb6b1ac34851342e630685e7cd4df860ad",
+        "source_original_size_bytes": 1087286,
+        "source_original_page_count": 10,
+        "source_public_size_bytes": 1306798,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-23-ct-pilot.json",
+        "public_copy_note": "Schválená desetistránková veřejná kopie, nikoli byte-identický originál.",
+        "approval_receipt": "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7124065133"
+      },
+      "evidence_note": "Doplnění datované 23. 11. 2026 před prvním jednáním ve věci 10 C 69/2026. Podání obsahuje repliku na vyjádření ČT z 11. 11. 2026, přehled policejních vyřízení a opakované pozvání ČT k veřejným zasedáním OS Prostějov. Jde o tvrzení a návrhy žalobce, nikoli rozhodnutí soudu; doručení tohoto podání není samostatně doloženo."
+    }
+  ]
+}
