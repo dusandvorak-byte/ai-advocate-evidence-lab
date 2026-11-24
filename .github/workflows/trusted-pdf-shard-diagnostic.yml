@@ -89,14 +89,8 @@ jobs:
           # Bind the staged release registry to the post-build canonical SHA state.
           cp project-memory/documents-2026.json release-site/data/documents-2026.json
           cp project-memory/documents-2026.json release-site/web/data/documents-2026.json
-          version="${GITHUB_SHA:0:12}"
-          while IFS= read -r -d '' html_file; do
-            sed -E -i "s#src=\"live-dockets\\.js(\\?v=[^\"]*)?\"#src=\"live-dockets.js?v=${version}\"#g" "$html_file"
-            sed -E -i "s#src=\"news-feed\\.js(\\?v=[^\"]*)?\"#src=\"news-feed.js?v=${version}\"#g" "$html_file"
-            sed -E -i "s#href=\"/ai-advocate-evidence-lab/justice-slalom\\.css(\\?v=[^\"]*)?\"#href=\"/ai-advocate-evidence-lab/justice-slalom.css?v=${version}\"#g" "$html_file"
-          done < <(find release-site -type f -name '*.html' -print0)
-          sed -E -i "s#const cssHref = 'home-rollups\\.css(\\?v=[^']*)?'#const cssHref = 'home-rollups.css?v=${version}'#g" release-site/live-dockets.js release-site/web/live-dockets.js
-          sed -E -i "s#const liveDocketsCssHref = 'live-dockets\\.css(\\?v=[^']*)?'#const liveDocketsCssHref = 'live-dockets.css?v=${version}'#g" release-site/live-dockets.js release-site/web/live-dockets.js
+          node scripts/release-cache-version.mjs --write release-site "$GITHUB_SHA"
+          node scripts/release-cache-version.mjs --verify release-site "$GITHUB_SHA"
           touch release-site/.nojekyll release-site/web/.nojekyll
           printf '%s\n' "$GITHUB_SHA" > release-site/.source-commit
           printf '%s\n' "$GITHUB_SHA" > release-site/web/.source-commit

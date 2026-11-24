@@ -54,6 +54,7 @@ jobs:
           node --check scripts/ensure-generated-state-pdfs.mjs
           node --check scripts/validate-justice-slalom.mjs
           node --test test/justice-slalom-pdf-provenance.test.mjs
+          node --test test/release-cache-version.test.mjs
           python3 test/test_live_release_sha.py -v
           python3 -m py_compile scripts/publication_redaction.py
           python3 -m py_compile scripts/harden-public-pdf-privacy.py

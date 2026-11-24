@@ -158,6 +158,7 @@ jobs:
           test -f /tmp/verified-site/.nojekyll
           test -f /tmp/verified-site/web/.nojekyll
           python3 scripts/validate-staged-legacy-pdf-provenance.py "$report" /tmp/verified-site
+          node scripts/release-cache-version.mjs --verify /tmp/verified-site "$AUDIT_TARGET_SHA"
 
       - name: Potvrdit preflight-only režim bez publikace
         if: env.RELEASE_MODE != 'publish'

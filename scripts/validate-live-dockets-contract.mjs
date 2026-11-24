@@ -1,4 +1,5 @@
 import { readFile, readdir } from 'node:fs/promises';
+import {versionHtml,versionDocketsJs,verifyHtml,verifyDocketsJs} from './release-cache-version.mjs';
 
 const script = await readFile('web/live-dockets.js', 'utf8');
 const styles = await readFile('web/home-rollups.css', 'utf8');
@@ -190,10 +191,19 @@ if (!mergedEnglishReport.includes('url=/ai-advocate-evidence-lab/news/24072026-0
 if (newsFeed.includes('item.hrefEn || item.href')) throw new Error('Anglický feed stále dovoluje tichý návrat na český článek');
 if (siteSearch.includes('item.hrefEn || item.href')) throw new Error('Anglické vyhledávání stále dovoluje tichý návrat na český článek');
 if (!siteSearch.includes('English search requires hrefEn for every published report')) throw new Error('Anglické vyhledávání nekontroluje úplnost anglických odkazů');
-if (!publishWorkflow.includes('grep -q "live-dockets.js?v=${version}" /tmp/verified-site/en.html')
-  || !publishWorkflow.includes('grep -q "news-feed.js?v=${version}" /tmp/verified-site/en.html')) {
-  throw new Error('Workflow neverzuje anglické lišty a anglický zdroj zpráv proti mezipaměti');
+// The authoritative shard build now owns asset versioning. Verify that the
+// actual generated EN home and JS can be versioned by the same implementation,
+// and that exact staged verification is mandatory both before audit upload and
+// immediately before publication. Do not require retired inline shell grep.
+const diagnosticWorkflow=await readFile('.github/workflows/trusted-pdf-shard-diagnostic.yml','utf8');
+if(!diagnosticWorkflow.includes('node scripts/release-cache-version.mjs --write release-site "$GITHUB_SHA"')||
+   !diagnosticWorkflow.includes('node scripts/release-cache-version.mjs --verify release-site "$GITHUB_SHA"')||
+   !publishWorkflow.includes('node scripts/release-cache-version.mjs --verify /tmp/verified-site "$AUDIT_TARGET_SHA"')){
+  throw new Error('Release cache-version enforcement is not wired into staging and promotion');
 }
+const sourceSha=process.env.GITHUB_SHA;
+verifyHtml(versionHtml(englishHome,sourceSha),sourceSha,{englishHome:true});
+verifyDocketsJs(versionDocketsJs(script,sourceSha),sourceSha);
 
 for (const forbidden of ['<b>Povinný formát:</b>', '<b>Počítání:</b>', '<b>Úplnost:</b>']) {
   if (timerBuilder.includes(forbidden)) throw new Error(`Generátor časovačů stále obsahuje pracovní text: ${forbidden}`);
