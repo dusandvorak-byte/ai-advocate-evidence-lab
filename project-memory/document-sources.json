@@ -412,6 +412,16 @@
       "path": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
       "role": "batch",
       "batch_date": "2026-11-24"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-11-25-item33-corrected.json",
+      "role": "batch",
+      "batch_date": "2026-11-25"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-11-25-approved-five.json",
+      "role": "batch",
+      "batch_date": "2026-11-25"
     }
   ]
 }

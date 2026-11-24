@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-08-18T14:45:22.027Z",
+  "generated_at": "2026-11-24T23:36:29.979Z",
   "hard_error_count": 0,
-  "human_review_count": 21,
+  "human_review_count": 28,
   "counts": {
-    "documents": 97,
-    "institutions": 44,
-    "cases": 7,
+    "documents": 380,
+    "institutions": 73,
+    "cases": 34,
     "deadlines": 0
   },
   "hard_errors": [],
@@ -18,53 +18,13 @@
     },
     {
       "type": "missing_case",
-      "document_id": "doc-cz-mv-2026-08-11-mv-127234-2-obp-2026",
-      "case_id": "case-cz-mv-infz-ganja-for-all-animals"
-    },
-    {
-      "type": "missing_case",
       "document_id": "doc-cz-mk-2026-08-12-mk-49467-2026-socns",
       "case_id": "case-cz-mk-konopna-cirkev"
     },
     {
       "type": "missing_case",
-      "document_id": "doc-cz-gfaa-2026-08-12-rozklad-mv-127234-2-obp-2026",
-      "case_id": "case-cz-mv-infz-ganja-for-all-animals"
-    },
-    {
-      "type": "missing_case",
-      "document_id": "doc-cz-pcr-pp-2026-08-14-ppr-43826-2-cj-2026-990210-pd",
-      "case_id": "case-cz-pcr-ku-interni-prezkum"
-    },
-    {
-      "type": "missing_case",
-      "document_id": "doc-cz-dvorak-2026-08-14-stiznost-uvk-pp-pcr-ppr-24960",
-      "case_id": "case-cz-pcr-ku-interni-prezkum"
-    },
-    {
-      "type": "missing_case",
       "document_id": "doc-cz-dd-2026-08-15-zadost-soucinnost-osz-prostejov",
       "case_id": "case-cz-osz-pro-prevence-2026"
-    },
-    {
-      "type": "missing_case",
-      "document_id": "doc-cz-dd-2026-08-15-zadost-soucinnost-osz-prostejov",
-      "case_id": "case-cz-pcr-ku-interni-prezkum"
-    },
-    {
-      "type": "missing_case",
-      "document_id": "doc-cz-dd-2026-08-15-doplneni-stiznosti-ministr-vnitra",
-      "case_id": "case-cz-pcr-ku-interni-prezkum"
-    },
-    {
-      "type": "missing_case",
-      "document_id": "doc-cz-dd-2026-08-15-zadost-prezkum-policejni-prezident",
-      "case_id": "case-cz-pcr-ku-interni-prezkum"
-    },
-    {
-      "type": "missing_case",
-      "document_id": "doc-cz-dd-2026-08-15-podnet-gibs",
-      "case_id": "case-cz-pcr-ku-interni-prezkum"
     },
     {
       "type": "missing_case",
@@ -88,11 +48,6 @@
     },
     {
       "type": "missing_case",
-      "document_id": "doc-cz-dd-2026-08-15-doplneni-zaloby-15-a-44-2026",
-      "case_id": "case-cz-ms-praha-15a44-2026"
-    },
-    {
-      "type": "missing_case",
       "document_id": "doc-cz-citc-2026-08-03-stiznost-kpr-5080-2026",
       "case_id": "case-cz-kpr-tri-vetve"
     },
@@ -103,18 +58,98 @@
     },
     {
       "type": "missing_case",
-      "document_id": "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
-      "case_id": "case-cz-os-praha4-10c69-2026"
+      "document_id": "doc-cz-msz-pha-2026-08-20-2-kzn-55-2025-136",
+      "case_id": "case-cz-vsz-praha-dohled-msz"
     },
     {
       "type": "missing_case",
-      "document_id": "doc-cz-nsz-2026-08-13-6-nzn-1737-2026-73",
-      "case_id": "case-cz-ms-praha-18a23-2026"
+      "document_id": "doc-cz-msz-pha-2026-08-20-2-kzn-55-2025-136",
+      "case_id": "case-cz-msz-praha-prezkumy"
     },
     {
       "type": "missing_case",
-      "document_id": "doc-cz-os-pro-2026-08-18-15-nt-3104-2026-56",
-      "case_id": "case-cz-os-pro-2t104-2010-obnova"
+      "document_id": "doc-cz-ks-ost-2026-08-26-st-82-2026-15-t-11-2025",
+      "case_id": "15 T 11/2025"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-msz-pha-2026-08-27-3-kzn-974-2026-100",
+      "case_id": "1 ZN 320/2026"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-msz-pha-2026-08-27-3-kzn-974-2026-100",
+      "case_id": "1 VZN 1678/2026"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-msz-pha-2026-08-27-3-kzn-974-2026-103",
+      "case_id": "ZN 87/2026"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-ms-pha-2026-08-28-8-ad-9-2026-85",
+      "case_id": "8 Ad 9/2026"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-mk-2026-08-31-mk-53547-2026-socns",
+      "case_id": "MK-S 6893/2026 SOCNS"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-mk-2026-08-31-mk-53547-2026-socns",
+      "case_id": "MK-S 8978/2016 OC"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-mk-2026-08-31-mk-53559-2026-socns",
+      "case_id": "MK-S 6893/2026 SOCNS"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-mk-2026-08-31-mk-53559-2026-socns",
+      "case_id": "MK-S 8978/2016 OC"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-mz-2026-09-01-mzdr-21970-2026-3-min-kan",
+      "case_id": "MZDR 21970/2026-1/MIN/KAN"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-dd-2026-08-29-kpr-5080-2026-nalehave-pozvani",
+      "case_id": "case-cz-kpr-tri-vetve"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-kpr-2026-09-02-kpr-5080-2026-vyrizeni-stiznosti",
+      "case_id": "case-cz-kpr-tri-vetve"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-ms-pha-2026-09-09-8-ad-9-2026-89",
+      "case_id": "8 Ad 9/2026"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-os-pro-2026-09-14-15-nt-3104-2026",
+      "case_id": "15 Nt 3104/2026"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-os-pro-2026-09-14-15-nt-3104-2026",
+      "case_id": "2 T 104/2010"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-os-pro-2026-09-14-15-nt-3106-2026",
+      "case_id": "15 Nt 3106/2026"
+    },
+    {
+      "type": "missing_case",
+      "document_id": "doc-cz-os-pro-2026-09-14-15-nt-3106-2026",
+      "case_id": "2 T 65/2011"
     }
   ],
   "rule": "Duplicity a neplatné veřejné cesty blokují build. Neúplné vazby se nikdy nedoplňují odhadem a čekají na lidskou kontrolu."
