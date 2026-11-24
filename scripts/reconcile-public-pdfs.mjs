@@ -1,5 +1,6 @@
 import { access, readdir, readFile, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { createReconciliationNormalization, indexByReference } from './reconciliation-reference-index.mjs';
 
 const registryPath = 'project-memory/documents-2026.json';
 const institutionsPath = 'project-memory/institutions.json';
@@ -10,13 +11,7 @@ const webDir = 'web';
 const OUR_FILENAME_MARKERS = /(?:^|[-_])(dvorak|citc|gfaa|ganja-for-all-animals|cannabis-is-the-cure)(?:[-_.]|$)/i;
 
 const exists = file => access(file).then(() => true).catch(() => false);
-const norm = value => String(value || '')
-  .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-  .toLowerCase()
-  .replace(/čj|c\.\s*j\.|sp\.\s*zn\.|spzn/g, '')
-  .replace(/[^a-z0-9]+/g, ' ')
-  .trim();
-const compact = value => norm(value).replace(/\s+/g, '');
+const { norm, compact } = createReconciliationNormalization();
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 const dateParts = value => String(value || '').split('-').filter(Boolean);
 const refTokens = value => norm(value).split(/\s+/).filter(token => token.length >= 2 || /^\d$/.test(token));
@@ -110,12 +105,13 @@ for (const override of overrideRegistry.overrides) {
   overrideOwnerByPath.set(repoPath, override.document_id);
 }
 
+const sourcesByReference = indexByReference(sources, compact);
+const documentsByReference = indexByReference(registry.documents, compact);
 const declaredOwners = new Map();
 for (const src of sources) {
   const sourceRef = compact(src.reference);
   if (!sourceRef) continue;
-  const matches = registry.documents.filter(doc => {
-    if (compact(doc.reference) !== sourceRef) return false;
+  const matches = (documentsByReference.get(sourceRef) || []).filter(doc => {
     if (src.date && doc.issue_date && src.date !== doc.issue_date) return false;
     if (src.institution_id && doc.institution_id !== src.institution_id) return false;
     return true;
@@ -286,11 +282,10 @@ for (const doc of registry.documents) {
 
   const ref = compact(doc.reference);
   const date = doc.issue_date;
-  let candidates = sources.filter(src => {
+  let candidates = (sourcesByReference.get(ref) || []).filter(src => {
     const sameDate = !src.date || !date || src.date === date;
     const sameInstitution = !src.institution_id || src.institution_id === doc.institution_id;
-    const sourceRef = compact(src.reference);
-    return sameDate && sameInstitution && ref && sourceRef && sourceRef === ref;
+    return sameDate && sameInstitution;
   });
   candidates = candidates.filter(src => validPhysicalSet.has(src.path) && fileEligibleForDocument(doc, src.path));
   let unique = [...new Map(candidates.map(src => [src.path, src])).values()];
