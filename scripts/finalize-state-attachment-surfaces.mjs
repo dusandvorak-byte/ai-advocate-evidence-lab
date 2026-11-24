@@ -31,6 +31,11 @@ const datedBatchPins=[
   [6,'doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-3','documents/2026-11-04/rr-ku-54-2021-priloha-3.pdf','9e1d37506d0d991a17cb91c7dae43ceccbb4c531c3f0d0f6d947323afd57eea6','Příloha č. 3 – kvantitativní stanovení obsahu THC v rostlinných materiálech','Annex 3 – Quantitative determination of THC in plant materials',true],
   [7,'doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-4','documents/2026-11-04/rr-ku-54-2021-priloha-4.pdf','411b87167b8d33eea1e60c12eae3de1841209bde6316116101a51790052abe52','Příloha č. 4 – interpretace výsledků analýzy konopí','Annex 4 – Interpretation of cannabis analysis results',true],
   [8,'doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-5','documents/2026-11-04/rr-ku-54-2021-priloha-5.pdf','93c20a560730900e050815f87281815eb526d9b0341bc9df4916531a335a8664','Příloha č. 5 – analýza HHC / HHC-O a THCP','Annex 5 – Analysis of HHC / HHC-O and THCP',true],
+  [2,"doc-cz-pcr-pp-2026-11-04-ppr-53675-9-cj-2026-990810","documents/2026-11-04/pcr-pp-2026-11-04-ppr-53675-9-cj-2026-990810-verejna-kopie.pdf","631afe9170487479e1848547e350f7fce0a2bdc4491186bdbaadf57f30553983","Policejní prezidium – PPR-53675-9/ČJ-2026-990810","Police Presidium – PPR-53675-9/ČJ-2026-990810",false,{"cs":"POLICEJNÍ PREZIDIUM","en":"POLICE PRESIDIUM","reference":"PPR-53675-9/ČJ-2026-990810"}],
+  [15,"doc-cz-ms-pha-2026-11-04-18-a-17-2026-252","documents/2026-11-04/ms-pha-2026-11-04-18-a-17-2026-252-verejna-kopie.pdf","cdb340a06469f0cea10ab58271138cf703ecc717ee4299e6279ab92f0cc2b237","Městský soud v Praze – 18 A 17/2026-252","Municipal Court in Prague – 18 A 17/2026-252",false,{"cs":"MĚSTSKÝ SOUD V PRAZE","en":"MUNICIPAL COURT IN PRAGUE","reference":"18 A 17/2026-252"}],
+  [17,"doc-cz-os-pro-2026-11-04-15-nt-3103-vyrozumeni","documents/2026-11-04/os-pro-2026-11-04-15-nt-3103-vyrozumeni-verejna-kopie.pdf","af8ea89fa935abac527b2abb5ef755fb74c447bd1a3d0165e861f94ad638a30e","Okresní soud v Prostějově – 15 Nt 3103/2026","District Court in Prostějov – 15 Nt 3103/2026",false,{"cs":"OKRESNÍ SOUD V PROSTĚJOVĚ","en":"DISTRICT COURT IN PROSTĚJOVĚ","reference":"15 Nt 3103/2026"}],
+  [31,"doc-cz-msp-2026-11-04-msp-898-2026-op-osv-8","documents/2026-11-04/msp-2026-11-04-msp-898-2026-op-osv-8-verejna-kopie.pdf","35e363adf247ac1fb6686c93bcce4dea530e8dfd67de47a6af9c5eb601f4406e","Ministerstvo spravedlnosti – MSP-898/2026-OP-OSV/8","Ministry of Justice – MSP-898/2026-OP-OSV/8",false,{"cs":"MINISTERSTVO SPRAVEDLNOSTI","en":"MINISTRY OF JUSTICE","reference":"MSP-898/2026-OP-OSV/8"}],
+  [32,"doc-cz-mv-2026-11-03-mv-127234-8-obp-2026","documents/2026-11-04/mv-2026-11-03-mv-127234-8-obp-2026-verejna-kopie.pdf","1655282a2ca573879ab3007bb5d2e8a823e435cbcb8d286b487cb84c93027ab4","Ministerstvo vnitra – MV-127234-8/OBP-2026","Ministry of the Interior – MV-127234-8/OBP-2026",false,{"cs":"MINISTERSTVO VNITRA","en":"MINISTRY OF THE INTERIOR","reference":"MV-127234-8/OBP-2026"}],
 ];
 
 export async function collectVerifiedDatedBatch(documents,attachments,root='web'){
@@ -41,23 +46,24 @@ export async function collectVerifiedDatedBatch(documents,attachments,root='web'
   }
   const attachmentIds=new Set(attachments.map(d=>d.id));
   const result=[];
-  for(const [number,id,p,sha,cs,en,annex] of datedBatchPins){
+  for(const [number,id,p,sha,cs,en,annex,record] of datedBatchPins){
     const d=byId.get(id);
     if(!d||d.release_excluded===true||d.submission_side!=='incoming_from_state_or_public_institution'||d.public?.pdf!==p||d.public?.sha256!==sha||(annex&&(!attachmentIds.has(id)||d.issue_date!==DATED_BATCH_DATE))||(!annex&&attachmentIds.has(id)))throw Error('Dated batch provenance mismatch: '+id);
     const bytes=await readFile(join(root,p));
     if(bytes.subarray(0,5).toString()!=='%PDF-'||createHash('sha256').update(bytes).digest('hex')!==sha)throw Error('Dated batch public SHA mismatch: '+id);
-    result.push({number,id,p,sha,cs,en,annex});
+    if(record&&d.document_type!=='state_record')throw Error('Dated state record type mismatch: '+id);
+    result.push({number,id,p,sha,cs,en,annex,record});
   }
-  return result;
+  return result.sort((a,b)=>a.number-b.number);
 }
 export function datedBatchPanel(batch,lang){
   const en=lang==='en';
   if(!batch.length)return '';
   const title=en?'Public records dated 4 November 2026':'Listiny k 4. listopadu 2026';
-  const note=en?'Police response batch dated 4 November 2026. The order and annex 1 refer to previously published text copies; their original issuance and historical record dates are unchanged. Annexes are not counted as new standalone state records.':'Dávka policejní odpovědi ze dne 4. listopadu 2026. Rozkaz a příloha č. 1 odkazují na již zveřejněné textové kopie; původní datum vydání a historické evidence zůstává zachováno. Přílohy se nezapočítávají jako nové samostatné státní listiny.';
+  const note=en?'Public records in the dated intake of 4 November 2026. The order and annex 1 refer to previously published text copies; their original issuance and historical record dates are unchanged. Annexes are not counted as new standalone state records.':'Listiny zařazené k 4. listopadu 2026. Rozkaz a příloha č. 1 odkazují na již zveřejněné textové kopie; původní datum vydání a historické evidence zůstává zachováno. Přílohy se nezapočítávají jako nové samostatné státní listiny.';
   const cards=batch.map(d=>{
     const link='/ai-advocate-evidence-lab/'+esc(d.p);
-    return '<article class="latest-record-card dated-batch-card" data-dated-document-id="'+esc(d.id)+'" data-timeline-date="'+DATED_BATCH_DATE+'" data-approved-list-number="'+d.number+'"'+(d.annex?' data-attachment-id="'+esc(d.id)+'"':'')+'><p class="kicker">'+esc(format(DATED_BATCH_DATE,lang))+' · '+(en?'CRIMINALISTICS INSTITUTE':'KRIMINALISTICKÝ ÚSTAV')+'</p><h3><a href="'+link+'" target="_blank" rel="noopener">'+esc(en?d.en:d.cs)+'</a></h3><p class="latest-record-reference">'+(en?'Police response batch · Order No. 54/2021':'Dávka odpovědi · RŘ KÚ č. 54/2021')+(d.annex?'':(en?' · existing public text copy':' · existující veřejná textová kopie'))+'</p><a class="latest-record-pdf" href="'+link+'" target="_blank" rel="noopener">'+(en?'PDF document':'Dokument v PDF')+'</a></article>';
+    return '<article class="latest-record-card dated-batch-card" data-dated-document-id="'+esc(d.id)+'" data-timeline-date="'+DATED_BATCH_DATE+'" data-approved-list-number="'+d.number+'"'+(d.annex?' data-attachment-id="'+esc(d.id)+'"':'')+'><p class="kicker">'+esc(format(DATED_BATCH_DATE,lang))+' · '+esc(d.record?(en?d.record.en:d.record.cs):(en?'CRIMINALISTICS INSTITUTE':'KRIMINALISTICKÝ ÚSTAV'))+'</p><h3><a href="'+link+'" target="_blank" rel="noopener">'+esc(en?d.en:d.cs)+'</a></h3><p class="latest-record-reference">'+esc(d.record?d.record.reference:(en?'Police response batch · Order No. 54/2021':'Dávka odpovědi · RŘ KÚ č. 54/2021'))+(d.annex||d.record?'':(en?' · existing public text copy':' · existující veřejná textová kopie'))+'</p><a class="latest-record-pdf" href="'+link+'" target="_blank" rel="noopener">'+(en?'PDF document':'Dokument v PDF')+'</a></article>';
   }).join('');
   return '<section id="dated-release-2026-11-04" class="state-attachments dated-release" data-timeline-date="'+DATED_BATCH_DATE+'" aria-label="'+esc(title)+'"><h3>'+esc(title)+'</h3><p>'+esc(note)+'</p><div class="latest-record-grid">'+cards+'</div></section>';
 }

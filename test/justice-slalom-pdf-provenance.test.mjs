@@ -740,5 +740,13 @@ test('dated 4 November group preserves historical PDFs and standalone decision-c
   assert.equal(output,renderAttachmentSurface(output,attachments,'2026-11-03','cs',true,sample));
   assert.ok(datedBatchPanel(sample,'en').includes('Public records dated 4 November 2026'));
   assert.ok(datedBatchPanel(sample,'en').includes('existing public text copy'));
+  const state={number:32,id:'doc-new-state',p:'documents/state.pdf',cs:'Ministerstvo',en:'Ministry',annex:false,record:{cs:'MINISTERSTVO VNITRA',en:'MINISTRY OF THE INTERIOR',reference:'MV-TEST'}};
+  const panel=datedBatchPanel([...sample,state],'en');
+  assert.ok(panel.includes('MINISTRY OF THE INTERIOR'));
+  assert.ok(panel.includes('MV-TEST'));
+  assert.ok(panel.includes('data-approved-list-number="32"'));
+  assert.equal((panel.match(/data-attachment-id=/g)||[]).length,1);
+  assert.equal((panel.match(/existing public text copy/g)||[]).length,1);
+
   await assert.rejects(collectVerifiedDatedBatch([],[],'.'),/Dated batch provenance mismatch/);
 });
