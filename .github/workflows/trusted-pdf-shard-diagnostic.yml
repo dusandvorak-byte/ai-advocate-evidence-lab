@@ -112,6 +112,9 @@ jobs:
           test -n "$EVIDENCE_LAB_CANONICAL_PROVENANCE_CONTRACT_SHA256"
           python3 scripts/validate-canonical-pdf-sha-provenance.py
 
+      - name: Enforce exact approved CT digest on both staged trees
+        run: node scripts/verify-approved-ct-pilot.mjs --staged
+
       - name: Upload prepared public tree and hardening report
         uses: actions/upload-artifact@v4
         with:
