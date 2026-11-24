@@ -368,6 +368,22 @@ def rect_overlaps(rect: fitz.Rect, used: list[fitz.Rect]) -> bool:
     return any((rect & existing).get_area() > 0.15 * min(rect.get_area(), existing.get_area()) for existing in used)
 
 
+# This historical PDF has a separately pinned, previously audited public
+# derivative. Candidate scheduling must not depend on evolving scan heuristics.
+# The terminal interpellation validator still checks the exact public digest,
+# size, page count, authenticated clean hardening row and archived source.
+HISTORIC_INTERPELLATION_PRIMARY = "documents/interpelace-380-2018/interpelace-zuzana-majerova-zahradnikova-2018.pdf"
+HISTORIC_INTERPELLATION_SOURCE_SHA = "e5844a961b84628bee2320e6897a4aa52efefa2b616414760655b872ab9b7a71"
+
+
+def requires_pinned_historical_rewrite(rel: str, inspection: dict) -> bool:
+    if rel != HISTORIC_INTERPELLATION_PRIMARY:
+        return False
+    if inspection.get("source_sha256") != HISTORIC_INTERPELLATION_SOURCE_SHA:
+        raise RuntimeError("historical interpellation source identity mismatch")
+    return True
+
+
 def candidate_strategy(before_fast: dict, force_rewrite: bool) -> str:
     reasons = set(before_fast.get("reasons") or [])
     text_private_hits = before_fast.get("text_private_hits")
@@ -977,8 +993,13 @@ def main() -> None:
             any(derivative_doc(item) for item in items)
             and bool(inspection.get("xmp_present"))
         )
-        if inspection["reasons"] or derivative_xmp_cleanup:
-            candidates.append((rel, bool(inspection["reasons"])))
+        # Reproduce the already-pinned historical public derivative even when
+        # the current scanner finds no heuristic trigger. Any newly discovered
+        # privacy/structural reasons still control candidate_strategy as usual.
+        pinned_rewrite = requires_pinned_historical_rewrite(rel, inspection)
+        force_rewrite = bool(inspection["reasons"]) or pinned_rewrite
+        if force_rewrite or derivative_xmp_cleanup:
+            candidates.append((rel, force_rewrite))
 
     candidate_results = []
     harden_workers = min(8, max(1, len(candidates)))

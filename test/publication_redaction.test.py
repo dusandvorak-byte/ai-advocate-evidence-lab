@@ -233,6 +233,29 @@ private.person@example.invalid
         self.assertNotEqual(hashlib.sha256(before_render).hexdigest(), hashlib.sha256(after_render).hexdigest())
         self.assertEqual(redaction.forbidden_public_identifiers(after_text), [])
 
+    def test_pinned_historical_rewrite_is_path_and_source_bound(self):
+        ns = runpy.run_path(
+            str(ROOT / "scripts/harden-public-pdf-privacy.py"),
+            run_name="pinned_historical_rewrite_test",
+        )
+        requires = ns["requires_pinned_historical_rewrite"]
+        strategy = ns["candidate_strategy"]
+        path = ns["HISTORIC_INTERPELLATION_PRIMARY"]
+        sha = "e5844a961b84628bee2320e6897a4aa52efefa2b616414760655b872ab9b7a71"
+        clean = {"source_sha256": sha, "reasons": [], "xmp_present": False}
+        self.assertTrue(requires(path, clean))
+        self.assertEqual(strategy(clean, requires(path, clean)), "pymupdf_rewrite")
+        self.assertFalse(requires("documents/unrelated.pdf", clean))
+        self.assertFalse(requires("documents/interpelace-380-2018/odpoved-andrej-babis-interpelace-380.pdf", clean))
+        for wrong in ("f" * 64, None):
+            with self.assertRaisesRegex(RuntimeError, "source identity mismatch"):
+                requires(path, dict(clean, source_sha256=wrong))
+        # Pinned scheduling never overrides real privacy reasons or qpdf checks.
+        private = dict(clean, reasons=["private_match"], text_private_hits=["synthetic"])
+        self.assertEqual(strategy(private, requires(path, private)), "redact")
+        invalid = dict(clean, reasons=["qpdf_invalid"])
+        self.assertEqual(strategy(invalid, requires(path, invalid)), "qpdf_rewrite")
+
     def test_candidate_strategy_routes_structural_rewrite_away_from_pymupdf(self):
         ns = runpy.run_path(
             str(ROOT / "scripts/harden-public-pdf-privacy.py"),
