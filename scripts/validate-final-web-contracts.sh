@@ -3,6 +3,17 @@
 # Requires the fully materialized web and canonical registry in the repository root.
 set -euo pipefail
 
+# A negated grep is exempt from Bash errexit. Explicitly require the
+# no-match exit status (1); match (0) and read errors (>1) both fail.
+require_pattern_absent() {
+  local status=0
+  grep -qi -- "$1" "$2" || status=$?
+  if [ "$status" -ne 1 ]; then
+    printf 'Forbidden-pattern check failed (grep status %s)\n' "$status" >&2
+    return 1
+  fi
+}
+
 printf '%s\n' 'Ověřit mobilní čitelnost a plnou šířku hlavního článku'
 node test/mobile-readability-v5.test.mjs
 
@@ -148,5 +159,5 @@ for f in web/documents/report-04082026-010/{kpr-5080-2026-vyrizeni-stiznosti-202
 done
 test -f web/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf
 test "$(head -c 5 web/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf)" = '%PDF-'
-! grep -qi 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
-! grep -qi 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
+require_pattern_absent 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
+require_pattern_absent 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
