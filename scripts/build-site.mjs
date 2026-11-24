@@ -247,4 +247,20 @@ await run('scripts/validate-release-exclusions.mjs');
 await run('scripts/verify-approved-ct-pilot.mjs');
 console.log(`Evidence Lab 2.0 build: stát/veřejné instituce ${expectedStateCount}; naše podání ${expectedOurCount}; celkem ${expectedTotalCount}; titulní strana = Godot = manifest; ${publicPdfLinks.length} aktivních PDF; ${finalTimerRegistry.timers.length} živých procesních časovačů.`);
 
-if (shadow) console.log(JSON.stringify(await verifyShadowOutputs(globalThis.process.cwd(),shadowBefore)));
+if (shadow) {
+  // Match the terminal surface sequence in trusted-pdf-shard-diagnostic.yml.
+  // This still is not a trusted release audit or a publish command.
+  await run('scripts/cleanup-godot-duplicate-timers.mjs');
+  await run('scripts/patch-godot-reverse-reactions.mjs');
+  await run('scripts/finalize-public-labels.mjs');
+  await run('scripts/finalize-md-english-surfaces.mjs');
+  await run('scripts/build-justice-slalom.mjs');
+  await run('scripts/repair-chronology-deep-links.mjs');
+  await run('scripts/validate-chronology-deep-links.mjs');
+  await run('scripts/audit-godot-pdf-links.mjs');
+  await run('scripts/build-language-access.mjs');
+  await run('scripts/validate-release-exclusions.mjs');
+  await run('scripts/validate-public-navigation.mjs');
+  await timedChild('bash','scripts/validate-final-web-contracts.sh');
+  console.log(JSON.stringify(await verifyShadowOutputs(globalThis.process.cwd(),shadowBefore)));
+}
