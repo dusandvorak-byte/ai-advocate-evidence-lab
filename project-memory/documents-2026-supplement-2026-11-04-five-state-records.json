@@ -1,0 +1,171 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-11-04",
+  "status": "owner-approved; pending trusted review",
+  "description": "Five proposed public state record copies. Items 16 and 18 excluded.",
+  "documents": [
+    {
+      "id": "doc-cz-pcr-pp-2026-11-04-ppr-53675-9-cj-2026-990810",
+      "user_title": "Policejní prezidium – PPR-53675-9/ČJ-2026-990810",
+      "issue_date": "2026-11-04",
+      "received_date": null,
+      "institution_id": "CZ-PCR-PP",
+      "reference": "PPR-53675-9/ČJ-2026-990810",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "inspected official source; issue date does not establish dispatch or receipt",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-pcr-pp-2026-11-04-ppr-53675-9-cj-2026-990810.html",
+        "pdf": "documents/2026-11-04/pcr-pp-2026-11-04-ppr-53675-9-cj-2026-990810-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-04/pcr-pp-2026-11-04-ppr-53675-9-cj-2026-990810-verejna-kopie.pdf",
+        "sha256": "631afe9170487479e1848547e350f7fce0a2bdc4491186bdbaadf57f30553983",
+        "source_original_sha256": "7ec0d081790c85cddf048f32883314279707b9f3f620ed90f4afab776a94bedc",
+        "source_original_size_bytes": 432305,
+        "source_original_page_count": 8,
+        "source_public_size_bytes": 407383,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-five-state-records.json",
+        "public_copy_note": "Redigovaná veřejná kopie dodaného úředního PDF; nejde o byte-identický originál."
+      },
+      "evidence_note": "Listina zařazena do chronologické dávky 4. listopadu 2026. Datum vydání podle listiny; datum doručení nedoloženo."
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-11-04-18-a-17-2026-252",
+      "user_title": "Městský soud v Praze – 18 A 17/2026-252",
+      "issue_date": "2026-11-04",
+      "received_date": null,
+      "institution_id": "CZ-MS-PHA",
+      "reference": "18 A 17/2026-252",
+      "case_ids": [
+        "case-cz-ms-praha-18a17-2026"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "inspected official source; issue date does not establish dispatch or receipt",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-ms-pha-2026-11-04-18-a-17-2026-252.html",
+        "pdf": "documents/2026-11-04/ms-pha-2026-11-04-18-a-17-2026-252-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-04/ms-pha-2026-11-04-18-a-17-2026-252-verejna-kopie.pdf",
+        "sha256": "cdb340a06469f0cea10ab58271138cf703ecc717ee4299e6279ab92f0cc2b237",
+        "source_original_sha256": "db58f561d48693d07b8c53cff3b79cf1fc54f3639c1e83528f088e60fd0296c2",
+        "source_original_size_bytes": 110872,
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 76498,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-five-state-records.json",
+        "public_copy_note": "Redigovaná veřejná kopie dodaného úředního PDF; nejde o byte-identický originál."
+      },
+      "evidence_note": "Listina zařazena do chronologické dávky 4. listopadu 2026. Datum vydání podle listiny; datum doručení nedoloženo."
+    },
+    {
+      "id": "doc-cz-os-pro-2026-11-04-15-nt-3103-vyrozumeni",
+      "user_title": "Okresní soud v Prostějově – 15 Nt 3103/2026",
+      "issue_date": "2026-11-04",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3103/2026",
+      "case_ids": [
+        "case-cz-ks-brno-9to315-2026"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "inspected official source; issue date does not establish dispatch or receipt",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-os-pro-2026-11-04-15-nt-3103-vyrozumeni.html",
+        "pdf": "documents/2026-11-04/os-pro-2026-11-04-15-nt-3103-vyrozumeni-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-04/os-pro-2026-11-04-15-nt-3103-vyrozumeni-verejna-kopie.pdf",
+        "sha256": "af8ea89fa935abac527b2abb5ef755fb74c447bd1a3d0165e861f94ad638a30e",
+        "source_original_sha256": "70bc8de23306f3d304df49dd0a184b312396d1dcd88f641061fb3a2967acab72",
+        "source_original_size_bytes": 172341,
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 137157,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-five-state-records.json",
+        "public_copy_note": "Redigovaná veřejná kopie dodaného úředního PDF; nejde o byte-identický originál."
+      },
+      "evidence_note": "Listina zařazena do chronologické dávky 4. listopadu 2026. Datum vydání podle listiny; datum doručení nedoloženo."
+    },
+    {
+      "id": "doc-cz-msp-2026-11-04-msp-898-2026-op-osv-8",
+      "user_title": "Ministerstvo spravedlnosti – MSP-898/2026-OP-OSV/8",
+      "issue_date": "2026-11-04",
+      "received_date": null,
+      "institution_id": "CZ-MSP",
+      "reference": "MSP-898/2026-OP-OSV/8",
+      "case_ids": [],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "inspected official source; issue date does not establish dispatch or receipt",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-msp-2026-11-04-msp-898-2026-op-osv-8.html",
+        "pdf": "documents/2026-11-04/msp-2026-11-04-msp-898-2026-op-osv-8-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-04/msp-2026-11-04-msp-898-2026-op-osv-8-verejna-kopie.pdf",
+        "sha256": "35e363adf247ac1fb6686c93bcce4dea530e8dfd67de47a6af9c5eb601f4406e",
+        "source_original_sha256": "8a628c6defb0b441cf81a9ed1c53ca173585642712656aecd5b16fcfc991a2c1",
+        "source_original_size_bytes": 343686,
+        "source_original_page_count": 4,
+        "source_public_size_bytes": 310056,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-five-state-records.json",
+        "public_copy_note": "Redigovaná veřejná kopie dodaného úředního PDF; nejde o byte-identický originál."
+      },
+      "evidence_note": "Listina zařazena do chronologické dávky 4. listopadu 2026. Datum vydání podle listiny; datum doručení nedoloženo."
+    },
+    {
+      "id": "doc-cz-mv-2026-11-03-mv-127234-8-obp-2026",
+      "user_title": "Ministerstvo vnitra – MV-127234-8/OBP-2026",
+      "issue_date": "2026-11-03",
+      "received_date": null,
+      "institution_id": "CZ-MV",
+      "reference": "MV-127234-8/OBP-2026",
+      "case_ids": [
+        "case-cz-mv-infz-ganja-for-all-animals"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "inspected official source; issue date does not establish dispatch or receipt",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-mv-2026-11-03-mv-127234-8-obp-2026.html",
+        "pdf": "documents/2026-11-04/mv-2026-11-03-mv-127234-8-obp-2026-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-04/mv-2026-11-03-mv-127234-8-obp-2026-verejna-kopie.pdf",
+        "sha256": "1655282a2ca573879ab3007bb5d2e8a823e435cbcb8d286b487cb84c93027ab4",
+        "source_original_sha256": "ea0182a5698558a0a00c40224fc7fbe010f91b944ac55b4e414fdb364e8a46ae",
+        "source_original_size_bytes": 212892,
+        "source_original_page_count": 3,
+        "source_public_size_bytes": 194240,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-five-state-records.json",
+        "public_copy_note": "Redigovaná veřejná kopie dodaného úředního PDF; nejde o byte-identický originál."
+      },
+      "evidence_note": "Listina zařazena do chronologické dávky 4. listopadu 2026. Datum vydání podle listiny; datum doručení nedoloženo."
+    }
+  ]
+}
