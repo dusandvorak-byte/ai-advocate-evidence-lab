@@ -25,9 +25,9 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/96-os-praha4-10-c-69-2026-predvolani-2026-09-16.pdf",
-        "sha256": "0cd831f494e7b1001ccb358449f6ca757a870ae72931e603464c83f4d53caea7",
+        "sha256": "fec601ef78493d49e3acf6d3cc0a7258c6d990a7048aaf633e9e51a8a4b15ca3",
         "source_sha256": "26c97198e8d11242039a1b6c775a7f607d08b7446ebcac6e9600980f672023f0",
-        "verification_status": "source_pdf_received; verified_public_copy_from_complete_extracted_text; public_copy_not_binary_original; four_page_text_verified",
+        "verification_status": "source_pdf_received; verified_public_copy_from_complete_extracted_text; publication_policy_redacted; public_copy_not_binary_original; four_page_text_verified",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-16-os-praha4.json",
         "source_text": "project-memory/source-texts/os-praha4-2026-09-16-10-c-69-2026-predvolani.txt"
       },

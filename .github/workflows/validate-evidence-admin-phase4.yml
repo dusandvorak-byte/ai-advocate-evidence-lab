@@ -1,0 +1,56 @@
+name: Validate Evidence Admin Phase 4 (synthetic only)
+on:
+  push:
+    branches:
+      - 'feature/evidence-admin-phase4-*'
+    paths:
+      - 'prototype/evidence-admin/phase4/**'
+      - '.github/workflows/validate-evidence-admin-phase4.yml'
+  pull_request:
+    paths:
+      - 'prototype/evidence-admin/phase4/**'
+      - '.github/workflows/validate-evidence-admin-phase4.yml'
+permissions:
+  contents: read
+concurrency:
+  group: phase4-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  phase4:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+          POSTGRES_PASSWORD: synthetic-ci-only
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Syntax and synthetic state-machine regression
+        run: |
+          for f in prototype/evidence-admin/phase4/*.mjs; do node --check "$f"; done
+          node --test prototype/evidence-admin/phase4/phase4.test.mjs
+          node --test prototype/evidence-admin/phase3/phase3.test.mjs
+          node --test prototype/evidence-admin/phase3/integrations.test.mjs
+      - name: PostgreSQL 16 migration and rollback/replay tests in disposable container
+        run: |
+          c="${{ job.services.postgres.id }}"
+          docker exec -i "$c" psql -v ON_ERROR_STOP=1 -U postgres -d postgres < prototype/evidence-admin/phase3/migrations/001_secure_intake.sql
+          docker exec -i "$c" psql -v ON_ERROR_STOP=1 -U postgres -d postgres < prototype/evidence-admin/phase4/migrations/003_receipts_outbox.sql
+          docker exec -i "$c" psql -v ON_ERROR_STOP=1 -U postgres -d postgres < prototype/evidence-admin/phase4/migrations/004_phase4_ci_checks.sql
+      - name: No deployment, real documents or credentials
+        run: |
+          test ! -e prototype/evidence-admin/phase4/.env
+          test ! -e prototype/evidence-admin/phase4/Dockerfile
+          test ! -e prototype/evidence-admin/phase4/package.json
+          test ! -d prototype/evidence-admin/phase4/public

@@ -34,11 +34,37 @@ for (const source of sourceManifest.sources) {
 const base = sourceRegistries.find(item => item.source.role === 'base') || sourceRegistries[0];
 const registry = base.data;
 const merged = new Map();
+const releaseExcluded = [];
+const releaseExclusionAllowlist = new Map([
+  ['doc-cz-pcr-krpt-2026-08-20-metodicko-odborne-vyjezdy-okte', {
+    source: 'project-memory/documents-2026-supplement-2026-08-20-24.json',
+    reason: 'owner_decision_2026-11-15_do_not_publish'
+  }]
+]);
+const excludedIds = new Set();
 for (const { source, data } of sourceRegistries) {
   for (const doc of data.documents) {
     if (!doc?.id) throw new Error(`Dokument bez stabilního ID ve zdroji ${source.path}`);
+    if (doc.release_excluded === true) {
+      const approved = releaseExclusionAllowlist.get(doc.id);
+      if (!approved || approved.source !== source.path || approved.reason !== doc.release_exclusion_reason) {
+        throw new Error(`Neautorizované release_excluded: ${doc.id} ve ${source.path}`);
+      }
+      excludedIds.add(doc.id);
+      merged.delete(doc.id);
+      releaseExcluded.push({ id: doc.id, source: source.path, reason: doc.release_exclusion_reason || null });
+      continue;
+    }
+    if (excludedIds.has(doc.id)) continue;
     const previous = merged.get(doc.id) || {};
-    merged.set(doc.id, { ...previous, ...doc });
+    // Public metadata is cumulative across source layers. A later supplement may
+    // update the PDF/status fields, but must not erase reviewed provenance
+    // annotations already present in the canonical/base source.
+    merged.set(doc.id, {
+      ...previous,
+      ...doc,
+      public: { ...(previous.public || {}), ...(doc.public || {}) }
+    });
   }
 }
 registry.documents = [...merged.values()];
@@ -123,6 +149,9 @@ registry.normalization = {
   unlisted_supplement_count: unlistedSupplements.length,
   source_documents_before_deduplication: sourceRegistries.reduce((sum, item) => sum + item.data.documents.length, 0),
   merged_document_count: registry.documents.length,
+  release_excluded_count: releaseExcluded.length,
+  // Public-bound canonical registry exposes counts, never identities of owner-withdrawn records.
+  // Their full historical provenance remains in the source supplement and allowlist above.
   institution_aliases: Object.fromEntries(institutionAliases),
   filled_user_titles_from_existing_title: filledUserTitles,
   incoming_from_state_or_public_institution: incoming,

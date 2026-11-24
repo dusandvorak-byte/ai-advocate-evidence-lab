@@ -19,8 +19,8 @@ const output = { article: 'web/zpravy/04082026-010.html', home: 'web/index.html'
 const correctTitle = 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?';
 const wrongTitle = 'Pavouk český křižák z Branibor';
 const readJson = async file => JSON.parse(await readFile(file, 'utf8'));
-const run = script => new Promise((resolve, reject) => {
-  const child = spawn(globalThis.process.execPath, [script], { stdio: 'inherit' });
+const run = (script, ...args) => new Promise((resolve, reject) => {
+  const child = spawn(globalThis.process.execPath, [script, ...args], { stdio: 'inherit' });
   child.on('error', reject);
   child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${script} skončil kódem ${code}`)));
 });
@@ -41,6 +41,7 @@ for (const file of ['web/index.html','web/en.html','web/kc/index.html','web/kc/e
 }
 
 await run('scripts/validate-architecture.mjs');
+await run('scripts/materialize-binary-sources.mjs');
 await run('scripts/apply-justice-slalom-2026-10-12-case-links.mjs');
 await runPython('scripts/materialize-pdf-release-2026-09-29.py');
 await runPython('scripts/materialize-state-pdfs-2026-09-03.py');
@@ -56,10 +57,23 @@ await runPython('scripts/materialize-godot-filings-2026-10-08.py');
 await runPython('scripts/materialize-justice-slalom-2026-10-12.py');
 await runPython('scripts/materialize-2026-10-15-godot-slalom.py');
 await runPython('scripts/materialize-redacted-originals-2026-10-16.py');
+
 await runPython('scripts/validate-redacted-originals-2026-10-16.py');
+await run('scripts/build-kasace-2026-10-30.mjs');
+await run('scripts/build-late-evidence-2026-11-02.mjs');
+// Standalone builds must reconstruct the current privacy-safe generated PDF derivatives.
+await run('scripts/ensure-generated-state-pdfs.mjs');
 await run('scripts/normalize-canonical-data.mjs');
 await run('scripts/materialize-os-praha4-public-copy.mjs');
+// Resolve PDF ownership before hardening records each document's public digest.
 await run('scripts/reconcile-public-pdfs.mjs');
+// Read-only checkpoint: verify historical source provenance around privacy hardening.
+await run('scripts/diagnose-interpelace-380.mjs', 'before-hardening');
+await runPython('scripts/harden-public-pdf-privacy.py');
+await run('scripts/diagnose-interpelace-380.mjs', 'after-hardening');
+await run('scripts/reconcile-public-pdfs.mjs');
+await runPython('scripts/sync-deterministic-public-sha.py');
+await run('scripts/refresh-okte-public-annexes.mjs');
 await run('scripts/audit-registries.mjs');
 
 const documentsRegistry = await readJson(source.documents);
@@ -158,6 +172,8 @@ await copyFile(source.deadlines, `${output.data}/deadlines-source.json`);
 await copyFile(source.timers, `${output.data}/process-timers-source.json`);
 await copyFile(source.axioms, `${output.data}/publication-axioms.json`);
 await copyFile(source.courtDockets, `${output.data}/active-court-dockets.json`);
+await run('scripts/build-nsz-prelitigation-timeline.mjs');
+await run('scripts/build-court-publication-index.mjs');
 await copyFile('project-memory/pdf-reconciliation-report.json', `${output.data}/pdf-reconciliation-report.json`);
 const publicPdfLinks = [...new Set(documentsRegistry.documents.map(item => item.public?.pdf).filter(Boolean).map(publicPath))];
 const finalTimerRegistry = await readJson(`${output.data}/process-timers.json`);
@@ -189,4 +205,14 @@ const manifest = {
   public_pdf_links: publicPdfLinks
 };
 await writeFile(`${output.data}/build-manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+await run('scripts/add-original-pdf-links-2026-11-02.mjs');
+await run('scripts/add-interpelace-380-links.mjs');
+await run('scripts/validate-interpelace-380.mjs');
+await run('scripts/add-november-evidence-index.mjs');
+// Fail closed if the published canonical JSON loses ten verified OKTE annex links.
+await run('scripts/validate-okte-final-relations.mjs');
+// Reconcile href fragments only after all public HTML writers have completed.
+await run('scripts/repair-chronology-deep-links.mjs');
+await run('scripts/validate-chronology-deep-links.mjs');
+await run('scripts/validate-release-exclusions.mjs');
 console.log(`Evidence Lab 2.0 build: stát/veřejné instituce ${expectedStateCount}; naše podání ${expectedOurCount}; celkem ${expectedTotalCount}; titulní strana = Godot = manifest; ${publicPdfLinks.length} aktivních PDF; ${finalTimerRegistry.timers.length} živých procesních časovačů.`);

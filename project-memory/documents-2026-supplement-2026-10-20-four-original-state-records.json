@@ -1,0 +1,165 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-20",
+  "status": "binding",
+  "documents": [
+    {
+      "id": "doc-cz-nsz-2026-10-15-sin-72-2026-16",
+      "user_title": "NSZ – výzva k upřesnění žádosti ze dne 10. října 2026 podle informačního zákona; 30 dnů od doručení výzvy",
+      "issue_date": "2026-10-15",
+      "received_date": null,
+      "institution_id": "CZ-NSZ",
+      "reference": "SIN 72/2026-16",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "InfZ",
+        "výzva k upřesnění žádosti",
+        "THC",
+        "forenzní metodika",
+        "§ 14 odst. 5 písm. b) zákona č. 106/1999 Sb."
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/121-nsz-sin-72-2026-16-2026-10-15-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/121-nsz-sin-72-2026-16-2026-10-15-original.pdf",
+        "sha256": "449bf64f34e118607367dfe1db4cc133b0276f6b31fc1f7b3c46d311ee1dba72",
+        "source_original_sha256": "449bf64f34e118607367dfe1db4cc133b0276f6b31fc1f7b3c46d311ee1dba72",
+        "source_original_size_bytes": 314652,
+        "source_original_page_count": 2,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 2_pages_reviewed; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-20-four-original-state-records.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-10-ns-nsz-msp-mv-ppr-infz-tp"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "NSZ vyzvalo podle § 14 odst. 5 písm. b) zákona č. 106/1999 Sb. k jednoznačnému určení informací požadovaných konkrétně po NSZ, neboť společná čtrnáctistránková žádost pěti adresátům a souběžný trestní podnět jsou podle NSZ nepřehledné. Listinu podepsal JUDr. Ing. Ondřej Haberle, datováno 15. 10. 2026; NSZ uvádí přijetí podání 11. 10. 2026. Vyzývá k upřesnění do 30 dnů ode dne doručení výzvy, jinak rozhodne o odmítnutí žádosti. Datum doručení výzvy žadateli není z této listiny doloženo; konkrétní datum konce lhůty se neodvozuje."
+    },
+    {
+      "id": "doc-cz-uoou-2026-10-19-uoou-05841-26-7",
+      "user_title": "ÚOOÚ – potvrzení překročení lhůt u odvolání proti NSZ a stížnosti na KPR; samostatná evidence podnětu na Českou televizi",
+      "issue_date": "2026-10-19",
+      "received_date": null,
+      "institution_id": "CZ-UOOU",
+      "reference": "UOOU-05841/26-7; UOOU-05793/26; UOOU-05032/26",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "InfZ",
+        "odvolání",
+        "stížnost",
+        "nečinnost",
+        "NSZ",
+        "KPR",
+        "Česká televize"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/122-uoou-05841-26-7-2026-10-19-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/122-uoou-05841-26-7-2026-10-19-original.pdf",
+        "sha256": "144d1a4b7ee620b48b4ffe013368cb937fd4c04124b9dc8f7ba8d4756b5b81c4",
+        "source_original_sha256": "144d1a4b7ee620b48b4ffe013368cb937fd4c04124b9dc8f7ba8d4756b5b81c4",
+        "source_original_size_bytes": 138936,
+        "source_original_page_count": 2,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 2_pages_reviewed; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-20-four-original-state-records.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-02-uoou-stiznost-necinnost"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-uoou-2026-08-26-uoou-05841-26-3"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "ÚOOÚ dne 19. 10. 2026 sdělil, že odvolání proti rozhodnutí NSZ SIN 55/2026-19 vede pod UOOU-05841/26; NSZ je předložilo dne 17. 8. 2026, rozhodnutí je připraveno k aprobaci a Úřad výslovně uznává překročení lhůty. Stížnost na Kancelář prezidenta republiky je vedena pod UOOU-05793/26 a předána dne 14. 8. 2026; Úřad přiznává překročení lhůty i v této věci. Podnět týkající se České televize vede odděleně pod UOOU-05032/26; odborný útvar má podat další sdělení. Dopis podepsal ředitel odboru práva na informace Mgr. Jaroslav Rozsypal; nejde o rozhodnutí ve věci samé. Datum doručení této odpovědi žadateli není z doložené listiny určeno."
+    },
+    {
+      "id": "doc-cz-cak-2026-10-15-10-32-000925-26-0002",
+      "user_title": "Česká advokátní komora – postup pro podání žádosti o určení advokáta k bezplatné právní pomoci",
+      "issue_date": "2026-10-15",
+      "received_date": null,
+      "institution_id": "CZ-CAK",
+      "reference": "10.32-000925/26-0002",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "bezplatná právní pomoc",
+        "§ 18c zákona č. 85/1996 Sb.",
+        "advokát",
+        "ústavní stížnost",
+        "obnova řízení"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/123-cak-10-32-000925-26-0002-2026-10-15-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/123-cak-10-32-000925-26-0002-2026-10-15-original.pdf",
+        "sha256": "3c8bcb8dd6acf93f276bad0431c811039e88fb9976655e62c10ab565e8801b6e",
+        "source_original_sha256": "3c8bcb8dd6acf93f276bad0431c811039e88fb9976655e62c10ab565e8801b6e",
+        "source_original_size_bytes": 123875,
+        "source_original_page_count": 1,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 1_pages_reviewed; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-20-four-original-state-records.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-10-cak-uocr-pro-bono"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "ČAK, pobočka Brno, přípisem ze dne 15. 10. 2026 v reakci na podání z 10. 10. 2026 odkázala na zveřejněné informace a formuláře k žádosti o určení advokáta k bezplatné právní pomoci podle § 18 a násl. zákona o advokacii. Uvedla způsoby podání písemné žádosti (pošta, osobně, datová schránka nebo elektronické podání s uznávaným podpisem). Přípis podepsala JUDr. Irena Schejbalová, ředitelka pobočky ČAK v Brně. Dopis nepředstavuje rozhodnutí o vyhovění či zamítnutí žádosti; seznam příloh v textu uvádí informační materiál a formulář podle § 18c."
+    },
+    {
+      "id": "doc-cz-os-pro-2026-10-13-st-7-2026",
+      "user_title": "OS Prostějov – vyřízení stížnosti na průtahy v 15 Nt 3105/2026 jako nedůvodné; rozhodnutí 9 To 316/2026-219 doručeno 7. října",
+      "issue_date": "2026-10-13",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "St 7/2026; 15 Nt 3105/2026; 9 To 316/2026-219",
+      "case_ids": [
+        "case-cz-ks-brno-9to316-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "stížnost na průtahy",
+        "15 Nt 3105/2026",
+        "9 To 316/2026-219",
+        "§ 174a zákona č. 6/2002 Sb."
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/124-os-prostejov-st-7-2026-2026-10-13-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/124-os-prostejov-st-7-2026-2026-10-13-original.pdf",
+        "sha256": "85e201e363569c3b32c985fbc2e548428462bd3ba4150525a8d54713691d2ca5",
+        "source_original_sha256": "85e201e363569c3b32c985fbc2e548428462bd3ba4150525a8d54713691d2ca5",
+        "source_original_size_bytes": 173997,
+        "source_original_page_count": 2,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; 2_pages_reviewed; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-20-four-original-state-records.json"
+      },
+      "relations": [
+        {
+          "type": "souvisí",
+          "target_id": "doc-cz-dd-2026-10-10-navrh-ustavni-stiznosti-priloha"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "OS Prostějov vyřídil stížnost na průtahy ve věci 15 Nt 3105/2026 jako nedůvodnou. Místopředseda soudu JUDr. Petr Vrtěl v písemnosti vydané 13. 10. 2026 (ač název nahraného souboru obsahuje 12. 10.) uvedl, že spis byl po rozhodnutí KS Brno 9 To 316/2026-219 vrácen 29. 9. 2026, zatímco spis 15 Nt 3103/2026 již 18. 9. 2026. Rozhodnutí 9 To 316/2026-219 bylo podle sdělení odesláno datovou schránkou 6. 10. 2026 a doručeno 7. 10. 2026. Soud nezjistil průtahy a poučil o možnosti návrhu na určení lhůty podle § 174a zákona č. 6/2002 Sb. Datum doručení vlastního přípisu St 7/2026 není z dokumentu doloženo."
+    }
+  ]
+}

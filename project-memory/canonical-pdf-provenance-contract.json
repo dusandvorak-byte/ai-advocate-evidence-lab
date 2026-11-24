@@ -1,0 +1,458 @@
+{
+  "schema_version": 1,
+  "contract_id": "evidence-lab-canonical-pdf-provenance-v1",
+  "frozen_for_release": "production-debt-20261117",
+  "record_count": 46,
+  "records": [
+    {
+      "id": "doc-cz-ct-2026-06-01-ct-338889-2025-38",
+      "path": "documents/report-04082026-010/50-ct-338889-2025-38-odmitnuti-smiru-2026-06-01.pdf",
+      "status": "binding-manifest-exact-digest-verified",
+      "evidence": {
+        "type": "manifest",
+        "manifest": "project-memory/pdf-link-overrides.json",
+        "manifest_git_blob_sha": "a23634fdc737ff27c182611598d53ce8739ccec0"
+      }
+    },
+    {
+      "id": "doc-cz-dd-2026-08-10-reakce-18-a-23-2026",
+      "path": "documents/report-04082026-010/21-dvorak-reakce-ms-praha-18-a-23-2026-2026-08-10.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-kpr-2026-06-05-kpr-4093-2026",
+      "path": "documents/report-04082026-010/06-kpr-4093-2026-2026-06-05.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-kpr-2026-07-30-kpr-5772-2026-1",
+      "path": "documents/report-04082026-010/kpr-5772-2026-1-2026-07-30-verejna-kopie.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "77fa410a26410838f7646b80889db3153bed9fca"
+      }
+    },
+    {
+      "id": "doc-cz-kpr-2026-08-03-kpr-5080-2026",
+      "path": "documents/report-04082026-010/kpr-5080-2026-2026-08-03-verejna-kopie.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "1c2432101020d2956170807dd2bc857ac3e44e28"
+      }
+    },
+    {
+      "id": "doc-cz-kpr-2026-08-07-kpr-5772-2026-2",
+      "path": "documents/report-04082026-010/15-kpr-5772-2026-2-2026-08-07.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-ksz-brn-2026-07-21-1-kzt-475-2026-32",
+      "path": "documents/report-27072026-008/34-ksz-brno-1-kzt-475-2026-32-2026-07-21.pdf",
+      "status": "historical-origin-restoration-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "033e1a62543d2e4cb79c3a32bb088e16204ed3a0"
+      }
+    },
+    {
+      "id": "doc-cz-ksz-brn-2026-07-31-1-kzn-1079-2026-14",
+      "path": "documents/report-04082026-010/55-ksz-brno-1-kzn-1079-2026-14-2026-07-31-verejna-kopie.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "1e12d46b3cf068d2f38052a85cb77dc01d70d0fb"
+      }
+    },
+    {
+      "id": "doc-cz-ksz-ost-2026-07-29-4-kzn-7116-2026-50",
+      "path": "documents/report-04082026-010/11-ksz-ostrava-4-kzn-7116-2026-50-2026-07-29.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-mk-2026-07-22-mk-45728-2026-socns",
+      "path": "documents/mk-konopna-cirkev-vyrozumeni-2026-07-22-original.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "b45574d6827f238bbd97b25844da030e6663b80f"
+      }
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-130",
+      "path": "documents/report-04082026-010/19-ms-praha-18-a-23-2026-130-2026-08-10.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-08-10-18-a-23-2026-131",
+      "path": "documents/report-04082026-010/20-ms-praha-18-a-23-2026-131-2026-08-10.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-09-09-8-ad-9-2026-89",
+      "path": "documents/report-04082026-010/89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
+      "status": "deterministic-generated-public-copy-verified",
+      "evidence": {
+        "type": "deterministic_generator",
+        "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
+        "generator_git_blob_sha": "a8c7290eec2e5e33db196e4583422db2f8dd72d7",
+        "output_name": "89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-16/89-ms-praha-8-ad-9-2026-89.txt",
+        "source_git_blob_sha": "8bcc5d310e7eae637c50ba31fecc6a2e3add4b4e"
+      }
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-09-14-9-ad-12-2026-7",
+      "path": "documents/report-04082026-010/92-ms-praha-9-ad-12-2026-7-2026-09-14.pdf",
+      "status": "deterministic-generated-public-copy-verified",
+      "evidence": {
+        "type": "deterministic_generator",
+        "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
+        "generator_git_blob_sha": "a8c7290eec2e5e33db196e4583422db2f8dd72d7",
+        "output_name": "92-ms-praha-9-ad-12-2026-7-2026-09-14.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-16/92-ms-praha-9-ad-12-2026-7.txt",
+        "source_git_blob_sha": "80723d7f25544a8ff1dce7a497a513e696256c3e"
+      }
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-09-22-15-ad-14-2026-12",
+      "path": "documents/report-04082026-010/97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
+      "status": "deterministic-generated-public-copy-verified",
+      "evidence": {
+        "type": "deterministic_generator",
+        "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
+        "generator_git_blob_sha": "a8c7290eec2e5e33db196e4583422db2f8dd72d7",
+        "output_name": "97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-22/97-ms-praha-15-ad-14-2026-12.txt",
+        "source_git_blob_sha": "ef518d6f55fdb7a388c36dcef554fec31d61cce8"
+      }
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-09-23-18-a-17-2026-182",
+      "path": "documents/report-04082026-010/99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf",
+      "status": "deterministic-generated-public-copy-verified",
+      "evidence": {
+        "type": "deterministic_generator",
+        "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
+        "generator_git_blob_sha": "a8c7290eec2e5e33db196e4583422db2f8dd72d7",
+        "output_name": "99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-23/99-ms-praha-18-a-17-2026-182.txt",
+        "source_git_blob_sha": "009336155245dd34fbdbdb3bc37536ec6491bce9"
+      }
+    },
+    {
+      "id": "doc-cz-ms-pha-2026-09-23-18-a-23-2026-182",
+      "path": "documents/report-04082026-010/98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
+      "status": "deterministic-generated-public-copy-verified",
+      "evidence": {
+        "type": "deterministic_generator",
+        "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
+        "generator_git_blob_sha": "a8c7290eec2e5e33db196e4583422db2f8dd72d7",
+        "output_name": "98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-23/98-ms-praha-18-a-23-2026-182.txt",
+        "source_git_blob_sha": "7e3b53e2e49c96ffd23c348bca00917b5f8bdbfa"
+      }
+    },
+    {
+      "id": "doc-cz-msp-2026-06-03-msp-19-2026-odka-roz-7",
+      "path": "documents/report-04082026-010/05-msp-19-2026-odka-roz-7-2026-06-03.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-msp-2026-08-27-msp-19-2026-odka-roz-26",
+      "path": "documents/report-04082026-010/100-msp-19-2026-odka-roz-26-2026-08-27-verejna-kopie.pdf",
+      "status": "deterministic-generated-public-copy-verified",
+      "evidence": {
+        "type": "deterministic_generator",
+        "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
+        "generator_git_blob_sha": "a8c7290eec2e5e33db196e4583422db2f8dd72d7",
+        "output_name": "100-msp-19-2026-odka-roz-26-2026-08-27-verejna-kopie.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-08-27/100-msp-19-2026-odka-roz-26.txt",
+        "source_git_blob_sha": "a8e45905b060fed72dc3b17e1d97ddd41aa03c8f"
+      }
+    },
+    {
+      "id": "doc-cz-msz-brn-2026-07-14-sin-15-2026-5",
+      "path": "documents/report-27072026-008/32-msz-brno-0-sin-15-2026-5-2026-07-14.pdf",
+      "status": "historical-origin-restoration-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "69b08cde0fffd72b024287028468f68f5ca90a4c"
+      }
+    },
+    {
+      "id": "doc-cz-msz-brn-2026-07-21-3-zn-140-2026-3",
+      "path": "documents/report-27072026-008/33-msz-brno-3-zn-140-2026-3-2026-07-21.pdf",
+      "status": "historical-origin-restoration-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "28e9472279814be90a8bc85a65f828e061f6379f"
+      }
+    },
+    {
+      "id": "doc-cz-msz-pha-2026-06-11-3-kzn-197-2026-12",
+      "path": "documents/report-27072026-008/19-msz-praha-3-kzn-197-2026-12-2026-06-11.pdf",
+      "status": "historical-origin-restoration-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "69b08cde0fffd72b024287028468f68f5ca90a4c"
+      }
+    },
+    {
+      "id": "doc-cz-msz-pha-2026-06-17-3-kzn-197-2026-18",
+      "path": "documents/report-04082026-010/07-msz-praha-3-kzn-197-2026-18-2026-06-17.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-msz-pha-2026-07-30-sin-48-2026-12",
+      "path": "documents/report-04082026-010/12-msz-praha-sin-48-2026-12-2026-07-30.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-mv-2026-07-15-mv-108890-3-tp-2026",
+      "path": "documents/report-04082026-010/podnet-uoou-prezkum-mv-ku-2026-07-15.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "ee481d9e850b9dfa42172ff32a3d2bd119adb62b"
+      }
+    },
+    {
+      "id": "doc-cz-mv-2026-07-16-mv-97289-3-tp-2026",
+      "path": "documents/report-04082026-010/08-mv-97289-3-tp-2026-2026-07-16.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-mv-2026-07-21-mv-114818-2-tp-2026",
+      "path": "documents/report-04082026-010/09-mv-114818-2-tp-2026-2026-07-21.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-mv-2026-09-14-mv-139593-3-tp-2026",
+      "path": "documents/report-04082026-010/93-mv-139593-3-tp-2026-2026-09-14.pdf",
+      "status": "deterministic-generated-public-copy-verified",
+      "evidence": {
+        "type": "deterministic_generator",
+        "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
+        "generator_git_blob_sha": "a8c7290eec2e5e33db196e4583422db2f8dd72d7",
+        "output_name": "93-mv-139593-3-tp-2026-2026-09-14.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-16/93-mv-139593-3-tp-2026.txt",
+        "source_git_blob_sha": "d63126a3524572c2dc50622c0153ad0b7908585b"
+      }
+    },
+    {
+      "id": "doc-cz-mz-2026-05-29-mzdr-13429-2026-3-olzp",
+      "path": "documents/report-04082026-010/34-mzdr-13429-2026-3-olzp-2026-05-29.pdf",
+      "status": "binding-manifest-exact-digest-verified",
+      "evidence": {
+        "type": "manifest",
+        "manifest": "project-memory/pdf-link-overrides.json",
+        "manifest_git_blob_sha": "a23634fdc737ff27c182611598d53ce8739ccec0"
+      }
+    },
+    {
+      "id": "doc-cz-nsz-2026-07-30-sin-55-2026-19",
+      "path": "documents/report-04082026-010/13-nsz-sin-55-2026-19-2026-07-30.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-os-pro-2026-08-07-15-nt-3105-2026-54",
+      "path": "documents/report-04082026-010/16-os-prostejov-15-nt-3105-2026-54-2026-08-07.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-osz-pha2-2026-07-30-1-zn-157-2026-33",
+      "path": "documents/report-04082026-010/14-osz-praha2-1-zn-157-2026-33-2026-07-30.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-osz-pha7-2026-07-28-zn-87-2026-47",
+      "path": "documents/report-04082026-010/49-osz-praha-7-zn-87-2026-47-2026-07-28.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "ee481d9e850b9dfa42172ff32a3d2bd119adb62b"
+      }
+    },
+    {
+      "id": "doc-cz-osz-pro-2026-07-28-zn-4-2026-6",
+      "path": "documents/report-04082026-010/10-osz-prostejov-zn-4-2026-6-2026-07-28.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-pcr-krpt-2026-08-05-krpt-203594-3-cj-2026-0700kr",
+      "path": "documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05-verejna-kopie.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "1e12d46b3cf068d2f38052a85cb77dc01d70d0fb"
+      }
+    },
+    {
+      "id": "doc-cz-pcr-ku-2026-06-25-ku-4139-5-cj-2026-2305km",
+      "path": "documents/report-27072026-008/06-ku-4139-5-2026-2305km-2026-06-25.pdf",
+      "status": "historical-origin-restoration-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "69b08cde0fffd72b024287028468f68f5ca90a4c"
+      }
+    },
+    {
+      "id": "doc-cz-pcr-ncoz-2026-05-22-ncoz-4324-2-cj-2026-4100pi",
+      "path": "documents/report-04082026-010/36-ncoz-4324-2-cj-2026-4100pi-2026-05-22.pdf",
+      "status": "binding-manifest-exact-digest-verified",
+      "evidence": {
+        "type": "manifest",
+        "manifest": "project-memory/pdf-link-overrides.json",
+        "manifest_git_blob_sha": "a23634fdc737ff27c182611598d53ce8739ccec0"
+      }
+    },
+    {
+      "id": "doc-cz-pcr-ncoz-2026-06-01-ncoz-4324-4-cj-2026-4100pi",
+      "path": "documents/report-04082026-010/04-ncoz-4324-4-cj-2026-4100pi-2026-06-01.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-pcr-ncoz-2026-06-15-ncoz-4871-5-cj-2026-410066-e",
+      "path": "documents/report-27072026-008/17-ncoz-ncoz-4871-5-cj-2026-410066-e-2026-06-15.pdf",
+      "status": "historical-origin-restoration-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "033e1a62543d2e4cb79c3a32bb088e16204ed3a0"
+      }
+    },
+    {
+      "id": "doc-cz-pcr-pp-2026-05-22-ppr-24960-8-cj-2026-990810",
+      "path": "documents/report-04082026-010/02-ppr-24960-8-cj-2026-990810-2026-05-22.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "356aa7a31919539927ce9b679f95a96bf5d1ea55"
+      }
+    },
+    {
+      "id": "doc-cz-rrtv-2026-07-16-rrtv-7757-2026-fej",
+      "path": "documents/report-04082026-010/35-rrtv-7757-2026-fej-2026-07-16.pdf",
+      "status": "binding-manifest-exact-digest-verified",
+      "evidence": {
+        "type": "manifest",
+        "manifest": "project-memory/pdf-link-overrides.json",
+        "manifest_git_blob_sha": "a23634fdc737ff27c182611598d53ce8739ccec0"
+      }
+    },
+    {
+      "id": "doc-cz-uoou-2026-07-28-uoou-05058-26-2",
+      "path": "documents/report-04082026-010/46-uoou-05058-26-2-2026-07-28.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "ee481d9e850b9dfa42172ff32a3d2bd119adb62b"
+      }
+    },
+    {
+      "id": "doc-cz-uoou-2026-07-28-uoou-05093-26-2",
+      "path": "documents/report-04082026-010/47-uoou-05093-26-2-2026-07-28.pdf",
+      "status": "historical-introduction-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "ee481d9e850b9dfa42172ff32a3d2bd119adb62b"
+      }
+    },
+    {
+      "id": "doc-cz-vsz-olo-2026-09-15-3-vzn-239-2026-64",
+      "path": "documents/report-04082026-010/94-vsz-olomouc-3-vzn-239-2026-64-2026-09-15.pdf",
+      "status": "deterministic-generated-public-copy-verified",
+      "evidence": {
+        "type": "deterministic_generator",
+        "generator": "scripts/materialize-verified-public-copies-2026-09-16.py",
+        "generator_git_blob_sha": "a8c7290eec2e5e33db196e4583422db2f8dd72d7",
+        "output_name": "94-vsz-olomouc-3-vzn-239-2026-64-2026-09-15.pdf",
+        "source_path": "project-memory/verified-public-copy-sources-2026-09-16/94-vsz-olomouc-3-vzn-239-2026-64.txt",
+        "source_git_blob_sha": "092d28723ff0296b38f2a8e1486cc07ef93af3ab"
+      }
+    },
+    {
+      "id": "doc-cz-vsz-pha-2026-06-22-1-vzn-1678-2026-8",
+      "path": "documents/report-27072026-008/21-vsz-praha-1-vzn-1678-2026-8-2026-06-22.pdf",
+      "status": "historical-origin-restoration-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "033e1a62543d2e4cb79c3a32bb088e16204ed3a0"
+      }
+    },
+    {
+      "id": "doc-cz-vsz-pha-2026-07-23-1-vzn-1678-2026-70",
+      "path": "documents/report-27072026-008/25-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf",
+      "status": "historical-origin-restoration-and-blob-continuity-verified",
+      "evidence": {
+        "type": "historical_commit",
+        "commit": "69b08cde0fffd72b024287028468f68f5ca90a4c"
+      }
+    }
+  ]
+}

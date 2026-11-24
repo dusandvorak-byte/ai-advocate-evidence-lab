@@ -2415,3 +2415,111 @@ main:not(.article-shell) > .newsroom-alert {
     word-break: normal;
   }
 }
+
+
+/* Editorial cleanup 2026-11-13 — presentation only, no changes to evidence. 
+   Restore exact image colors; calm typography, hierarchy, and mobile spacing.
+   This intentionally does not restyle the identity of Church pages. */
+body:not(.church-site) {
+  --paper: #f8f7f3;
+  --ink: #182b32;
+  --muted: #4b626b;
+  --rule: #d6dfe0;
+  --red: #9c2336;
+  --page-shell-width: 1160px;
+  background: #f8f7f3;
+  color: #182b32;
+  font-family: Georgia, "Times New Roman", serif;
+}
+body:not(.church-site) main img { filter: none !important; }
+body:not(.church-site) .masthead {
+  padding-top: 28px;
+  padding-bottom: 22px;
+  border-bottom: 3px solid #1c5264;
+}
+body:not(.church-site) .masthead .brand b {
+  color: #123b4b;
+  letter-spacing: -.055em;
+}
+body:not(.church-site) .nav {
+  border-bottom: 1px solid #d6dfe0;
+}
+body:not(.church-site) main {
+  line-height: 1.62;
+}
+body:not(.church-site) main h1,
+body:not(.church-site) main h2,
+body:not(.church-site) main h3 {
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+}
+body:not(.church-site) main > section {
+  scroll-margin-top: 24px;
+}
+body:not(.church-site) .latest-records {
+  padding: clamp(24px, 4vw, 44px);
+  background: #eef3f2;
+  border: 1px solid #d1dedd;
+  border-radius: 12px;
+  margin: 24px 0;
+}
+body:not(.church-site) .latest-records > header h2 {
+  color: #123b4b;
+  font-size: clamp(1.5rem, 2.9vw, 2.25rem);
+  line-height: 1.16;
+}
+body:not(.church-site) .latest-record-grid { gap: 16px; }
+body:not(.church-site) .latest-record-card {
+  min-height: 0;
+  padding: 22px;
+  border: 1px solid #d0dedc;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(18,59,75,.06);
+}
+body:not(.church-site) .latest-record-card h3 {
+  font-size: clamp(1.07rem, 1.4vw, 1.23rem);
+  line-height: 1.36;
+}
+body:not(.church-site) .latest-record-card .kicker {
+  color: #315b66;
+  line-height: 1.4;
+}
+body:not(.church-site) .latest-record-pdf {
+  background: #164b5c;
+  border: 1px solid #164b5c;
+  border-radius: 6px;
+  padding: 10px 13px;
+  line-height: 1.35;
+}
+body:not(.church-site) .latest-record-pdf:hover,
+body:not(.church-site) .latest-record-pdf:focus-visible {
+  background: #0c3442;
+  outline: 2px solid #0c3442;
+  outline-offset: 3px;
+}
+body:not(.church-site) .news-lead .lead-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 22px rgba(18,59,75,.07);
+}
+body:not(.church-site) .home-rollup-stack .home-rollup > summary,
+body:not(.church-site) .home-rollup-stack .home-rollup-link {
+  line-height: 1.5;
+}
+body:not(.church-site) .home-rollup-stack .home-rollup:focus-within {
+  outline: 2px solid #1c5264;
+  outline-offset: 2px;
+}
+@media(max-width: 760px) {
+  body:not(.church-site) .latest-records {
+    margin: 16px 0;
+    padding: 18px;
+    border-radius: 8px;
+  }
+  body:not(.church-site) .latest-record-card { padding: 17px; }
+  body:not(.church-site) .masthead { padding-top: 20px; }
+  body:not(.church-site) .latest-record-grid { grid-template-columns: 1fr; }
+}
+@media(prefers-reduced-motion: reduce) {
+  body:not(.church-site) * { scroll-behavior: auto; }
+}

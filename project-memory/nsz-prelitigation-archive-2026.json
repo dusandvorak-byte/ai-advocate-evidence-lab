@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "status": "contextual_archival_references_not_standalone_document_originals",
+  "source_publication_date": "2026-07-25",
+  "source_url": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/zpravy/25072026-007.html",
+  "evidence_note_cs": "Archivní článek CannaInsideru z 25. 7. 2026 výslovně identifikuje čtyři starší podání ve větvi NSZ/NCOZ. Úřední sdělení podle článku používá datum 27. 4. 2026 pro podání označené v autorském zdroji datem 25. 4. 2026. Rozdíl není redakčně vyřešen. Samostatná PDF všech čtyř podání nejsou tímto archivním odkazem doložena.",
+  "evidence_note_en": "The 25 July 2026 CannaInsider archive expressly identifies four earlier NSZ/NCOZ filings. According to that account, an official notice uses 27 April where the author's dated source uses 25 April 2026; the discrepancy is not silently reconciled. Standalone PDF originals of these four filings are not established by the archive link.",
+  "items": [
+    {
+      "archive_reference_id": "nsz-archival-2026-04-20",
+      "date": "2026-04-20",
+      "reference": "bez doloženého samostatného č. j. / sp. zn.",
+      "title_cs": "Stížnost NSZ/NCOZ ze dne 20. dubna 2026, zahrnutá do pozdější stížnosti z 25. dubna",
+      "description_en": "Complaint concerning NSZ/NCOZ dated 20 April 2026, incorporated in the later complaint of 25 April",
+      "href": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/zpravy/25072026-007.html",
+      "link_kind": "archive",
+      "record_status": "cited_in_public_archive_not_separately_verified_pdf",
+      "standalone_pdf_verified": false
+    },
+    {
+      "archive_reference_id": "nsz-archival-2026-04-25",
+      "date": "2026-04-25",
+      "reference": "bez doloženého samostatného č. j. / sp. zn.",
+      "title_cs": "Stížnost NSZ/NCOZ ze dne 25. dubna 2026, zahrnující podání z 20. dubna",
+      "description_en": "Complaint concerning NSZ/NCOZ dated 25 April 2026, incorporating the 20 April filing",
+      "href": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/zpravy/25072026-007.html",
+      "link_kind": "archive",
+      "record_status": "cited_in_public_archive_not_separately_verified_pdf",
+      "standalone_pdf_verified": false
+    },
+    {
+      "archive_reference_id": "nsz-archival-2026-05-08",
+      "date": "2026-05-08",
+      "reference": "bez doloženého samostatného č. j. / sp. zn.",
+      "title_cs": "Doplnění podání ve větvi NSZ/NCOZ ze dne 8. května 2026",
+      "description_en": "Supplement to the NSZ/NCOZ submission dated 8 May 2026",
+      "href": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/zpravy/25072026-007.html",
+      "link_kind": "archive",
+      "record_status": "cited_in_public_archive_not_separately_verified_pdf",
+      "standalone_pdf_verified": false
+    },
+    {
+      "archive_reference_id": "nsz-archival-2026-05-12",
+      "date": "2026-05-12",
+      "reference": "bez doloženého samostatného č. j. / sp. zn.",
+      "title_cs": "Doplnění podání ve větvi NSZ/NCOZ ze dne 12. května 2026",
+      "description_en": "Supplement to the NSZ/NCOZ submission dated 12 May 2026",
+      "href": "https://dusandvorak-byte.github.io/ai-advocate-evidence-lab/zpravy/25072026-007.html",
+      "link_kind": "archive",
+      "record_status": "cited_in_public_archive_not_separately_verified_pdf",
+      "standalone_pdf_verified": false
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-11-04",
+  "status": "owner-approved; pending trusted review",
+  "description": "Four distinct methodology annexes; no duplicate order or annex 1.",
+  "parent_document_id": "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021",
+  "documents": [
+    {
+      "id": "doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-2",
+      "user_title": "RŘ KÚ č. 54/2021 – příloha č. 2: Metodika profilování kanabinoidů",
+      "issue_date": "2026-11-04",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KU",
+      "reference": "RŘ KÚ č. 54/2021; příloha č. 2; dávka odpovědi PPR-53675-9/ČJ-2026-990810",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original police methodology appendix; not separately issued on correspondence date",
+      "topics": [
+        "RŘ KÚ 54/2021",
+        "konopí",
+        "kriminalistická metodika"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/2026-11-04/rr-ku-54-2021-priloha-2.pdf",
+        "intended_pdf": "documents/2026-11-04/rr-ku-54-2021-priloha-2.pdf",
+        "sha256": "6a4fa57cd3a12ad6f74643b0815c60b0431682b35f194993d47567b9b0533213",
+        "source_original_sha256": "6a4fa57cd3a12ad6f74643b0815c60b0431682b35f194993d47567b9b0533213",
+        "source_original_size_bytes": 603861,
+        "source_original_page_count": 4,
+        "source_public_size_bytes": 603861,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-rrku54-annexes.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021"
+        }
+      ],
+      "parent_document_id": "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021",
+      "annex_index": 2,
+      "evidence_note": "Datum označuje dávku policejní odpovědi, nikoli samostatné datum vydání přílohy. Nezávislý produkční audit dosud nepotvrzen."
+    },
+    {
+      "id": "doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-3",
+      "user_title": "RŘ KÚ č. 54/2021 – příloha č. 3: Metodika kvantitativního stanovení obsahu THC v rostlinných materiálech",
+      "issue_date": "2026-11-04",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KU",
+      "reference": "RŘ KÚ č. 54/2021; příloha č. 3; dávka odpovědi PPR-53675-9/ČJ-2026-990810",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original police methodology appendix; not separately issued on correspondence date",
+      "topics": [
+        "RŘ KÚ 54/2021",
+        "konopí",
+        "kriminalistická metodika"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/2026-11-04/rr-ku-54-2021-priloha-3.pdf",
+        "intended_pdf": "documents/2026-11-04/rr-ku-54-2021-priloha-3.pdf",
+        "sha256": "9e1d37506d0d991a17cb91c7dae43ceccbb4c531c3f0d0f6d947323afd57eea6",
+        "source_original_sha256": "9e1d37506d0d991a17cb91c7dae43ceccbb4c531c3f0d0f6d947323afd57eea6",
+        "source_original_size_bytes": 302215,
+        "source_original_page_count": 4,
+        "source_public_size_bytes": 302215,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-rrku54-annexes.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021"
+        }
+      ],
+      "parent_document_id": "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021",
+      "annex_index": 3,
+      "evidence_note": "Datum označuje dávku policejní odpovědi, nikoli samostatné datum vydání přílohy. Nezávislý produkční audit dosud nepotvrzen."
+    },
+    {
+      "id": "doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-4",
+      "user_title": "RŘ KÚ č. 54/2021 – příloha č. 4: Metodika interpretace výsledků analýzy konopí",
+      "issue_date": "2026-11-04",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KU",
+      "reference": "RŘ KÚ č. 54/2021; příloha č. 4; dávka odpovědi PPR-53675-9/ČJ-2026-990810",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original police methodology appendix; not separately issued on correspondence date",
+      "topics": [
+        "RŘ KÚ 54/2021",
+        "konopí",
+        "kriminalistická metodika"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/2026-11-04/rr-ku-54-2021-priloha-4.pdf",
+        "intended_pdf": "documents/2026-11-04/rr-ku-54-2021-priloha-4.pdf",
+        "sha256": "411b87167b8d33eea1e60c12eae3de1841209bde6316116101a51790052abe52",
+        "source_original_sha256": "411b87167b8d33eea1e60c12eae3de1841209bde6316116101a51790052abe52",
+        "source_original_size_bytes": 102039,
+        "source_original_page_count": 4,
+        "source_public_size_bytes": 102039,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-rrku54-annexes.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021"
+        }
+      ],
+      "parent_document_id": "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021",
+      "annex_index": 4,
+      "evidence_note": "Datum označuje dávku policejní odpovědi, nikoli samostatné datum vydání přílohy. Nezávislý produkční audit dosud nepotvrzen."
+    },
+    {
+      "id": "doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-5",
+      "user_title": "RŘ KÚ č. 54/2021 – příloha č. 5: Metodika analýzy HHC / HHC-O a THCP",
+      "issue_date": "2026-11-04",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KU",
+      "reference": "RŘ KÚ č. 54/2021; příloha č. 5; dávka odpovědi PPR-53675-9/ČJ-2026-990810",
+      "case_ids": [
+        "case-cz-pcr-ku-interni-prezkum"
+      ],
+      "document_type": "state_record_attachment",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "original police methodology appendix; not separately issued on correspondence date",
+      "topics": [
+        "RŘ KÚ 54/2021",
+        "konopí",
+        "kriminalistická metodika"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/2026-11-04/rr-ku-54-2021-priloha-5.pdf",
+        "intended_pdf": "documents/2026-11-04/rr-ku-54-2021-priloha-5.pdf",
+        "sha256": "93c20a560730900e050815f87281815eb526d9b0341bc9df4916531a335a8664",
+        "source_original_sha256": "93c20a560730900e050815f87281815eb526d9b0341bc9df4916531a335a8664",
+        "source_original_size_bytes": 441977,
+        "source_original_page_count": 9,
+        "source_public_size_bytes": 441977,
+        "verification_status": "byte_identical_police_provided_original; sha256_verified",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-rrku54-annexes.json"
+      },
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021"
+        }
+      ],
+      "parent_document_id": "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021",
+      "annex_index": 5,
+      "evidence_note": "Datum označuje dávku policejní odpovědi, nikoli samostatné datum vydání přílohy. Nezávislý produkční audit dosud nepotvrzen."
+    }
+  ]
+}

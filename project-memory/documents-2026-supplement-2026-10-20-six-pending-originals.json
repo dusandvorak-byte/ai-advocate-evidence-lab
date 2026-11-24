@@ -1,0 +1,229 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-20",
+  "status": "binding",
+  "documents": [
+    {
+      "id": "doc-cz-os-pro-2026-10-15-15-nt-3104-2026-238",
+      "user_title": "OS Prostějov – výzva doložit majetkové poměry k žádosti o bezplatnou obhajobu v řízení 15 Nt 3104/2026-238",
+      "issue_date": "2026-10-15",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3104/2026-238",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "úřední listina",
+        "zákon č. 106/1999 Sb.",
+        "bezplatná obhajoba",
+        "14 dnů od doručení"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/125-os-prostejov-15-nt-3104-2026-238-2026-10-15-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/125-os-prostejov-15-nt-3104-2026-238-2026-10-15-original.pdf",
+        "sha256": "ec18d8ab440d6fe757fe1737ddb8b7168a08a5aedfcb44a08a8a74d2b9a4ded5",
+        "source_original_sha256": "ec18d8ab440d6fe757fe1737ddb8b7168a08a5aedfcb44a08a8a74d2b9a4ded5",
+        "source_original_size_bytes": 198008,
+        "source_original_page_count": 2,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-20-six-pending-originals.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Okresní soud v Prostějově vyzval žadatele k doplnění žádosti o bezplatnou obhajobu ze dne 1. 10. 2026 v řízení 15 Nt 3104/2026. Požaduje údaje a potvrzení k příjmům, bankovním účtům, majetku, závazkům a domácnosti. Lhůta k doplnění činí 14 dnů ode dne doručení výzvy; datum doručení této výzvy není doloženo, a proto není stanoven kalendářní poslední den. O nároku na bezplatnou obhajobu dosud nebylo touto výzvou rozhodnuto."
+    },
+    {
+      "id": "doc-cz-os-pro-2026-10-15-15-nt-3106-2026-235",
+      "user_title": "OS Prostějov – výzva doložit majetkové poměry k žádosti o bezplatnou obhajobu v řízení 15 Nt 3106/2026-235",
+      "issue_date": "2026-10-15",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3106/2026-235",
+      "case_ids": [
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "úřední listina",
+        "zákon č. 106/1999 Sb.",
+        "bezplatná obhajoba",
+        "14 dnů od doručení"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/126-os-prostejov-15-nt-3106-2026-235-2026-10-15-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/126-os-prostejov-15-nt-3106-2026-235-2026-10-15-original.pdf",
+        "sha256": "852721d13e7a2c2f0102f4b5ef84f69b7c0066e6b2cc7ef1f9a388a6092d3443",
+        "source_original_sha256": "852721d13e7a2c2f0102f4b5ef84f69b7c0066e6b2cc7ef1f9a388a6092d3443",
+        "source_original_size_bytes": 197741,
+        "source_original_page_count": 2,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-20-six-pending-originals.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-01-os-pro-bezplatna-obhajoba-15nt3104-3106"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Okresní soud v Prostějově vyzval žadatele k doplnění žádosti o bezplatnou obhajobu ze dne 1. 10. 2026 v řízení 15 Nt 3106/2026. Vyžádal specifikaci a doložení příjmů, majetku, účtů, závazků a rodinných poměrů. Lhůta činí 14 dnů od doručení výzvy, které zde není doloženo. Výzva sama nárok na obhajobu neposuzuje konečným rozhodnutím."
+    },
+    {
+      "id": "doc-cz-vsz-olo-2026-10-12-3-vzn-265-2026-7",
+      "user_title": "VSZ Olomouc – vyrozumění 3 VZN 265/2026-7: části podání z 6. října postoupeny KSZ Ostrava k 4 KZN 3239/2026",
+      "issue_date": "2026-10-12",
+      "received_date": null,
+      "institution_id": "CZ-VSZ-OLO",
+      "reference": "3 VZN 265/2026-7",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "úřední listina",
+        "zákon č. 106/1999 Sb.",
+        "dohled",
+        "státní zastupitelství"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/127-vsz-olomouc-3-vzn-265-2026-7-2026-10-12-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/127-vsz-olomouc-3-vzn-265-2026-7-2026-10-12-original.pdf",
+        "sha256": "1b13ec35c8a9ac38203049365385112e36301fc6386309314699da4caf51f221",
+        "source_original_sha256": "1b13ec35c8a9ac38203049365385112e36301fc6386309314699da4caf51f221",
+        "source_original_size_bytes": 273020,
+        "source_original_page_count": 2,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-20-six-pending-originals.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Vrchní státní zastupitelství v Olomouci podnět ze dne 6. 10. 2026 v částech ad I–IV, VI, VIII, XII a XIII posoudilo jako podnět k dohledu nad KSZ v Ostravě, sp. zn. 4 KZN 3239/2026, které vykonalo dohled nad OSZ Frýdek-Místek 1 ZN 7061/2026. Tyto části včetně příloh postoupilo zpět KSZ v Ostravě k posouzení nových skutečností nebo případného opakovaného podnětu; varovalo před odložením bez vyrozumění. Samo tím neprovedlo nové věcné přezkoumání všech námitek."
+    },
+    {
+      "id": "doc-cz-vsz-olo-2026-10-12-3-vzn-266-2026-8",
+      "user_title": "VSZ Olomouc – vyrozumění 3 VZN 266/2026-8: části podání z 6. října postoupeny KSZ Brno k 1 KZN 1090/2026",
+      "issue_date": "2026-10-12",
+      "received_date": null,
+      "institution_id": "CZ-VSZ-OLO",
+      "reference": "3 VZN 266/2026-8",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "úřední listina",
+        "zákon č. 106/1999 Sb.",
+        "dohled",
+        "státní zastupitelství"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/128-vsz-olomouc-3-vzn-266-2026-8-2026-10-12-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/128-vsz-olomouc-3-vzn-266-2026-8-2026-10-12-original.pdf",
+        "sha256": "7dec42be8bb799d2749078275932ff7c8fff59a6c75dbad8be2a1d6f90e64498",
+        "source_original_sha256": "7dec42be8bb799d2749078275932ff7c8fff59a6c75dbad8be2a1d6f90e64498",
+        "source_original_size_bytes": 271682,
+        "source_original_page_count": 2,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-20-six-pending-originals.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Vrchní státní zastupitelství v Olomouci části ad V, VIII, XII a XIII podání ze dne 6. 10. 2026 posoudilo jako podnět k dohledu nad KSZ v Brně, sp. zn. 1 KZN 1090/2026, v němž proběhl dohled nad OSZ Prostějov ZN 4/2026. Tyto části postoupilo zpět KSZ v Brně k prověření nových skutečností nebo možného opakovaného podnětu, který by mohl být odložen bez dalšího vyrozumění. Nedošlo k novému věcnému přezkumu všech námitek na úrovni VSZ."
+    },
+    {
+      "id": "doc-cz-uoou-2026-10-20-uoou-06760-26-4",
+      "user_title": "ÚOOÚ – usnesení UOOU-06760/26-4: zákonná lhůta k rozkladu MV marně uplynula, nečinnost mezitím pominula",
+      "issue_date": "2026-10-20",
+      "received_date": null,
+      "institution_id": "CZ-UOOU",
+      "reference": "UOOU-06760/26-4",
+      "case_ids": [
+        "case-cz-mv-infz-ganja-for-all-animals"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "úřední listina",
+        "zákon č. 106/1999 Sb."
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/131-uoou-06760-26-4-2026-10-20-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/131-uoou-06760-26-4-2026-10-20-original.pdf",
+        "sha256": "d92573fa223f93033007c099112c2c647bdbb43530d4215858bfd17aed319864",
+        "source_original_sha256": "d92573fa223f93033007c099112c2c647bdbb43530d4215858bfd17aed319864",
+        "source_original_size_bytes": 102840,
+        "source_original_page_count": 2,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-20-six-pending-originals.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-mv-2026-10-07-mv-134798-4-so-2026"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "ÚOOÚ usnesením ze dne 20. 10. 2026 rozhodl o žádosti spolku Ganja For All Animals, z.s., ze 17. 9. 2026 o opatření proti nečinnosti ministra vnitra při vyřízení rozkladu ze 12. 8. 2026 ve věci rozhodnutí MV-127234-2/OBP 2026. Výslovně konstatoval, že zákonná lhůta pro rozhodnutí o rozkladu marně uplynula, nicméně ministr rozhodl dne 7. 10. 2026 č. j. MV-134798-4/SO-2026. Proto nečinnost pominula a žádosti o opatření ÚOOÚ nevyhověl. Proti tomuto usnesení nelze podat odvolání."
+    },
+    {
+      "id": "doc-cz-pcr-krpt-2026-10-20-krpt-276756-2-cj-2026-0700kr",
+      "user_title": "KŘP Moravskoslezského kraje – prodloužení lhůty k žádosti podle InfZ z 15. října do 9. listopadu 2026",
+      "issue_date": "2026-10-20",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPT",
+      "reference": "KRPT-276756-2/ČJ-2026-0700KR",
+      "case_ids": [
+        "CASE-CZ-PCR-KRPT-203594-2026"
+      ],
+      "document_type": "state_record",
+      "topics": [
+        "úřední listina",
+        "zákon č. 106/1999 Sb.",
+        "9. 11. 2026",
+        "prodloužení lhůty"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/132-krpt-276756-2-2026-10-20-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/132-krpt-276756-2-2026-10-20-original.pdf",
+        "sha256": "3a9fb986e65871005a7537729be6278853d50a23b28c3c78a29b9d54a2d8859f",
+        "source_original_sha256": "3a9fb986e65871005a7537729be6278853d50a23b28c3c78a29b9d54a2d8859f",
+        "source_original_size_bytes": 242909,
+        "source_original_page_count": 1,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-20-six-pending-originals.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp"
+        }
+      ],
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_document_authorship",
+      "evidence_note": "Krajské ředitelství policie Moravskoslezského kraje obdrželo žádost Edukativní konopné kliniky, z. s., podle zákona č. 106/1999 Sb. dne 15. 10. 2026. V přípise ze dne 20. 10. 2026, č. j. KRPT-276756-2/ČJ-2026-0700KR, oznámilo nezbytnost spolupráce organizačních útvarů včetně KŘP Olomouckého kraje a výslovně prodloužilo lhůtu pro poskytnutí informace do 9. 11. 2026. Jde o novou žádost ze dne 15. října, nikoliv o původní žádost z července vedenou pod KRPT-203594."
+    }
+  ]
+}

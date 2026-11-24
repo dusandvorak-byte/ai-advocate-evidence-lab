@@ -6,6 +6,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from publication_redaction import redact_public_text
 from reportlab.pdfgen import canvas
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -57,7 +58,7 @@ def fit_page(text,font,uw,uh):
         if len(lines)<=int(uh//leading): return size,leading,lines
     raise SystemExit("A redacted source page cannot fit without dropping text")
 
-text=SOURCE.read_text("utf-8")
+text=redact_public_text(SOURCE.read_text("utf-8"))
 if f"ORIGINAL_SHA256: {ORIGINAL_SHA}" not in text or "ORIGINAL_PAGES: 6" not in text:
     raise SystemExit("Source provenance mismatch")
 for forbidden in ("Radomíry Dvořákové","Vandy Dvořákové","Františka Dvořáka","Jany Dvořákové","12. ledna 1962","Ospělov 6","r8u3nhx"):

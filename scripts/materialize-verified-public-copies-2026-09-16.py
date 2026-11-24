@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import html
+import os
 from pathlib import Path
 
 from reportlab.lib.pagesizes import A4
@@ -8,11 +9,12 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen.canvas import Canvas
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-16"
-OUT = ROOT / "web" / "documents" / "report-04082026-010"
+OUT = Path(os.environ.get("EVIDENCE_LAB_VERIFIED_COPY_OUT", str(ROOT / "web" / "documents" / "report-04082026-010"))).resolve()
 SOURCE_2026_09_22 = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-22"
 SOURCE_2026_09_23 = ROOT / "project-memory" / "verified-public-copy-sources-2026-09-23"
 SOURCE_2026_08_27 = ROOT / "project-memory" / "verified-public-copy-sources-2026-08-27"
@@ -57,6 +59,10 @@ notice = ParagraphStyle(
 
 OUT.mkdir(parents=True, exist_ok=True)
 
+def deterministic_canvas(*args, **kwargs):
+    kwargs["invariant"] = 1
+    return Canvas(*args, **kwargs)
+
 all_jobs = [(SOURCE / source_name, out_name) for source_name, out_name in JOBS.items()]
 all_jobs.extend(EXTRA_JOBS.items())
 
@@ -86,8 +92,12 @@ for source_path, out_name in all_jobs:
         author="Evidence Lab - verified public copy",
         subject="Verified public copy from complete text output of user-supplied PDF",
     )
-    doc.build(story)
+    doc.build(story, canvasmaker=deterministic_canvas)
     data = target.read_bytes()
     if not data.startswith(b"%PDF-") or b"%%EOF" not in data[-2048:]:
         raise SystemExit(f"Invalid generated PDF: {target}")
-    print(f"materialized {target.relative_to(ROOT)} ({len(data)} bytes)")
+    try:
+        display_path = target.relative_to(ROOT)
+    except ValueError:
+        display_path = target
+    print(f"materialized {display_path} ({len(data)} bytes)")

@@ -12,6 +12,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from publication_redaction import redact_public_text
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -73,7 +74,7 @@ def main():
         ),
         Spacer(1, 4 * mm),
     ]
-    for raw in SOURCE.read_text("utf-8").splitlines():
+    for raw in redact_public_text(SOURCE.read_text("utf-8")).splitlines():
         line = raw.rstrip()
         if not line:
             story.append(Spacer(1, 2 * mm))

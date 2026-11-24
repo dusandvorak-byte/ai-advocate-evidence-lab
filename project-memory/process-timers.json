@@ -163,7 +163,8 @@
       "legal_basis": "§ 152 správního řádu; původní lhůta řízení skončila vydáním usnesení dne 31. 8. 2026, aktivní je rozklad podaný a doručený 1. 9. 2026.",
       "due_date": null,
       "href": "zpravy/04082026-010.html#doc-cz-mk-2026-08-31-mk-53547-2026-socns",
-      "process_history": "26. 6. 2026 zahájení nového řízení → 7. 7. 2026 doplnění → 22. 7. 2026 sdělení MK → 24. 7. 2026 procesní upřesnění → 12. 8. 2026 potvrzení zahájení a sp. zn. MK-S 6893/2026 SOCNS → 19. 8. 2026 další podání → 31. 8. 2026 usnesení MK 53547/2026 SOCNS o zastavení řízení a sdělení MK 53559/2026 SOCNS → 1. 9. 2026 rozklad."
+      "process_history": "26. 6. 2026 zahájení nového řízení → 7. 7. 2026 doplnění → 22. 7. 2026 sdělení MK → 24. 7. 2026 procesní upřesnění → 12. 8. 2026 potvrzení zahájení a sp. zn. MK-S 6893/2026 SOCNS → 19. 8. 2026 další podání → 31. 8. 2026 usnesení MK 53547/2026 SOCNS o zastavení řízení a sdělení MK 53559/2026 SOCNS → 1. 9. 2026 rozklad. → 28. 10. 2026 dodatek rozkladu, stížnost na nečinnost, oznámení názvu Universal Church of Cannabis a informační žádost; není doloženo rozhodnutí o rozkladu.",
+      "latest_related_filing_id": "doc-cz-dd-2026-10-28-mk-dodatek-rozkladu-universal-church-of-cannabis"
     },
     {
       "id": "timer-review-nsz-6nzn-2026",
@@ -255,6 +256,24 @@
       "limit_label": "bez jediné obecné číselné lhůty pro výsledek",
       "legal_basis": "historická důkazní větev; použití § 149 odst. 3–5 je tvrzením podání, nikoli závěrem webu",
       "href": "zpravy/04082026-010.html#chronologie"
+    },
+    {
+      "id": "timer-admin-krpt-infz-2026-10-15-extended-2026-11-09",
+      "category": "administrative",
+      "title": "KŘP Moravskoslezského kraje – informace k žádosti ze dne 15. října 2026",
+      "reference": "KRPT-276756-2/ČJ-2026-0700KR",
+      "start_date": "2026-10-15",
+      "start_date_basis": "Žádost přijata podle vyrozumění policie z 20. října 2026 dne 15. října 2026.",
+      "status": "active",
+      "limit_kind": "statutory_days_extended",
+      "limit_days": 25,
+      "limit_label": "Výslovně prodlouženo do 9. 11. 2026",
+      "legal_basis": "§ 14 odst. 6 písm. c) zákona č. 106/1999 Sb.; oznámení č. j. KRPT-276756-2/ČJ-2026-0700KR ze dne 20. 10. 2026",
+      "due_date": "2026-11-09",
+      "href": "zpravy/04082026-010.html#doc-cz-pcr-krpt-2026-10-20-krpt-276756-2-cj-2026-0700kr",
+      "latest_document_id": "doc-cz-pcr-krpt-2026-10-20-krpt-276756-2-cj-2026-0700kr",
+      "latest_related_filing_id": "doc-cz-ekk-2026-10-15-pcr-krpo-krpt-gibs-infz-tp",
+      "next_event": "Vyřízení žádosti ze dne 15. 10. 2026 má podle výslovného prodloužení nastat nejpozději 9. 11. 2026."
     }
   ],
   "historical_notice_points": [

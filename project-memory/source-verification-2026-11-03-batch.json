@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-11-03",
+  "pdf_checks": [
+    {
+      "slug": "pcr1",
+      "path": "documents/originaly-2026-11-03/2026-10-23-pcr-krpm-135431-21-original.pdf",
+      "sha256": "f3d1bd887abe5537e9fa0cdf6726c91da25c5bde878c722dc2eb0e306aaecf2d",
+      "git_blob_sha": "45e8f97c3a2e462c151bee0663730c70c3f1f6ba",
+      "source_original_sha256": "f3d1bd887abe5537e9fa0cdf6726c91da25c5bde878c722dc2eb0e306aaecf2d",
+      "bytes": 197520,
+      "pages": 1,
+      "anonymized": false
+    },
+    {
+      "slug": "osz",
+      "path": "documents/originaly-2026-11-03/2026-10-29-osz-olomouc-3-zn-699-2026-11-TT-anonymizovana-verejna-kopie.pdf",
+      "sha256": "7b02b318b7f0be0640f78b5eaa5352da27681f142af45fd0d2f8beea6e659c89",
+      "git_blob_sha": "e9b7bb7f2d5fea2a5945202bf75fd650a5a46bfd",
+      "source_original_sha256": "766089376044a4e06bf5c472b7cc8c88898aab3241aaf750628390e8343617c2",
+      "bytes": 274073,
+      "pages": 1,
+      "anonymized": true
+    },
+    {
+      "slug": "pcr2",
+      "path": "documents/originaly-2026-11-03/2026-10-30-pcr-krpm-135431-28-TT-anonymizovana-verejna-kopie.pdf",
+      "sha256": "c9dcd88f0af9c3e652cd8a83b9dafa65f43049db27c59c6db50f5a43fe2f8ea7",
+      "git_blob_sha": "36e818119e1d4cd5daaf40db6f252f56328c66f7",
+      "source_original_sha256": "9cb752ccc593c74f96f0736eedd827e8ac9c900befd74c1433c6929dd61a1ad8",
+      "bytes": 202445,
+      "pages": 1,
+      "anonymized": true
+    },
+    {
+      "slug": "ppr",
+      "path": "documents/originaly-2026-11-03/2026-08-24-ppr-44020-2-original.pdf",
+      "sha256": "dcab5d6b1bbe6cc285ac9f7933363c8e59178c89d48e1ebd7247b4a89c546540",
+      "git_blob_sha": "27bce3d9f9c830d372c9f6db7b5617931e51ea85",
+      "source_original_sha256": "dcab5d6b1bbe6cc285ac9f7933363c8e59178c89d48e1ebd7247b4a89c546540",
+      "bytes": 337204,
+      "pages": 2,
+      "anonymized": false
+    },
+    {
+      "slug": "cnb",
+      "path": "documents/originaly-2026-11-03/2026-10-16-cnb-2026-167900-cnb-110-original.pdf",
+      "sha256": "fb4362ac7c376edb43aae06f617b0815bf2111623c09e1ae0723f2578e7ab651",
+      "git_blob_sha": "735d7d2e070efa2520e14ec734ea3e9f0aeb03c5",
+      "source_original_sha256": "fb4362ac7c376edb43aae06f617b0815bf2111623c09e1ae0723f2578e7ab651",
+      "bytes": 106063,
+      "pages": 2,
+      "anonymized": false
+    },
+    {
+      "slug": "rb",
+      "path": "documents/originaly-2026-11-03/2026-10-29-raiffeisenbank-ombudsman-ekk-original.pdf",
+      "sha256": "61c59db2f2d02b99f5fac8bc61c5822e0f54ddf65b533480c129661a015a926c",
+      "git_blob_sha": "83260cf38b6f0ed57348d61d60aace9f4223b4e4",
+      "source_original_sha256": "61c59db2f2d02b99f5fac8bc61c5822e0f54ddf65b533480c129661a015a926c",
+      "bytes": 183298,
+      "pages": 1,
+      "anonymized": false
+    }
+  ],
+  "existing_original_not_duplicated": {
+    "reference": "KRPM-145410-2/ČJ-2026-1400AP-106",
+    "path": "documents/originaly-2026-11-02/2026-10-30-krpm-145410.pdf",
+    "sha256": "11a49092de3eece2ad19b8c1ac30f830c64068857d9b6f3c36f5fb6f07f12fcd"
+  },
+  "note": "Source PDFs were supplied by the user. Only designated TT copies were redacted; original source hashes are retained for verification; unredacted personal data are not part of public Git blobs."
+}

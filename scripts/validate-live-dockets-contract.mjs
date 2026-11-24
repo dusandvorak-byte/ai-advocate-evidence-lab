@@ -21,7 +21,9 @@ for (const source of sourceManifest.sources || []) {
   }
 }
 const canonicalDocuments = { documents: [...mergedDocuments.values()] };
-const stateLoveCount = canonicalDocuments.documents.filter(item =>
+const builtCanonicalRegistry = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
+const builtCanonicalDocuments = Array.isArray(builtCanonicalRegistry.documents) ? builtCanonicalRegistry.documents : [];
+const stateLoveCount = builtCanonicalDocuments.filter(item =>
   item.issue_date >= '2026-05-01'
   && item.document_type !== 'state_record_attachment'
   && (item.submission_side === 'incoming_from_state_or_public_institution' || item.document_type === 'state_record')
@@ -32,7 +34,7 @@ const churchEnPage = await readFile('web/kc/en.html', 'utf8');
 const czechArchive = await readFile('web/zpravy/index.html', 'utf8');
 const englishArchive = await readFile('web/news/index.html', 'utf8');
 const latestCardIds = page => [...page.matchAll(/class="latest-record-card" data-document-id="([^"]+)"/g)].map(match => match[1]);
-const canonicalLatestStateIds = canonicalDocuments.documents
+const canonicalLatestStateIds = builtCanonicalDocuments
   .filter(item => item.issue_date >= '2026-05-01' && item.document_type === 'state_record')
   .sort((a,b) => String(b.issue_date).localeCompare(String(a.issue_date)) || String(a.id).localeCompare(String(b.id)))
   .slice(0,3)
@@ -77,7 +79,7 @@ for (const obsolete of ['Předžalobní řízení on-line od 1. května 2026', '
 }
 
 const courtRows = courtRegistry.rows || [];
-if (courtRows.length !== 12) throw new Error(`Očekáváno 12 soudních větví, nalezeno ${courtRows.length}`);
+if (courtRows.length < 13 || !courtRows.some(r=>r.id==='court-nsz-prelitigation-6nzn1737'&&r.phase==='prelitigation_not_a_court_case')) throw new Error(`Očekáváno nejméně 13 větví včetně samostatně označené předžalobní NSZ, nalezeno ${courtRows.length}`);
 if (JSON.stringify(courtRegistry.table_contract?.width_percent) !== '[42,18,18,12,10]') throw new Error('Soudní tabulka nemá šířky 42/18/18/12/10');
 for (const row of courtRows) {
   if (!row.merit_cs || row.merit_cs.length < 80) throw new Error(`Chybí meritní anotace: ${row.id}`);
@@ -164,7 +166,12 @@ for (const [label, page] of [['český', churchCzPage], ['anglický', churchEnPa
   }
 }
 if (!englishHome.includes('data-shared-news-feed') || !englishHome.includes('Further current reports')) throw new Error('Anglická titulní stránka nemá blok dalších aktuálních zpráv');
-if (/href="zpravy\/\d{8}-\d{3}\.html/.test(englishHome)) throw new Error('Anglická titulní stránka stále odkazuje na český článek');
+// A clearly marked Czech canonical counterpart is intentional, not an EN link regression.
+for (const tag of englishHome.match(/<a\b[^>]*href="zpravy\/\d{8}-\d{3}\.html"[^>]*>/g) || []) {
+  if (!tag.includes('href="zpravy/04082026-010.html"') || !tag.includes('hreflang="cs"')) {
+    throw new Error('Anglická titulní stránka odkazuje na český článek bez označení hreflang=cs');
+  }
+}
 if (englishHome.includes('class="quick-memory"') || englishHome.includes('href="#memory"')) throw new Error('Anglická titulní stránka stále obsahuje zrušený vedlejší blok Case memory');
 for (const label of ["Godot online – decisions of state and public institutions since 1 May 2026. Will the State's time for love come?", 'Active court proceedings since 1 May 2026', 'justicni-slalom']) {
   if (!script.includes(label)) throw new Error(`Chybí anglická hlavní lišta: ${label}`);
@@ -270,4 +277,4 @@ for (const header of ['Č.','Dne','Orgán','č. j./sp. zn.','Co se stalo','Na co
   if (!czechStateLoveTable.includes(`>${header}</th>`)) throw new Error(`Českému State Love chybí tabulkový sloupec ${header}`);
 }
 
-console.log(`Smlouva titulní stránky: ${courtRows.length} soudních větví v živé tabulce; tři sticky důkazní lišty; Podpořit zachováno; Lhůty a Ověřit listinu odstraněny; Justiční slalom zachován.`);
+console.log(`Smlouva titulní stránky: ${courtRows.length} soudních a předžalobních větví v živé tabulce; tři sticky důkazní lišty; Podpořit zachováno; Lhůty a Ověřit listinu odstraněny; Justiční slalom zachován.`);

@@ -195,3 +195,130 @@
   .live-dockets .docket-control .rollup-prompt{font-size:.66rem}
   .live-dockets .active-courts-table{min-width:980px}
 }
+
+/* Předžalobní větev NSZ – vnořený přehled všech kanonicky evidovaných listin. */
+.live-dockets .active-nsz-timeline{margin:14px 0 2px;border:1px solid #a8bac5;background:#f7fafb;max-width:100%;min-width:0}
+.live-dockets .active-nsz-timeline>summary{cursor:pointer;list-style:revert;padding:11px 13px;color:#164a61;font-weight:850;font-size:.86rem;line-height:1.35}
+.live-dockets .active-nsz-timeline[open]>summary{border-bottom:1px solid #b7c6ce;background:#e9f1f5}
+.live-dockets .active-nsz-group{margin:0;padding:12px 14px 3px;border-bottom:1px solid #d7e0e5}
+.live-dockets .active-nsz-group h4{font-size:.91rem;margin:0 0 8px;color:#173f50}
+.live-dockets .active-nsz-group ol{margin:0 0 9px;padding:0 0 0 21px;display:grid;gap:8px}
+.live-dockets .active-nsz-group li{padding-left:2px;font-size:.83rem;line-height:1.42;overflow-wrap:anywhere}
+.live-dockets .active-nsz-group a{font-weight:750;text-decoration:underline;text-underline-offset:2px}
+.live-dockets .active-nsz-group small{font-weight:500;color:#536875}
+.live-dockets .active-nsz-provenance{margin:0;padding:12px 14px;color:#536875;font-size:.77rem;line-height:1.45}
+
+
+
+/* Přehledové tlačítko patří do pátého sloupce dané kauzy.
+   Vlastní seznam se otevře až pod celou tabulkou, stále uvnitř hlavní lišty. */
+.live-dockets .active-courts-table .active-case-publications-toggle{
+  display:block;width:100%;margin:9px 0 0;padding:8px 6px;
+  cursor:pointer;color:#164a61;background:#ebf3f7;border:1px solid #b4c8d2;
+  border-radius:4px;font:inherit;font-size:.8rem;font-weight:850;
+  overflow-wrap:anywhere;text-align:center
+}
+.live-dockets .active-courts-table .active-case-publications-toggle[aria-expanded="true"]{background:#dceaf2}
+.live-dockets .active-court-selected-documents[hidden]{display:none!important}
+.live-dockets .active-court-selected-documents{
+  padding:16px 20px 22px;background:#f7fafb;border-top:3px solid #285b6f;
+  box-sizing:border-box;width:100%;min-width:0;max-width:100%;
+  max-height:75vh;overflow-x:hidden;overflow-y:auto;scroll-margin-top:190px
+}
+.live-dockets .active-court-evidence-heading{margin:0 0 8px;color:#173f50;font-size:1.08rem;line-height:1.35}
+.live-dockets .active-court-evidence-close{
+  cursor:pointer;background:#285b6f;color:white;border:0;border-radius:4px;
+  padding:7px 11px;margin:0 0 14px;font-size:.84rem;font-weight:800
+}
+.live-dockets .active-court-selected-documents>details{width:100%;max-width:100%;min-width:0;box-sizing:border-box}
+.live-dockets .active-court-selected-documents>details>summary[hidden]{display:none!important}
+.live-dockets .active-court-selected-documents .active-nsz-timeline{margin:0;border:0;background:transparent}
+.live-dockets .active-court-selected-documents .active-nsz-group{padding:13px 8px 8px}
+.live-dockets .active-case-publications-panel{margin:0;padding:0;max-width:100%;box-sizing:border-box}
+.live-dockets .active-case-external-source{margin:0 0 14px!important;font-size:.88rem;line-height:1.5}
+.live-dockets .active-case-external-source a,.live-dockets .active-case-publication-groups a{color:#17526a;text-decoration:underline;text-underline-offset:2px}
+.live-dockets .active-case-publication-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;min-width:0}
+.live-dockets .active-case-publication-groups section{min-width:0}
+.live-dockets .active-case-publication-groups h4{font-size:.91rem;color:#173f50;margin:0 0 10px;line-height:1.35}
+.live-dockets .active-case-publication-groups ol{margin:0;padding:0 0 0 25px;display:grid;gap:7px}
+.live-dockets .active-case-publication-groups li{font-size:.83rem;line-height:1.5;overflow-wrap:anywhere}
+.live-dockets .active-case-publication-groups section>p{font-size:.83rem;color:#586f7b}
+@media(max-width:720px){
+  .live-dockets .active-court-selected-documents{padding:12px 13px;max-height:75vh}
+  .live-dockets .active-case-publication-groups{grid-template-columns:minmax(0,1fr)}
+}
+
+
+/* Legacy index navigation: separate actual case links visibly, instead of a
+   continuous inline text run. Affects only the pre-existing home overview. */
+body:not(.church-site) #live-dockets > .state-decision-counter {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 14px 0 22px;
+  padding: 16px 20px;
+  background: #eaf0ef;
+  border: 1px solid #cadbd9;
+  border-radius: 10px;
+}
+body:not(.church-site) #live-dockets > .state-decision-counter strong {
+  flex: 0 0 auto;
+  font: 800 clamp(2rem, 4vw, 3rem)/1 var(--sans,Arial,sans-serif);
+  color: #123b4b;
+}
+body:not(.church-site) #live-dockets > .state-decision-counter span {
+  display: block;
+  min-width: 0;
+  font-size: .93rem;
+  line-height: 1.5;
+}
+body:not(.church-site) #live-dockets > .live-docket-bar {
+  padding: 21px 23px 23px;
+  margin: 0 0 14px;
+  background: #fff;
+  border: 1px solid #d1dedd;
+  border-radius: 10px;
+}
+body:not(.church-site) #live-dockets > .live-docket-bar h2 {
+  margin: 0 0 14px;
+  font: 800 clamp(1.18rem, 2vw, 1.48rem)/1.35 var(--sans,Arial,sans-serif);
+  color: #123b4b;
+}
+body:not(.church-site) #live-dockets > .live-docket-bar > .live-docket-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 10px;
+}
+body:not(.church-site) #live-dockets > .live-docket-bar > .live-docket-links > a {
+  display: block;
+  min-width: 0;
+  padding: 11px 13px;
+  border: 1px solid #dfE7e7;
+  border-radius: 6px;
+  background: #f6f9f8;
+  color: #194457;
+  font: 600 .88rem/1.48 var(--sans,Arial,sans-serif);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+body:not(.church-site) #live-dockets > .live-docket-bar > .live-docket-links > a:hover,
+body:not(.church-site) #live-dockets > .live-docket-bar > .live-docket-links > a:focus-visible {
+  background: #e4f0f0;
+  border-color: #2d6471;
+  text-decoration: underline;
+  outline: 2px solid #1c5264;
+  outline-offset: 2px;
+}
+@media(max-width: 760px) {
+  body:not(.church-site) #live-dockets > .state-decision-counter {
+    gap: 12px;
+    padding: 14px;
+    align-items: flex-start;
+  }
+  body:not(.church-site) #live-dockets > .live-docket-bar {
+    padding: 16px 13px 18px;
+  }
+  body:not(.church-site) #live-dockets > .live-docket-bar > .live-docket-links {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

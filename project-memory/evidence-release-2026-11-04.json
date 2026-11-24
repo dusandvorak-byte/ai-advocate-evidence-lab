@@ -1,0 +1,415 @@
+{
+  "schema_version": "1.0",
+  "source_batch_sha256": "a05a0acf2091ef88401a389d54f5773242b4f0347ebd6a8a6325029f0e7f7d2d",
+  "base_main_sha": "d8f59c670d99fe8e09d7b45debf588b48028002e",
+  "requested_file_count": 16,
+  "unique_canonical_document_count": 15,
+  "new_document_count": 9,
+  "new_incoming_count": 4,
+  "new_outgoing_count": 5,
+  "new_addressee_row_count": 17,
+  "existing_exact_binary_count": 5,
+  "existing_content_duplicate_count": 1,
+  "within_batch_content_duplicate_count": 1,
+  "new_public_redacted_copy_count": 9,
+  "new_public_binary_original_count": 0,
+  "documents": [
+    {
+      "number": 1,
+      "source_sha256": "bd8581ba20f0d2a671338e9c331bd5c684c957aafe5a01389b342743f04930f1",
+      "source_bytes": 189021,
+      "canonical_document_id": "doc-cz-dd-2026-10-30-kasacni-msp-18a23",
+      "disposition": "already_registered_exact_binary",
+      "pdf": "documents/originaly-2026-11-02/2026-10-30-kasacni-stiznost-msp-18a23.pdf",
+      "public_sha256": "bd8581ba20f0d2a671338e9c331bd5c684c957aafe5a01389b342743f04930f1"
+    },
+    {
+      "number": 2,
+      "source_sha256": "6d37a3b27fa121dad5bbb3b417a4695cc6e8a09890bd7e7ef6a6c4a193d317f3",
+      "source_bytes": 186838,
+      "canonical_document_id": "doc-cz-dd-2026-10-30-kasacni-ncoz-pp-18a17",
+      "disposition": "already_registered_exact_binary",
+      "pdf": "documents/originaly-2026-11-02/2026-10-30-kasacni-stiznost-ncoz-18a17.pdf",
+      "public_sha256": "6d37a3b27fa121dad5bbb3b417a4695cc6e8a09890bd7e7ef6a6c4a193d317f3"
+    },
+    {
+      "number": 3,
+      "source_sha256": "d95cd0e8dcd18f3081784afe8b84e47d7a268438e880aebd9455fa57f85fab80",
+      "source_bytes": 1821813,
+      "canonical_document_id": "doc-cz-ns-2026-11-03-zin-208-2026-postoupeni",
+      "disposition": "new_redacted_public_copy",
+      "pdf": "documents/2026-11-04/2026-11-03-ns-zin-208-postoupeni-redigovana-kopie.pdf",
+      "public_sha256": "00eeb7917dcb1ff38a26ab4089bb4b89df761d96cb80718ff5a3172b4ea41205"
+    },
+    {
+      "number": 4,
+      "source_sha256": "fe183b688ecf487a661509667fcb579d91ea9a6d46f183fd2906a580b6aba5dd",
+      "source_bytes": 274344,
+      "canonical_document_id": "doc-cz-nsz-2026-11-02-sin-55-2026-35",
+      "disposition": "new_redacted_public_copy",
+      "pdf": "documents/2026-11-04/2026-11-02-nsz-sin-55-35-redigovana-kopie.pdf",
+      "public_sha256": "3724fb0d0ac046c9100b3cda3ae40635532d92127f2a072704be3a840e54621a"
+    },
+    {
+      "number": 5,
+      "source_sha256": "a099e70110189810abbeefc675b61e787ed97b0b8e41b37279474f2c14ff5f49",
+      "source_bytes": 287176,
+      "canonical_document_id": "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+      "disposition": "new_redacted_public_copy",
+      "pdf": "documents/2026-11-04/2026-11-03-ekk-nsz-dukazni-doplneni-redigovany-original.pdf",
+      "public_sha256": "4ed93e9d9f21ed4f5d40f6fcb50656d6bac1d90448edbd65c2b8d597fcf518f9"
+    },
+    {
+      "number": 6,
+      "source_sha256": "f1e2c649b27927e1e7303ac3d16fbb4790639ed93969aa64361b691c35a235ed",
+      "source_bytes": 287176,
+      "canonical_document_id": "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+      "disposition": "content_duplicate_within_batch",
+      "pdf": "documents/2026-11-04/2026-11-03-ekk-nsz-dukazni-doplneni-redigovany-original.pdf",
+      "public_sha256": "4ed93e9d9f21ed4f5d40f6fcb50656d6bac1d90448edbd65c2b8d597fcf518f9"
+    },
+    {
+      "number": 7,
+      "source_sha256": "3d620bd0908b792c6751b340a0b7c2f87c6948cdad1ce0c142d81bd9de83460a",
+      "source_bytes": 89482,
+      "canonical_document_id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+      "disposition": "new_redacted_public_copy",
+      "pdf": "documents/2026-11-04/2026-11-04-os-pro-stiznosti-obhajoba-redigovany-original.pdf",
+      "public_sha256": "c5f9d2b47686d4bbf45fedb38d33773835cd10a703f77f9bf6857941bbd072db"
+    },
+    {
+      "number": 8,
+      "source_sha256": "b957704a88874f123d66ccab08e56b13192a9f086f40bd5d9f7173aa45f8d2a5",
+      "source_bytes": 232710,
+      "canonical_document_id": "doc-cz-os-pro-2026-11-02-15-nt-3104-2026-341",
+      "disposition": "new_redacted_public_copy",
+      "pdf": "documents/2026-11-04/2026-11-02-os-pro-15-nt-3104-341-redigovana-kopie.pdf",
+      "public_sha256": "ed74f8cb1745310005d751071c69b339458a708018027dbb66288c8cf7130245"
+    },
+    {
+      "number": 9,
+      "source_sha256": "67ca6fac6f09b83c178d7733960edd96372978ca147382d763e637dab6829951",
+      "source_bytes": 231892,
+      "canonical_document_id": "doc-cz-os-pro-2026-11-02-15-nt-3106-2026-337",
+      "disposition": "new_redacted_public_copy",
+      "pdf": "documents/2026-11-04/2026-11-02-os-pro-15-nt-3106-337-redigovana-kopie.pdf",
+      "public_sha256": "d8d4ca6e0ef28ea1055e523dd09c4143653cb0070f56c8a27c4856baa7f0dbc3"
+    },
+    {
+      "number": 10,
+      "source_sha256": "79da975f4c57dab3185fa782a91118ecd44da7cf4baee01d410d50bbee03100b",
+      "source_bytes": 242909,
+      "canonical_document_id": "doc-cz-pcr-krpt-2026-10-20-krpt-276756-2-cj-2026-0700kr",
+      "disposition": "content_duplicate_of_existing",
+      "pdf": "documents/report-04082026-010/132-krpt-276756-2-2026-10-20-original.pdf",
+      "public_sha256": "3a9fb986e65871005a7537729be6278853d50a23b28c3c78a29b9d54a2d8859f"
+    },
+    {
+      "number": 11,
+      "source_sha256": "dcab5d6b1bbe6cc285ac9f7933363c8e59178c89d48e1ebd7247b4a89c546540",
+      "source_bytes": 337204,
+      "canonical_document_id": "doc-cz-pcr-pp-2026-08-24-ppr-44020-2-cj-2026-990210-pd",
+      "disposition": "already_registered_exact_binary",
+      "pdf": "documents/originaly-2026-11-03/2026-08-24-ppr-44020-2-original.pdf",
+      "public_sha256": "dcab5d6b1bbe6cc285ac9f7933363c8e59178c89d48e1ebd7247b4a89c546540"
+    },
+    {
+      "number": 12,
+      "source_sha256": "c0e19bbb85b323b0f2d11bb3a24f4376ba224597210b57ed95724d8524222007",
+      "source_bytes": 853382,
+      "canonical_document_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+      "disposition": "new_redacted_public_copy",
+      "pdf": "documents/2026-11-04/2026-11-03-okte-srovnavaci-analyza-redigovany-original.pdf",
+      "public_sha256": "b432ff18690cd7a0e0b7f7778e7013d4cf13410b30328df8189507b352e22009"
+    },
+    {
+      "number": 13,
+      "source_sha256": "67853c66ea2c2be51543d992153a5ba52002ccae4df3ec2df8acd3e6fc009a57",
+      "source_bytes": 163053,
+      "canonical_document_id": "doc-cz-ekk-2026-11-03-stiznost-krpm-145410",
+      "disposition": "new_redacted_public_copy",
+      "pdf": "documents/2026-11-04/2026-11-03-ekk-stiznost-krpm-145410-redigovany-original.pdf",
+      "public_sha256": "5cd467d59f1f9a026d891c2548ce94ba8516e53cdf3fb8b84fecc24c2fcb1700"
+    },
+    {
+      "number": 14,
+      "source_sha256": "61c59db2f2d02b99f5fac8bc61c5822e0f54ddf65b533480c129661a015a926c",
+      "source_bytes": 183298,
+      "canonical_document_id": "doc-cz-rb-omb-2026-10-29-vyjadreni-ekk-aml",
+      "disposition": "already_registered_exact_binary",
+      "pdf": "documents/originaly-2026-11-03/2026-10-29-raiffeisenbank-ombudsman-ekk-original.pdf",
+      "public_sha256": "61c59db2f2d02b99f5fac8bc61c5822e0f54ddf65b533480c129661a015a926c"
+    },
+    {
+      "number": 15,
+      "source_sha256": "404fa8c586f572f5e31297af9db735434e08da1e91122353a56a8e07bb265b50",
+      "source_bytes": 147498,
+      "canonical_document_id": "doc-cz-dd-2026-11-04-cak-urgence-advokata",
+      "disposition": "new_redacted_public_copy",
+      "pdf": "documents/2026-11-04/2026-11-04-cak-urgence-advokata-redigovany-original.pdf",
+      "public_sha256": "d9c4d2282897f585aa25d59696f7d5bf4c4ce463e1d44aacfd7274c1add40093"
+    },
+    {
+      "number": 16,
+      "source_sha256": "fb4362ac7c376edb43aae06f617b0815bf2111623c09e1ae0723f2578e7ab651",
+      "source_bytes": 106063,
+      "canonical_document_id": "doc-cz-cnb-2026-10-16-2026-167900-cnb-110",
+      "disposition": "already_registered_exact_binary",
+      "pdf": "documents/originaly-2026-11-03/2026-10-16-cnb-2026-167900-cnb-110-original.pdf",
+      "public_sha256": "fb4362ac7c376edb43aae06f617b0815bf2111623c09e1ae0723f2578e7ab651"
+    }
+  ],
+  "privacy_documents": [
+    {
+      "number": 3,
+      "id": "doc-cz-ns-2026-11-03-zin-208-2026-postoupeni",
+      "pdf": "documents/2026-11-04/2026-11-03-ns-zin-208-postoupeni-redigovana-kopie.pdf",
+      "source_original_sha256": "d95cd0e8dcd18f3081784afe8b84e47d7a268438e880aebd9455fa57f85fab80",
+      "source_original_size_bytes": 1821813,
+      "source_original_page_count": 1,
+      "sha256": "00eeb7917dcb1ff38a26ab4089bb4b89df761d96cb80718ff5a3172b4ea41205",
+      "size_bytes": 179931,
+      "page_count": 1,
+      "redaction_count": 3,
+      "categories": {
+        "private_house_number": 1,
+        "private_postal_code": 1,
+        "personal_data_box": 1
+      },
+      "pixel_changes_outside_redactions": 0,
+      "pixel_change_ratio_outside_redactions": 0.0,
+      "source_kind": "redacted_original_from_user_binary",
+      "metadata_removed": true,
+      "page_layout_preserved": true,
+      "original_financial_and_health_content_preserved": false
+    },
+    {
+      "number": 4,
+      "id": "doc-cz-nsz-2026-11-02-sin-55-2026-35",
+      "pdf": "documents/2026-11-04/2026-11-02-nsz-sin-55-35-redigovana-kopie.pdf",
+      "source_original_sha256": "fe183b688ecf487a661509667fcb579d91ea9a6d46f183fd2906a580b6aba5dd",
+      "source_original_size_bytes": 274344,
+      "source_original_page_count": 1,
+      "sha256": "3724fb0d0ac046c9100b3cda3ae40635532d92127f2a072704be3a840e54621a",
+      "size_bytes": 240150,
+      "page_count": 1,
+      "redaction_count": 3,
+      "categories": {
+        "private_house_number": 1,
+        "private_postal_code": 1,
+        "personal_data_box": 1
+      },
+      "pixel_changes_outside_redactions": 0,
+      "pixel_change_ratio_outside_redactions": 0.0,
+      "source_kind": "redacted_original_from_user_binary",
+      "metadata_removed": true,
+      "page_layout_preserved": true,
+      "original_financial_and_health_content_preserved": false
+    },
+    {
+      "number": 5,
+      "id": "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+      "pdf": "documents/2026-11-04/2026-11-03-ekk-nsz-dukazni-doplneni-redigovany-original.pdf",
+      "source_original_sha256": "a099e70110189810abbeefc675b61e787ed97b0b8e41b37279474f2c14ff5f49",
+      "source_original_size_bytes": 287176,
+      "source_original_page_count": 6,
+      "sha256": "4ed93e9d9f21ed4f5d40f6fcb50656d6bac1d90448edbd65c2b8d597fcf518f9",
+      "size_bytes": 314159,
+      "page_count": 6,
+      "redaction_count": 1,
+      "categories": {
+        "birth_day_month": 1
+      },
+      "pixel_changes_outside_redactions": 0,
+      "pixel_change_ratio_outside_redactions": 0.0,
+      "source_kind": "redacted_original_from_user_binary",
+      "metadata_removed": true,
+      "page_layout_preserved": true,
+      "original_financial_and_health_content_preserved": false
+    },
+    {
+      "number": 7,
+      "id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+      "pdf": "documents/2026-11-04/2026-11-04-os-pro-stiznosti-obhajoba-redigovany-original.pdf",
+      "source_original_sha256": "3d620bd0908b792c6751b340a0b7c2f87c6948cdad1ce0c142d81bd9de83460a",
+      "source_original_size_bytes": 89482,
+      "source_original_page_count": 5,
+      "sha256": "c5f9d2b47686d4bbf45fedb38d33773835cd10a703f77f9bf6857941bbd072db",
+      "size_bytes": 99846,
+      "page_count": 5,
+      "redaction_count": 11,
+      "categories": {
+        "birth_day_month": 1,
+        "private_house_number": 1,
+        "private_postal_code": 1,
+        "personal_data_box": 2,
+        "own_submission_financial_health": 4,
+        "private_financial_status": 2
+      },
+      "pixel_changes_outside_redactions": 0,
+      "pixel_change_ratio_outside_redactions": 0.0,
+      "source_kind": "redacted_original_from_user_binary",
+      "metadata_removed": true,
+      "page_layout_preserved": true,
+      "original_financial_and_health_content_preserved": false
+    },
+    {
+      "number": 8,
+      "id": "doc-cz-os-pro-2026-11-02-15-nt-3104-2026-341",
+      "pdf": "documents/2026-11-04/2026-11-02-os-pro-15-nt-3104-341-redigovana-kopie.pdf",
+      "source_original_sha256": "b957704a88874f123d66ccab08e56b13192a9f086f40bd5d9f7173aa45f8d2a5",
+      "source_original_size_bytes": 232710,
+      "source_original_page_count": 5,
+      "sha256": "ed74f8cb1745310005d751071c69b339458a708018027dbb66288c8cf7130245",
+      "size_bytes": 196541,
+      "page_count": 5,
+      "redaction_count": 36,
+      "categories": {
+        "birth_day_month": 2,
+        "private_house_number": 4,
+        "private_postal_code": 1,
+        "third_party_private_identity": 3,
+        "private_parcel_id": 12,
+        "private_parcel_ids": 1,
+        "personal_bank_account": 1,
+        "private_property_register_id": 2,
+        "private_property_exact_area": 10
+      },
+      "pixel_changes_outside_redactions": 0,
+      "pixel_change_ratio_outside_redactions": 0.0,
+      "source_kind": "redacted_original_from_user_binary",
+      "metadata_removed": true,
+      "page_layout_preserved": true,
+      "original_financial_and_health_content_preserved": true
+    },
+    {
+      "number": 9,
+      "id": "doc-cz-os-pro-2026-11-02-15-nt-3106-2026-337",
+      "pdf": "documents/2026-11-04/2026-11-02-os-pro-15-nt-3106-337-redigovana-kopie.pdf",
+      "source_original_sha256": "67ca6fac6f09b83c178d7733960edd96372978ca147382d763e637dab6829951",
+      "source_original_size_bytes": 231892,
+      "source_original_page_count": 5,
+      "sha256": "d8d4ca6e0ef28ea1055e523dd09c4143653cb0070f56c8a27c4856baa7f0dbc3",
+      "size_bytes": 195733,
+      "page_count": 5,
+      "redaction_count": 36,
+      "categories": {
+        "birth_day_month": 2,
+        "private_house_number": 4,
+        "private_postal_code": 1,
+        "third_party_private_identity": 3,
+        "private_parcel_id": 12,
+        "private_parcel_ids": 1,
+        "personal_bank_account": 1,
+        "private_property_register_id": 2,
+        "private_property_exact_area": 10
+      },
+      "pixel_changes_outside_redactions": 0,
+      "pixel_change_ratio_outside_redactions": 0.0,
+      "source_kind": "redacted_original_from_user_binary",
+      "metadata_removed": true,
+      "page_layout_preserved": true,
+      "original_financial_and_health_content_preserved": true
+    },
+    {
+      "number": 12,
+      "id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+      "pdf": "documents/2026-11-04/2026-11-03-okte-srovnavaci-analyza-redigovany-original.pdf",
+      "source_original_sha256": "c0e19bbb85b323b0f2d11bb3a24f4376ba224597210b57ed95724d8524222007",
+      "source_original_size_bytes": 853382,
+      "source_original_page_count": 40,
+      "sha256": "b432ff18690cd7a0e0b7f7778e7013d4cf13410b30328df8189507b352e22009",
+      "size_bytes": 1393747,
+      "page_count": 40,
+      "redaction_count": 2,
+      "categories": {
+        "birth_day_month": 1,
+        "private_address_crossreference": 1
+      },
+      "pixel_changes_outside_redactions": 0,
+      "pixel_change_ratio_outside_redactions": 0.0,
+      "source_kind": "redacted_original_from_user_binary",
+      "metadata_removed": true,
+      "page_layout_preserved": true,
+      "original_financial_and_health_content_preserved": false
+    },
+    {
+      "number": 13,
+      "id": "doc-cz-ekk-2026-11-03-stiznost-krpm-145410",
+      "pdf": "documents/2026-11-04/2026-11-03-ekk-stiznost-krpm-145410-redigovany-original.pdf",
+      "source_original_sha256": "67853c66ea2c2be51543d992153a5ba52002ccae4df3ec2df8acd3e6fc009a57",
+      "source_original_size_bytes": 163053,
+      "source_original_page_count": 4,
+      "sha256": "5cd467d59f1f9a026d891c2548ce94ba8516e53cdf3fb8b84fecc24c2fcb1700",
+      "size_bytes": 188685,
+      "page_count": 4,
+      "redaction_count": 3,
+      "categories": {
+        "birth_day_month": 1,
+        "private_address_crossreference": 1,
+        "own_submission_personal_financial_condition": 1
+      },
+      "pixel_changes_outside_redactions": 0,
+      "pixel_change_ratio_outside_redactions": 0.0,
+      "source_kind": "redacted_original_from_user_binary",
+      "metadata_removed": true,
+      "page_layout_preserved": true,
+      "original_financial_and_health_content_preserved": false
+    },
+    {
+      "number": 15,
+      "id": "doc-cz-dd-2026-11-04-cak-urgence-advokata",
+      "pdf": "documents/2026-11-04/2026-11-04-cak-urgence-advokata-redigovany-original.pdf",
+      "source_original_sha256": "404fa8c586f572f5e31297af9db735434e08da1e91122353a56a8e07bb265b50",
+      "source_original_size_bytes": 147498,
+      "source_original_page_count": 1,
+      "sha256": "d9c4d2282897f585aa25d59696f7d5bf4c4ce463e1d44aacfd7274c1add40093",
+      "size_bytes": 146795,
+      "page_count": 1,
+      "redaction_count": 4,
+      "categories": {
+        "birth_day_month": 1,
+        "private_house_number": 1,
+        "private_postal_code": 1,
+        "personal_data_box": 1
+      },
+      "pixel_changes_outside_redactions": 0,
+      "pixel_change_ratio_outside_redactions": 0.0,
+      "source_kind": "redacted_original_from_user_binary",
+      "metadata_removed": true,
+      "page_layout_preserved": true,
+      "original_financial_and_health_content_preserved": false
+    }
+  ],
+  "content_deduplication": [
+    {
+      "numbers": [
+        5,
+        6
+      ],
+      "method": "equal extracted text and equal rendered pixels on all six pages; distinct metadata timestamps",
+      "normalized_text_sha256": "715fdddba9a9185823595a457c37e0744b64d4b46c3fb15b18be5ddbba041090"
+    },
+    {
+      "number": 10,
+      "canonical_document_id": "doc-cz-pcr-krpt-2026-10-20-krpt-276756-2-cj-2026-0700kr",
+      "method": "equal extracted text and 72 dpi rendered pixels with the existing official PDF",
+      "normalized_text_sha256": "7766da9200f400bbafcf52bfb410d8cd090234a762336a1981fde575ae1f6446",
+      "rendered_page_sha256": "32e449a8126dbe7ff6a894c1eb22642fa1b4e74f07680aecb257df24d2753887"
+    }
+  ],
+  "privacy_instruction": "Finanční a zdravotní údaje neuváděj, pokud je neuvádí státní orgán.",
+  "privacy_implementation": "Financial and health passages in official court records 8 and 9 are preserved. Personal direct identifiers, private third-party identity and property locators are redacted. Specific financial and health passages in the personal submission 7 are removed. Annotations do not repeat financial or health particulars.",
+  "proof_limits": [
+    "Dated submissions do not establish dispatch, service or timeliness.",
+    "The referenced separate four-page police notice of 3 November was not supplied in this batch.",
+    "The 40-page analysis is one authorial document, not ten original official expert reports.",
+    "The conditional NSZ court filing envisaged for 17 November remains unverified."
+  ],
+  "independent_reviews": [
+    "Independent original-source procedural review: no serious factual contradiction; missing-attachment annotations and historical references corrected.",
+    "Independent adversarial original-source review: author-designated Ministry of the Interior recipient added; competence and dispatch remain unverified."
+  ],
+  "visual_review": "All 18 changed pages reviewed; pixels outside the redaction rectangles unchanged. Original page counts retained.",
+  "privacy_review_note": "Independent check of all five own public copies; remaining property/debt wording on source 7 page 2 removed. Updated render verified with zero changed pixels outside redactions."
+}

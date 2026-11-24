@@ -1,11 +1,19 @@
 import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
+import {
+  evaluateJusticeSlalomPdfProvenance,
+  evaluatePinnedJusticeSlalomOriginal,
+  indexJusticeSlalomHardeningEvidence,
+} from './justice-slalom-pdf-provenance.mjs';
 
 const fail = message => { throw new Error(`JUSTICE-SLALOM-GATE: ${message}`); };
 const uoouMaterializer = await readFile('scripts/materialize-uoou-submission-2026-10-02.py','utf8');
 if (!uoouMaterializer.includes('37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74') || !uoouMaterializer.includes('lzma.decompress')) fail('materializace binárního originálu ÚOOÚ není svázána s ověřeným SHA');
 const memory = JSON.parse(await readFile('project-memory/documents-2026.json','utf8'));
+const privacyHardening = JSON.parse(await readFile('project-memory/privacy-hardening-report.json','utf8'));
+const { hardeningById, hardeningReportOk } = indexJusticeSlalomHardeningEvidence(privacyHardening);
+if (!hardeningReportOk) fail('privacy hardening report obsahuje chyby nebo duplicitní ID dokumentů');
 const published = JSON.parse(await readFile('web/data/justice-slalom.json','utf8'));
 const manifest = JSON.parse(await readFile('web/data/build-manifest.json','utf8'));
 const items = memory.documents.filter(item => item.justice_slalom);
@@ -18,7 +26,18 @@ if (archivedUploads.length !== 83 || new Set(archivedUploads.map(file => file.do
 for (const upload of archivedUploads) {
   const item = items.find(doc => doc.id === upload.document_id);
   if (!item || item.justice_slalom.archive_number !== upload.archive_number || item.public.pdf !== upload.public_pdf || item.justice_slalom.source_sha256 !== upload.sha256) fail(`neúplná provenance zdroje ${upload.number}`);
-  if (upload.status === 'redacted_public_copy_reviewed' && (item.justice_slalom.source_kind !== 'redacted_public_copy_from_user_original' || item.public.sha256 !== upload.public_sha256)) fail(`veřejná kopie nemá správný původ ${upload.number}`);
+  if (upload.status === 'redacted_public_copy_reviewed') {
+    const evaluation = evaluateJusticeSlalomPdfProvenance({
+      doc: item,
+      digest: item.public.sha256,
+      hardeningById,
+      hardeningReportOk,
+      requiredInputSha: upload.public_sha256,
+    });
+    if (item.justice_slalom.source_kind !== 'redacted_public_copy_from_user_original' || !evaluation.provenanceOk) {
+      fail(`veřejná kopie nemá správný původ ${upload.number}`);
+    }
+  }
 }
 const archiveNumbers = items.map(item => item.justice_slalom.archive_number).sort((a,b) => a-b);
 if (JSON.stringify(archiveNumbers) !== JSON.stringify(Array.from({ length: archiveNumbers.at(-1)-1 },(_,i)=>i+2)) || archiveNumbers.at(-1) < 130) fail('archivní čísla od července po září nejsou souvislá');
@@ -44,7 +63,7 @@ const expectedIds = published.rows.map(row => row.id);
 for (const [file,lang] of pages) {
   const html = await readFile(file,'utf8');
   if ((html.match(/id="justicni-slalom"/g) || []).length !== 1) fail(`${file}: chybí jedna rozbalovací lišta`);
-  const ids = [...html.matchAll(/<tr data-slalom-id="([^"]+)"/g)].map(match => match[1]);
+  const ids = [...html.matchAll(/<tr(?: id="[^"]+")? data-slalom-id="([^"]+)"/g)].map(match => match[1]);
   if (JSON.stringify(ids) !== JSON.stringify(expectedIds)) fail(`${file}: chybí řádky nebo se liší chronologie`);
   if (/slalom-date-note|date_note_(?:cs|en)|V poskytnutém PDF je v záhlaví omylem|Datum v těle podání je|Podáno 23\. července;|V těle podání je uvedeno 25\. července;|The supplied PDF header mistakenly says|filename says|file name says/.test(html)) fail(`${file}: v archivu zůstala vysvětlující poznámka k datu`);
   const headers = lang === 'cs' ? ['Č.','Datum','Adresát','č. j./sp. zn.','Předmět podání'] : ['No.','Date','Addressee','Ref./case no.','Subject of filing'];
@@ -53,7 +72,7 @@ for (const [file,lang] of pages) {
   if (!html.includes('❤️') || !html.includes('justice-slalom.css')) fail(`${file}: chybí srdce či styly`);
   for (const row of published.rows) {
     const href = `/ai-advocate-evidence-lab/${row.pdf}`;
-    const rendered = html.match(new RegExp(`<tr data-slalom-id="${row.id}"[^>]*>[\\s\\S]*?<\\/tr>`))?.[0] || '';
+    const rendered = html.match(new RegExp(`<tr(?: id="[^"]+")? data-slalom-id="${row.id}"[^>]*>[\\s\\S]*?<\\/tr>`))?.[0] || '';
     if (!rendered.includes(`data-row-number="${row.number}"`) || !rendered.includes(`<td class="slalom-number">${row.number}</td>`)) fail(`${file}: neplatné číslo řádku ${row.id}`);
     if ((rendered.match(/<td(?:\s|>)/g) || []).length !== 5) fail(`${file}: řádek ${row.number} obsahuje neočekávanou poznámku či sloupec`);
     const pdfLinks = [...rendered.matchAll(/<a\s+href="([^"]+\.pdf)"/g)];
@@ -72,21 +91,15 @@ for (const item of items) {
   const file = `web/${item.public.pdf}`;
   const bytes = await readFile(file).catch(() => fail(`chybí ${file}`));
   const hash = createHash('sha256').update(bytes).digest('hex');
-  const sourceKind = item.justice_slalom.source_kind;
-  const redacted = sourceKind === 'redacted_public_copy_from_user_original';
-  const verifiedPublicCopy = sourceKind === 'verified_public_copy_from_user_original';
-  const redactedOriginal = sourceKind === 'redacted_original_from_user_binary';
-  const publicCopy = redacted || verifiedPublicCopy;
-  const copyManifest = (redacted || redactedOriginal) ? item.justice_slalom.redaction_manifest : item.justice_slalom.public_copy_manifest;
-  const kindOk = redactedOriginal
-    ? hash === item.justice_slalom.public_sha256 && Boolean(copyManifest)
-    : publicCopy
-      ? hash === item.justice_slalom.public_sha256 && Boolean(copyManifest)
-      : hash === item.justice_slalom.source_sha256;
+  const { effectiveKind, provenanceOk: kindOk } = evaluateJusticeSlalomPdfProvenance({
+    doc: item,
+    digest: hash,
+    hardeningById,
+    hardeningReportOk,
+  });
   if (hash !== item.public.sha256 || !kindOk || !bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF')) fail(`poškozené nebo chybně popsané PDF ${item.id}`);
   const rowsForItem = published.rows.filter(row => row.document_id === item.id);
-  if (publicCopy && !rowsForItem.every(row => row.pdf_kind === 'redacted_public_copy')) fail(`veřejná kopie je klamně označena jako originál ${item.id}`);
-  if (redactedOriginal && !rowsForItem.every(row => row.pdf_kind === 'redacted_original')) fail(`redigovaný originál je chybně označen ${item.id}`);
+  if (!rowsForItem.every(row => row.pdf_kind === effectiveKind)) fail(`veřejné PDF je klamně označeno typem ${item.id}`);
   if (!published.rows.filter(row => row.document_id === item.id).every(row => row.pdf_sha256 === hash)) fail(`hash adresátů nesouhlasí ${item.id}`);
 }
 async function walk(dir) {
@@ -103,11 +116,33 @@ for (const file of await walk('web')) {
   if (/data-timer-id=|id="procesni-casovace"|PROCESS-TIMERS:BEGIN|Živé procesní časovače|Live procedural timers/.test(html)) fail(`veřejná stránka obsahuje původní časovač: ${file}`);
 }
 const uoouOriginal = items.find(item => item.id === 'doc-cz-dd-2026-10-02-uoou-stiznost-necinnost');
-if (!uoouOriginal || uoouOriginal.justice_slalom.source_kind !== 'original_pdf_uploaded_by_user' || uoouOriginal.justice_slalom.source_sha256 !== '37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74' || uoouOriginal.public.sha256 !== uoouOriginal.justice_slalom.source_sha256) fail('ÚOOÚ 2. 10. 2026 nemá byte-identický originál a korektní provenienci');
-if (!published.rows.some(row => row.document_id === uoouOriginal.id && row.date === '2026-10-02' && row.recipient_id === 'CZ-UOOU' && row.pdf_kind === 'original')) fail('ÚOOÚ 2. 10. 2026 chybí v Justičním slalomu jako původní PDF');
+if (!uoouOriginal) fail('ÚOOÚ 2. 10. 2026 chybí v kanonickém registru');
+const uoouExpectedSourceSha = '37791bd52b5237313dc7bc58a9fc2515689f3038cf3f42ef368836012e59da74';
+const uoouBytes = await readFile(`web/${uoouOriginal.public.pdf}`).catch(() => fail('ÚOOÚ 2. 10. 2026 nemá dostupné veřejné PDF'));
+const uoouDigest = createHash('sha256').update(uoouBytes).digest('hex');
+const uoouEvaluation = evaluatePinnedJusticeSlalomOriginal({
+  doc: uoouOriginal,
+  digest: uoouDigest,
+  expectedSourceSha: uoouExpectedSourceSha,
+  hardeningById,
+  hardeningReportOk,
+});
+if (!uoouEvaluation.provenanceOk) fail('ÚOOÚ 2. 10. 2026 nemá korektně svázaný originál nebo ověřenou veřejnou derivaci');
+if (!published.rows.some(row => row.document_id === uoouOriginal.id && row.date === '2026-10-02' && row.recipient_id === 'CZ-UOOU' && row.pdf_kind === uoouEvaluation.effectiveKind)) fail('ÚOOÚ 2. 10. 2026 chybí v Justičním slalomu se správným označením PDF');
 const uocrOriginal = items.find(item => item.id === 'doc-cz-dd-2026-10-01-uocr-pro-bono');
-if (!uocrOriginal || uocrOriginal.justice_slalom.source_kind !== 'original_pdf_uploaded_by_user' || uocrOriginal.justice_slalom.source_sha256 !== '12bd631ab89609b80fb07baffa0d910d4af266f6e849d054371e3d9492786dd7') fail('Dopis Unii obhájců 1. 10. 2026 není veden jako původní PDF');
-if (!published.rows.some(row => row.document_id === uocrOriginal.id && row.recipient_id === 'CZ-UOCR' && row.pdf_kind === 'original')) fail('Dopis Unii obhájců 1. 10. 2026 chybí v Justičním slalomu');
+if (!uocrOriginal) fail('Dopis Unii obhájců 1. 10. 2026 chybí v kanonickém registru');
+const uocrExpectedSourceSha = '12bd631ab89609b80fb07baffa0d910d4af266f6e849d054371e3d9492786dd7';
+const uocrBytes = await readFile(`web/${uocrOriginal.public.pdf}`).catch(() => fail('Dopis Unii obhájců 1. 10. 2026 nemá dostupné veřejné PDF'));
+const uocrDigest = createHash('sha256').update(uocrBytes).digest('hex');
+const uocrEvaluation = evaluatePinnedJusticeSlalomOriginal({
+  doc: uocrOriginal,
+  digest: uocrDigest,
+  expectedSourceSha: uocrExpectedSourceSha,
+  hardeningById,
+  hardeningReportOk,
+});
+if (!uocrEvaluation.provenanceOk) fail('Dopis Unii obhájců 1. 10. 2026 nemá korektně svázaný originál nebo ověřenou veřejnou derivaci');
+if (!published.rows.some(row => row.document_id === uocrOriginal.id && row.recipient_id === 'CZ-UOCR' && row.pdf_kind === uocrEvaluation.effectiveKind)) fail('Dopis Unii obhájců 1. 10. 2026 nemá správné označení veřejného PDF');
 const publicCopies = uploads.filter(upload => upload.public_sha256);
 if (publicCopies.length !== 9) fail('chybí devět prověřených veřejných kopií');
 for (const upload of publicCopies) {

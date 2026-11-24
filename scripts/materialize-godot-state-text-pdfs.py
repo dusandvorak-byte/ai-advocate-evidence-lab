@@ -12,6 +12,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from publication_redaction import redact_public_text
 from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,6 +20,9 @@ WEB = ROOT / "web"
 OUT = WEB / "documents" / "report-04082026-010"
 REGISTRY = ROOT / "project-memory" / "documents-2026-supplement-2026-08-20-24.json"
 MANIFEST = WEB / "data" / "generated-state-pdf-manifest.json"
+EXCLUDED_OUTPUTS = [
+    OUT / "69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf",
+]
 
 SOURCES = {
     "64-msz-praha-2-kzn-55-2025-136-2026-08-20.pdf": [
@@ -36,9 +40,6 @@ SOURCES = {
     ],
     "68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf": [
         ROOT / "project-memory/state-text-sources-2026-08-25/68-00.txt",
-    ],
-    "69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf": [
-        ROOT / "project-memory/state-extracted-2026-08-25/69.txt",
     ],
     "70-krpt-203594-8-cj-2026-0700kr-2026-08-20.pdf": [
         ROOT / "project-memory/state-extracted-2026-08-25/70.txt",
@@ -82,7 +83,7 @@ def make_pdf(target: Path, source_paths: list[Path]):
     if missing:
         raise SystemExit("Missing verified text source(s): " + ", ".join(missing))
 
-    source_text = "\n\n".join(p.read_text(encoding="utf-8") for p in source_paths).strip()
+    source_text = redact_public_text("\n\n".join(p.read_text(encoding="utf-8") for p in source_paths)).strip()
     if not source_text:
         raise SystemExit(f"Verified text source is empty for {target.name}")
 
@@ -121,6 +122,7 @@ def make_pdf(target: Path, source_paths: list[Path]):
         bottomMargin=18 * mm,
         title=target.stem,
         author="Evidence Lab / veřejná kopie z ověřeného textového přepisu",
+        invariant=1,
     )
 
     story = [
@@ -146,11 +148,19 @@ def make_pdf(target: Path, source_paths: list[Path]):
         raise SystemExit(f"Generated file is not a PDF: {target}")
 
 
-def main():
+def register_state_font():
+    if "StateUnicode" in pdfmetrics.getRegisteredFontNames():
+        return
     font = find_font()
     pdfmetrics.registerFont(TTFont("StateUnicode", str(font)))
+
+
+def main():
+    register_state_font()
     OUT.mkdir(parents=True, exist_ok=True)
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
+    for excluded in EXCLUDED_OUTPUTS:
+        excluded.unlink(missing_ok=True)
 
     records = []
     generated = {}
@@ -179,7 +189,13 @@ def main():
         if intended in generated:
             public["pdf"] = intended
             public["sha256"] = generated[intended]
-            public["verification_status"] = "generated_public_copy_from_verified_text; not_byte_identical_original"
+            status = [
+                "generated_public_copy_from_verified_text",
+                "not_byte_identical_original",
+            ]
+            if public.get("fidelity_class") == "verified_textual_public_copy_not_render_faithful":
+                status.extend(["textual_fidelity_verified", "visual_facsimile_not_claimed"])
+            public["verification_status"] = "; ".join(status)
             item["public"] = public
             patched += 1
     if patched != len(SOURCES):

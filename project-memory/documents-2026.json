@@ -184,9 +184,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/02-ppr-24960-8-cj-2026-990810-2026-05-22.pdf",
-        "sha256": null,
+        "sha256": "2217e6f55aed0088b8126463d83a1ccfa772d7e9f215fda6dc269d0d7574e96e",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -225,9 +227,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/36-ncoz-4324-2-cj-2026-4100pi-2026-05-22.pdf",
-        "sha256": null,
+        "sha256": "7743a0d0cf03b00423cf85a2baf619ccd0dbb467c953afdffe8cb1bef4548b4f",
         "verification_status": "published",
-        "source_manifest": "project-memory/pdf-link-overrides.json"
+        "source_manifest": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance_status": "binding-manifest-exact-digest-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -246,9 +250,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/34-mzdr-13429-2026-3-olzp-2026-05-29.pdf",
-        "sha256": null,
+        "sha256": "33086830279d85789e32590b0e725ce969ae222694e8f4d936b49b9cec7850dd",
         "verification_status": "published",
-        "source_manifest": "project-memory/pdf-link-overrides.json"
+        "source_manifest": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance_status": "binding-manifest-exact-digest-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -267,9 +273,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/50-ct-338889-2025-38-odmitnuti-smiru-2026-06-01.pdf",
-        "sha256": null,
+        "sha256": "d3fe12fd3209be4984dcf291f945337d2d7033e94b26561e9c547e1e10850fa8",
         "verification_status": "published",
-        "source_manifest": "project-memory/pdf-link-overrides.json"
+        "source_manifest": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance_status": "binding-manifest-exact-digest-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -288,9 +296,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/04-ncoz-4324-4-cj-2026-4100pi-2026-06-01.pdf",
-        "sha256": null,
+        "sha256": "18af156f1dff4cc6cf4ae79e4237e9c27ae6f819c21327905aafe918e66b5f34",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -309,9 +319,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/05-msp-19-2026-odka-roz-7-2026-06-03.pdf",
-        "sha256": null,
+        "sha256": "a626bf2c16e8cfb9c097cc4edd9b24a93fb90c297b632558c06049caf7a58ff3",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -350,9 +362,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/06-kpr-4093-2026-2026-06-05.pdf",
-        "sha256": null,
+        "sha256": "22204b610525cdd1249ae3033460b20e14a52fe72448495eb82a7eb7c575f933",
         "verification_status": "published",
-        "source_manifest": "project-memory/pdf-link-overrides.json"
+        "source_manifest": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance": "public PDF introduced/restored in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -391,9 +405,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/19-msz-praha-3-kzn-197-2026-12-2026-06-11.pdf",
-        "sha256": null,
+        "sha256": "defc8b701defe4415f61157af37d3d557f4cb51e57ce45d78fa5f8c595d132fb",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 69b08cde0fffd72b024287028468f68f5ca90a4c; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -412,9 +428,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/17-ncoz-ncoz-4871-5-cj-2026-410066-e-2026-06-15.pdf",
-        "sha256": null,
+        "sha256": "99e13ef62c9a92fb8a2fa25e01712c780ad9bbc0f6099fb3ee36a574a3e12ec5",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 033e1a62543d2e4cb79c3a32bb088e16204ed3a0; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -453,9 +471,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/07-msz-praha-3-kzn-197-2026-18-2026-06-17.pdf",
-        "sha256": null,
+        "sha256": "62d3b799dc8efe0699da2d9a5fbaa856986bbe0f5c764a2147e8779edc24eff7",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -494,9 +514,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/21-vsz-praha-1-vzn-1678-2026-8-2026-06-22.pdf",
-        "sha256": null,
+        "sha256": "ffefe297481b729ddad100fb3c8ec4d584d1bb0561d7f8ad340bd310bbc2ae4a",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 033e1a62543d2e4cb79c3a32bb088e16204ed3a0; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -535,9 +557,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/06-ku-4139-5-2026-2305km-2026-06-25.pdf",
-        "sha256": null,
+        "sha256": "259178bedbb586d22c6f56603a651381214ffb1353d4627aa68e6d546d57ee34",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 69b08cde0fffd72b024287028468f68f5ca90a4c; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -699,9 +723,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/32-msz-brno-0-sin-15-2026-5-2026-07-14.pdf",
-        "sha256": null,
+        "sha256": "e910b61751f16f75b312d077a01968493ebbabce2cd8f5d616d63fa9202e1d99",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 69b08cde0fffd72b024287028468f68f5ca90a4c; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -720,9 +746,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/podnet-uoou-prezkum-mv-ku-2026-07-15.pdf",
-        "sha256": null,
+        "sha256": "d74cfb33b0a3ed232349693832dd2fb2374be1886c72c332e0477d62bbd7c363",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-04082026-010-sources.json"
+        "source_manifest": "project-memory/report-04082026-010-sources.json",
+        "sha256_provenance": "public PDF introduced/restored in commit ee481d9e850b9dfa42172ff32a3d2bd119adb62b; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -762,9 +790,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/08-mv-97289-3-tp-2026-2026-07-16.pdf",
-        "sha256": null,
+        "sha256": "b0bd1ff02895a519c6d9a74456f83bb9cb4b536440d324e9ae3e92b9cd05f15e",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -783,9 +813,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/35-rrtv-7757-2026-fej-2026-07-16.pdf",
-        "sha256": null,
+        "sha256": "c43c816b79295749c5da876050d540689ce8c80c85939ab4f0dc3478b5c7a6af",
         "verification_status": "published",
-        "source_manifest": "project-memory/pdf-link-overrides.json"
+        "source_manifest": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance": "project-memory/pdf-link-overrides.json",
+        "sha256_provenance_status": "binding-manifest-exact-digest-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -846,9 +878,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/34-ksz-brno-1-kzt-475-2026-32-2026-07-21.pdf",
-        "sha256": null,
+        "sha256": "69cc0bd0262cf6f333402fb4f1a0f9ca7d061e1c65fce5827300f94937e54055",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 033e1a62543d2e4cb79c3a32bb088e16204ed3a0; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -867,9 +901,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/09-mv-114818-2-tp-2026-2026-07-21.pdf",
-        "sha256": null,
+        "sha256": "f2a93da5eb4a5b6c8c5d7275521af748c40ca63cbd5f1e84689853e9c9b29d58",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -888,9 +924,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/33-msz-brno-3-zn-140-2026-3-2026-07-21.pdf",
-        "sha256": null,
+        "sha256": "f985217b0c9f0e7332b8466b6ce05aa772abbdd8f61a8b82ab19dc3ee7298450",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 28e9472279814be90a8bc85a65f828e061f6379f; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -909,9 +947,11 @@
       "public": {
         "html": null,
         "pdf": "documents/mk-konopna-cirkev-vyrozumeni-2026-07-22-original.pdf",
-        "sha256": null,
+        "sha256": "db53e6ddb0330b573c236d5973a062536fb29b2fe01aff12e4d31e352b77d6d2",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json"
+        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json",
+        "sha256_provenance": "public PDF introduced/restored in commit b45574d6827f238bbd97b25844da030e6663b80f; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -930,9 +970,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-27072026-008/25-vsz-praha-1-vzn-1678-2026-70-2026-07-23.pdf",
-        "sha256": null,
+        "sha256": "d63bae00cbc47c38ef86406fbdc359409cc907185fd978d885103f8b9f29a67a",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "restored/renamed as historical institutional PDF in commit 69b08cde0fffd72b024287028468f68f5ca90a4c; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-origin-restoration-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -951,9 +993,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/46-uoou-05058-26-2-2026-07-28.pdf",
-        "sha256": null,
+        "sha256": "b2d2aa27a6678918de26d7160148cff7d44b00f9f6c649bb1578407446e56c87",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-04082026-010-sources.json"
+        "source_manifest": "project-memory/report-04082026-010-sources.json",
+        "sha256_provenance": "public PDF introduced/restored in commit ee481d9e850b9dfa42172ff32a3d2bd119adb62b; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -972,9 +1016,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/47-uoou-05093-26-2-2026-07-28.pdf",
-        "sha256": null,
+        "sha256": "856455422c2c4cfd0670cb63abbfa8007694f4cdc10a52f391fbf1462c6c17a9",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-04082026-010-sources.json"
+        "source_manifest": "project-memory/report-04082026-010-sources.json",
+        "sha256_provenance": "public PDF introduced/restored in commit ee481d9e850b9dfa42172ff32a3d2bd119adb62b; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -993,9 +1039,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/10-osz-prostejov-zn-4-2026-6-2026-07-28.pdf",
-        "sha256": null,
+        "sha256": "16ba44c0a1a0568d0d93ce17cea76f09b6d26f6a01ff7119f4742163478f1fe5",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1014,9 +1062,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/49-osz-praha-7-zn-87-2026-47-2026-07-28.pdf",
-        "sha256": null,
+        "sha256": "557535d320f23f0eb361a59ce057232f74798f4b30acfacac4e4e34fce63fb25",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-04082026-010-sources.json"
+        "source_manifest": "project-memory/report-04082026-010-sources.json",
+        "sha256_provenance": "public PDF introduced/restored in commit ee481d9e850b9dfa42172ff32a3d2bd119adb62b; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1035,9 +1085,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/11-ksz-ostrava-4-kzn-7116-2026-50-2026-07-29.pdf",
-        "sha256": null,
+        "sha256": "33781c6b49767ab72f79ea33419303a7e0cb2c8655e8ad0ad4f0d186f3bf5010",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1056,9 +1108,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/12-msz-praha-sin-48-2026-12-2026-07-30.pdf",
-        "sha256": null,
+        "sha256": "3224a5fd168e3876ce233d4d1cf3d6d2e2b59a75400c2ed46db43e2a9f7376ab",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1077,9 +1131,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/14-osz-praha2-1-zn-157-2026-33-2026-07-30.pdf",
-        "sha256": null,
+        "sha256": "9e4f013ebb885c4647dbbd273d93097e4225f20fff5cfdbb04728847acb6b792",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1098,9 +1154,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/13-nsz-sin-55-2026-19-2026-07-30.pdf",
-        "sha256": null,
+        "sha256": "8b84aea78e4a2992af69981789ffef801f1f5e48f5f5f2ee17ca8eb63e00e912",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1119,9 +1177,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/kpr-5772-2026-1-2026-07-30-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "8a5a03430f501dfd40ba448b2eafe083361371418ffd90c7f2490c50ae8474bc",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-04082026-010-sources.json"
+        "source_manifest": "project-memory/report-04082026-010-sources.json",
+        "sha256_provenance": "public PDF introduced/restored in commit 77fa410a26410838f7646b80889db3153bed9fca; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1140,9 +1200,11 @@
       "public": {
         "html": "web/listiny/ksz-brno-1-kzn-1079-2026-14.html",
         "pdf": "documents/report-04082026-010/55-ksz-brno-1-kzn-1079-2026-14-2026-07-31-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "315dab40f0b0df176457f633b28d6ba6a94b29988c89e22ecc36620226e45d6b",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json"
+        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json",
+        "sha256_provenance": "public PDF introduced/restored in commit 1e12d46b3cf068d2f38052a85cb77dc01d70d0fb; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1161,9 +1223,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/kpr-5080-2026-2026-08-03-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "0920fe53480d0f38b18f35d99690bd0dfbd2623858a55d40fcbcef8d88d8a3e2",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-04082026-010-sources.json"
+        "source_manifest": "project-memory/report-04082026-010-sources.json",
+        "sha256_provenance": "public PDF introduced/restored in commit 1c2432101020d2956170807dd2bc857ac3e44e28; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1182,9 +1246,11 @@
       "public": {
         "html": "web/listiny/krpt-203594-3-cj-2026-0700kr.html",
         "pdf": "documents/report-04082026-010/57-krpt-203594-3-cj-2026-0700kr-2026-08-05-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "4ed6b5efda28244a41807d5a440fad459bf7baf8d92729ebd18a1055a7d07580",
         "verification_status": "published",
-        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json"
+        "source_manifest": "project-memory/report-20260810-pdf-repair-sources.json",
+        "sha256_provenance": "public PDF introduced/restored in commit 1e12d46b3cf068d2f38052a85cb77dc01d70d0fb; Git blob is unchanged on current release branch; canonical SHA records the unchanged public byte identity",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1240,8 +1306,10 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/15-kpr-5772-2026-2-2026-08-07.pdf",
-        "sha256": null,
-        "verification_status": "published"
+        "sha256": "1446e41acf36b0117f2b1c46a2e4ac63d0f80b196b94b6442230e5aa17f5b743",
+        "verification_status": "published",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1263,8 +1331,10 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/16-os-prostejov-15-nt-3105-2026-54-2026-08-07.pdf",
-        "sha256": null,
-        "verification_status": "published"
+        "sha256": "47a24aa9b835a6ed24feca63f21be640e31d1b105000972e974867bc343dbef9",
+        "verification_status": "published",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1381,8 +1451,10 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/19-ms-praha-18-a-23-2026-130-2026-08-10.pdf",
-        "sha256": null,
-        "verification_status": "published"
+        "sha256": "780ac365ee70e26de7c650f58bb67ebcb39b385762fedcb677ba7954d844b84b",
+        "verification_status": "published",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1404,8 +1476,10 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/20-ms-praha-18-a-23-2026-131-2026-08-10.pdf",
-        "sha256": null,
-        "verification_status": "published"
+        "sha256": "4a70c2710762371ab38c94369aabb6e3b8e8ae90b760cee8e8ac52dacc3c819c",
+        "verification_status": "published",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -1427,8 +1501,10 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/21-dvorak-reakce-ms-praha-18-a-23-2026-2026-08-10.pdf",
-        "sha256": null,
-        "verification_status": "published"
+        "sha256": "1346811af6b7384f6bcc6c20042b5ec74970044bd63173e66e022b0040ece7c5",
+        "verification_status": "published",
+        "sha256_provenance": "introduced as documented PDF in commit 356aa7a31919539927ce9b679f95a96bf5d1ea55; Git blob unchanged to current release branch; content/reference independently matched",
+        "sha256_provenance_status": "historical-introduction-and-blob-continuity-verified"
       },
       "relations": [
         {
@@ -3129,41 +3205,12 @@
         "pdf": "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf",
         "intended_pdf": "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf",
         "sha256": "336af9dff0ad906759d2bddae8868970026bfef063e516bb2c148ff74ea64e32",
-        "verification_status": "published"
-      },
-      "relations": [
-        {
-          "type": "priloha_k",
-          "target_id": "doc-cz-pcr-krpt-2026-08-20-krpt-203594-7-cj-2026-0700kr"
-        }
-      ],
-      "submission_side": "incoming_from_state_or_public_institution",
-      "submission_side_basis": "explicit_batch_classification"
-    },
-    {
-      "id": "doc-cz-pcr-krpt-2026-08-20-metodicko-odborne-vyjezdy-okte",
-      "user_title": "Příloha k č. j. KRPT-203594-7/ČJ-2026-0700KR: přehled spisů metodicko-odborných výjezdů, mezilaboratorních zkoušek a jejich skartačních údajů z let 2009-2019",
-      "issue_date": "2026-08-20",
-      "received_date": "2026-08-20",
-      "institution_id": "CZ-PCR-KRPT",
-      "reference": "příloha k KRPT-203594-7/ČJ-2026-0700KR",
-      "case_ids": [
-        "case-cz-pcr-ku-interni-prezkum"
-      ],
-      "document_type": "state_record",
-      "topics": [
-        "příloha",
-        "metodicko-odborné výjezdy",
-        "mezilaboratorní zkoušky",
-        "GC-MS",
-        "skartace"
-      ],
-      "public": {
-        "html": null,
-        "pdf": "documents/report-04082026-010/69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf",
-        "intended_pdf": "documents/report-04082026-010/69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf",
-        "sha256": "e73fcf803f59c4ed58cfb0ff01ee773cfedbd2782426132d3feeb715655d0ca2",
-        "verification_status": "published"
+        "verification_status": "generated_public_copy_from_verified_text; not_byte_identical_original; textual_fidelity_verified; visual_facsimile_not_claimed",
+        "source_original_sha256": "a9ea7ffed4f9eb7f759287dd949ce6bcb4027dd86a1e5c53fabaa2abc59331dd",
+        "source_original_page_count": 2,
+        "public_derivative_page_count": 4,
+        "fidelity_class": "verified_textual_public_copy_not_render_faithful",
+        "fidelity_note": "Public PDF is an explicitly labelled, non-byte-identical text reconstruction. It preserves verified textual references to Table 1 and Scheme 1 but is not represented as a visual facsimile of the two-page private original."
       },
       "relations": [
         {
@@ -4085,9 +4132,11 @@
         "html": null,
         "pdf": "documents/report-04082026-010/89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
         "intended_pdf": "documents/report-04082026-010/89-ms-praha-8-ad-9-2026-89-2026-09-09.pdf",
-        "sha256": null,
+        "sha256": "c5c2a4adf484e6ea605a37eeeea1099a8181ad3ccc5e2688b7b64cbd2b2044f3",
         "verification_status": "published",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-09-09-ms-8-ad-9.json"
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-09-ms-8-ad-9.json",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [
         {
@@ -4122,9 +4171,11 @@
         "html": null,
         "pdf": "documents/report-04082026-010/90-os-prostejov-15-nt-3104-2026-2026-09-14.pdf",
         "intended_pdf": "documents/report-04082026-010/90-os-prostejov-15-nt-3104-2026-2026-09-14.pdf",
-        "sha256": "f23e5e35c49f919fbb850afcf64b5e328ef9174d4612b86b2a9b0b7847fed2be",
-        "verification_status": "published",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-09-14-os-pro.json"
+        "sha256": "6c436f6913cda84647eb2416733156b9a3ab2fe7c19008ca1fec611331ccffe3",
+        "verification_status": "verified_historical_public_copy; not_byte_identical_original; source_original_sha256_recorded",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-14-os-pro.json",
+        "source_original_sha256": "f23e5e35c49f919fbb850afcf64b5e328ef9174d4612b86b2a9b0b7847fed2be",
+        "public_copy_note": "Historická veřejná PDF kopie ověřená byte-identicky proti současnému gh-pages; původní zdrojový SHA je zachován samostatně."
       },
       "relations": [
         {
@@ -4161,9 +4212,12 @@
         "html": null,
         "pdf": "documents/report-04082026-010/91-os-prostejov-15-nt-3106-2026-2026-09-14.pdf",
         "intended_pdf": "documents/report-04082026-010/91-os-prostejov-15-nt-3106-2026-2026-09-14.pdf",
-        "sha256": "e9c757214bd16083f6993b44b94035a78947e91fe6811eb5d9053d3237de2882",
-        "verification_status": "published",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-09-14-os-pro.json"
+        "sha256": "622cbdd0a7f520befd1cebf244c12806d27242bf126d9273c88d2df8a718b296",
+        "verification_status": "verified_deterministic_public_text_copy; not_byte_identical_original; source_original_sha256_recorded",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-09-14-os-pro.json",
+        "source_original_sha256": "e9c757214bd16083f6993b44b94035a78947e91fe6811eb5d9053d3237de2882",
+        "source_text": "project-memory/verified-public-copy-sources-2026-09-16/91-os-prostejov-15-nt-3106-2026.txt",
+        "public_copy_note": "Deterministická veřejná textová kopie; není binárně totožná s původním PDF."
       },
       "relations": [
         {
@@ -4490,9 +4544,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/93-mv-139593-3-tp-2026-2026-09-14.pdf",
-        "sha256": null,
+        "sha256": "b6a68b2155eb2bf4218841949bf8c0ac895b01c701aa28bd8f8b569662f1981f",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -4519,9 +4575,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/92-ms-praha-9-ad-12-2026-7-2026-09-14.pdf",
-        "sha256": null,
+        "sha256": "fb0a0178d436eabfe06af8dad27da857073860705b14ffc2b12b3685ba302cbb",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [],
       "submission_side": "incoming_from_state_or_public_institution",
@@ -4548,9 +4606,11 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/94-vsz-olomouc-3-vzn-239-2026-64-2026-09-15.pdf",
-        "sha256": null,
+        "sha256": "21c07c7c3b5bc1631c837781699daeeda77540b2dd91ff1b1cbf0ba378b9f80a",
         "verification_status": "published",
-        "source_manifest": "filename-reference-date-reconciliation"
+        "source_manifest": "filename-reference-date-reconciliation",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [
         {
@@ -4682,11 +4742,13 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/97-ms-praha-15-ad-14-2026-12-2026-09-22-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "ba9ac9db190335b38d1a88db04699cd1528d5ebc3814e7ac1282402f3d0b383f",
         "verification_status": "published",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-22-ms-15-ad-14.json",
         "source_text": "project-memory/verified-public-copy-sources-2026-09-22/97-ms-praha-15-ad-14-2026-12.txt",
-        "source_sha256": "7bc93e4b9da0250b89b6cba8bfe93a4f2619dd1aba0fa3c48c5828bc4b755e63"
+        "source_sha256": "7bc93e4b9da0250b89b6cba8bfe93a4f2619dd1aba0fa3c48c5828bc4b755e63",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [
         {
@@ -4724,11 +4786,13 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/98-ms-praha-18-a-23-2026-182-2026-09-23-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "7a44c8785f223031464ed14b1f3031a41decd7edeb1042a5a9d47ac7abea93b7",
         "verification_status": "published",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-23-ms-18-a-23.json",
         "source_text": "project-memory/verified-public-copy-sources-2026-09-23/98-ms-praha-18-a-23-2026-182.txt",
-        "source_sha256": "1b699d2de2ed5048af8b28e20e98299f05c501626e20ebc25c4cb9960c8a4fa6"
+        "source_sha256": "1b699d2de2ed5048af8b28e20e98299f05c501626e20ebc25c4cb9960c8a4fa6",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [
         {
@@ -4770,11 +4834,13 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/100-msp-19-2026-odka-roz-26-2026-08-27-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "584e32f351b93c1a082e37ffd05d6aea68d33c051125536dedb79a856a8bdba2",
         "verification_status": "published",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-23-ms-18a17-msp-18a23.json",
         "source_text": "project-memory/verified-public-copy-sources-2026-08-27/100-msp-19-2026-odka-roz-26.txt",
-        "source_sha256": "9b96223d5b4f7566c6bdf8aae50362cef517fe0c5f89ce18af37803c9f8a21b2"
+        "source_sha256": "9b96223d5b4f7566c6bdf8aae50362cef517fe0c5f89ce18af37803c9f8a21b2",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [
         {
@@ -4811,11 +4877,13 @@
       "public": {
         "html": null,
         "pdf": "documents/report-04082026-010/99-ms-praha-18-a-17-2026-182-2026-09-23-verejna-kopie.pdf",
-        "sha256": null,
+        "sha256": "a63aa88a52f62745a0e10b8e251ca4c6531eb4e044655e50b996502257869e33",
         "verification_status": "published",
         "source_manifest": "project-memory/documents-2026-supplement-2026-09-23-ms-18a17-msp-18a23.json",
         "source_text": "project-memory/verified-public-copy-sources-2026-09-23/99-ms-praha-18-a-17-2026-182.txt",
-        "source_sha256": "cf652f2a11d3034ad9e1b70f56473562c12eb5bcd1767d9a022f351095ab994f"
+        "source_sha256": "cf652f2a11d3034ad9e1b70f56473562c12eb5bcd1767d9a022f351095ab994f",
+        "sha256_provenance": "byte-deterministic rebuild from verified complete source text using scripts/materialize-verified-public-copies-2026-09-16.py with ReportLab invariant mode; two consecutive CI rebuilds matched exactly",
+        "sha256_provenance_status": "deterministic-generated-public-copy-verified"
       },
       "relations": [
         {

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "batch_date": "2026-10-06",
-  "purpose": "Dvě podání ze dne 6. 10. 2026 pro Justiční slalom, publikovaná jako byte-identické originální PDF dodané uživatelem.",
+  "purpose": "Dvě podání ze dne 6. 10. 2026 pro Justiční slalom: binární originály uchovány s doloženým SHA-256, veřejné PDF zpřístupňované pouze jako bezpečnostně redigované kopie s odlišným SHA-256.",
   "documents": [
     {
       "id": "doc-cz-ekk-2026-10-06-cnb-rb-aml-podnet",
@@ -35,7 +35,7 @@
       "relations": [],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship_and_user_publication_instruction",
-      "evidence_note": "Podání Edukativní konopné kliniky ze dne 6. 10. 2026 je výslovně adresováno České národní bance datovou schránkou a Ombudsmanovi Raiffeisenbank. Veřejný soubor je byte-identický s uživatelem dodaným originálním PDF.",
+      "evidence_note": "Podání Edukativní konopné kliniky ze dne 6. 10. 2026 je výslovně adresováno České národní bance datovou schránkou a Ombudsmanovi Raiffeisenbank. Původní PDF dodané uživatelem je uchováno jako samostatný důkazní originál se zdrojovým SHA-256; veřejně zpřístupňované PDF je redigovanou kopií s odlišným SHA-256.",
       "justice_slalom": {
         "archive_number": 142,
         "archive_name": "Edukativní konopná klinika ČNB a RF dne 6.10.2026.pdf",
@@ -108,7 +108,7 @@
       ],
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "explicit_document_authorship_and_user_publication_instruction",
-      "evidence_note": "Podání Městskému soudu v Praze ze dne 6. 10. 2026 je společným důkazním doplněním pro sp. zn. 18 A 17/2026 a 18 A 23/2026. Veřejný soubor je byte-identický s uživatelem dodaným originálním PDF.",
+      "evidence_note": "Podání Městskému soudu v Praze ze dne 6. 10. 2026 je společným důkazním doplněním pro sp. zn. 18 A 17/2026 a 18 A 23/2026. Původní PDF dodané uživatelem je uchováno jako samostatný důkazní originál se zdrojovým SHA-256; veřejně zpřístupňované PDF je redigovanou kopií s odlišným SHA-256.",
       "justice_slalom": {
         "archive_number": 143,
         "archive_name": "Městskému soudu dne 6. října 2026 ke sp.zn. 18 A 23 2026-a 18 A 17 -2026-společně a 3 důkazní přílohy.pdf",

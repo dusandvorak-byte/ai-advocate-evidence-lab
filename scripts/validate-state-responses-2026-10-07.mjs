@@ -6,6 +6,8 @@ const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 
 const supplementPath = 'project-memory/documents-2026-supplement-2026-10-07-two-state-responses.json';
 const supplement = JSON.parse(await readFile(supplementPath, 'utf8'));
+const canonicalRegistry = JSON.parse(await readFile('project-memory/documents-2026.json','utf8'));
+const canonicalDocs = new Map((canonicalRegistry.documents || []).map(item => [item.id, item]));
 const docs = new Map((supplement.documents || []).map(item => [item.id, item]));
 const kszId = 'doc-cz-ksz-brn-2026-10-01-1-kzn-1079-2026-41';
 const pprId = 'doc-cz-pcr-pp-2026-10-07-ppr-52605-2-cj-2026-990210-pd';
@@ -43,7 +45,18 @@ for (const item of [ksz, ppr]) {
   if (!item.public?.pdf || item.public.pdf !== item.public.intended_pdf) fail(item.id + ': veřejná PDF cesta není materializována podle intended_pdf');
   if (!String(item.public.verification_status || '').includes('verified_deterministic_public_text_copy') || !String(item.public.verification_status || '').includes('not_byte_identical_original')) fail(item.id + ': provenance veřejné kopie je neúplná');
   const bytes = await readFile('web/' + item.public.pdf);
-  if (!bytes.subarray(0, 5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF') || bytes.length < 4000 || sha256(bytes) !== item.public.sha256) fail(item.id + ': veřejná textová PDF kopie je neúplná nebo má chybný hash');
+  if (!bytes.subarray(0, 5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF') || bytes.length < 4000) fail(item.id + ': veřejná textová PDF kopie je neúplná');
+  // Source supplement contains the generated pre-hardening SHA. Validate the bytes
+  // actually served to the public against the post-hardening canonical record.
+  const final = canonicalDocs.get(item.id);
+  const finalSha = sha256(bytes);
+  if (!final || final.public?.pdf !== item.public.pdf ||
+      final.public?.source_original_sha256 !== originals[item.id] ||
+      !/^[a-f0-9]{64}$/i.test(String(final.public?.sha256 || '')) ||
+      !String(final.public?.verification_status || '').includes('verified_deterministic_public_text_copy') ||
+      !String(final.public?.verification_status || '').includes('publication_policy_hardened') ||
+      finalSha !== final.public.sha256 ||
+      finalSha === originals[item.id]) fail(item.id + ': konečná zredigovaná PDF kopie nemá ověřenou provenienci/hash nebo je byte-identická s chráněným originálem');
 }
 
 const sources = JSON.parse(await readFile('project-memory/document-sources.json', 'utf8'));

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.8",
   "status": "binding",
-  "updated_on": "2026-10-16",
+  "updated_on": "2026-10-19",
   "axioms": [
     {
       "id": "identity-author-alliance",
@@ -145,7 +145,7 @@
     },
     {
       "id": "active-court-crosscheck-table",
-      "text": "Aktivní soudní řízení jsou odvozená křížová vrstva nad Godotem, Justičním slalomem a registrem cases.json. Godot je kanonická vrstva příchozích rozhodnutí a soudních listin; Justiční slalom je kanonická vrstva vlastní obrany, žalob, stížností, odvolání, kasačních a dalších podání. Každá změna rozsudku, usnesení, stížnostního/odvolacího/kasačního stavu nebo navazující obrany musí ve stejném release aktualizovat soudní přehled. Tabulka má pět sloupců: (1) „Řízení, meritum a aktuální stav“ jako dominantní nejširší sloupec s názvem soudu, spisovou značkou, skutkovým meritem a důvodem zveřejnění; (2) opravné rozhodnutí / odvolání / kasační větev včetně doloženého data; (3) ústavní / nejvyšší přezkum s historickými spisovými značkami; (4) mediální větev; (5) „Vše zveřejněné“ s konkrétním deep-linkem. Na desktopu musí tabulka zůstat uvnitř 1240px shellu; na tabletu a telefonu smí přetékat pouze uvnitř vlastního horizontálního scrollu. Sporná tvrzení stran se popisují jako tvrzení či námitky; rozhodnutí soudu jako rozhodnutí soudu."
+      "text": "Aktivní soudní řízení jsou odvozená křížová vrstva nad Godotem, Justičním slalomem a registrem cases.json. Godot je kanonická vrstva příchozích rozhodnutí a soudních listin; Justiční slalom je kanonická vrstva vlastní obrany, žalob, stížností, odvolání, kasačních a dalších podání. Každá změna rozsudku, usnesení, stížnostního/odvolacího/kasačního stavu nebo navazující obrany musí ve stejném release aktualizovat soudní přehled. Tabulka má pět sloupců: (1) „Řízení, meritum a aktuální stav“ jako dominantní nejširší sloupec s názvem soudu, spisovou značkou, skutkovým meritem a důvodem zveřejnění; (2) opravné rozhodnutí / odvolání / kasační větev včetně doloženého data; (3) ústavní / nejvyšší přezkum s historickými spisovými značkami; (4) mediální větev; (5) „Vše zveřejněné“ s konkrétním deep-linkem. Na desktopu musí tabulka zůstat uvnitř 1240px shellu; na tabletu a telefonu smí přetékat pouze uvnitř vlastního horizontálního scrollu. Sporná tvrzení stran se popisují jako tvrzení či námitky; rozhodnutí soudu jako rozhodnutí soudu. Na výslovný pokyn uživatele přehled obsahuje samostatně označenou předžalobní větev NSZ 6 NZN 1737/2026. Předžalobní výzva podaná 14. července 2026 nesmí být označena za zahájenou soudní žalobu. Z kanonického registru se v každém buildu automaticky odvodí dva sestupně řazené soupisy: příchozí listiny NSZ od 1. května 2026 a vlastní podání adresovaná NSZ od 20. dubna 2026. Každý doložený veřejný dokument má aktivní přímý odkaz na svůj PDF/evidenční stránku; chybějící zdroje se nedoplňují fikcí. Poslední sloupec NSZ musí vést na konkrétní stránku https://www.konopijelek.cz/nejvyssi-statni-zastupitelstvi-on-line/. Mediální deep-linky ČT a CNN Prima zůstávají https://www.konopijelek.cz/ceska-televize/ a https://www.konopijelek.cz/novinky/cnn-prima-news/."
     }
   ]
 }

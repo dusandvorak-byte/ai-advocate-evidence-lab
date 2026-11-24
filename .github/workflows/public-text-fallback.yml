@@ -1,0 +1,51 @@
+name: Verify deterministic public text fallback
+
+on:
+  push:
+    branches: [fix/privacy-text-fallback-clean-20261121]
+  pull_request:
+    branches: [main, fix/linear-pdf-byte-scanner-20261121]
+
+permissions:
+  contents: read
+
+jobs:
+  suites:
+    name: PDF fallback / ${{ matrix.suite }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - suite: public-text
+            test: test/public_text_fallback.test.py
+          - suite: hardener
+            test: test/hardener_text_fallback.test.py
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+          cache: pip
+          cache-dependency-path: .github/requirements/pdf-fallback.txt
+      - name: Install pinned Python dependencies
+        run: python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 -r .github/requirements/pdf-fallback.txt
+      - name: Ensure required PDF executables
+        # Transport fallback commands are covered by mocks in these unit suites.
+        # Real mutool execution remains required in the trusted production audit.
+        run: bash scripts/ensure-ci-pdf-tools.sh poppler-utils qpdf
+      - name: Run fallback regression shard
+        run: python3 "${{ matrix.test }}"
+  fallback:
+    # Keep the existing required-check name and require both shards.
+    name: Public text fallback regression
+    needs: suites
+    if: ${{ always() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Require every fallback shard to pass
+        env:
+          SUITES_RESULT: ${{ needs.suites.result }}
+        run: test "$SUITES_RESULT" = success

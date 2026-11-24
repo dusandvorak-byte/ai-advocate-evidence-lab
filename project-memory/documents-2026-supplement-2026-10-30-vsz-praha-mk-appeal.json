@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0",
+  "status": "binding",
+  "batch_date": "2026-10-30",
+  "documents": [
+    {
+      "id": "doc-cz-vsz-pha-2026-10-27-1-vzn-1678-2026-173",
+      "user_title": "VSZ v Praze – dohled 1 VZN 1678/2026-173: zjištěna opožděná odpověď MSZ Praha; ostatní přezkoumané postupy shledány věcně správnými",
+      "issue_date": "2026-10-27",
+      "received_date": null,
+      "institution_id": "CZ-VSZ-PHA",
+      "reference": "1 VZN 1678/2026-173",
+      "case_ids": [
+        "CASE-CZ-VSZ-PHA-1VZN1678-2026"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_signed_prosecutor_notice",
+      "topics": [
+        "dohled nad státním zastupitelstvím",
+        "MSZ v Praze",
+        "nečinnost a překročení lhůty",
+        "sporné forenzní praxe při analýzách obsahu THC v zabraném konopí",
+        "vyrozumění o výsledku dohledu"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/142-vsz-praha-1-vzn-1678-2026-173-2026-10-27-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/142-vsz-praha-1-vzn-1678-2026-173-2026-10-27-original.pdf",
+        "sha256": "fabc711c936c21cc1299b5cf28cbdc1223d006788770a7288bcc72c343888e1f",
+        "source_original_sha256": "fabc711c936c21cc1299b5cf28cbdc1223d006788770a7288bcc72c343888e1f",
+        "source_original_size_bytes": 367267,
+        "source_original_page_count": 6,
+        "verification_status": "source_pdf_received_binary_original; git_blob_byte_identical; sha256_verified; six_pages_reviewed",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-30-vsz-praha-mk-appeal.json"
+      },
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-06-nsz-vsz-spolecne-dukazni-doplneni"
+        },
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-msz-pha-2026-10-01-3-kzn-974-2026-114"
+        }
+      ],
+      "evidence_note": "Vrchní státní zastupitelství v Praze vydalo dne 27. 10. 2026 vyrozumění č. j. 1 VZN 1678/2026-173 k podáním ze dnů 25. a 28. 8., 1. a 2. 9. a 1. a 6. 10. 2026. Námitky vůči výkonu dohledu v případech MSZ Praha 3 KZN 974/2026-100, -103 a -114 postoupilo zpět MSZ v Praze k posouzení jejich případné obsahové totožnosti. U spisů 2 KZN 683/2026, 2 KZN 55/2025 a 3 KZN 974/2026 neshledalo vady věcného vyřízení. Výslovně však uznalo jedno pochybení: vyrozumění MSZ v Praze ze dne 24. 8. 2026 č. j. 2 KZN 683/2026-31 bylo vydáno po zákonné dvouměsíční lhůtě podle § 16a odst. 6 zákona o státním zastupitelství; toto pochybení má být MSZ vytknuto. Podle VSZ pochybení neovlivnilo věcnou správnost vyřízení. VSZ se rovněž vyjadřovalo k namítané metodice měření THC a připomnělo omezení své zákonné působnosti. Dohledový závěr označilo za konečný. Listina má šest stran. Datum doručení není doloženo; elektronický podpis administrativního vyhotovení je ze dne 29. 10. 2026."
+    },
+    {
+      "id": "doc-cz-dd-2026-10-28-mk-dodatek-rozkladu-universal-church-of-cannabis",
+      "user_title": "Ministerstvu kultury – dodatek rozkladu: stížnost na nečinnost, změna názvu na Universal Church of Cannabis a žádost o informace",
+      "issue_date": "2026-10-28",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "MK-S 6893/2026 SOCNS; MK 53547/2026 SOCNS; MK 53559/2026 SOCNS",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "original_signed_user_filing",
+      "topics": [
+        "Konopná církev",
+        "Universal Church of Cannabis",
+        "rozklad",
+        "stížnost na nečinnost",
+        "změna názvu",
+        "registrace náboženské společnosti",
+        "žádost o informace"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/143-mk-2026-10-28-dodatek-rozkladu-universal-church-of-cannabis-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/143-mk-2026-10-28-dodatek-rozkladu-universal-church-of-cannabis-original.pdf",
+        "sha256": "b3fa903962ef7a68e8e0fec1cf6d04c7f766813719f14c8cc435ca6c89b33b9a",
+        "source_original_sha256": "b3fa903962ef7a68e8e0fec1cf6d04c7f766813719f14c8cc435ca6c89b33b9a",
+        "source_original_size_bytes": 69867,
+        "source_original_page_count": 2,
+        "verification_status": "source_pdf_received_binary_original; git_blob_byte_identical; sha256_verified; two_pages_reviewed",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-30-vsz-praha-mk-appeal.json"
+      },
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cs-dd-2026-09-01-slalom-augsep-022"
+        },
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-mk-2026-08-31-mk-53547-2026-socns"
+        },
+        {
+          "type": "souvisi",
+          "target_id": "doc-cz-mk-2026-08-31-mk-53559-2026-socns"
+        }
+      ],
+      "justice_slalom": {
+        "archive_number": 151,
+        "source_sha256": "b3fa903962ef7a68e8e0fec1cf6d04c7f766813719f14c8cc435ca6c89b33b9a",
+        "source_kind": "original_pdf_uploaded_by_user",
+        "recipients": [
+          {
+            "institution_id": "CZ-MK",
+            "reference": "MK-S 6893/2026 SOCNS; MK 53547/2026 SOCNS; MK 53559/2026 SOCNS",
+            "role": "primary",
+            "subject_cs": "Dodatek rozkladu z 1. 9. 2026: stížnost na nečinnost, oznámení názvu Universal Church of Cannabis a žádost o informace o podpoře registrace",
+            "subject_en": "Supplement to the 1 September remonstrance: inactivity complaint, change to Universal Church of Cannabis and request for information on registration supporters"
+          }
+        ]
+      },
+      "evidence_note": "Podání datované 28. října 2026 a adresované ministru kultury a rozkladové komisi ve věci MK-S 6893/2026 SOCNS obsahuje tři samostatné části: (1) stížnost na nečinnost při rozhodování o rozkladu ze dne 1. 9. 2026 proti usnesení MK 53547/2026 SOCNS a žádost o vyjádření k námitkám proti sdělení MK 53559/2026 SOCNS; (2) oznámení, že původní Konopná církev nyní používá název Universal Church of Cannabis, při výslovném tvrzení kontinuity původního náboženského společenství a základního dokumentu předloženého 14. 7. 2016; (3) žádost podle informačního zákona o počet osob splňujících podmínky při návrhu registrace dne 14. 7. 2016 a případný počet nad požadovaných 300 osob. Dokument žádá ministerstvo, aby změnu názvu řešilo v dosavadním registračním řízení. Nejde o rozhodnutí ministerstva ani o důkaz, že byl rozklad již vyřízen nebo registrace povolena. Datum doručení tohoto podání není doloženo."
+    }
+  ]
+}

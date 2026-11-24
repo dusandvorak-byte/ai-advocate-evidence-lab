@@ -148,6 +148,51 @@
       "document_id": "doc-cz-dd-2026-08-15-stiznost-ct-rada-ct-necinnost-smir",
       "pdf": "documents/justice-slalom/2026-08/078-podani-2026-08-15.pdf",
       "reason": "Přesný původní PDF z autorem dodané dávky, soubor 078; SHA-256 7c664485be6253d2fa2421f442ecf51945a97f9a060fb197a48f00319d12cd9c. Dřívější URL zůstává dostupné pro starší odkazy."
+    },
+    {
+      "document_id": "doc-cz-ns-2026-11-03-zin-208-2026-postoupeni",
+      "pdf": "documents/2026-11-04/2026-11-03-ns-zin-208-postoupeni-redigovana-kopie.pdf",
+      "reason": "Reviewed redacted copy from the supplied PDF; source and public hashes are distinct in the 4 November 2026 release manifest."
+    },
+    {
+      "document_id": "doc-cz-nsz-2026-11-02-sin-55-2026-35",
+      "pdf": "documents/2026-11-04/2026-11-02-nsz-sin-55-35-redigovana-kopie.pdf",
+      "reason": "Reviewed redacted copy from the supplied PDF; source and public hashes are distinct in the 4 November 2026 release manifest."
+    },
+    {
+      "document_id": "doc-cz-ekk-2026-11-03-nsz-dukazni-doplneni",
+      "pdf": "documents/2026-11-04/2026-11-03-ekk-nsz-dukazni-doplneni-redigovany-original.pdf",
+      "reason": "Reviewed redacted copy from the supplied PDF; source and public hashes are distinct in the 4 November 2026 release manifest."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-11-04-os-pro-stiznosti-obhajoba",
+      "pdf": "documents/2026-11-04/2026-11-04-os-pro-stiznosti-obhajoba-redigovany-original.pdf",
+      "reason": "Reviewed redacted copy from the supplied PDF; source and public hashes are distinct in the 4 November 2026 release manifest."
+    },
+    {
+      "document_id": "doc-cz-os-pro-2026-11-02-15-nt-3104-2026-341",
+      "pdf": "documents/2026-11-04/2026-11-02-os-pro-15-nt-3104-341-redigovana-kopie.pdf",
+      "reason": "Reviewed redacted copy from the supplied PDF; source and public hashes are distinct in the 4 November 2026 release manifest."
+    },
+    {
+      "document_id": "doc-cz-os-pro-2026-11-02-15-nt-3106-2026-337",
+      "pdf": "documents/2026-11-04/2026-11-02-os-pro-15-nt-3106-337-redigovana-kopie.pdf",
+      "reason": "Reviewed redacted copy from the supplied PDF; source and public hashes are distinct in the 4 November 2026 release manifest."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
+      "pdf": "documents/2026-11-04/2026-11-03-okte-srovnavaci-analyza-redigovany-original.pdf",
+      "reason": "Reviewed redacted copy from the supplied PDF; source and public hashes are distinct in the 4 November 2026 release manifest."
+    },
+    {
+      "document_id": "doc-cz-ekk-2026-11-03-stiznost-krpm-145410",
+      "pdf": "documents/2026-11-04/2026-11-03-ekk-stiznost-krpm-145410-redigovany-original.pdf",
+      "reason": "Reviewed redacted copy from the supplied PDF; source and public hashes are distinct in the 4 November 2026 release manifest."
+    },
+    {
+      "document_id": "doc-cz-dd-2026-11-04-cak-urgence-advokata",
+      "pdf": "documents/2026-11-04/2026-11-04-cak-urgence-advokata-redigovany-original.pdf",
+      "reason": "Reviewed redacted copy from the supplied PDF; source and public hashes are distinct in the 4 November 2026 release manifest."
     }
   ]
 }

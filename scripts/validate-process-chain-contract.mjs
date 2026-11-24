@@ -29,7 +29,7 @@ for (const label of [
 ]) if (!script.includes(label)) fail(`chybí hlavní lišta ${label}`);
 
 const courtRows = courtRegistry.rows || [];
-if (courtRows.length !== 12) fail(`očekáváno 12 soudních větví v křížovém registru, nalezeno ${courtRows.length}`);
+if (courtRows.length < 13 || !courtRows.some(r=>r.id==='court-nsz-prelitigation-6nzn1737'&&r.phase==='prelitigation_not_a_court_case')) fail(`chybí předžalobní NSZ v křížovém registru; větví ${courtRows.length}`);
 for (const required of [
   '2 T 104/2010','15 Nt 3104/2026','2 T 65/2011','15 Nt 3106/2026',
   '9 To 315/2026','9 To 316/2026','18 A 17/2026','18 A 23/2026',

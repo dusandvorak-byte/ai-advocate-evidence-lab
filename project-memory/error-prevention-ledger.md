@@ -15,6 +15,33 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 
 ## Zaznamenané chyby
 
+### Předžalobní podání NSZ musí být od soudního řízení odlišeno, avšak procesně propojeno
+
+- Projev: soupis aktivních soudních větví neměl předžalobní výzvu NSZ 6 NZN 1737/2026 ze dne 14. 7. 2026 ani společný chronologický pohled na doručené reakce NSZ a vlastní podání adresovaná NSZ.
+- Příčina: modul byl odvozen převážně z již soudních věcí; procesní fáze před žalobou neměla strukturovanou externí dvojstrannou časovou osu.
+- Náprava: jedna výslovně označená předžalobní větev s dynamickým výstupem `data/nsz-prelitigation-timeline.json`; dva seskupené chronologické soupisy z kanonického `document-sources.json` a konkrétní odkaz na stránku NSZ na Konopí je lék.cz. Výslovně se netvrdí, že žaloba byla podána, ani že jsou doloženy všechny externí historické dokumenty od 20. dubna.
+- Pojistka: validační brána porovnává všechny ID obou soupisů s kanonickým registrem, filtr příchozí/odchozí strany, chronologii, přímé odkazy, milník 14. 7. a přesný NSZ deep-link; produkce ověřuje SHA binárně generovaného JSON samostatně.
+- Doplňující kořenová pojistka: při rozšíření počtu větví se musí v jednom release aktualizovat všechny souběžné kontrakty (validate-live-dockets, validate-process-chain i validate-active-court-dockets); žádný nesmí zachovávat pevnou historickou hodnotu 12.
+
+### GitHub Pages může po push vrátit starší soudní JSON i s úspěšnou HTTP odpovědí
+
+- Incident: produkční běh #628, 19. 10. 2026. `gh-pages/.source-commit` již odpovídal SHA `8ff509b541806582ec4e639b936ac92e9b5493b3` a soubor `data/active-court-dockets.json` ve větvi gh-pages obsahoval nové `/policie/`, avšak první veřejný HTTP požadavek v live gate vrátil starší obsah a vyvolal sémantickou chybu odkazu.
+- Kořenová příčina: `curl --retry` opakuje selhání přenosu/HTTP, ale nemá důvod opakovat úspěšnou odpověď se zastaralým JSON; před porovnáním odkazů nebyla zkontrolována verze artefaktu.
+- Náprava: live gate načítá veřejný soudní JSON opakovaně s jedinečným `court_try`, dokud jeho SHA-256 není byte-identické s `web/data/active-court-dockets.json` z ověřeného produkčního buildu; až pak provádí sémantické aserce všech šesti deep-linků a plánované antidiskriminační žaloby.
+- Pojistka: po 12 neúspěšných pokusech vypíše očekávaný a nalezený hash a skončí skutečným selháním; neprohlašuje zastaralý veřejný obsah za úspěšnou publikaci.
+
+### Tematický deep-link soudní kauzy se aktualizuje podle výslovně určené stránky
+
+- Projev: větev 18 A 17/2026 (NCOZ) odkazovala v Aktivních soudních řízeních na starší jednotlivý článek namísto tematické stránky `https://www.konopijelek.cz/policie/`; u MZ/SÚKL navíc chybělo rozlišení již rozhodnutých zásahových žalob a nově připravované antidiskriminační žaloby.
+- Náprava: všech šest uživatelem určených cílových URL je závazně spárováno s ID větví ČT, FTV/CNN Prima, NCOZ, MSp, MV a MZ/SÚKL. Vztah plánované antidiskriminační žaloby je uložen odděleně jako `preparing_not_filed`, nikoli jako skutečně podané řízení.
+- Pojistka: `validate-active-court-dockets.mjs` kontroluje všech šest přesných deep-linků a CZ/EN rozlišení připravovaného návrhu; produkční live gate ověřuje stejný kontrakt na veřejném kanonickém JSON souboru. Změny soudních rozhodnutí z Godota nesmějí tiše zrušit významově správné tematické odkazy.
+
+### Specifická mediální kauza musí mít přesný hluboký odkaz na Konopí je lék.cz
+
+- Projev: řádek aktivního řízení ČT (10 C 69/2026, jednání 24. 11. 2026 ve 13:00) odkazoval ve sloupci „Vše zveřejněné“ i ve větvi NSS 1 As 395/2019 na starší stránku namísto výslovně určené stránky `https://www.konopijelek.cz/ceska-televize/`.
+- Náprava: oba odkazy ČT vedou na `/ceska-televize/`; žaloba na CNN/FTV Prima odkazuje na `https://www.konopijelek.cz/novinky/cnn-prima-news/`.
+- Pojistka: `scripts/validate-active-court-dockets.mjs` hlídá obě přesné adresy ČT, hlavní odkaz Prima i nepřítomnost zastaralé cílové adresy ČT; pro každou budoucí změnu hlubokého odkazu se udržuje kanonický datový registr, nikoli ručně generované HTML.
+
 ### Příloha vlastního podání nesmí automaticky založit procesní časovač
 
 - Projev: pracovní návrh ústavní stížnosti přiložený k žádosti ČAK byl po zařazení jako `user_submission_attachment` mylně zachycen detektorem slova „stížnost“ a build požadoval samostatný překlad časovače.
@@ -525,3 +552,21 @@ Tento soubor je trvalá pracovní paměť projektu. Před každou změnou tituln
 - **Náprava:** `.article-body` obsahující `.state-love-shell` musí přes `grid-column:1/-1` zabrat celou šířku mřížky; samotný panel pak může bezpečně zůstat na `width:100%` a geometricky odpovídá Justičnímu slalomu.
 - **Pojistka:** publikační validátor musí ověřit existenci full-width grid pravidla a nesmí připustit návrat Státu lásky čas do 760px sloupce.
 
+
+
+### 4. 11. 2026 – obsahové duplicity, oddělené právní větve a soukromí
+
+- Příjem: 16 PDF. Pět již evidovaných binárních originálů; č. 10 je obsahově a obrazově shodné s již evidovaným KRPT-276756-2, č. 5 a 6 tvoří jednu obsahovou identitu přes rozdílná metadata. Nových kanonických dokumentů je devět, nikoli jedenáct.
+- Pojistka: dávkový manifest zachovává všech 16 vstupních hashů, patnáct cílových identit, dva explicitní obsahové aliasy a oddělené původní/veřejné hashe. Validator odmítá nové duplicitní ID i neredigované původní bajty v publikovaném stromu.
+- Finanční a zdravotní obsah se řídí aktuálním upřesněním autora: v úředních soudních listinách zůstává, ve vlastním podání je minimalizován. Přímé identifikátory a soukromé třetí osoby se nadále redigují. Původní stránkové rozložení a počty stran jsou zachovány; mimo redakční obdélníky bylo naměřeno nula změněných pixelů.
+- Usnesení z 2. 11. o financování obhajoby nejsou rozhodnutím o obnově. Společné podání ze 4. 11. je datovanou listinou, bez nezávislého potvrzení včasnosti nebo odeslání. Informační NS Zin 208 a NSZ SIN 55 mají samostatné případové větve; soudní žaloba na NSZ zůstává podmíněná.
+- Čtyřicetistránková autorská analýza je obousměrně spojena s doplněním NSZ, které na str. 5 zpřesňuje její výrok o SOP. Chybějící samostatné přílohy se nevyrábějí ani nezaměňují za jiné dokumenty.
+- Automatická brána scripts/validate-evidence-release-2026-11-04.mjs běží v PR i produkci za finálními generátory; kontroluje identitu, bajty, původ, CZ/EN, Godot/Slalom, adresáty, případy i historii. Produkční živé ověření se provede až po schváleném merge.
+
+- Lokální regresní kontrola zachytila ztrátu slovní historie právní pomoci z 21. a 24. října při doplnění posledního rozhodnutí z 2. listopadu. Historické odkazy byly vráceny do CZ/EN soudních přehledů; původní test zůstává zachován. Dávková brána je v PR i produkci vložena až za finální generátory.
+
+- Nezávislé zdrojové kontroly před PR doplnily do anotací dvou podání výslovnou absenci samostatného čtyřstránkového přípisu z 3. listopadu a zachovaly historické spisové značky. Podání ke KRPM-145410 má navíc samostatný řádek pro Ministerstvo vnitra jako autorem uvedeného adresáta petitu; jeho příslušnost ani doručení se netvrdí. Nových adresátských řádků je 17.
+
+- Nezávislá kontrola redigovaných vlastních kopií navíc zachytila krátký zbývající údaj o majetku a dluhovém stavu na straně 2 podání ze 4. listopadu. Byl odstraněn z textu i obrazu; doplněn regresní zákaz zbytkových výrazů. Veřejný hash této kopie a dávkový manifest byly přepočteny.
+
+- Kontrola Git diff zjistila, že jedno PDF může Git heuristicky považovat za text a hlásit mezery v binárních datech. Složka této dávky proto výslovně označuje PDF jako binary; brána ověřuje skutečné bajty všech devíti PDF i ve staging indexu a zakazuje textovou normalizaci.

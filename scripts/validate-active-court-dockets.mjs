@@ -4,6 +4,7 @@ const readJson = async path => JSON.parse(await readFile(path,'utf8'));
 const fail = message => { throw new Error('ACTIVE-COURT-DOCKETS: '+message); };
 const must = (condition,message) => { if(!condition) fail(message); };
 
+const productionWorkflow = await readFile('.github/workflows/publish-gh-pages-branch.yml','utf8');
 const [registry, publicRegistry, cases, sourceManifest, slalom, liveScript, courtCss] = await Promise.all([
   readJson('project-memory/active-court-dockets.json'),
   readJson('web/data/active-court-dockets.json'),
@@ -16,7 +17,7 @@ const [registry, publicRegistry, cases, sourceManifest, slalom, liveScript, cour
 
 must(registry.status==='binding','kanonický registr není binding');
 must(JSON.stringify(registry)===JSON.stringify(publicRegistry),'veřejný soudní registr není přesná build kopie kanonického registru');
-must(Array.isArray(registry.rows)&&registry.rows.length===12,`očekáváno 12 soudních větví, nalezeno ${registry.rows?.length}`);
+must(Array.isArray(registry.rows)&&registry.rows.length>=13,`očekáváno nejméně 13 soudních a předžalobních větví, nalezeno ${registry.rows?.length}`);
 must(JSON.stringify(registry.table_contract.width_percent)==='[42,18,18,12,10]','šířky sloupců nejsou 42/18/18/12/10');
 must(registry.table_contract.first_column_is_dominant===true,'první sloupec není označen jako dominantní');
 must(registry.table_contract.sticky_three_bar_navigation===true,'sticky třílišťová navigace není závazná');
@@ -32,6 +33,55 @@ for(const source of sourceManifest.sources||[]){
 }
 const slalomIds=new Set((slalom.rows||[]).map(r=>r.document_id));
 const rootLinks=new Set(['https://www.konopijelek.cz','https://www.konopijelek.cz/']);
+const nszRow=registry.rows.find(row=>row.id==='court-nsz-prelitigation-6nzn1737');
+must(nszRow,'NSZ nemá samostatný řádek předžalobní větve');
+must(nszRow.phase==='prelitigation_not_a_court_case','NSZ nesmí být prezentováno jako již zahájené soudní řízení');
+must(nszRow.reference.includes('6 NZN 1737/2026')&&nszRow.reference.includes('14. 7. 2026'),'NSZ nemá přesný milník předžalobní výzvy');
+must(nszRow.merit_cs.includes('svátek dobytí Bastily')&&nszRow.merit_cs.includes('20. dubna 2026'),'NSZ postrádá svátek Bastily nebo počátek uživatelské evidence');
+must(nszRow.links?.[0]?.href==='https://www.konopijelek.cz/nejvyssi-statni-zastupitelstvi-on-line/','NSZ nemá schválený tematický deep-link');
+must(nszRow.timeline_asset==='data/nsz-prelitigation-timeline.json','NSZ nemá dynamický soupis zdrojových listin');
+const nszCase=caseMap.get('CASE-CZ-NSZ-6NZN1737-2026');
+must(nszCase?.pre_litigation_milestone_on==='2026-07-14'&&nszCase?.court_case_status==='court_filing_not_evidenced','NSZ case chybně představuje předžalobní krok jako podanou žalobu');
+const nszTimeline=await readJson('web/data/nsz-prelitigation-timeline.json');
+const archivalSources=await readJson('project-memory/nsz-prelitigation-archive-2026.json');
+must(nszTimeline.case_id==='CASE-CZ-NSZ-6NZN1737-2026'&&nszTimeline.milestone==='2026-07-14','NSZ timeline má nesprávný case nebo datum');
+must(nszTimeline.period_start==='2026-04-20'&&nszTimeline.official_from==='2026-05-01','NSZ timeline chybně zahrnuje období');
+const official=nszTimeline.groups?.find(g=>g.id==='incoming_nsz')?.items||[];
+const own=nszTimeline.groups?.find(g=>g.id==='outgoing_to_nsz')?.items||[];
+const archival=nszTimeline.groups?.find(g=>g.id==='historical_archive')?.items||[];
+must(official.length>0&&own.length>0,'NSZ timeline nemá obě procesní strany');
+must(nszTimeline.counts.incoming===official.length&&nszTimeline.counts.outgoing===own.length&&nszTimeline.counts.archival===archival.length&&nszTimeline.counts.total===official.length+own.length+archival.length,'NSZ timeline počty nejsou odvozené ze záznamů');
+must(archival.length===4,'NSZ timeline postrádá čtyři historická podání duben–květen');
+must(JSON.stringify(archival.map(x=>x.date))===JSON.stringify(['2026-05-12','2026-05-08','2026-04-25','2026-04-20']),'Historické podklady NSZ nemají přesná data a sestupné řazení');
+for(const item of archival){
+  const source=archivalSources.items.find(x=>x.archive_reference_id===item.archive_reference_id);
+  must(source&&JSON.stringify(source)===JSON.stringify(item),'Archivní záznam NSZ není odvozen z kanonického archivního registru');
+  must(item.link_kind==='archive'&&item.record_status==='cited_in_public_archive_not_separately_verified_pdf'&&item.standalone_pdf_verified===false,'Archivní záznam se vydává za primární PDF dokument');
+  must(item.href===archivalSources.source_url,'Historické NSZ nemá ověřený odkaz na archivní článek');
+}
+must(nszTimeline.first_evidenced_date==='2026-04-20','NSZ timeline nezačíná první doloženou archivní zmínkou 20. 4. 2026');
+const refsFromRecipients=d=>[...(d.justice_slalom?.recipients||[]).map(x=>x.institution_id),...(d.recipients||[]).map(x=>typeof x==='string'?x:x.institution_id||x.id)].filter(Boolean);
+const isOwnToNsz=d=>d.issue_date>='2026-04-20'
+  &&(d.submission_side==='outgoing_from_user_or_alliance'||d.document_type==='user_submission')
+  &&(refsFromRecipients(d).includes('CZ-NSZ')||(refsFromRecipients(d).length===0&&/6\s*NZN\s*1737\s*\/\s*2026/.test(String(d.reference||''))&&/NSZ|státnímu zastupitelství/i.test(String(d.user_title||''))));
+const isOfficialNsz=d=>d.issue_date>='2026-05-01'&&d.institution_id==='CZ-NSZ'
+  &&(d.submission_side==='incoming_from_state_or_public_institution'||d.document_type==='state_record');
+const sorted=items=>items.every((item,i)=>i===0||items[i-1].date>=item.date);
+for(const [kind,arr,selector] of [['příchozí NSZ',official,isOfficialNsz],['vlastní podání NSZ',own,isOwnToNsz]]){
+  must(sorted(arr),'NSZ timeline není chronologicky sestupná: '+kind);
+  const expected=[...documents.values()].filter(selector).map(x=>x.id).sort();
+  const actual=arr.map(x=>x.document_id).sort();
+  must(JSON.stringify(expected)===JSON.stringify(actual),'NSZ timeline není úplným odrazem kanonicky evidovaných dokumentů: '+kind);
+  for(const item of arr){
+    const doc=documents.get(item.document_id);
+    must(doc&&selector(doc),'NSZ timeline obsahuje cizí či neověřený dokument: '+item.document_id);
+    const target=doc.public?.pdf||doc.public?.html;
+    if(target)must(item.href&&item.href.includes(String(target).replace(/^\/?web\//,'')),'NSZ má nesprávný odkaz na originální evidovaný zdroj: '+item.document_id);
+  }
+}
+must(own.some(x=>x.date==='2026-07-14'&&x.document_id==='doc-cz-dd-2026-07-14-slalom-34'),'NSZ timeline neobsahuje hlavní předžalobní výzvu ze 14. 7. 2026');
+must(nszTimeline.provenance_note_cs.includes('není samostatným PDF')&&nszTimeline.provenance_note_cs.includes('není ověřena'),'NSZ timeline nerozlišuje archivní odkazy, primární soubory a úplnost');
+
 
 const requiredRefs=[
   '2 T 104/2010','15 Nt 3104/2026','2 T 65/2011','15 Nt 3106/2026',
@@ -97,9 +147,48 @@ must((ftv.slalom_document_ids||[]).includes('doc-cz-ekk-2026-10-02-os-praha10-ft
 
 const ct=registry.rows.find(x=>x.id==='court-media-ct');
 must(ct?.media_cs.includes('1 As 395/2019'),'ČT mediální větev neobsahuje NSS 1 As 395/2019');
+const expectedCt='https://www.konopijelek.cz/ceska-televize/';
+const expectedPrima='https://www.konopijelek.cz/novinky/cnn-prima-news/';
+must(ct.links?.[0]?.href===expectedCt,'ČT: Vše zveřejněné nevede na konkrétní stránku /ceska-televize/');
+must(ct.media_links?.[0]?.href===expectedCt,'ČT: mediální odkaz NSS 1 As 395/2019 nevede na stránku /ceska-televize/');
+must(ftv.links?.[0]?.href===expectedPrima,'FTV/CNN Prima: Vše zveřejněné nevede na konkrétní stránku /novinky/cnn-prima-news/');
+must(!JSON.stringify(ct).includes('novinky/zaloba-na-ceskou-televizi-za-cenzuru/'),'ČT: zůstal neaktuální odkaz na starou stránku');
+
+// Výslovně schválené deep-linky – u každé kauzy odkaz na věcnou stránku.
+const userApprovedLinks={
+  'court-media-ct':'https://www.konopijelek.cz/ceska-televize/',
+  'court-media-ftv-prima':'https://www.konopijelek.cz/novinky/cnn-prima-news/',
+  'court-ms-praha-18a17':'https://www.konopijelek.cz/policie/',
+  'court-ms-praha-18a23':'https://www.konopijelek.cz/ministerstvo-spravedlnosti/',
+  'court-ms-praha-15a44-nss6as207':'https://www.konopijelek.cz/ministerstvo-vnitra/',
+  'court-ms-praha-health':'https://www.konopijelek.cz/ministerstvo-zdravotnictvi/'
+};
+for(const [id,href] of Object.entries(userApprovedLinks)){
+  const row=registry.rows.find(x=>x.id===id);
+  must(row?.links?.[0]?.href===href,`Chybný deep-link pro ${id}: očekáváno ${href}`);
+}
+const health=registry.rows.find(x=>x.id==='court-ms-praha-health');
+must(health?.follow_up?.status==='preparing'&&health.follow_up.kind==='planned_not_filed',
+  'Antidiskriminační žaloba nesmí být označena jako podaná');
+for(const phrase of ['nemocných','lékařů','lékárníků','teprve připravována']){
+  must(String(health.merit_cs+' '+health.remedy_cs).includes(phrase),
+    'Zdravotnická anotace neobsahuje připravovanou žalobu: '+phrase);
+}
+must(health.merit_en.includes('not evidenced as filed')&&health.remedy_en.includes('still being prepared'),
+  'EN parita nesprávně prezentuje připravovanou antidiskriminační žalobu');
+for(const id of ['case-cz-ms-praha-8ad9-2026','case-cz-ms-praha-15-ad-14-2026']){
+  const c=caseMap.get(id);
+  must(c?.planned_follow_up?.status==='preparing_not_filed'&&c.planned_follow_up.kind==='antidiscrimination_action',
+    'Cases nesynchronizují plánovanou antidiskriminační žalobu: '+id);
+  must(Boolean(c.decided_on)&&Boolean(c.decision_document_id),
+    'Ukončená soudní větev MZ/SÚKL postrádá rozhodnutí: '+id);
+}
 
 for(const token of [
   "const registryUrl = '/ai-advocate-evidence-lab/data/active-court-dockets.json'",
+  "data/nsz-prelitigation-timeline.json",
+  "className = 'active-nsz-timeline'",
+  "for (const group of nszTimeline.groups || [])",
   "className = 'docket-bar-stack'",
   "className = 'active-courts-table'",
   "wrapper.append(controls, courtShell)",
@@ -115,9 +204,17 @@ for(const token of [
   '.live-dockets .active-courts-table th:nth-child(4){width:12%}',
   '.live-dockets .active-courts-table th:nth-child(5){width:10%}',
   '@media(max-width:1100px)',
-  'overflow-x:auto'
+  'overflow-x:auto',
+  '.live-dockets .active-nsz-timeline'
 ]) must(courtCss.includes(token),'live-dockets.css postrádá: '+token);
 
 must(!liveScript.includes("source.href = 'https://www.konopijelek.cz/'"),'vrátil se obecný odkaz Konopí je lék místo deep-linků');
+for(const token of [
+  'expected_courts_sha=',
+  'court_try=$attempt',
+  'courts_sha_ok=1',
+  'Živý soudní registr není po publikaci shodný s buildem'
+]) must(productionWorkflow.includes(token),'Produkční live gate nemá retry-safe kontrolu SHA-256: '+token);
+
 
 console.log(`ACTIVE COURT DOCKETS OK: ${registry.rows.length} větví, meritum 42 %, sticky 3 lišty, Godot ↔ Slalom ↔ cases křížově ověřeno.`);

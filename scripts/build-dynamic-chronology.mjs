@@ -1,4 +1,5 @@
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { publicPdfIsDerivative } from './justice-slalom-pdf-provenance.mjs';
 
 const articlePath = 'web/zpravy/04082026-010.html';
 const homePath = 'web/index.html';
@@ -165,7 +166,8 @@ const renderChronologyRow = (item, index) => {
   const number = chronologyNumber(index);
   const sourceFilings = filingsForState(item);
   const remedies = remediesForState(item);
-  return `<tr id="${escapeHtml(item.id)}" data-state-love-id="${escapeHtml(item.id)}" data-row-number="${number}" data-issue-date="${escapeHtml(item.issue_date)}" data-submission-side="incoming_from_state_or_public_institution"><td class="slalom-number">${number}</td><td><time datetime="${escapeHtml(item.issue_date)}">${escapeHtml(formatDate(item.issue_date))}</time></td><td>${escapeHtml(subjectName)}</td><td>${escapeHtml(referenceText(item))}</td><td>${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a></td><td class="state-love-relation-cell">${renderRelated(sourceFilings)}</td><td class="state-love-relation-cell">${renderRelated(remedies)}</td></tr>`;
+  const okteAnnexLink = item.id === 'doc-cz-pcr-krpo-2026-10-30-krpm-145410-2' ? ' · <a href="listiny/2026-11-02-evidence-krpm.html#okte-originaly">10 příloh OKTE</a>' : '';
+  return `<tr id="${escapeHtml(item.id)}" data-state-love-id="${escapeHtml(item.id)}" data-row-number="${number}" data-issue-date="${escapeHtml(item.issue_date)}" data-submission-side="incoming_from_state_or_public_institution"><td class="slalom-number">${number}</td><td><time datetime="${escapeHtml(item.issue_date)}">${escapeHtml(formatDate(item.issue_date))}</time></td><td>${escapeHtml(subjectName)}</td><td>${escapeHtml(referenceText(item))}</td><td>${escapeHtml(item.user_title)} · <a href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a>${okteAnnexLink}</td><td class="state-love-relation-cell">${renderRelated(sourceFilings)}</td><td class="state-love-relation-cell">${renderRelated(remedies)}</td></tr>`;
 };
 
 const chronologyHtml = `<section id="chronologie" class="justice-slalom-shell state-love-shell" aria-label="Godot online – Státu lásky čas"><details class="home-rollup justice-slalom state-love-panel"><summary><span class="rollup-title">Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?</span><span class="rollup-prompt">číst jako investigativu s láskou</span><span class="rollup-heart" aria-hidden="true">❤️</span><b class="rollup-action">Rozbalit ↓</b></summary><div class="justice-slalom-body"><p class="justice-slalom-intro">${chronologyDocuments.length} reakcí státní lásky od 1. května 2026 · nejnovější nahoře · nejstarší reakce má číslo 1. Přijde už konečně Godot?</p><div class="justice-slalom-scroll state-love-scroll"><table id="chronologie-seznam" class="state-love-table"><thead><tr><th scope="col">Č.</th><th scope="col">Dne</th><th scope="col">Orgán</th><th scope="col">č. j./sp. zn.</th><th scope="col">Co se stalo</th><th scope="col">Na co orgán reaguje</th><th scope="col">Námitka / opravný prostředek</th></tr></thead><tbody>${chronologyDocuments.map(renderChronologyRow).join('')}</tbody></table></div></div></details></section>`;
@@ -207,8 +209,10 @@ for (const item of documents) {
   const institution = institutionMap.get(item.institution_id);
   const name = institution?.name_cs || institution?.name || item.institution_id;
   const published = item.public || {};
+  const publicCopy = publicPdfIsDerivative(item) || /redacted|redigovan|public.copy|verejna.kopie|generated_public_copy/i.test(`${published.verification_status || ''} ${published.pdf || ''}`);
+  const pdfLabel = publicCopy ? 'Otevřít redigovanou veřejnou kopii PDF' : 'Otevřít originální listinu v PDF';
   const directPdf = published.pdf
-    ? `<p><a href="${escapeHtml(normalizePublicPath(published.pdf))}" target="_blank" rel="noopener">Otevřít originální listinu v PDF</a></p>`
+    ? `<p><a href="${escapeHtml(normalizePublicPath(published.pdf))}" target="_blank" rel="noopener">${pdfLabel}</a></p>`
     : '<p><b>Originální PDF:</b> dosud není fyzicky uloženo ve veřejném repozitáři. Tato stránka je stabilním veřejným evidenčním odkazem.</p>';
   const cases = Array.isArray(item.case_ids) && item.case_ids.length ? `<p><b>Řízení:</b> ${item.case_ids.map(escapeHtml).join(', ')}</p>` : '';
   const relations = Array.isArray(item.relations) && item.relations.length ? `<h2>Procesní vazby</h2><ul>${item.relations.map(rel => `<li>${escapeHtml(rel.type || rel.relation_type || 'souvisí')} ${escapeHtml(rel.target_id || rel.document_id || '')}</li>`).join('')}</ul>` : '';

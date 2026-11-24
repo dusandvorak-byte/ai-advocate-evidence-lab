@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-10-24",
+  "status": "binding",
+  "documents": [
+    {
+      "id": "doc-cz-ns-2015-05-20-11-tdo-181-2015-121",
+      "issue_date": "2015-05-20",
+      "received_date": null,
+      "institution_id": "CZ-NS",
+      "reference": "11 Tdo 181/2015-121",
+      "user_title": "Nejvyšší soud – historické usnesení ze dne 20. května 2015, odmítnutí dovolání ve věci zabrání konopí",
+      "case_ids": [],
+      "document_type": "state_record_attachment",
+      "topics": [
+        "státní orgány",
+        "soudní a správní evidence"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/133-ns-11-tdo-181-2015-121-2015-05-20-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/133-ns-11-tdo-181-2015-121-2015-05-20-original.pdf",
+        "sha256": "80efa85c2e9be75ba8583dd22ad54905a700ac5c7bcbe3374f3bff95aa7a1e07",
+        "source_original_sha256": "80efa85c2e9be75ba8583dd22ad54905a700ac5c7bcbe3374f3bff95aa7a1e07",
+        "source_original_size_bytes": 92756,
+        "source_original_page_count": 15,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-24-three-originals.json"
+      },
+      "submission_side_basis": "historic_2015_supreme_court_annex",
+      "relations": [
+        {
+          "type": "priloha_k",
+          "target_id": "doc-cz-ns-2026-10-23-zin-208-2026"
+        }
+      ],
+      "evidence_note": "Nejvyšší soud odmítl dovolání podle § 265i odst. 1 písm. e) trestního řádu ve věci zabrání věci, navazující na OS Prostějov 2 Nt 1151/2014 a KS Brno 8 To 198/2014. Odůvodnění se věnuje stanovení THC, notifikaci předpisů, předběžným otázkám SDEU a podmínkám zabrání věci."
+    },
+    {
+      "id": "doc-cz-pcr-pp-2026-10-16-ppr-54525-1-cj-2026-990340",
+      "issue_date": "2026-10-16",
+      "received_date": null,
+      "institution_id": "CZ-PCR-PP",
+      "reference": "PPR-54525-1/ČJ-2026-990340",
+      "user_title": "Policejní prezidium – vyrozumění o nepřijetí opatření k trestnímu podnětu, PPR-54525-1/ČJ-2026-990340",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "státní orgány",
+        "soudní a správní evidence"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/134-ppcr-ppr-54525-1-cj-2026-990340-2026-10-16-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/134-ppcr-ppr-54525-1-cj-2026-990340-2026-10-16-original.pdf",
+        "sha256": "9d6436da913ce3bd00d34b82c4a5e6a21705612234a76b09b20c26cf1fef45d6",
+        "source_original_sha256": "9d6436da913ce3bd00d34b82c4a5e6a21705612234a76b09b20c26cf1fef45d6",
+        "source_original_size_bytes": 274874,
+        "source_original_page_count": 2,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-24-three-originals.json"
+      },
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_original_authorship",
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-10-ns-nsz-msp-mv-ppr-infz-tp"
+        }
+      ],
+      "evidence_note": "Vyrozumění datované 16. 10. 2026 reaguje na trestní část podání ze dne 10. 10. 2026, předanou útvaru ÚSKPV 14. 10. 2026. Policie neshledala podezření z trestného činu ani důvod k zahájení úkonů trestního řízení. Připouští opětovný podnět s novými skutečnostmi nebo podání příslušnému státnímu zastupitelství. Elektronický podpis na druhé straně je ze dne 22. 10. 2026."
+    },
+    {
+      "id": "doc-cz-msp-2026-10-19-msp-898-2026-op-osv-2",
+      "issue_date": "2026-10-19",
+      "received_date": null,
+      "institution_id": "CZ-MSP",
+      "reference": "MSP-898/2026-OP-OSV/2",
+      "user_title": "Ministerstvo spravedlnosti – potvrzení přijetí informační žádosti, MSP-898/2026-OP-OSV/2",
+      "case_ids": [],
+      "document_type": "state_record",
+      "topics": [
+        "státní orgány",
+        "soudní a správní evidence"
+      ],
+      "public": {
+        "html": null,
+        "pdf": "documents/report-04082026-010/135-msp-898-2026-op-osv-2-2026-10-19-original.pdf",
+        "intended_pdf": "documents/report-04082026-010/135-msp-898-2026-op-osv-2-2026-10-19-original.pdf",
+        "sha256": "26746c89ae80b4c4add104a0ee7e898cbd9a7b861362790eb40283ba277d782a",
+        "source_original_sha256": "26746c89ae80b4c4add104a0ee7e898cbd9a7b861362790eb40283ba277d782a",
+        "source_original_size_bytes": 237686,
+        "source_original_page_count": 1,
+        "verification_status": "source_pdf_received_binary_original; sha256_verified; git_blob_byte_identical",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-10-24-three-originals.json"
+      },
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "explicit_original_authorship",
+      "relations": [
+        {
+          "type": "reakce_na",
+          "target_id": "doc-cz-dd-2026-10-10-ns-nsz-msp-mv-ppr-infz-tp"
+        }
+      ],
+      "evidence_note": "Ministerstvo spravedlnosti dne 19. 10. 2026 potvrdilo přijetí žádosti o informace podle zákona č. 106/1999 Sb. a oznámilo, že žádost vyřizuje. Nejde o konečné poskytnutí informace ani rozhodnutí o odmítnutí. Podepsala vedoucí právního oddělení Mgr. Jana Bumbová."
+    }
+  ]
+}

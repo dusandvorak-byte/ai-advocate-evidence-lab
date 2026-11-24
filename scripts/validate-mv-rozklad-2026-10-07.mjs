@@ -40,7 +40,7 @@ const sources=JSON.parse(await readFile('project-memory/document-sources.json','
 if(!sources.sources?.some(s=>s.path===supplementPath&&s.role==='batch'&&s.batch_date==='2026-10-07')) fail('supplement není v manifestu');
 const cases=JSON.parse(await readFile('project-memory/cases.json','utf8'));
 const c=cases.cases?.find(x=>x.id==='case-cz-mv-infz-ganja-for-all-animals');
-if(!c||c.status!=='remanded_for_new_proceeding'||c.decision_document_id!==docId||c.latest_state_document_id!==docId||c.last_remedy_document_id!==appealId) fail('procesní větev MV není správně aktualizována');
+if(!c||c.status!=='remanded_for_new_proceeding'||c.decision_document_id!==docId||c.latest_state_document_id!=='doc-cz-uoou-2026-10-20-uoou-06760-26-4'||!c.related_document_ids?.includes(docId)||!c.related_document_ids?.includes('doc-cz-uoou-2026-10-20-uoou-06760-26-4')||c.last_remedy_document_id!==appealId) fail('procesní větev MV není správně aktualizována');
 
 const generated=JSON.parse(await readFile('web/data/process-timers.json','utf8'));
 if(generated.timers?.some(t=>t.id===timerId||t.source_document_id===appealId)) fail('vyřízený rozklad se znovu objevil jako aktivní interní časovač');

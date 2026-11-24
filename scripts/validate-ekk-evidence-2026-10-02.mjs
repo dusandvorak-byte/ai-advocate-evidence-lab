@@ -1,9 +1,12 @@
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { verifiedEkkPublicCopy } from './ekk-public-text-provenance.mjs';
 
 const fail = message => { throw new Error(`EKK-2026-10-02-GATE: ${message}`); };
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 const registry = JSON.parse(await readFile('project-memory/documents-2026-supplement-2026-10-02-ekk-os-pro.json','utf8'));
+const canonical = JSON.parse(await readFile('project-memory/documents-2026.json','utf8'));
+const hardening = JSON.parse(await readFile('project-memory/privacy-hardening-report.json','utf8'));
 const mainId = 'doc-cz-ekk-2026-10-02-os-pro-procesni-dukazni-navrh';
 const annexId = 'doc-cz-ekk-2026-10-02-dukazni-chronologie-kjl-2008-2026';
 const main = registry.documents?.find(x=>x.id===mainId);
@@ -31,7 +34,12 @@ for (const [item, expectedPages] of [[main,5],[annex,33]]) {
   const latin = bytes.toString('latin1');
   const pageCount = (latin.match(/\/Type\s*\/Page\b/g)||[]).length;
   if (!bytes.subarray(0,5).equals(Buffer.from('%PDF-')) || !bytes.subarray(-2048).toString('latin1').includes('%%EOF') || bytes.length < 4000) fail(`neplatné PDF ${item.id}`);
-  if (hash !== item.public.sha256 || !String(item.public.verification_status||'').includes('verified_text_public_copy')) fail(`PDF ${item.id} nemá ověřenou veřejnou textovou provenienci`);
+  // Source supplement SHA is recorded before privacy hardening. The canonical registry
+  // is updated to reflect the exact bytes of the final public, privacy-hardened PDF.
+  const canonicalItem = canonical.documents?.find(entry => entry.id === item.id);
+  if (!canonicalItem || canonicalItem.public?.pdf !== item.public.pdf) fail(`PDF ${item.id} chybí v konečném kanonickém registru nebo má jinou cestu`);
+  if (!verifiedEkkPublicCopy({ sourceDoc: item, finalDoc: canonicalItem, digest: hash, report: hardening }))
+    fail(`PDF ${item.id} nemá ověřenou veřejnou textovou provenienci finální veřejné kopie`);
   if (pageCount !== expectedPages) fail(`PDF ${item.id} má ${pageCount} stran místo ${expectedPages}`);
 }
 const slalom = JSON.parse(await readFile('web/data/justice-slalom.json','utf8'));

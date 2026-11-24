@@ -315,7 +315,88 @@
     {
       "path": "project-memory/documents-2026-supplement-2026-10-19.json",
       "role": "batch",
+      "batch_date": "2026-10-19",
+      "public_status": "MV and CNB verified-source originals; pending trusted publication gates"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-19-euda-reply.json",
+      "role": "batch",
       "batch_date": "2026-10-19"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-20-four-original-state-records.json",
+      "role": "batch",
+      "batch_date": "2026-10-20"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-20-ms-praha-two-dismissals.json",
+      "role": "batch",
+      "batch_date": "2026-10-20"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-20-six-pending-originals.json",
+      "role": "batch",
+      "batch_date": "2026-10-20"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-24-three-originals.json",
+      "role": "batch",
+      "batch_date": "2026-10-24"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-24-four-additional-records.json",
+      "role": "batch",
+      "batch_date": "2026-10-24",
+      "public_status": "verified text copies undergoing publication gate"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-26-two-new-state-records.json",
+      "role": "batch",
+      "batch_date": "2026-10-26"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-30-vsz-praha-mk-appeal.json",
+      "role": "batch",
+      "batch_date": "2026-10-30"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-10-30-kasace-msp.json",
+      "role": "batch",
+      "batch_date": "2026-10-30",
+      "public_status": "verified eight-page complete text transcription, original PDF binary pending"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-11-02-late-october.json",
+      "role": "batch",
+      "batch_date": "2026-11-02",
+      "public_status": "verified public evidence and text transcriptions; original PDFs not uploaded to public repository"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-11-03-gfaa-bank-replies.json",
+      "role": "batch",
+      "batch_date": "2026-11-03",
+      "public_status": "six SHA-256 verified binary PDFs; two user-authorized TT anonymized copies"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-11-04-reviewed-batch.json",
+      "role": "batch"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-11-05-okte-olomouc-attachments.json",
+      "role": "batch",
+      "batch_date": "2026-11-05",
+      "public_status": "10 byte-identical original PDF annexes of 30 October Olomouc Police response"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2018-interpelace-380-archiv.json",
+      "role": "batch",
+      "batch_date": "2026-11-06",
+      "public_status": "two verified byte-identical originals of the December 2018 parliamentary interpellation and subsequent response"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-11-04-rrku54-annexes.json",
+      "role": "batch",
+      "batch_date": "2026-11-04"
     }
   ]
 }

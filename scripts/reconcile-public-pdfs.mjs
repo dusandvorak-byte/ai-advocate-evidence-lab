@@ -67,6 +67,14 @@ const requiresPdf = doc => {
     && requiredInstitutionTypes.has(type);
 };
 const mayPublishPdf = doc => Boolean(institutionMap.has(doc.institution_id) || isOurSubmission(doc));
+const hasVerifiedPublicCopyStatus = doc => {
+  const status = String(doc.public.verification_status || '').split(';').map(part => part.trim());
+  return status.includes('publication_policy_hardened')
+    || (status.includes('generated_public_copy_from_verified_text') && status.includes('not_byte_identical_original'))
+    // Preserve a source-attested deterministic copy through index reconciliation.
+    // Privacy certification is performed later by the authenticated PDF scanner.
+    || (status.includes('verified_deterministic_public_text_copy') && status.includes('not_byte_identical_original'));
+};
 
 const sourceFiles = (await readdir(memoryDir))
   .filter(name => /^report-.*-sources\.json$/i.test(name))
@@ -143,7 +151,11 @@ for (const doc of registry.documents) {
   const repoPath = `web/${normalized}`;
   const oldPdf = doc.public.pdf || null;
   doc.public.pdf = normalized;
-  doc.public.verification_status = 'published';
+  // Preserve authenticated privacy-hardening provenance for the same PDF path.
+  // An override changing the path must not inherit the old PDF's review status.
+  if (oldPdf !== normalized || !hasVerifiedPublicCopyStatus(doc)) {
+    doc.public.verification_status = 'published';
+  }
   doc.public.source_manifest = overridesPath;
   usedPaths.set(repoPath, doc.id);
   if (oldPdf !== normalized) overrideChanges.push({ id: doc.id, previous_pdf: oldPdf, pdf: normalized, reason: override.reason || null });
@@ -197,7 +209,11 @@ for (const doc of registry.documents) {
     continue;
   }
   usedPaths.set(repoPath, doc.id);
-  doc.public.verification_status = 'published';
+  // Reconciliation is an index/link operation, not a privacy re-review.
+  // Do not erase the machine-verified hardening marker after final PDF redaction.
+  if (!hasVerifiedPublicCopyStatus(doc)) {
+    doc.public.verification_status = 'published';
+  }
 }
 
 function fileEligibleForDocument(doc, file) {
