@@ -158,28 +158,33 @@ jobs:
       - name: Materialize trusted public tree
         run: |
           set -euo pipefail
-          python3 test/publication_redaction.test.py
-          node scripts/diagnose-interpelace-380.mjs checkout
-          node scripts/recover-historical-binary-blobs.mjs
-          node scripts/diagnose-interpelace-380.mjs after-recovery
-          node scripts/materialize-godot-pdf-bundle.mjs
-          node scripts/materialize-godot-state-bundle-2026-08-24.mjs
-          python3 scripts/materialize-uoou-2026-08-26.py
-          python3 scripts/materialize-euda-2026-09-25.py
-          python3 scripts/materialize-state-pdfs-2026-09-03.py
-          node scripts/prepare-md-english-build.mjs
-          node scripts/build-site.mjs
-          node scripts/cleanup-godot-duplicate-timers.mjs
-          node scripts/patch-godot-reverse-reactions.mjs
-          node scripts/finalize-public-labels.mjs
-          node scripts/finalize-md-english-surfaces.mjs
-          node scripts/build-justice-slalom.mjs
-          node scripts/repair-chronology-deep-links.mjs
-          node scripts/validate-chronology-deep-links.mjs
-          node scripts/audit-godot-pdf-links.mjs
-          node scripts/build-language-access.mjs
-          node scripts/validate-release-exclusions.mjs
-          node scripts/validate-public-navigation.mjs
+          TIMEFORMAT='[prepare timing] elapsed=%3R s'
+          run_timed() {
+            printf '[prepare timing] command: %s\n' "$*"
+            time "$@"
+          }
+          run_timed python3 test/publication_redaction.test.py
+          run_timed node scripts/diagnose-interpelace-380.mjs checkout
+          run_timed node scripts/recover-historical-binary-blobs.mjs
+          run_timed node scripts/diagnose-interpelace-380.mjs after-recovery
+          run_timed node scripts/materialize-godot-pdf-bundle.mjs
+          run_timed node scripts/materialize-godot-state-bundle-2026-08-24.mjs
+          run_timed python3 scripts/materialize-uoou-2026-08-26.py
+          run_timed python3 scripts/materialize-euda-2026-09-25.py
+          run_timed python3 scripts/materialize-state-pdfs-2026-09-03.py
+          run_timed node scripts/prepare-md-english-build.mjs
+          run_timed node scripts/build-site.mjs
+          run_timed node scripts/cleanup-godot-duplicate-timers.mjs
+          run_timed node scripts/patch-godot-reverse-reactions.mjs
+          run_timed node scripts/finalize-public-labels.mjs
+          run_timed node scripts/finalize-md-english-surfaces.mjs
+          run_timed node scripts/build-justice-slalom.mjs
+          run_timed node scripts/repair-chronology-deep-links.mjs
+          run_timed node scripts/validate-chronology-deep-links.mjs
+          run_timed node scripts/audit-godot-pdf-links.mjs
+          run_timed node scripts/build-language-access.mjs
+          run_timed node scripts/validate-release-exclusions.mjs
+          run_timed node scripts/validate-public-navigation.mjs
       - name: Validate all final web contracts before staging
         run: bash scripts/validate-final-web-contracts.sh
 
