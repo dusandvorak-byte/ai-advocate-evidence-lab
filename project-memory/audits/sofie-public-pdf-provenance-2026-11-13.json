@@ -1,0 +1,488 @@
+{
+  "schema_version": "1.0",
+  "audit_date": "2026-11-13",
+  "prepared_by": "Sofie (ChatGPT)",
+  "repository": "dusandvorak-byte/ai-advocate-evidence-lab",
+  "pinned_main_commit_sha": "24f75e6f4636d92c3f741ef1670a75eb35b6744e",
+  "scope": "24 generated public PDF derivatives from 25 versioned text source files, four generators",
+  "method": "Read generator mappings and fetch_file for each versioned source at exact main SHA. Git blob SHA-1 is not the requested SHA-256, and metadata presence does not prove an official original or safe public PDF.",
+  "source_count": 25,
+  "output_count": 24,
+  "source_file_existence_verified": true,
+  "limits": [
+    "Source text provenance as supplied by user/project is NOT independent verification of an official original PDF.",
+    "No SHA-256 of source bytes or generated output bytes established in this audit.",
+    "No PDF content, metadata, image-layer, personal-data or financial/medical-data redaction audit performed.",
+    "No HTTP checks of generated outputs; no build, CI, merge, gh-pages publish or server deploy performed.",
+    "24 derived PDFs are separate from the 10 original OKTE PDF annexes."
+  ],
+  "required_followup": [
+    "CI runner compute SHA-256 for exact source bytes and resulting PDFs, and report page counts / deterministic-build characteristics.",
+    "Trace each transcription back to its original user-supplied document or official independent source; label only as transcription until proven.",
+    "Content/privacy audit each actual PDF including metadata, layers and annotations; review medical, financial and personal data.",
+    "Check final generated PDF HTTP URL and SHA-256 against built artifact, then perform integration tests on combined PR #183-185."
+  ],
+  "records": [
+    {
+      "output_path": "web/documents/report-04082026-010/64-msz-praha-2-kzn-55-2025-136-2026-08-20.pdf",
+      "generator_path": "scripts/materialize-godot-state-text-pdfs.py",
+      "generator_git_blob_sha1": "2f9d14d4a1b9e767372334a32aa4bab2b3d92caa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-25/64-00.txt",
+          "git_blob_sha1": "092ba3a37c896d1d6bb63a43f49f82268588db5b",
+          "source_type": "versioned_text_transcription"
+        },
+        {
+          "path": "project-memory/state-text-sources-2026-08-25/64-01.txt",
+          "git_blob_sha1": "7c4fb4d76fde8b16a4d7a1913d548d8fce17d216",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/65-ku-4139-12-cj-2026-2305km-2026-08-20.pdf",
+      "generator_path": "scripts/materialize-godot-state-text-pdfs.py",
+      "generator_git_blob_sha1": "2f9d14d4a1b9e767372334a32aa4bab2b3d92caa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-25/65-00.txt",
+          "git_blob_sha1": "44d16566677a505940bd50dda77676d26f09678c",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/66-krpt-203594-7-cj-2026-0700kr-2026-08-20.pdf",
+      "generator_path": "scripts/materialize-godot-state-text-pdfs.py",
+      "generator_git_blob_sha1": "2f9d14d4a1b9e767372334a32aa4bab2b3d92caa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-25/66-00.txt",
+          "git_blob_sha1": "259f6c9a8f6cf58db7a54b386a6c9b00b2ac5455",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/67-krpt-priloha-rr-ku-54-2021.pdf",
+      "generator_path": "scripts/materialize-godot-state-text-pdfs.py",
+      "generator_git_blob_sha1": "2f9d14d4a1b9e767372334a32aa4bab2b3d92caa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-25/67-00.txt",
+          "git_blob_sha1": "a2939a00451f667726519a06b220f8aa14682c48",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf",
+      "generator_path": "scripts/materialize-godot-state-text-pdfs.py",
+      "generator_git_blob_sha1": "2f9d14d4a1b9e767372334a32aa4bab2b3d92caa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-25/68-00.txt",
+          "git_blob_sha1": "4a9d836c3cd3792114bef52b04ee436cc4adbc5c",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf",
+      "generator_path": "scripts/materialize-godot-state-text-pdfs.py",
+      "generator_git_blob_sha1": "2f9d14d4a1b9e767372334a32aa4bab2b3d92caa",
+      "source_files": [
+        {
+          "path": "project-memory/state-extracted-2026-08-25/69.txt",
+          "git_blob_sha1": "6c00607fd8bc0ae5bd5280a9f3285e38091f76f7",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/70-krpt-203594-8-cj-2026-0700kr-2026-08-20.pdf",
+      "generator_path": "scripts/materialize-godot-state-text-pdfs.py",
+      "generator_git_blob_sha1": "2f9d14d4a1b9e767372334a32aa4bab2b3d92caa",
+      "source_files": [
+        {
+          "path": "project-memory/state-extracted-2026-08-25/70.txt",
+          "git_blob_sha1": "955eb6b355319422145518d1fba62f21a42007af",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/71-ppr-44020-2-cj-2026-990210-pd-2026-08-24.pdf",
+      "generator_path": "scripts/materialize-godot-state-text-pdfs.py",
+      "generator_git_blob_sha1": "2f9d14d4a1b9e767372334a32aa4bab2b3d92caa",
+      "source_files": [
+        {
+          "path": "project-memory/state-extracted-2026-08-25/71.txt",
+          "git_blob_sha1": "25403a2c9525e82f2af8899821b4a0b8a6f43f90",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/72-md-46042-2026-010-4-2026-08-18.pdf",
+      "generator_path": "scripts/materialize-godot-late-state-pdfs.py",
+      "generator_git_blob_sha1": "9f3f6cfd3a3db486d80cd51c4464256f665eb492",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-25/72-md-46042-2026-010-4.txt",
+          "git_blob_sha1": "227d6ab94bf1f8b618d794eaf3305a1934fd3eab",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/73-msz-praha-2-kzn-683-2026-31-2026-08-24.pdf",
+      "generator_path": "scripts/materialize-godot-late-state-pdfs.py",
+      "generator_git_blob_sha1": "9f3f6cfd3a3db486d80cd51c4464256f665eb492",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-25/73-msz-praha-2-kzn-683-2026-31.txt",
+          "git_blob_sha1": "6b224f361bf480aab394645ee6c4f49e2a0996ef",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/74-ms-praha-15-a-44-2026-43-2026-08-25.pdf",
+      "generator_path": "scripts/materialize-godot-late-state-pdfs.py",
+      "generator_git_blob_sha1": "9f3f6cfd3a3db486d80cd51c4464256f665eb492",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-25/74-ms-praha-15-a-44-2026-43.txt",
+          "git_blob_sha1": "23baf7cedcd26bc2978ee1b0d16a450380a17ed3",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/75-os-prostejov-15-nt-3106-2026-predvolani-2026-08-25.pdf",
+      "generator_path": "scripts/materialize-godot-late-state-pdfs.py",
+      "generator_git_blob_sha1": "9f3f6cfd3a3db486d80cd51c4464256f665eb492",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-25/75-os-prostejov-15-nt-3106-2026-predvolani.txt",
+          "git_blob_sha1": "9fec5ed7e214ce357b891df0c4d30299e30142b9",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/76-os-prostejov-15-nt-3106-2026-neslouceni-2026-08-25.pdf",
+      "generator_path": "scripts/materialize-godot-late-state-pdfs.py",
+      "generator_git_blob_sha1": "9f3f6cfd3a3db486d80cd51c4464256f665eb492",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-25/76-os-prostejov-15-nt-3106-2026-neslouceni.txt",
+          "git_blob_sha1": "12d1f1155ab9aa3e20f749cc5b696ebe373104f8",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/77-uoou-05841-26-3-2026-08-26.pdf",
+      "generator_path": "scripts/materialize-uoou-2026-08-26.py",
+      "generator_git_blob_sha1": "2b49f9ef1d4fc8b9456fcd1a6d3c2a2de488daaa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-26/77-uoou-05841-26-3.txt",
+          "git_blob_sha1": "b45ff0401218dd6fb15e9ce4a699f566d642276e",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/78-ks-ostrava-st-82-2026-15-t-11-2025-2026-08-26.pdf",
+      "generator_path": "scripts/materialize-uoou-2026-08-26.py",
+      "generator_git_blob_sha1": "2b49f9ef1d4fc8b9456fcd1a6d3c2a2de488daaa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-26/78-ks-ostrava-st-82-2026.txt",
+          "git_blob_sha1": "56db1379b4d82eb553683b7a77b02398cc0e38e5",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/79-szu-10724-2026-2026-08-25.pdf",
+      "generator_path": "scripts/materialize-uoou-2026-08-26.py",
+      "generator_git_blob_sha1": "2b49f9ef1d4fc8b9456fcd1a6d3c2a2de488daaa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-27/79-szu-10724-2026-2026-08-25.txt",
+          "git_blob_sha1": "fcee8b6764da196d9f063221f4e6078b110c1ddb",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/80-szu-10724-2026-rozhodnuti-2026-08-26.pdf",
+      "generator_path": "scripts/materialize-uoou-2026-08-26.py",
+      "generator_git_blob_sha1": "2b49f9ef1d4fc8b9456fcd1a6d3c2a2de488daaa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-27/80-szu-10724-2026-decision-2026-08-26.txt",
+          "git_blob_sha1": "76be7ceea0a3bd3183d40541823e9bee5f4f0996",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/81-msz-praha-3-kzn-974-2026-100-2026-08-27.pdf",
+      "generator_path": "scripts/materialize-uoou-2026-08-26.py",
+      "generator_git_blob_sha1": "2b49f9ef1d4fc8b9456fcd1a6d3c2a2de488daaa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-27/81-msz-praha-3-kzn-974-2026-100-2026-08-27.txt",
+          "git_blob_sha1": "066e9c3c2eea3d6f7113d7d781ac9c69d44cefe4",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf",
+      "generator_path": "scripts/materialize-uoou-2026-08-26.py",
+      "generator_git_blob_sha1": "2b49f9ef1d4fc8b9456fcd1a6d3c2a2de488daaa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-28/82-ms-praha-8-ad-9-2026-85-2026-08-28.txt",
+          "git_blob_sha1": "cecb1498e90becfcaad237237ba5bcfc1a51d334",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/83-msz-praha-3-kzn-974-2026-103-2026-08-27.pdf",
+      "generator_path": "scripts/materialize-uoou-2026-08-26.py",
+      "generator_git_blob_sha1": "2b49f9ef1d4fc8b9456fcd1a6d3c2a2de488daaa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-27/83-msz-praha-3-kzn-974-2026-103-2026-08-27.txt",
+          "git_blob_sha1": "bdac004adbe83e625b193b86035af8caaf57dbdd",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/84-mk-53547-2026-socns-2026-08-31.pdf",
+      "generator_path": "scripts/materialize-uoou-2026-08-26.py",
+      "generator_git_blob_sha1": "2b49f9ef1d4fc8b9456fcd1a6d3c2a2de488daaa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-31/84-mk-53547-2026-socns.txt",
+          "git_blob_sha1": "04f749e01805b527f750d3ad19745c3230015681",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/85-mk-53559-2026-socns-2026-08-31.pdf",
+      "generator_path": "scripts/materialize-uoou-2026-08-26.py",
+      "generator_git_blob_sha1": "2b49f9ef1d4fc8b9456fcd1a6d3c2a2de488daaa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-08-31/85-mk-53559-2026-socns.txt",
+          "git_blob_sha1": "4ee334a14579cf0c16a68abf7eb777e4995a4e7e",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/87-msz-praha-3-kzn-974-2026-108-2026-09-01-verejna-kopie.pdf",
+      "generator_path": "scripts/materialize-uoou-2026-08-26.py",
+      "generator_git_blob_sha1": "2b49f9ef1d4fc8b9456fcd1a6d3c2a2de488daaa",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-09-01/87-msz-praha-3-kzn-974-2026-108-2026-09-01.txt.gz.b64",
+          "git_blob_sha1": "fa4b65cca74baf7e5b8f4f8401f596b4294647b9",
+          "source_type": "gzip_base64_encoded_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    },
+    {
+      "output_path": "web/documents/report-04082026-010/101-euda-exo-fhp-pd-26-d-106-2026-09-25-verejna-kopie.pdf",
+      "generator_path": "scripts/materialize-euda-2026-09-25.py",
+      "generator_git_blob_sha1": "fd6fb76905381dbe7bd79f8e24473fa6afcca8b7",
+      "source_files": [
+        {
+          "path": "project-memory/state-text-sources-2026-09-25/euda-exo-fhp-pd-26-d-106.txt",
+          "git_blob_sha1": "be267411db5052a96e21478e1db7f34e89ba82f0",
+          "source_type": "versioned_text_transcription"
+        }
+      ],
+      "source_sha256": null,
+      "output_sha256": null,
+      "output_page_count": null,
+      "public_http_sha256": null,
+      "original_binary_sha256_independently_checked": false,
+      "content_privacy_review": "NOT_PERFORMED",
+      "status": "SOURCE_PATHS_AND_GIT_BLOBS_CONFIRMED_OUTPUT_NOT_VALIDATED"
+    }
+  ]
+}
