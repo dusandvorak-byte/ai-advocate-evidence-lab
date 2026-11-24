@@ -215,4 +215,7 @@ await run('scripts/validate-okte-final-relations.mjs');
 await run('scripts/repair-chronology-deep-links.mjs');
 await run('scripts/validate-chronology-deep-links.mjs');
 await run('scripts/validate-release-exclusions.mjs');
+// An exact owner-approved PDF must survive every materialization and privacy pass unchanged.
+// If hardening changes the bytes, fail closed instead of silently publishing a replacement.
+await run('scripts/verify-approved-ct-pilot.mjs');
 console.log(`Evidence Lab 2.0 build: stát/veřejné instituce ${expectedStateCount}; naše podání ${expectedOurCount}; celkem ${expectedTotalCount}; titulní strana = Godot = manifest; ${publicPdfLinks.length} aktivních PDF; ${finalTimerRegistry.timers.length} živých procesních časovačů.`);
