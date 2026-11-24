@@ -8,7 +8,7 @@ const ANCHORED_FILINGS = [
   'doc-cz-dd-2026-11-04-cak-urgence-advokata',
 ];
 
-export function validateNavigationPages({ cz, en, churchEn, details, documents = [] }) {
+export function validateNavigationPages({ cz, en, churchEn, englishChronology = '', details, documents = [] }) {
   const errors = [];
   const targetIds = new Set([...cz.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]));
   const byId = new Map(documents.map(item => [item.id, item]));
@@ -49,11 +49,35 @@ export function validateNavigationPages({ cz, en, churchEn, details, documents =
   if (!en.includes('href="zpravy/04082026-010.html" hreflang="cs">Czech canonical chronology')) {
     errors.push('English homepage links Czech canonical chronology to incorrect EN target');
   }
+  const historicalId = 'doc-cz-ns-2026-11-03-zin-208-2026-postoupeni';
+  const legacyPriority = new Map([
+    ['doc-cz-mk-2026-08-12-mk-49467-2026-socns', 0],
+    ['doc-cz-kpr-2026-08-12-4873-2026', 1],
+    ['doc-cz-mv-2026-08-11-mv-127234-2-obp-2026', 2]
+  ]);
+  const expected = documents.filter(item => item.issue_date >= '2026-05-01' &&
+    item.document_type === 'state_record' && item.release_excluded !== true)
+    .sort((a,b) => String(b.issue_date).localeCompare(String(a.issue_date)) ||
+      (legacyPriority.get(a.id) ?? 999) - (legacyPriority.get(b.id) ?? 999) ||
+      String(a.id).localeCompare(String(b.id))).slice(0,3).map(item=>item.id);
+  if (expected.length !== 3) errors.push('Canonical latest records incomplete');
+  const englishRows = new Map();
+  for (const match of englishChronology.matchAll(/<tr\b[^>]*\bid="en-([^"]+)"[^>]*>[\s\S]*?<\/tr>/g)) {
+    if (englishRows.has(match[1])) errors.push('Duplicate English chronology row: '+match[1]);
+    englishRows.set(match[1],match[0]);
+  }
+  const historicalRow = englishRows.get(historicalId) || '';
+  if (!byId.has(historicalId) || !historicalRow.includes('Supreme Court forwards complaint about its information response to the data protection authority')) {
+    errors.push('Missing historical NS Zin 208 English chronology translation');
+  }
   for (const [name, text] of [['EN homepage', en], ['EN church homepage', churchEn]]) {
-    if (!text.includes('The Supreme Court forwarded the complaint')) {
-      errors.push(`${name} missing English NS Zin 208 card text`);
+    const cards = [...text.matchAll(/<article class="latest-record-card" data-document-id="([^"]+)">([\s\S]*?)<\/article>/g)];
+    if (JSON.stringify(cards.map(m=>m[1])) !== JSON.stringify(expected)) errors.push(name+' latest card IDs/order mismatch');
+    for (const [,id,body] of cards) {
+      const link = body.match(/<h3><a href="(?:\/ai-advocate-evidence-lab\/)?news\/04082026-010\.html#en-([^"]+)" hreflang="en">([^<]+)<\/a><\/h3>/);
+      if (!link || link[1] !== id || !link[2].trim() || !englishRows.has(id)) errors.push(name+' invalid English latest card link or title: '+id);
+      if (id === historicalId && !body.includes('The Supreme Court forwarded the complaint')) errors.push(name+' missing English NS Zin 208 card text');
     }
-    if (!text.includes('hreflang="en"')) errors.push(`${name} missing English card language metadata`);
   }
   if (!details['doc-cz-dd-2026-11-03-okte-srovnavaci-analyza']?.includes('Otevřít redigovanou veřejnou kopii PDF')) {
     errors.push('OKTE analysis page describes redacted derivative as original');
@@ -70,6 +94,7 @@ async function main() {
     cz: await readFile('web/zpravy/04082026-010.html', 'utf8'),
     en: await readFile('web/en.html', 'utf8'),
     churchEn: await readFile('web/kc/en.html', 'utf8'),
+    englishChronology: await readFile('web/news/04082026-010.html', 'utf8'),
     details,
     documents: registry.documents || [],
   };
