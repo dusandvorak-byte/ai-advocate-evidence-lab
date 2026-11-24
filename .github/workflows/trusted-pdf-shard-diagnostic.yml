@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: evidence-lab-pdf-shards-${{ github.ref }}
@@ -167,6 +168,21 @@ jobs:
           cp project-memory/documents-2026.json "$RUNNER_TEMP/canonical-documents-2026-prebuild.json"
           echo "EVIDENCE_LAB_CANONICAL_REGISTRY=$RUNNER_TEMP/canonical-documents-2026-prebuild.json" >> "$GITHUB_ENV"
 
+      - name: Prepare optional transformation shadow measurement
+        if: vars.EVIDENCE_LAB_PDF_TRANSFORM_SHADOW == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -m 700 "$RUNNER_TEMP/pdf-transform-capture"
+          echo "EVIDENCE_LAB_PDF_TRANSFORM_MODE=shadow" >> "$GITHUB_ENV"
+          echo "EVIDENCE_LAB_TRANSFORM_CAPTURE=$RUNNER_TEMP/pdf-transform-capture/snapshot.json" >> "$GITHUB_ENV"
+          if python3 scripts/fetch-pdf-transform-evidence.py "$RUNNER_TEMP/prior-transform-evidence"; then
+            echo "EVIDENCE_LAB_PRIOR_TRANSFORM_ROOT=$RUNNER_TEMP/prior-transform-evidence/prior" >> "$GITHUB_ENV"
+          else
+            echo "Cold shadow run; complete canonical audit still required."
+          fi
+
       - name: Materialize trusted public tree
         run: |
           set -euo pipefail
@@ -230,6 +246,16 @@ jobs:
 
       - name: Enforce exact approved CT digest on both staged trees
         run: node scripts/verify-approved-ct-pilot.mjs --staged
+
+      - name: Upload optional transform input capture (hashes only)
+        if: vars.EVIDENCE_LAB_PDF_TRANSFORM_SHADOW == '1'
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-transform-capture-${{ github.sha }}
+          path: ${{ runner.temp }}/pdf-transform-capture/snapshot.json
+          if-no-files-found: warn
+          retention-days: 3
 
       - name: Upload prepared public tree and hardening report
         uses: actions/upload-artifact@v4
@@ -384,6 +410,32 @@ jobs:
             test -f "review-artifacts/release-audit-fragments/pdf-shard-$i-of-16.json"
           done
           EVIDENCE_LAB_PUBLICATION_ROOT="${GITHUB_WORKSPACE}/release-site" python3 scripts/audit-release-evidence-sliced.py assemble 16
+      - name: Download optional transform input capture
+        id: transform_capture
+        if: vars.EVIDENCE_LAB_PDF_TRANSFORM_SHADOW == '1'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: pdf-transform-capture-${{ github.sha }}
+          path: ${{ runner.temp }}/pdf-transform-capture
+      - name: Bind transform input capture to completed exact audit
+        id: transform_plan
+        if: steps.transform_capture.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 scripts/pdf_transform_runtime.py --assemble "$RUNNER_TEMP/pdf-transform-capture/snapshot.json" review-artifacts/release-evidence-audit.json release-site
+      - name: Upload optional verified transform evidence
+        if: steps.transform_plan.outcome == 'success'
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-transform-evidence-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/pdf-transform-capture/snapshot.json
+            ${{ runner.temp }}/pdf-transform-capture/plan.json
+          if-no-files-found: error
+          retention-days: 7
+
       # Optional evidence for the incremental experiment; absence is never
       # permission to skip the authoritative audit or publication checks.
       - name: Create baseline byte evidence (experimental)
