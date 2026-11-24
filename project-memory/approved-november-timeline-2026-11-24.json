@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "approval_reference": "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7124391570",
+  "date_rule_reference": "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7134353173",
+  "note": "Timeline dates only; not issue, service or deployment dates. Only document_id mappings verified as already public are rendered. Unmapped items are pending identity/privacy verification.",
+  "items": [
+    {
+      "item": 1,
+      "timeline_date": "2026-11-23"
+    },
+    {
+      "item": 2,
+      "timeline_date": "2026-11-04"
+    },
+    {
+      "item": 3,
+      "timeline_date": "2026-11-04",
+      "document_id": "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021"
+    },
+    {
+      "item": 4,
+      "timeline_date": "2026-11-04",
+      "document_id": "doc-cz-pcr-krpt-2026-08-20-rr-ku-54-2021-priloha-1"
+    },
+    {
+      "item": 5,
+      "timeline_date": "2026-11-04",
+      "document_id": "doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-2"
+    },
+    {
+      "item": 6,
+      "timeline_date": "2026-11-04",
+      "document_id": "doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-3"
+    },
+    {
+      "item": 7,
+      "timeline_date": "2026-11-04",
+      "document_id": "doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-4"
+    },
+    {
+      "item": 8,
+      "timeline_date": "2026-11-04",
+      "document_id": "doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-5"
+    },
+    {
+      "item": 9,
+      "timeline_date": "2026-11-05"
+    },
+    {
+      "item": 10,
+      "timeline_date": "2026-11-06"
+    },
+    {
+      "item": 11,
+      "timeline_date": "2026-11-06"
+    },
+    {
+      "item": 12,
+      "timeline_date": "2026-11-06"
+    },
+    {
+      "item": 13,
+      "timeline_date": "2026-11-09"
+    },
+    {
+      "item": 14,
+      "timeline_date": "2026-11-16"
+    },
+    {
+      "item": 15,
+      "timeline_date": "2026-11-04"
+    },
+    {
+      "item": 16,
+      "timeline_date": "2026-11-04"
+    },
+    {
+      "item": 17,
+      "timeline_date": "2026-11-04"
+    },
+    {
+      "item": 18,
+      "timeline_date": "2026-11-04"
+    },
+    {
+      "item": 19,
+      "timeline_date": "2026-11-06"
+    },
+    {
+      "item": 20,
+      "timeline_date": "2026-11-06"
+    },
+    {
+      "item": 21,
+      "timeline_date": "2026-11-07"
+    },
+    {
+      "item": 22,
+      "timeline_date": "2026-11-10"
+    },
+    {
+      "item": 23,
+      "timeline_date": "2026-11-12"
+    },
+    {
+      "item": 24,
+      "timeline_date": "2026-11-12"
+    },
+    {
+      "item": 25,
+      "timeline_date": "2026-11-12"
+    },
+    {
+      "item": 26,
+      "timeline_date": "2026-11-12"
+    },
+    {
+      "item": 27,
+      "timeline_date": "2026-11-12"
+    },
+    {
+      "item": 28,
+      "timeline_date": "2026-11-12"
+    },
+    {
+      "item": 29,
+      "timeline_date": "2026-11-19"
+    },
+    {
+      "item": 30,
+      "timeline_date": "2026-11-23"
+    },
+    {
+      "item": 31,
+      "timeline_date": "2026-11-04"
+    },
+    {
+      "item": 32,
+      "timeline_date": "2026-11-04"
+    },
+    {
+      "item": 33,
+      "timeline_date": "2026-11-05"
+    },
+    {
+      "item": 34,
+      "timeline_date": "2026-11-09"
+    },
+    {
+      "item": 35,
+      "timeline_date": "2026-11-11"
+    },
+    {
+      "item": 36,
+      "timeline_date": "2026-11-11"
+    },
+    {
+      "item": 37,
+      "timeline_date": "2026-11-16"
+    },
+    {
+      "item": 38,
+      "timeline_date": "2026-11-18"
+    },
+    {
+      "item": 39,
+      "timeline_date": "2026-11-22"
+    },
+    {
+      "item": 40,
+      "timeline_date": "2026-11-11"
+    },
+    {
+      "item": 41,
+      "timeline_date": "2026-11-16"
+    },
+    {
+      "item": 42,
+      "timeline_date": "2026-11-19"
+    },
+    {
+      "item": 43,
+      "timeline_date": "2026-11-06"
+    },
+    {
+      "item": 44,
+      "timeline_date": "2026-11-09"
+    },
+    {
+      "item": 45,
+      "timeline_date": "2026-11-14"
+    }
+  ]
+}

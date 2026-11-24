@@ -613,9 +613,9 @@ def run_isolated_worker(mode: str, rel: str, *, force_rewrite: bool = False, tim
         }
 
 
-def inspect_pdf_isolated(path: Path) -> dict:
+def inspect_pdf_isolated(path: Path, *, timeout: int = 45) -> dict:
     rel = path.relative_to(WEB).as_posix()
-    result = run_isolated_worker("--worker-inspect", rel, timeout=45)
+    result = run_isolated_worker("--worker-inspect", rel, timeout=timeout)
     if result.get("error"):
         return {
             "page_count": None,
@@ -627,6 +627,24 @@ def inspect_pdf_isolated(path: Path) -> dict:
             "error": result["error"],
         }
     return result["inspection"]
+
+
+def retry_historical_inspection(rel: str, inspection: dict) -> dict:
+    """Recover a failed parallel inspection, never substitute a digest for a scan."""
+    if rel != HISTORIC_INTERPELLATION_PRIMARY:
+        return inspection
+    path = WEB / rel
+    if sha256_file(path) != HISTORIC_INTERPELLATION_SOURCE_SHA:
+        raise RuntimeError("historical interpellation source identity mismatch (physical input)")
+    if inspection.get("error") or not inspection.get("source_sha256"):
+        # Parallel workers have finished; retry only this immutable input serially.
+        # Both the full scan and its source identity remain mandatory.
+        inspection = inspect_pdf_isolated(path, timeout=120)
+        if inspection.get("error") or not inspection.get("source_sha256"):
+            raise RuntimeError("historical interpellation inspection failed after bounded serial retry")
+    if inspection.get("source_sha256") != HISTORIC_INTERPELLATION_SOURCE_SHA:
+        raise RuntimeError("historical interpellation source identity mismatch (inspection)")
+    return inspection
 
 
 def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) -> dict:
@@ -994,7 +1012,8 @@ def main() -> None:
     candidates = []
     for rel in rel_paths:
         items = by_path.get(rel, [])
-        inspection = inspections[rel]
+        inspection = retry_historical_inspection(rel, inspections[rel])
+        inspections[rel] = inspection
         derivative_xmp_cleanup = (
             any(derivative_doc(item) for item in items)
             and bool(inspection.get("xmp_present"))
