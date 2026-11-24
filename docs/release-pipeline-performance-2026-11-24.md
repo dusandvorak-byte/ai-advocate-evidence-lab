@@ -25,3 +25,8 @@ No completed total or speedup is claimed. Collect final timings for this run and
 6. Run equivalence and negative tests (tampered PDF, stale policy, revoked approval, missing shard, changed dependency, timeout, failed check), compare full and optimized builds and record wall-clock and runner minutes. Only then propose production integration. Keep the full audit available and scheduled independently without substituting it for mandatory per-release gates.
 
 The target of a few minutes is aspirational, not a measured result. Current release must remain undisturbed; this branch must be rebased/reviewed after it completes.
+
+## First isolated optimization
+- Introduced process-local memoization of the existing normalization function and stable reference indexes in PDF reconciliation. No file-read, hash, privacy, owner, date, institution, ambiguity or final-release checks were removed. Index order follows original array order; candidate filtering and duplicate-path handling remain in place.
+- Local Node 22.16.0 synthetic regression tests: 3/3 pass. Added the tests to the branch's static PR checks for future Node 24 CI execution. Full build equivalence and trusted CI are still required.
+- Single local synthetic benchmark of declared-owner matching (1,000 documents, 1,200 sources): old 1259.4 ms, indexed 3.1 ms, identical ordered results. This measures only the matching kernel, not PDF reconciliation as a whole or overall release performance. No real-world speedup claimed.
