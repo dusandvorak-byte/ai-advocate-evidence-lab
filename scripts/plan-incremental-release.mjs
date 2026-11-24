@@ -13,7 +13,7 @@ const digest = async (file) => {
   return hash.digest('hex');
 };
 
-async function inventory(root) {
+export async function inventory(root) {
   const result = new Map();
   if (!(await lstat(root)).isDirectory()) throw new Error('Root must be a directory');
   async function visit(dir, prefix = '') {
@@ -31,8 +31,14 @@ async function inventory(root) {
   return result;
 }
 
+// Hash a canonical list of paths and digests, not mtimes or traversal order.
+export function treeDigest(files) {
+  const entries = [...files].sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0);
+  return createHash('sha256').update(JSON.stringify(entries)).digest('hex');
+}
+
 const isPdf = name => /\.pdf$/i.test(name);
-function verifyMirroredPdfs(files) {
+export function verifyMirroredPdfs(files) {
   for (const [name, sha] of files) {
     if (!isPdf(name)) continue;
     const mirror = name.startsWith('web/') ? name.slice(4) : 'web/' + name;
@@ -54,7 +60,9 @@ export async function planIncrementalRelease(baseline, candidate) {
   }
   const historicalPdfChanged = [...changed, ...removed].filter(item => isPdf(item.path));
   return {
-    schema: 1,
+    schema: 2,
+    baseline_tree_sha256: treeDigest(oldFiles),
+    candidate_tree_sha256: treeDigest(newFiles),
     advisory_only: true,
     mode: historicalPdfChanged.length || removed.length ? 'full-required' : 'append-only-candidate',
     baseline_files: oldFiles.size,
