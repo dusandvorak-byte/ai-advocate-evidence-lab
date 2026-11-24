@@ -125,6 +125,7 @@ for (const doc of remedyDocuments) {
   const route = remedyRoutes.get(doc.id) || {};
   const recipient = route.recipient
     || (doc.recipient_id ? institutionNames.get(doc.recipient_id) : null)
+    || institutionNames.get((doc.recipients || []).find(r => r.role === 'primary')?.institution_id)
     || (reactionTarget ? institutionNames.get(reactionTarget.institution_id) : null)
     || institutionNames.get(doc.institution_id)
     || doc.institution_id
@@ -135,6 +136,7 @@ for (const doc of remedyDocuments) {
       ? (institutionNames.get('CZ-CITC') || 'Cannabis is The Cure, z.s.')
       : 'Mgr. Dušan Dvořák';
   const href = reaction ? `zpravy/04082026-010.html#${reaction.target_id}` : `listiny/${doc.id}.html`;
+  const inventoryOnly = doc.submission_side_basis === 'Source PDF and dated owner inventory; date alone does not prove dispatch or service' && !doc.received_date;
   timerMap.set(timerId, {
     id: timerId,
     category: 'current_remedies',
@@ -145,7 +147,7 @@ for (const doc of remedyDocuments) {
     reference: doc.reference || doc.id,
     start_date: doc.issue_date,
     count_from_date: addOneDay(doc.issue_date),
-    start_date_basis: `${doc.user_title}. Podáno a doručeno dne ${doc.issue_date}; tento den je den 0 a následující den je den 1.`,
+    start_date_basis: inventoryOnly ? `${doc.user_title}. Evidenční datum ${doc.issue_date}; odeslání ani doručení není tímto datem doloženo. Běh je pouze evidenční, nikoli potvrzená procesní lhůta.` : `${doc.user_title}. Podáno a doručeno dne ${doc.issue_date}; tento den je den 0 a následující den je den 1.`,
     status: 'active_derived_remedy',
     limit_kind: 'remedy_regime_requires_verified_override',
     limit_label: 'opravný prostředek – přesná lhůta dle konkrétního procesního režimu',
@@ -183,6 +185,13 @@ for (const requiredId of REQUIRED_CURRENT_TIMER_IDS) if (!ids.has(requiredId)) t
 for (const doc of remedyDocuments) {
   const represented = registry.timers.some(item => item.source_document_id === doc.id);
   if (!represented) throw new Error(`Kanonický opravný prostředek ${doc.id} nemá časovač`);
+}
+
+const missingEnglishTimers = registry.timers.filter(item => !String(englishTranslations.timers[item.id]?.title || '').trim() || !String(englishTranslations.timers[item.id]?.event || '').trim()).map(item => item.id);
+if (missingEnglishTimers.length) throw new Error('Missing complete English timer translations: ' + missingEnglishTimers.join(', '));
+if (process.argv.includes('--check-translations-only')) {
+  console.log('English timer translations verified: ' + registry.timers.length);
+  process.exit(0);
 }
 
 const labels = {
