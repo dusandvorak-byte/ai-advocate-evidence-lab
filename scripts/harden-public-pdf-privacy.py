@@ -324,6 +324,7 @@ def inspect_pdf_fast(path: Path, matchers) -> dict:
         reasons.append("qpdf_invalid")
 
     return {
+        "source_sha256": sha256_bytes(raw),
         "page_count": page_count,
         "reasons": reasons,
         "visible_private_hits": visible_hits,
@@ -654,6 +655,11 @@ def process_candidate_isolated(rel: str, force_rewrite: bool, inspection: dict) 
         }
 
     try:
+        if rel == HISTORIC_INTERPELLATION_PRIMARY and (
+            not requires_pinned_historical_rewrite(rel, inspection)
+            or before_sha != HISTORIC_INTERPELLATION_SOURCE_SHA
+        ):
+            return unchanged_failure("historical interpellation source changed after inspection")
         stage = create_candidate_stage(path)
         stage_source_sha = sha256_file(stage)
         if stage_source_sha != before_sha:

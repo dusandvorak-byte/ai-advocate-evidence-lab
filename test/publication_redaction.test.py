@@ -256,6 +256,26 @@ private.person@example.invalid
         invalid = dict(clean, reasons=["qpdf_invalid"])
         self.assertEqual(strategy(invalid, requires(path, invalid)), "qpdf_rewrite")
 
+    def test_historical_scheduler_consumes_real_inspection_digest(self):
+        self.write_policy_and_contract()
+        ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"))
+        source = self.tmpdir / "historical-synthetic.pdf"
+        with fitz.open() as doc:
+            doc.new_page().insert_text((45, 45), "Synthetic historical public document")
+            doc.save(source)
+        digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        inspection = ns["inspect_pdf_fast"](source, redaction.prepared_private_byte_matchers())
+        requires = ns["requires_pinned_historical_rewrite"]
+        rel = ns["HISTORIC_INTERPELLATION_PRIMARY"]
+        self.assertEqual(inspection["source_sha256"], digest)
+        # Only the test substitutes a synthetic pin; production pin is unchanged.
+        with mock.patch.dict(requires.__globals__, {"HISTORIC_INTERPELLATION_SOURCE_SHA": digest}):
+            self.assertTrue(requires(rel, inspection))
+            with self.assertRaisesRegex(RuntimeError, "source identity mismatch"):
+                requires(rel, {k: v for k, v in inspection.items() if k != "source_sha256"})
+            with self.assertRaisesRegex(RuntimeError, "source identity mismatch"):
+                requires(rel, dict(inspection, source_sha256="f" * 64))
+
     def test_candidate_strategy_routes_structural_rewrite_away_from_pymupdf(self):
         ns = runpy.run_path(
             str(ROOT / "scripts/harden-public-pdf-privacy.py"),
@@ -371,6 +391,7 @@ private.person@example.invalid
         with mock.patch.object(ns["subprocess"], "run", side_effect=poppler_misses_private_text):
             result = ns["inspect_pdf_fast"](source, matchers)
 
+        self.assertEqual(result["source_sha256"], hashlib.sha256(source.read_bytes()).hexdigest())
         self.assertTrue(result["text_scan_ok"])
         self.assertIn("private_match_1", result["visible_private_hits"])
         self.assertEqual(ns["candidate_strategy"](result, True), "redact")
