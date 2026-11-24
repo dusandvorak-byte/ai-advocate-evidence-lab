@@ -1,10 +1,10 @@
 {
-    "schema_version":  1,
-    "authorization_scope":  "publish-evidence-lab-gh-pages",
-    "authorized":  true,
-    "authorized_target_sha":  "0d2e65b30145360e4c7c51dffabe64fbafa7c1eb",
-    "note":  "Owner approved the 13 exact public copies and explicitly granted a one-time exception to independent code review for PR 324; review was not completed due to usage limits. All other gates succeeded. Exact artifact delta verified; item 33 excluded. No permanent gate changes. Receipts 7145482275, 7145704985, 7146085254.",
-    "privacy_review_artifact_id":  14968241351,
-    "privacy_review_artifact_sha256":  "e3bd1b52937266b5fbe7f52621c96c61c848e4ebf99355aeb356be0389a34ffc",
-    "privacy_review_receipt":  "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7145482275"
+  "schema_version": 1,
+  "authorization_scope": "publish-evidence-lab-gh-pages",
+  "authorized": true,
+  "authorized_target_sha": "2d453860ef6ea23567f686056ca98d85fd257802",
+  "note": "Owner requested chronological placement of newly published records. PR #325 changes ordering on CZ/EN surfaces, without adding or altering PDF bytes; the thirteen approved copies remain exact, and item 33 remains excluded. Trusted CI and publication checks succeeded for target 2d453860ef6ea23567f686056ca98d85fd257802. Authorization applies to this exact target.",
+  "privacy_review_artifact_id": 14968241351,
+  "privacy_review_artifact_sha256": "e3bd1b52937266b5fbe7f52621c96c61c848e4ebf99355aeb356be0389a34ffc",
+  "privacy_review_receipt": "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7145482275"
 }
