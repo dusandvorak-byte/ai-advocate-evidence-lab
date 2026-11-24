@@ -57,6 +57,7 @@ jobs:
           node --test test/justice-slalom-pdf-provenance.test.mjs
           node --test test/release-cache-version.test.mjs
           node --test test/plan-incremental-release.test.mjs
+          node --test test/assemble-incremental-stage.test.mjs
           node --test test/reconciliation-reference-index.test.mjs
           python3 test/release-audit-poll.test.py
           bash -n scripts/validate-final-web-contracts.sh
