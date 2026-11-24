@@ -983,6 +983,13 @@ def main() -> None:
     rel_paths = [p.relative_to(WEB).as_posix() for p in physical_paths]
 
     pins = read_pins() if os.environ.get("EVIDENCE_LAB_ENFORCE_LATE_PINS") == "1" else {}
+    transform_snapshot = None
+    if os.environ.get("EVIDENCE_LAB_PDF_TRANSFORM_MODE") == "shadow":
+        try:
+            from pdf_transform_runtime import capture_current
+            transform_snapshot = capture_current(WEB, by_path, policy_sha, authenticated_policy_identity, pins)
+        except Exception as exc:
+            print("::warning::Optional transform capture unavailable: " + type(exc).__name__, flush=True)
     inspections: dict[str, dict] = {}
     first_results = []
     first_rel = next((rel for rel, pin in pins.items()
@@ -1080,6 +1087,13 @@ def main() -> None:
                     "post": inspections[rel],
                     "failures": [f"privacy hardening worker failed for {rel}: {type(exc).__name__}"],
                 })
+
+    if transform_snapshot is not None:
+        try:
+            from pdf_transform_runtime import compare_with_prior
+            compare_with_prior(transform_snapshot, candidate_results, WEB)
+        except Exception as exc:
+            print("::warning::Optional transform shadow comparison unavailable: " + type(exc).__name__, flush=True)
 
     for result in sorted(candidate_results, key=lambda row: row["rel"]):
         rel = result["rel"]
