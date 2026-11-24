@@ -2,7 +2,8 @@
 
 The prior manifest and stage are accepted only after the authenticated
 GitHub artifact loader has checked exact run identity and ZIP digests.
-This module never skips a scan or writes public bytes.
+The shadow mode never changes results. Experimental reuse returns exact
+validated bytes to the hardener's atomic commit path; full final audit remains.
 """
 from __future__ import annotations
 import hashlib
@@ -23,6 +24,7 @@ SPECIAL_IDS = {
     "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191",
     "doc-cz-ksz-brn-2026-10-01-1-kzn-1079-2026-41",
     "doc-cz-pcr-pp-2026-10-07-ppr-52605-2-cj-2026-990210-pd",
+    "doc-cz-dd-2026-11-03-okte-srovnavaci-analyza",
 }
 
 
@@ -58,7 +60,7 @@ def runner_path(value):
 
 def capture_current(web, by_path, policy_sha, identity, pins):
     """Called before a single PDF has been transformed."""
-    if os.environ.get("EVIDENCE_LAB_PDF_TRANSFORM_MODE") != "shadow":
+    if os.environ.get("EVIDENCE_LAB_PDF_TRANSFORM_MODE") not in ("shadow", "reuse"):
         return None
     start = time.monotonic()
     origin = trusted_origin()
@@ -108,22 +110,72 @@ def compare_fresh_results(current, prior, results, web):
             "fresh_scan_authoritative": True, "skipped": 0}
 
 
-def compare_with_prior(snapshot, results, web):
-    if snapshot is None:
-        return
+def load_verified_prior():
     prior_root = os.environ.get("EVIDENCE_LAB_PRIOR_TRANSFORM_ROOT")
     if not prior_root:
-        print(json.dumps({"event": "pdf-transform-shadow", "prior_available": False, "skipped": 0}), flush=True)
-        return
+        return None
+    trusted_origin()
     base = runner_path(prior_root)
     prior = json.loads((base / "evidence/plan.json").read_bytes())
     captured = json.loads((base / "evidence/snapshot.json").read_bytes())
     report = json.loads((base / "report/release-evidence-audit.json").read_bytes())
+    run = json.loads((base / "run.json").read_bytes())
+    origin = captured["origin"]
+    if (run["id"] != origin["run_id"] or run["run_attempt"] != origin["run_attempt"] or
+        run["head_sha"] != origin["source_commit"] or run["status"] != "completed" or
+        run["conclusion"] != "success" or run["head_branch"] != "main" or
+        run["event"] != "push" or run["path"] != WORKFLOW or
+        run["repository"]["full_name"] != REPO or run["head_repository"]["full_name"] != REPO):
+        raise ValueError("previous trusted origin mismatch")
     verified = build_reuse_plan(snapshot=captured, report=report, stage=base / "tree/release-site",
-                                expected_origin=captured["origin"])
+                                expected_origin=origin)
     if prior != verified:
         raise ValueError("previous plan not reproducible from exact audit and stage")
+    return verified, base / "tree/release-site"
+
+
+def compare_with_prior(snapshot, results, web):
+    if snapshot is None:
+        return
+    loaded = load_verified_prior()
+    if loaded is None:
+        print(json.dumps({"event": "pdf-transform-shadow", "prior_available": False, "skipped": 0}), flush=True)
+        return
+    verified, _ = loaded
     print(json.dumps(compare_fresh_results(snapshot, verified, results, web)), flush=True)
+
+
+def prepare_reuse(snapshot):
+    """Only called from trusted workflow explicitly opted into experimental reuse."""
+    if snapshot is None or os.environ.get("EVIDENCE_LAB_PDF_TRANSFORM_MODE") != "reuse":
+        return None, {}
+    trusted_origin()
+    loaded = load_verified_prior()
+    if loaded is None:
+        return None, {}
+    prior, stage = loaded
+    return stage, {rel: {**row, "prior_origin": prior["origin"],
+                        "prior_report_sha256": prior["report_sha256"]}
+                   for rel, row in comparable_entries(snapshot, prior).items()}
+
+
+def verified_candidate_bytes(path, row, stage):
+    """Return exact previous output only when current input bytes still match."""
+    from pdf_audit_ledger import file_sha, safe_path
+    rel = row["rel"]
+    if not safe_path(rel) or file_sha(path) != row["source_sha256"]:
+        return None
+    source = Path(stage) / rel
+    mirror = Path(stage) / "web" / rel
+    if source.is_symlink() or mirror.is_symlink() or source.stat().st_size > 256 * 1024 * 1024:
+        return None
+    if file_sha(source) != row["public_sha256"] or file_sha(mirror) != row["public_sha256"]:
+        return None
+    data = source.read_bytes()
+    if (not data.startswith(b"%PDF-") or b"%%EOF" not in data[-4096:] or
+        hashlib.sha256(data).hexdigest() != row["public_sha256"] or file_sha(path) != row["source_sha256"]):
+        return None
+    return data
 
 
 if __name__ == "__main__":
