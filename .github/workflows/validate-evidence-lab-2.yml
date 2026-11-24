@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 env:
   NODE_VERSION: '24'
@@ -55,6 +56,10 @@ jobs:
           node --check scripts/validate-justice-slalom.mjs
           node --test test/justice-slalom-pdf-provenance.test.mjs
           node --test test/release-cache-version.test.mjs
+          node --test test/reconciliation-reference-index.test.mjs
+          python3 test/release-audit-poll.test.py
+          bash -n scripts/validate-final-web-contracts.sh
+          python3 test/final-web-negative-guard.test.py
           node --test test/late-original-public-provenance.test.mjs
           python3 test/test_live_release_sha.py -v
           python3 -m py_compile scripts/publication_redaction.py
@@ -184,7 +189,7 @@ jobs:
     name: Trusted build se secret-backed privacy policy
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 90
     steps:
       - name: Načíst přesný PR HEAD
         uses: actions/checkout@v4
@@ -202,385 +207,157 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Ověřit syntaxi kritických WEB validátorů
-        run: |
-          node --check scripts/validate-live-dockets-contract.mjs
-          node --check scripts/validate-process-chain-contract.mjs
-          node --check scripts/build-nsz-prelitigation-timeline.mjs
-          node --check scripts/build-court-publication-index.mjs
-          node --check scripts/validate-court-publication-index.mjs
-          node --check scripts/validate-euda-2026-10-19.mjs
-          node --check scripts/validate-five-originals-2026-10-20.mjs
-          node --check scripts/validate-prague-a17-a23-2026-10-20.mjs
-          node --check scripts/validate-six-pending-originals-2026-10-20.mjs
-          node --check scripts/validate-october-24-seven-pending-records.mjs
-          node --check scripts/validate-2026-10-26-uoou-pcr.mjs
-          node --check scripts/validate-vsz-praha-mk-church-2026-10-30.mjs
-          node --check scripts/validate-active-court-dockets.mjs
-
-      - name: Ověřit bezpečný prototyp Evidence Lab admin (syntetická data)
-        run: |
-          node --check prototype/evidence-admin/validate.mjs
-          node --check prototype/evidence-admin/validate.test.mjs
-          node --test prototype/evidence-admin/validate.test.mjs
-
-      - name: Ověřit Phase 2 backend foundation (syntetické soubory)
-        run: |
-          node --check prototype/evidence-admin/backend/pdf-gate.mjs
-          node --check prototype/evidence-admin/backend/review-workflow.mjs
-          node --check prototype/evidence-admin/backend/backend.test.mjs
-          node --test prototype/evidence-admin/backend/backend.test.mjs
-
-      - name: Ověřit izolované Phase 2 API a bezpečnostní testy
-        run: |
-          node --check prototype/evidence-admin/backend/local-demo-api.mjs
-          node --check prototype/evidence-admin/backend/local-demo-api.test.mjs
-          node --test prototype/evidence-admin/backend/local-demo-api.test.mjs
-
-      - name: Test live PDF SHA-256 propagation guard (synthetic fixtures only)
-        run: |
-          node --check scripts/verify-live-pdf.mjs
-          node --check scripts/verify-live-pdf.test.mjs
-          node --test scripts/verify-live-pdf.test.mjs
-
-      - name: Regress orphan checkout verifier survival (no publication)
-        run: |
-          node --check scripts/verify-live-pdf-workflow.test.mjs
-          node --test scripts/verify-live-pdf-workflow.test.mjs
-
-      - name: Regress held CT pilot exclusion (synthetic fixtures)
-        run: |
-          node --check scripts/verify-approved-ct-pilot.mjs
-          node --test test/verify-held-ct-pilot.test.mjs
-
-      - name: Regress standalone generated PDF preflight (synthetic fixtures)
-        run: |
-          node --check scripts/ensure-generated-state-pdfs.mjs
-          node --test test/ensure-generated-state-pdfs.test.mjs
-
-      - name: Validate final OKTE public relations logic (synthetic fixtures)
-        run: |
-          node --check scripts/validate-okte-final-relations.mjs
-          node --test test/validate-okte-final-relations.test.mjs
-
-      - name: Regress CZ/EN and return-anchor checker with synthetic fixtures
-        run: |
-          node --check scripts/validate-public-navigation.mjs
-          node --test test/validate-public-navigation.test.mjs
-
-      - name: Enforce binding privacy redaction in generated public copies
-        run: |
-          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 pymupdf==2.1
-          python3 -m py_compile scripts/publication_redaction.py
-          python3 -m py_compile scripts/harden-public-pdf-privacy.py
-          python3 -m py_compile scripts/generated_pdf_signatures.py
-          python3 -m py_compile scripts/materialize-godot-state-text-pdfs.py
-          python3 -m py_compile scripts/materialize-godot-late-state-pdfs.py
-          python3 -m py_compile scripts/materialize-uoou-2026-08-26.py
-          python3 -m py_compile scripts/materialize-euda-2026-09-25.py
-          python3 -m py_compile scripts/materialize-state-pdfs-2026-09-03.py
-          python3 -m py_compile scripts/materialize-msp-2026-09-08.py
-          python3 -m py_compile scripts/materialize-gibs-2026-09-08.py
-          python3 -m py_compile scripts/materialize-state-pdf-2026-10-01.py
-          python3 -m py_compile scripts/materialize-euda-access-documents-2026-10-01.py
-          python3 -m py_compile scripts/materialize-ekk-evidence-2026-10-02.py
-          python3 -m py_compile scripts/materialize-four-records-2026-10-03.py
-          python3 -m py_compile scripts/materialize-state-responses-2026-10-07.py
-          python3 -m py_compile scripts/materialize-justice-slalom-2026-10-12.py
-          python3 -m py_compile scripts/materialize-2026-10-15-godot-slalom.py
-          node --check scripts/materialize-os-praha4-public-copy.mjs
-
-      - name: Připravit generátor ověřených veřejných PDF
-        shell: bash
-        run: |
-          set -euo pipefail
-          bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
-          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
-          # Synthetic privacy tests use qpdf and must run after its installation.
-          python3 test/publication_redaction.test.py
-
-      - name: Provision private redaction policy only inside runner temp
+      - name: Určit trusted preflight vs explicitně autorizovanou publikaci
         shell: bash
         env:
-          PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
-          PRIVATE_POLICY_HMAC_KEY: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY }}
+          PREVIOUS_SHA: ${{ github.event.before }}
         run: |
           set -euo pipefail
-          test -n "$PRIVATE_POLICY_B64"
-          test -n "$PRIVATE_POLICY_HMAC_KEY"
-          POLICY_PATH="$RUNNER_TEMP/evidence-lab-private-redaction-policy.json"
-          printf '%s' "$PRIVATE_POLICY_B64" | base64 --decode > "$POLICY_PATH"
-          chmod 600 "$POLICY_PATH"
-          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=$POLICY_PATH" >> "$GITHUB_ENV"
-          echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY=$PRIVATE_POLICY_HMAC_KEY" >> "$GITHUB_ENV"
-          python3 - <<'PY'
-          import json, os
+          auth_file=".release/evidence-lab-publication-authorization.json"
+          mode="preflight"
+          authorized_target=""
+          audit_target="$GITHUB_SHA"
+
+          if [[ "$PREVIOUS_SHA" =~ ^[0-9a-f]{40}$ ]] && [[ "$PREVIOUS_SHA" != "0000000000000000000000000000000000000000" ]]; then
+            mapfile -t changed < <(git diff --name-only "$PREVIOUS_SHA" "$GITHUB_SHA")
+            if [ "${#changed[@]}" -eq 1 ] && [ "${changed[0]}" = "$auth_file" ]; then
+              python3 - "$auth_file" "$PREVIOUS_SHA" <<'PY'
+          import json, re, sys
           from pathlib import Path
-          path = Path(os.environ["RUNNER_TEMP"]) / "evidence-lab-private-redaction-policy.json"
+
+          path = Path(sys.argv[1])
+          previous = sys.argv[2]
           data = json.loads(path.read_text("utf-8"))
-          if data.get("policy_id") != "evidence-lab-private-redaction-policy":
-              raise SystemExit("private policy identity mismatch")
-          if data.get("revision") != 1 or data.get("revision_token") != "2026-11-17-v1":
-              raise SystemExit("private policy revision mismatch")
-          if not data.get("rules") or not data.get("forbidden"):
-              raise SystemExit("private policy is incomplete")
-          print("Private redaction policy provisioned in runner temp; private literals not logged.")
+          if data.get("schema_version") != 1:
+              raise SystemExit("publication authorization schema mismatch")
+          if data.get("authorization_scope") != "publish-evidence-lab-gh-pages":
+              raise SystemExit("publication authorization scope mismatch")
+          if data.get("authorized") is not True:
+              raise SystemExit("authorization-only commit must set authorized=true")
+          target = str(data.get("authorized_target_sha") or "")
+          if not re.fullmatch(r"[0-9a-f]{40}", target):
+              raise SystemExit("authorized_target_sha must be exact 40hex")
+          if target != previous:
+              raise SystemExit("authorized_target_sha must equal the immediately preceding main SHA")
+          print("Publication authorization file is structurally valid.")
+          PY
+              parent="$(git rev-parse "$GITHUB_SHA^")"
+              test "$parent" = "$PREVIOUS_SHA"
+              mode="publish"
+              authorized_target="$PREVIOUS_SHA"
+              audit_target="$PREVIOUS_SHA"
+            fi
+          fi
+
+          echo "RELEASE_MODE=$mode" >> "$GITHUB_ENV"
+          echo "AUTHORIZED_TARGET_SHA=$authorized_target" >> "$GITHUB_ENV"
+          echo "AUDIT_TARGET_SHA=$audit_target" >> "$GITHUB_ENV"
+          echo "Release mode: $mode"
+          echo "Authoritative audit target SHA: $audit_target"
+          if [ "$mode" = "publish" ]; then
+            echo "Authorized target SHA: $authorized_target"
+          else
+            echo "Trusted preflight only; gh-pages push is disabled."
+          fi
+
+
+      - name: Počkat na autoritativní exact-SHA shard audit
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          deadline=$((SECONDS + 5100))
+          run_id=""
+          successful_run_id=""
+          while [ "$SECONDS" -lt "$deadline" ]; do
+            candidate="$(gh run list \
+              --workflow trusted-pdf-shard-diagnostic.yml \
+              --commit "$AUDIT_TARGET_SHA" \
+              --limit 20 \
+              --json databaseId,status,conclusion,headSha,createdAt \
+              --jq 'sort_by(.createdAt) | last // empty' || true)"
+            if [ -n "$candidate" ] && [ "$candidate" != "null" ]; then
+              status="$(jq -r '.status' <<<"$candidate")"
+              run_id="$(jq -r '.databaseId' <<<"$candidate")"
+              candidate_sha="$(jq -r '.headSha' <<<"$candidate")"
+              if [[ ! "$run_id" =~ ^[0-9]+$ ]] || [ "$candidate_sha" != "$AUDIT_TARGET_SHA" ]; then
+                echo "Unexpected audit run identity; refusing publication." >&2
+                exit 1
+              fi
+              if [ "$status" = "completed" ]; then
+                conclusion="$(jq -r '.conclusion' <<<"$candidate")"
+                test "$conclusion" = "success" || {
+                  echo "Exact-SHA shard audit $run_id ended with $conclusion" >&2
+                  exit 1
+                }
+                successful_run_id="$run_id"
+                break
+              fi
+            fi
+            sleep 10
+          done
+          if [ -z "$successful_run_id" ]; then
+            echo "Timed out without a successful exact-SHA shard audit; refusing publication." >&2
+            exit 1
+          fi
+          echo "DIAGNOSTIC_RUN_ID=$successful_run_id" >> "$GITHUB_ENV"
+          echo "Authoritative shard audit succeeded: run $successful_run_id"
+
+      - name: Stáhnout a kryptograficky svázat auditovaný release tree
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/evidence-audit /tmp/verified-site
+          mkdir -p /tmp/evidence-audit/tree /tmp/evidence-audit/report /tmp/verified-site
+          gh run download "$DIAGNOSTIC_RUN_ID" \
+            -n "trusted-public-tree-$AUDIT_TARGET_SHA" \
+            -D /tmp/evidence-audit/tree
+          gh run download "$DIAGNOSTIC_RUN_ID" \
+            -n "evidence-lab-pdf-shard-diagnostic-$AUDIT_TARGET_SHA" \
+            -D /tmp/evidence-audit/report
+
+          report="$(find /tmp/evidence-audit/report -type f -name release-evidence-audit.json -print -quit)"
+          test -n "$report"
+          python3 - "$report" "$AUDIT_TARGET_SHA" <<'PY'
+          import json, sys
+          from pathlib import Path
+          report = json.loads(Path(sys.argv[1]).read_text("utf-8"))
+          expected = sys.argv[2]
+          if report.get("checkout_commit") != expected:
+              raise SystemExit("audit checkout SHA mismatch")
+          summary = report.get("summary") or {}
+          if summary.get("hard_failure_count") != 0 or summary.get("hard_failures"):
+              raise SystemExit("release audit contains hard failures")
+          recon = report.get("registry_web_stage_reconciliation") or {}
+          if recon.get("staged_set_exact_match") is not True:
+              raise SystemExit("staged PDF set is not an exact registry match")
+          if recon.get("id69_absent_from_final_release_state") is not True:
+              raise SystemExit("withdrawn ID69 reappeared in release state")
+          print("Exact-SHA release audit report accepted.")
           PY
 
-      - name: Obnovit a kryptograficky ověřit všechna verzovaná PDF z historie
-        run: node scripts/recover-historical-binary-blobs.mjs
-
-      - name: Materializovat a hashově ověřit verzované PDF Godota
-        run: node scripts/materialize-godot-pdf-bundle.mjs
-
-      - name: Vytvořit ověřené veřejné PDF nových státních listin 20.–24. 8. 2026
-        run: node scripts/materialize-godot-state-bundle-2026-08-24.mjs
-
-      - name: Materializovat ověřené veřejné PDF nových listin 26.–28. 8. 2026
-        run: python3 scripts/materialize-uoou-2026-08-26.py
-
-      - name: Materializovat ověřenou veřejnou kopii odpovědi EUDA z 25. 9. 2026
-        run: python3 scripts/materialize-euda-2026-09-25.py
-
-      - name: Materializovat KPR a OSZ Frýdek-Místek z 2.–3. 9. 2026
-        run: python3 scripts/materialize-state-pdfs-2026-09-03.py
-
-      - name: Připravit anglickou překladovou vrstvu
-        run: node scripts/prepare-md-english-build.mjs
-
-      - name: Spustit jediný kanonický build
-        run: node scripts/build-site.mjs
-
-      - name: Odstranit historické duplicity bloků procesních časovačů
-        run: node scripts/cleanup-godot-duplicate-timers.mjs
-
-      - name: Doplnit opačné vazby stát na naše předchozí podání
-        run: node scripts/patch-godot-reverse-reactions.mjs
-
-      - name: Finalizovat veřejné popisky bez změny kanonických dat
-        run: node scripts/finalize-public-labels.mjs
-
-      - name: Finalizovat anglické plochy Ministerstva dopravy
-        run: node scripts/finalize-md-english-surfaces.mjs
-
-      - name: Nahradit veřejné časovače archivem Justiční slalom
-        run: node scripts/build-justice-slalom.mjs
-
-      - name: Znovu sjednotit návratové odkazy po finálních Slalom kotvách
-        run: |
-          node scripts/repair-chronology-deep-links.mjs
-          node scripts/validate-chronology-deep-links.mjs
-
-      - name: Ověřit PDF odkazy Godota
-        run: node scripts/audit-godot-pdf-links.mjs
-
-      - name: Obnovit společnou jazykovou nabídku po všech generátorech
-        run: node scripts/build-language-access.mjs
-
-      - name: Fail closed if withdrawn ID 69 reappears after terminal public writers
-        run: node scripts/validate-release-exclusions.mjs
-
-      - name: Validate final public navigation after terminal writers
-        run: node scripts/validate-public-navigation.mjs
-
-      - name: Audit generated public derivatives (bounded slice)
-        run: |
-          python3 -m py_compile scripts/audit-release-evidence-2026-11-13.py
-          python3 -m py_compile scripts/audit-release-evidence-sliced.py
-          python3 scripts/audit-release-evidence-sliced.py generated
-
-      - name: Audit registry public derivatives (bounded slice)
-        run: python3 scripts/audit-release-evidence-sliced.py registry
-
-      - name: Audit final public PDFs in 8 parallel shards
-        shell: bash
-        run: |
-          set -euo pipefail
-          rm -f /tmp/evidence-pdf-shard-*.log
-          pids=()
-          for i in 0 1 2 3 4 5 6 7; do
-            python3 scripts/audit-release-evidence-sliced.py pdf-shard "$i" 8 >"/tmp/evidence-pdf-shard-$i.log" 2>&1 &
-            pids+=("$!")
-          done
-          for i in 0 1 2 3 4 5 6 7; do
-            wait "${pids[$i]}"
-            echo "===== PDF SHARD $i/8 ====="
-            cat "/tmp/evidence-pdf-shard-$i.log"
-          done
-
-      - name: Audit live OKTE SHA evidence (bounded slice)
-        run: python3 scripts/audit-release-evidence-sliced.py okte
-
-      - name: Audit redacted OKTE analysis (bounded slice)
-        run: python3 scripts/audit-release-evidence-sliced.py redacted
-
-      - name: Assemble sliced release evidence audit
-        env:
-          EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-          EXPECTED_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
-        run: |
-          python3 scripts/audit-release-evidence-sliced.py assemble 8
-          grep -q '"hard_failure_count": 0' review-artifacts/release-evidence-audit.json
-
-      - name: Ověřit mobilní čitelnost a plnou šířku hlavního článku
-        run: node test/mobile-readability-v5.test.mjs
-
-      - name: Ověřit archiv podání, příjemce, PDF a nepřítomnost časovačů
-        run: node scripts/validate-justice-slalom.mjs
-
-      - name: Ověřit dávku Godot a Justiční slalom z 15. října
-        run: node scripts/validate-2026-10-15-godot-slalom.mjs
-
-      - name: Ověřit nové státní listiny a uzavření přezkumu KSZ
-        run: node scripts/validate-state-release-2026-09-29.mjs
-
-      - name: Ověřit odpověď EUDA z 1. října a její procesní vazbu
-        run: node scripts/validate-euda-access-documents-2026-10-01.mjs
-
-      - name: Ověřit procesní odpověď Evropského ombudsmana z 28. září
-        run: node scripts/validate-eu-ombudsman-2026-09-28.mjs
-
-      - name: Ověřit aktuální rozkladovou fázi Konopné církve a propojení webů
-        run: node scripts/validate-church-current-state.mjs
-
-      - name: Ověřit EKK balík z 2. října včetně obou PDF
-        run: node scripts/validate-ekk-evidence-2026-10-02.mjs
-
-      - name: Diagnostic-only KS Brno and MS Praha provenance snapshot
-        run: node scripts/diagnose-four-records-provenance.mjs
-      - name: Ověřit čtyři nově doložené soudní listiny a jejich PDF
-        run: node scripts/validate-four-records-2026-10-03.mjs
-
-      - name: Ověřit podnět ČNB a společné podání MS Praha ze 6. října
-        run: node scripts/validate-october-6-submissions.mjs
-
-      - name: Ověřit rozdělení Godot / Justiční slalom pro listiny 6.–8. října
-        run: node scripts/validate-godot-filings-2026-10-08.mjs
-
-      - name: Ověřit dvě institucionální odpovědi z 1. a 7. října
-        run: node scripts/validate-state-responses-2026-10-07.mjs
-
-      - name: Ověřit rozhodnutí ministra vnitra o rozkladu ze 7. října
-        run: node scripts/validate-mv-rozklad-2026-10-07.mjs
-
-      - name: Ověřit tři lišty, navigaci a rozbalená soudní řízení
-        run: node scripts/validate-live-dockets-contract.mjs
-
-      - name: Křížově ověřit Godot, Slalom, cases a soudní tabulku
-        run: node scripts/validate-active-court-dockets.mjs
-
-      - name: Ověřit úplnou dvojstrannou evidenci všech soudů a orgánů
-        run: node scripts/validate-court-publication-index.mjs
-
-      - name: Verify 19 October EUDA reply (PDF and CZ/EN Godot)
-        run: node scripts/validate-euda-2026-10-19.mjs
-
-      - name: Verify all five byte-identical original PDFs and updated court service
-        run: node scripts/validate-five-originals-2026-10-20.mjs
-
-      - name: Verify two original Prague orders, their CZ/EN Godot and court links
-        run: node scripts/validate-prague-a17-a23-2026-10-20.mjs
-
-      - name: Verify remaining official original PDFs, 20 October rulings and 9 November police deadline
-        run: node scripts/validate-six-pending-originals-2026-10-20.mjs
-
-      - name: Verify 24 October seven document entries and original-PDF provenance
-        run: node scripts/validate-october-24-seven-pending-records.mjs
-
-      - name: Verify 26 October state originals and legal outcomes
-        run: node scripts/validate-2026-10-26-uoou-pcr.mjs
-
-      - name: Verify 7 byte-identical source PDFs for late October and 1 November 2026
-        run: node scripts/validate-originals-2026-11-02.mjs
-
-      - name: Verify 27 Oct VSZ Prague and 28 Oct Church addendum originals, chronology, CZ/EN and case links
-        run: node scripts/validate-vsz-praha-mk-church-2026-10-30.mjs
-
-      - name: Ověřit interní procesní registr a aktivní soudní větve
-        run: node scripts/validate-process-chain-contract.mjs
-
-      - name: Verify reviewed 4 November batch, deduplication, privacy, cases and CZ/EN
-        run: node scripts/validate-evidence-release-2026-11-04.mjs
-
-      - name: Verify 10 OKTE annexes and their public identities
-        run: node scripts/validate-okte-originals-2026-11-05.mjs
-
-      - name: Ověřit manifest Evidence Lab 2.0 bez ručních počtů
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -f web/data/build-manifest.json
-          grep -q '"schema_version": "2.2"' web/data/build-manifest.json
-          grep -q '"build_entrypoint": "scripts/build-site.mjs"' web/data/build-manifest.json
-          grep -q '"single_clock_system": true' web/data/build-manifest.json
-          grep -q '"two_derived_submission_counters": true' web/data/build-manifest.json
-          grep -q '"single_public_build_entrypoint": true' web/data/build-manifest.json
-          grep -q '"five_alliance_privacy_exemptions": true' web/data/build-manifest.json
-          grep -q '"lawful_third_person_anonymization": true' web/data/build-manifest.json
-          grep -q '"privacy_alliance_organizations_count": 5' web/data/build-manifest.json
-          grep -q '"internal_knowledge_not_auto_published": true' web/data/build-manifest.json
-          test -f web/data/operations-state.json
-          test -f web/data/active-court-dockets.json
-          test -f web/data/nsz-prelitigation-timeline.json
-          test -f web/data/court-publication-index.json
-          test "$(jq -r '.rows | length' web/data/court-publication-index.json)" -ge 13
-          test "$(jq -r '.counts.incoming' web/data/nsz-prelitigation-timeline.json)" -gt 0
-          test "$(jq -r '.counts.outgoing' web/data/nsz-prelitigation-timeline.json)" -gt 0
-          test "$(jq -r '.rows | length' web/data/active-court-dockets.json)" -ge 13
-          test "$(jq -c '.table_contract.width_percent' web/data/active-court-dockets.json)" = '[42,18,18,12,10]'
-          test -f web/data/registry-audit.json
-          test -f web/data/godot-pdf-audit.json
-          test -f web/data/generated-state-pdf-manifest.json
-          test -f web/data/generated-state-pdf-manifest-2026-09-03.json
-          test -f web/zpravy/04082026-010.html
-          test "$(jq -r '.count' web/data/generated-state-pdf-manifest.json)" = '7'
-          test "$(jq -r '.count' web/data/generated-state-pdf-manifest-2026-09-03.json)" = '2'
-          state_count="$(jq -r '.counts.state_public_submissions' web/data/build-manifest.json)"
-          test "$state_count" -ge 84
-          grep -q "Stát: ${state_count} evidovaných listin" web/zpravy/04082026-010.html
-          english_count="$(grep -o 'data-english-chronology-count="[0-9]*"' web/news/04082026-010.html | head -1 | grep -o '[0-9]*')"
-          test "$english_count" -ge "$state_count"
-          grep -q 'state-love-table' web/zpravy/04082026-010.html
-          grep -q 'state-love-table' web/news/04082026-010.html
-          grep -q 'doc-cz-citc-2026-10-06-eu-ombudsman-euda-form-59936' web/zpravy/04082026-010.html
-          grep -q 'KPR 5080/2026' web/zpravy/04082026-010.html
-          grep -q '1 ZN 7061/2026-79' web/zpravy/04082026-010.html
-          grep -q '1 ZN 7061/2026-79' web/news/04082026-010.html
-          grep -q '2026-09-03' web/zpravy/04082026-010.html
-          grep -q '8 Ad 9/2026-85' web/zpravy/04082026-010.html
-          grep -q '8 Ad 9/2026-85' web/news/04082026-010.html
-          grep -q '82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf' web/zpravy/04082026-010.html
-          grep -q '"required_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
-          grep -q '"reaction_without_active_pdf_count": 0' web/data/godot-pdf-audit.json
-          grep -q 'Ministry of Transport' web/news/04082026-010.html
-          grep -q '2 KZN 55/2025-136' web/zpravy/04082026-010.html
-          grep -q 'KU-4139-12/ČJ-2026-2305KM' web/zpravy/04082026-010.html
-          grep -q 'KRPT-203594-8/ČJ-2026-0700KR' web/zpravy/04082026-010.html
-          grep -q 'PPR-44020-2/ČJ-2026-990210-PD' web/zpravy/04082026-010.html
-          for f in web/documents/report-04082026-010/{64-msz-praha-2-kzn-55-2025-136-2026-08-20,65-ku-4139-12-cj-2026-2305km-2026-08-20,66-krpt-203594-7-cj-2026-0700kr-2026-08-20,67-krpt-priloha-rr-ku-54-2021,68-krpt-priloha-rr-ku-54-2021-priloha-1,70-krpt-203594-8-cj-2026-0700kr-2026-08-20,71-ppr-44020-2-cj-2026-990210-pd-2026-08-24}.pdf; do
-            test -f "$f"
-            test "$(head -c 5 "$f")" = '%PDF-'
-          done
-          test ! -e web/documents/report-04082026-010/69-krpt-priloha-metodicko-odborne-vyjezdy-okte-2009-2019.pdf
-          for f in web/documents/report-04082026-010/{kpr-5080-2026-vyrizeni-stiznosti-2026-09-02-verejna-kopie,osz-fm-1-zn-7061-2026-79-2026-09-03-verejna-kopie}.pdf; do
-            test -f "$f"
-            test "$(head -c 5 "$f")" = '%PDF-'
-          done
-          test -f web/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf
-          test "$(head -c 5 web/documents/report-04082026-010/82-ms-praha-8-ad-9-2026-85-2026-08-28.pdf)" = '%PDF-'
-          ! grep -qi 'AI Advocate for the Poor — final English project submission' web/zpravy/04082026-010.html
-          ! grep -qi 'Výroční zpráva 2025 aliance Cannabis is The Cure' web/zpravy/04082026-010.html
+          test -d /tmp/evidence-audit/tree/release-site
+          cp -a /tmp/evidence-audit/tree/release-site/. /tmp/verified-site/
+          test "$(cat /tmp/verified-site/.source-commit)" = "$AUDIT_TARGET_SHA"
+          test "$(cat /tmp/verified-site/web/.source-commit)" = "$AUDIT_TARGET_SHA"
+          test -f /tmp/verified-site/.nojekyll
+          test -f /tmp/verified-site/web/.nojekyll
+          python3 scripts/validate-staged-legacy-pdf-provenance.py "$report" /tmp/verified-site
+          node scripts/release-cache-version.mjs --verify /tmp/verified-site "$AUDIT_TARGET_SHA"
 
       - name: Uložit release evidence audit pro lidské review
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: evidence-lab-release-evidence-${{ runner.os }}
-          path: review-artifacts
-          if-no-files-found: warn
+          path: /tmp/evidence-audit/report/release-evidence-audit.json
+          if-no-files-found: error
 
       - name: Uložit ověřený web pouze jako kontrolní artefakt
         uses: actions/upload-artifact@v4
         with:
           name: evidence-lab-2-kontrolni-web-${{ runner.os }}
-          path: web
+          path: /tmp/evidence-audit/tree/web
+          if-no-files-found: error

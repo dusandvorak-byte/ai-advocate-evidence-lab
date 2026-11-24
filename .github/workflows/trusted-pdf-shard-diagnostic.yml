@@ -33,7 +33,96 @@ jobs:
         run: |
           bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
-      - name: Provision private redaction policy
+      - name: Ověřit syntaxi kritických WEB validátorů
+        run: |
+          node --check scripts/validate-live-dockets-contract.mjs
+          node --check scripts/validate-process-chain-contract.mjs
+          node --check scripts/build-nsz-prelitigation-timeline.mjs
+          node --check scripts/build-court-publication-index.mjs
+          node --check scripts/validate-court-publication-index.mjs
+          node --check scripts/validate-euda-2026-10-19.mjs
+          node --check scripts/validate-five-originals-2026-10-20.mjs
+          node --check scripts/validate-prague-a17-a23-2026-10-20.mjs
+          node --check scripts/validate-six-pending-originals-2026-10-20.mjs
+          node --check scripts/validate-october-24-seven-pending-records.mjs
+          node --check scripts/validate-2026-10-26-uoou-pcr.mjs
+          node --check scripts/validate-vsz-praha-mk-church-2026-10-30.mjs
+          node --check scripts/validate-active-court-dockets.mjs
+
+      - name: Ověřit bezpečný prototyp Evidence Lab admin (syntetická data)
+        run: |
+          node --check prototype/evidence-admin/validate.mjs
+          node --check prototype/evidence-admin/validate.test.mjs
+          node --test prototype/evidence-admin/validate.test.mjs
+
+      - name: Ověřit Phase 2 backend foundation (syntetické soubory)
+        run: |
+          node --check prototype/evidence-admin/backend/pdf-gate.mjs
+          node --check prototype/evidence-admin/backend/review-workflow.mjs
+          node --check prototype/evidence-admin/backend/backend.test.mjs
+          node --test prototype/evidence-admin/backend/backend.test.mjs
+
+      - name: Ověřit izolované Phase 2 API a bezpečnostní testy
+        run: |
+          node --check prototype/evidence-admin/backend/local-demo-api.mjs
+          node --check prototype/evidence-admin/backend/local-demo-api.test.mjs
+          node --test prototype/evidence-admin/backend/local-demo-api.test.mjs
+
+      - name: Test live PDF SHA-256 propagation guard (synthetic fixtures only)
+        run: |
+          node --check scripts/verify-live-pdf.mjs
+          node --check scripts/verify-live-pdf.test.mjs
+          node --test scripts/verify-live-pdf.test.mjs
+
+      - name: Regress orphan checkout verifier survival (no publication)
+        run: |
+          node --check scripts/verify-live-pdf-workflow.test.mjs
+          node --test scripts/verify-live-pdf-workflow.test.mjs
+
+      - name: Regress held CT pilot exclusion (synthetic fixtures)
+        run: |
+          node --check scripts/verify-approved-ct-pilot.mjs
+          node --test test/verify-held-ct-pilot.test.mjs
+
+      - name: Regress standalone generated PDF preflight (synthetic fixtures)
+        run: |
+          node --check scripts/ensure-generated-state-pdfs.mjs
+          node --test test/ensure-generated-state-pdfs.test.mjs
+
+      - name: Validate final OKTE public relations logic (synthetic fixtures)
+        run: |
+          node --check scripts/validate-okte-final-relations.mjs
+          node --test test/validate-okte-final-relations.test.mjs
+
+      - name: Regress CZ/EN and return-anchor checker with synthetic fixtures
+        run: |
+          node --check scripts/validate-public-navigation.mjs
+          node --test test/validate-public-navigation.test.mjs
+
+      - name: Enforce binding privacy redaction in generated public copies
+        run: |
+          python3 -m py_compile scripts/publication_redaction.py
+          python3 -m py_compile scripts/harden-public-pdf-privacy.py
+          python3 -m py_compile scripts/generated_pdf_signatures.py
+          python3 -m py_compile scripts/audit-release-evidence-2026-11-13.py scripts/audit-release-evidence-sliced.py
+          python3 -m py_compile scripts/materialize-godot-state-text-pdfs.py
+          python3 -m py_compile scripts/materialize-godot-late-state-pdfs.py
+          python3 -m py_compile scripts/materialize-uoou-2026-08-26.py
+          python3 -m py_compile scripts/materialize-euda-2026-09-25.py
+          python3 -m py_compile scripts/materialize-state-pdfs-2026-09-03.py
+          python3 -m py_compile scripts/materialize-msp-2026-09-08.py
+          python3 -m py_compile scripts/materialize-gibs-2026-09-08.py
+          python3 -m py_compile scripts/materialize-state-pdf-2026-10-01.py
+          python3 -m py_compile scripts/materialize-euda-access-documents-2026-10-01.py
+          python3 -m py_compile scripts/materialize-ekk-evidence-2026-10-02.py
+          python3 -m py_compile scripts/materialize-four-records-2026-10-03.py
+          python3 -m py_compile scripts/materialize-state-responses-2026-10-07.py
+          python3 -m py_compile scripts/materialize-justice-slalom-2026-10-12.py
+          python3 -m py_compile scripts/materialize-2026-10-15-godot-slalom.py
+          node --check scripts/materialize-os-praha4-public-copy.mjs
+
+      - name: Provision private redaction policy only inside runner temp
+        shell: bash
         env:
           PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
           PRIVATE_POLICY_HMAC_KEY: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY }}
@@ -46,6 +135,20 @@ jobs:
           chmod 600 "$POLICY_PATH"
           echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=$POLICY_PATH" >> "$GITHUB_ENV"
           echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY=$PRIVATE_POLICY_HMAC_KEY" >> "$GITHUB_ENV"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path(os.environ["RUNNER_TEMP"]) / "evidence-lab-private-redaction-policy.json"
+          data = json.loads(path.read_text("utf-8"))
+          if data.get("policy_id") != "evidence-lab-private-redaction-policy":
+              raise SystemExit("private policy identity mismatch")
+          if data.get("revision") != 1 or data.get("revision_token") != "2026-11-17-v1":
+              raise SystemExit("private policy revision mismatch")
+          if not data.get("rules") or not data.get("forbidden"):
+              raise SystemExit("private policy is incomplete")
+          print("Private redaction policy provisioned in runner temp; private literals not logged.")
+          PY
+
       - name: Snapshot canonical registry before build reconciliation
         run: |
           set -euo pipefail
@@ -77,6 +180,9 @@ jobs:
           node scripts/build-language-access.mjs
           node scripts/validate-release-exclusions.mjs
           node scripts/validate-public-navigation.mjs
+      - name: Validate all final web contracts before staging
+        run: bash scripts/validate-final-web-contracts.sh
+
       - name: Assemble exact staged publication tree
         shell: bash
         run: |
