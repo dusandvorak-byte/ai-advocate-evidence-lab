@@ -1,0 +1,20 @@
+{
+  "document_id": "doc-cz-dd-2026-11-23-os-praha4-10-c-69-2026-ct-doplneni",
+  "issue_date": "2026-11-23",
+  "case_number": "10 C 69/2026",
+  "issuer": "Mgr. Dušan Dvořák",
+  "recipient": "Obvodní soud pro Prahu 4",
+  "title_cs": "Doplnění žaloby proti České televizi",
+  "source_original_sha256": "fed3669ffdef7f3fdd6be4a79dd330eb6b1ac34851342e630685e7cd4df860ad",
+  "public_sha256": "13762205a406156e15e488c3936523facd10ee55f24c5c7fa908f924440a7aa8",
+  "public_git_blob_sha1": "f44ffa7535ad6bb6c5f2b194c4ae5b48e9f13a6a",
+  "public_size_bytes": 1306798,
+  "page_count": 10,
+  "public_copy_kind": "redacted_public_copy",
+  "proposed_public_path": "documents/2026-11-23/2026-11-23-os-praha4-10-c-69-2026-ct-doplneni.pdf",
+  "approval_receipt": "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7124065133",
+  "approval_date": "2026-11-24",
+  "status": "APPROVED_PENDING_BINARY_IMPORT_AND_RELEASE_GATES",
+  "publish": false,
+  "notes": "Metadata staging only. PDF not yet imported, no deploy authorization for any other files. Verify exact binary, privacy gates and live HTTPS digest before marking published."
+}
