@@ -1,5 +1,6 @@
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
+import { captureShadowInputs, requireShadowInputs, verifyShadowOutputs } from './shadow-surface-inputs.mjs';
 
 const source = {
   documents: 'project-memory/documents-2026.json',
@@ -44,6 +45,17 @@ const run = (script, ...args) => timedChild(globalThis.process.execPath, script,
 const runPython = script => timedChild('python3', script);
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 
+// Explicit isolated experiment only. Normal trusted workflow invokes this file
+// without arguments and always takes the complete build path.
+const cli = globalThis.process.argv.slice(2);
+if (cli.length === 1 && cli[0] === '--shadow-input-fingerprint') {
+  console.log((await captureShadowInputs(globalThis.process.cwd())).inputSha);
+  globalThis.process.exit(0);
+}
+const shadow = cli.length === 2 && cli[0] === '--shadow-surfaces-only';
+if (cli.length && !shadow) throw Error('Unknown build arguments');
+const shadowBefore = shadow ? await requireShadowInputs(globalThis.process.cwd(),cli[1]) : null;
+
 // A checked-out page may contain yesterday's generated archive. Its PDF links
 // must not enter the intermediate build before the terminal archive writer
 // replaces them with links derived from the current canonical registry.
@@ -54,6 +66,7 @@ for (const file of ['web/index.html','web/en.html','web/kc/index.html','web/kc/e
 }
 
 await run('scripts/validate-architecture.mjs');
+if (!shadow) {
 await run('scripts/materialize-binary-sources.mjs');
 await run('scripts/apply-justice-slalom-2026-10-12-case-links.mjs');
 await runPython('scripts/materialize-pdf-release-2026-09-29.py');
@@ -87,6 +100,7 @@ await run('scripts/diagnose-interpelace-380.mjs', 'after-hardening');
 await run('scripts/reconcile-public-pdfs.mjs');
 await runPython('scripts/sync-deterministic-public-sha.py');
 await run('scripts/refresh-okte-public-annexes.mjs');
+}
 await run('scripts/audit-registries.mjs');
 
 const documentsRegistry = await readJson(source.documents);
@@ -232,3 +246,21 @@ await run('scripts/validate-release-exclusions.mjs');
 // If hardening changes the bytes, fail closed instead of silently publishing a replacement.
 await run('scripts/verify-approved-ct-pilot.mjs');
 console.log(`Evidence Lab 2.0 build: stát/veřejné instituce ${expectedStateCount}; naše podání ${expectedOurCount}; celkem ${expectedTotalCount}; titulní strana = Godot = manifest; ${publicPdfLinks.length} aktivních PDF; ${finalTimerRegistry.timers.length} živých procesních časovačů.`);
+
+if (shadow) {
+  // Match the terminal surface sequence in trusted-pdf-shard-diagnostic.yml.
+  // This still is not a trusted release audit or a publish command.
+  await run('scripts/cleanup-godot-duplicate-timers.mjs');
+  await run('scripts/patch-godot-reverse-reactions.mjs');
+  await run('scripts/finalize-public-labels.mjs');
+  await run('scripts/finalize-md-english-surfaces.mjs');
+  await run('scripts/build-justice-slalom.mjs');
+  await run('scripts/repair-chronology-deep-links.mjs');
+  await run('scripts/validate-chronology-deep-links.mjs');
+  await run('scripts/audit-godot-pdf-links.mjs');
+  await run('scripts/build-language-access.mjs');
+  await run('scripts/validate-release-exclusions.mjs');
+  await run('scripts/validate-public-navigation.mjs');
+  await timedChild('bash','scripts/validate-final-web-contracts.sh');
+  console.log(JSON.stringify(await verifyShadowOutputs(globalThis.process.cwd(),shadowBefore)));
+}

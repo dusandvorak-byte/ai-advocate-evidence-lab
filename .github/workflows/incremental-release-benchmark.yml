@@ -1,0 +1,48 @@
+name: Incremental release benchmark (read only)
+on:
+  push:
+    branches: [perf/publication-latency-315]
+    paths:
+      - '.github/workflows/incremental-release-benchmark.yml'
+      - 'scripts/benchmark-incremental-stage.mjs'
+      - 'scripts/baseline-release-evidence.mjs'
+      - 'scripts/assemble-incremental-stage.mjs'
+      - 'scripts/plan-incremental-release.mjs'
+      - 'scripts/fetch-benchmark-release.py'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: incremental-release-benchmark-315
+  cancel-in-progress: true
+jobs:
+  compare:
+    if: github.repository == 'dusandvorak-byte/ai-advocate-evidence-lab'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify and fetch two pinned successful audit artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/incremental-benchmark"
+          python3 scripts/fetch-benchmark-release.py "$RUNNER_TEMP/incremental-benchmark"
+      - name: Compare exact staged trees (not full generation)
+        run: |
+          set -euo pipefail
+          node scripts/benchmark-incremental-stage.mjs \
+            "$RUNNER_TEMP/incremental-benchmark/old" \
+            "$RUNNER_TEMP/incremental-benchmark/new" \
+            "$GITHUB_REPOSITORY" 45416743059 45434990153 \
+            4ad97ed3e52c71044975dea612a99b20d04da378 \
+            264d9177d8e5a2289a93d1a83a4510d23dfd5c2f
+      - name: Remove local artifacts
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/incremental-benchmark"
