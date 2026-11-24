@@ -396,7 +396,7 @@
       "path": "project-memory/documents-2026-supplement-2026-11-23-ct-pilot.json",
       "role": "batch",
       "batch_date": "2026-11-24",
-      "public_status": "User-approved exact public PDF; pending trusted release audit and production promotion"
+      "public_status": "Technical privacy hold; excluded from this release; original exact approval preserved in historical Git object"
     }
   ]
 }

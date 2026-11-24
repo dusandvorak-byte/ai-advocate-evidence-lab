@@ -39,6 +39,10 @@ const releaseExclusionAllowlist = new Map([
   ['doc-cz-pcr-krpt-2026-08-20-metodicko-odborne-vyjezdy-okte', {
     source: 'project-memory/documents-2026-supplement-2026-08-20-24.json',
     reason: 'owner_decision_2026-11-15_do_not_publish'
+  }],
+  ['doc-cz-dd-2026-11-23-os-praha4-10-c-69-2026-ct-doplneni', {
+    source: 'project-memory/documents-2026-supplement-2026-11-23-ct-pilot.json',
+    reason: 'technical_privacy_hold_2026-11-24_pending_reapproval'
   }]
 ]);
 const excludedIds = new Set();

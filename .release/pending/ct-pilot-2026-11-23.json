@@ -14,8 +14,11 @@
   "proposed_public_path": "documents/2026-11-23/2026-11-23-os-praha4-10-c-69-2026-ct-doplneni.pdf",
   "approval_receipt": "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7124065133",
   "approval_date": "2026-11-24",
-  "status": "APPROVED_BINARY_IMPORTED_PENDING_RELEASE_GATES",
+  "status": "APPROVED_BINARY_HELD_PRIVACY_REPROCESSING_REQUIRED",
   "publish": false,
-  "notes": "Exact approved binary transferred through authorized Google Drive connector; Git blob matches independent local Git hash, Google Drive readback SHA-256 matches approval. Staging only; no production deploy until publication controls pass.",
-  "staged_pdf_path": "web/documents/2026-11-23/2026-11-23-os-praha4-10-c-69-2026-ct-doplneni.pdf"
+  "notes": "Exact approved binary transferred through authorized Google Drive connector; Git blob matches independent local Git hash, Google Drive readback SHA-256 matches approval. Staging only; no production deploy until publication controls pass. Technical hold: exact approved bytes have multiple PDF revision markers; trusted build changes identity. No new public copy approved. Existing Git history preserves exact prior approval; removed from current web tree, not from history.",
+  "staged_pdf_path": null,
+  "archived_approved_commit": "3384f9ea02b4f061629af22329368e40ddf58689",
+  "archived_approved_path": "web/documents/2026-11-23/2026-11-23-os-praha4-10-c-69-2026-ct-doplneni.pdf",
+  "hold_reason": "technical_privacy_hold_2026-11-24_pending_reapproval"
 }
