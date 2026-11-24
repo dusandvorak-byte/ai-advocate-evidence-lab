@@ -31,10 +31,16 @@ const fixture = () => {
     return [id, `<a href="zpravy/04082026-010.html#${fragment}">${label}</a>`
       + (id.includes('okte-srovnavaci') ? '<a>Otevřít redigovanou veřejnou kopii PDF</a>' : '')];
   }));
+  const historicalId='doc-cz-ns-2026-11-03-zin-208-2026-postoupeni';
+  const latestIds=[historicalId,'doc-state-2','doc-state-3'];
+  documents.push(...latestIds.map((id,i)=>({id,issue_date:'2026-11-0'+(3-i),document_type:'state_record'})));
+  const cards=latestIds.map(id=>'<article class="latest-record-card" data-document-id="'+id+'"><h3><a href="news/04082026-010.html#en-'+id+'" hreflang="en">'+(id===historicalId?'The Supreme Court forwarded the complaint':'Translated record')+'</a></h3></article>').join('');
+  const englishChronology=latestIds.map(id=>'<tr id="en-'+id+'"><td>'+(id===historicalId?'Supreme Court forwards complaint about its information response to the data protection authority':'Translated record')+'</td></tr>').join('');
   return {
     cz,
-    en: '<a href="zpravy/04082026-010.html" hreflang="cs">Czech canonical chronology →</a><h3><a hreflang="en">The Supreme Court forwarded the complaint</a></h3>',
-    churchEn: '<h3><a hreflang="en">The Supreme Court forwarded the complaint</a></h3>',
+    englishChronology,
+    en: '<a href="zpravy/04082026-010.html" hreflang="cs">Czech canonical chronology →</a>'+cards,
+    churchEn: cards,
     details,
     documents,
   };
@@ -56,4 +62,26 @@ test('reject broken fallback, missing row anchor and wrong Czech link on English
   assert.ok(errors.some(x => x.includes('Missing Justice Slalom row anchor')));
   assert.ok(errors.some(x => x.includes('Invalid detail return target')));
   assert.ok(errors.some(x => x.includes('incorrect EN target')));
+});
+
+test('historical translated record may leave latest three when newer records arrive',()=>{
+  const data=fixture();
+  const old='doc-cz-ns-2026-11-03-zin-208-2026-postoupeni';
+  const newer=['doc-new-1','doc-new-2','doc-new-3'];
+  data.documents.push(...newer.map((id,i)=>({id,issue_date:'2026-11-'+(23-i),document_type:'state_record'})));
+  const cards=newer.map(id=>'<article class="latest-record-card" data-document-id="'+id+'"><h3><a href="news/04082026-010.html#en-'+id+'" hreflang="en">Translated new record</a></h3></article>').join('');
+  data.en=data.en.replace(/<article class="latest-record-card"[\s\S]*$/ ,cards);
+  data.churchEn=cards;
+  data.englishChronology+=newer.map(id=>'<tr id="en-'+id+'"><td>Translated new record</td></tr>').join('');
+  assert.deepEqual(validateNavigationPages(data),[]);
+  data.englishChronology=data.englishChronology.replace('id="en-'+old+'"','id="missing"');
+  assert.ok(validateNavigationPages(data).some(e=>e.includes('Missing historical NS Zin 208')));
+});
+test('reject stale latest card order and broken English target',()=>{
+  const data=fixture();
+  data.churchEn=data.churchEn.replace('hreflang="en"','hreflang="cs"');
+  data.documents.push({id:'doc-new',issue_date:'2026-11-24',document_type:'state_record'});
+  const errors=validateNavigationPages(data);
+  assert.ok(errors.some(e=>e.includes('latest card IDs/order mismatch')));
+  assert.ok(errors.some(e=>e.includes('invalid English latest card link')));
 });
