@@ -1,0 +1,27 @@
+name: PDF audit ledger isolated tests
+on:
+  push:
+    branches: [perf/authenticated-pdf-audit-cache]
+  pull_request:
+    paths:
+      - 'scripts/pdf_*ledger*.py'
+      - 'scripts/pdf_audit_engine_fingerprint.py'
+      - 'test/pdf-audit-ledger.test.py'
+      - '.github/workflows/pdf-audit-ledger-shadow.yml'
+permissions:
+  contents: read
+jobs:
+  synthetic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - name: Syntax and synthetic ledger tests
+        run: |
+          python3 -m py_compile scripts/pdf_audit_ledger.py scripts/pdf_audit_ledger_shadow.py scripts/pdf_audit_engine_fingerprint.py scripts/pdf_transform_ledger.py scripts/audit-release-evidence-2026-11-13.py
+          python3 test/pdf-audit-ledger.test.py -v
