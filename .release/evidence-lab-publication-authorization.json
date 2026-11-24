@@ -2,6 +2,9 @@
   "schema_version": 1,
   "authorization_scope": "publish-evidence-lab-gh-pages",
   "authorized": true,
-  "authorized_target_sha": "f39a375ec5c28b9e2ad8ced0c2d993498e6e374c",
-  "note": "Candidate exact-SHA Evidence Lab production release of main@f39a375ec5c28b9e2ad8ced0c2d993498e6e374c, contingent on completed successful trusted secret-backed full validation, all PDF shards, privacy audit, independent human privacy review, exact-SHA staging reconciliation, excluded ID69 and independently verified live output. No release on PR creation."
+  "authorized_target_sha": "232c9134750633641ba3bb96504c9f72bf734852",
+  "note": "Owner's explicit final human privacy assessment for exact artifact 14926705652 recorded at issue #293 comment 7133910671. Exact-SHA full validation 45403980406, shard audit 45403980460, preflight 45403980505 successful; independent code review #309 complete; scope and binary comparison #293 comment 7133829224. Four approved annexes only newly added; CT and ID69 excluded.",
+  "privacy_review_artifact_id": 14926705652,
+  "privacy_review_artifact_sha256": "456c8f70194c30bb9bc26a765140d800f5b254cf2ae3d40bc1876d3186030ab6",
+  "privacy_review_receipt": "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7133910671"
 }
