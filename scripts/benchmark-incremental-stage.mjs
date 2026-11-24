@@ -16,7 +16,7 @@ async function load(dir,runId,source) {
   const expected={source,repository:repo,runId,attempt:'1'};
   const manifest=await createBaselineEvidence({root,reportPath,...expected});
   await verifyBaselineEvidence({manifest,run,expected,root,reportPath});
-  return {root,manifest};
+  return {root,manifest,report:JSON.parse(await readFile(reportPath,'utf8'))};
 }
 const old=await load(oldDir,oldRunId,oldSha), next=await load(newDir,newRunId,newSha);
 let start=performance.now();
@@ -26,6 +26,22 @@ const metrics={scope:'verified artifact stage assembly only',oldRunId,newRunId,p
   mode:plan.mode,baseline_files:plan.baseline_files,candidate_files:plan.candidate_files,
   unchanged:plan.unchanged_files,added:plan.added.length,changed:plan.changed.length,
   removed:plan.removed.length,historical_pdf_changed:plan.historical_pdf_changed.length};
+// Compare audit provenance without printing PDF text or private policy.
+const oldRows=new Map(old.report.all_final_web_pdfs.map(r=>[r.published_path,r]));
+const newRows=new Map(next.report.all_final_web_pdfs.map(r=>[r.published_path,r]));
+const oldHardening=new Map((old.report.privacy_hardening.documents||[]).map(r=>[r.public_path,r]));
+const newHardening=new Map((next.report.privacy_hardening.documents||[]).map(r=>[r.public_path,r]));
+const canonicalChanges=plan.historical_pdf_changed.filter(r=>!r.path.startsWith('web/'));
+const diagnosis=canonicalChanges.map(row=>{
+  const a=oldRows.get(row.path),b=newRows.get(row.path),h1=oldHardening.get(row.path),h2=newHardening.get(row.path);
+  return {path:row.path,previous_sha256:row.previous_sha256,new_sha256:row.sha256,
+    previous_pages:a?.page_count,new_pages:b?.page_count,
+    same_registry_ids:JSON.stringify(a?.registry_ids)===JSON.stringify(b?.registry_ids),
+    input_sha_equal:!!h1?.input_sha256&&h1.input_sha256===h2?.input_sha256,
+    old_hardening_strategy:h1?.strategy||null,new_hardening_strategy:h2?.strategy||null,
+    old_hardening_changed:h1?.changed??null,new_hardening_changed:h2?.changed??null};
+});
+console.log(JSON.stringify({diagnostic:'historical PDF changes; equal source hash does not prove equivalent output',canonical_changes:diagnosis},null,2));
 if(plan.mode!=='append-only-candidate'){
   console.log(JSON.stringify({...metrics,result:'not eligible; retain full build'},null,2));
 } else {
