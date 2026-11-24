@@ -107,5 +107,25 @@ class LedgerTests(unittest.TestCase):
         self.assertIsNone(self.lookup())
 
 
+    def test_shadow_measures_hit_but_never_skips_fresh_scan(self):
+        from pdf_audit_ledger_shadow import ShadowAuditLedger
+        shadow = ShadowAuditLedger(self.store, self.key, self.identity["policy_sha"],
+            self.identity["private_policy_identity"], self.identity["engine_sha"], self.origin, self.checkout)
+        calls = []
+        def scan(path):
+            calls.append(path)
+            return fixture_facts()
+        self.assertEqual(shadow.compare(self.pdf, scan), fixture_facts())
+        self.assertEqual(shadow.compare(self.pdf, scan), fixture_facts())
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(shadow.stats["hits"], 1)
+        self.assertEqual(shadow.stats["recorded"], 1)
+        def changed_scan(path):
+            return fixture_facts() | {"page_count": 3}
+        self.assertEqual(shadow.compare(self.pdf, changed_scan)["page_count"], 3)
+        self.assertEqual(shadow.stats["mismatches"], 1)
+        self.assertEqual(shadow.compare(self.pdf, scan)["page_count"], 2)
+
+
 if __name__ == "__main__":
     unittest.main()
