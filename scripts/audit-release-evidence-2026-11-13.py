@@ -576,7 +576,7 @@ def fetch_live(path: str, tries: int = 3):
             time.sleep(1 + attempt)
     return {"url": url, "http_status": None, "error": last}
 
-def audit_registry_public_derivatives():
+def audit_registry_public_derivatives(facts_provider=None):
     registry_path = WEB / "data/documents-2026.json"
     registry = json.loads(registry_path.read_text("utf-8"))
     rows = []
@@ -601,7 +601,7 @@ def audit_registry_public_derivatives():
         if not local.exists():
             failures.append(f"missing registry public derivative {rel}")
             continue
-        facts = pdf_facts(local)
+        facts = facts_provider(local, rel) if facts_provider is not None else pdf_facts(local)
         checks = {
             "pdf_header_prefix_clean": not facts["non_whitespace_prefix_before_pdf_header"],
             "pdf_eof_present": facts["pdf_eof_present"],
