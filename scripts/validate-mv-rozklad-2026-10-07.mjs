@@ -1,5 +1,8 @@
 import { readFile, access } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {indexJusticeSlalomHardeningEvidence} from './justice-slalom-pdf-provenance.mjs';
+import {mvRozkladPdf, verifyMvRozkladPdf} from './mv-rozklad-pdf-integrity.mjs';
 
 const fail=message=>{throw new Error(`MV-ROZKLAD-2026-10-07-GATE: ${message}`);};
 const sha256=bytes=>createHash('sha256').update(bytes).digest('hex');
@@ -33,8 +36,25 @@ const parts=[
 ];
 for(const part of parts) await access(part);
 
+// Reconstruct and authenticate the archived source independently of the public tree.
+const original=execFileSync('python3',['-c',"import runpy,sys; sys.stdout.buffer.write(runpy.run_path('scripts/materialize-mv-rozklad-2026-10-07.py')['load_original']())"],{maxBuffer:16*1024*1024});
+if(mvRozkladPdf.id!==docId||mvRozkladPdf.path!==pdfPath||mvRozkladPdf.sourceSha!==originalSha||mvRozkladPdf.sourceSize!==originalSize) fail('interní zdrojové piny nesouhlasí');
 const bytes=await readFile('web/'+pdfPath);
-if(bytes.length!==originalSize||!bytes.subarray(0,5).equals(Buffer.from('%PDF-'))||!bytes.subarray(-2048).toString('latin1').includes('%%EOF')||sha256(bytes)!==originalSha) fail('veřejný PDF není byte-identický s nahraným originálem');
+const contract=JSON.parse(await readFile('project-memory/private-redaction-policy-contract.json','utf8'));
+const report=JSON.parse(await readFile('project-memory/privacy-hardening-report.json','utf8'));
+if(contract.status!=='binding'||!/^[0-9a-f]{64}$/.test(contract.approved_policy_hmac||'')||
+    report.schema_version!=='1.2'||report.policy_file!=='scripts/publication_redaction.py'||
+    report.policy_sha256!==sha256(await readFile(report.policy_file))) fail('neověřená identita privacy reportu');
+const evidence=indexJusticeSlalomHardeningEvidence(report,{expectedAuthenticatedPolicyIdentity:contract.approved_policy_hmac});
+if(!evidence.hardeningReportOk) fail('privacy report není autentizovaný a bez chyb');
+for(const registryPath of ['project-memory/documents-2026.json','web/data/documents-2026.json']){
+  const registry=JSON.parse(await readFile(registryPath,'utf8'));
+  const records=registry.documents.filter(d=>d.id===docId);
+  if(records.length!==1) fail('kanonický veřejný záznam chybí nebo je duplicitní');
+  verifyMvRozkladPdf({original,publicCopy:bytes,record:records[0],...evidence});
+}
+const info=execFileSync('pdfinfo',['web/'+pdfPath],{encoding:'utf8'});
+if(!/^Pages:\s+6\s*$/m.test(info)) fail('veřejná kopie nemá šest stran');
 
 const sources=JSON.parse(await readFile('project-memory/document-sources.json','utf8'));
 if(!sources.sources?.some(s=>s.path===supplementPath&&s.role==='batch'&&s.batch_date==='2026-10-07')) fail('supplement není v manifestu');
@@ -52,10 +72,10 @@ if(!en.documents?.[docId]) fail('chybí anglický popis');
 const cz=await readFile('web/zpravy/04082026-010.html','utf8');
 const eh=await readFile('web/news/04082026-010.html','utf8');
 if(!cz.includes(`<tr id="${docId}"`)||!eh.includes(`id="en-${docId}"`)) fail('CZ/EN Státu lásky čas neobsahuje nový řádek');
-if(!cz.includes(pdfPath)||!eh.includes(pdfPath)) fail('CZ/EN řádek nemá odkaz na originální PDF');
+if(!cz.includes(pdfPath)||!eh.includes(pdfPath)) fail('CZ/EN řádek nemá odkaz na ověřenou veřejnou kopii');
 if(cz.includes(oldPdfPath)||eh.includes(oldPdfPath)) fail('veřejné HTML stále odkazuje na starou textovou kopii');
 const start=cz.indexOf(`<tr id="${docId}"`),end=start<0?-1:cz.indexOf('</tr>',start);
 const row=start>=0&&end>=0?cz.slice(start,end+5):'';
 if(!row.includes(`data-related-document-id="${appealId}"`)) fail('řádek neukazuje rozklad, na který ministr reagoval');
 if(cz.includes(`data-timer-id="${timerId}"`)||eh.includes(`data-timer-id="${timerId}"`)) fail('zaniklý timer se vrátil do veřejného HTML');
-console.log('MV-134798-4/SO-2026: byte-identický originál PDF, CZ/EN vazby a zánik rozkladového timeru jsou konzistentní.');
+console.log('MV-134798-4/SO-2026: archivní originál a připnutá bezpečnostně upravená veřejná kopie, CZ/EN vazby a zánik rozkladového timeru jsou konzistentní.');

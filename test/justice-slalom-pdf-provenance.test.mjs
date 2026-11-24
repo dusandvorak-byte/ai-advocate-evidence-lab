@@ -670,3 +670,24 @@ test('historical primary PDF requires independently pinned registered clean hard
     assert.throws(() => verifyHistoricPrimaryProvenance(spec,record,{...row,...damage}), /provenance mismatch/);
   assert.throws(() => verifyHistoricPrimaryProvenance(spec,{...record,public:{...record.public,sha256:'f'.repeat(64)}},{...row,output_sha256:'f'.repeat(64)}), /provenance mismatch/);
 });
+
+import {mvRozkladPdf, verifyMvRozkladPdf} from '../scripts/mv-rozklad-pdf-integrity.mjs';
+
+test('MV rozklad requires independently pinned archived source and already-live redacted public copy', () => {
+  const original=Buffer.from('%PDF-1.4\nsource fixture\n%%EOF\n');
+  const publicCopy=Buffer.from('%PDF-1.4\nredacted fixture\n%%EOF\n');
+  const digest=b=>createHash('sha256').update(b).digest('hex');
+  const spec={id:'doc-test-mv',path:'documents/mv.pdf',sourceSha:digest(original),sourceSize:original.length,pages:6,publicSha:digest(publicCopy),publicSize:publicCopy.length};
+  const record={id:spec.id,public:{pdf:spec.path,intended_pdf:spec.path,sha256:spec.publicSha,source_original_sha256:spec.sourceSha,source_original_size_bytes:spec.sourceSize,source_original_page_count:spec.pages,verification_status:'published; publication_policy_hardened'}};
+  const row={id:spec.id,public_path:spec.path,input_sha256:spec.sourceSha,output_sha256:spec.publicSha,registered:true,changed:true,page_count:spec.pages,strategy:'redact',text_fallback:null,redaction_matches:[{page:1,rule:'synthetic_private'}],known_private_identifier_hits_after:[],decoded_private_identifier_hits_after:[]};
+  const args={spec,original,publicCopy,record,hardeningReportOk:true,hardeningById:new Map([[spec.id,row]])};
+  const verify=overrides=>verifyMvRozkladPdf({...args,...overrides});
+  assert.equal(verify({}),true);
+  for(const overrides of [{original:publicCopy},{publicCopy:original},{hardeningReportOk:false},{record:{...record,public:{...record.public,sha256:spec.sourceSha}}}])
+    assert.throws(()=>verify(overrides),/provenance mismatch/);
+  for(const damage of [{registered:false},{page_count:5},{strategy:'qpdf_rewrite'},{redaction_matches:[]},{text_fallback:{}},{decoded_private_identifier_hits_after:['synthetic']},{input_sha256:'f'.repeat(64)}])
+    assert.throws(()=>verify({hardeningById:new Map([[spec.id,{...row,...damage}]])}),/provenance mismatch/);
+  const replacement=Buffer.from('%PDF-1.4\nreplacement fixture\n%%EOF\n'), replacementSha=digest(replacement);
+  assert.throws(()=>verify({publicCopy:replacement,record:{...record,public:{...record.public,sha256:replacementSha}},hardeningById:new Map([[spec.id,{...row,output_sha256:replacementSha}]])}),/provenance mismatch/);
+  assert.notEqual(mvRozkladPdf.sourceSha,mvRozkladPdf.publicSha);
+});
