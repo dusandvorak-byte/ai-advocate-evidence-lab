@@ -1,3 +1,4 @@
+import {verifyLateOriginal} from './late-original-public-provenance.mjs';
 import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';import {execFileSync} from 'node:child_process';
 const must=(v,m)=>{if(!v)throw Error('OCT24-PROVENANCE:'+m)};
 const a=JSON.parse(await readFile('project-memory/documents-2026-supplement-2026-10-24-three-originals.json','utf8'));
@@ -19,8 +20,7 @@ for(const d of [...a.documents,...b.documents]){
  else must(cs.includes('<tr id="'+d.id+'"')&&en.includes('<tr id="en-'+d.id+'"'),'CZ/EN timeline row missing '+d.id);
  if(d.public.pdf){
   const p='web/'+d.public.pdf;const buffer=await readFile(p);
-  must(buffer.subarray(0,5).toString()==='%PDF-'&&buffer.length===d.public.source_original_size_bytes,'PDF header/bytes '+d.id);
-  must(createHash('sha256').update(buffer).digest('hex')===d.public.source_original_sha256,'not exact original '+d.id);
+  await verifyLateOriginal(d);
   const info=execFileSync('pdfinfo',[p],{encoding:'utf8'});must(new RegExp('Pages:\\s+'+d.public.source_original_page_count+'\\b').test(info),'pages changed '+d.id);
   if(!attachment)must(cs.includes(d.public.pdf)&&en.includes(d.public.pdf),'CZ/EN original links missing '+d.id);
  } else {
@@ -32,4 +32,4 @@ const courtIds=['court-prostejov-2t104-15nt3104','court-prostejov-2t65-15nt3106'
 for(const id of courtIds){const c=court.rows.find(x=>x.id===id);must(c&&c.remedy_cs.includes('21. 10. 2026')&&c.remedy_cs.includes('24. 10. 2026'),'missing counsel filing court narrative '+id);}
 const ns=JSON.parse(await readFile('web/data/nsz-prelitigation-timeline.json','utf8'));
 must(ns.counts.total===ns.groups.reduce((sum,g)=>sum+g.items.length,0)&&ns.counts.incoming>=5&&ns.counts.outgoing>=21&&ns.counts.archival===4,'preexisting NSZ correspondence must remain with later canonical additions');
-console.log('OCT24: 7 unique documents; 3 exact original public PDFs, 4 evidence entries with missing originals accurately labelled; CZ/EN; original dates; court links; NSZ 30 OK');
+console.log('OCT24: 7 unique documents; 5 independently pinned public PDFs, 2 evidence entries without public PDFs accurately labelled; CZ/EN; original dates; court links; NSZ 30 OK');

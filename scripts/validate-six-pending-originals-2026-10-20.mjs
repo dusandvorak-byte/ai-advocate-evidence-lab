@@ -1,3 +1,4 @@
+import {verifyLateOriginal} from './late-original-public-provenance.mjs';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
@@ -24,8 +25,7 @@ for(const [id,date,ref,file,sha,size,pages] of expected){
  assert(d.issue_date===date&&d.received_date===null,'issue/service date mismatch: '+id);
  assert(d.reference===ref&&d.public.pdf.endsWith(file),'wrong docket or original path: '+id);
  assert(d.public.source_original_sha256===sha&&d.public.sha256===sha&&d.public.source_original_size_bytes===size,'bad PDF metadata: '+id);
- const pdf=await readFile('web/'+d.public.pdf);assert(pdf.length===size&&pdf.subarray(0,5).toString()==='%PDF-','missing original '+id);
- assert(createHash('sha256').update(pdf).digest('hex')===sha,'not binary-identical original '+id);
+ await verifyLateOriginal(d);
  const info=execFileSync('pdfinfo',['web/'+d.public.pdf],{encoding:'utf8'});assert(new RegExp('Pages:\\s+'+pages+'\\b').test(info),'page count changed '+id);
  assert(cz.includes('id="'+id+'"')&&en.includes('id="en-'+id+'"'),'missing Godot CZ/EN row '+id);
  assert(cz.includes(file)&&en.includes(file),'CZ/EN PDF original links missing '+id);
@@ -50,4 +50,4 @@ const t=timers.timers?.find(x=>x.id==='timer-admin-krpt-infz-2026-10-15-extended
 assert(t&&t.start_date==='2026-10-15'&&t.due_date==='2026-11-09'&&t.latest_document_id===expected[5][0],'new exact 9 November deadline missing');
 const nsz=JSON.parse(await readFile('web/data/nsz-prelitigation-timeline.json','utf8'));
 assert(nsz.counts.total===nsz.groups.reduce((n,g)=>n+g.items.length,0)&&nsz.counts.incoming>=5&&nsz.counts.outgoing>=21&&nsz.counts.archival===4,'NSZ original records must remain while newer evidence is added');
-console.log('ALL SIX OFFICIAL ORIGINALS, TWO 20 OCT DECISIONS, CZ/EN GODOT, CASE LINKS, 9 NOV DEADLINE, NSZ=30: OK');
+console.log('ALL SIX ARCHIVED OFFICIAL ORIGINALS AND PINNED PUBLIC COPIES, TWO 20 OCT DECISIONS, CZ/EN GODOT, CASE LINKS, 9 NOV DEADLINE, NSZ=30: OK');

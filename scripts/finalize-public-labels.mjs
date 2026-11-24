@@ -154,3 +154,7 @@ console.log(`Veřejná formulace sjednocena (${replacements} náhrad); 4/4 ploch
 // Terminal projection derives dates and links only from the hardened canonical registry.
 const {finalizeAttachmentSurfaces}=await import('./finalize-state-attachment-surfaces.mjs');
 await finalizeAttachmentSurfaces();
+
+// Verify and truthfully label the already-pinned late evidence public derivatives.
+const {finalizeLateEvidencePublicLabels}=await import('./late-original-public-provenance.mjs');
+await finalizeLateEvidencePublicLabels();

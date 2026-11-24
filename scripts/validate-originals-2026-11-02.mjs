@@ -1,3 +1,4 @@
+import {verifyLateOriginal} from './late-original-public-provenance.mjs';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
@@ -10,9 +11,7 @@ for(const d of docs){
  const p=d.public?.pdf;
  if(!p||!p.startsWith('documents/originaly-2026-11-02/'))fail('missing direct original PDF path: '+d.id);
  if(d.public.sha256!==d.public.source_original_sha256)fail('source hash mismatch in metadata: '+d.id);
- const b=await readFile('web/'+p);
- if(b.length!==d.public.source_original_size_bytes||b.subarray(0,5).toString()!=='%PDF-'||!b.subarray(-4096).includes(Buffer.from('%%EOF')))fail('original structure or size failed: '+d.id);
- if(createHash('sha256').update(b).digest('hex')!==d.public.sha256)fail('SHA-256 differs from user-supplied original: '+d.id);
+ await verifyLateOriginal(d);
  const pdfInfo=execFileSync('pdfinfo',['web/'+p],{encoding:'utf8'});
  if(!new RegExp('Pages:\\s+'+d.public.source_original_page_count+'\\b').test(pdfInfo))fail('original page count differs: '+d.id);
  const page=await readFile('web/'+d.public.html,'utf8');
@@ -27,5 +26,11 @@ for(const name of pageSet){
  for(const d of docs)if(!page.includes(d.id))fail('missing source in multilingual context: '+name+' '+d.id);
 }
 const packet=JSON.parse(await readFile('web/data/evidence-late-october-2026.json','utf8'));
-if(packet.documents.length!==8||packet.documents.some(x=>!x.pdf_byte_identical||!x.pdf_url))fail('incomplete evidence PDF index');
-console.log('ORIGINAL PDF BATCH: verified 9/9 user-uploaded byte-identical original PDFs, page counts, source links, eight index records, CZ/EN and Church pages');
+if(packet.documents.length!==8||new Set(packet.documents.map(x=>x.id)).size!==8)fail('incomplete evidence PDF index');
+for(const item of packet.documents){
+ const doc=main.find(d=>d.id===item.id);if(!doc)fail('unexpected packet item '+item.id);
+ const pin=await verifyLateOriginal(doc);
+ const kind=pin.kind==='text_fallback'?'verified_public_text_copy':pin.kind==='redact'?'redacted_public_copy':'original';
+ if(item.pdf_byte_identical!==(pin.kind==='original')||item.pdf_public_kind!==kind||item.source_sha256!==pin.source_sha256||item.public_sha256!==pin.public_sha256||item.pdf_url!=='/ai-advocate-evidence-lab/'+pin.path)fail('false or incomplete public provenance index '+item.id);
+}
+console.log('ORIGINAL PDF BATCH: verified 9/9 archived originals and independently pinned public copies, page counts, source links, eight index records, CZ/EN and Church pages');

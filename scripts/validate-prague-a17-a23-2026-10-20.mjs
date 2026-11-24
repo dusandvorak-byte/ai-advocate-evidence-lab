@@ -1,3 +1,4 @@
+import {verifyLateOriginal} from './late-original-public-provenance.mjs';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
@@ -30,7 +31,7 @@ for(const q of specs){
  must(d.public.verification_status.includes('git_blob_byte_identical'),'original integrity not declared');
  const raw=await readFile('web/'+d.public.pdf);
  must(raw.subarray(0,5).toString()==='%PDF-'&&raw.subarray(-4096).includes(Buffer.from('%%EOF')),'invalid PDF '+q.id);
- must(createHash('sha256').update(raw).digest('hex')===q.hash,'published PDF differs from source '+q.id);
+ await verifyLateOriginal(d);
  const info=execFileSync('pdfinfo',['web/'+d.public.pdf],{encoding:'utf8'});
  must(new RegExp('Pages:\\s+'+q.pages+'\\b').test(info),'PDF pages changed '+q.id);
  const txt=execFileSync('pdftotext',['web/'+d.public.pdf,'-'],{encoding:'utf8'}).replace(/\s+/g,' ');
