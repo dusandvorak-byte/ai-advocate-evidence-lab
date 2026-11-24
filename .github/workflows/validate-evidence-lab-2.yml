@@ -60,6 +60,7 @@ jobs:
           python3 test/release-audit-poll.test.py
           bash -n scripts/validate-final-web-contracts.sh
           python3 test/final-web-negative-guard.test.py
+          python3 test/registry_pdf_fact_reuse.test.py
           node --test test/late-original-public-provenance.test.mjs
           python3 test/test_live_release_sha.py -v
           python3 -m py_compile scripts/publication_redaction.py
