@@ -62,6 +62,8 @@ jobs:
           node --check scripts/build-site.mjs
           node --test test/shadow-surface-inputs.test.mjs
           node --test test/baseline-release-evidence.test.mjs
+          python3 -m py_compile scripts/pinned_late_baseline.py scripts/fetch-pinned-late-baseline.py scripts/harden-public-pdf-privacy.py
+          python3 test/pinned-late-baseline.test.py
           node --test test/reconciliation-reference-index.test.mjs
           python3 test/release-audit-poll.test.py
           bash -n scripts/validate-final-web-contracts.sh
