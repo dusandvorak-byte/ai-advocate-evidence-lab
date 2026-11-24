@@ -616,6 +616,11 @@ def run_isolated_worker(mode: str, rel: str, *, force_rewrite: bool = False, tim
 def inspect_pdf_isolated(path: Path) -> dict:
     rel = path.relative_to(WEB).as_posix()
     result = run_isolated_worker("--worker-inspect", rel, timeout=45)
+    # Retry the pinned historical source in isolation; inspection failure is not a digest mismatch.
+    if result.get("error") and rel == HISTORIC_INTERPELLATION_PRIMARY:
+        result = run_isolated_worker("--worker-inspect", rel, timeout=120)
+        if result.get("error"):
+            raise RuntimeError("historical interpellation inspection failed after retry")
     if result.get("error"):
         return {
             "page_count": None,
