@@ -984,7 +984,8 @@ def main() -> None:
 
     pins = read_pins() if os.environ.get("EVIDENCE_LAB_ENFORCE_LATE_PINS") == "1" else {}
     transform_snapshot = None
-    if os.environ.get("EVIDENCE_LAB_PDF_TRANSFORM_MODE") == "shadow":
+    transform_mode = os.environ.get("EVIDENCE_LAB_PDF_TRANSFORM_MODE")
+    if transform_mode in ("shadow", "reuse"):
         try:
             from pdf_transform_runtime import capture_current
             transform_snapshot = capture_current(WEB, by_path, policy_sha, authenticated_policy_identity, pins)
@@ -992,6 +993,55 @@ def main() -> None:
             print("::warning::Optional transform capture unavailable: " + type(exc).__name__, flush=True)
     inspections: dict[str, dict] = {}
     first_results = []
+    reused_paths = set()
+    # Only exact authenticated prior transformations are eligible. The final
+    # independent staged PDF audit and all registry/provenance gates still run.
+    if transform_snapshot is not None and transform_mode == "reuse":
+        try:
+            from pdf_transform_runtime import prepare_reuse, verified_candidate_bytes
+            prior_stage, reuse_entries = prepare_reuse(transform_snapshot)
+        except Exception as exc:
+            print("::warning::Transform reuse unavailable; full hardening: " + type(exc).__name__, flush=True)
+            prior_stage, reuse_entries = None, {}
+        for rel, row in sorted(reuse_entries.items()):
+            path = WEB / rel
+            if rel in pins or rel not in by_path or rel not in rel_paths:
+                continue
+            try:
+                data = verified_candidate_bytes(path, row, prior_stage)
+            except (OSError, ValueError, TypeError, KeyError):
+                continue
+            if data is None:
+                continue
+            stage = create_candidate_stage(path)
+            try:
+                if sha256_file(stage) != row["source_sha256"]:
+                    continue
+                atomic_replace_bytes(stage, data)
+                if sha256_file(stage) != row["public_sha256"] or sha256_file(path) != row["source_sha256"]:
+                    continue
+                # Commit failures are not treated as misses: an uncertain
+                # filesystem state must fail closed rather than continue.
+                commit_candidate_stage(stage, path)
+                stage = None
+            finally:
+                cleanup_candidate_stage(stage)
+            if sha256_file(path) != row["public_sha256"]:
+                raise RuntimeError("Cached public PDF commit digest mismatch")
+            inspections[rel] = {"reasons": row["trigger_reasons"], "page_count": row["page_count"]}
+            first_results.append({
+                "rel": rel, "before_sha": row["source_sha256"], "after_sha": row["public_sha256"],
+                "before_pages": row["page_count"], "after_pages": row["page_count"], "changed": True,
+                "matches": row["redaction_matches"], "strategy": row["strategy"], "text_fallback": None,
+                "visible_hits": [], "post": {"decoded_private_hits": []}, "failures": [],
+                "prior_transform": {"kind": "authenticated_prior_audit_reuse",
+                                    "origin": row["prior_origin"], "report_sha256": row["prior_report_sha256"],
+                                    "fresh_final_audit_required": True},
+            })
+            reused_paths.add(rel)
+        print(json.dumps({"event": "pdf-transform-reuse", "reused": len(reused_paths),
+                          "remaining": len(rel_paths) - len(reused_paths),
+                          "fresh_final_audit_required": True}), flush=True)
     first_rel = next((rel for rel, pin in pins.items()
                       if pin["id"] == "doc-cz-dd-2026-10-28-nsz-zasahova-zaloba-podminena"), None)
     # Fail before the general inspection queue on the known release blocker.
@@ -1005,7 +1055,7 @@ def main() -> None:
             raise SystemExit("Pinned NSZ preflight public digest mismatch")
         first_results.append(result)
         print("Pinned NSZ preflight passed before general PDF queue", flush=True)
-    remaining_paths = [path for path in physical_paths if path.relative_to(WEB).as_posix() != first_rel]
+    remaining_paths = [path for path in physical_paths if path.relative_to(WEB).as_posix() != first_rel and path.relative_to(WEB).as_posix() not in reused_paths]
     worker_count = min(8, max(1, len(remaining_paths)))
     with ThreadPoolExecutor(max_workers=worker_count) as executor:
         future_map = {
@@ -1030,7 +1080,7 @@ def main() -> None:
 
     candidates = []
     for rel in rel_paths:
-        if rel == first_rel:
+        if rel == first_rel or rel in reused_paths:
             continue
         items = by_path.get(rel, [])
         inspection = inspections[rel]
@@ -1088,7 +1138,7 @@ def main() -> None:
                     "failures": [f"privacy hardening worker failed for {rel}: {type(exc).__name__}"],
                 })
 
-    if transform_snapshot is not None:
+    if transform_snapshot is not None and transform_mode == "shadow":
         try:
             from pdf_transform_runtime import compare_with_prior
             compare_with_prior(transform_snapshot, candidate_results, WEB)
