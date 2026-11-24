@@ -121,7 +121,7 @@ def build_reuse_plan(*, snapshot, report, stage, expected_origin):
         row = rows[0]
         keys = ("input_sha256", "output_sha256", "page_count", "strategy", "changed",
                 "redaction_matches", "text_fallback", "known_private_identifier_hits_after",
-                "decoded_private_identifier_hits_after")
+                "decoded_private_identifier_hits_after", "trigger_reasons")
         if any(any(r.get(k) != row.get(k) for k in keys) for r in rows):
             skip("ambiguous_transform")
             continue
@@ -135,6 +135,10 @@ def build_reuse_plan(*, snapshot, report, stage, expected_origin):
             row.get("decoded_private_identifier_hits_after") != [] or type(pages) is not int or pages < 1 or
             not isinstance(matches, list)):
             skip("unsupported_transform")
+            continue
+        triggers = row.get("trigger_reasons")
+        if not isinstance(triggers, list) or any(not isinstance(t, str) or t not in {"revision_envelope", "private_match", "embedded_content", "suspicious_metadata", "text_scan_failed", "qpdf_invalid"} for t in triggers):
+            skip("unsupported_trigger")
             continue
         if strategy == "redact":
             if not matches or any(not isinstance(m, dict) or set(m) != {"page", "rule"} or
@@ -155,7 +159,7 @@ def build_reuse_plan(*, snapshot, report, stage, expected_origin):
         entries.append({"rel": rel, "source_sha256": source, "public_sha256": output,
                         "context_sha256": original["context_sha256"], "ids": ids, "page_count": pages,
                         "strategy": strategy, "redaction_matches": matches,
-                        "trigger_reasons": row.get("trigger_reasons", []),
+                        "trigger_reasons": triggers,
                         "audit_checks": a["checks"], "human_review_required": True})
     return {"schema": 1, "scope": "advisory-transform-reuse-plan", "origin": expected_origin,
             "policy_sha256": policy, "private_policy_identity": identity, "engine_sha256": engine,
