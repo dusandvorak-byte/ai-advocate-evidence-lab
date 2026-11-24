@@ -721,3 +721,24 @@ test('verified state attachments appear on homepage and chronology without alter
     await assert.rejects(collectVerifiedAttachments([{...record,public:{...record.public,pdf:'documents/../annex.pdf'}}],root),/identity, digest, date or path invalid/);
   }finally{await rm(root,{recursive:true,force:true});}
 });
+
+import {datedBatchPanel,collectVerifiedDatedBatch} from '../scripts/finalize-state-attachment-surfaces.mjs';
+
+test('dated 4 November group preserves historical PDFs and standalone decision-card counts',async()=>{
+  const sample=[
+    {number:3,id:'doc-historical-order',p:'documents/order.pdf',cs:'Rozkaz',en:'Order',annex:false},
+    {number:5,id:'doc-new-annex',p:'documents/annex.pdf',cs:'Příloha',en:'Annex',annex:true},
+  ];
+  const attachments=[{id:'doc-new-annex',issue_date:'2026-11-04',user_title:'Příloha',public:{pdf:'documents/annex.pdf'}},{id:'doc-other-attachment',issue_date:'2026-05-20',user_title:'Jiná příloha',public:{pdf:'documents/other.pdf'}}];
+  const home='<main><section id="latest-records"><header><h2>Kanonická důkazní paměť do 3. listopadu 2026</h2><p>165 listin</p></header><div class="latest-record-grid"><article class="latest-record-card" data-document-id="doc-existing"></article></div></section></main>';
+  const output=renderAttachmentSurface(home,attachments,'2026-11-03','cs',true,sample);
+  assert.ok(output.includes('Listiny k 4. listopadu 2026'));
+  assert.ok(output.includes('165 listin'));
+  assert.equal((output.match(/class="latest-record-card" data-document-id=/g)||[]).length,1);
+  assert.deepEqual([...output.matchAll(/data-dated-document-id="([^"]+)" data-timeline-date="2026-11-04" data-approved-list-number="(\d+)"/g)].map(m=>[m[1],+m[2]]),[['doc-historical-order',3],['doc-new-annex',5]]);
+  assert.deepEqual([...output.matchAll(/data-attachment-id="([^"]+)"/g)].map(m=>m[1]),['doc-new-annex','doc-other-attachment']);
+  assert.equal(output,renderAttachmentSurface(output,attachments,'2026-11-03','cs',true,sample));
+  assert.ok(datedBatchPanel(sample,'en').includes('Public records dated 4 November 2026'));
+  assert.ok(datedBatchPanel(sample,'en').includes('existing public text copy'));
+  await assert.rejects(collectVerifiedDatedBatch([],[],'.'),/Dated batch provenance mismatch/);
+});
