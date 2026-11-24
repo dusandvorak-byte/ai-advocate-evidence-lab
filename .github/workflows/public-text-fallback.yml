@@ -32,7 +32,9 @@ jobs:
       - name: Install pinned Python dependencies
         run: python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 -r .github/requirements/pdf-fallback.txt
       - name: Ensure required PDF executables
-        run: bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
+        # Transport fallback commands are covered by mocks in these unit suites.
+        # Real mutool execution remains required in the trusted production audit.
+        run: bash scripts/ensure-ci-pdf-tools.sh poppler-utils qpdf
       - name: Run fallback regression shard
         run: python3 "${{ matrix.test }}"
   fallback:
