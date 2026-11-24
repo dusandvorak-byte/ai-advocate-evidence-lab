@@ -1,3 +1,4 @@
+import {verifyLateOriginal} from './late-original-public-provenance.mjs';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
@@ -21,7 +22,7 @@ must(r.public?.verification_status.includes('git_blob_byte_identical'),'original
 const bytes=await readFile(pub);
 const digest=createHash('sha256').update(bytes).digest('hex');
 must(bytes.subarray(0,5).toString()==='%PDF-'&&bytes.subarray(-4096).includes(Buffer.from('%%EOF')),'invalid PDF structure');
-must(bytes.length>3000&&digest===r.public.sha256,'PDF missing or hash mismatched');
+await verifyLateOriginal(r);
 const info=execFileSync('pdfinfo',[pub],{encoding:'utf8'});
 must(/Pages:\s+2\b/.test(info),'original PDF is not 2 pages');
 const text=execFileSync('pdftotext',['-layout',pub,'-'],{encoding:'utf8'});
@@ -29,11 +30,11 @@ const normalized=text.replace(/\s+/g,' ');
 for(const term of ['EXO/FHP/pd (26) D 110','25 September 2026','Nor does the EUDA','validation by the Agency','2023/1322','Article 15','1049/2001','Fabian Pereyra'])
   must(normalized.includes(term),'letter contains no '+term);
 must(r.public.sha256==='b2ea6fb0b56a73ee2fccae2ff4b595094551b91a49ff3ceee0a9d11bd885d9c2','original SHA-256 changed');
-must(r.public.source_original_sha256===r.public.sha256,'published original differs from provided original');
+must(r.public.source_original_sha256===r.public.sha256,'archived source pin metadata differs');
 const translations=JSON.parse(await readFile('project-memory/english-godot-translations.json','utf8'));
 must(translations.documents[id]?.includes('forensic laboratories'),'English chronology absent');
 const czech=await readFile('web/zpravy/04082026-010.html','utf8');
 const english=await readFile('web/news/04082026-010.html','utf8');
 must(czech.includes('id="'+id+'"')&&english.includes('id="en-'+id+'"'),'CZ/EN Godot lacks EUDA entry');
 must(czech.includes('120-euda-exo-fhp-pd-26-d-110-2026-10-19')&&english.includes('120-euda-exo-fhp-pd-26-d-110-2026-10-19'),'CZ/EN Godot PDF link missing');
-console.log('EUDA-2026-10-19-BYTE-IDENTICAL-ORIGINAL-AND-CZ-EN-GODOT-OK:',digest);
+console.log('EUDA-2026-10-19-ARCHIVED-ORIGINAL-AND-PINNED-PUBLIC-COPY-CZ-EN-OK:',digest);

@@ -1,3 +1,4 @@
+import {verifyLateOriginal} from './late-original-public-provenance.mjs';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
@@ -32,7 +33,8 @@ for(const [id,date,ref,file,sha,pages] of expected){
  const bytes=await readFile(path);
  assert(bytes.subarray(0,5).toString()==='%PDF-'&&bytes.subarray(-4096).includes(Buffer.from('%%EOF')),'invalid PDF '+id);
  const h=createHash('sha256').update(bytes).digest('hex');
- assert(h===sha&&d.public.sha256===sha&&d.public.source_original_sha256===sha,'original differs at '+id);
+ assert(d.public.sha256===sha&&d.public.source_original_sha256===sha,'archived source metadata differs at '+id);
+ await verifyLateOriginal(d);
  const info=execFileSync('pdfinfo',[path],{encoding:'utf8'});
  assert(new RegExp('Pages:\\s+'+pages+'\\b').test(info),'page count mismatch '+id);
  assert(translations.documents[id]?.length>30,'EN description missing '+id);
@@ -62,4 +64,4 @@ assert(own.some(x=>x.document_id==='doc-cz-dd-2026-10-28-nsz-kratke-shrnuti-tres
 assert(official.some(x=>x.document_id==='doc-cz-nsz-2026-10-15-sin-72-2026-16'&&x.href?.includes('121-nsz-sin-72-2026-16-2026-10-15-original.pdf')),'October NSZ SIN 72 original not in its proper evidence group');
 const act=JSON.parse(await readFile('project-memory/active-court-dockets.json','utf8'));
 assert(act.rows.length===13,'unexpected court row count');
-console.log('ALL FIVE ORIGINAL PDFs, CZ/EN GODOT, AND NSZ: 29 PRESERVED + 1 NEW = 30: OK');
+console.log('ALL FIVE ARCHIVED ORIGINALS AND PINNED PUBLIC COPIES, CZ/EN GODOT, AND NSZ: 29 PRESERVED + 1 NEW = 30: OK');

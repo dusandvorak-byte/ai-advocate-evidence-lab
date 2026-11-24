@@ -1,3 +1,4 @@
+import {verifyLateOriginal} from './late-original-public-provenance.mjs';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
@@ -23,9 +24,8 @@ for(const q of specs) {
  check(item&&item.issue_date===q.day&&item.received_date===null&&item.institution_id===q.issuer,'issue/service date or issuer mismatch '+q.id);
  check(item.public.pdf==='documents/report-04082026-010/'+q.name,'PDF path differs '+q.id);
  check(item.public.sha256===q.hash&&item.public.source_original_sha256===q.hash,'declared original hash differs '+q.id);
- const buffer=await readFile('web/'+item.public.pdf);
- check(buffer.length===q.size&&buffer.subarray(0,5).toString()==='%PDF-','original PDF missing/changed '+q.id);
- check(createHash('sha256').update(buffer).digest('hex')===q.hash,'not source-identical original '+q.id);
+ check(item.public.source_original_size_bytes===q.size,'archived source size changed '+q.id);
+ await verifyLateOriginal(item);
  const info=execFileSync('pdfinfo',['web/'+item.public.pdf],{encoding:'utf8'});
  check(new RegExp('Pages:\\s+'+q.pages+'\\b').test(info),'page count incorrect '+q.id);
  check(typeof trans.documents[q.id]==='string'&&trans.documents[q.id].length>120,'CZ/EN translation incomplete '+q.id);
