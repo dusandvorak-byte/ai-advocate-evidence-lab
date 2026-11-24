@@ -2,7 +2,8 @@
 // Shadow-mode stage assembly. Never publishes or grants authorization.
 // Expected digests MUST be supplied from independently verified evidence in a
 // future trusted integration. A caller-supplied digest is not authentication.
-import { cp, copyFile, lstat, mkdir, readFile, realpath, rm } from 'node:fs/promises';
+import { copyFile, lstat, mkdir, readFile, realpath, rm } from 'node:fs/promises';
+import { constants } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { inventory, treeDigest, verifyMirroredPdfs } from './plan-incremental-release.mjs';
@@ -53,7 +54,12 @@ export async function assembleIncrementalStage({ baseline, overlay, output, plan
   // No production path or Git mutation. Exclusive mkdir protects existing output.
   await mkdir(outRoot);
   try {
-    await cp(baseRoot,outRoot,{recursive:true,force:false,errorOnExist:true});
+    for (const rel of oldFiles.keys()) {
+      if (!validPath(rel)) throw Error('Unsafe baseline path');
+      const target = path.join(outRoot,rel);
+      await mkdir(path.dirname(target),{recursive:true});
+      await copyFile(path.join(baseRoot,rel),target,constants.COPYFILE_EXCL);
+    }
     for (const rel of expectedOverlay.keys()) {
       const target = path.join(outRoot,rel);
       await mkdir(path.dirname(target),{recursive:true});
