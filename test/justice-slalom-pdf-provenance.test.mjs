@@ -639,3 +639,34 @@ test('Justice Slalom UOOU and UOCR digest expressions use imported SHA-256', () 
     assert.equal(actual, expected, digestName + ' must hash the public PDF bytes');
   }
 });
+
+import { historicalOriginals, verifyHistoricPdfIdentity, verifyHistoricPrimaryProvenance } from '../scripts/interpelace-380-integrity.mjs';
+
+test('historical interpellation distinguishes archive and pinned public PDF', () => {
+  const source = Buffer.from('%PDF-1.4\nsource\n%%EOF\n');
+  const publicCopy = Buffer.from('%PDF-1.4\nstructural rewrite\n%%EOF\n');
+  const sha = bytes => createHash('sha256').update(bytes).digest('hex');
+  const spec = {path:'test.pdf',originalSize:source.length,originalSha:sha(source),
+    publicSize:publicCopy.length,publicSha:sha(publicCopy),pages:2};
+  assert.equal(verifyHistoricPdfIdentity(spec,source,publicCopy).alteredPublicCopy,true);
+  assert.throws(() => verifyHistoricPdfIdentity(spec,publicCopy,publicCopy), /Archived original identity mismatch/);
+  assert.throws(() => verifyHistoricPdfIdentity(spec,source,source), /Pinned public PDF identity mismatch/);
+  assert.throws(() => verifyHistoricPdfIdentity(spec,source,Buffer.concat([publicCopy,Buffer.from('tamper')])), /Pinned public PDF identity mismatch/);
+  assert.notEqual(historicalOriginals[0].originalSha,historicalOriginals[0].publicSha);
+  assert.equal(historicalOriginals[1].originalSha,historicalOriginals[1].publicSha);
+});
+
+test('historical primary PDF requires independently pinned registered clean hardening proof', () => {
+  const spec=historicalOriginals[0], id='doc-cz-psp-2018-12-17-interpelace-380';
+  const record={id,public:{pdf:spec.path.slice(4),source_original_sha256:spec.originalSha,
+    source_original_size_bytes:spec.originalSize,source_original_page_count:spec.pages,
+    sha256:spec.publicSha,verification_status:'publication_policy_hardened'}};
+  const row={id,public_path:record.public.pdf,registered:true,changed:true,input_sha256:spec.originalSha,
+    output_sha256:spec.publicSha,page_count:spec.pages,strategy:'pymupdf_rewrite',text_fallback:null,
+    redaction_matches:[],known_private_identifier_hits_after:[],decoded_private_identifier_hits_after:[]};
+  assert.equal(verifyHistoricPrimaryProvenance(spec,record,row),true);
+  for (const damage of [{registered:false},{output_sha256:'f'.repeat(64)},{page_count:1},
+    {strategy:'unknown'},{redaction_matches:['synthetic']},{decoded_private_identifier_hits_after:['synthetic']}])
+    assert.throws(() => verifyHistoricPrimaryProvenance(spec,record,{...row,...damage}), /provenance mismatch/);
+  assert.throws(() => verifyHistoricPrimaryProvenance(spec,{...record,public:{...record.public,sha256:'f'.repeat(64)}},{...row,output_sha256:'f'.repeat(64)}), /provenance mismatch/);
+});
