@@ -2,9 +2,9 @@
   "schema_version": 1,
   "authorization_scope": "publish-evidence-lab-gh-pages",
   "authorized": true,
-  "authorized_target_sha": "264d9177d8e5a2289a93d1a83a4510d23dfd5c2f",
-  "note": "Owner explicitly confirmed human privacy assessment and publication of exact artifact 14942163065. All four exact-SHA workflows passed; no new/removed PDFs, 22/22 changed copies exact text and 144dpi image match, identical audited privacy facts, only creationDate/modDate metadata differences; six CZ/EN surfaces verified. No new document authorization.",
-  "privacy_review_artifact_id": 14942163065,
-  "privacy_review_artifact_sha256": "c7499abe4dc235af9aeface1ce40d67f5b78e74059a17cadb2f0e52fbed7a8e4",
-  "privacy_review_receipt": "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7138238034"
+  "authorized_target_sha": "6720f1febbd2782f5a234da8d8925d18b856f50c",
+  "note": "Owner explicitly instructed deployment of this already audited artifact without rebuilding. Five exact previously human-reviewed new PDFs, independently verified full staged PDF hashes and historical delta equivalence, no other new documents. Four production workflows successful. No claim of a new manual review.",
+  "privacy_review_artifact_id": 14955915053,
+  "privacy_review_artifact_sha256": "59a0467d0ee1542ef658497a9522adb228d42fadd0d321508f13ac7f52d98570",
+  "privacy_review_receipt": "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7141988173"
 }
