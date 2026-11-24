@@ -1,0 +1,477 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-11-24",
+  "description": "Thirteen approved redacted PDFs from owner list; item 33 held because OCR of an image-only appendix exposed private birth and address fields. Dates in the inventory do not prove filing or service.",
+  "documents": [
+    {
+      "id": "doc-cz-batch-2026-11-24-09-krp-msk-krpt-294233-4",
+      "user_title": "Krajské ředitelství policie MSK – KRPT-294233-4/ČJ-2026-070066",
+      "issue_date": "2026-11-05",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPT",
+      "reference": "KRPT-294233-4/ČJ-2026-070066",
+      "case_ids": [],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-09-krp-msk-krpt-294233-4.html",
+        "pdf": "documents/2026-11-05/09-krp-msk-krpt-294233-4-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-05/09-krp-msk-krpt-294233-4-verejna-kopie.pdf",
+        "sha256": "0a290b9b2bfb0505dffee3c3bdc3488d2e038be6ee7c8a224e58c7e6b7d74d4f",
+        "source_original_sha256": "68fa42a4f7eb79447e98b3ee0703b9883e88fbfbe079ddf5e90981b0aa885ca7",
+        "source_original_size_bytes": 197067,
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 171786,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
+        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
+      },
+      "evidence_note": "Položka 9 schváleného soupisu je zařazena k 2026-11-05. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 1 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené."
+    },
+    {
+      "id": "doc-cz-batch-2026-11-24-10-stiznost-castecne-poskytnuti-informaci",
+      "user_title": "Stížnost na částečné poskytnutí informací Policejním prezidiem",
+      "issue_date": "2026-11-06",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "PPR-53675-9/ČJ-2026-990810",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-10-stiznost-castecne-poskytnuti-informaci.html",
+        "pdf": "documents/2026-11-06/10-stiznost-castecne-poskytnuti-informaci-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-06/10-stiznost-castecne-poskytnuti-informaci-verejna-kopie.pdf",
+        "sha256": "edc83689b1ef8d40e7f9c2bdf9549e1b6f0ae98a838ff57905c88699cb3e002e",
+        "source_original_sha256": "7be2f9c434eb1c1bd14273bf183c9a3e947c8e2b29cc8bed1d07fb165128f81f",
+        "source_original_size_bytes": 95695,
+        "source_original_page_count": 5,
+        "source_public_size_bytes": 97428,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
+        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
+      },
+      "evidence_note": "Položka 10 schváleného soupisu je zařazena k 2026-11-06. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 5 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené.",
+      "author_cs": "Mgr. Dušan Dvořák",
+      "author_en": "Mgr. Dušan Dvořák",
+      "recipients": [
+        {
+          "institution_id": "CZ-PCR-PP",
+          "role": "primary",
+          "reference": "PPR-53675-9/ČJ-2026-990810"
+        }
+      ]
+    },
+    {
+      "id": "doc-cz-batch-2026-11-24-11-trestni-stiznost-a-tabulka-okte",
+      "user_title": "Stížnost na postup Policejního prezidia a důkazní tabulka OKTE",
+      "issue_date": "2026-11-06",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "PPR-54525/ČJ-2026-990340",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-11-trestni-stiznost-a-tabulka-okte.html",
+        "pdf": "documents/2026-11-06/11-trestni-stiznost-a-tabulka-okte-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-06/11-trestni-stiznost-a-tabulka-okte-verejna-kopie.pdf",
+        "sha256": "570d35dc8bd24a4fc17bf9b98755d75bd70f5dd5552b4143e8c799f014ec1bec",
+        "source_original_sha256": "6a90032a480b1e35fb6a39d145ef2cf4a672891d380fb1a2c84cc570668380df",
+        "source_original_size_bytes": 261088,
+        "source_original_page_count": 16,
+        "source_public_size_bytes": 382972,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
+        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
+      },
+      "evidence_note": "Položka 11 schváleného soupisu je zařazena k 2026-11-06. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 16 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené.",
+      "author_cs": "Mgr. Dušan Dvořák",
+      "author_en": "Mgr. Dušan Dvořák",
+      "recipients": [
+        {
+          "institution_id": "CZ-PCR-PP",
+          "role": "primary",
+          "reference": "PPR-54525/ČJ-2026-990340"
+        }
+      ]
+    },
+    {
+      "id": "doc-cz-batch-2026-11-24-12-stiznost-18-okruhu-okte",
+      "user_title": "Stížnost na neúplné vyřízení trestního podnětu – 18 okruhů OKTE",
+      "issue_date": "2026-11-06",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "PPR-54525/ČJ-2026-990340",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-12-stiznost-18-okruhu-okte.html",
+        "pdf": "documents/2026-11-06/12-stiznost-18-okruhu-okte-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-06/12-stiznost-18-okruhu-okte-verejna-kopie.pdf",
+        "sha256": "35fc827905cefb9b96ffd081cb101f62af0600676dbc77e9e878c32a7e4b8f46",
+        "source_original_sha256": "362dce2554e6e1bc1e0a1928bb25ac8f0fcf1886d43b05e14c58133bbe789163",
+        "source_original_size_bytes": 393786,
+        "source_original_page_count": 32,
+        "source_public_size_bytes": 606253,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
+        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
+      },
+      "evidence_note": "Položka 12 schváleného soupisu je zařazena k 2026-11-06. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 32 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené.",
+      "author_cs": "Mgr. Dušan Dvořák",
+      "author_en": "Mgr. Dušan Dvořák",
+      "recipients": [
+        {
+          "institution_id": "CZ-PCR-PP",
+          "role": "primary",
+          "reference": "PPR-54525/ČJ-2026-990340"
+        }
+      ]
+    },
+    {
+      "id": "doc-cz-batch-2026-11-24-21-os-prostejov-stiznost-na-prutahy",
+      "user_title": "Stížnost na průtahy u Okresního soudu v Prostějově",
+      "issue_date": "2026-11-07",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "15 Nt 3104/2026; 15 Nt 3106/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova",
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-21-os-prostejov-stiznost-na-prutahy.html",
+        "pdf": "documents/2026-11-07/21-os-prostejov-stiznost-na-prutahy-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-07/21-os-prostejov-stiznost-na-prutahy-verejna-kopie.pdf",
+        "sha256": "4b8852193f5f2608192bd6e2a48ccadba58b4294e00938d970100ad21254edca",
+        "source_original_sha256": "d41ab4760d16429880a8827f93f49eda190d668fdc17d367bb6b3ff3c32b4f68",
+        "source_original_size_bytes": 66606,
+        "source_original_page_count": 6,
+        "source_public_size_bytes": 69278,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
+        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
+      },
+      "evidence_note": "Položka 21 schváleného soupisu je zařazena k 2026-11-07. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 6 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené.",
+      "author_cs": "Mgr. Dušan Dvořák",
+      "author_en": "Mgr. Dušan Dvořák",
+      "recipients": [
+        {
+          "institution_id": "CZ-OS-PRO",
+          "role": "primary",
+          "reference": "15 Nt 3104/2026; 15 Nt 3106/2026"
+        }
+      ]
+    },
+    {
+      "id": "doc-cz-batch-2026-11-24-23-os-prostejov-3104-predvolani",
+      "user_title": "Okresní soud v Prostějově – předvolání, 15 Nt 3104/2026",
+      "issue_date": "2026-11-12",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3104/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-23-os-prostejov-3104-predvolani.html",
+        "pdf": "documents/2026-11-12/23-os-prostejov-3104-predvolani-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-12/23-os-prostejov-3104-predvolani-verejna-kopie.pdf",
+        "sha256": "f64a76195a937c5a9cc033ca63ecd24ed562967d6ce9fbac0f46ecddaecdaad8",
+        "source_original_sha256": "31550ee71d75e6a5629745f66c8740c936e6dae5049349a1fe643abbe745811d",
+        "source_original_size_bytes": 1824489,
+        "source_original_page_count": 2,
+        "source_public_size_bytes": 200699,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
+        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
+      },
+      "evidence_note": "Položka 23 schváleného soupisu je zařazena k 2026-11-12. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 2 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené."
+    },
+    {
+      "id": "doc-cz-batch-2026-11-24-24-os-prostejov-3106-predvolani",
+      "user_title": "Okresní soud v Prostějově – předvolání, 15 Nt 3106/2026",
+      "issue_date": "2026-11-12",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3106/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-24-os-prostejov-3106-predvolani.html",
+        "pdf": "documents/2026-11-12/24-os-prostejov-3106-predvolani-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-12/24-os-prostejov-3106-predvolani-verejna-kopie.pdf",
+        "sha256": "78b71b5f664b680aa38f88c9e68ceb976107fd221b8337adfbb15aefe43892ef",
+        "source_original_sha256": "991a4a25cd11305b4c3760d26b3295180594dfc42f496da09e45d86afda8bfff",
+        "source_original_size_bytes": 1824242,
+        "source_original_page_count": 2,
+        "source_public_size_bytes": 200451,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
+        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
+      },
+      "evidence_note": "Položka 24 schváleného soupisu je zařazena k 2026-11-12. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 2 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené."
+    },
+    {
+      "id": "doc-cz-batch-2026-11-24-26-os-prostejov-3106-prelozeni",
+      "user_title": "Okresní soud v Prostějově – vyrozumění doručené pod 15 Nt 3106/2026",
+      "issue_date": "2026-11-12",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3106/2026; v PDF 15 Nt 3104/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-26-os-prostejov-3106-prelozeni.html",
+        "pdf": "documents/2026-11-12/26-os-prostejov-3106-prelozeni-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-12/26-os-prostejov-3106-prelozeni-verejna-kopie.pdf",
+        "sha256": "800a178f0050b6f2fc54127a6be9721c812640bcf46be617cfbdf58fea38d8a5",
+        "source_original_sha256": "727651c2f7e4d69caacf32c4ade683c7f8bb1c823b119d326f3631c2bcd06e8d",
+        "source_original_size_bytes": 1795424,
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 172609,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
+        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
+      },
+      "evidence_note": "Položka 26 schváleného soupisu je zařazena k 2026-11-12. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 1 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené. Datová obálka je označena 15 Nt 3106/2026, zatímco uvnitř PDF je uvedeno 15 Nt 3104/2026; rozpor se zachovává."
+    },
+    {
+      "id": "doc-cz-batch-2026-11-24-27-os-prostejov-3104-oduvodneni-prelozeni",
+      "user_title": "Okresní soud v Prostějově – odůvodnění přeložení, 15 Nt 3104/2026",
+      "issue_date": "2026-11-12",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3104/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-27-os-prostejov-3104-oduvodneni-prelozeni.html",
+        "pdf": "documents/2026-11-12/27-os-prostejov-3104-oduvodneni-prelozeni-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-12/27-os-prostejov-3104-oduvodneni-prelozeni-verejna-kopie.pdf",
+        "sha256": "a19fce78981a6cd958addb4a7567586491c274f8a475927bb193ece250164058",
+        "source_original_sha256": "867d5abcdcca286a710b12ebc7851dd776e64f5d2e8567e2b03408241edf693b",
+        "source_original_size_bytes": 1768147,
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 145996,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
+        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
+      },
+      "evidence_note": "Položka 27 schváleného soupisu je zařazena k 2026-11-12. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 1 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené."
+    },
+    {
+      "id": "doc-cz-batch-2026-11-24-28-os-prostejov-3106-oduvodneni-prelozeni",
+      "user_title": "Okresní soud v Prostějově – odůvodnění přeložení, 15 Nt 3106/2026",
+      "issue_date": "2026-11-12",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3106/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t65-2011-obnova"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-28-os-prostejov-3106-oduvodneni-prelozeni.html",
+        "pdf": "documents/2026-11-12/28-os-prostejov-3106-oduvodneni-prelozeni-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-12/28-os-prostejov-3106-oduvodneni-prelozeni-verejna-kopie.pdf",
+        "sha256": "d46acdb16e8c4e423309bc8d76eb05747855396e56144531625ca4d636bfc10c",
+        "source_original_sha256": "65f7c11bc2733217bc8f5dd396d178b25125a4b1458d0466228206d4fcf5068c",
+        "source_original_size_bytes": 1768707,
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 146604,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
+        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
+      },
+      "evidence_note": "Položka 28 schváleného soupisu je zařazena k 2026-11-12. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 1 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené."
+    },
+    {
+      "id": "doc-cz-batch-2026-11-24-14-policie-prostejov-odlozeni",
+      "user_title": "Policie Prostějov – sdělení o odložení",
+      "issue_date": "2026-11-16",
+      "received_date": null,
+      "institution_id": "CZ-PCR-KRPO",
+      "reference": "",
+      "case_ids": [],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-14-policie-prostejov-odlozeni.html",
+        "pdf": "documents/2026-11-16/14-policie-prostejov-odlozeni-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-16/14-policie-prostejov-odlozeni-verejna-kopie.pdf",
+        "sha256": "f3928398eb984db92567b3a611e94e559fb9e64225c77b17a42439b4a013e3ae",
+        "source_original_sha256": "c2b63847134d970ac6f774517b5bf0616a847ec64416d93cfb665a77a8750f5c",
+        "source_original_size_bytes": 212981,
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 187482,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
+        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
+      },
+      "evidence_note": "Položka 14 schváleného soupisu je zařazena k 2026-11-16. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 1 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené."
+    },
+    {
+      "id": "doc-cz-batch-2026-11-24-29-ks-brno-doplneni-zasahove-zaloby",
+      "user_title": "Krajský soud v Brně – doplnění zásahové žaloby",
+      "issue_date": "2026-11-19",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "6 NZN 1737/2026",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-29-ks-brno-doplneni-zasahove-zaloby.html",
+        "pdf": "documents/2026-11-19/29-ks-brno-doplneni-zasahove-zaloby-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-19/29-ks-brno-doplneni-zasahove-zaloby-verejna-kopie.pdf",
+        "sha256": "cbf2694d0b2647c5685f48664286f18e6179198212ebbe69d8ed9012efa5af98",
+        "source_original_sha256": "66da23b0626c76e15854edd9e2fb077c01d947e740b2507ff25f65ad88d0e435",
+        "source_original_size_bytes": 1271932,
+        "source_original_page_count": 15,
+        "source_public_size_bytes": 1408481,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
+        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
+      },
+      "evidence_note": "Položka 29 schváleného soupisu je zařazena k 2026-11-19. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 15 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené.",
+      "author_cs": "Mgr. Dušan Dvořák",
+      "author_en": "Mgr. Dušan Dvořák",
+      "recipients": [
+        {
+          "institution_id": "CZ-KS-BRN",
+          "role": "primary",
+          "reference": "6 NZN 1737/2026"
+        }
+      ]
+    },
+    {
+      "id": "doc-cz-batch-2026-11-24-30-us-nalehavost-kolize-terminu",
+      "user_title": "Ústavní soud – podání k naléhavosti a kolizi termínů",
+      "issue_date": "2026-11-23",
+      "received_date": null,
+      "institution_id": "CZ-DD",
+      "reference": "",
+      "case_ids": [],
+      "document_type": "user_submission",
+      "submission_side": "outgoing_from_user_or_alliance",
+      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
+      "topics": [
+        "listina",
+        "2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-24-30-us-nalehavost-kolize-terminu.html",
+        "pdf": "documents/2026-11-23/30-us-nalehavost-kolize-terminu-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-23/30-us-nalehavost-kolize-terminu-verejna-kopie.pdf",
+        "sha256": "57cfae249b3e82cd83f4578c0cfc48e5f934b2d4ea81c0bf47e8249d785518d0",
+        "source_original_sha256": "3b7b153f3db111a2a47f91d60e80eec64769855f8a40f9bab9d40e6cb97108ea",
+        "source_original_size_bytes": 149539,
+        "source_original_page_count": 3,
+        "source_public_size_bytes": 155979,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
+        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
+      },
+      "evidence_note": "Položka 30 schváleného soupisu je zařazena k 2026-11-23. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 3 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené.",
+      "author_cs": "Mgr. Dušan Dvořák",
+      "author_en": "Mgr. Dušan Dvořák",
+      "recipients": [
+        {
+          "institution_id": "CZ-US",
+          "role": "primary",
+          "reference": ""
+        }
+      ]
+    }
+  ]
+}

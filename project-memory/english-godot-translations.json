@@ -58,7 +58,8 @@
     "CZ-RB-OMB": "Raiffeisenbank Ombudsman",
     "CZ-CAK": "Czech Bar Association",
     "CZ-NS": "Supreme Court of the Czech Republic",
-    "CZ-PSP": "Chamber of Deputies of the Parliament of the Czech Republic"
+    "CZ-PSP": "Chamber of Deputies of the Parliament of the Czech Republic",
+    "CZ-US": "Constitutional Court"
   },
   "documents": {
     "doc-cz-exe-lib-2026-05-06-131-ex-8674-15-127": "Order concerning the application to discontinue enforcement proceedings",
@@ -427,6 +428,19 @@
     "doc-cz-os-pro-2026-11-04-15-nt-3103-vyrozumeni": "Prostějov District Court notice dated 4 November 2026, file 15 Nt 3103/2026, published as a redacted public copy.",
     "doc-cz-os-pro-2026-11-04-15-nt-3105-vyrozumeni": "The Prostějov District Court notice dated 4 November 2026 was delivered that day in a data-box message marked file 15 Nt 3105/2026, folio 1395. The attached PDF displays file number 15 Nt 3103/2026. A redacted copy of the attachment is published.",
     "doc-cz-msp-2026-11-04-msp-898-2026-op-osv-8": "Ministry of Justice correspondence dated 4 November 2026, reference MSP-898/2026-OP-OSV/8, published as a redacted public copy.",
-    "doc-cz-mv-2026-11-03-mv-127234-8-obp-2026": "Ministry of the Interior correspondence dated 3 November 2026, reference MV-127234-8/OBP-2026, included in the 4 November 2026 intake. The date of receipt has not been independently established. Published as a public copy."
+    "doc-cz-mv-2026-11-03-mv-127234-8-obp-2026": "Ministry of the Interior correspondence dated 3 November 2026, reference MV-127234-8/OBP-2026, included in the 4 November 2026 intake. The date of receipt has not been independently established. Published as a public copy.",
+    "doc-cz-batch-2026-11-24-09-krp-msk-krpt-294233-4": "Police notice KRPT-294233-4/ČJ-2026-070066",
+    "doc-cz-batch-2026-11-24-10-stiznost-castecne-poskytnuti-informaci": "Complaint about partial provision of information by the Police Presidium",
+    "doc-cz-batch-2026-11-24-11-trestni-stiznost-a-tabulka-okte": "Complaint about Police Presidium procedure and OKTE evidence table",
+    "doc-cz-batch-2026-11-24-12-stiznost-18-okruhu-okte": "Complaint on incomplete handling of criminal notice – 18 OKTE issues",
+    "doc-cz-batch-2026-11-24-21-os-prostejov-stiznost-na-prutahy": "Complaint about delay at the Prostějov District Court",
+    "doc-cz-batch-2026-11-24-23-os-prostejov-3104-predvolani": "Prostějov District Court – summons, 15 Nt 3104/2026",
+    "doc-cz-batch-2026-11-24-24-os-prostejov-3106-predvolani": "Prostějov District Court – summons, 15 Nt 3106/2026",
+    "doc-cz-batch-2026-11-24-26-os-prostejov-3106-prelozeni": "Prostějov District Court – rescheduling notice delivered under 15 Nt 3106/2026",
+    "doc-cz-batch-2026-11-24-27-os-prostejov-3104-oduvodneni-prelozeni": "Prostějov District Court – reason for rescheduling, 15 Nt 3104/2026",
+    "doc-cz-batch-2026-11-24-28-os-prostejov-3106-oduvodneni-prelozeni": "Prostějov District Court – reason for rescheduling, 15 Nt 3106/2026",
+    "doc-cz-batch-2026-11-24-14-policie-prostejov-odlozeni": "Prostějov police notice on closing the matter",
+    "doc-cz-batch-2026-11-24-29-ks-brno-doplneni-zasahove-zaloby": "Supplement to the action against an unlawful intervention before the Brno Regional Court",
+    "doc-cz-batch-2026-11-24-30-us-nalehavost-kolize-terminu": "Constitutional Court filing on urgency and scheduling conflict"
   }
 }

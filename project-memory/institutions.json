@@ -505,6 +505,13 @@
       "type": "parliamentary_contact",
       "name": "Poslanecká sněmovna Parlamentu České republiky",
       "short_name": "Poslanecká sněmovna"
+    },
+    {
+      "id": "CZ-US",
+      "country": "CZ",
+      "type": "court",
+      "name": "Ústavní soud",
+      "short_name": "ÚS"
     }
   ]
 }
