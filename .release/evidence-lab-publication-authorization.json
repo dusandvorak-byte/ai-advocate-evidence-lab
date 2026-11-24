@@ -2,9 +2,9 @@
   "schema_version": 1,
   "authorization_scope": "publish-evidence-lab-gh-pages",
   "authorized": true,
-  "authorized_target_sha": "232c9134750633641ba3bb96504c9f72bf734852",
-  "note": "Owner's explicit final human privacy assessment for exact artifact 14926705652 recorded at issue #293 comment 7133910671. Exact-SHA full validation 45403980406, shard audit 45403980460, preflight 45403980505 successful; independent code review #309 complete; scope and binary comparison #293 comment 7133829224. Four approved annexes only newly added; CT and ID69 excluded.",
-  "privacy_review_artifact_id": 14926705652,
-  "privacy_review_artifact_sha256": "456c8f70194c30bb9bc26a765140d800f5b254cf2ae3d40bc1876d3186030ab6",
-  "privacy_review_receipt": "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7133910671"
+  "authorized_target_sha": "264d9177d8e5a2289a93d1a83a4510d23dfd5c2f",
+  "note": "Owner explicitly confirmed human privacy assessment and publication of exact artifact 14942163065. All four exact-SHA workflows passed; no new/removed PDFs, 22/22 changed copies exact text and 144dpi image match, identical audited privacy facts, only creationDate/modDate metadata differences; six CZ/EN surfaces verified. No new document authorization.",
+  "privacy_review_artifact_id": 14942163065,
+  "privacy_review_artifact_sha256": "c7499abe4dc235af9aeface1ce40d67f5b78e74059a17cadb2f0e52fbed7a8e4",
+  "privacy_review_receipt": "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7138238034"
 }
