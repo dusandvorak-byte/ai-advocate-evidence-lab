@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-11-04",
+  "description": "Owner-approved item 18. Delivery and attachment docket identifiers differ.",
+  "documents": [
+    {
+      "id": "doc-cz-os-pro-2026-11-04-15-nt-3105-vyrozumeni",
+      "user_title": "Okresní soud v Prostějově – sdělení doručené ve spise 15 Nt 3105/2026",
+      "issue_date": "2026-11-04",
+      "received_date": "2026-11-04",
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3105/2026",
+      "case_ids": [
+        "case-cz-ks-brno-9to316-2026"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "Ověřeno z úředního PDF a obálky doručené datové zprávy.",
+      "topics": [
+        "procesní evidence",
+        "listina",
+        "2026"
+      ],
+      "public": {
+        "html": "listiny/doc-cz-os-pro-2026-11-04-15-nt-3105-vyrozumeni.html",
+        "pdf": "documents/2026-11-04/os-pro-2026-11-04-15-nt-3105-vyrozumeni-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-04/os-pro-2026-11-04-15-nt-3105-vyrozumeni-verejna-kopie.pdf",
+        "sha256": "049bff9a5c1ff54be18559b34d26175dd6e347b1c7aaedb7d51939f066f967c9",
+        "source_original_sha256": "29e02d778b90568762601b7bda79cd2ea873e5e3a9f9e56aff344e83667846c3",
+        "source_original_size_bytes": 172316,
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 137138,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; layout_preserved",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-04-prostejov-1395.json",
+        "public_copy_note": "Redigovaná veřejná kopie přílohy soudu. Spisová značka uvnitř listiny zůstala zachována."
+      },
+      "evidence_note": "Sdělení Okresního soudu v Prostějově ze 4. listopadu 2026 bylo téhož dne doručeno datovou zprávou označenou 15 Nt 3105/2026, č. l. 1395. V přiloženém PDF soud uvedl spisovou značku 15 Nt 3103/2026. Oba údaje jsou zachovány podle příslušného zdroje. Zveřejněna je redigovaná kopie přílohy."
+    }
+  ]
+}
