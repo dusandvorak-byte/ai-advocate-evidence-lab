@@ -38,15 +38,31 @@ await import('./finalize-chronology-order.mjs');
 const manifest = JSON.parse(await readFile('web/data/build-manifest.json', 'utf8'));
 const pdfReport = JSON.parse(await readFile('web/data/pdf-reconciliation-report.json', 'utf8'));
 const pdfAudit = JSON.parse(await readFile('web/data/godot-pdf-audit.json', 'utf8'));
-const registry = JSON.parse(await readFile('project-memory/documents-2026.json', 'utf8'));
+// Use the same merged, release-filtered canonical sources as sync-public-surfaces.mjs.
+// The base documents-2026.json is only one source; later records live in supplements.
+const sourceManifest = JSON.parse(await readFile('project-memory/document-sources.json', 'utf8'));
+if (!Array.isArray(sourceManifest.sources)) throw new Error('PRODUCTION-GATE: missing canonical sources');
+const mergedDocuments = new Map();
+for (const source of sourceManifest.sources) {
+  const payload = JSON.parse(await readFile(source.path, 'utf8'));
+  if (!Array.isArray(payload.documents)) throw new Error(`PRODUCTION-GATE: ${source.path} missing documents array`);
+  for (const item of payload.documents) {
+    const previous = mergedDocuments.get(item.id) || {};
+    mergedDocuments.set(item.id, {
+      ...previous,
+      ...item,
+      public: { ...(previous.public || {}), ...(item.public || {}) }
+    });
+  }
+}
+const canonicalById = new Map([...mergedDocuments].filter(([, item]) => item.release_excluded !== true));
 const stateCount = manifest?.counts?.state_public_submissions;
 const verifiedPdfCount = pdfReport?.linked_pdf_count;
 if (!Number.isInteger(stateCount) || stateCount < 1) throw new Error(`PRODUCTION-GATE state-count: neplatná hodnota ${stateCount}`);
 if (!Number.isInteger(verifiedPdfCount) || verifiedPdfCount < 1) throw new Error(`PRODUCTION-GATE pdf-count: neplatná hodnota ${verifiedPdfCount}`);
 
-const stateRecords = (registry.documents || [])
-  .filter(item => item.issue_date >= '2026-05-01' && (item.document_type === 'state_record' || item.submission_side === 'incoming_from_state_or_public_institution'));
-const canonicalById = new Map((registry.documents || []).map(item => [item.id, item]));
+const stateRecords = [...canonicalById.values()]
+  .filter(item => item.issue_date >= '2026-05-01' && item.document_type === 'state_record');
 const stateDates = stateRecords.map(item => item.issue_date).filter(Boolean).sort();
 const latestIssueDate = stateDates.at(-1);
 if (!latestIssueDate) throw new Error('PRODUCTION-GATE latest-date: chybí datum poslední státní listiny');
