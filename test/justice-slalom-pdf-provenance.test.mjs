@@ -691,3 +691,33 @@ test('MV rozklad requires independently pinned archived source and already-live 
   assert.throws(()=>verify({publicCopy:replacement,record:{...record,public:{...record.public,sha256:replacementSha}},hardeningById:new Map([[spec.id,{...row,output_sha256:replacementSha}]])}),/provenance mismatch/);
   assert.notEqual(mvRozkladPdf.sourceSha,mvRozkladPdf.publicSha);
 });
+
+import {mkdtemp,mkdir,writeFile,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {collectVerifiedAttachments,renderAttachmentSurface} from '../scripts/finalize-state-attachment-surfaces.mjs';
+
+test('verified state attachments appear on homepage and chronology without altering standalone counts',async()=>{
+  const root=await mkdtemp(join(tmpdir(),'state-attachment-test-'));
+  try{
+    await mkdir(join(root,'documents'),{recursive:true});
+    const bytes=Buffer.from('%PDF-1.4\nfixture\n%%EOF\n');
+    await writeFile(join(root,'documents','annex.pdf'),bytes);
+    const record={id:'doc-fixture-annex',document_type:'state_record_attachment',submission_side:'incoming_from_state_or_public_institution',issue_date:'2026-11-04',user_title:'Test <annex>',public:{pdf:'documents/annex.pdf',sha256:createHash('sha256').update(bytes).digest('hex')}};
+    const held={...record,id:'doc-held',release_excluded:true};
+    const attachments=await collectVerifiedAttachments([record,held],root);
+    assert.deepEqual(attachments.map(d=>d.id),[record.id]);
+    const original='<main><section id="latest-records" class="latest-records"><header><h2>Kanonická důkazní paměť do 3. listopadu 2026</h2><p>165 listin státu a veřejných institucí</p></header><div class="latest-record-grid"></div></section></main>';
+    const updated=renderAttachmentSurface(original,attachments,'2026-11-03','cs',true);
+    assert.ok(updated.includes('Kanonická důkazní paměť do 4. listopadu 2026'));
+    assert.ok(updated.includes('165 listin státu a veřejných institucí'));
+    assert.ok(updated.includes('Test &lt;annex&gt;'));
+    assert.ok(updated.includes('href="/ai-advocate-evidence-lab/documents/annex.pdf"'));
+    assert.equal(updated,renderAttachmentSurface(updated,attachments,'2026-11-03','cs',true));
+    const chronology=renderAttachmentSurface('<main><table></table></main>',attachments,'2026-11-03','en',false);
+    assert.ok(chronology.includes('Verified attachments with public PDFs'));
+    assert.equal(chronology,renderAttachmentSurface(chronology,attachments,'2026-11-03','en',false));
+    await assert.rejects(collectVerifiedAttachments([{...record,public:{...record.public,sha256:'0'.repeat(64)}}],root),/SHA mismatch/);
+    await assert.rejects(collectVerifiedAttachments([{...record,public:{...record.public,pdf:'documents/../annex.pdf'}}],root),/identity, digest, date or path invalid/);
+  }finally{await rm(root,{recursive:true,force:true});}
+});
