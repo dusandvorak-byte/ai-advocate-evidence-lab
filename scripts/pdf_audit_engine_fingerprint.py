@@ -39,7 +39,7 @@ def engine_fingerprint(root=ROOT):
             raise ValueError("missing required executable: " + name)
         tools[name] = {"sha256": sha_file(executable), "version": command([executable, *args])}
     # Pin OS packages and Python distributions in addition to binary versions.
-    distro = command(["dpkg-query", "-W", "-f=\${Package}\t\${Version}\n"])
+    distro = command(["dpkg-query", "-W", "-f=${Package}\t${Version}\n"])
     distributions = []
     for dist in importlib.metadata.distributions():
         record = dist.read_text("RECORD")
