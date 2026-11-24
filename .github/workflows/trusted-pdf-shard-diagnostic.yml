@@ -149,6 +149,14 @@ jobs:
           print("Private redaction policy provisioned in runner temp; private literals not logged.")
           PY
 
+      - name: Fetch independently pinned late public copies (read only)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 scripts/fetch-pinned-late-baseline.py "$RUNNER_TEMP/pinned-late-baseline"
+          echo "EVIDENCE_LAB_PINNED_LATE_BASELINE=$RUNNER_TEMP/pinned-late-baseline/prior" >> "$GITHUB_ENV"
+
       - name: Snapshot canonical registry before build reconciliation
         run: |
           set -euo pipefail
