@@ -42,6 +42,7 @@ export async function collectDatedBatch(documents,manifest,root='web'){
     if(!Number.isInteger(row.item)||row.item<1||row.item>45||numbers.has(row.item)||!/^2026-11-(0[4-9]|1[0-9]|2[0-3])$/.test(row.timeline_date))throw Error('Invalid approved timeline row');
     numbers.add(row.item);
     if(!row.document_id)continue; // No links or placeholders for unverified items.
+    if(row.item<3||row.item>8)throw Error('Only the verified order/annex group may be rendered in this attachment cross-reference');
     const d=documents.find(x=>x.id===row.document_id);
     if(!d||d.release_excluded===true||!d.public?.pdf||ids.has(d.id)||paths.has(d.public.pdf)||!/^documents\/(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_.-]+\.pdf$/.test(d.public.pdf)||!/^[a-f0-9]{64}$/.test(d.public.sha256||''))throw Error('Dated record not uniquely verified: '+row.item);
     const bytes=await readFile(join(root,d.public.pdf));
@@ -53,7 +54,7 @@ export async function collectDatedBatch(documents,manifest,root='web'){
 
 export function attachmentPanel(attachments,lang,dated=[]){
   const en=lang==='en';
-  if(!attachments.length)return '';
+  if(!attachments.length&&!dated.length)return '';
   const datedIds=new Set(dated.map(r=>r.document.id));
   const attachmentIds=new Set(attachments.map(d=>d.id));
   const datedRows=dated.map(({item,timeline_date,document:d})=>{
@@ -69,12 +70,12 @@ export function attachmentPanel(attachments,lang,dated=[]){
     const dateLabel=isKu?(en?'Response batch dated ':'Dávka odpovědi ze dne '):(en?'Record date: ':'Datum evidence: ');
     return '<li data-attachment-id="'+esc(d.id)+'"><a href="/ai-advocate-evidence-lab/'+esc(d.public.pdf)+'" target="_blank" rel="noopener">'+esc(title)+'</a> <span>('+esc(dateLabel+format(d.issue_date,lang))+')</span></li>';
   }).join('');
-  return begin+'<div class="state-attachments" aria-label="'+(en?'Verified attachments':'Ověřené přílohy')+'"><h3>'+(en?'Verified attachments with public PDFs':'Ověřené přílohy s veřejnými PDF')+'</h3><p>'+(en?'Listed separately from the count of standalone state records.':'Evidovány samostatně mimo počet samostatných státních listin.')+'</p><ul>'+datedRows+rows+'</ul></div>'+end;
+  return begin+'<div class="state-attachments" aria-label="'+(en?'Verified attachments':'Ověřené přílohy')+'"><h3>'+(en?'Verified attachments with public PDFs':'Ověřené přílohy s veřejnými PDF')+'</h3><p>'+(en?'References to the existing order and verified attachments; no additional standalone state records are counted.':'Odkazy na již evidovaný rozkaz a ověřené přílohy; nezvyšují počet samostatných státních listin.')+'</p><ul>'+datedRows+rows+'</ul></div>'+end;
 }
 
 export function renderAttachmentSurface(html,attachments,latestDecisionDate,lang,home,dated=[]){
   html=stripPanel(html);
-  if(!attachments.length)return html;
+  if(!attachments.length&&!dated.length)return html;
   const panel=attachmentPanel(attachments,lang,dated);
   if(home){
     const start=html.indexOf('<section id="latest-records"');

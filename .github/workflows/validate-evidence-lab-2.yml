@@ -56,6 +56,8 @@ jobs:
           node --test test/justice-slalom-pdf-provenance.test.mjs
           node --test test/release-cache-version.test.mjs
           node --test test/late-original-public-provenance.test.mjs
+          node --test test/approved-november-timeline.test.mjs
+          python3 test/historical-inspection-retry.test.py -v
           python3 test/test_live_release_sha.py -v
           python3 -m py_compile scripts/publication_redaction.py
           python3 -m py_compile scripts/harden-public-pdf-privacy.py
