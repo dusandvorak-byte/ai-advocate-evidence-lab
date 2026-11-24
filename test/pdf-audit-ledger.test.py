@@ -127,5 +127,34 @@ class LedgerTests(unittest.TestCase):
         self.assertEqual(shadow.compare(self.pdf, scan)["page_count"], 2)
 
 
+    def test_transform_exact_source_context_and_public_bytes(self):
+        from pdf_transform_ledger import TransformLedger, context_digest
+        store = TransformLedger(self.ledger)
+        public = self.checkout / "public.pdf"
+        public.write_bytes(b"%PDF-1.4\npublic synthetic copy\n%%EOF\n")
+        context = context_digest([{"id": "test", "public": {"pdf": "documents/test.pdf"}}], "f"*64)
+        options = dict(source_path=self.pdf, rel="documents/test.pdf", policy_sha="a"*64,
+                       identity="b"*64, engine_sha="c"*64, context_sha=context)
+        proof = dict(strategy="qpdf_rewrite", page_count=2, changed=True, matches=[], text_fallback=None,
+                     failures=[], final_facts=ledger.clean_projection(fixture_facts()), origin=self.origin,
+                     audit_report_sha256="1"*64)
+        self.assertTrue(store.record(public_path=public, proof=proof, **options))
+        result = store.lookup(**options)
+        self.assertEqual(result["public_bytes"], public.read_bytes())
+        self.assertTrue(result["requires_final_audit"])
+        self.assertFalse(result["authorization_granted"])
+        for field in ("policy_sha", "identity", "engine_sha", "context_sha"):
+            self.assertIsNone(store.lookup(**(options | {field: "9"*64})))
+        self.assertIsNone(store.lookup(**(options | {"rel": "documents/other.pdf"})))
+        self.assertFalse(store.record(public_path=public, proof=proof | {"strategy": "redact"}, **options))
+        self.assertFalse(store.record(public_path=public, proof=proof | {"matches": [{"page": 1}]}, **options))
+        self.assertFalse(store.record(public_path=public, proof=proof, **(options | {"rel": "documents/okte-originaly-test/a.pdf"})))
+        next(store.blobs.glob("*.pdf")).write_bytes(b"tampered")
+        self.assertIsNone(store.lookup(**options))
+        self.assertTrue(store.record(public_path=public, proof=proof, **options))
+        self.pdf.write_bytes(b"changed source")
+        self.assertIsNone(store.lookup(**options))
+
+
 if __name__ == "__main__":
     unittest.main()
