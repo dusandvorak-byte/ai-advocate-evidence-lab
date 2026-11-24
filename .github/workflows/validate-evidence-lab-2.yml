@@ -246,6 +246,11 @@ jobs:
           node --check scripts/verify-live-pdf-workflow.test.mjs
           node --test scripts/verify-live-pdf-workflow.test.mjs
 
+      - name: Regress held CT pilot exclusion (synthetic fixtures)
+        run: |
+          node --check scripts/verify-approved-ct-pilot.mjs
+          node --test test/verify-held-ct-pilot.test.mjs
+
       - name: Regress standalone generated PDF preflight (synthetic fixtures)
         run: |
           node --check scripts/ensure-generated-state-pdfs.mjs
