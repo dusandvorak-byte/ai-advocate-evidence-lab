@@ -98,25 +98,74 @@ export function attachmentPanel(attachments,lang){
   return begin+'<div class="state-attachments" aria-label="'+(en?'Verified attachments':'Ověřené přílohy')+'"><h3>'+(en?'Verified attachments with public PDFs':'Ověřené přílohy s veřejnými PDF')+'</h3><p>'+(en?'Listed separately from the count of standalone state records.':'Evidovány samostatně mimo počet samostatných státních listin.')+'</p><ul>'+rows+'</ul></div>'+end;
 }
 
-export function renderAttachmentSurface(html,attachments,latestDecisionDate,lang,home,batch=[]){
+// Recent verified PDFs include both state records and public user submissions.
+export async function collectVerifiedRecentRecords(documents,root,translations){
+  const ids=new Set(),paths=new Set(),result=[];
+  for(const d of documents){
+    const date=d.timeline_date||d.issue_date;
+    if(d.release_excluded===true||!(date>DATED_BATCH_DATE)||!d.public?.pdf||d.document_type==='state_record_attachment')continue;
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||!/^doc-[a-z0-9-]+$/.test(d.id)||!/^documents\/(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_.-]+\.pdf$/.test(d.public.pdf)||!/^[a-f0-9]{64}$/.test(d.public.sha256||'')||ids.has(d.id)||paths.has(d.public.pdf))throw Error('Recent record identity mismatch: '+d.id);
+    const bytes=await readFile(join(root,d.public.pdf));
+    if(bytes.subarray(0,5).toString()!=='%PDF-'||createHash('sha256').update(bytes).digest('hex')!==d.public.sha256)throw Error('Recent record SHA mismatch: '+d.id);
+    const en=translations.documents?.[d.id], institution=translations.institutions?.[d.institution_id];
+    if(!String(en||'').trim()||!String(institution||'').trim())throw Error('Recent record English translation missing: '+d.id);
+    ids.add(d.id);paths.add(d.public.pdf);result.push({...d,date,en,institutionEn:institution});
+  }
+  return result.sort((a,b)=>b.date.localeCompare(a.date)||a.id.localeCompare(b.id));
+}
+const chronologyMarker='<!-- CHRONOLOGICAL-RELEASE:V1 -->';
+const legacyCardPattern=/<article class="latest-record-card" data-document-id="([^"]+)">[\s\S]*?<\/article>/g;
+function recentCard(d,lang){
+  const en=lang==='en';
+  const link='/ai-advocate-evidence-lab/'+esc(d.public.pdf);
+  const ref=d.reference||(en?'No separate reference number':'Bez samostatného č. j.');
+  const kind=d.submission_side==='outgoing_from_user_or_alliance'?(en?'Public submission':'Veřejné podání'):(en?'Public record':'Veřejná listina');
+  return '<article class="latest-record-card recent-release-card" data-recent-document-id="'+esc(d.id)+'" data-timeline-date="'+esc(d.date)+'"><p class="kicker">'+esc(format(d.date,lang))+' · '+esc(kind)+'</p><h3><a href="'+link+'" target="_blank" rel="noopener">'+esc(en?d.en:d.user_title)+'</a></h3><p class="latest-record-reference">'+esc(ref)+'</p><a class="latest-record-pdf" href="'+link+'" target="_blank" rel="noopener">'+(en?'PDF document':'Dokument v PDF')+'</a></article>';
+}
+export function chronologicalReleasePanel(recent,batch,lang,legacy=[],documentDates=new Map()){
+  const byId=new Map(recent.map(d=>[d.id,{id:d.id,date:d.date,html:recentCard(d,lang)}]));
+  for(const [id,html] of legacy){
+    const date=byId.get(id)?.date||documentDates.get(id);
+    if(!date)throw Error('Missing date for existing latest card: '+id);
+    if(batch.some(d=>d.id===id))throw Error('Latest state card overlaps pinned dated panel: '+id);
+    byId.set(id,{id,date,html});
+  }
+  const groups=new Map();
+  for(const row of [...byId.values()].sort((a,b)=>b.date.localeCompare(a.date)||a.id.localeCompare(b.id))){
+    if(!groups.has(row.date))groups.set(row.date,[]);
+    groups.get(row.date).push(row.html);
+  }
+  if(batch.length)groups.set(DATED_BATCH_DATE,null);
+  return [...groups.entries()].sort(([a],[b])=>b.localeCompare(a)).map(([date,cards])=>cards===null?datedBatchPanel(batch,lang):'<section class="state-attachments dated-release recent-release" data-timeline-date="'+esc(date)+'"><h3>'+esc(format(date,lang))+'</h3><div class="latest-record-grid">'+cards.join('')+'</div></section>').join('');
+}
+
+export function renderAttachmentSurface(html,attachments,latestDecisionDate,lang,home,batch=[],recent=[],documentDates=new Map()){
+  const previousChronological=html.includes(chronologyMarker);
+  const legacy=home&&recent.length?[...html.matchAll(legacyCardPattern)].map(m=>[m[1],m[0]]):[];
   html=stripPanel(html);
-  if(!attachments.length)return html;
+  if(!attachments.length&&!recent.length)return html;
   const batchIds=new Set(batch.map(d=>d.id));
   const remaining=attachments.filter(d=>!batchIds.has(d.id));
   const other=stripPanelMarkers(attachmentPanel(remaining,lang));
-  const panel=begin+datedBatchPanel(batch,lang)+other+end;
+  const panel=begin+(recent.length?chronologyMarker+chronologicalReleasePanel(recent,batch,lang,legacy,documentDates):datedBatchPanel(batch,lang))+other+end;
   if(home){
     const start=html.indexOf('<section id="latest-records"');
     const stop=html.indexOf('</header>',start);
     if(start<0||stop<0)throw Error('Missing latest-records header');
     const head=html.slice(start,stop);
-    const latest=[latestDecisionDate,...attachments.map(d=>d.issue_date)].sort().at(-1);
+    const latest=[latestDecisionDate,...attachments.map(d=>d.issue_date),...recent.map(d=>d.date)].sort().at(-1);
     const en=lang==='en';
     const prefix=en?'Canonical evidence memory through ':'Kanonická důkazní paměť do ';
     const pattern=en?/<h2>Canonical evidence memory through [^<]+<\/h2>/:/<h2>Kanonická důkazní paměť do [^<]+<\/h2>/;
     if(!pattern.test(head))throw Error('Missing canonical latest heading');
     const updated=head.replace(pattern,'<h2>'+prefix+format(latest,lang)+'</h2>');
-    return html.slice(0,start)+updated+html.slice(stop,stop+9)+panel+html.slice(stop+9);
+    let tail=html.slice(stop+9);
+    if(recent.length&&!previousChronological){
+      const grid=tail.match(/^\s*<div class="latest-record-grid">([\s\S]*?)<\/div>/);
+      if(!grid||grid[1].replace(legacyCardPattern,'').trim())throw Error('Unexpected original latest grid');
+      tail=tail.slice(grid[0].length);
+    }
+    return html.slice(0,start)+updated+html.slice(stop,stop+9)+panel+tail;
   }
   const main=/<main(?:\s[^>]*)?>/;
   if(!main.test(html))throw Error('Missing chronology main element');
@@ -127,12 +176,15 @@ export async function finalizeAttachmentSurfaces({root='web',registryPath='proje
   const {documents}=JSON.parse(await readFile(registryPath,'utf8'));
   const attachments=await collectVerifiedAttachments(documents,root);
   const batch=await collectVerifiedDatedBatch(documents,attachments,root);
+  const translations=JSON.parse(await readFile('project-memory/english-godot-translations.json','utf8'));
+  const recent=await collectVerifiedRecentRecords(documents,root,translations);
+  const documentDates=new Map(documents.map(d=>[d.id,d.timeline_date||d.issue_date]));
   const latestDecisionDate=documents.filter(d=>d.release_excluded!==true&&d.document_type==='state_record'&&d.issue_date>=since).map(d=>d.issue_date).sort().at(-1);
   if(!latestDecisionDate)throw Error('Missing standalone state record date');
   const surfaces=[['index.html','cs',true],['en.html','en',true],['kc/index.html','cs',true],['kc/en.html','en',true],['zpravy/04082026-010.html','cs',false],['news/04082026-010.html','en',false]];
   for(const [path,lang,home] of surfaces){
     const target=join(root,path);
-    const html=renderAttachmentSurface(await readFile(target,'utf8'),attachments,latestDecisionDate,lang,home,batch);
+    const html=renderAttachmentSurface(await readFile(target,'utf8'),attachments,latestDecisionDate,lang,home,batch,recent,documentDates);
     const observed=[...html.matchAll(/data-attachment-id="([^"]+)"/g)].map(m=>m[1]);
     const expectedAttachmentIds=[...batch.filter(d=>d.annex).map(d=>d.id),...attachments.filter(d=>!batch.some(b=>b.id===d.id)).map(d=>d.id)];
     if(JSON.stringify(observed)!==JSON.stringify(expectedAttachmentIds))throw Error('Attachment parity mismatch: '+path);
@@ -140,6 +192,13 @@ export async function finalizeAttachmentSurfaces({root='web',registryPath='proje
     if(JSON.stringify(datedIds)!==JSON.stringify(batch.map(d=>d.id)))throw Error('Dated batch parity mismatch: '+path);
     for(const d of batch)if(!html.includes('href="/ai-advocate-evidence-lab/'+esc(d.p)+'"'))throw Error('Missing dated batch link: '+path+' '+d.id);
     for(const d of attachments)if(!html.includes('href="/ai-advocate-evidence-lab/'+esc(d.public.pdf)+'"'))throw Error('Missing verified attachment link: '+path+' '+d.id);
+    if(recent.length){
+      const block=html.slice(html.indexOf(chronologyMarker),html.indexOf(end,html.indexOf(chronologyMarker)));
+      const groups=[...block.matchAll(/<section[^>]*data-timeline-date="([^"]+)"/g)].map(m=>m[1]);
+      if(JSON.stringify(groups)!==JSON.stringify([...new Set(groups)].sort().reverse()))throw Error('Chronology date order mismatch: '+path);
+      const cardIds=[...block.matchAll(/data-(?:recent-document|document)-id="([^"]+)"/g)].map(m=>m[1]);
+      if(new Set(cardIds).size!==cardIds.length||recent.some(d=>!cardIds.includes(d.id)))throw Error('Recent record coverage mismatch: '+path);
+    }
     await writeFile(target,html,'utf8');
   }
   console.log('ATTACHMENT_SURFACES_OK: '+attachments.length+' verified attachments, six CZ/EN surfaces; standalone state counts unchanged');
