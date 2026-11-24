@@ -7,6 +7,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from audit_git_lineage import check_lineage
+from registry_pdf_fact_reuse import root_rows_by_path, registry_facts_from_row
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT_PATH = ROOT / "scripts" / "audit-release-evidence-2026-11-13.py"
@@ -227,12 +228,13 @@ def cmd_redacted():
 
 def cmd_assemble(count):
     generated_fragment = load_fragment("generated")
-    registry_fragment = load_fragment("registry-derivatives")
     generated = generated_fragment["data"]
-    registry_derivatives = registry_fragment["data"]
-
     fragment_failures = list(generated_fragment.get("failures") or [])
-    fragment_failures += list(registry_fragment.get("failures") or [])
+    reuse_registry_facts = os.environ.get("EVIDENCE_LAB_REUSE_REGISTRY_PDF_FACTS") == "1"
+    if not reuse_registry_facts:
+        registry_fragment = load_fragment("registry-derivatives")
+        registry_derivatives = registry_fragment["data"]
+        fragment_failures += list(registry_fragment.get("failures") or [])
 
     all_web_pdfs = []
     for index in range(count):
@@ -240,6 +242,13 @@ def cmd_assemble(count):
         all_web_pdfs.extend(shard_fragment["data"])
         fragment_failures += list(shard_fragment.get("failures") or [])
     all_web_pdfs.sort(key=lambda row: row["published_path"])
+
+    if reuse_registry_facts:
+        root_rows = root_rows_by_path(all_web_pdfs)
+        def exact_registry_facts(local, rel):
+            return registry_facts_from_row(root_rows.get(rel), rel, audit.sha256_file(local))
+        registry_derivatives, registry_failures = audit.audit_registry_public_derivatives(exact_registry_facts)
+        fragment_failures += registry_failures
 
     reconciliation, reconciliation_fail = audit.audit_registry_reconciliation(all_web_pdfs)
     id68_fidelity, id68_fail = audit.audit_id68_fidelity(all_web_pdfs, generated)
