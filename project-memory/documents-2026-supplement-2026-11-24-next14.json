@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "batch_date": "2026-11-24",
-  "description": "Fourteen distinct exact public redacted PDFs from the owner approved 24 November review packet. Original and public hashes separated. Dated intake is not a service or filing proof.",
+  "description": "Thirteen owner-approved redacted copies. Item 33 removed from public release after OCR of an image-only page disclosed private birth and address information; a separately corrected copy requires review.",
   "documents": [
     {
       "id": "doc-cz-batch-2026-11-24-09-krp-msk-krpt-294233-4",
@@ -33,46 +33,6 @@
         "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
       },
       "evidence_note": "Položka 9 schváleného soupisu je zařazena k 2026-11-05. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 1 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené."
-    },
-    {
-      "id": "doc-cz-batch-2026-11-24-33-stiznost-ministerstvu-spravedlnosti",
-      "user_title": "Stížnost Ministerstvu spravedlnosti podle informačního zákona",
-      "issue_date": "2026-11-05",
-      "received_date": null,
-      "institution_id": "CZ-DD",
-      "reference": "MSP-898/2026-OP-OSV",
-      "case_ids": [],
-      "document_type": "user_submission",
-      "submission_side": "outgoing_from_user_or_alliance",
-      "submission_side_basis": "Source PDF and dated owner inventory; date alone does not prove dispatch or service",
-      "topics": [
-        "listina",
-        "2026"
-      ],
-      "relations": [],
-      "public": {
-        "html": "listiny/doc-cz-batch-2026-11-24-33-stiznost-ministerstvu-spravedlnosti.html",
-        "pdf": "documents/2026-11-05/33-stiznost-ministerstvu-spravedlnosti-verejna-kopie.pdf",
-        "intended_pdf": "documents/2026-11-05/33-stiznost-ministerstvu-spravedlnosti-verejna-kopie.pdf",
-        "sha256": "28d80b9f1df2e06805719084bbf4c957e867161bb034e0086227091797761679",
-        "source_original_sha256": "1a1ac6519ce20680c1973af528e56bf0ff4bc9632ad479171d11e5a0b177c35f",
-        "source_original_size_bytes": 8010497,
-        "source_original_page_count": 60,
-        "source_public_size_bytes": 8144709,
-        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_exact_14_batch",
-        "source_manifest": "project-memory/documents-2026-supplement-2026-11-24-next14.json",
-        "public_copy_note": "Redigovaná veřejná kopie původního PDF, nikoli byte-identický originál."
-      },
-      "evidence_note": "Položka 33 schváleného soupisu je zařazena k 2026-11-05. Datum zařazení samo o sobě neprokazuje odeslání ani doručení. Veřejná redigovaná kopie má 60 stran; SHA-256 původního PDF a veřejné kopie jsou oddělené.",
-      "author_cs": "Mgr. Dušan Dvořák",
-      "author_en": "Mgr. Dušan Dvořák",
-      "recipients": [
-        {
-          "institution_id": "CZ-MSP",
-          "role": "primary",
-          "reference": "MSP-898/2026-OP-OSV"
-        }
-      ]
     },
     {
       "id": "doc-cz-batch-2026-11-24-10-stiznost-castecne-poskytnuti-informaci",
