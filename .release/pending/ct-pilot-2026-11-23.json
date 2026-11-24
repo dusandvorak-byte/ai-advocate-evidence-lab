@@ -14,7 +14,8 @@
   "proposed_public_path": "documents/2026-11-23/2026-11-23-os-praha4-10-c-69-2026-ct-doplneni.pdf",
   "approval_receipt": "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7124065133",
   "approval_date": "2026-11-24",
-  "status": "APPROVED_PENDING_BINARY_IMPORT_AND_RELEASE_GATES",
+  "status": "APPROVED_BINARY_IMPORTED_PENDING_RELEASE_GATES",
   "publish": false,
-  "notes": "Metadata staging only. PDF not yet imported, no deploy authorization for any other files. Verify exact binary, privacy gates and live HTTPS digest before marking published."
+  "notes": "Exact approved binary transferred through authorized Google Drive connector; Git blob matches independent local Git hash, Google Drive readback SHA-256 matches approval. Staging only; no production deploy until publication controls pass.",
+  "staged_pdf_path": "web/documents/2026-11-23/2026-11-23-os-praha4-10-c-69-2026-ct-doplneni.pdf"
 }
