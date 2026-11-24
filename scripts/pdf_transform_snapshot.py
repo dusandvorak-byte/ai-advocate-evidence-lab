@@ -31,13 +31,13 @@ def require(ok, reason):
         raise ValueError(reason)
 
 
-def capture_inputs(*, web, by_path, policy_sha, identity, engine_sha, path_policy_sha, origin):
+def capture_inputs(*, web, by_path, policy_sha, identity, engine_sha, path_policy_sha, origin, excluded_paths=()):
     """Capture immediately before hardening, in the same trusted prepare job."""
     require(valid_origin(origin) and all(valid_digest(v) for v in
             (policy_sha, identity, engine_sha, path_policy_sha)), "invalid capture identity")
     rows = {}
     for rel, docs in sorted(by_path.items()):
-        if not safe_path(rel) or rel.startswith(EXCLUDED) or not rel.lower().endswith(".pdf"):
+        if not safe_path(rel) or rel in excluded_paths or rel.startswith(EXCLUDED) or not rel.lower().endswith(".pdf"):
             continue
         if not docs or any(d.get("release_excluded") is True for d in docs):
             continue
@@ -155,6 +155,7 @@ def build_reuse_plan(*, snapshot, report, stage, expected_origin):
         entries.append({"rel": rel, "source_sha256": source, "public_sha256": output,
                         "context_sha256": original["context_sha256"], "ids": ids, "page_count": pages,
                         "strategy": strategy, "redaction_matches": matches,
+                        "trigger_reasons": row.get("trigger_reasons", []),
                         "audit_checks": a["checks"], "human_review_required": True})
     return {"schema": 1, "scope": "advisory-transform-reuse-plan", "origin": expected_origin,
             "policy_sha256": policy, "private_policy_identity": identity, "engine_sha256": engine,
