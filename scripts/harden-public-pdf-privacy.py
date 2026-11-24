@@ -1089,16 +1089,37 @@ def main() -> None:
             "e565b7e3bb122f00ff04720f1acce031525c1b9c2a2457a87cdac96055ec64a6",
         "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191":
             "394d9db7e01099561138c77382e162b59810a4fdb77f1114b471fdc2e336f293",
+        "doc-cz-ksz-brn-2026-10-01-1-kzn-1079-2026-41":
+            "f21487295ab845769b9e4a610c7d5fce4f9e7446c3cdc42af8094cf81bdd9f4e",
+        "doc-cz-pcr-pp-2026-10-07-ppr-52605-2-cj-2026-990210-pd":
+            "796deaddb0723757a023dd27d2f88fc97ef525a7a653ebad1da15c4ee38f2c68",
     }
     path_by_id = {
         "doc-cz-ks-brn-2026-09-03-9-to-315-2026-140":
             "documents/report-04082026-010/110-ks-brno-9-to-315-2026-140-2026-09-03-verejna-textova-kopie.pdf",
         "doc-cz-ms-pha-2026-10-02-18-a-17-2026-191":
             "documents/report-04082026-010/111-ms-praha-18-a-17-2026-191-2026-10-02-verejna-textova-kopie.pdf",
+        "doc-cz-ksz-brn-2026-10-01-1-kzn-1079-2026-41":
+            "documents/report-04082026-010/113-ksz-brno-1-kzn-1079-2026-41-2026-10-01-verejna-textova-kopie.pdf",
+        "doc-cz-pcr-pp-2026-10-07-ppr-52605-2-cj-2026-990210-pd":
+            "documents/report-04082026-010/114-ppr-52605-2-cj-2026-990210-pd-2026-10-07-verejna-textova-kopie.pdf",
+    }
+    oct7_ids = {
+        "doc-cz-ksz-brn-2026-10-01-1-kzn-1079-2026-41",
+        "doc-cz-pcr-pp-2026-10-07-ppr-52605-2-cj-2026-990210-pd",
     }
     for item in registry["documents"]:
         document_id = item.get("id")
         if document_id not in source_sha_by_id:
+            continue
+        # For these two newly covered deterministic copies, retain a genuine
+        # changed-byte proof if present; the consumer validates its exact hashes.
+        # Otherwise require a fresh kernel-sealed authenticated deep scan.
+        if document_id in oct7_ids and any(
+            existing.get("id") == document_id
+            and existing.get("public_path") == path_by_id[document_id]
+            and existing.get("changed") is True for existing in rows
+        ):
             continue
         try:
             row = certify_four_record_public_copy(
@@ -1108,10 +1129,17 @@ def main() -> None:
                 web_root=WEB,
                 deep_scan=lambda snapshot: inspect_pdf_deep(snapshot, matchers),
             )
+            if document_id in oct7_ids:
+                # Replace a prior unchanged candidate row with the stronger
+                # immutable-snapshot proof; never leave duplicate IDs.
+                rows[:] = [existing for existing in rows if not (
+                    existing.get("id") == document_id
+                    and existing.get("public_path") == path_by_id[document_id]
+                )]
             if not any(existing.get("id") == document_id and existing.get("public_path") == path_by_id[document_id] for existing in rows):
                 rows.append(row)
         except Exception as exc:
-            failures.append(f"Four-records private snapshot privacy proof failed: {document_id}: {type(exc).__name__}")
+            failures.append(f"Deterministic public-copy private snapshot proof failed: {document_id}: {type(exc).__name__}")
 
 
     report = {
