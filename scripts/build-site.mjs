@@ -19,16 +19,29 @@ const output = { article: 'web/zpravy/04082026-010.html', home: 'web/index.html'
 const correctTitle = 'Godot online – rozhodnutí státních a veřejných institucí od 1. května 2026. Přijde Státu lásky čas?';
 const wrongTitle = 'Pavouk český křižák z Branibor';
 const readJson = async file => JSON.parse(await readFile(file, 'utf8'));
-const run = (script, ...args) => new Promise((resolve, reject) => {
-  const child = spawn(globalThis.process.execPath, [script, ...args], { stdio: 'inherit' });
-  child.on('error', reject);
-  child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${script} skončil kódem ${code}`)));
+// Performance diagnostics only: fixed script name, elapsed time and result.
+// Do not log arguments, environment variables, PDF contents or private policy.
+const timedChild = (executable, script, args = []) => new Promise((resolve, reject) => {
+  const started = performance.now();
+  let finished = false;
+  const finish = (status, error) => {
+    if (finished) return;
+    finished = true;
+    console.log(JSON.stringify({ event: 'evidence-build-step', script, elapsed_ms: Math.round(performance.now() - started), status }));
+    if (error) reject(error); else resolve();
+  };
+  try {
+    const child = spawn(executable, [script, ...args], { stdio: 'inherit' });
+    child.on('error', error => finish('error', error));
+    child.on('exit', (code, signal) => code === 0
+      ? finish('success')
+      : finish('failure', new Error(`${script} skončil kódem ${code}${signal ? ' (' + signal + ')' : ''}`)));
+  } catch (error) {
+    finish('error', error);
+  }
 });
-const runPython = script => new Promise((resolve, reject) => {
-  const child = spawn('python3', [script], { stdio: 'inherit' });
-  child.on('error', reject);
-  child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${script} skončil kódem ${code}`)));
-});
+const run = (script, ...args) => timedChild(globalThis.process.execPath, script, args);
+const runPython = script => timedChild('python3', script);
 const publicPath = value => String(value || '').replace(/^\.\//, '').replace(/^\/+/, '').replace(/^web\//, '');
 
 // A checked-out page may contain yesterday's generated archive. Its PDF links
