@@ -764,3 +764,11 @@ test('every canonical public state record has an English description before the 
   assert.deepEqual(state.filter(d => !String(translations.documents?.[d.id] || '').trim()).map(d => d.id), []);
   assert.deepEqual([...new Set([...state, ...outgoing].map(d => d.institution_id))].filter(id => !String(translations.institutions?.[id] || '').trim()), []);
 });
+
+
+import { execFileSync as runTimerTranslationCheck } from 'node:child_process';
+import { fileURLToPath as timerTestPath } from 'node:url';
+test('all actual derived and manual timers have complete English translations before trusted materialization', () => {
+  const output = runTimerTranslationCheck(process.execPath, ['scripts/build-process-timers.mjs', '--check-translations-only'], { cwd: timerTestPath(new URL('../', import.meta.url)), encoding: 'utf8' });
+  assert.match(output, /English timer translations verified: [1-9][0-9]*/);
+});
