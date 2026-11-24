@@ -469,6 +469,25 @@ def _pdf_facts_uncached(path: Path) -> dict:
 
 
 _PDF_FACTS_BY_SHA: dict[str, dict] = {}
+_SHADOW_LEDGER = None
+_SHADOW_LEDGER_INITIALIZED = False
+_SHADOW_LEDGER_LOCK = __import__("threading").Lock()
+
+
+def shadow_ledger():
+    global _SHADOW_LEDGER, _SHADOW_LEDGER_INITIALIZED
+    if os.environ.get("EVIDENCE_LAB_PDF_LEDGER_MODE") != "shadow":
+        return None
+    with _SHADOW_LEDGER_LOCK:
+        if not _SHADOW_LEDGER_INITIALIZED:
+            from publication_redaction import verified_private_policy_identity
+            from pdf_audit_ledger_shadow import from_trusted_environment
+            _SHADOW_LEDGER = from_trusted_environment(
+                sha256_file(ROOT / "scripts/publication_redaction.py"), verified_private_policy_identity()
+            )
+            _SHADOW_LEDGER_INITIALIZED = True
+        return _SHADOW_LEDGER
+
 
 def pdf_facts(path: Path) -> dict:
     """Return byte-derived PDF facts with process-local content-addressed memoization.
@@ -480,7 +499,8 @@ def pdf_facts(path: Path) -> dict:
     digest = sha256_file(path)
     cached = _PDF_FACTS_BY_SHA.get(digest)
     if cached is None:
-        cached = _pdf_facts_uncached(path)
+        shadow = shadow_ledger()
+        cached = shadow.compare(path, _pdf_facts_uncached) if shadow is not None else _pdf_facts_uncached(path)
         _PDF_FACTS_BY_SHA[digest] = cached
     return copy.deepcopy(cached)
 
