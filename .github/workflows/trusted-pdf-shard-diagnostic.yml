@@ -372,6 +372,23 @@ jobs:
             test -f "review-artifacts/release-audit-fragments/pdf-shard-$i-of-16.json"
           done
           EVIDENCE_LAB_PUBLICATION_ROOT="${GITHUB_WORKSPACE}/release-site" python3 scripts/audit-release-evidence-sliced.py assemble 16
+      # Optional evidence for the incremental experiment; absence is never
+      # permission to skip the authoritative audit or publication checks.
+      - name: Create baseline byte evidence (experimental)
+        id: incremental_baseline
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          node scripts/baseline-release-evidence.mjs --create release-site review-artifacts/release-evidence-audit.json review-artifacts/incremental-baseline.json
+      - name: Upload baseline byte evidence (experimental)
+        if: steps.incremental_baseline.outcome == 'success'
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: incremental-baseline-${{ github.sha }}
+          path: review-artifacts/incremental-baseline.json
+          if-no-files-found: error
+          retention-days: 7
       - name: Upload sanitized release evidence
         if: always()
         uses: actions/upload-artifact@v4
