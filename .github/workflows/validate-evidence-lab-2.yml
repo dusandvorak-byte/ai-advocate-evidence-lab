@@ -410,12 +410,8 @@ jobs:
             cat "/tmp/evidence-pdf-shard-$i.log"
           done
 
-      - name: Audit live OKTE SHA evidence (bounded slice)
-        run: python3 scripts/audit-release-evidence-sliced.py okte
-
-      - name: Audit redacted OKTE analysis (bounded slice)
-        run: python3 scripts/audit-release-evidence-sliced.py redacted
-
+      # OKTE and redacted analysis are checked by assemble using the scanned PDF facts.
+      # Standalone fragments were never consumed by assemble and duplicated live requests.
       - name: Assemble sliced release evidence audit
         env:
           EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
