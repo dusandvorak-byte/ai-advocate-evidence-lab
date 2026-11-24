@@ -35,6 +35,10 @@ def fixture():
                     author_association="COLLABORATOR",
                     state="APPROVED", commit_id=PRHEAD, submitted_at=LATE,
                     body=f"EVIDENCE-LAB PRIVACY APPROVED target={TARGET} audit_run={AUDIT_ID}")]
+    reviews.append(dict(user=dict(login="release-operator", type="User"),
+                        author_association="OWNER", state="APPROVED", commit_id=PRHEAD,
+                        submitted_at="2026-11-23T19:30:00Z",
+                        body=f"EVIDENCE-LAB RELEASE APPROVED target={TARGET} audit_run={AUDIT_ID}"))
     detail = dict(number=123, merge_commit_sha=MERGE, merged_at="2026-11-23T20:00:00Z",
                   merged_by=dict(login="release-operator", type="User"))
     prs[0]["number"] = 123
@@ -153,6 +157,38 @@ class PromotionGateTests(unittest.TestCase):
                     gates.validate_human_review(
                         prs, reviews, "privacy-reviewer", MERGE, TARGET, AUDIT_ID,
                         FINISHED, FINISHED, copy_detail)
+
+    def test_explicit_operator_approval_cannot_be_missing_stale_or_early(self):
+        for attack in ("missing", "early", "before-privacy", "wrong-head", "wrong-target",
+                       "comment-only", "bot", "outsider", "dismissed", "after-merge", "wrong-actor"):
+            with self.subTest(attack=attack):
+                _, _, prs, reviews, detail = fixture()
+                op = reviews[-1]
+                if attack == "missing":
+                    reviews.pop()
+                elif attack == "early":
+                    op["submitted_at"] = EARLY
+                elif attack == "before-privacy":
+                    op["submitted_at"] = "2026-11-23T18:30:00Z"
+                elif attack == "wrong-head":
+                    op["commit_id"] = "f" * 40
+                elif attack == "wrong-target":
+                    op["body"] = f"EVIDENCE-LAB RELEASE APPROVED target={'d'*40} audit_run={AUDIT_ID}"
+                elif attack == "comment-only":
+                    op["state"] = "COMMENTED"
+                elif attack == "bot":
+                    op["user"]["type"] = "Bot"
+                elif attack == "outsider":
+                    op["author_association"] = "NONE"
+                elif attack == "dismissed":
+                    reviews.append(dict(op, state="DISMISSED", submitted_at="2026-11-23T19:45:00Z"))
+                elif attack == "after-merge":
+                    op["submitted_at"] = "2026-11-23T20:30:00Z"
+                elif attack == "wrong-actor":
+                    op["user"]["login"] = "different-operator"
+                with self.assertRaises(ValueError):
+                    gates.validate_human_review(prs, reviews, "privacy-reviewer", MERGE,
+                                                TARGET, AUDIT_ID, FINISHED, FINISHED, detail)
 
     def test_missing_reviewer_and_missing_audit_id_fail_closed(self):
         _, _, prs, reviews, detail = fixture()

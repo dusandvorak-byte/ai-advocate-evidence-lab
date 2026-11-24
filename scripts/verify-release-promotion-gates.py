@@ -94,6 +94,29 @@ def validate_human_review(prs, reviews, reviewer, merge_sha, target, audit_run_i
              "human review predates trusted full validation")
     _require(_timestamp(pr_detail["merged_at"]) >= approved_at,
              "release operator merged before the human privacy attestation")
+    # A human-looking merge identity alone is insufficient: auto-merge may have
+    # been armed before the audits. Require a separate, explicit post-audit
+    # operator approval on the exact authorization head, after privacy approval.
+    operator_history = [r for r in reviews if (r.get("user") or {}).get("login", "").lower()
+                        == operator["login"].lower()]
+    _require(bool(operator_history), "no explicit post-audit release operator approval")
+    operator_history.sort(key=lambda r: _timestamp(r.get("submitted_at")))
+    operator_review = operator_history[-1]
+    _require((operator_review.get("user") or {}).get("type") == "User",
+             "release operator approval is not a human GitHub user")
+    _require(operator_review.get("author_association") in {"OWNER", "MEMBER", "COLLABORATOR"},
+             "release operator lacks contributor authority")
+    _require(operator_review.get("state") == "APPROVED" and operator_review.get("commit_id") == head,
+             "operator approval is stale or not approved")
+    _require((operator_review.get("body") or "").strip() ==
+             f"EVIDENCE-LAB RELEASE APPROVED target={target} audit_run={audit_run_id}",
+             "operator approval missing exact target and audited-run attestation")
+    operator_at = _timestamp(operator_review.get("submitted_at"))
+    _require(operator_at > approved_at and
+             operator_at > _timestamp(audit_completed) and operator_at > _timestamp(full_completed),
+             "operator approval must follow both audits and independent privacy approval")
+    _require(_timestamp(pr_detail["merged_at"]) >= operator_at,
+             "release was merged before explicit operator approval")
     return True
 
 
