@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { assertPinnedPublicSha } from './godot-public-sha-pins.mjs';
 import { evaluatePinnedJusticeSlalomOriginal, indexJusticeSlalomHardeningEvidence, policyHardenedCopyOk } from './justice-slalom-pdf-provenance.mjs';
 
 const fail=message=>{throw new Error('GODOT-SLALOM-2026-10-08: '+message);};
@@ -64,6 +65,7 @@ for(const [id,spec] of expected){
  must(digest===spec.publicSha,'veřejné PDF nemá nezávisle připnutý výstupní SHA '+id);
  must(published.public?.sha256===digest,'veřejný PDF nemá odpovídající kanonický SHA '+id);
  const row=hardeningById.get(id);
+ assertPinnedPublicSha({id,digest,registrySha:published.public?.sha256,reportSha:row?.output_sha256});
  must(row?.page_count===spec.pages && row?.input_sha256===spec.sha &&
    row?.output_sha256===digest,'veřejná redigovaná kopie nemá úplný audit zdroje a stran '+id);
  const hardened=policyHardenedCopyOk({doc:published,digest,expectedInputSha:spec.sha,

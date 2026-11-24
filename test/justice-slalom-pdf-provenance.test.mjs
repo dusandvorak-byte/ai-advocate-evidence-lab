@@ -639,3 +639,114 @@ test('Justice Slalom UOOU and UOCR digest expressions use imported SHA-256', () 
     assert.equal(actual, expected, digestName + ' must hash the public PDF bytes');
   }
 });
+
+
+import { publicShaPins, assertPinnedPublicSha } from '../scripts/godot-public-sha-pins.mjs';
+import { historicalOriginals, verifyHistoricPdfIdentity } from '../scripts/interpelace-380-integrity.mjs';
+
+test('P1 #286 rejects joint tampering of public bytes, registry and report against independent pins', () => {
+  assert.equal(Object.keys(publicShaPins).length, 5);
+  for (const [id, publicSha] of Object.entries(publicShaPins)) {
+    assert.equal(assertPinnedPublicSha({
+      id, digest: publicSha, registrySha: publicSha, reportSha: publicSha,
+    }), true);
+    const forged = 'f'.repeat(64) === publicSha ? 'e'.repeat(64) : 'f'.repeat(64);
+    assert.throws(() => assertPinnedPublicSha({
+      id, digest: forged, registrySha: forged, reportSha: forged,
+    }), /Unrecognized public copy/, id + ': colluding file+registry+report');
+    assert.throws(() => assertPinnedPublicSha({
+      id, digest: publicSha, registrySha: publicSha, reportSha: forged,
+    }), /Unrecognized public copy/);
+    assert.throws(() => assertPinnedPublicSha({
+      id, digest: publicSha, registrySha: forged, reportSha: publicSha,
+    }), /Unrecognized public copy/);
+  }
+  assert.throws(() => assertPinnedPublicSha({
+    id: 'doc-fake-new-pdf', digest: 'f'.repeat(64),
+    registrySha: 'f'.repeat(64), reportSha: 'f'.repeat(64),
+  }), /Unrecognized public copy/);
+  const validator = readFileSync(new URL('../scripts/validate-godot-filings-2026-10-08.mjs', import.meta.url), 'utf8');
+  assert.match(validator, /assertPinnedPublicSha\(\{id,digest,registrySha:published\.public\?\.sha256,reportSha:row\?\.output_sha256\}\)/);
+});
+
+test('interpelace 380 retains independent original and hardened public identities', () => {
+  assert.equal(historicalOriginals.length, 2);
+  assert.notEqual(historicalOriginals[0].originalSha, historicalOriginals[0].publicSha);
+  assert.equal(historicalOriginals[1].originalSha, historicalOriginals[1].publicSha);
+  const source = Buffer.from('%PDF-1.4\nsource original\n%%EOF\n');
+  const derivative = Buffer.from('%PDF-1.4\nprivacy hardened copy\n%%EOF\n');
+  const sha = bytes => createHash('sha256').update(bytes).digest('hex');
+  const spec = {
+    path: 'test.pdf', originalSize: source.length, originalSha: sha(source),
+    publicSize: derivative.length, publicSha: sha(derivative), pages: 2,
+  };
+  assert.equal(verifyHistoricPdfIdentity(spec, source, derivative).alteredPublicCopy, true);
+  assert.throws(() => verifyHistoricPdfIdentity(spec, derivative, derivative),
+    /Archived original identity mismatch/);
+  assert.throws(() => verifyHistoricPdfIdentity(spec, source, source),
+    /Pinned public PDF identity mismatch/);
+  assert.throws(() => verifyHistoricPdfIdentity(spec, source, Buffer.concat([derivative, Buffer.from('tamper')])),
+    /Pinned public PDF identity mismatch/);
+  assert.throws(() => verifyHistoricPdfIdentity(spec, source, Buffer.from('fake')),
+    /Pinned public PDF identity mismatch/);
+});
+
+
+import { validatePublicationBatch } from '../scripts/validate-publication-batch.mjs';
+
+test('candidate standalone manifest rejects absent human approval, SHA drift and duplicate paths', () => {
+  const item = () => ({
+    document_id: 'doc-example-2026-11-23',
+    issuer: 'state', case_ids: ['case-demo'],
+    source_original_sha256: 'a'.repeat(64), public_sha256: 'b'.repeat(64),
+    public_path: 'documents/demo/test.pdf',
+    privacy_review: {
+      decision: 'approved_for_publication', reviewed_public_sha256: 'b'.repeat(64), reviewer: 'example', receipt: 'demo-receipt',
+    },
+    approval: {
+      authorized_public_sha256: 'b'.repeat(64), authorized_by: 'du-demo', receipt: 'approval-demo',
+    },
+  });
+  const wrap = items => ({ schema_version: '1', batch_id: 'demo-release', items });
+  assert.equal(validatePublicationBatch(wrap([item()])).count, 1);
+  for (const damage of [
+    x => { x.approval.authorized_public_sha256 = 'f'.repeat(64); },
+    x => { x.privacy_review.decision = 'unreviewed'; },
+    x => { x.privacy_review.reviewed_public_sha256 = 'f'.repeat(64); },
+    x => { x.privacy_review.receipt = ''; },
+    x => { x.approval.receipt = ''; },
+    x => { x.public_path = 'documents/../secret.pdf'; },
+    x => { x.public_path = 'documents//test.pdf'; },
+    x => { x.document_id = 'bad'; },
+    x => { x.public_sha256 = 'wrong'; },
+    x => { x.issuer = 'unknown'; },
+    x => { x.document_id = ['doc-example-2026-11-23']; },
+    x => { x.document_id = { toString: () => 'doc-example-2026-11-23' }; },
+    x => { x.public_path = ['documents/demo/test.pdf']; },
+    x => { x.source_original_sha256 = ['a'.repeat(64)]; },
+    x => { x.public_sha256 = ['b'.repeat(64)]; },
+    x => { x.privacy_review.reviewer = ['example']; },
+    x => { x.privacy_review.receipt = ['demo-receipt']; },
+    x => { x.approval.authorized_by = ['du-demo']; },
+    x => { x.approval.receipt = ['approval-demo']; },
+
+  ]) {
+    const x = item();
+    damage(x);
+    assert.throws(() => validatePublicationBatch(wrap([x])), /PUBLICATION_MANIFEST_INVALID/);
+  }
+  assert.throws(() => validatePublicationBatch(wrap([item(), item()])), /document identity/);
+  const a = item(); const b = item();
+  a.document_id = ['doc-example-2026-11-23'];
+  b.document_id = ['doc-example-2026-11-23'];
+  b.public_path = 'documents/demo/other.pdf';
+  assert.throws(() => validatePublicationBatch(wrap([a, b])), /document identity/);
+  assert.throws(() => validatePublicationBatch({ ...wrap([item()]), batch_id: ['demo-release'] }), /schema\/batch/);
+
+  const second = item();
+  second.document_id = 'doc-example-2026-11-24';
+  assert.throws(() => validatePublicationBatch(wrap([item(), second])), /public path/);
+  assert.throws(() => validatePublicationBatch({
+    ...wrap([item()]), release_mode: 'publish',
+  }), /unknown release_mode/);
+});
