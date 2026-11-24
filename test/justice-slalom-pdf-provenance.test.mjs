@@ -772,3 +772,34 @@ test('all actual derived and manual timers have complete English translations be
   const output = runTimerTranslationCheck(process.execPath, ['scripts/build-process-timers.mjs', '--check-translations-only'], { cwd: timerTestPath(new URL('../', import.meta.url)), encoding: 'utf8' });
   assert.match(output, /English timer translations verified: [1-9][0-9]*/);
 });
+
+import {collectVerifiedRecentRecords} from '../scripts/finalize-state-attachment-surfaces.mjs';
+test('chronological release combines outgoing and incoming verified PDFs above the 4 November intake, without duplicating legacy cards', async()=>{
+  const root=await mkdtemp(join(tmpdir(),'recent-release-test-'));
+  try{
+    await mkdir(join(root,'documents'),{recursive:true});
+    const bytes=Buffer.from('%PDF-1.4\nfixture\n%%EOF\n'), sha=createHash('sha256').update(bytes).digest('hex');
+    const fixture=(id,date,side)=>({id,issue_date:date,institution_id:'CZ-X',document_type:side==='incoming_from_state_or_public_institution'?'state_record':'user_submission',submission_side:side,user_title:id,public:{pdf:'documents/'+id+'.pdf',sha256:sha}});
+    const docs=[fixture('doc-state','2026-11-16','incoming_from_state_or_public_institution'),fixture('doc-filing','2026-11-23','outgoing_from_user_or_alliance'),fixture('doc-mid','2026-11-12','incoming_from_state_or_public_institution')];
+    for(const d of docs)await writeFile(join(root,d.public.pdf),bytes);
+    const translations={institutions:{'CZ-X':'Test institution'},documents:Object.fromEntries(docs.map(d=>[d.id,'English '+d.id]))};
+    const recent=await collectVerifiedRecentRecords(docs,root,translations);
+    assert.deepEqual(recent.map(d=>d.id),['doc-filing','doc-state','doc-mid']);
+    const batch=[{number:3,id:'doc-historical',p:'documents/order.pdf',cs:'Order',en:'Order',annex:false}];
+    for(const lang of ['cs','en']){
+      const title=lang==='en'?'Canonical evidence memory through 16 November 2026':'Kanonick\u00e1 d\u016fkazn\u00ed pam\u011b\u0165 do 16. listopadu 2026';
+      const input='<main><section id="latest-records"><header><h2>'+title+'</h2><p>165 records</p></header><div class="latest-record-grid"><article class="latest-record-card" data-document-id="doc-state"><h3>Legacy</h3></article></div></section></main>';
+      const html=renderAttachmentSurface(input,[],'2026-11-16',lang,true,batch,recent);
+      assert.deepEqual([...html.matchAll(/<section[^>]*data-timeline-date="([^"]+)"/g)].map(m=>m[1]),['2026-11-23','2026-11-16','2026-11-12','2026-11-04']);
+      assert.deepEqual([...html.matchAll(/data-(?:recent-document|document|dated-document)-id="([^"]+)"/g)].map(m=>m[1]),['doc-filing','doc-state','doc-mid','doc-historical']);
+      assert.ok(html.includes('165 records'));
+      assert.equal(renderAttachmentSurface(html,[],'2026-11-16',lang,true,batch,recent),html);
+      const chronology=renderAttachmentSurface('<main><table></table></main>',[],'2026-11-16',lang,false,batch,recent);
+      assert.deepEqual([...chronology.matchAll(/<section[^>]*data-timeline-date="([^"]+)"/g)].map(m=>m[1]),['2026-11-23','2026-11-16','2026-11-12','2026-11-04']);
+      assert.equal(renderAttachmentSurface(chronology,[],'2026-11-16',lang,false,batch,recent),chronology);
+    }
+    await assert.rejects(collectVerifiedRecentRecords([{...docs[0],public:{...docs[0].public,sha256:'0'.repeat(64)}}],root,translations),/Recent record SHA mismatch/);
+    await assert.rejects(collectVerifiedRecentRecords(docs,root,{...translations,documents:{}}),/translation missing/);
+    assert.equal((await collectVerifiedRecentRecords([{...docs[0],release_excluded:true}],root,translations)).length,0);
+  }finally{await rm(root,{recursive:true,force:true});}
+});
