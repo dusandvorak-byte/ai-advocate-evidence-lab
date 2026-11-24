@@ -31,9 +31,8 @@ jobs:
           python-version: '3.12.16'
       - name: Install audit dependencies
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq mupdf-tools poppler-utils qpdf
-          python3 -m pip install --disable-pip-version-check reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
+          bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
+          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
       - name: Provision private redaction policy
         env:
           PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
@@ -151,9 +150,8 @@ jobs:
           python-version: '3.12.16'
       - name: Install audit dependencies
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq mupdf-tools poppler-utils qpdf
-          python3 -m pip install --disable-pip-version-check pymupdf==2.1 reportlab==5.1.0 pillow==13.0.0
+          bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
+          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 pymupdf==2.1 reportlab==5.1.0 pillow==13.0.0
       - name: Provision private redaction policy
         env:
           PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
@@ -199,9 +197,8 @@ jobs:
           python-version: '3.12.16'
       - name: Install audit dependencies
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq mupdf-tools poppler-utils qpdf
-          python3 -m pip install --disable-pip-version-check pymupdf==2.1 reportlab==5.1.0 pillow==13.0.0
+          bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
+          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 pymupdf==2.1 reportlab==5.1.0 pillow==13.0.0
       - name: Provision private redaction policy
         env:
           PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
@@ -242,7 +239,7 @@ jobs:
         with:
           python-version: '3.12.16'
       - name: Install assembler dependency
-        run: python3 -m pip install --disable-pip-version-check pymupdf==2.1
+        run: python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 pymupdf==2.1
       - uses: actions/download-artifact@v4
         with:
           name: trusted-public-tree-${{ github.sha }}
