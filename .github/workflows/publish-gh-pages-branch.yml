@@ -91,6 +91,7 @@ jobs:
           set -euo pipefail
           deadline=$((SECONDS + 5100))
           run_id=""
+          successful_run_id=""
           while [ "$SECONDS" -lt "$deadline" ]; do
             candidate="$(gh run list \
               --workflow trusted-pdf-shard-diagnostic.yml \
@@ -101,20 +102,29 @@ jobs:
             if [ -n "$candidate" ] && [ "$candidate" != "null" ]; then
               status="$(jq -r '.status' <<<"$candidate")"
               run_id="$(jq -r '.databaseId' <<<"$candidate")"
+              candidate_sha="$(jq -r '.headSha' <<<"$candidate")"
+              if [[ ! "$run_id" =~ ^[0-9]+$ ]] || [ "$candidate_sha" != "$AUDIT_TARGET_SHA" ]; then
+                echo "Unexpected audit run identity; refusing publication." >&2
+                exit 1
+              fi
               if [ "$status" = "completed" ]; then
                 conclusion="$(jq -r '.conclusion' <<<"$candidate")"
                 test "$conclusion" = "success" || {
                   echo "Exact-SHA shard audit $run_id ended with $conclusion" >&2
                   exit 1
                 }
+                successful_run_id="$run_id"
                 break
               fi
             fi
             sleep 10
           done
-          test -n "$run_id"
-          echo "DIAGNOSTIC_RUN_ID=$run_id" >> "$GITHUB_ENV"
-          echo "Authoritative shard audit succeeded: run $run_id"
+          if [ -z "$successful_run_id" ]; then
+            echo "Timed out without a successful exact-SHA shard audit; refusing publication." >&2
+            exit 1
+          fi
+          echo "DIAGNOSTIC_RUN_ID=$successful_run_id" >> "$GITHUB_ENV"
+          echo "Authoritative shard audit succeeded: run $successful_run_id"
 
       - name: Stáhnout a kryptograficky svázat auditovaný release tree
         shell: bash
