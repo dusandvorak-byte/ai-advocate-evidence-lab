@@ -149,3 +149,8 @@ requireText('latest-kpr', article, 'KPR 5080/2026');
 requireText('latest-osz-fm', article, '1 ZN 7061/2026-79');
 
 console.log(`Veřejná formulace sjednocena (${replacements} náhrad); 4/4 plochy, aktuální počty, dynamická parita nejnovějších karet a produkční brána byly finálně ověřeny.`);
+
+// Publish verified state attachments separately from the standalone Godot count.
+// Terminal projection derives dates and links only from the hardened canonical registry.
+const {finalizeAttachmentSurfaces}=await import('./finalize-state-attachment-surfaces.mjs');
+await finalizeAttachmentSurfaces();
