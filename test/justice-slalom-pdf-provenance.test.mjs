@@ -750,3 +750,17 @@ test('dated 4 November group preserves historical PDFs and standalone decision-c
 
   await assert.rejects(collectVerifiedDatedBatch([],[],'.'),/Dated batch provenance mismatch/);
 });
+
+
+test('every canonical public state record has an English description before the trusted build', () => {
+  const readJson = path => JSON.parse(readFileSync(new URL('../' + path, import.meta.url), 'utf8'));
+  const manifest = readJson('project-memory/document-sources.json');
+  const translations = readJson('project-memory/english-godot-translations.json');
+  const all = manifest.sources.flatMap(source => readJson(source.path).documents);
+  const documents = [...new Map(all.filter(d => d.release_excluded !== true).map(d => [d.id, d])).values()];
+  const state = documents.filter(d => d.issue_date >= '2026-05-01' && d.document_type !== 'state_record_attachment' && (d.submission_side === 'incoming_from_state_or_public_institution' || d.document_type === 'state_record'));
+  const outgoing = documents.filter(d => d.issue_date >= '2026-05-01' && d.submission_side === 'outgoing_from_user_or_alliance');
+  assert.ok(state.length > 0);
+  assert.deepEqual(state.filter(d => !String(translations.documents?.[d.id] || '').trim()).map(d => d.id), []);
+  assert.deepEqual([...new Set([...state, ...outgoing].map(d => d.institution_id))].filter(id => !String(translations.institutions?.[id] || '').trim()), []);
+});
