@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { verifiedStatePdfProvenance } from '../scripts/state-release-pdf-provenance.mjs';
+import { verifiedStatePdfProvenance, verifiedGeneratedStatePdfProvenance } from '../scripts/state-release-pdf-provenance.mjs';
 import { verifiedEkkPublicCopy } from '../scripts/ekk-public-text-provenance.mjs';
 
 const sourceSha = '1'.repeat(64);
@@ -103,4 +103,23 @@ test('EKK: changed generated copy requires authenticated exact SHA bridge and cl
   assert.equal(ekkCheck(ekkFinal(ekkFinalSha,status),ekkFinalSha,ekkReport([ekkRow({known_private_identifier_hits_after:['hit']})])),false);
   assert.equal(ekkCheck(ekkFinal(ekkFinalSha,status),ekkFinalSha,ekkReport([ekkRow({decoded_private_identifier_hits_after:['hit']})])),false);
   assert.equal(ekkCheck(ekkFinal(ekkFinalSha,status),ekkFinalSha,ekkReport([ekkRow(),ekkRow()])),false);
+});
+
+test('generated institutional PDF requires sealed unchanged or authenticated changed proof', () => {
+  const id='doc-test-generated', orig='c'.repeat(64), input='d'.repeat(64), output='e'.repeat(64);
+  const status='verified_deterministic_public_text_copy; not_byte_identical_original';
+  const source={id,public:{pdf:rel,intended_pdf:rel,sha256:input,source_original_sha256:orig,source_original_page_count:3,verification_status:status}};
+  const final=(sha=input,overrides={})=>({id,public:{...source.public,sha256:sha,verification_status:status+'; publication_policy_hardened',...overrides}});
+  const evidence={id,public_path:rel,registered:true,changed:false,input_sha256:input,output_sha256:input,page_count:2,strategy:'kernel_sealed_authenticated_deep_scan',redaction_matches:[],trigger_reasons:[],text_fallback:null,known_private_identifier_hits_after:[],decoded_private_identifier_hits_after:[]};
+  const check=(f,d,r=evidence,clean=true,s=source)=>verifiedGeneratedStatePdfProvenance({sourceDoc:s,finalDoc:f,digest:d,originalSha:orig,originalPages:3,hardeningById:new Map(r?[[id,r]]:[]),hardeningReportOk:clean});
+  assert.equal(check(final(),input),true);
+  assert.equal(check(final(),input,null),false);
+  for(const damage of [{strategy:'verify_only'},{registered:false},{changed:true},{input_sha256:orig},{output_sha256:orig},{public_path:'wrong.pdf'},{trigger_reasons:['bad']},{decoded_private_identifier_hits_after:['hit']},{page_count:0}])
+    assert.equal(check(final(),input,{...evidence,...damage}),false);
+  assert.equal(check(final(),input,evidence,false),false);
+  assert.equal(check(final(orig),orig,{...evidence,output_sha256:orig}),false);
+  assert.equal(check(final(input,{verification_status:status}),input),false);
+  assert.equal(check(final(output),output,{...evidence,changed:true,strategy:'pymupdf_rewrite',output_sha256:output}),true);
+  assert.equal(check(final(output),output,{...evidence,changed:false,output_sha256:output}),false);
+  assert.equal(check(final(output),output,{...evidence,changed:true,output_sha256:output,input_sha256:orig}),false);
 });

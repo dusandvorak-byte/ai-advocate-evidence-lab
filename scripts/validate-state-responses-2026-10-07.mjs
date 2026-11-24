@@ -1,5 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { indexJusticeSlalomHardeningEvidence } from './justice-slalom-pdf-provenance.mjs';
+import { verifiedGeneratedStatePdfProvenance } from './state-release-pdf-provenance.mjs';
 
 const fail = message => { throw new Error(`STATE-RESPONSES-2026-10-07-GATE: ${message}`); };
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -39,6 +41,19 @@ const originals = {
   [pprId]: '796deaddb0723757a023dd27d2f88fc97ef525a7a653ebad1da15c4ee38f2c68',
 };
 const originalPages = { [kszId]: 3, [pprId]: 2 };
+const contract = JSON.parse(await readFile('project-memory/private-redaction-policy-contract.json','utf8'));
+const report = JSON.parse(await readFile('project-memory/privacy-hardening-report.json','utf8'));
+if (contract.status !== 'binding' || contract.policy_id !== 'evidence-lab-private-redaction-policy' ||
+    contract.revision !== 1 || contract.revision_token !== '2026-11-17-v1' ||
+    contract.hmac_algorithm !== 'sha256' || !/^[0-9a-f]{64}$/.test(contract.approved_policy_hmac || '') ||
+    report.schema_version !== '1.2' || report.policy_file !== 'scripts/publication_redaction.py' ||
+    report.policy_sha256 !== sha256(await readFile('scripts/publication_redaction.py'))) {
+  fail('identity of authenticated private-policy report is invalid');
+}
+const {hardeningById,hardeningReportOk} = indexJusticeSlalomHardeningEvidence(report, {
+  expectedAuthenticatedPolicyIdentity: contract.approved_policy_hmac,
+});
+if (!hardeningReportOk) fail('authenticated privacy report failed or contains invalid/duplicate rows');
 for (const item of [ksz, ppr]) {
   if (item.public?.source_original_sha256 !== originals[item.id]) fail(item.id + ': nesouhlasí SHA-256 nahraného originálu');
   if (item.public?.source_original_page_count !== originalPages[item.id]) fail(item.id + ': chybí správný počet stran nahraného originálu');
@@ -57,6 +72,10 @@ for (const item of [ksz, ppr]) {
       !String(final.public?.verification_status || '').includes('publication_policy_hardened') ||
       finalSha !== final.public.sha256 ||
       finalSha === originals[item.id]) fail(item.id + ': konečná zredigovaná PDF kopie nemá ověřenou provenienci/hash nebo je byte-identická s chráněným originálem');
+  if (!verifiedGeneratedStatePdfProvenance({
+    sourceDoc: item, finalDoc: final, digest: finalSha, originalSha: originals[item.id],
+    originalPages: originalPages[item.id], hardeningById, hardeningReportOk,
+  })) fail(item.id + ': missing exact authenticated proof of generated public PDF bytes');
 }
 
 const sources = JSON.parse(await readFile('project-memory/document-sources.json', 'utf8'));
