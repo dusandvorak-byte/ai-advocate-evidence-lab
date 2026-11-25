@@ -14,7 +14,13 @@
       "document_type": "state_record",
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "Source PDF identifies the issuer and decision; receipt date is not established by this copy",
-      "topics": ["InfZ", "OKTE Frýdek-Místek", "THC", "THCA", "forenzní analýza"],
+      "topics": [
+        "InfZ",
+        "OKTE Frýdek-Místek",
+        "THC",
+        "THCA",
+        "forenzní analýza"
+      ],
       "relations": [],
       "public": {
         "html": "listiny/doc-cz-batch-2026-11-25-13-krp-msk-krpt-276756-6.html",
@@ -45,7 +51,12 @@
       "document_type": "state_record",
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "Source PDF identifies the court and disposition; receipt date is not established by this copy",
-      "topics": ["stížnost na průtahy", "obnova řízení", "15 Nt 3104/2026", "15 Nt 3106/2026"],
+      "topics": [
+        "stížnost na průtahy",
+        "obnova řízení",
+        "15 Nt 3104/2026",
+        "15 Nt 3106/2026"
+      ],
       "relations": [
         {
           "type": "reacts_to",
@@ -78,22 +89,34 @@
       "document_type": "user_submission",
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "Dated source PDF and owner inventory; issue date alone does not establish filing or service",
-      "topics": ["InfZ", "Ministerstvo spravedlnosti", "policejní znalci", "OKTE Frýdek-Místek", "THC", "THCA"],
-      "relations": [],
+      "topics": [
+        "InfZ",
+        "Ministerstvo spravedlnosti",
+        "policejní znalci",
+        "OKTE Frýdek-Místek",
+        "THC",
+        "THCA"
+      ],
+      "relations": [
+        {
+          "type": "navazuje_na",
+          "target_id": "doc-cz-ekk-2026-09-11-msp-cia-thc-dohled-akreditace"
+        }
+      ],
       "public": {
         "html": "listiny/doc-cz-batch-2026-11-25-34-msp-policejni-znalci.html",
         "pdf": "documents/2026-11-09/34-msp-policejni-znalci-opravena-verejna-kopie.pdf",
         "intended_pdf": "documents/2026-11-09/34-msp-policejni-znalci-opravena-verejna-kopie.pdf",
-        "sha256": "1fc4c8a15f676328d23caee9a43a2777de37283b4ecde8eea0cb36ef0824dd2c",
-        "source_original_sha256": "64a8b9bcb50c914bbc7339f7e054471f56e6d95b9e3af1498f2b698aba89be40",
-        "source_original_size_bytes": 174724,
+        "sha256": "69c553ffa012039a1b9fc70a9eb54fa4ce2ad9c973c2f49e224458165d518666",
+        "source_original_sha256": "7ffb330a52ec7fa71efeff39fb9e471db0757f8ae50a2ab423486fb243821662",
+        "source_original_size_bytes": 156677,
         "source_original_page_count": 4,
-        "source_public_size_bytes": 199224,
-        "verification_status": "redacted_original_from_user_binary; additional_third_person_privacy_repair; source_and_public_sha256_verified; owner_approved_exact_copy_2026-11-25",
+        "source_public_size_bytes": 175347,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; owner_approved_visible_redaction_2026-11-25; technical_attachment_removed; page_render_and_text_identity_verified",
         "source_manifest": "project-memory/documents-2026-supplement-2026-11-25-approved-five.json",
-        "public_copy_note": "Opravená redigovaná veřejná kopie: odstraněna přesná data narození a soukromé adresy; nikoli byte-identický originál."
+        "public_copy_note": "Redigovaná veřejná kopie: osobní jména nahrazena iniciálami, data narození a soukromé adresy odstraněny; následně odstraněna vložená technická příloha Content Credentials, beze změny textu a vykreslení všech čtyř stran. Nejde o byte-identický originál."
       },
-      "evidence_note": "Listina Ganja For All Animals, z. s., datovaná 9. 11. 2026 žádá Ministerstvo spravedlnosti o evidované údaje a kopie listin k dohledu nad policejními znalci a analytickými metodami THC/THCA. Datum listiny samo o sobě neprokazuje doručení. Přesná opravená veřejná kopie byla uživatelem schválena dne 2026-11-25.",
+      "evidence_note": "Listina Ganja For All Animals, z. s., datovaná 9. 11. 2026 žádá Ministerstvo spravedlnosti o evidované údaje a kopie listin k dohledu nad policejními znalci a analytickými metodami THC/THCA. Datum listiny samo o sobě neprokazuje doručení. Uživatel schválil zveřejnění této anonymizované verze 25. 11. 2026 (SHA-256 schválené kopie před odstraněním vložené technické přílohy: 3e398a100617458612358cf9fd60efc83e36866c3fee100e8081d8aa7c8cc5db). Konečná kopie má stejný viditelný obsah a extrahovaný text. Nahrazuje předchozí veřejnou verzi z PR #327, jejíž provenance zůstává v historii Git.",
       "author_cs": "Ganja For All Animals, z. s.",
       "author_en": "Ganja For All Animals, z. s.",
       "recipients": [
@@ -115,7 +138,13 @@
       "document_type": "user_submission",
       "submission_side": "outgoing_from_user_or_alliance",
       "submission_side_basis": "Dated source PDF and owner inventory; issue date alone does not establish filing or service",
-      "topics": ["ÚOOÚ", "Česká televize", "RRTV", "GDPR", "právo na opravu"],
+      "topics": [
+        "ÚOOÚ",
+        "Česká televize",
+        "RRTV",
+        "GDPR",
+        "právo na opravu"
+      ],
       "relations": [],
       "public": {
         "html": "listiny/doc-cz-batch-2026-11-25-41-uoou-doplneni-stiznosti-ct-rrtv.html",
@@ -152,7 +181,12 @@
       "document_type": "state_record",
       "submission_side": "incoming_from_state_or_public_institution",
       "submission_side_basis": "Source PDF identifies the Czech Bar Association and the request to supplement; receipt date is not established by this copy",
-      "topics": ["Česká advokátní komora", "určení advokáta", "právní pomoc", "výzva k doplnění"],
+      "topics": [
+        "Česká advokátní komora",
+        "určení advokáta",
+        "právní pomoc",
+        "výzva k doplnění"
+      ],
       "relations": [],
       "public": {
         "html": "listiny/doc-cz-batch-2026-11-25-44-cak-vyzva.html",
