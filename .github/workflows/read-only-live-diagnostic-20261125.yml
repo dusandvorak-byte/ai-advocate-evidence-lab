@@ -1,0 +1,61 @@
+name: Read-only exact live release diagnostic
+on:
+  push:
+    branches: [diagnostic/live-readback-2026-11-25-b9730e13]
+permissions:
+  contents: read
+jobs:
+  readback:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Compare public HTTPS bytes with fixed published Git tree and owner pins
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import concurrent.futures, hashlib, urllib.request, urllib.error, json
+          from datetime import datetime, timezone
+          from zoneinfo import ZoneInfo
+          repo='dusandvorak-byte/ai-advocate-evidence-lab'
+          tree='542a61539a1d42ffd8fa399bb4b03711e9b4f644'
+          source='5fd30ee240e09f805a28f62c5744a529779acc5c'
+          bases=['https://dusandvorak-byte.github.io/ai-advocate-evidence-lab','https://cannainsider.eu']
+          raw='https://raw.githubusercontent.com/'+repo+'/'+tree
+          pins={
+            'documents/2026-11-04/rr-ku-54-2021-priloha-2.pdf':'6a4fa57cd3a12ad6f74643b0815c60b0431682b35f194993d47567b9b0533213',
+            'documents/2026-11-04/rr-ku-54-2021-priloha-3.pdf':'9e1d37506d0d991a17cb91c7dae43ceccbb4c531c3f0d0f6d947323afd57eea6',
+            'documents/2026-11-04/rr-ku-54-2021-priloha-4.pdf':'411b87167b8d33eea1e60c12eae3de1841209bde6316116101a51790052abe52',
+            'documents/2026-11-04/rr-ku-54-2021-priloha-5.pdf':'93c20a560730900e050815f87281815eb526d9b0341bc9df4916531a335a8664',
+            'documents/2026-11-09/34-msp-policejni-znalci-opravena-verejna-kopie.pdf':'69c553ffa012039a1b9fc70a9eb54fa4ce2ad9c973c2f49e224458165d518666',
+          }
+          pages=['index.html','en.html','kc/index.html','kc/en.html','zpravy/04082026-010.html','news/04082026-010.html']
+          paths=['.source-commit','data/court-publication-index.json']+list(pins)+pages
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def read(url):
+            with urllib.request.urlopen(urllib.request.Request(url,headers={'Cache-Control':'no-cache','User-Agent':'Evidence-Lab-readback'}),timeout=20) as r:
+              if r.status!=200: raise RuntimeError('HTTP '+str(r.status))
+              return r.read(),r.geturl()
+          def inspect(p):
+            result={'path':p}
+            try:
+              expected,_=read(raw+'/'+p)
+              result['tree_sha256']=sha(expected)
+              if p in pins: result['owner_pin_match']=sha(expected)==pins[p]
+              if p=='.source-commit': result['tree_marker_match']=expected.decode().strip()==source
+              for base in bases:
+                try:
+                  b,url=read(base+'/'+p+'?readback=20261125-b9730e13')
+                  entry={'http':200,'sha256':sha(b),'tree_match':b==expected,'url':url}
+                  if p in pins: entry['owner_pin_match']=sha(b)==pins[p]
+                  if p in pages: entry['item34_link']=b'34-msp-policejni-znalci-opravena-verejna-kopie.pdf' in b
+                  result[base]=entry
+                except Exception as e: result[base]={'error':str(e)}
+            except Exception as e: result['error']=str(e)
+            return result
+          with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+            rows=list(pool.map(inspect,paths))
+          for row in rows: print(json.dumps(row,ensure_ascii=False))
+          print('READBACK_TIME_PRAGUE',datetime.now(ZoneInfo('Europe/Prague')).isoformat())
+          if any('error' in r or any(not r.get(b,{}).get('tree_match',False) for b in bases) or r.get('owner_pin_match') is False or r.get('tree_marker_match') is False for r in rows):
+            raise SystemExit('Readback or independent owner pin mismatch; no publication authorized by this diagnostic.')
+          PY
