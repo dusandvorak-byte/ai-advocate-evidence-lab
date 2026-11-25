@@ -2,9 +2,6 @@
   "schema_version": 1,
   "authorization_scope": "publish-evidence-lab-gh-pages",
   "authorized": true,
-  "authorized_target_sha": "2d453860ef6ea23567f686056ca98d85fd257802",
-  "note": "Owner requested chronological placement of newly published records. PR #325 changes ordering on CZ/EN surfaces, without adding or altering PDF bytes; the thirteen approved copies remain exact, and item 33 remains excluded. Trusted CI and publication checks succeeded for target 2d453860ef6ea23567f686056ca98d85fd257802. Authorization applies to this exact target.",
-  "privacy_review_artifact_id": 14968241351,
-  "privacy_review_artifact_sha256": "e3bd1b52937266b5fbe7f52621c96c61c848e4ebf99355aeb356be0389a34ffc",
-  "privacy_review_receipt": "https://github.com/dusandvorak-byte/ai-advocate-evidence-lab/issues/293#issuecomment-7145482275"
+  "authorized_target_sha": "5fd30ee240e09f805a28f62c5744a529779acc5c",
+  "note": "Owner explicitly instructed publication of the anonymized Ganja For All Animals request dated 2026-11-09 on 2026-11-25, with no further owner approval needed. PR #328 merged; all three exact-head PR checks succeeded. The final PDF has SHA-256 69c553ffa012039a1b9fc70a9eb54fa4ce2ad9c973c2f49e224458165d518666; only a technical embedded attachment was removed from the owner-approved redacted copy, with identical extracted text and rendered pages. Existing approved six-copy release (#327) is included, with item 34 replaced, not duplicated. The exact-target trusted production audit is mandatory and has not yet been independently confirmed; the production workflow must wait for its success and validate its artifact before pushing gh-pages. No earlier artifact ID or receipt is claimed as approval of this target."
 }
