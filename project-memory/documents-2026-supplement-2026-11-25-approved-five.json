@@ -125,7 +125,24 @@
           "role": "primary",
           "reference": ""
         }
-      ]
+      ],
+      "justice_slalom": {
+        "archive_number": 159,
+        "archive_name": "MSP - Zadost - 9.11.2026 - policejní znalci- GA-.pdf",
+        "source_sha256": "7ffb330a52ec7fa71efeff39fb9e471db0757f8ae50a2ab423486fb243821662",
+        "public_sha256": "69c553ffa012039a1b9fc70a9eb54fa4ce2ad9c973c2f49e224458165d518666",
+        "source_kind": "redacted_original_from_user_binary",
+        "redaction_manifest": "project-memory/documents-2026-supplement-2026-11-25-approved-five.json",
+        "recipients": [
+          {
+            "institution_id": "CZ-MSP",
+            "role": "primary",
+            "reference": "Bez samostatného č. j.",
+            "subject_cs": "Ganja For All Animals – žádost o informace k policejním znalcům",
+            "subject_en": "Ganja For All Animals – information request concerning police experts"
+          }
+        ]
+      }
     },
     {
       "id": "doc-cz-batch-2026-11-25-41-uoou-doplneni-stiznosti-ct-rrtv",
