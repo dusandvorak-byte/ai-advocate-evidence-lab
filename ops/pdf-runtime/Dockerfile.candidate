@@ -4,7 +4,13 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 WORKDIR /runtime-candidate
 COPY requirements.candidate.sha256.txt requirements.sha256.txt
 RUN echo '643ddd49ac164cd0713d84050599698edd5cbc446617a93f9740cb27ba1da0f6  requirements.sha256.txt' | sha256sum -c -
-RUN apt-get update && apt-get install -y --no-install-recommends qpdf poppler-utils mupdf-tools fonts-dejavu-core && rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+    && apt-get install -y --download-only --no-install-recommends qpdf poppler-utils mupdf-tools fonts-dejavu-core \
+    && (cd /var/cache/apt/archives && sha256sum *.deb | LC_ALL=C sort) > os-archives.candidate.sha256.txt \
+    && test -s os-archives.candidate.sha256.txt \
+    && (cd /var/cache/apt/archives && sha256sum -c /runtime-candidate/os-archives.candidate.sha256.txt) \
+    && apt-get install -y --no-download --no-install-recommends qpdf poppler-utils mupdf-tools fonts-dejavu-core \
+    && rm -rf /var/lib/apt/lists/*
 RUN python -m pip download --only-binary=:all: --no-deps --require-hashes -r requirements.sha256.txt -d wheels \
     && python -m pip install --no-index --find-links wheels --require-hashes -r requirements.sha256.txt \
     && python -m pip check \
