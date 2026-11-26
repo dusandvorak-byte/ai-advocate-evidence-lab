@@ -63,5 +63,22 @@ class ParityTests(unittest.TestCase):
             compare(self.baseline, self.fragments, self.sha)
 
 
+    def test_difference_diagnostics_do_not_waive_or_leak_values(self):
+        self.baseline["generated_public_derivatives"][0]["id68_rebuilt_sha256"] = "private-fixture-a"
+        self.fragments["generated"]["data"][0]["id68_rebuilt_sha256"] = "private-fixture-b"
+        with self.assertRaises(ValueError) as caught:
+            compare(self.baseline, self.fragments, self.sha)
+        message = str(caught.exception)
+        self.assertIn('"changed_fields": {"id68_rebuilt_sha256": 1}', message)
+        self.assertIn('"changed_rows": 1', message)
+        self.assertNotIn("private-fixture", message)
+
+    def test_missing_and_added_fields_are_rejected(self):
+        self.baseline["generated_public_derivatives"][0]["page_count"] = 1
+        self.fragments["generated"]["data"][0]["unexpected"] = True
+        with self.assertRaisesRegex(ValueError, '"page_count": 1, "unexpected": 1'):
+            compare(self.baseline, self.fragments, self.sha)
+
+
 if __name__ == "__main__":
     unittest.main()
