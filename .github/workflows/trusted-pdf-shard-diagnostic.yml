@@ -168,19 +168,28 @@ jobs:
           cp project-memory/documents-2026.json "$RUNNER_TEMP/canonical-documents-2026-prebuild.json"
           echo "EVIDENCE_LAB_CANONICAL_REGISTRY=$RUNNER_TEMP/canonical-documents-2026-prebuild.json" >> "$GITHUB_ENV"
 
-      - name: Prepare optional transformation shadow measurement
+      - name: Prepare optional transformation measurement or explicit reuse
         if: vars.EVIDENCE_LAB_PDF_TRANSFORM_SHADOW == '1'
         env:
           GH_TOKEN: ${{ github.token }}
+          PDF_TRANSFORM_REUSE_OPT_IN: ${{ vars.EVIDENCE_LAB_PDF_TRANSFORM_REUSE }}
         run: |
           set -euo pipefail
           mkdir -m 700 "$RUNNER_TEMP/pdf-transform-capture"
-          echo "EVIDENCE_LAB_PDF_TRANSFORM_MODE=shadow" >> "$GITHUB_ENV"
+          # Default remains shadow; a second explicit opt-in is required for reuse.
+          # The hardener validates prior exact bytes and context, falls back on misses,
+          # and all independent staged audits and publication gates remain mandatory.
+          mode=shadow
+          if [ "${PDF_TRANSFORM_REUSE_OPT_IN:-}" = "1" ]; then
+            mode=reuse
+          fi
+          echo "EVIDENCE_LAB_PDF_TRANSFORM_MODE=$mode" >> "$GITHUB_ENV"
+          echo "PDF transformation mode: $mode (fresh final audit required)"
           echo "EVIDENCE_LAB_TRANSFORM_CAPTURE=$RUNNER_TEMP/pdf-transform-capture/snapshot.json" >> "$GITHUB_ENV"
           if python3 scripts/fetch-pdf-transform-evidence.py "$RUNNER_TEMP/prior-transform-evidence"; then
             echo "EVIDENCE_LAB_PRIOR_TRANSFORM_ROOT=$RUNNER_TEMP/prior-transform-evidence/prior" >> "$GITHUB_ENV"
           else
-            echo "Cold shadow run; complete canonical audit still required."
+            echo "No trusted previous transform evidence; complete canonical audit still required."
           fi
 
       - name: Materialize trusted public tree
