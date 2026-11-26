@@ -74,3 +74,14 @@ jobs:
             -v "$PWD/ops/pdf-runtime/compare-parser-fixtures.py:/compare.py:ro" \
             evidence-runtime-candidate:local python /compare.py inspect /fixtures > "$RUNNER_TEMP/container-results.json"
           python3 -c 'import json,sys; a,b=[json.load(open(p)) for p in sys.argv[1:]]; print(json.dumps({"fixtures":len(a),"pages":sum(x["pages"] for x in a),"exact_match":a==b,"differences":[{"fixture":x["name"],"fields":[k for k in x if x[k]!=y.get(k)]} for x,y in zip(a,b) if x!=y],"production_authorization":False})); sys.exit(0 if a==b else 1)' "$RUNNER_TEMP/host-results.json" "$RUNNER_TEMP/container-results.json"
+      - name: Compare actual machine audit using synthetic authenticated policy only
+        run: |
+          set -euo pipefail
+          python3 ops/pdf-runtime/compare-audit-fixtures.py generate "$RUNNER_TEMP/audit-fixtures"
+          python3 ops/pdf-runtime/compare-audit-fixtures.py inspect "$RUNNER_TEMP/audit-fixtures" > "$RUNNER_TEMP/host-audit.json"
+          docker run --rm --network none \
+            -v "$RUNNER_TEMP/audit-fixtures:/fixtures:ro" \
+            -v "$PWD/scripts:/repo/scripts:ro" \
+            -v "$PWD/ops/pdf-runtime/compare-audit-fixtures.py:/repo/ops/pdf-runtime/compare-audit-fixtures.py:ro" \
+            evidence-runtime-candidate:local python /repo/ops/pdf-runtime/compare-audit-fixtures.py inspect /fixtures > "$RUNNER_TEMP/container-audit.json"
+          python3 -c 'import json,sys; a,b=[json.load(open(p)) for p in sys.argv[1:]]; print(json.dumps({"audit_fixtures":len(a),"exact_semantic_match":a==b,"differences":[x["fixture"] for x,y in zip(a,b) if x!=y],"production_authorization":False})); sys.exit(0 if a==b else 1)' "$RUNNER_TEMP/host-audit.json" "$RUNNER_TEMP/container-audit.json"
