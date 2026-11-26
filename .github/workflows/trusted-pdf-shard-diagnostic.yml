@@ -324,6 +324,7 @@ jobs:
           path: .
       - name: Audit PDF shard ${{ matrix.shard }}/16
         env:
+          EVIDENCE_LAB_SHARD_COST_MEASURE: '1'
           EVIDENCE_LAB_PUBLICATION_ROOT: ${{ github.workspace }}/release-site
         run: python3 scripts/audit-release-evidence-sliced.py pdf-shard ${{ matrix.shard }} 16
       - name: Upload shard fragment
