@@ -105,8 +105,21 @@ def compare_fresh_results(current, prior, results, web):
                  result.get("text_fallback") is None and file_sha(Path(web) / rel) == row["public_sha256"])
         hits += int(equal)
         mismatches += int(not equal)
+    # Diagnostic counts only. Matching per-path identity does not authorize
+    # reuse when a global policy or engine fingerprint differs.
+    fields = ("policy_sha256", "private_policy_identity", "engine_sha256")
+    identity_mismatches = [k for k in fields if current[k] != prior[k]]
+    path_matches = sum(
+        1 for row in prior["entries"]
+        if row["rel"] in current["inputs"] and all(
+            current["inputs"][row["rel"]][k] == row[k]
+            for k in ("source_sha256", "context_sha256", "ids"))
+    )
     return {"event": "pdf-transform-shadow", "captured": len(current["inputs"]), "potential_hits": len(entries),
             "exact_matches": hits, "mismatches": mismatches,
+            "identity_mismatches": identity_mismatches,
+            "prior_entry_count": len(prior["entries"]),
+            "path_identity_matches": path_matches,
             "fresh_scan_authoritative": True, "skipped": 0}
 
 
