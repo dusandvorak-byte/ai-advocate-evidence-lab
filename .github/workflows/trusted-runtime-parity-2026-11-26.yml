@@ -48,7 +48,8 @@ jobs:
           trap 'rm -f "$probe"' EXIT
           printf 'synthetic-owner-only' > "$probe"
           docker run --rm --user "$(id -u):$(id -g)" --network none --read-only --cap-drop ALL --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev,size=2g -e HOME=/tmp -v "$probe:/probe:ro" evidence-parity:local python -c 'from pathlib import Path; import stat; p=Path("/probe"); assert stat.S_IMODE(p.stat().st_mode)==0o600; assert p.read_text()=="synthetic-owner-only"'
-      - name: Run fresh semantic comparison without network or publication permissions
+      # Check generated parity first; any semantic discrepancy remains fatal.
+      - name: Run generated-first semantic comparison without network or publication permissions
         env:
           PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
           EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY }}
