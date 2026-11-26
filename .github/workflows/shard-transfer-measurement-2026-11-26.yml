@@ -1,0 +1,37 @@
+name: Trusted shard transfer measurement (read-only)
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/shard-transfer-measurement-2026-11-26.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  measure:
+    if: github.repository == 'dusandvorak-byte/ai-advocate-evidence-lab' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - name: Authenticate exact successful baseline and download pinned archives
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          sha=e1e1a5e517228d227a5b23635c2de3e865126c66
+          run=45860853403
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$run" | jq -e --arg sha "$sha" --arg repo "$GITHUB_REPOSITORY" '.head_sha == $sha and .head_branch == "main" and .event == "push" and .status == "completed" and .conclusion == "success" and .path == ".github/workflows/trusted-pdf-shard-diagnostic.yml" and .repository.full_name == $repo and .head_repository.full_name == $repo'
+          mkdir "$RUNNER_TEMP/transfer-input"
+          for id in 15138893308 15139287287; do
+            gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$id" | jq -e --arg sha "$sha" --argjson run "$run" '.expired == false and .workflow_run.id == $run and .workflow_run.head_sha == $sha'
+            gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$id/zip" > "$RUNNER_TEMP/transfer-input/$id.zip"
+          done
+      - name: Verify all staged PDF bytes and measure compressed shard bundles
+        run: python3 ops/shard-transfer/measure_pinned_tree.py "$RUNNER_TEMP/transfer-input/15138893308.zip" "$RUNNER_TEMP/transfer-input/15139287287.zip"
