@@ -56,7 +56,8 @@ jobs:
           set -euo pipefail
           docker build --no-cache -f ops/pdf-runtime/Dockerfile.candidate -t evidence-runtime-candidate:local ops/pdf-runtime
           docker run --rm --network none evidence-runtime-candidate:local cat requirements.sha256.txt
-          docker run --rm --network none evidence-runtime-candidate:local sha256sum os-packages.tsv requirements.sha256.txt
+          docker run --rm --network none evidence-runtime-candidate:local cat os-archives.candidate.sha256.txt
+          docker run --rm --network none evidence-runtime-candidate:local sha256sum os-packages.tsv requirements.sha256.txt os-archives.candidate.sha256.txt
           docker image inspect evidence-runtime-candidate:local --format '{{.Id}}'
           echo 'Diagnostic candidate only; production_authorization=false'
       - uses: actions/setup-python@v5
