@@ -1,0 +1,64 @@
+name: Trusted isolated runtime parity (read-only)
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/trusted-runtime-parity-2026-11-26.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  parity:
+    if: github.repository == 'dusandvorak-byte/ai-advocate-evidence-lab' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      BASELINE_SHA: d4bf0b612f294b7f54dc626efd0afba1583323c8
+      BASELINE_RUN: '45837024485'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: d4bf0b612f294b7f54dc626efd0afba1583323c8
+          path: baseline-checkout
+      - name: Build tested pinned container before provisioning private policy
+        run: docker build --no-cache -f ops/pdf-runtime/Dockerfile.candidate -t evidence-parity:local ops/pdf-runtime
+      - name: Authenticate exact successful baseline run and archives
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$(git -C baseline-checkout rev-parse HEAD)" = "$BASELINE_SHA"
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$BASELINE_RUN" | jq -e --arg sha "$BASELINE_SHA" --arg repo "$GITHUB_REPOSITORY" '.head_sha == $sha and .head_branch == "main" and .event == "push" and .status == "completed" and .conclusion == "success" and .path == ".github/workflows/trusted-pdf-shard-diagnostic.yml" and .repository.full_name == $repo and .head_repository.full_name == $repo'
+          mkdir "$RUNNER_TEMP/parity-input"
+          for id in 15127514235 15128640625; do
+            gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$id" | jq -e --arg sha "$BASELINE_SHA" --argjson run "$BASELINE_RUN" '.expired == false and .workflow_run.id == $run and .workflow_run.head_sha == $sha'
+            gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$id/zip" > "$RUNNER_TEMP/parity-input/$id.zip"
+          done
+          python3 ops/runtime-parity/extract_pinned_baseline.py "$RUNNER_TEMP/parity-input/15127514235.zip" "$RUNNER_TEMP/parity-input/15128640625.zip" baseline-checkout "$RUNNER_TEMP/parity-input"
+      - name: Run fresh semantic comparison without network or publication permissions
+        env:
+          PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
+          EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY }}
+        run: |
+          set -euo pipefail
+          umask 077
+          policy="$(mktemp "$RUNNER_TEMP/runtime-parity-policy.XXXXXX")"
+          trap 'rm -f "$policy"' EXIT
+          printf '%s' "$PRIVATE_POLICY_B64" | base64 --decode > "$policy"
+          test -s "$policy"
+          test -n "$EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY"
+          unset PRIVATE_POLICY_B64
+          docker run --rm --network none --read-only --cap-drop ALL --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev,size=2g \
+            -e GITHUB_ACTIONS -e GITHUB_EVENT_NAME -e GITHUB_REF -e GITHUB_REPOSITORY \
+            -e PYTHONDONTWRITEBYTECODE=1 -e EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=/private-policy.json \
+            -e EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY \
+            -v "$policy:/private-policy.json:ro" \
+            -v "$PWD/baseline-checkout:/baseline:ro" \
+            -v "$PWD/ops/runtime-parity:/control:ro" \
+            -v "$RUNNER_TEMP/parity-input/release-evidence-audit.json:/baseline-report.json:ro" \
+            evidence-parity:local python /control/run_stage_parity.py --checkout /baseline --baseline /baseline-report.json --source-sha "$BASELINE_SHA"
