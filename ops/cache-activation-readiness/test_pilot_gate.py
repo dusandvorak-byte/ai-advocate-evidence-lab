@@ -37,10 +37,12 @@ esac
             envfile = root / "env"
             env = dict(os.environ, PATH=str(root)+":"+os.environ["PATH"],
                        RUNNER_TEMP=d, GITHUB_ENV=str(envfile),
-                       PDF_TRANSFORM_REUSE_OPT_IN=opt_in,
                        TEST_FETCH_EXIT="0" if fetch_ok else "1",
                        TEST_DIAGNOSTIC_EXIT="0" if diagnostic_ok else "1",
                        TEST_READINESS=json.dumps(row))
+            env.pop("PDF_TRANSFORM_REUSE_OPT_IN", None)
+            if opt_in is not None:
+                env["PDF_TRANSFORM_REUSE_OPT_IN"] = opt_in
             # Extract the production shell block, not a duplicate implementation.
             text = WORKFLOW.read_text()
             block = text.split("      - name: Prepare optional transformation measurement or explicit reuse\n",1)[1]
