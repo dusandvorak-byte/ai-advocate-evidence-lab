@@ -3,6 +3,7 @@ import copy
 import importlib.util
 import pathlib
 import unittest
+import tempfile
 
 spec = importlib.util.spec_from_file_location("inspect_runtime", pathlib.Path(__file__).with_name("inspect-runtime.py"))
 runtime = importlib.util.module_from_spec(spec)
@@ -11,8 +12,8 @@ spec.loader.exec_module(runtime)
 class LockTests(unittest.TestCase):
     def setUp(self):
         self.actual = {"schema": 1, "python": "3.12.16", "python_binary_sha256": "a"*64,
-                       "os_packages": {"qpdf": "1", "libqpdf": "2"},
-                       "python_distributions": {"pymupdf": {"version": "2.1", "record_sha256": "b"*64}},
+                       "os_packages": {"qpdf": "1", "libqpdf": "2"}, "os_payload_sha256": "f"*64,
+                       "python_distributions": {"pymupdf": {"version": "2.1", "record_sha256": "b"*64, "payload_sha256": "a"*64}},
                        "tools": {name: "c"*64 for name in runtime.TOOLS}}
         self.expected = {"python":"3.12.16", "apt":{"qpdf":"1"}, "python_distributions":{"PyMuPDF":"2.1"}}
     def test_exact_match(self):
@@ -26,6 +27,36 @@ class LockTests(unittest.TestCase):
         other = copy.deepcopy(self.actual)
         other["python_distributions"]["pymupdf"]["record_sha256"] = "d"*64
         self.assertFalse(runtime.validate_exact(other, self.actual))
+    def test_python_payload_drift_without_record_change(self):
+        other = copy.deepcopy(self.actual)
+        other["python_distributions"]["pymupdf"]["payload_sha256"] = "d"*64
+        self.assertFalse(runtime.validate_exact(other, self.actual))
+    def test_os_payload_drift_without_version_change(self):
+        other = copy.deepcopy(self.actual)
+        other["os_payload_sha256"] = "d"*64
+        self.assertFalse(runtime.validate_exact(other, self.actual))
+    def test_actual_file_drift_and_deletion(self):
+        with tempfile.TemporaryDirectory() as root:
+            path = pathlib.Path(root) / "library.so"
+            path.write_bytes(b"first")
+            before = runtime.payload_digest([path])
+            path.write_bytes(b"other")
+            self.assertNotEqual(before, runtime.payload_digest([path]))
+            path.unlink()
+            with self.assertRaises(FileNotFoundError):
+                runtime.payload_digest([path])
+    def test_symlink_target_drift(self):
+        with tempfile.TemporaryDirectory() as root:
+            target = pathlib.Path(root) / "library.so.1"
+            target.write_bytes(b"first")
+            link = pathlib.Path(root) / "library.so"
+            link.symlink_to(target.name)
+            before = runtime.payload_digest([link])
+            target.write_bytes(b"other")
+            self.assertNotEqual(before, runtime.payload_digest([link]))
+            target.unlink()
+            with self.assertRaises(FileNotFoundError):
+                runtime.payload_digest([link])
     def test_binary_drift(self):
         other = copy.deepcopy(self.actual)
         other["tools"]["qpdf"] = "e"*64
