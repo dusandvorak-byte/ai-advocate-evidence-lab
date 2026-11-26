@@ -5,7 +5,7 @@ from pathlib import Path
 from copy import deepcopy
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from registry_pdf_fact_reuse import root_rows_by_path, registry_facts_from_row
+from registry_pdf_fact_reuse import root_rows_by_path, registry_facts_from_row, validate_stage_rows, require_trusted_registry_reuse
 
 SHA = "a" * 64
 REL = "documents/fixture.pdf"
@@ -72,6 +72,35 @@ class FactReuseTests(unittest.TestCase):
             root_rows_by_path([row(), row()])
         with self.assertRaises(ValueError):
             registry_facts_from_row(mirror, REL, SHA)
+
+
+    def test_exact_staged_byte_coverage(self):
+        mirror = deepcopy(row())
+        mirror.update(compatibility_copy=True, published_path="web/" + REL)
+        expected = {REL: SHA, "web/" + REL: SHA}
+        self.assertEqual(validate_stage_rows([row(), mirror], expected), {REL: row()})
+        for rows, hashes in [
+            ([row()], expected),
+            ([row(), row(), mirror], expected),
+            ([row(), mirror], {REL: SHA, "web/" + REL: "b"*64}),
+            ([row(), mirror], {REL: SHA}),
+            ([], {}),
+        ]:
+            with self.assertRaises(ValueError):
+                validate_stage_rows(rows, hashes)
+
+    def test_trusted_workflow_identity(self):
+        repo = "dusandvorak-byte/ai-advocate-evidence-lab"
+        env = {"GITHUB_ACTIONS":"true", "GITHUB_EVENT_NAME":"push",
+               "GITHUB_REF":"refs/heads/main", "GITHUB_REPOSITORY":repo,
+               "GITHUB_WORKFLOW_REF":repo+"/.github/workflows/trusted-pdf-shard-diagnostic.yml@refs/heads/main",
+               "GITHUB_RUN_ID":"123"}
+        self.assertEqual(require_trusted_registry_reuse(env), "123")
+        for key in env:
+            invalid = dict(env)
+            invalid[key] = "unexpected"
+            with self.assertRaises(ValueError):
+                require_trusted_registry_reuse(invalid)
 
 
 if __name__ == "__main__":
