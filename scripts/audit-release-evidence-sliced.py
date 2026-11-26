@@ -7,7 +7,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from audit_git_lineage import check_lineage
-from registry_pdf_fact_reuse import root_rows_by_path, registry_facts_from_row
+from registry_pdf_fact_reuse import root_rows_by_path, registry_facts_from_row, validate_stage_rows, require_trusted_registry_reuse
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,6 +35,7 @@ def write_fragment(name, data, failures):
     path = FRAG_DIR / f"{name}.json"
     payload = {
         "checkout_commit": current_checkout_sha(),
+        "workflow_run_id": os.environ.get("GITHUB_RUN_ID"),
         "data": data,
         "failures": list(failures),
     }
@@ -42,7 +43,7 @@ def write_fragment(name, data, failures):
     print(json.dumps({"fragment": name, "failure_count": len(failures)}, ensure_ascii=False))
 
 
-def load_fragment(name):
+def load_fragment(name, run_id=None):
     payload = json.loads((FRAG_DIR / f"{name}.json").read_text("utf-8"))
     expected = current_checkout_sha()
     actual = str(payload.get("checkout_commit") or "")
@@ -50,6 +51,10 @@ def load_fragment(name):
         raise RuntimeError(
             f"stale audit fragment {name}: checkout {actual or 'missing'} != {expected}"
         )
+    if run_id is not None and payload.get("workflow_run_id") != run_id:
+        raise RuntimeError(f"foreign workflow run fragment: {name}")
+    if not isinstance(payload.get("data"), list) or not isinstance(payload.get("failures"), list):
+        raise RuntimeError(f"invalid audit fragment: {name}")
     return payload
 
 
@@ -233,37 +238,52 @@ def cmd_redacted():
 
 
 def cmd_assemble(count):
-    generated_fragment = load_fragment("generated")
-    registry_fragment = load_fragment("registry-derivatives")
+    reuse = os.environ.get("EVIDENCE_LAB_REGISTRY_FACTS_REUSE") == "1"
+    run_id = require_trusted_registry_reuse(os.environ) if reuse else None
+    if reuse and (count != 16 or current_checkout_sha() != os.environ.get("GITHUB_SHA")):
+        raise ValueError("registry reuse requires exact trusted 16-shard checkout")
+    generated_fragment = load_fragment("generated", run_id)
     generated = generated_fragment["data"]
-    registry_derivatives = registry_fragment["data"]
-
-    fragment_failures = list(generated_fragment.get("failures") or [])
-    fragment_failures += list(registry_fragment.get("failures") or [])
-
+    fragment_failures = list(generated_fragment["failures"])
     all_web_pdfs = []
     for index in range(count):
-        shard_fragment = load_fragment(f"pdf-shard-{index}-of-{count}")
+        shard_fragment = load_fragment(f"pdf-shard-{index}-of-{count}", run_id)
         all_web_pdfs.extend(shard_fragment["data"])
-        fragment_failures += list(shard_fragment.get("failures") or [])
+        fragment_failures += list(shard_fragment["failures"])
     all_web_pdfs.sort(key=lambda row: row["published_path"])
 
-    # Shadow comparison only: independent registry scan and its failures
-    # remain authoritative. No existing validation or publication gate is removed.
-    if os.environ.get("EVIDENCE_LAB_REGISTRY_FACTS_SHADOW") == "1":
+    if reuse:
         started = time.monotonic()
-        try:
-            root_rows = root_rows_by_path(all_web_pdfs)
-            def same_run_facts(local, rel):
-                return registry_facts_from_row(root_rows.get(rel), rel, audit.sha256_file(local))
-            shadow_rows, shadow_failures = audit.audit_registry_public_derivatives(same_run_facts)
-            equal = shadow_rows == registry_derivatives and shadow_failures == registry_fragment.get("failures", [])
-            print(json.dumps({"event": "registry-facts-shadow", "rows": len(shadow_rows),
-                              "exact_match": equal, "elapsed_ms": round((time.monotonic()-started)*1000),
-                              "fresh_registry_scan_authoritative": True}), flush=True)
-        except Exception as exc:
-            print(json.dumps({"event": "registry-facts-shadow", "exact_match": False,
-                              "error_type": type(exc).__name__, "fresh_registry_scan_authoritative": True}), flush=True)
+        # All staged paths (including mirrors) must match freshly audited bytes
+        # in this workflow run. Reuse never suppresses a shard failure.
+        expected = {p.relative_to(audit.PUBLICATION_ROOT).as_posix(): audit.sha256_file(p)
+                    for p in audit.publication_pdf_paths(audit.PUBLICATION_ROOT)}
+        root_rows = validate_stage_rows(all_web_pdfs, expected)
+        def same_run_facts(local, rel):
+            return registry_facts_from_row(root_rows.get(rel), rel, audit.sha256_file(local))
+        registry_derivatives, registry_failures = audit.audit_registry_public_derivatives(same_run_facts)
+        fragment_failures += registry_failures
+        print(json.dumps({"event": "registry-facts-reuse", "rows": len(registry_derivatives),
+                          "validated_staged_paths": len(expected), "elapsed_ms": round((time.monotonic()-started)*1000),
+                          "fresh_pdf_shards_authoritative": True, "registry_failure_count": len(registry_failures)}), flush=True)
+    else:
+        registry_fragment = load_fragment("registry-derivatives")
+        registry_derivatives = registry_fragment["data"]
+        fragment_failures += list(registry_fragment["failures"])
+        if os.environ.get("EVIDENCE_LAB_REGISTRY_FACTS_SHADOW") == "1":
+            started = time.monotonic()
+            try:
+                root_rows = root_rows_by_path(all_web_pdfs)
+                def same_run_facts(local, rel):
+                    return registry_facts_from_row(root_rows.get(rel), rel, audit.sha256_file(local))
+                shadow_rows, shadow_failures = audit.audit_registry_public_derivatives(same_run_facts)
+                equal = shadow_rows == registry_derivatives and shadow_failures == registry_fragment["failures"]
+                print(json.dumps({"event": "registry-facts-shadow", "rows": len(shadow_rows),
+                                  "exact_match": equal, "elapsed_ms": round((time.monotonic()-started)*1000),
+                                  "fresh_registry_scan_authoritative": True}), flush=True)
+            except Exception as exc:
+                print(json.dumps({"event": "registry-facts-shadow", "exact_match": False,
+                                  "error_type": type(exc).__name__, "fresh_registry_scan_authoritative": True}), flush=True)
 
     reconciliation, reconciliation_fail = audit.audit_registry_reconciliation(all_web_pdfs)
     id68_fidelity, id68_fail = audit.audit_id68_fidelity(all_web_pdfs, generated)
