@@ -59,3 +59,18 @@ jobs:
           docker run --rm --network none evidence-runtime-candidate:local sha256sum os-packages.tsv requirements.sha256.txt
           docker image inspect evidence-runtime-candidate:local --format '{{.Id}}'
           echo 'Diagnostic candidate only; production_authorization=false'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - name: Compare exact synthetic fixture parser results against hosted Ubuntu
+        run: |
+          set -euo pipefail
+          bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
+          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 --require-hashes -r ops/pdf-runtime/requirements.candidate.sha256.txt
+          python3 ops/pdf-runtime/compare-parser-fixtures.py generate "$RUNNER_TEMP/pdf-fixtures"
+          python3 ops/pdf-runtime/compare-parser-fixtures.py inspect "$RUNNER_TEMP/pdf-fixtures" > "$RUNNER_TEMP/host-results.json"
+          docker run --rm --network none \
+            -v "$RUNNER_TEMP/pdf-fixtures:/fixtures:ro" \
+            -v "$PWD/ops/pdf-runtime/compare-parser-fixtures.py:/compare.py:ro" \
+            evidence-runtime-candidate:local python /compare.py inspect /fixtures > "$RUNNER_TEMP/container-results.json"
+          python3 -c 'import json,sys; a,b=[json.load(open(p)) for p in sys.argv[1:]]; print(json.dumps({"fixtures":len(a),"pages":sum(x["pages"] for x in a),"exact_match":a==b,"differences":[{"fixture":x["name"],"fields":[k for k in x if x[k]!=y.get(k)]} for x,y in zip(a,b) if x!=y],"production_authorization":False})); sys.exit(0 if a==b else 1)' "$RUNNER_TEMP/host-results.json" "$RUNNER_TEMP/container-results.json"
