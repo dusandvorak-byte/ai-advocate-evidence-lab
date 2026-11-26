@@ -53,9 +53,9 @@ jobs:
           test -s "$policy"
           test -n "$EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY"
           unset PRIVATE_POLICY_B64
-          docker run --rm --network none --read-only --cap-drop ALL --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev,size=2g \
+          docker run --rm --user "$(id -u):$(id -g)" --network none --read-only --cap-drop ALL --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev,size=2g \
             -e GITHUB_ACTIONS -e GITHUB_EVENT_NAME -e GITHUB_REF -e GITHUB_REPOSITORY \
-            -e PYTHONDONTWRITEBYTECODE=1 -e EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=/private-policy.json \
+            -e HOME=/tmp -e PYTHONDONTWRITEBYTECODE=1 -e EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=/private-policy.json \
             -e EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY \
             -v "$policy:/private-policy.json:ro" \
             -v "$PWD/baseline-checkout:/baseline:ro" \
