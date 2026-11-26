@@ -14,13 +14,13 @@ jobs:
     timeout-minutes: 5
     env:
       GH_TOKEN: ${{ github.token }}
-      TARGET: 1955a53620434f442c74658dee53b7f9ed6ed2f2
+      TARGET: 194d0bd82087f3813275e77c9acbd6072309189c
     steps:
       - name: Read exact main push audit status and publish metadata on diagnostic commit only
         shell: bash
         run: |
           set -euo pipefail
-          for entry in 'shard:trusted-pdf-shard-diagnostic.yml' 'full:validate-evidence-lab-2.yml' 'preflight:publish-gh-pages-branch.yml' 'runtime:trusted-runtime-parity-2026-11-26.yml'; do
+          for entry in 'shard:trusted-pdf-shard-diagnostic.yml' 'full:validate-evidence-lab-2.yml' 'preflight:publish-gh-pages-branch.yml' 'runtime:trusted-runtime-parity-2026-11-26.yml' 'transfer:shard-transfer-measurement-2026-11-26.yml'; do
             label="${entry%%:*}"
             workflow="${entry#*:}"
             result="$(gh api --method GET "repos/$GITHUB_REPOSITORY/actions/workflows/$workflow/runs" -f branch=main -f event=push -f head_sha="$TARGET" -F per_page=30 | jq -c --arg sha "$TARGET" --arg repo "$GITHUB_REPOSITORY" '[.workflow_runs[] | select(.head_sha == $sha and .head_branch == "main" and .event == "push" and .repository.full_name == $repo and .head_repository.full_name == $repo)] | sort_by(.created_at) | last // {}')"
@@ -32,6 +32,10 @@ jobs:
             url="https://github.com/$GITHUB_REPOSITORY/actions"
             [[ -z "$id" ]] || url="$url/runs/$id"
             # Never set a status on main or on a PR head. This commit is diagnostic only.
-            gh api --method POST "repos/$GITHUB_REPOSITORY/statuses/$GITHUB_SHA" -f state=success -f context="diagnostic/audit-receipt/$label" -f description="$desc" -f target_url="$url" >/dev/null
+            receipt_state=pending
+            if [[ "$state" == completed ]]; then
+              if [[ "$conclusion" == success ]]; then receipt_state=success; else receipt_state=failure; fi
+            elif [[ "$state" == not_found ]]; then receipt_state=error; fi
+            gh api --method POST "repos/$GITHUB_REPOSITORY/statuses/$GITHUB_SHA" -f state="$receipt_state" -f context="diagnostic/audit-receipt/$label" -f description="$desc" -f target_url="$url" >/dev/null
             printf '%s %s\n' "$label" "$desc"
           done
