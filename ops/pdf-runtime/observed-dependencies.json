@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "status": "observed-not-approved-runtime-lock",
+  "provenance": {
+    "runs": [
+      45619066154,
+      45797179343
+    ],
+    "jobs": [
+      139222086112,
+      139866151727
+    ],
+    "runner_images": [
+      "20261116.133.1",
+      "20261116.376.1"
+    ]
+  },
+  "python": "3.12.16",
+  "apt": {
+    "mupdf-tools": "1.23.10+ds1-1build3",
+    "poppler-utils": "24.02.0-1ubuntu9.11",
+    "qpdf": "11.9.0-1.1ubuntu0.1"
+  },
+  "python_distributions": {
+    "charset-normalizer": "3.5.3",
+    "flatbuffers": "25.12.19",
+    "networkx": "3.7",
+    "numpy": "2.5.5",
+    "onnxruntime": "1.32.0",
+    "packaging": "26.4",
+    "pillow": "13.0.0",
+    "protobuf": "7.36.2",
+    "psutil": "7.2.2",
+    "pymupdf": "2.1",
+    "pymupdf-layout": "2.1",
+    "pymupdf4llm": "2.1",
+    "pyyaml": "6.0.4",
+    "reportlab": "5.1.0",
+    "tabulate": "0.10.0"
+  },
+  "required_before_activation": [
+    "immutable base image digest",
+    "complete signed OS package closure",
+    "hash-locked Python wheels and transitive closure",
+    "runtime engine fingerprint",
+    "cold/warm exact output equivalence and timings",
+    "independent exact-head review"
+  ]
+}
