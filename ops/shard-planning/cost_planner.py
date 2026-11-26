@@ -51,3 +51,33 @@ def evaluate(groups, count, timings):
             "baseline_peak_estimated_ms": float(peak(baseline)),
             "candidate_peak_estimated_ms": float(peak(candidate)),
             "complete_coverage": True, "production_authoritative": False}
+
+
+def load_observations(directory, current_groups):
+    """Fixed historical measurements are scheduling hints, never audit facts."""
+    import json
+    from pathlib import Path
+    root = Path(directory)
+    source = "e1e1a5e517228d227a5b23635c2de3e865126c66"
+    run = "45860853403"
+    rows = []
+    for suffix in ("0-7", "8-15"):
+        rows.extend(json.loads((root / f"observations-{run}-{suffix}.json").read_text()))
+    if sorted(row["shard"] for row in rows) != list(range(16)):
+        raise ValueError("incomplete historical measurement coverage")
+    observed = {}
+    for row in rows:
+        if (row["checkout_commit"] != source or row["workflow_run_id"] != run
+                or row["shard_count"] != 16 or row["workers"] != 2
+                or row["production_schedule_changed"] is not False):
+            raise ValueError("incorrect historical measurement identity")
+        for group in row["groups"]:
+            digest, size, ms = group["sha256"], group["size_bytes"], group["elapsed_ms"]
+            if (not SHA.fullmatch(digest) or digest in observed or type(size) is not int
+                    or size < 1 or type(ms) is not int or not 0 < ms <= 3600000):
+                raise ValueError("invalid or duplicate historical timing")
+            observed[digest] = (size, ms)
+    if len(observed) != 399:
+        raise ValueError("incomplete historical digest coverage")
+    return {digest: observed[digest][1] for digest, size in current_groups
+            if digest in observed and observed[digest][0] == size}

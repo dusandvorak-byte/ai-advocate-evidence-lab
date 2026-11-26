@@ -1,5 +1,7 @@
 import unittest
-from cost_planner import schedule, evaluate
+from cost_planner import schedule, evaluate, load_observations
+from pathlib import Path
+import json
 
 def sha(i):
     return f"{i:064x}"
@@ -39,6 +41,26 @@ class PlannerTests(unittest.TestCase):
         bins,_ = schedule([(sha(1),10)],16)
         self.assertEqual(len(bins),16)
         self.assertEqual(sum(map(len,bins)),1)
+
+    def test_real_observation_coverage_and_peak(self):
+        root = Path(__file__).parent
+        records = []
+        for suffix in ("0-7", "8-15"):
+            records.extend(json.loads((root / f"observations-45860853403-{suffix}.json").read_text()))
+        groups = [(g["sha256"], g["size_bytes"]) for row in records for g in row["groups"]]
+        hints = load_observations(root, groups)
+        self.assertEqual(len(hints), 399)
+        self.assertEqual(len(set(d for d, _ in groups)), 399)
+        result = evaluate(groups, 16, hints)
+        self.assertEqual(result["baseline_peak_estimated_ms"], 376930)
+        self.assertEqual(result["candidate_peak_estimated_ms"], 195864)
+        self.assertEqual(sorted(d for part in result["candidate"] for d in part), sorted(hints))
+
+    def test_unknown_or_changed_size_has_no_hint(self):
+        root = Path(__file__).parent
+        first = json.loads((root / "observations-45860853403-0-7.json").read_text())[0]["groups"][0]
+        self.assertEqual(load_observations(root, [(first["sha256"], first["size_bytes"] + 1), ("0"*64, 10)]), {})
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

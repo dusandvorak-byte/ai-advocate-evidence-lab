@@ -1,0 +1,1048 @@
+[
+  {
+    "event": "pdf-shard-cost-measurement",
+    "checkout_commit": "e1e1a5e517228d227a5b23635c2de3e865126c66",
+    "workflow_run_id": "45860853403",
+    "shard": 0,
+    "shard_count": 16,
+    "workers": 2,
+    "groups": [
+      {
+        "sha256": "0b597f16172f083ffc04488bb1737720d5c1bb29f1263938714037a6198ea6fe",
+        "size_bytes": 41239,
+        "elapsed_ms": 928
+      },
+      {
+        "sha256": "10135d746eb0950702b96a4ea6f309fd15dfd82882afd690605ae3d86a222c9e",
+        "size_bytes": 188936,
+        "elapsed_ms": 5606
+      },
+      {
+        "sha256": "326a20a8558fa264e63b121c7da3dd3c5cbf879d290d36aa93c8c80cc3fa24e0",
+        "size_bytes": 218386,
+        "elapsed_ms": 7004
+      },
+      {
+        "sha256": "3723d724ba8cdefb6fcce5de744615da7fd58c6c7d72262314748cbc62516ef0",
+        "size_bytes": 160391,
+        "elapsed_ms": 4154
+      },
+      {
+        "sha256": "376f2c0961683ac56032e990b988ccf03cb076392494a62caae771b0a03cece8",
+        "size_bytes": 137631,
+        "elapsed_ms": 2344
+      },
+      {
+        "sha256": "3ba72940d5bda4f429f7ffbe923a09d17e5add248848e493527347da71acea2c",
+        "size_bytes": 173611,
+        "elapsed_ms": 4995
+      },
+      {
+        "sha256": "644f9d95264377fd883ac2f8a1829f763dd74309c648ed66d2371795c03024d3",
+        "size_bytes": 86299,
+        "elapsed_ms": 2056
+      },
+      {
+        "sha256": "7241e98a2449fce4396aef4d0a83a9efc54e3aa51c9520b6d8c0f284b80c7f57",
+        "size_bytes": 4309366,
+        "elapsed_ms": 55649
+      },
+      {
+        "sha256": "772cb61b4460b924608daecbe98e5d30b12d3430eed9c70703b18f58f97c94eb",
+        "size_bytes": 203479,
+        "elapsed_ms": 6848
+      },
+      {
+        "sha256": "7cb7e6e13422bd9cc2904befb35723f04115aa954fc17d0a6bf095af995e7b44",
+        "size_bytes": 119308,
+        "elapsed_ms": 3546
+      },
+      {
+        "sha256": "8324be491e89110189c1c40768742f1cd8411e97effc95101d81677c58b8d1b9",
+        "size_bytes": 46022,
+        "elapsed_ms": 922
+      },
+      {
+        "sha256": "8ba4ec02b86be9dd4b23cb813b95bc3f5a83900f58aeb2483f064ba4fb81fcb0",
+        "size_bytes": 27805,
+        "elapsed_ms": 522
+      },
+      {
+        "sha256": "8cbae9a49ff14cd278246a474c0fdef964673bb93aefbeb838105ea81f7ff5c6",
+        "size_bytes": 259112,
+        "elapsed_ms": 25349
+      },
+      {
+        "sha256": "af8ea89fa935abac527b2abb5ef755fb74c447bd1a3d0165e861f94ad638a30e",
+        "size_bytes": 137157,
+        "elapsed_ms": 2736
+      },
+      {
+        "sha256": "b28d7d99a27d1ab47aa0dd0c9a0e9f528e233fe57502c5430516217d4e842a40",
+        "size_bytes": 51139,
+        "elapsed_ms": 1301
+      },
+      {
+        "sha256": "b6ca9e105c7b86aede0e6389a5b9015ff99f09a1e3cc0c9d51670c2cbc5be8dd",
+        "size_bytes": 24997,
+        "elapsed_ms": 426
+      },
+      {
+        "sha256": "bf4c3ea896f91773a4cb344ee8b9a436a94b9d768f2ddfd2cc93bb80fbc41078",
+        "size_bytes": 270545,
+        "elapsed_ms": 11693
+      },
+      {
+        "sha256": "cdb340a06469f0cea10ab58271138cf703ecc717ee4299e6279ab92f0cc2b237",
+        "size_bytes": 76498,
+        "elapsed_ms": 1663
+      },
+      {
+        "sha256": "e9e4663d15f92fe8043ef3c63ba4b0c40f01940870cc806adcec59c785c87f7f",
+        "size_bytes": 240826,
+        "elapsed_ms": 21969
+      }
+    ],
+    "production_schedule_changed": false,
+    "job_id": 140060890222
+  },
+  {
+    "event": "pdf-shard-cost-measurement",
+    "checkout_commit": "e1e1a5e517228d227a5b23635c2de3e865126c66",
+    "workflow_run_id": "45860853403",
+    "shard": 1,
+    "shard_count": 16,
+    "workers": 2,
+    "groups": [
+      {
+        "sha256": "0266dc46ad5e84755462f5f895845a3954c96de80f861f7e52f0ec11237aa3c6",
+        "size_bytes": 74778,
+        "elapsed_ms": 2442
+      },
+      {
+        "sha256": "123008174a33cc8ba8a9f26dd6fa39679aca179c10b889e2cd5cb6461ef35e78",
+        "size_bytes": 293538,
+        "elapsed_ms": 11746
+      },
+      {
+        "sha256": "2c4571c4528ce5691cf8f66101356e4990f11cd3ca5e4c3a6096bf2fdd6a1d00",
+        "size_bytes": 40751,
+        "elapsed_ms": 976
+      },
+      {
+        "sha256": "3b4490618032cf65330d0a76f46dc04bbd63b3057836ca90e803cdc19ed72c40",
+        "size_bytes": 164703,
+        "elapsed_ms": 4236
+      },
+      {
+        "sha256": "4df53f5453adb6fb31c91ee1e4dfe9ee714b36f08a629dd090440adf1d50ee18",
+        "size_bytes": 192940,
+        "elapsed_ms": 6339
+      },
+      {
+        "sha256": "74a269544751de3686045fbf4a4750c44e0fdd970eec403c950d3a62b2341168",
+        "size_bytes": 3472166,
+        "elapsed_ms": 30370
+      },
+      {
+        "sha256": "77ee6237cc5df3eba20ebb11b480d0f43281d54a53cc824ade8660a0806d6759",
+        "size_bytes": 28168,
+        "elapsed_ms": 625
+      },
+      {
+        "sha256": "7d0cc7df58857ffc8c0cf4ba7f1151ebf599ff0fabf6d27e38811d0fc04d41f5",
+        "size_bytes": 155507,
+        "elapsed_ms": 5962
+      },
+      {
+        "sha256": "8556c3c83c7fd23a6ff6d3ab411a571c93c875d39983af7b11e2f80627c95801",
+        "size_bytes": 263978,
+        "elapsed_ms": 11085
+      },
+      {
+        "sha256": "8a5a03430f501dfd40ba448b2eafe083361371418ffd90c7f2490c50ae8474bc",
+        "size_bytes": 12966,
+        "elapsed_ms": 207
+      },
+      {
+        "sha256": "9521642e88f665536fe77582f3e0cf5a590e29d3479a47a6ab3d2ea0636fec7c",
+        "size_bytes": 186499,
+        "elapsed_ms": 5518
+      },
+      {
+        "sha256": "9731d9a44b61b90dbfb9fa4a9ecbcdb32afcad36d2738d5047ee8344e6c7b0df",
+        "size_bytes": 251062,
+        "elapsed_ms": 8507
+      },
+      {
+        "sha256": "a19fce78981a6cd958addb4a7567586491c274f8a475927bb193ece250164058",
+        "size_bytes": 145996,
+        "elapsed_ms": 3189
+      },
+      {
+        "sha256": "a4c3f11eb68e11de9f6c9f965fea4f03a118779537e82f0e5ad15793a1726954",
+        "size_bytes": 214475,
+        "elapsed_ms": 6853
+      },
+      {
+        "sha256": "a6028b5051080412818f7e5075726774fc4d6cd3f5efc75fef656dfabf55537c",
+        "size_bytes": 132450,
+        "elapsed_ms": 3968
+      },
+      {
+        "sha256": "a9d6dd9af5416323597e37c23811b0bfb44124c94525a78d24588be00877bfce",
+        "size_bytes": 228559,
+        "elapsed_ms": 6394
+      },
+      {
+        "sha256": "b54828a2ab71ede58abeae37f2b768d9184005d3f4b518b598bc6e2f15f0e6ed",
+        "size_bytes": 50444,
+        "elapsed_ms": 1653
+      },
+      {
+        "sha256": "d24c471a28c5455dd615f00630906c5fd21a2fbd69796e8e56c179d48a662f1e",
+        "size_bytes": 279548,
+        "elapsed_ms": 8229
+      },
+      {
+        "sha256": "d510fc5cddf63fd3d30f6c7ceb638fbe9d5b0aa3d8dbdd14e63bbdabab4ebba7",
+        "size_bytes": 12246,
+        "elapsed_ms": 208
+      },
+      {
+        "sha256": "d591903661ba745139256798798a7e0ba518647fcca2ef70abca9b95b1d98bcd",
+        "size_bytes": 94254,
+        "elapsed_ms": 1970
+      },
+      {
+        "sha256": "f45b4313d409536d329a5f547e277ce9d5d9679d93b6607749bf5fa4485e923a",
+        "size_bytes": 319325,
+        "elapsed_ms": 19669
+      },
+      {
+        "sha256": "faf334b0482413b327b04db8d965e9eaa6f5a67f196e7b35270b325a88abef83",
+        "size_bytes": 46628,
+        "elapsed_ms": 1129
+      },
+      {
+        "sha256": "fcf04f5f985bc5f8535b69738f85672f47db3a7beb8788059dbfafe4c5176096",
+        "size_bytes": 112265,
+        "elapsed_ms": 3170
+      }
+    ],
+    "production_schedule_changed": false,
+    "job_id": 140060890250
+  },
+  {
+    "event": "pdf-shard-cost-measurement",
+    "checkout_commit": "e1e1a5e517228d227a5b23635c2de3e865126c66",
+    "workflow_run_id": "45860853403",
+    "shard": 2,
+    "shard_count": 16,
+    "workers": 2,
+    "groups": [
+      {
+        "sha256": "0160c834451f003a586303718bf3f58044eea22c1a08135e4452411c9049d898",
+        "size_bytes": 270984,
+        "elapsed_ms": 5998
+      },
+      {
+        "sha256": "0920fe53480d0f38b18f35d99690bd0dfbd2623858a55d40fcbcef8d88d8a3e2",
+        "size_bytes": 8955,
+        "elapsed_ms": 65
+      },
+      {
+        "sha256": "165b4ab9a807785a97a3aad26701ebb71bed47e78d4cd2dcd4900576551d5c64",
+        "size_bytes": 42882,
+        "elapsed_ms": 1062
+      },
+      {
+        "sha256": "179d5762b2e4e639320dcdd1c5416f298485d007dbea075fb87b8242ef6d9c59",
+        "size_bytes": 363294,
+        "elapsed_ms": 14111
+      },
+      {
+        "sha256": "1ac9f4b5693742221ff880b396be9a35ff830b099519aea074b29cff58712f3e",
+        "size_bytes": 289718,
+        "elapsed_ms": 9131
+      },
+      {
+        "sha256": "22592920d19ceeb7e1a3eca50d828f37a812a663b2f893360928b378ef5a4db1",
+        "size_bytes": 191693,
+        "elapsed_ms": 5975
+      },
+      {
+        "sha256": "293409a335be68ebc135e78de98f493c609d691087962da02c567ea1b4cac444",
+        "size_bytes": 64496,
+        "elapsed_ms": 2433
+      },
+      {
+        "sha256": "3244fce69214f31d3f34d6bb4bb3d22e05c30b5e9bf740f37adeaa1676b6ecc9",
+        "size_bytes": 175461,
+        "elapsed_ms": 6287
+      },
+      {
+        "sha256": "35e363adf247ac1fb6686c93bcce4dea530e8dfd67de47a6af9c5eb601f4406e",
+        "size_bytes": 310056,
+        "elapsed_ms": 10419
+      },
+      {
+        "sha256": "396d50bdbef705b9ddab35a7c602e202e1bbadff43f36e9bdd69c72fa93ec594",
+        "size_bytes": 150556,
+        "elapsed_ms": 5574
+      },
+      {
+        "sha256": "488754a3872f4b8095187041ccb41c12d83b2545d928436b71c68b94e40c7d81",
+        "size_bytes": 31525,
+        "elapsed_ms": 697
+      },
+      {
+        "sha256": "5b63ce3bab17ec6d34d2a940435638cd9b668db2324319e09be8ca30879e7a74",
+        "size_bytes": 78357,
+        "elapsed_ms": 2269
+      },
+      {
+        "sha256": "656a384e9ab8b3e83784b9514949c3a3bc9cdeba47bc5e0871a098fda453fad1",
+        "size_bytes": 260028,
+        "elapsed_ms": 9177
+      },
+      {
+        "sha256": "6f0b41aa61a03e50ca2849595117fc6e0a865baabb8eb4a3a3fa6757cf137474",
+        "size_bytes": 27734,
+        "elapsed_ms": 592
+      },
+      {
+        "sha256": "89e74cf041b928f6c0ee81e67a12326d7fd49c533cfea7ba610c0e7fd761e0cf",
+        "size_bytes": 123669,
+        "elapsed_ms": 4853
+      },
+      {
+        "sha256": "b08afaaae1fc179339c136adcb5b200f180db3936de91e02aae85e80491d8a8a",
+        "size_bytes": 161142,
+        "elapsed_ms": 5538
+      },
+      {
+        "sha256": "b320c2a7f42a1a712220374eaa2d22f44670a858f03ad5053f88648cd6fd6e8f",
+        "size_bytes": 103183,
+        "elapsed_ms": 3593
+      },
+      {
+        "sha256": "b4a5b9c66e830db994c49697859182ee476d244c1ba886669e9bca5d437827f6",
+        "size_bytes": 218699,
+        "elapsed_ms": 7898
+      },
+      {
+        "sha256": "b6a68b2155eb2bf4218841949bf8c0ac895b01c701aa28bd8f8b569662f1981f",
+        "size_bytes": 49725,
+        "elapsed_ms": 1095
+      },
+      {
+        "sha256": "c805ad000fa13c2b11c09d63905f49cec934cd2627b4a5c3f9a895f3e29303b9",
+        "size_bytes": 400540,
+        "elapsed_ms": 19552
+      },
+      {
+        "sha256": "d21135cac529860b288e6c5e7812aca464193f21153d6accb3ef105302e327ce",
+        "size_bytes": 241029,
+        "elapsed_ms": 7934
+      },
+      {
+        "sha256": "dc827338bd6b55530029cdcc9c0801a6d100048ff290ebaaf381f6f1422f957b",
+        "size_bytes": 203999,
+        "elapsed_ms": 7629
+      },
+      {
+        "sha256": "e5ac1932cd5d7ce624b0f280b598f6d2ab01b586b619063a93f461619f0dc2f3",
+        "size_bytes": 137424,
+        "elapsed_ms": 3247
+      },
+      {
+        "sha256": "f6c5decb44275ebb6b20f3874e62ce27298032972874e16e987a2b947ca0b716",
+        "size_bytes": 2871615,
+        "elapsed_ms": 32047
+      }
+    ],
+    "production_schedule_changed": false,
+    "job_id": 140060890043
+  },
+  {
+    "event": "pdf-shard-cost-measurement",
+    "checkout_commit": "e1e1a5e517228d227a5b23635c2de3e865126c66",
+    "workflow_run_id": "45860853403",
+    "shard": 3,
+    "shard_count": 16,
+    "workers": 2,
+    "groups": [
+      {
+        "sha256": "121b48d5124bcb158e1d33492a210088f4e421cbd5a37ae9de88e22ebdd0b21e",
+        "size_bytes": 164420,
+        "elapsed_ms": 5802
+      },
+      {
+        "sha256": "15c2ec9cbc085a39008a07bf55f8c714f20681bd8637d85fc99c02fc7f3af246",
+        "size_bytes": 140894,
+        "elapsed_ms": 4269
+      },
+      {
+        "sha256": "20f373ee8890ff08cf01bd1e9c2928bdbc4279481c5c167f71dcedd8469b2770",
+        "size_bytes": 321748,
+        "elapsed_ms": 12153
+      },
+      {
+        "sha256": "2875560c1e70d8d53b77d1ded186888813088e223f77979e2b17ea6dfa486968",
+        "size_bytes": 297758,
+        "elapsed_ms": 14506
+      },
+      {
+        "sha256": "2deebd074ffcc4524f9ff3dd2d2a0fa0487b3b39ad8623fa8a90facdd2fcaede",
+        "size_bytes": 46628,
+        "elapsed_ms": 1574
+      },
+      {
+        "sha256": "3075f1b5c5952ab24641d27d7f3192996d86acc60712117fa762f79a2ae7ec40",
+        "size_bytes": 24806,
+        "elapsed_ms": 353
+      },
+      {
+        "sha256": "50dfb193c559e77eb0ac43f1e1b9261af3fbd27680af246ac64de0f8c01fbbfb",
+        "size_bytes": 135805,
+        "elapsed_ms": 5133
+      },
+      {
+        "sha256": "57cfae249b3e82cd83f4578c0cfc48e5f934b2d4ea81c0bf47e8249d785518d0",
+        "size_bytes": 155979,
+        "elapsed_ms": 5332
+      },
+      {
+        "sha256": "6083da23fe9c18aad71cfc1bc8826bcf377361a2b0017db9a918d561bdd06ebd",
+        "size_bytes": 50452,
+        "elapsed_ms": 1719
+      },
+      {
+        "sha256": "631afe9170487479e1848547e350f7fce0a2bdc4491186bdbaadf57f30553983",
+        "size_bytes": 407383,
+        "elapsed_ms": 29092
+      },
+      {
+        "sha256": "6a58c7ca1da9b3184bb1ffbb312cfd6138e5ec5f7ea237bb004c467e3cb54926",
+        "size_bytes": 382517,
+        "elapsed_ms": 19680
+      },
+      {
+        "sha256": "75085330ad1ea026b3a917683a05b71d24eea1c9aafc7ce98b7121dbf14ffe93",
+        "size_bytes": 265841,
+        "elapsed_ms": 7229
+      },
+      {
+        "sha256": "7bfe80d2e9ac477662c27961df3197dfbc38fd1e0f1f39e34aef5b669548c8dc",
+        "size_bytes": 185267,
+        "elapsed_ms": 6701
+      },
+      {
+        "sha256": "801b1ddbea27f32699f9377c438053565f8fb9532874d2b1eab2612b9d151e61",
+        "size_bytes": 247520,
+        "elapsed_ms": 12053
+      },
+      {
+        "sha256": "805b6c6d7f1280d00ce33a439eb695da8d79d478229a703cb9d924d746664b63",
+        "size_bytes": 75645,
+        "elapsed_ms": 2718
+      },
+      {
+        "sha256": "ab211b6d9f03a872ab9f0c484a1c9dc7a6a367d084a85c601eb0f36abe39859c",
+        "size_bytes": 2675870,
+        "elapsed_ms": 47660
+      },
+      {
+        "sha256": "acf25222f9ade4e3ed0215b9a115792e69ed507a85c46133cc85cbaaf4530402",
+        "size_bytes": 40952,
+        "elapsed_ms": 941
+      },
+      {
+        "sha256": "ae94395c4a02b466cf4f70fa87dbbb6ae84a406bb379617f0b82e8d529bb1918",
+        "size_bytes": 206880,
+        "elapsed_ms": 7506
+      },
+      {
+        "sha256": "d52984ac0125336cd635534633cd1f4c1e71b30f91d11e78a60b8b0c11f38224",
+        "size_bytes": 119407,
+        "elapsed_ms": 5066
+      },
+      {
+        "sha256": "d594124b4c9389eb9f1efc3a95ee2cbdcad2c26d4cd83e4a19bd75b4b02f6581",
+        "size_bytes": 238315,
+        "elapsed_ms": 11979
+      },
+      {
+        "sha256": "eb46c6954d6f2f8cd90e117b1b0701e27066a27a1d3508a5d2f9cbce89dc1b4d",
+        "size_bytes": 28012,
+        "elapsed_ms": 893
+      },
+      {
+        "sha256": "eef9b5fff68f4b8d3de1a7de8a8db1dc409c8ec90558f004a4d052f029bf3f8e",
+        "size_bytes": 194347,
+        "elapsed_ms": 5957
+      },
+      {
+        "sha256": "fdd6d669e31e6076ce2a0746357c1b4cba21aceb30d26d5931394981ba924035",
+        "size_bytes": 278660,
+        "elapsed_ms": 9224
+      },
+      {
+        "sha256": "fe5f37b64e300ef4254e88ec69d1afcbf4185dd2c8c5b0cb76132f3b3181dc24",
+        "size_bytes": 87654,
+        "elapsed_ms": 3143
+      }
+    ],
+    "production_schedule_changed": false,
+    "job_id": 140060890081
+  },
+  {
+    "event": "pdf-shard-cost-measurement",
+    "checkout_commit": "e1e1a5e517228d227a5b23635c2de3e865126c66",
+    "workflow_run_id": "45860853403",
+    "shard": 4,
+    "shard_count": 16,
+    "workers": 2,
+    "groups": [
+      {
+        "sha256": "03b9205b486547cbc8fb86eacbad136ca5295c2c2af0119b211edb50c13e6462",
+        "size_bytes": 398454,
+        "elapsed_ms": 13014
+      },
+      {
+        "sha256": "085b7af1d87376e3e2115e935a413a08fa8854913780a69aceceda3949d8e5e5",
+        "size_bytes": 197571,
+        "elapsed_ms": 4974
+      },
+      {
+        "sha256": "0da4ccfaa2da4528d59c6e82283bad955da37a47afccf4a0b99bddf6ca6dbef3",
+        "size_bytes": 119750,
+        "elapsed_ms": 4466
+      },
+      {
+        "sha256": "14378acb39125419cc604acd6d9f0e4a1be1a9c872c88de909c627699c61e159",
+        "size_bytes": 169913,
+        "elapsed_ms": 3370
+      },
+      {
+        "sha256": "1446e41acf36b0117f2b1c46a2e4ac63d0f80b196b94b6442230e5aa17f5b743",
+        "size_bytes": 471022,
+        "elapsed_ms": 13727
+      },
+      {
+        "sha256": "16c77f64779721c6a5ce6f1d2fa85a4aeaa6869e82c160fcaa7d2b8a47588bc8",
+        "size_bytes": 179546,
+        "elapsed_ms": 4452
+      },
+      {
+        "sha256": "21a1347b0ac3db0404940a07fd76bf1aff978e1648fd9c686ca3f4f868616564",
+        "size_bytes": 48469,
+        "elapsed_ms": 1732
+      },
+      {
+        "sha256": "4ea9cc6425ce88e1b1d4c9df11547a832aa9625cac3c16d49b887be1ca06c460",
+        "size_bytes": 89755,
+        "elapsed_ms": 1939
+      },
+      {
+        "sha256": "4f5ebba3ae33226a49637639d4b492387dc50f859a79a38bf30a079500e0b2f5",
+        "size_bytes": 356580,
+        "elapsed_ms": 9869
+      },
+      {
+        "sha256": "7b578ae36985125a308da01ea99310410d7bde8ef1bc3e238964af3086cff0c4",
+        "size_bytes": 51139,
+        "elapsed_ms": 1275
+      },
+      {
+        "sha256": "84c8ecf339d160001301b8eb8da4f01a0ecd3e2b844376d595241c0be7d369d8",
+        "size_bytes": 153435,
+        "elapsed_ms": 4398
+      },
+      {
+        "sha256": "9d64467fe6dde6d6208acad7ff21ac51e3bf5e9ef67cea6d51590f800b311e78",
+        "size_bytes": 35681,
+        "elapsed_ms": 714
+      },
+      {
+        "sha256": "a29078d3b38c31d0cc4b16b2398a6eeff913686ea70fbfeb588db562c6569d9e",
+        "size_bytes": 29038,
+        "elapsed_ms": 478
+      },
+      {
+        "sha256": "b5b268829e5d1a79a2c287a681f271f093c625e1d8777dc2d7a1bc8e9b133320",
+        "size_bytes": 149050,
+        "elapsed_ms": 3703
+      },
+      {
+        "sha256": "b7007074ae76aef22bb08759551d2661e3a72ce5f84727b76efab89e4c645440",
+        "size_bytes": 288109,
+        "elapsed_ms": 7165
+      },
+      {
+        "sha256": "b7c40af3daf368c2ae47af1005d37f1676b418641fa57e65e558d57a0908efbf",
+        "size_bytes": 210886,
+        "elapsed_ms": 5063
+      },
+      {
+        "sha256": "bd88f3281ca10ec9a40d90f59008ce8028cce9b9d3ed520ce6feb5bf2c090adf",
+        "size_bytes": 72494,
+        "elapsed_ms": 1838
+      },
+      {
+        "sha256": "cef92c2a2ad3188c4ec7e071e01aad46e6230a850a8da0652b15dd97efc7f53a",
+        "size_bytes": 2519002,
+        "elapsed_ms": 22207
+      },
+      {
+        "sha256": "d2d474ff44a837193cd214e68fd7a0b97a073e0e67413923016ab84e59f7c3aa",
+        "size_bytes": 308610,
+        "elapsed_ms": 6701
+      },
+      {
+        "sha256": "d94b968adc678d22417206b41406cb7b52c6845acaad70fd92e878d8c62afab7",
+        "size_bytes": 258641,
+        "elapsed_ms": 5456
+      },
+      {
+        "sha256": "e48f9ef213cc03f3151cf5cf863d6a79e4d510e2d039e3d8aa5b792df7ec2c14",
+        "size_bytes": 26532,
+        "elapsed_ms": 382
+      },
+      {
+        "sha256": "ec8348f0e6fa1e04efa9a6e73ed931de2faa2ea77fbf7533b622d00f4f56b842",
+        "size_bytes": 269766,
+        "elapsed_ms": 7589
+      },
+      {
+        "sha256": "f04a734e640e083447338a7cd09fa95201579d735daf4a42ee32c1a81b1f0a30",
+        "size_bytes": 240349,
+        "elapsed_ms": 4014
+      },
+      {
+        "sha256": "f2ce716589784b0b4d078c1882b236da0b4611c4e7a7e69dc22fe21833962ef9",
+        "size_bytes": 127802,
+        "elapsed_ms": 4342
+      }
+    ],
+    "production_schedule_changed": false,
+    "job_id": 140060890197
+  },
+  {
+    "event": "pdf-shard-cost-measurement",
+    "checkout_commit": "e1e1a5e517228d227a5b23635c2de3e865126c66",
+    "workflow_run_id": "45860853403",
+    "shard": 5,
+    "shard_count": 16,
+    "workers": 2,
+    "groups": [
+      {
+        "sha256": "10a88a9ef3009c510c648324ac3b01339276793b8e20e7ea68030f6ecf742215",
+        "size_bytes": 393122,
+        "elapsed_ms": 13547
+      },
+      {
+        "sha256": "12a3617c5d130d8f5f69a82931d6796faaaac73c0860bb0ed5e6698b998642fd",
+        "size_bytes": 62341,
+        "elapsed_ms": 2303
+      },
+      {
+        "sha256": "177646c50cc71d941ef4a5103a1e2b5458e2d97e251d2dcf5421ac3b998bfb1c",
+        "size_bytes": 340208,
+        "elapsed_ms": 16780
+      },
+      {
+        "sha256": "1d214d32da58ef5ce6ec94eea3df57670c5da9e9e2ecc3e3ba451e71e30c4ed6",
+        "size_bytes": 198491,
+        "elapsed_ms": 8617
+      },
+      {
+        "sha256": "315dab40f0b0df176457f633b28d6ba6a94b29988c89e22ecc36620226e45d6b",
+        "size_bytes": 2238,
+        "elapsed_ms": 128
+      },
+      {
+        "sha256": "35fc827905cefb9b96ffd081cb101f62af0600676dbc77e9e878c32a7e4b8f46",
+        "size_bytes": 606253,
+        "elapsed_ms": 22441
+      },
+      {
+        "sha256": "3a04dccb79de2f41e749c606fd59ab24a27ae2b8644782f83f84d0948c1ef3a7",
+        "size_bytes": 217521,
+        "elapsed_ms": 6871
+      },
+      {
+        "sha256": "3d908f6ae42ac90a94cfd8fccfc84d833557517808039fda18ef4a6a7f9cfa0f",
+        "size_bytes": 269155,
+        "elapsed_ms": 6195
+      },
+      {
+        "sha256": "3df79b4ef6a3f42c7a8474a1565456baa429ccf43ad5f22da0c7d0db5c4e454f",
+        "size_bytes": 132358,
+        "elapsed_ms": 5174
+      },
+      {
+        "sha256": "4389e972ef5877d1d9b56416c4b2062a1f3264a2603db2eb2a111423737b4148",
+        "size_bytes": 65472,
+        "elapsed_ms": 2121
+      },
+      {
+        "sha256": "48bd07b4859bd00bbfc25ec256ed4ab3aaa4f52e35e77d5d2d4da282a1a5eda8",
+        "size_bytes": 31364,
+        "elapsed_ms": 773
+      },
+      {
+        "sha256": "537d6d01cb4b79a1e3f0f2c9a5886f6b6da699072cef875560bb388af777ed83",
+        "size_bytes": 458634,
+        "elapsed_ms": 13320
+      },
+      {
+        "sha256": "851d60178b8d9f2e1fe875f46fc234c8a50d8e2f81228d4d419311455eb6cf0c",
+        "size_bytes": 257932,
+        "elapsed_ms": 4186
+      },
+      {
+        "sha256": "867afb33f9a614e879f7fdec527fef353313d72da654e59f006c1605a21fe077",
+        "size_bytes": 179337,
+        "elapsed_ms": 8116
+      },
+      {
+        "sha256": "ace4a3ebaf4b31e3be4f460ed9e6fb6eb94b02e1fde766fa3645f6b52061054a",
+        "size_bytes": 1965551,
+        "elapsed_ms": 29548
+      },
+      {
+        "sha256": "af58badb773bb1be705fd14a15c32a292a9e97f69171d3d9a6c2dacf923f8c85",
+        "size_bytes": 220235,
+        "elapsed_ms": 4903
+      },
+      {
+        "sha256": "cbaa9d9158142d2db5caa9b3aea82f622ac27c8ae115414534a7eaf28d6cda9b",
+        "size_bytes": 111410,
+        "elapsed_ms": 4965
+      },
+      {
+        "sha256": "d21a2b2215328677e461aa2b4b95047097b3743eaac76bd266064430495e4ed8",
+        "size_bytes": 305724,
+        "elapsed_ms": 10827
+      },
+      {
+        "sha256": "d9c4d2282897f585aa25d59696f7d5bf4c4ce463e1d44aacfd7274c1add40093",
+        "size_bytes": 146795,
+        "elapsed_ms": 5050
+      },
+      {
+        "sha256": "e0584916afba0e1f10c3d87f3199e7561d99267c071fb88bba8e182514155fb1",
+        "size_bytes": 286860,
+        "elapsed_ms": 6977
+      },
+      {
+        "sha256": "e4fccdcc100d6d90708ceb7c4cb73f8dad0e8ad7cb2592a46e00388c942321a8",
+        "size_bytes": 26729,
+        "elapsed_ms": 350
+      },
+      {
+        "sha256": "e8a06b1adf92832deb63994eb078579ba0ae9b0654bdc3290347d7acb84b8cfc",
+        "size_bytes": 43241,
+        "elapsed_ms": 1358
+      },
+      {
+        "sha256": "eb18c1faa757b3be00b590a633d2fe2188d7a8b5956bf26515e25ff87eabfc60",
+        "size_bytes": 165955,
+        "elapsed_ms": 4938
+      },
+      {
+        "sha256": "edc83689b1ef8d40e7f9c2bdf9549e1b6f0ae98a838ff57905c88699cb3e002e",
+        "size_bytes": 97428,
+        "elapsed_ms": 3587
+      },
+      {
+        "sha256": "ee4b620aab475be53e84a157cfcd184b1933e286339a7560bffe34fb21b8ace8",
+        "size_bytes": 31817,
+        "elapsed_ms": 796
+      },
+      {
+        "sha256": "f2b737df65d4445c5e39549065b445073164b0d0579a07a63a0cd8de8c1e332e",
+        "size_bytes": 157018,
+        "elapsed_ms": 5873
+      }
+    ],
+    "production_schedule_changed": false,
+    "job_id": 140060890277
+  },
+  {
+    "event": "pdf-shard-cost-measurement",
+    "checkout_commit": "e1e1a5e517228d227a5b23635c2de3e865126c66",
+    "workflow_run_id": "45860853403",
+    "shard": 6,
+    "shard_count": 16,
+    "workers": 2,
+    "groups": [
+      {
+        "sha256": "01304c999460d2ef4d393c9fc6f92145f7dcb61fa42b5fb8da031cb11a8b1369",
+        "size_bytes": 333918,
+        "elapsed_ms": 7742
+      },
+      {
+        "sha256": "09a0dd54a8f84417d294f41195f06d562f13b743fadf109e3b2926d8767cbf45",
+        "size_bytes": 30381,
+        "elapsed_ms": 660
+      },
+      {
+        "sha256": "0adb741cabe2a0110534ab2b2bf06c302df869bfe3fd9f0916c63f4a76d86712",
+        "size_bytes": 31726,
+        "elapsed_ms": 872
+      },
+      {
+        "sha256": "1776d1ff483e096389dc1e8fb593cc121e857f4378a0e9546bd77125132847c7",
+        "size_bytes": 156211,
+        "elapsed_ms": 4443
+      },
+      {
+        "sha256": "1bda46600e774253cd39733902dcc792c77ddb01037505aa6f64f15f05b6ffb2",
+        "size_bytes": 44995,
+        "elapsed_ms": 1019
+      },
+      {
+        "sha256": "1e745c822c2a59d12e3d0a4b46d3d15a942cdf1b0ff4be76864c8c490458d523",
+        "size_bytes": 163134,
+        "elapsed_ms": 5228
+      },
+      {
+        "sha256": "20c86f39ecd0ca53ebe9ab0ef1da12757b7250a268ef944a5d8b174107219f09",
+        "size_bytes": 388630,
+        "elapsed_ms": 15423
+      },
+      {
+        "sha256": "4a64b7c29d80d063acbe6b5a2cbef82ebc3c75520c7c3e19352109bace7063c0",
+        "size_bytes": 268146,
+        "elapsed_ms": 7119
+      },
+      {
+        "sha256": "4a6588a085ebb2fcfb75e9072f5c9795f9a7d10b0e1f5e94be888d9c1f012540",
+        "size_bytes": 100320,
+        "elapsed_ms": 2380
+      },
+      {
+        "sha256": "643634e877909fa7c6261a57b9ce46bcb1ed8d7c81b95659efef632ef3c2da12",
+        "size_bytes": 307974,
+        "elapsed_ms": 7086
+      },
+      {
+        "sha256": "6c706aeb32f913b9e5bdc959c3d11b25cf5c92efeca4e2e978bb530d56fb4b98",
+        "size_bytes": 66799,
+        "elapsed_ms": 1909
+      },
+      {
+        "sha256": "73862695c54676bbd019fa3d8547205d40469a6e5bc9fecc488da1f1c71a96b6",
+        "size_bytes": 132358,
+        "elapsed_ms": 4327
+      },
+      {
+        "sha256": "74267a169286c0c8d2bac5a2b993d58b0d1a668396e06014dcd0c54adf818b40",
+        "size_bytes": 192371,
+        "elapsed_ms": 11539
+      },
+      {
+        "sha256": "8110302ae6fc26ea9e380be9e4ac951897611bc1899a1fef725453055ab02d77",
+        "size_bytes": 1961448,
+        "elapsed_ms": 31424
+      },
+      {
+        "sha256": "82fbc29f9d513e444c7cb6ab11e94aacde2d466c41456e6dff4c734cb4743813",
+        "size_bytes": 226927,
+        "elapsed_ms": 5484
+      },
+      {
+        "sha256": "8f02b1ebf4b26af51f7b87d24a64c21ad0cebb0445599e1703307c0010e7dbf4",
+        "size_bytes": 637305,
+        "elapsed_ms": 21215
+      },
+      {
+        "sha256": "93c20a560730900e050815f87281815eb526d9b0341bc9df4916531a335a8664",
+        "size_bytes": 441977,
+        "elapsed_ms": 26525
+      },
+      {
+        "sha256": "9ba8bf4b433f7dbe06e2cad3e8ec338e24ea671a9d6fb36afbd0e6e570e3ea0d",
+        "size_bytes": 215614,
+        "elapsed_ms": 14088
+      },
+      {
+        "sha256": "a6e61832311055ffef4ee1737be63e60e0dd72a6c34ec470a66196cd3bc53acf",
+        "size_bytes": 108431,
+        "elapsed_ms": 4152
+      },
+      {
+        "sha256": "bac2cbc99dc5713d0dfa42f0423cbb988ed334f334e52ed8a1bb9a2f8ac0d42a",
+        "size_bytes": 286700,
+        "elapsed_ms": 8379
+      },
+      {
+        "sha256": "bc1b26d124c2cfd3a6c4e68b81861d72515dfb7496594fcf5e82d31e911539cf",
+        "size_bytes": 60077,
+        "elapsed_ms": 1351
+      },
+      {
+        "sha256": "bc8bf7a65dcb68bf305664707e18a5d52f3eab1385ca4ccf7030b5c7696aeebc",
+        "size_bytes": 187483,
+        "elapsed_ms": 5571
+      },
+      {
+        "sha256": "d002dcc6e9a869ce826369fb59bdd31f61e61cc8c0391517fa515b2bd14490b3",
+        "size_bytes": 27707,
+        "elapsed_ms": 283
+      },
+      {
+        "sha256": "d46acdb16e8c4e423309bc8d76eb05747855396e56144531625ca4d636bfc10c",
+        "size_bytes": 146604,
+        "elapsed_ms": 2911
+      },
+      {
+        "sha256": "f1023f808bdd5db80a36885f3cbe851c800d319047dafc0321d62a0d12bcde2b",
+        "size_bytes": 254432,
+        "elapsed_ms": 6507
+      }
+    ],
+    "production_schedule_changed": false,
+    "job_id": 140060890235
+  },
+  {
+    "event": "pdf-shard-cost-measurement",
+    "checkout_commit": "e1e1a5e517228d227a5b23635c2de3e865126c66",
+    "workflow_run_id": "45860853403",
+    "shard": 7,
+    "shard_count": 16,
+    "workers": 2,
+    "groups": [
+      {
+        "sha256": "0683e7152a1618d8a7164d8add2cab4061730816f8f82b6d102b23f11a960c9c",
+        "size_bytes": 212451,
+        "elapsed_ms": 7808
+      },
+      {
+        "sha256": "090cb077add484c2a281530b932e06d18b724f430a2d1623023c8dabe6c567c7",
+        "size_bytes": 28925,
+        "elapsed_ms": 592
+      },
+      {
+        "sha256": "0a8ab48739c5e0fd8916ca331d8d3611676aa9b178fc42a9d0f1c208c3b9b061",
+        "size_bytes": 396052,
+        "elapsed_ms": 10738
+      },
+      {
+        "sha256": "0b0bd795fe83b55fb42041e024f6974454ef96d9fb36f6a0fa21f3c8806e0368",
+        "size_bytes": 305208,
+        "elapsed_ms": 6959
+      },
+      {
+        "sha256": "11e74ae310c5ea98ddc088095763086b6b98d878e0124fdb74ed3b48f839cca1",
+        "size_bytes": 163942,
+        "elapsed_ms": 6878
+      },
+      {
+        "sha256": "1655282a2ca573879ab3007bb5d2e8a823e435cbcb8d286b487cb84c93027ab4",
+        "size_bytes": 194240,
+        "elapsed_ms": 6143
+      },
+      {
+        "sha256": "415be4868a90f03f2b8c1db19b7067de5ce7cd4bf83a2528c7c773cc9906a39b",
+        "size_bytes": 36762,
+        "elapsed_ms": 841
+      },
+      {
+        "sha256": "483ed9277a6d0c78efa2370ed9caf6d4dd285c0342e8d85af7f00a63095ac482",
+        "size_bytes": 1923383,
+        "elapsed_ms": 35479
+      },
+      {
+        "sha256": "4b4282cde36b2ebc50d894d37b739bb7f6dc394cee035070ad1457c9bfe64612",
+        "size_bytes": 116799,
+        "elapsed_ms": 4485
+      },
+      {
+        "sha256": "59f1c2700ae398237766902e2bb7ade560434483c994c4524594a2c3ee2e6bfe",
+        "size_bytes": 459960,
+        "elapsed_ms": 14570
+      },
+      {
+        "sha256": "65df577bbe1d2801232255fa38e81e2aaa90863999e2f91f5e2f4e70d4e51ec7",
+        "size_bytes": 144514,
+        "elapsed_ms": 4738
+      },
+      {
+        "sha256": "6feeec5eb0ed4c546ed905cd0ee6d81277a91a1441986127c6d9bd388d036ea2",
+        "size_bytes": 156045,
+        "elapsed_ms": 6653
+      },
+      {
+        "sha256": "718c2a6dff411236780fa82606ca5c3f7a7bffb9c14d6142acdbfe7c5ad549ca",
+        "size_bytes": 25653,
+        "elapsed_ms": 486
+      },
+      {
+        "sha256": "7357cee08b1292e397ee8ce834fb50942e88fc386e462fdbf698781225c7e46b",
+        "size_bytes": 639925,
+        "elapsed_ms": 23822
+      },
+      {
+        "sha256": "76cab1b8c1f65e769bc7809aa3ea53f3cdf3a2720f89c81b1629bae416dd8627",
+        "size_bytes": 45816,
+        "elapsed_ms": 895
+      },
+      {
+        "sha256": "7cdc3b279b1b29f6cfa9fead2de4a2824c4543c472fad8dba5512dbdfe12e3db",
+        "size_bytes": 354667,
+        "elapsed_ms": 10094
+      },
+      {
+        "sha256": "7fe950d5773f4b1483b1c5c356b3a283281f3150614cc08a2c13e0d50e4b2325",
+        "size_bytes": 248842,
+        "elapsed_ms": 19430
+      },
+      {
+        "sha256": "80efa85c2e9be75ba8583dd22ad54905a700ac5c7bcbe3374f3bff95aa7a1e07",
+        "size_bytes": 92756,
+        "elapsed_ms": 2967
+      },
+      {
+        "sha256": "85eb830ad989b415d1db0611bc0c6e0216c1adc09d6fdd0d9ec9f01e9f1366e7",
+        "size_bytes": 67890,
+        "elapsed_ms": 1756
+      },
+      {
+        "sha256": "aa88fa7c8ef173cf167921afab751ed2128b09c36a2e9331dd6df27711aa0a07",
+        "size_bytes": 268030,
+        "elapsed_ms": 18795
+      },
+      {
+        "sha256": "bd02aebfa72f9efeaa67a13b8fdc1c4e6b7d33aa47159ca94dd69106ef282bf9",
+        "size_bytes": 133310,
+        "elapsed_ms": 5798
+      },
+      {
+        "sha256": "c8624f9d3eda42f3a03f8cdbc82923ddf496a466752d9641cfa4391b0c06bc0b",
+        "size_bytes": 56537,
+        "elapsed_ms": 1896
+      },
+      {
+        "sha256": "d25f561cf427cc58db4d1dfa80f1e703250a86ea5da69cc2e462f76f431325be",
+        "size_bytes": 282184,
+        "elapsed_ms": 6572
+      },
+      {
+        "sha256": "dd1fa4d7197e3986ffd77b148e5adfa798b2b8067b46a366871a8131cebc242e",
+        "size_bytes": 185657,
+        "elapsed_ms": 6494
+      },
+      {
+        "sha256": "e6050ee05a6e778316b650e99c922b9bd3bf93c445844624c05f5bab42a4889a",
+        "size_bytes": 231865,
+        "elapsed_ms": 9963
+      }
+    ],
+    "production_schedule_changed": false,
+    "job_id": 140060890198
+  }
+]

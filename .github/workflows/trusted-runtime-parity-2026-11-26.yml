@@ -62,7 +62,7 @@ jobs:
           test -s "$policy"
           test -n "$EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY"
           unset PRIVATE_POLICY_B64
-          docker run --rm --user "$(id -u):$(id -g)" --network none --read-only --cap-drop ALL --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev,size=2g \
+          args=(run --rm --user "$(id -u):$(id -g)" --network none --read-only --cap-drop ALL --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev,size=2g \
             -e GITHUB_ACTIONS -e GITHUB_EVENT_NAME -e GITHUB_REF -e GITHUB_REPOSITORY \
             -e HOME=/tmp -e PYTHONDONTWRITEBYTECODE=1 -e EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=/private-policy.json \
             -e EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY \
@@ -70,4 +70,11 @@ jobs:
             -v "$PWD/baseline-checkout:/baseline:ro" \
             -v "$PWD/ops/runtime-parity:/control:ro" \
             -v "$RUNNER_TEMP/parity-input/release-evidence-audit.json:/baseline-report.json:ro" \
-            evidence-parity:local python /control/run_stage_parity.py --checkout /baseline --baseline /baseline-report.json --source-sha "$BASELINE_SHA"
+          )
+          # Compare only the font while retaining the same authenticated
+          # transcript, policy, candidate environment and expected digest.
+          host_font=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
+          test -f "$host_font"
+          docker "${args[@]}" evidence-parity:local python /control/probe_id68.py --checkout /baseline --baseline /baseline-report.json
+          docker "${args[@]}" -v "$host_font:/comparison-font.ttf:ro" evidence-parity:local python /control/probe_id68.py --checkout /baseline --baseline /baseline-report.json --font /comparison-font.ttf
+          docker "${args[@]}" evidence-parity:local python /control/run_stage_parity.py --checkout /baseline --baseline /baseline-report.json --source-sha "$BASELINE_SHA"
