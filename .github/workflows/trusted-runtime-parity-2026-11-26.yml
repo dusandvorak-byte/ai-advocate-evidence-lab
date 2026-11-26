@@ -77,4 +77,9 @@ jobs:
           test -f "$host_font"
           docker "${args[@]}" evidence-parity:local python /control/probe_id68.py --checkout /baseline --baseline /baseline-report.json
           docker "${args[@]}" -v "$host_font:/comparison-font.ttf:ro" evidence-parity:local python /control/probe_id68.py --checkout /baseline --baseline /baseline-report.json --font /comparison-font.ttf
-          docker "${args[@]}" evidence-parity:local python /control/run_stage_parity.py --checkout /baseline --baseline /baseline-report.json --source-sha "$BASELINE_SHA"
+          # Pin the historically compatible font bytes, not a candidate PDF
+          # digest. The runner must supply exactly the observed compatible file;
+          # a missing or different file fails closed. Full parity remains strict.
+          font_sha=ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280
+          printf '%s  %s\n' "$font_sha" "$host_font" | sha256sum --check --status
+          docker "${args[@]}" -v "$host_font:/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:ro" evidence-parity:local python /control/run_stage_parity.py --checkout /baseline --baseline /baseline-report.json --source-sha "$BASELINE_SHA"
