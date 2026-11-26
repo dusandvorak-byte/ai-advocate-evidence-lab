@@ -1,0 +1,37 @@
+name: Exact main audit status receipt (diagnostic only)
+on:
+  push:
+    branches: [diagnostic/exact-main-audit-receipt-527bf97e]
+    paths: ['.github/workflows/exact-main-audit-receipt-527bf97e.yml']
+permissions:
+  actions: read
+  statuses: write
+  contents: read
+jobs:
+  receipt:
+    if: github.repository == 'dusandvorak-byte/ai-advocate-evidence-lab' && github.ref == 'refs/heads/diagnostic/exact-main-audit-receipt-527bf97e'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TARGET: 527bf97e3800ae0e0696b8381bb5a79fc651763d
+    steps:
+      - name: Read exact main push audit status and publish metadata on diagnostic commit only
+        shell: bash
+        run: |
+          set -euo pipefail
+          for entry in 'shard:trusted-pdf-shard-diagnostic.yml' 'full:validate-evidence-lab-2.yml' 'preflight:publish-gh-pages-branch.yml'; do
+            label="${entry%%:*}"
+            workflow="${entry#*:}"
+            result="$(gh api --method GET "repos/$GITHUB_REPOSITORY/actions/workflows/$workflow/runs" -f branch=main -f event=push -f head_sha="$TARGET" -F per_page=30 | jq -c --arg sha "$TARGET" --arg repo "$GITHUB_REPOSITORY" '[.workflow_runs[] | select(.head_sha == $sha and .head_branch == "main" and .event == "push" and .repository.full_name == $repo and .head_repository.full_name == $repo)] | sort_by(.created_at) | last // {}')"
+            id="$(jq -r '.id // empty' <<<"$result")"
+            state="$(jq -r '.status // "not_found"' <<<"$result")"
+            conclusion="$(jq -r '.conclusion // "-"' <<<"$result")"
+            attempt="$(jq -r '.run_attempt // "-"' <<<"$result")"
+            desc="target ${TARGET:0:8} run ${id:-none} attempt $attempt $state/$conclusion"
+            url="https://github.com/$GITHUB_REPOSITORY/actions"
+            [[ -z "$id" ]] || url="$url/runs/$id"
+            # Never set a status on main or on a PR head. This commit is diagnostic only.
+            gh api --method POST "repos/$GITHUB_REPOSITORY/statuses/$GITHUB_SHA" -f state=success -f context="diagnostic/audit-receipt/$label" -f description="$desc" -f target_url="$url" >/dev/null
+            printf '%s %s\n' "$label" "$desc"
+          done
