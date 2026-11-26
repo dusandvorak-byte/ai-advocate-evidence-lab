@@ -29,6 +29,18 @@ class LockTests(unittest.TestCase):
             self.assertEqual(records, [[str(a), str(b), "fixture"]])
             with self.assertRaises(ValueError):
                 runtime.parse_dpkg_list("/some/path\nunknown output")
+    def test_package_diverts_others_record(self):
+        with tempfile.TemporaryDirectory() as root:
+            target = pathlib.Path(root) / "diverted"
+            target.write_bytes(b"fixture")
+            paths, records = runtime.parse_dpkg_list(f"package diverts others to: {target}\n")
+            self.assertEqual(paths, [str(target)])
+            self.assertEqual(records, [[None, str(target), "package-diverts-others"]])
+            target.unlink()
+            paths, records = runtime.parse_dpkg_list(f"package diverts others to: {target}\n")
+            self.assertEqual(paths, [])
+            self.assertEqual(records, [[None, str(target), "package-diverts-others"]])
+
     def test_inventory_accepts_realistic_multi_package_output(self):
         with tempfile.TemporaryDirectory() as root:
             a = pathlib.Path(root) / "a"
