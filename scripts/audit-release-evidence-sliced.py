@@ -141,6 +141,7 @@ def cmd_pdf_shard(index, count):
         shard_weights[target] += size_bytes
 
     def inspect_group(group):
+        group_started = time.monotonic()
         file_sha, identical_paths = group
         representative = identical_paths[0]
         facts = audit.pdf_facts(representative)
@@ -198,15 +199,20 @@ def cmd_pdf_shard(index, count):
                 "content_privacy_signals": facts["content_privacy_signals"],
                 "checks": checks,
             })
-        return local_rows, local_failures
+        return local_rows, local_failures, {
+            "sha256": file_sha, "size_bytes": representative.stat().st_size,
+            "elapsed_ms": max(1, round((time.monotonic() - group_started) * 1000)),
+        }
 
     selected_groups = shard_groups[index]
     shard_started = time.monotonic()
     workers = max(1, min(int(os.environ.get("EVIDENCE_LAB_PDF_SHARD_WORKERS", "2")), len(selected_groups) or 1))
+    group_timings = []
     with ThreadPoolExecutor(max_workers=workers) as pool:
         futures = [pool.submit(inspect_group, group) for group in selected_groups]
         for future in as_completed(futures):
-            local_rows, local_failures = future.result()
+            local_rows, local_failures, timing = future.result()
+            group_timings.append(timing)
             rows.extend(local_rows)
             failures.extend(local_failures)
     rows.sort(key=lambda row: row["published_path"])
@@ -225,6 +231,15 @@ def cmd_pdf_shard(index, count):
         "scan_wall_ms": round((time.monotonic() - shard_started) * 1000),
     }, ensure_ascii=False))
     write_fragment(f"pdf-shard-{index}-of-{count}", rows, failures)
+    if os.environ.get("EVIDENCE_LAB_SHARD_COST_MEASURE") == "1":
+        # Public staged PDF digests and sizes only, no policy or content.
+        print(json.dumps({"event": "pdf-shard-cost-measurement",
+                          "checkout_commit": current_checkout_sha(),
+                          "workflow_run_id": os.environ.get("GITHUB_RUN_ID"),
+                          "shard": index, "shard_count": count,
+                          "workers": workers,
+                          "groups": sorted(group_timings, key=lambda row: row["sha256"]),
+                          "production_schedule_changed": False}), flush=True)
 
 
 def cmd_okte():
