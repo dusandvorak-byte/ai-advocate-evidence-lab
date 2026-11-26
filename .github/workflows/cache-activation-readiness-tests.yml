@@ -4,6 +4,7 @@ on:
     paths:
       - 'ops/cache-activation-readiness/**'
       - '.github/workflows/cache-activation-readiness-tests.yml'
+      - '.github/workflows/trusted-pdf-shard-diagnostic.yml'
 permissions:
   contents: read
 jobs:
