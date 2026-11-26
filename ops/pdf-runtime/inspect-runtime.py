@@ -88,6 +88,13 @@ def parse_dpkg_list(output):
         if line.startswith("/"):
             paths.append(line)
             continue
+        target = re.fullmatch(r"package diverts others to: (/.*)", line)
+        if target:
+            diverted = target.group(1)
+            diversions.append([None, diverted, "package-diverts-others"])
+            if os.path.lexists(diverted):
+                paths.append(diverted)
+            continue
         match = pattern.fullmatch(line)
         if not match:
             raise ValueError("unexpected installed OS payload record: " + repr(line[:240]))
