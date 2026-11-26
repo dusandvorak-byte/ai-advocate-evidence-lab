@@ -41,6 +41,17 @@ class LockTests(unittest.TestCase):
             self.assertEqual(paths, [])
             self.assertEqual(records, [[None, str(target), "package-diverts-others"]])
 
+    def test_base_files_diverted_by_record(self):
+        with tempfile.TemporaryDirectory() as root:
+            target = pathlib.Path(root) / "lib.usr-is-merged"
+            target.mkdir()
+            paths, records = runtime.parse_dpkg_list(f"diverted by base-files to: {target}\n")
+            self.assertEqual(paths, [str(target)])
+            self.assertEqual(records, [[None, str(target), "base-files"]])
+        paths, records = runtime.parse_dpkg_list("diverted by base-files to: /nonexistent-fixture-path\n")
+        self.assertEqual(paths, [])
+        self.assertEqual(records, [[None, "/nonexistent-fixture-path", "base-files"]])
+
     def test_inventory_accepts_realistic_multi_package_output(self):
         with tempfile.TemporaryDirectory() as root:
             a = pathlib.Path(root) / "a"
