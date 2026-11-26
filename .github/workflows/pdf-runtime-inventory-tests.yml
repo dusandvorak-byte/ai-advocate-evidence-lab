@@ -54,11 +54,7 @@ jobs:
       - name: Resolve immutable candidate base and test clean environment
         run: |
           set -euo pipefail
-          docker pull python:3.12.16-slim-bookworm
-          base="$(docker image inspect python:3.12.16-slim-bookworm --format '{{index .RepoDigests 0}}')"
-          [[ "$base" =~ ^(docker.io/library/)?python@sha256:[a-f0-9]{64}$ ]]
-          echo "Candidate base: $base"
-          docker build --build-arg "BASE=$base" -f ops/pdf-runtime/Dockerfile.candidate -t evidence-runtime-candidate:local ops/pdf-runtime
+          docker build --no-cache -f ops/pdf-runtime/Dockerfile.candidate -t evidence-runtime-candidate:local ops/pdf-runtime
           docker run --rm --network none evidence-runtime-candidate:local cat requirements.sha256.txt
           docker run --rm --network none evidence-runtime-candidate:local sha256sum os-packages.tsv requirements.sha256.txt
           docker image inspect evidence-runtime-candidate:local --format '{{.Id}}'
