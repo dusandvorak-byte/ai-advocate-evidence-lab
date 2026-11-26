@@ -1,0 +1,22 @@
+name: Synthetic PDF process benchmark
+on:
+  pull_request:
+    paths:
+      - 'ops/shard-process-benchmark/**'
+      - '.github/workflows/shard-process-benchmark.yml'
+permissions:
+  contents: read
+jobs:
+  benchmark:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - run: python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 pymupdf==2.1
+      - run: python3 ops/shard-process-benchmark/benchmark.py --repeats 3
