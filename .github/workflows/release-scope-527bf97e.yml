@@ -1,0 +1,94 @@
+name: Exact audited release scope comparison (diagnostic only)
+on:
+  push:
+    branches: [diagnostic/release-scope-527bf97e]
+    paths: ['.github/workflows/release-scope-527bf97e.yml']
+permissions:
+  actions: read
+  contents: read
+  statuses: write
+jobs:
+  compare:
+    if: github.repository == 'dusandvorak-byte/ai-advocate-evidence-lab' && github.ref == 'refs/heads/diagnostic/release-scope-527bf97e'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Compare authenticated candidate archive to frozen deployed tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 https://github.com/$GITHUB_REPOSITORY.git 542a61539a1d42ffd8fa399bb4b03711e9b4f644
+          cd "$RUNNER_TEMP"
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/15105949876/zip" > tree.zip
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/15110761875/zip" > report.zip
+          echo 'e4434de817bd5c35de451ef2ade357ccdd71c8b6f7411fab019c1ea3d019bdee  tree.zip' | sha256sum -c
+          echo '7c63d13ee83656f7343edae6f72ca5711cdeda66bd0bcf9f39ce017c057bade5  report.zip' | sha256sum -c
+          python3 - <<'PY'
+          import os, subprocess, zipfile, json, hashlib, re
+          from pathlib import PurePosixPath
+          target='527bf97e3800ae0e0696b8381bb5a79fc651763d'
+          old='542a61539a1d42ffd8fa399bb4b03711e9b4f644'
+          repo=os.environ['GITHUB_WORKSPACE']
+          item='doc-cz-batch-2026-11-25-34-msp-policejni-znalci'
+          pdf='documents/2026-11-09/34-msp-policejni-znalci-opravena-verejna-kopie.pdf'
+          def git(*args): return subprocess.check_output(['git','-C',repo,*args])
+          def status(label, desc, ok):
+              subprocess.run(['gh','api','--method','POST','repos/'+os.environ['GITHUB_REPOSITORY']+'/statuses/'+os.environ['GITHUB_SHA'],'-f','state='+('success' if ok else 'failure'),'-f','context=diagnostic/scope/'+label,'-f','description='+desc[:140]],check=True,stdout=subprocess.DEVNULL)
+          def check(ok, msg):
+              if not ok: raise SystemExit(msg)
+          run=json.loads(subprocess.check_output(['gh','api','repos/'+os.environ['GITHUB_REPOSITORY']+'/actions/runs/45797179343']))
+          check(run['head_sha']==target and run['head_branch']=='main' and run['event']=='push' and run['conclusion']=='success' and run['status']=='completed' and run['path']=='.github/workflows/trusted-pdf-shard-diagnostic.yml' and run['repository']['full_name']==os.environ['GITHUB_REPOSITORY'] and run['head_repository']['full_name']==os.environ['GITHUB_REPOSITORY'],'run provenance mismatch')
+          with zipfile.ZipFile('report.zip') as z:
+              names=[n for n in z.namelist() if n.endswith('/release-evidence-audit.json') or n=='release-evidence-audit.json']
+              check(len(names)==1,'report missing or ambiguous')
+              report=json.loads(z.read(names[0]))
+          check(report['checkout_commit']==target and report['summary']['hard_failure_count']==0 and not report['summary']['hard_failures'] and report['registry_web_stage_reconciliation']['staged_set_exact_match'] is True and report['registry_web_stage_reconciliation']['id69_absent_from_final_release_state'] is True,'report failed')
+          oldmap={}
+          for row in git('ls-tree','-r','-z',old).split(b'\0'):
+              if row:
+                  meta,p=row.split(b'\t',1); mode,typ,oid=meta.decode().split()
+                  check(typ=='blob','unexpected old tree object');oldmap[p.decode()]=(mode,oid)
+          with zipfile.ZipFile('tree.zip') as z:
+              new={}
+              for f in z.infolist():
+                  if f.is_dir(): continue
+                  check(f.filename.startswith('release-site/'),'unexpected artifact path')
+                  p=f.filename.removeprefix('release-site/')
+                  check(p and all(x not in ('','.','..','.git') for x in p.split('/')) and p not in new,'bad artifact path')
+                  new[p]=f
+              check(z.read(new['.source-commit']).decode().strip()==target,'source marker mismatch')
+              oldpdf={p for p in oldmap if p.lower().endswith('.pdf')}
+              newpdf={p for p in new if p.lower().endswith('.pdf')}
+              changed=[]
+              for p in sorted(oldpdf & newpdf):
+                  b=z.read(new[p]); oid=hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+                  if oid!=oldmap[p][1]: changed.append(p)
+              adds=sorted(newpdf-oldpdf); removes=sorted(oldpdf-newpdf)
+              print(json.dumps({'pdf_added':adds,'pdf_removed':removes,'pdf_changed':changed,'pdf_count':len(newpdf)}))
+              ok=not(adds or removes or changed)
+              status('pdf-delta',f'PDF paths {len(newpdf)} added {len(adds)} removed {len(removes)} changed {len(changed)}',ok)
+              check(ok,'PDF scope changed: requires additional review')
+              pins={'documents/2026-11-04/rr-ku-54-2021-priloha-2.pdf':'6a4fa57cd3a12ad6f74643b0815c60b0431682b35f194993d47567b9b0533213','documents/2026-11-04/rr-ku-54-2021-priloha-3.pdf':'9e1d37506d0d991a17cb91c7dae43ceccbb4c531c3f0d0f6d947323afd57eea6','documents/2026-11-04/rr-ku-54-2021-priloha-4.pdf':'411b87167b8d33eea1e60c12eae3de1841209bde6316116101a51790052abe52','documents/2026-11-04/rr-ku-54-2021-priloha-5.pdf':'93c20a560730900e050815f87281815eb526d9b0341bc9df4916531a335a8664'}
+              check(all(hashlib.sha256(z.read(new[p])).hexdigest()==h for p,h in pins.items()),'independent attachment pin mismatch')
+              check(pdf in new,'item34 PDF missing')
+              for p in ['data/documents-2026.json','web/data/documents-2026.json']:
+                  a=json.loads(git('show',old+':'+p)); b=json.loads(z.read(new[p]))
+                  aa={d['id']:d for d in a['documents']}; bb={d['id']:d for d in b['documents']}
+                  check(len(aa)==len(a['documents']) and len(bb)==len(b['documents']) and set(aa)==set(bb),'registry ID set mismatch')
+                  check(item in bb,'item34 missing')
+                  delta=[k for k in aa if aa[k]!=bb[k]]
+                  print('Registry delta',p,json.dumps(delta), 'item34 fields',json.dumps(sorted(k for k in set(aa[item])|set(bb[item]) if aa[item].get(k)!=bb[item].get(k))))
+                  check(set(delta)<={item},'unrelated registry changes')
+              pages=['index.html','en.html','kc/index.html','kc/en.html','zpravy/04082026-010.html','news/04082026-010.html']
+              links=[p for p in pages if pdf.encode() in z.read(new[p])]
+              print('item34 link surfaces',links)
+              check('index.html' in links and 'en.html' in links,'item34 CZ/EN link missing')
+              status('registry-delta','Registry IDs unchanged; only item34 metadata; CZ/EN links; attachments 4/4',True)
+              status('audit-report','Exact audit report clean, no ID69, staged set exact; PDF bytes unchanged',True)
+          PY
