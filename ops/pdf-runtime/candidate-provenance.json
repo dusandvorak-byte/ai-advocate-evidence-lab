@@ -1,0 +1,10 @@
+{
+  "status": "diagnostic-not-approved",
+  "run_id": 45838256165,
+  "job_id": 139972764725,
+  "source_commit": "0cb93dd28c82751f4b3e4d8be18775a003b87cba",
+  "base": "python@sha256:44cf1793efa7c7a476bb0f2cff81443f4a072c90c1cb127e2924933daa3e8c64",
+  "os_package_manifest_sha256": "51550f4895031bce9b2e27554a4e4c8624dfaf68e00f7fe593904caa75816344",
+  "wheel_lock_sha256": "643ddd49ac164cd0713d84050599698edd5cbc446617a93f9740cb27ba1da0f6",
+  "local_image_id": "sha256:fdcba14c21adee72a44fa763848abdff211580b12b7c1f0e01bf377593c815af"
+}
