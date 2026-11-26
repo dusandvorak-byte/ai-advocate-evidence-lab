@@ -1,0 +1,29 @@
+name: Read-only completion preflight shadow
+on:
+  workflow_run:
+    workflows: ['Trusted PDF shard diagnostic']
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  shadow:
+    if: github.repository == 'dusandvorak-byte/ai-advocate-evidence-lab' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_repository.full_name == github.repository && github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate authenticated completion and audited artifacts without publishing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 ops/release-pipeline/shadow_preflight.py

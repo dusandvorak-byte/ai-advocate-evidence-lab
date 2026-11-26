@@ -1,0 +1,24 @@
+name: Release completion identity synthetic tests
+on:
+  pull_request:
+    paths:
+      - 'ops/release-pipeline/**'
+      - '.github/workflows/completion-identity-tests.yml'
+permissions:
+  contents: read
+jobs:
+  synthetic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - run: |
+          python3 ops/release-pipeline/test_completion_identity.py
+          python3 ops/release-pipeline/test_completion_artifacts.py
+          python3 -m py_compile ops/release-pipeline/shadow_preflight.py
