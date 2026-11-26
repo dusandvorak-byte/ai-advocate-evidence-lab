@@ -1,0 +1,88 @@
+name: PDF runtime inventory synthetic tests
+on:
+  pull_request:
+    paths:
+      - 'ops/pdf-runtime/**'
+      - '.github/workflows/pdf-runtime-inventory-tests.yml'
+permissions:
+  contents: read
+jobs:
+  synthetic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - name: Test inventory comparison with synthetic inputs only
+        run: |
+          python3 -m py_compile ops/pdf-runtime/inspect-runtime.py ops/pdf-runtime/test-inspect-runtime.py
+          python3 ops/pdf-runtime/test-inspect-runtime.py -v
+  real-runtime:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - name: Install same PDF tools as trusted workflow
+        run: |
+          bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
+          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 pymupdf==2.1 reportlab==5.1.0 pillow==13.0.0
+      - name: Inspect real runner twice without publishing or using secrets
+        run: |
+          set -euo pipefail
+          echo "Runner image: ${ImageOS:-unknown} ${ImageVersion:-unknown}"
+          time python3 ops/pdf-runtime/inspect-runtime.py --inventory-out "$RUNNER_TEMP/runtime-first.json"
+          time python3 ops/pdf-runtime/inspect-runtime.py --inventory-out "$RUNNER_TEMP/runtime-second.json" --compare "$RUNNER_TEMP/runtime-first.json"
+  container-candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Resolve immutable candidate base and test clean environment
+        run: |
+          set -euo pipefail
+          docker build --no-cache -f ops/pdf-runtime/Dockerfile.candidate -t evidence-runtime-candidate:local ops/pdf-runtime
+          docker run --rm --network none evidence-runtime-candidate:local cat requirements.sha256.txt
+          docker run --rm --network none evidence-runtime-candidate:local cat os-archives.candidate.sha256.txt
+          docker run --rm --network none evidence-runtime-candidate:local sha256sum os-packages.tsv requirements.sha256.txt os-archives.candidate.sha256.txt
+          docker image inspect evidence-runtime-candidate:local --format '{{.Id}}'
+          echo 'Diagnostic candidate only; production_authorization=false'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - name: Compare exact synthetic fixture parser results against hosted Ubuntu
+        run: |
+          set -euo pipefail
+          bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
+          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 --require-hashes -r ops/pdf-runtime/requirements.candidate.sha256.txt
+          python3 ops/pdf-runtime/compare-parser-fixtures.py generate "$RUNNER_TEMP/pdf-fixtures"
+          python3 ops/pdf-runtime/compare-parser-fixtures.py inspect "$RUNNER_TEMP/pdf-fixtures" > "$RUNNER_TEMP/host-results.json"
+          docker run --rm --network none \
+            -v "$RUNNER_TEMP/pdf-fixtures:/fixtures:ro" \
+            -v "$PWD/ops/pdf-runtime/compare-parser-fixtures.py:/compare.py:ro" \
+            evidence-runtime-candidate:local python /compare.py inspect /fixtures > "$RUNNER_TEMP/container-results.json"
+          python3 -c 'import json,sys; a,b=[json.load(open(p)) for p in sys.argv[1:]]; print(json.dumps({"fixtures":len(a),"pages":sum(x["pages"] for x in a),"exact_match":a==b,"differences":[{"fixture":x["name"],"fields":[k for k in x if x[k]!=y.get(k)]} for x,y in zip(a,b) if x!=y],"production_authorization":False})); sys.exit(0 if a==b else 1)' "$RUNNER_TEMP/host-results.json" "$RUNNER_TEMP/container-results.json"
+      - name: Compare actual machine audit using synthetic authenticated policy only
+        run: |
+          set -euo pipefail
+          python3 ops/pdf-runtime/compare-audit-fixtures.py generate "$RUNNER_TEMP/audit-fixtures"
+          python3 ops/pdf-runtime/compare-audit-fixtures.py inspect "$RUNNER_TEMP/audit-fixtures" > "$RUNNER_TEMP/host-audit.json"
+          docker run --rm --network none \
+            -v "$RUNNER_TEMP/audit-fixtures:/fixtures:ro" \
+            -v "$PWD/scripts:/repo/scripts:ro" \
+            -v "$PWD/ops/pdf-runtime/compare-audit-fixtures.py:/repo/ops/pdf-runtime/compare-audit-fixtures.py:ro" \
+            evidence-runtime-candidate:local python /repo/ops/pdf-runtime/compare-audit-fixtures.py inspect /fixtures > "$RUNNER_TEMP/container-audit.json"
+          python3 -c 'import json,sys; a,b=[json.load(open(p)) for p in sys.argv[1:]]; print(json.dumps({"audit_fixtures":len(a),"exact_semantic_match":a==b,"differences":[x["fixture"] for x,y in zip(a,b) if x!=y],"production_authorization":False})); sys.exit(0 if a==b else 1)' "$RUNNER_TEMP/host-audit.json" "$RUNNER_TEMP/container-audit.json"
