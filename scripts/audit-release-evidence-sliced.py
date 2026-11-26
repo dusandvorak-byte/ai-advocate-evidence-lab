@@ -7,6 +7,8 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from audit_git_lineage import check_lineage
+from registry_pdf_fact_reuse import root_rows_by_path, registry_facts_from_row
+import time
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT_PATH = ROOT / "scripts" / "audit-release-evidence-2026-11-13.py"
@@ -240,6 +242,23 @@ def cmd_assemble(count):
         all_web_pdfs.extend(shard_fragment["data"])
         fragment_failures += list(shard_fragment.get("failures") or [])
     all_web_pdfs.sort(key=lambda row: row["published_path"])
+
+    # Shadow comparison only: independent registry scan and its failures
+    # remain authoritative. No existing validation or publication gate is removed.
+    if os.environ.get("EVIDENCE_LAB_REGISTRY_FACTS_SHADOW") == "1":
+        started = time.monotonic()
+        try:
+            root_rows = root_rows_by_path(all_web_pdfs)
+            def same_run_facts(local, rel):
+                return registry_facts_from_row(root_rows.get(rel), rel, audit.sha256_file(local))
+            shadow_rows, shadow_failures = audit.audit_registry_public_derivatives(same_run_facts)
+            equal = shadow_rows == registry_derivatives and shadow_failures == registry_fragment.get("failures", [])
+            print(json.dumps({"event": "registry-facts-shadow", "rows": len(shadow_rows),
+                              "exact_match": equal, "elapsed_ms": round((time.monotonic()-started)*1000),
+                              "fresh_registry_scan_authoritative": True}), flush=True)
+        except Exception as exc:
+            print(json.dumps({"event": "registry-facts-shadow", "exact_match": False,
+                              "error_type": type(exc).__name__, "fresh_registry_scan_authoritative": True}), flush=True)
 
     reconciliation, reconciliation_fail = audit.audit_registry_reconciliation(all_web_pdfs)
     id68_fidelity, id68_fail = audit.audit_id68_fidelity(all_web_pdfs, generated)

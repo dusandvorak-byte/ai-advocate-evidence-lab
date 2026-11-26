@@ -1,0 +1,25 @@
+name: Registry PDF facts shadow tests
+on:
+  pull_request:
+    paths:
+      - 'scripts/registry_pdf_fact_reuse.py'
+      - 'test/registry_pdf_fact_reuse.test.py'
+      - 'scripts/audit-release-evidence*.py'
+      - '.github/workflows/registry-facts-shadow-tests.yml'
+permissions:
+  contents: read
+jobs:
+  synthetic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - run: |
+          python3 -m py_compile scripts/audit-release-evidence-2026-11-13.py scripts/audit-release-evidence-sliced.py scripts/registry_pdf_fact_reuse.py
+          python3 test/registry_pdf_fact_reuse.test.py
