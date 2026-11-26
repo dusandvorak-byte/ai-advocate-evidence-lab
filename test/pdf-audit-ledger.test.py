@@ -120,6 +120,13 @@ class LedgerTests(unittest.TestCase):
         self.assertEqual(len(calls), 2)
         self.assertEqual(shadow.stats["hits"], 1)
         self.assertEqual(shadow.stats["recorded"], 1)
+        metrics = shadow.metrics()
+        self.assertEqual(metrics["hits"], 1)
+        self.assertTrue(metrics["fresh_scan_authoritative"])
+        self.assertEqual(metrics["skipped"], 0)
+        self.assertEqual(set(metrics), set(shadow.stats) | {"fresh_scan_authoritative", "skipped"})
+        metrics["hits"] = 99
+        self.assertEqual(shadow.metrics()["hits"], 1)
         def changed_scan(path):
             return fixture_facts() | {"page_count": 3}
         self.assertEqual(shadow.compare(self.pdf, changed_scan)["page_count"], 3)
