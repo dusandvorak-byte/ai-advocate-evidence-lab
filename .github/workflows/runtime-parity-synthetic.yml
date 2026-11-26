@@ -1,0 +1,23 @@
+name: Runtime parity synthetic tests
+on:
+  pull_request:
+    paths:
+      - 'ops/runtime-parity/**'
+      - '.github/workflows/runtime-parity-synthetic.yml'
+permissions:
+  contents: read
+jobs:
+  synthetic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - run: |
+          python3 -m py_compile ops/runtime-parity/*.py
+          python3 ops/runtime-parity/test_compare_stage.py
