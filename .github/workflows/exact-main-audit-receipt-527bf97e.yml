@@ -14,7 +14,7 @@ jobs:
     timeout-minutes: 5
     env:
       GH_TOKEN: ${{ github.token }}
-      TARGET: d4bf0b612f294b7f54dc626efd0afba1583323c8
+      TARGET: b13038f948682bb7776c89d9f7b14507169c7c5d
     steps:
       - name: Read exact main push audit status and publish metadata on diagnostic commit only
         shell: bash
