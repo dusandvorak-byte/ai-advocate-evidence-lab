@@ -1,0 +1,24 @@
+name: PDF runtime inventory synthetic tests
+on:
+  pull_request:
+    paths:
+      - 'ops/pdf-runtime/**'
+      - '.github/workflows/pdf-runtime-inventory-tests.yml'
+permissions:
+  contents: read
+jobs:
+  synthetic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - name: Test inventory comparison with synthetic inputs only
+        run: |
+          python3 -m py_compile ops/pdf-runtime/inspect-runtime.py ops/pdf-runtime/test-inspect-runtime.py
+          python3 ops/pdf-runtime/test-inspect-runtime.py -v
