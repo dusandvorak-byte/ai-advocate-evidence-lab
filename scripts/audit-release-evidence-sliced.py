@@ -68,8 +68,29 @@ def cmd_registry():
     write_fragment("registry-derivatives", data, failures)
 
 
+def transport_module():
+    sys.path.insert(0, str(ROOT / "ops/shard-transfer"))
+    import production_transport
+    return production_transport
+
+
 def cmd_pdf_shard(index, count):
-    registry_path = audit.WEB / "data/documents-2026.json"
+    compact = os.environ.get("EVIDENCE_LAB_MINIMAL_SHARD_TRANSPORT") == "1"
+    manifest = None
+    if compact:
+        transport = transport_module()
+        sha, run = transport.trusted_identity()
+        if count != transport.COUNT or not 0 <= index < count:
+            raise ValueError("invalid compact shard assignment")
+        bundle = Path(os.environ["EVIDENCE_LAB_SHARD_BUNDLE"])
+        manifest = transport.validate_manifest((bundle/"manifest.json").read_bytes(),
+            os.environ["EVIDENCE_LAB_SHARD_MANIFEST_SHA256"],sha,run)
+        registry_path = bundle/"web-registry.json"
+        if (transport.file_sha(registry_path) != manifest["web_registry_sha256"]
+                or transport.file_sha(audit.CANONICAL_REGISTRY) != manifest["canonical_registry_sha256"]):
+            raise ValueError("compact shard registry mismatch")
+    else:
+        registry_path = audit.WEB / "data/documents-2026.json"
     registry = json.loads(registry_path.read_text("utf-8"))
     registry_by_path = {}
     derivative_paths = set()
@@ -113,7 +134,7 @@ def cmd_pdf_shard(index, count):
     pdfs = audit.publication_pdf_paths(audit.PUBLICATION_ROOT)
     rows = []
     failures = []
-    if not pdfs:
+    if not pdfs and not compact:
         failures.append(f"no PDF-signature/suffix candidates found under publication root {audit.PUBLICATION_ROOT}")
 
     # Group byte-identical compatibility copies before sharding. The expensive
@@ -135,7 +156,23 @@ def cmd_pdf_shard(index, count):
         weighted_groups.append((paths[0].stat().st_size, digest, paths))
     weighted_groups.sort(key=lambda item: (-item[0], item[1]))
 
-    if os.environ.get("EVIDENCE_LAB_SHARD_COST_SCHEDULE") == "1":
+    if compact:
+        expected = {p:g["sha256"] for g in manifest["shards"][index] for p in g["paths"]}
+        actual = {p.relative_to(audit.PUBLICATION_ROOT).as_posix():digest
+                  for digest, paths in groups.items() for p in paths}
+        if actual != expected:
+            raise ValueError("compact shard PDF inventory mismatch")
+        for group in manifest["shards"][index]:
+            digest = group["sha256"]
+            paths = [audit.PUBLICATION_ROOT/p for p in group["paths"]]
+            if any(p.stat().st_size != group["size"] for p in paths):
+                raise ValueError("compact shard size mismatch")
+            shard_groups[index].append((digest, paths))
+            shard_weights[index] += group["size"]
+        print(json.dumps({"event":"compact-shard-audit","shard":index,
+                          "assigned_digests":len(groups),"assigned_paths":len(pdfs),
+                          "fresh_audit_required":True}),flush=True)
+    elif os.environ.get("EVIDENCE_LAB_SHARD_COST_SCHEDULE") == "1":
         require_trusted_registry_reuse(os.environ)
         if current_checkout_sha() != os.environ.get("GITHUB_SHA") or count != 16:
             raise ValueError("timing schedule requires exact trusted checkout")
@@ -244,9 +281,9 @@ def cmd_pdf_shard(index, count):
     if shadow is not None:
         print(json.dumps({"event": "pdf-shard-ledger-shadow", "shard": index, **shadow.metrics()}, ensure_ascii=False), flush=True)
     print(json.dumps({
-        "pdf_path_count": len(pdfs),
-        "unique_pdf_digest_count": len(groups),
-        "deduplicated_path_count": len(pdfs) - len(groups),
+        "pdf_path_count": len(manifest["rows"]) if compact else len(pdfs),
+        "unique_pdf_digest_count": sum(map(len, manifest["shards"])) if compact else len(groups),
+        "deduplicated_path_count": (len(manifest["rows"]) - sum(map(len,manifest["shards"]))) if compact else len(pdfs) - len(groups),
         "shard": index,
         "shard_unique_digest_count": len(shard_groups[index]),
         "shard_weight_bytes": shard_weights[index],
@@ -280,15 +317,30 @@ def cmd_assemble(count):
     run_id = require_trusted_registry_reuse(os.environ) if reuse else None
     if reuse and (count != 16 or current_checkout_sha() != os.environ.get("GITHUB_SHA")):
         raise ValueError("registry reuse requires exact trusted 16-shard checkout")
+    compact = os.environ.get("EVIDENCE_LAB_MINIMAL_SHARD_TRANSPORT") == "1"
+    if compact:
+        transport = transport_module()
+        sha, compact_run = transport.trusted_identity()
+        if not reuse or count != transport.COUNT or run_id != compact_run:
+            raise ValueError("compact assembly requires trusted exact-run reconciliation")
+        # Independent inventory and schedule from the original full tree.
+        manifest = transport.make_manifest(audit.PUBLICATION_ROOT,
+            audit.WEB/"data/documents-2026.json",audit.CANONICAL_REGISTRY,sha,compact_run)
+        if transport.digest(transport.json_bytes(manifest)) != os.environ["EVIDENCE_LAB_SHARD_MANIFEST_SHA256"]:
+            raise ValueError("compact transport differs from full staged tree")
     generated_fragment = load_fragment("generated", run_id)
     generated = generated_fragment["data"]
     fragment_failures = list(generated_fragment["failures"])
     all_web_pdfs = []
     for index in range(count):
         shard_fragment = load_fragment(f"pdf-shard-{index}-of-{count}", run_id)
+        if compact:
+            transport.validate_fragment_assignment(manifest,index,shard_fragment["data"])
         all_web_pdfs.extend(shard_fragment["data"])
         fragment_failures += list(shard_fragment["failures"])
     all_web_pdfs.sort(key=lambda row: row["published_path"])
+    if compact:
+        print(json.dumps({"event":"compact-shard-assembly","exact_full_tree_match":True,"paths":len(all_web_pdfs),"shards":count}),flush=True)
 
     if reuse:
         started = time.monotonic()
