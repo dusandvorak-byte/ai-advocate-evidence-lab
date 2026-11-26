@@ -26,6 +26,11 @@ class ShadowAuditLedger:
         self.stats = {"hits": 0, "misses": 0, "mismatches": 0, "recorded": 0,
                       "cache_lookup_ms": 0, "fresh_scan_ms": 0}
 
+    def metrics(self):
+        """Aggregate timing only; never export private identity or signing key."""
+        with self.lock:
+            return {**self.stats, "fresh_scan_authoritative": True, "skipped": 0}
+
     def compare(self, path, scan):
         digest = file_sha(path)
         start = time.monotonic()
@@ -59,8 +64,8 @@ def from_trusted_environment(policy_sha, identity):
     if not (os.environ.get("GITHUB_ACTIONS") == "true" and os.environ.get("GITHUB_EVENT_NAME") == "push"
             and os.environ.get("GITHUB_REF") == "refs/heads/main"
             and os.environ.get("GITHUB_REPOSITORY") == "dusandvorak-byte/ai-advocate-evidence-lab"
-            and os.environ.get("GITHUB_WORKFLOW_REF", "").startswith(
-                "dusandvorak-byte/ai-advocate-evidence-lab/.github/workflows/trusted-pdf-shard-diagnostic.yml@refs/heads/main")):
+            and os.environ.get("GITHUB_WORKFLOW_REF") ==
+                "dusandvorak-byte/ai-advocate-evidence-lab/.github/workflows/trusted-pdf-shard-diagnostic.yml@refs/heads/main"):
         raise ValueError("shadow ledger requires trusted workflow")
     # A different secret from the private policy authentication key.
     key = bytes.fromhex(os.environ["EVIDENCE_LAB_PDF_LEDGER_HMAC_KEY"])
