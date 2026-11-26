@@ -21,3 +21,4 @@ jobs:
       - run: |
           python3 -m py_compile ops/runtime-parity/*.py
           python3 ops/runtime-parity/test_compare_stage.py
+          python3 ops/runtime-parity/test_extract_pinned_baseline.py
