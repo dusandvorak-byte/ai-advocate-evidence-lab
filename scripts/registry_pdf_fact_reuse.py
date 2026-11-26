@@ -57,3 +57,33 @@ def registry_facts_from_row(row, rel, actual_sha):
             raise ValueError("missing shard fact: " + field)
         facts[field] = row[field]
     return facts
+
+
+def validate_stage_rows(rows, expected_hashes):
+    """Require exact path coverage and current byte identity, including mirrors."""
+    seen = set()
+    for row in rows:
+        path = row.get("published_path")
+        if not isinstance(path, str) or path in seen or path not in expected_hashes:
+            raise ValueError("unexpected or duplicate staged PDF evidence")
+        if row.get("sha256") != expected_hashes[path]:
+            raise ValueError("staged PDF evidence SHA mismatch")
+        if type(row.get("compatibility_copy")) is not bool:
+            raise ValueError("invalid compatibility marker")
+        expected_rel = path[4:] if row["compatibility_copy"] else path
+        if row.get("source_web_path") != expected_rel or (row["compatibility_copy"] and not path.startswith("web/")):
+            raise ValueError("invalid staged PDF source path")
+        seen.add(path)
+    if not seen or seen != set(expected_hashes):
+        raise ValueError("incomplete staged PDF evidence")
+    return root_rows_by_path(rows)
+
+
+def require_trusted_registry_reuse(env):
+    repo = "dusandvorak-byte/ai-advocate-evidence-lab"
+    if not (env.get("GITHUB_ACTIONS") == "true" and env.get("GITHUB_EVENT_NAME") == "push"
+            and env.get("GITHUB_REF") == "refs/heads/main" and env.get("GITHUB_REPOSITORY") == repo
+            and env.get("GITHUB_WORKFLOW_REF") == repo + "/.github/workflows/trusted-pdf-shard-diagnostic.yml@refs/heads/main"
+            and re.fullmatch(r"[1-9][0-9]*", env.get("GITHUB_RUN_ID", ""))):
+        raise ValueError("registry reuse requires exact trusted workflow")
+    return env["GITHUB_RUN_ID"]
