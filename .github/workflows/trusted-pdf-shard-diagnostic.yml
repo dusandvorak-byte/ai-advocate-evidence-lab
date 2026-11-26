@@ -341,7 +341,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        fragment: [generated, registry]
+        fragment: [generated]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -411,7 +411,7 @@ jobs:
           merge-multiple: true
       - name: Verify all fragments are present and assemble
         env:
-          EVIDENCE_LAB_REGISTRY_FACTS_SHADOW: '1'
+          EVIDENCE_LAB_REGISTRY_FACTS_REUSE: '1'
           EXPECTED_HEAD_SHA: ${{ github.sha }}
           EXPECTED_BASE_SHA: ${{ github.event.before }}
         run: |
