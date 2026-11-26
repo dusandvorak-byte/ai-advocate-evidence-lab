@@ -178,21 +178,37 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -m 700 "$RUNNER_TEMP/pdf-transform-capture"
-          # Default remains shadow; a second explicit opt-in is required for reuse.
-          # The hardener validates prior exact bytes and context, falls back on misses,
-          # and all independent staged audits and publication gates remain mandatory.
+          # Default remains shadow. Explicit reuse opt-in is necessary but
+          # insufficient: the exact selected prior run must also have a clean,
+          # nonzero fresh shadow comparison. Current engine and all per-path
+          # policy/input/byte checks remain enforced by the runtime.
           mode=shadow
-          if [ "${PDF_TRANSFORM_REUSE_OPT_IN:-}" = "1" ]; then
-            mode=reuse
+          echo "EVIDENCE_LAB_TRANSFORM_CAPTURE=$RUNNER_TEMP/pdf-transform-capture/snapshot.json" >> "$GITHUB_ENV"
+          if python3 scripts/fetch-pdf-transform-evidence.py "$RUNNER_TEMP/prior-transform-evidence"; then
+            prior="$RUNNER_TEMP/prior-transform-evidence/prior"
+            echo "EVIDENCE_LAB_PRIOR_TRANSFORM_ROOT=$prior" >> "$GITHUB_ENV"
+            if [ "${PDF_TRANSFORM_REUSE_OPT_IN:-}" = "1" ]; then
+              prior_sha="$(jq -er '.head_sha' "$prior/run.json")"
+              prior_run="$(jq -er '.id' "$prior/run.json")"
+              if readiness="$(python3 ops/cache-activation-readiness/activation_readiness.py --sha "$prior_sha" --run-id "$prior_run")" &&
+                 jq -e --arg sha "$prior_sha" --argjson run "$prior_run" '
+                   .scope == "shadow-cache-eligibility-diagnostic" and
+                   .source_sha == $sha and .audit_run_id == $run and
+                   .eligible == true and .reuse_authorized == false and
+                   .fresh_final_audit_required == true and
+                   .potential_hits > 0 and .exact_matches == .potential_hits and
+                   .mismatches == 0 and .identity_mismatches == []
+                 ' <<< "$readiness" >/dev/null; then
+                mode=reuse
+              else
+                echo "Prior fresh shadow comparison unavailable or incompatible; retaining full hardening."
+              fi
+            fi
+          else
+            echo "No trusted compatible previous transform evidence; complete canonical audit still required."
           fi
           echo "EVIDENCE_LAB_PDF_TRANSFORM_MODE=$mode" >> "$GITHUB_ENV"
           echo "PDF transformation mode: $mode (fresh final audit required)"
-          echo "EVIDENCE_LAB_TRANSFORM_CAPTURE=$RUNNER_TEMP/pdf-transform-capture/snapshot.json" >> "$GITHUB_ENV"
-          if python3 scripts/fetch-pdf-transform-evidence.py "$RUNNER_TEMP/prior-transform-evidence"; then
-            echo "EVIDENCE_LAB_PRIOR_TRANSFORM_ROOT=$RUNNER_TEMP/prior-transform-evidence/prior" >> "$GITHUB_ENV"
-          else
-            echo "No trusted previous transform evidence; complete canonical audit still required."
-          fi
 
       - name: Materialize trusted public tree
         run: |
