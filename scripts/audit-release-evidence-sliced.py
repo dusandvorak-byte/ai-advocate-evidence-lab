@@ -196,6 +196,7 @@ def cmd_pdf_shard(index, count):
         return local_rows, local_failures
 
     selected_groups = shard_groups[index]
+    shard_started = time.monotonic()
     workers = max(1, min(int(os.environ.get("EVIDENCE_LAB_PDF_SHARD_WORKERS", "2")), len(selected_groups) or 1))
     with ThreadPoolExecutor(max_workers=workers) as pool:
         futures = [pool.submit(inspect_group, group) for group in selected_groups]
@@ -205,6 +206,9 @@ def cmd_pdf_shard(index, count):
             failures.extend(local_failures)
     rows.sort(key=lambda row: row["published_path"])
     failures.sort()
+    shadow = audit.shadow_ledger()
+    if shadow is not None:
+        print(json.dumps({"event": "pdf-shard-ledger-shadow", "shard": index, **shadow.metrics()}, ensure_ascii=False), flush=True)
     print(json.dumps({
         "pdf_path_count": len(pdfs),
         "unique_pdf_digest_count": len(groups),
@@ -213,6 +217,7 @@ def cmd_pdf_shard(index, count):
         "shard_unique_digest_count": len(shard_groups[index]),
         "shard_weight_bytes": shard_weights[index],
         "parallel_workers": workers,
+        "scan_wall_ms": round((time.monotonic() - shard_started) * 1000),
     }, ensure_ascii=False))
     write_fragment(f"pdf-shard-{index}-of-{count}", rows, failures)
 
