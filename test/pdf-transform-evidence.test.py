@@ -136,6 +136,21 @@ class TransformEvidenceTests(unittest.TestCase):
         self.assertEqual(stats["mismatches"], 1)
 
 
+    def test_shadow_reports_global_identity_miss_without_reuse(self):
+        plan = self.plan()
+        current = self.capture(engine_sha="f"*64)
+        stats = compare_fresh_results(current, plan, [], self.web)
+        self.assertEqual(stats["identity_mismatches"], ["engine_sha256"])
+        self.assertEqual(stats["prior_entry_count"], 1)
+        self.assertEqual(stats["path_identity_matches"], 1)
+        self.assertEqual(stats["potential_hits"], 0)
+        self.assertEqual(stats["exact_matches"], 0)
+        self.assertEqual(stats["skipped"], 0)
+        self.assertTrue(stats["fresh_scan_authoritative"])
+        self.assertEqual(comparable_entries(current, plan), {})
+        self.assertEqual(compare_fresh_results(self.capture(), plan, [], self.web)["identity_mismatches"], [])
+
+
 class WorkflowOptInTests(unittest.TestCase):
     def test_default_shadow_and_explicit_reuse_only(self):
         import os
