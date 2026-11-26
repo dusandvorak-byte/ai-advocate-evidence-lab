@@ -12,7 +12,7 @@ import os
 from pathlib import Path
 import sys
 import time
-from compare_stage import compare
+from compare_stage import compare, compare_section, validate_baseline
 
 REPO = "dusandvorak-byte/ai-advocate-evidence-lab"
 
@@ -34,8 +34,7 @@ def main():
         if marker.read_text().strip() != args.source_sha:
             raise SystemExit("staged source marker mismatch")
     baseline = json.loads(args.baseline.read_text())
-    if baseline.get("checkout_commit") != args.source_sha:
-        raise SystemExit("baseline checkout mismatch")
+    validate_baseline(baseline, args.source_sha)
     os.environ["EVIDENCE_LAB_PUBLICATION_ROOT"] = str(stage)
     os.environ["EVIDENCE_LAB_CANONICAL_REGISTRY"] = str(checkout / "project-memory/documents-2026.json")
     os.environ["EVIDENCE_LAB_PDF_SHARD_WORKERS"] = "1"
@@ -53,9 +52,13 @@ def main():
         fragments[key] = {"checkout_commit": args.source_sha, "data": data, "failures": list(failures)}
     audit.write_fragment = capture
     started = time.monotonic()
-    audit.cmd_pdf_shard(0, 1)
+    # Check the previously failing small generated section before the
+    # expensive full PDF scan. No failed section can be accepted.
     audit.cmd_generated()
+    compare_section(baseline, fragments["generated"], "generated", args.source_sha)
     audit.cmd_registry()
+    compare_section(baseline, fragments["registry-derivatives"], "registry-derivatives", args.source_sha)
+    audit.cmd_pdf_shard(0, 1)
     result = compare(baseline, fragments, args.source_sha)
     result["elapsed_ms"] = round((time.monotonic() - started)*1000)
     print(json.dumps(result, sort_keys=True))
