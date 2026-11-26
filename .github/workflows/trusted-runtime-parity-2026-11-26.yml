@@ -40,6 +40,14 @@ jobs:
             gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$id/zip" > "$RUNNER_TEMP/parity-input/$id.zip"
           done
           python3 ops/runtime-parity/extract_pinned_baseline.py "$RUNNER_TEMP/parity-input/15127514235.zip" "$RUNNER_TEMP/parity-input/15128640625.zip" baseline-checkout "$RUNNER_TEMP/parity-input"
+      - name: Verify isolated owner-only file access with synthetic content
+        run: |
+          set -euo pipefail
+          umask 077
+          probe="$(mktemp "$RUNNER_TEMP/runtime-parity-probe.XXXXXX")"
+          trap 'rm -f "$probe"' EXIT
+          printf 'synthetic-owner-only' > "$probe"
+          docker run --rm --user "$(id -u):$(id -g)" --network none --read-only --cap-drop ALL --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev,size=2g -e HOME=/tmp -v "$probe:/probe:ro" evidence-parity:local python -c 'from pathlib import Path; import stat; p=Path("/probe"); assert stat.S_IMODE(p.stat().st_mode)==0o600; assert p.read_text()=="synthetic-owner-only"'
       - name: Run fresh semantic comparison without network or publication permissions
         env:
           PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
@@ -53,9 +61,9 @@ jobs:
           test -s "$policy"
           test -n "$EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY"
           unset PRIVATE_POLICY_B64
-          docker run --rm --network none --read-only --cap-drop ALL --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev,size=2g \
+          docker run --rm --user "$(id -u):$(id -g)" --network none --read-only --cap-drop ALL --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev,size=2g \
             -e GITHUB_ACTIONS -e GITHUB_EVENT_NAME -e GITHUB_REF -e GITHUB_REPOSITORY \
-            -e PYTHONDONTWRITEBYTECODE=1 -e EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=/private-policy.json \
+            -e HOME=/tmp -e PYTHONDONTWRITEBYTECODE=1 -e EVIDENCE_LAB_PRIVATE_REDACTION_POLICY=/private-policy.json \
             -e EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY \
             -v "$policy:/private-policy.json:ro" \
             -v "$PWD/baseline-checkout:/baseline:ro" \
