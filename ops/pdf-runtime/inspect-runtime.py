@@ -90,7 +90,7 @@ def parse_dpkg_list(output):
             continue
         match = pattern.fullmatch(line)
         if not match:
-            raise ValueError("unexpected installed OS payload path")
+            raise ValueError("unexpected installed OS payload record: " + repr(line[:240]))
         original, diverted, owner = match.groups()
         diversions.append([original, diverted, owner])
         # Include existing endpoints. The exact diversion record binds the
