@@ -16,6 +16,8 @@ concurrency:
 
 jobs:
   prepare:
+    outputs:
+      shard_manifest_sha256: ${{ steps.compact_transport.outputs.manifest_sha256 }}
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
@@ -287,6 +289,154 @@ jobs:
           if-no-files-found: error
           retention-days: 3
 
+      - name: Prepare compact same-run PDF shard bundles
+        id: compact_transport
+        run: python3 ops/shard-transfer/production_transport.py prepare "$RUNNER_TEMP/compact-shard-bundles" --stage "$GITHUB_WORKSPACE/release-site"
+
+      - name: Upload compact shard 0
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-0-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/0
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 1
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-1-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/1
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 2
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-2-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/2
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 3
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-3-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/3
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 4
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-4-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/4
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 5
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-5-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/5
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 6
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-6-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/6
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 7
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-7-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/7
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 8
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-8-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/8
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 9
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-9-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/9
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 10
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-10-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/10
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 11
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-11-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/11
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 12
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-12-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/12
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 13
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-13-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/13
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 14
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-14-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/14
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
+      - name: Upload compact shard 15
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-pdf-15-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundles/15
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 0
+
   slices:
     needs: prepare
     runs-on: ubuntu-24.04
@@ -320,13 +470,21 @@ jobs:
           echo "EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_HMAC_KEY=$PRIVATE_POLICY_HMAC_KEY" >> "$GITHUB_ENV"
       - uses: actions/download-artifact@v4
         with:
-          name: trusted-public-tree-${{ github.sha }}
-          path: .
+          name: compact-pdf-${{ matrix.shard }}-${{ github.sha }}
+          path: ${{ runner.temp }}/compact-shard-bundle
+      - name: Verify and restore exact assigned PDF bytes
+        env:
+          EVIDENCE_LAB_SHARD_MANIFEST_SHA256: ${{ needs.prepare.outputs.shard_manifest_sha256 }}
+        run: python3 ops/shard-transfer/production_transport.py unpack "$RUNNER_TEMP/compact-shard-bundle" --stage "$RUNNER_TEMP/compact-shard-stage" --index ${{ matrix.shard }}
       - name: Audit PDF shard ${{ matrix.shard }}/16
         env:
           EVIDENCE_LAB_SHARD_COST_MEASURE: '1'
           EVIDENCE_LAB_SHARD_COST_SCHEDULE: '1'
-          EVIDENCE_LAB_PUBLICATION_ROOT: ${{ github.workspace }}/release-site
+          EVIDENCE_LAB_MINIMAL_SHARD_TRANSPORT: '1'
+          EVIDENCE_LAB_SHARD_MANIFEST_SHA256: ${{ needs.prepare.outputs.shard_manifest_sha256 }}
+          EVIDENCE_LAB_SHARD_BUNDLE: ${{ runner.temp }}/compact-shard-bundle
+          EVIDENCE_LAB_CANONICAL_REGISTRY: ${{ runner.temp }}/compact-shard-bundle/canonical-registry.json
+          EVIDENCE_LAB_PUBLICATION_ROOT: ${{ runner.temp }}/compact-shard-stage
         run: python3 scripts/audit-release-evidence-sliced.py pdf-shard ${{ matrix.shard }} 16
       - name: Upload shard fragment
         uses: actions/upload-artifact@v4
@@ -414,6 +572,8 @@ jobs:
       - name: Verify all fragments are present and assemble
         env:
           EVIDENCE_LAB_REGISTRY_FACTS_REUSE: '1'
+          EVIDENCE_LAB_MINIMAL_SHARD_TRANSPORT: '1'
+          EVIDENCE_LAB_SHARD_MANIFEST_SHA256: ${{ needs.prepare.outputs.shard_manifest_sha256 }}
           EXPECTED_HEAD_SHA: ${{ github.sha }}
           EXPECTED_BASE_SHA: ${{ github.event.before }}
         run: |
