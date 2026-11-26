@@ -1,0 +1,28 @@
+name: Synthetic full PDF scan process parity
+on:
+  pull_request:
+    paths:
+      - 'ops/shard-process-parity/**'
+      - '.github/workflows/shard-process-parity.yml'
+      - 'scripts/audit-release-evidence-2026-11-13.py'
+      - 'scripts/publication_redaction.py'
+permissions:
+  contents: read
+jobs:
+  parity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - run: |
+          bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
+          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 pymupdf==2.1
+      - run: |
+          python3 -m py_compile ops/shard-process-parity/parity.py
+          python3 ops/shard-process-parity/parity.py
