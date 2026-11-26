@@ -21,3 +21,5 @@ jobs:
       - run: |
           python3 ops/shard-transfer/test_transfer_plan.py
           python3 ops/shard-transfer/test_bundle.py
+          python3 ops/shard-transfer/test_production_transport.py
+          python3 -m py_compile scripts/audit-release-evidence-sliced.py ops/shard-transfer/production_transport.py
