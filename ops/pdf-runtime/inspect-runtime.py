@@ -32,7 +32,8 @@ def digest(payload):
 
 
 def command(argv):
-    return subprocess.check_output(argv, stderr=subprocess.STDOUT, timeout=30, text=True).strip()
+    return subprocess.check_output(argv, stderr=subprocess.STDOUT, timeout=30, text=True,
+                                   env={**os.environ, "LC_ALL": "C"}).strip()
 
 
 def file_sha(path):
@@ -72,6 +73,32 @@ def payload_digest(paths):
     return digest(entries)
 
 
+def parse_dpkg_list(output):
+    """Recognize documented blank separators and diversion descriptions.
+
+    Diversions are retained in the inventory and their paths are examined,
+    not silently discarded. Unknown output remains a hard diagnostic error.
+    """
+    paths = []
+    diversions = []
+    pattern = re.compile(r"^(?:local )?diversion of (/.*?) to (/.*?)(?: by ([a-z0-9][a-z0-9+.:~-]*))?$")
+    for line in output.splitlines():
+        if not line.strip():
+            continue
+        if line.startswith("/"):
+            paths.append(line)
+            continue
+        match = pattern.fullmatch(line)
+        if not match:
+            raise ValueError("unexpected installed OS payload path")
+        original, diverted, owner = match.groups()
+        diversions.append([original, diverted, owner])
+        # Include existing endpoints. The exact diversion record binds the
+        # absent endpoints; ordinary package paths still fail if missing.
+        paths.extend(p for p in (original, diverted) if os.path.lexists(p))
+    return paths, diversions
+
+
 def inventory():
     packages = {}
     for line in command(["dpkg-query", "-W", "-f=${binary:Package}\t${Version}\n"]).splitlines():
@@ -81,11 +108,13 @@ def inventory():
         packages[name] = version
     os_paths = []
     names = sorted(packages)
+    diversions = []
     for i in range(0, len(names), 100):
-        os_paths.extend(command(["dpkg-query", "-L", *names[i:i+100]]).splitlines())
-    if not all(path.startswith("/") for path in os_paths):
-        raise ValueError("unexpected installed OS payload path")
-    os_payload = payload_digest(os_paths)
+        paths, records = parse_dpkg_list(command(["dpkg-query", "-L", *names[i:i+100]]))
+        os_paths.extend(paths)
+        diversions.extend(records)
+    os_payload = digest({"payload": payload_digest(os_paths),
+                         "diversions": sorted(set(tuple(row) for row in diversions), key=str)})
     distributions = {}
     for dist in importlib.metadata.distributions():
         name = normalize(dist.metadata["Name"])
