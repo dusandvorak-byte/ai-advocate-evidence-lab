@@ -4,8 +4,8 @@ Keep full tree and original independent assembly audit. This planner only
 estimates transfer from byte-identical groups using verified file identities.
 No archive extraction, downloading, or production workflow changes.
 """
+import hashlib
 import re
-from pathlib import PurePosixPath
 
 HEX = re.compile(r"[0-9a-f]{64}")
 
@@ -54,3 +54,32 @@ def plan(rows, shard_count):
 def compare_plan(candidate, rows, shard_count):
     """Reject any changed/omitted group or path in a candidate plan."""
     return candidate == plan(rows, shard_count)
+
+
+
+def verify_payload(candidate, rows, shard_count, shard_index, payloads):
+    """Check a representative bundle against an independently derived plan.
+
+    The caller supplies already-read bytes keyed by SHA-256, never archive
+    paths. Reject missing, extra, malformed or changed representatives.
+    A verified bundle is not a verified publication: the full tree must
+    still be independently rehashed and reconciled during assembly.
+    """
+    if type(shard_index) is not int or not 0 <= shard_index < shard_count:
+        raise ValueError("invalid shard index")
+    expected = plan(rows, shard_count)
+    if candidate != expected:
+        raise ValueError("candidate plan differs from independent manifest")
+    groups = expected["shards"][shard_index]
+    required = {g["sha256"]: g["size"] for g in groups}
+    if not isinstance(payloads, dict) or set(payloads) != set(required):
+        raise ValueError("missing or unexpected representative")
+    for digest, size in required.items():
+        raw = payloads[digest]
+        if type(raw) is not bytes or len(raw) != size:
+            raise ValueError("invalid representative size or type")
+        if hashlib.sha256(raw).hexdigest() != digest:
+            raise ValueError("representative digest mismatch")
+    return {"verified_representatives": len(required),
+            "verified_bytes": sum(required.values()),
+            "production_authoritative": False}
