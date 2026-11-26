@@ -14,13 +14,13 @@ jobs:
     timeout-minutes: 5
     env:
       GH_TOKEN: ${{ github.token }}
-      TARGET: b13038f948682bb7776c89d9f7b14507169c7c5d
+      TARGET: bbeed91d61d22b7618c75e697c2ddc4a38194435
     steps:
       - name: Read exact main push audit status and publish metadata on diagnostic commit only
         shell: bash
         run: |
           set -euo pipefail
-          for entry in 'shard:trusted-pdf-shard-diagnostic.yml' 'full:validate-evidence-lab-2.yml' 'preflight:publish-gh-pages-branch.yml'; do
+          for entry in 'shard:trusted-pdf-shard-diagnostic.yml' 'full:validate-evidence-lab-2.yml' 'preflight:publish-gh-pages-branch.yml' 'runtime:trusted-runtime-parity-2026-11-26.yml'; do
             label="${entry%%:*}"
             workflow="${entry#*:}"
             result="$(gh api --method GET "repos/$GITHUB_REPOSITORY/actions/workflows/$workflow/runs" -f branch=main -f event=push -f head_sha="$TARGET" -F per_page=30 | jq -c --arg sha "$TARGET" --arg repo "$GITHUB_REPOSITORY" '[.workflow_runs[] | select(.head_sha == $sha and .head_branch == "main" and .event == "push" and .repository.full_name == $repo and .head_repository.full_name == $repo)] | sort_by(.created_at) | last // {}')"
