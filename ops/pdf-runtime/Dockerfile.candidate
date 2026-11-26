@@ -1,0 +1,15 @@
+# Diagnostic candidate only. BASE must be independently resolved by CI.
+ARG BASE
+FROM ${BASE}
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+WORKDIR /runtime-candidate
+COPY observed-dependencies.json lock-candidate-wheels.py ./
+RUN apt-get update && apt-get install -y --no-install-recommends qpdf poppler-utils mupdf-tools fonts-dejavu-core && rm -rf /var/lib/apt/lists/*
+RUN python -c 'import json; d=json.load(open("observed-dependencies.json")); print("\\n".join(k+"=="+v for k,v in sorted(d["python_distributions"].items())).replace("\\n","\n"))' > versions.txt \
+    && python -m pip download --only-binary=:all: --no-deps -r versions.txt -d wheels \
+    && python lock-candidate-wheels.py observed-dependencies.json wheels > requirements.sha256.txt \
+    && python -m pip install --no-index --find-links wheels --require-hashes -r requirements.sha256.txt \
+    && python -m pip check \
+    && rm -rf wheels
+RUN dpkg-query -W -f='${binary:Package}\t${Version}\n' | sort > os-packages.tsv
+RUN python -c 'import fitz; from PIL import Image; import reportlab; print("PDF Python tools import OK")' && qpdf --version && pdftotext -v && mutool -v
