@@ -135,10 +135,33 @@ def cmd_pdf_shard(index, count):
         weighted_groups.append((paths[0].stat().st_size, digest, paths))
     weighted_groups.sort(key=lambda item: (-item[0], item[1]))
 
-    for size_bytes, digest, paths in weighted_groups:
-        target = min(range(count), key=lambda shard: (shard_weights[shard], shard))
-        shard_groups[target].append((digest, paths))
-        shard_weights[target] += size_bytes
+    if os.environ.get("EVIDENCE_LAB_SHARD_COST_SCHEDULE") == "1":
+        require_trusted_registry_reuse(os.environ)
+        if current_checkout_sha() != os.environ.get("GITHUB_SHA") or count != 16:
+            raise ValueError("timing schedule requires exact trusted checkout")
+        planner_path = ROOT / "ops/shard-planning/cost_planner.py"
+        planner_spec = importlib.util.spec_from_file_location("cost_planner", planner_path)
+        planner = importlib.util.module_from_spec(planner_spec)
+        planner_spec.loader.exec_module(planner)
+        identities = [(digest, size) for size, digest, _ in weighted_groups]
+        timings = planner.load_observations(planner_path.parent, identities)
+        bins, _ = planner.schedule(identities, count, timings)
+        by_digest = {digest: (size, paths) for size, digest, paths in weighted_groups}
+        if sorted(d for part in bins for d in part) != sorted(by_digest):
+            raise ValueError("timing schedule digest coverage mismatch")
+        for target, part in enumerate(bins):
+            for digest in part:
+                size, paths = by_digest[digest]
+                shard_groups[target].append((digest, paths))
+                shard_weights[target] += size
+        print(json.dumps({"event": "pdf-shard-timing-schedule", "matched_hints": len(timings),
+                          "unique_digests": len(identities), "shard": index,
+                          "fresh_audit_required": True}), flush=True)
+    else:
+        for size_bytes, digest, paths in weighted_groups:
+            target = min(range(count), key=lambda shard: (shard_weights[shard], shard))
+            shard_groups[target].append((digest, paths))
+            shard_weights[target] += size_bytes
 
     def inspect_group(group):
         group_started = time.monotonic()
