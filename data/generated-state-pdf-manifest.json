@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "notice": "Generated public PDF copies from verified text transcriptions; not byte-identical originals.",
+  "count": 7,
+  "records": [
+    {
+      "path": "documents/report-04082026-010/64-msz-praha-2-kzn-55-2025-136-2026-08-20.pdf",
+      "sha256": "165b4ab9a807785a97a3aad26701ebb71bed47e78d4cd2dcd4900576551d5c64",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-text-sources-2026-08-25/64-00.txt",
+        "project-memory/state-text-sources-2026-08-25/64-01.txt"
+      ]
+    },
+    {
+      "path": "documents/report-04082026-010/65-ku-4139-12-cj-2026-2305km-2026-08-20.pdf",
+      "sha256": "29b4968e37b2f1ead4d9e5f37d826a531854dfbc8f8187378a1205d2c49fa686",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-text-sources-2026-08-25/65-00.txt"
+      ]
+    },
+    {
+      "path": "documents/report-04082026-010/66-krpt-203594-7-cj-2026-0700kr-2026-08-20.pdf",
+      "sha256": "bf24452dd639dd8bb4fb089efa3012804defc4cf3c4c0db57c57dfab63577d7e",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-text-sources-2026-08-25/66-00.txt"
+      ]
+    },
+    {
+      "path": "documents/report-04082026-010/67-krpt-priloha-rr-ku-54-2021.pdf",
+      "sha256": "e48f9ef213cc03f3151cf5cf863d6a79e4d510e2d039e3d8aa5b792df7ec2c14",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-text-sources-2026-08-25/67-00.txt"
+      ]
+    },
+    {
+      "path": "documents/report-04082026-010/68-krpt-priloha-rr-ku-54-2021-priloha-1.pdf",
+      "sha256": "8af176bed4b5462a2b551ef13b964c4aa38ae509649ca40c4f7779a24f61e1ca",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-text-sources-2026-08-25/68-00.txt"
+      ]
+    },
+    {
+      "path": "documents/report-04082026-010/70-krpt-203594-8-cj-2026-0700kr-2026-08-20.pdf",
+      "sha256": "09a0dd54a8f84417d294f41195f06d562f13b743fadf109e3b2926d8767cbf45",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-extracted-2026-08-25/70.txt"
+      ]
+    },
+    {
+      "path": "documents/report-04082026-010/71-ppr-44020-2-cj-2026-990210-pd-2026-08-24.pdf",
+      "sha256": "8ba4ec02b86be9dd4b23cb813b95bc3f5a83900f58aeb2483f064ba4fb81fcb0",
+      "kind": "generated_public_copy_from_verified_text",
+      "byte_identical_original": false,
+      "sources": [
+        "project-memory/state-extracted-2026-08-25/71.txt"
+      ]
+    }
+  ]
+}

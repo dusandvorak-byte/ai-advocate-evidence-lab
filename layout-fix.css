@@ -1,0 +1,52 @@
+/* Canonical layout correction: symmetric navigation and Godot bars. */
+.nav{
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:minmax(0,1fr);
+  gap:0;
+  overflow:visible;
+  padding:0 18px;
+  border-bottom:1px solid #111;
+}
+.nav a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:46px;
+  margin:0;
+  padding:10px 12px;
+  border-right:1px solid #c8c5bd;
+  text-align:center;
+  white-space:normal;
+}
+.nav a:first-child{border-left:1px solid #c8c5bd}
+.nav a:hover,.nav a:focus-visible{background:#fff3a6;outline:2px solid #111;outline-offset:-2px}
+.edition-bar{
+  width:min(100%,var(--page-shell-width,1240px));
+  max-width:var(--page-shell-width,1240px);
+  margin:0 auto;
+  padding:0 18px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(180px,.55fr);
+  align-items:stretch;
+  border-bottom:1px solid #111;
+}
+.edition-bar>*{
+  display:flex;
+  align-items:center;
+  min-height:44px;
+  margin:0;
+  padding:9px 12px;
+  border-right:1px solid #c8c5bd;
+  font-family:var(--sans);
+  line-height:1.25;
+}
+.edition-bar>*:first-child{border-left:1px solid #c8c5bd}
+.edition-bar a{justify-content:center;font-weight:900;text-decoration:none;background:#111;color:#fff;text-align:center}
+.edition-bar a:hover,.edition-bar a:focus-visible{background:#8b0000;outline:2px solid #111;outline-offset:-2px}
+@media(max-width:720px){
+  .nav{display:flex;overflow-x:auto;scrollbar-width:thin}
+  .nav a{flex:0 0 160px;white-space:normal}
+  .edition-bar{grid-template-columns:1fr;padding:0 18px}
+  .edition-bar>*{border-left:1px solid #c8c5bd;border-bottom:1px solid #c8c5bd}
+}
