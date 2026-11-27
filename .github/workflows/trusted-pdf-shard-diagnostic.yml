@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   actions: read
+  packages: read
 
 concurrency:
   group: evidence-lab-pdf-shards-${{ github.ref }}
@@ -466,10 +467,24 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.sha }}
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12.16'
+      - name: Pull pinned dependency-only image
+        if: vars.EVIDENCE_LAB_PDF_RUNTIME_IMAGE != ''
+        env:
+          RUNTIME_IMAGE: ${{ vars.EVIDENCE_LAB_PDF_RUNTIME_IMAGE }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          [[ "$RUNTIME_IMAGE" =~ ^ghcr\.io/dusandvorak-byte/ai-advocate-evidence-lab/pdf-runtime@sha256:[0-9a-f]{64}$ ]]
+          export DOCKER_CONFIG=$(mktemp -d "$RUNNER_TEMP/registry-auth.XXXXXX")
+          trap 'rm -rf "$DOCKER_CONFIG"' EXIT
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker pull "$RUNTIME_IMAGE"
       - name: Install audit dependencies
+        if: vars.EVIDENCE_LAB_PDF_RUNTIME_IMAGE == ''
         run: |
           bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 pymupdf==2.1 reportlab==5.1.0 pillow==13.0.0
@@ -501,7 +516,14 @@ jobs:
           EVIDENCE_LAB_SHARD_BUNDLE: ${{ runner.temp }}/compact-shard-bundle
           EVIDENCE_LAB_CANONICAL_REGISTRY: ${{ runner.temp }}/compact-shard-bundle/canonical-registry.json
           EVIDENCE_LAB_PUBLICATION_ROOT: ${{ runner.temp }}/compact-shard-stage
-        run: python3 scripts/audit-release-evidence-sliced.py pdf-shard ${{ matrix.shard }} 16
+          EVIDENCE_LAB_PDF_RUNTIME_IMAGE: ${{ vars.EVIDENCE_LAB_PDF_RUNTIME_IMAGE }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$EVIDENCE_LAB_PDF_RUNTIME_IMAGE" ]]; then
+            bash ops/pdf-runtime/run-offline-fragment.sh pdf-shard ${{ matrix.shard }} 16
+          else
+            python3 scripts/audit-release-evidence-sliced.py pdf-shard ${{ matrix.shard }} 16
+          fi
       - name: Upload shard fragment
         uses: actions/upload-artifact@v4
         with:
@@ -523,10 +545,24 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.sha }}
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12.16'
+      - name: Pull pinned dependency-only image
+        if: vars.EVIDENCE_LAB_PDF_RUNTIME_IMAGE != ''
+        env:
+          RUNTIME_IMAGE: ${{ vars.EVIDENCE_LAB_PDF_RUNTIME_IMAGE }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          [[ "$RUNTIME_IMAGE" =~ ^ghcr\.io/dusandvorak-byte/ai-advocate-evidence-lab/pdf-runtime@sha256:[0-9a-f]{64}$ ]]
+          export DOCKER_CONFIG=$(mktemp -d "$RUNNER_TEMP/registry-auth.XXXXXX")
+          trap 'rm -rf "$DOCKER_CONFIG"' EXIT
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker pull "$RUNTIME_IMAGE"
       - name: Install audit dependencies
+        if: vars.EVIDENCE_LAB_PDF_RUNTIME_IMAGE == ''
         run: |
           bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 pymupdf==2.1 reportlab==5.1.0 pillow==13.0.0
@@ -548,7 +584,14 @@ jobs:
       - name: Audit non-PDF fragment ${{ matrix.fragment }}
         env:
           EVIDENCE_LAB_PUBLICATION_ROOT: ${{ github.workspace }}/release-site
-        run: python3 scripts/audit-release-evidence-sliced.py ${{ matrix.fragment }}
+          EVIDENCE_LAB_PDF_RUNTIME_IMAGE: ${{ vars.EVIDENCE_LAB_PDF_RUNTIME_IMAGE }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$EVIDENCE_LAB_PDF_RUNTIME_IMAGE" ]]; then
+            bash ops/pdf-runtime/run-offline-fragment.sh ${{ matrix.fragment }}
+          else
+            python3 scripts/audit-release-evidence-sliced.py ${{ matrix.fragment }}
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: other-release-slice-${{ matrix.fragment }}-${{ github.sha }}
