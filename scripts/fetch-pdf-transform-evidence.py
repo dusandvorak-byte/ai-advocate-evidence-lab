@@ -56,7 +56,16 @@ def inspect_evidence(archive, expected, engine):
 
 def fetch_previous(root):
     origin = trusted_origin()
-    engine = engine_fingerprint()
+    # In the isolated hardening pilot, the trusted workflow measured this
+    # fingerprint in the exact pulled image on this runner. This value is
+    # only a download rejection filter; hardening recomputes its own engine
+    # identity and independently rebuilds and checks the prior reuse plan.
+    engine = os.environ.get("EVIDENCE_LAB_RUNTIME_ENGINE_SHA256")
+    if engine is not None:
+        if not re.fullmatch(r"[0-9a-f]{64}", engine) or os.environ.get("EVIDENCE_LAB_PDF_RUNTIME_MATERIALIZE") != "1":
+            raise ValueError("invalid isolated runtime prefilter identity")
+    else:
+        engine = engine_fingerprint()
     listing = helper.api("actions/workflows/trusted-pdf-shard-diagnostic.yml/runs?branch=main&event=push&status=success&per_page=20")
     incompatible = 0
     for run in listing.get("workflow_runs", []):
