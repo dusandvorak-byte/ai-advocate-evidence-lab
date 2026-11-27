@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "status": "intake-review-policy; production enforcement not yet wired",
+  "purpose": "Preserve evidentiary content and protect private third persons",
+  "default_action": "hold_for_context_review",
+  "roles": {
+    "author_dušan_dvořák": {
+      "name": "full where acting as author or party",
+      "other_personal_identifiers": "redact unless independently established lawful necessity"
+    },
+    "official_public_capacity": {
+      "name": "full when relevant to official act and lawful",
+      "private_details": "redact"
+    },
+    "private_third_person": {
+      "name": "initials only when not identifying in context; otherwise neutral label",
+      "other_identifiers": "redact",
+      "applies_in_author_documents": true
+    },
+    "uncertain_role": {
+      "action": "hold for review"
+    }
+  },
+  "always_review": [
+    "addresses and private contacts",
+    "birth numbers and birth dates",
+    "financial identifiers",
+    "health and other sensitive information",
+    "signatures and hidden identifying PDF layers"
+  ],
+  "review_requirements": [
+    "classify each person in context, never infer from title alone",
+    "retain original unchanged outside public repository",
+    "use exact original only after document-specific privacy review confirms no prohibited identifiers",
+    "when redaction is needed remove underlying bytes and metadata, not visual overlays",
+    "check scanned pages visually and verify extracted and decoded content",
+    "do not change official reference numbers or substantive evidence unless required to protect a private person",
+    "existing explicit exclusions and holds remain effective",
+    "bind final public SHA-256 to actual reviewed bytes",
+    "no publication authorization granted by this policy alone"
+  ]
+}
