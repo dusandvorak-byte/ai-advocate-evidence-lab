@@ -246,7 +246,18 @@ jobs:
           echo "EVIDENCE_LAB_PDF_TRANSFORM_MODE=$mode" >> "$GITHUB_ENV"
           echo "PDF transformation mode: $mode (fresh final audit required)"
 
+      - name: Select verified prepared tree or canonical materialization
+        id: tree_reuse
+        if: vars.EVIDENCE_LAB_TRUSTED_TREE_REUSE == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 ops/whole-tree-reuse/prepared_tree.py prepare "$RUNNER_TEMP/whole-tree-reuse"
+
+      - name: Verify synthetic privacy regressions before either build path
+        run: python3 test/publication_redaction.test.py
+
       - name: Materialize trusted public tree
+        if: steps.tree_reuse.outputs.mode != 'reuse'
         run: |
           set -euo pipefail
           TIMEFORMAT='[prepare timing] elapsed=%3R s'
@@ -254,7 +265,6 @@ jobs:
             printf '[prepare timing] command: %s\n' "$*"
             time "$@"
           }
-          run_timed python3 test/publication_redaction.test.py
           run_timed node scripts/diagnose-interpelace-380.mjs checkout
           run_timed node scripts/recover-historical-binary-blobs.mjs
           run_timed node scripts/diagnose-interpelace-380.mjs after-recovery
@@ -310,8 +320,24 @@ jobs:
       - name: Enforce exact approved CT digest on both staged trees
         run: node scripts/verify-approved-ct-pilot.mjs --staged
 
+      - name: Seal full materialization input and output evidence (optional)
+        id: whole_tree_stamp
+        if: vars.EVIDENCE_LAB_TRUSTED_TREE_REUSE == '1' && steps.tree_reuse.outputs.mode == 'full'
+        continue-on-error: true
+        run: python3 ops/whole-tree-reuse/prepared_tree.py seal "$RUNNER_TEMP/whole-tree-reuse"
+
+      - name: Upload full materialization identity (optional)
+        if: steps.whole_tree_stamp.outcome == 'success'
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: whole-tree-inputs-${{ github.sha }}
+          path: ${{ runner.temp }}/whole-tree-reuse/stamp.json
+          if-no-files-found: error
+          retention-days: 3
+
       - name: Upload optional transform input capture (hashes only)
-        if: vars.EVIDENCE_LAB_PDF_TRANSFORM_SHADOW == '1'
+        if: vars.EVIDENCE_LAB_PDF_TRANSFORM_SHADOW == '1' && steps.tree_reuse.outputs.mode != 'reuse'
         continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
