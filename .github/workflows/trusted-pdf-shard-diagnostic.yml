@@ -37,6 +37,26 @@ jobs:
         run: |
           bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
+      - name: Select pinned runtime for the expensive hardening phase
+        if: vars.EVIDENCE_LAB_PDF_RUNTIME_MATERIALIZE == '1'
+        env:
+          EVIDENCE_LAB_PDF_RUNTIME_IMAGE: ${{ vars.EVIDENCE_LAB_PDF_RUNTIME_IMAGE }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          [[ "$EVIDENCE_LAB_PDF_RUNTIME_IMAGE" =~ ^ghcr\.io/dusandvorak-byte/ai-advocate-evidence-lab/pdf-runtime@sha256:[0-9a-f]{64}$ ]]
+          export DOCKER_CONFIG=$(mktemp -d "$RUNNER_TEMP/registry-auth.XXXXXX")
+          trap 'rm -rf "$DOCKER_CONFIG"' EXIT
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker pull "$EVIDENCE_LAB_PDF_RUNTIME_IMAGE"
+          docker logout ghcr.io
+          unset GH_TOKEN
+          engine=$(bash ops/pdf-runtime/run-offline-transform.sh engine)
+          [[ "$engine" =~ ^[0-9a-f]{64}$ ]]
+          echo "EVIDENCE_LAB_RUNTIME_ENGINE_SHA256=$engine" >> "$GITHUB_ENV"
+          echo "EVIDENCE_LAB_PDF_RUNTIME_IMAGE=$EVIDENCE_LAB_PDF_RUNTIME_IMAGE" >> "$GITHUB_ENV"
+          echo 'EVIDENCE_LAB_PDF_RUNTIME_MATERIALIZE=1' >> "$GITHUB_ENV"
+
       - name: Ověřit syntaxi kritických WEB validátorů
         run: |
           node --check scripts/validate-live-dockets-contract.mjs
