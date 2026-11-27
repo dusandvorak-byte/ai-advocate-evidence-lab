@@ -253,6 +253,16 @@ def find_prior(root, current, facts):
     return None
 
 
+def reconstruct_source_provenance():
+    # The validated prior archive contains final bytes, not the generated
+    # source supplements, translations and case metadata from the cheap prelude.
+    # Replay the exact shared prelude before restoring any audited final PDF.
+    subprocess.run(["bash", "ops/whole-tree-reuse/prepare-source-inputs.sh"],
+                   cwd=ROOT, check=True, timeout=180)
+    subprocess.run(["node", "scripts/build-site.mjs", "--prepare-provenance-only"],
+                   cwd=ROOT, check=True, timeout=180)
+
+
 def restore(tree):
     # All archive checks finish before changing the checkout. Once restoration
     # begins any failure is fatal; do not silently fall back on a mixed tree.
@@ -289,6 +299,10 @@ def prepare(root):
         print("Whole-tree reuse unavailable; canonical materialization:", type(exc).__name__)
         return "full"
     tree, prior_origin = prior
+    # Fail closed after reconstruction begins; never fall back from a partly
+    # mutated checkout. Fresh final web, canonical provenance and shard checks
+    # still run against the independently verified restored bytes.
+    reconstruct_source_provenance()
     restore(tree)
     print(json.dumps({"event": "trusted-prepared-tree-reused", "prior_run_id": prior_origin["run_id"],
                       "prior_source": prior_origin["source_commit"], "fresh_final_audit_required": True}))

@@ -53,7 +53,8 @@ if (cli.length === 1 && cli[0] === '--shadow-input-fingerprint') {
   globalThis.process.exit(0);
 }
 const shadow = cli.length === 2 && cli[0] === '--shadow-surfaces-only';
-if (cli.length && !shadow) throw Error('Unknown build arguments');
+const prepareProvenanceOnly = cli.length === 1 && cli[0] === '--prepare-provenance-only';
+if (cli.length && !shadow && !prepareProvenanceOnly) throw Error('Unknown build arguments');
 const shadowBefore = shadow ? await requireShadowInputs(globalThis.process.cwd(),cli[1]) : null;
 
 // A checked-out page may contain yesterday's generated archive. Its PDF links
@@ -95,6 +96,13 @@ await run('scripts/materialize-os-praha4-public-copy.mjs');
 await run('scripts/reconcile-public-pdfs.mjs');
 // Read-only checkpoint: verify historical source provenance around privacy hardening.
 await run('scripts/diagnose-interpelace-380.mjs', 'before-hardening');
+// Recreate generated source SHA bridges and case registries on a trusted
+// checkout before restoring independently verified final public PDF bytes.
+// Never use this mode as a complete build or publication authorization.
+if (prepareProvenanceOnly) {
+  console.log('Prepared source provenance only; no hardened or publishable output claimed.');
+  globalThis.process.exit(0);
+}
 if (process.env.EVIDENCE_LAB_PDF_RUNTIME_MATERIALIZE === '1') {
   await timedChild('bash', 'ops/pdf-runtime/run-offline-transform.sh', ['harden']);
 } else {
