@@ -812,6 +812,15 @@ def worker_inspect(rel: str) -> None:
     path = WEB / rel
     matchers = prepared_private_byte_matchers()
     result = inspect_pdf_fast(path, matchers)
+    # A clean-candidate shadow comparison must have actual decoded scan
+    # evidence. Do not change scheduling/reasons or authorize reuse here.
+    if (os.environ.get("EVIDENCE_LAB_PDF_TRANSFORM_MODE") == "shadow"
+            and result.get("reasons") == [] and result.get("xmp_present") is False):
+        hits, ok = decoded_private_hits(path, matchers)
+        result["decoded_private_hits"] = hits
+        result["decoded_scan_ok"] = ok
+        if sha256_file(path) != result.get("source_sha256"):
+            result["decoded_scan_ok"] = False
     print(json.dumps({"inspection": result}, ensure_ascii=False))
 
 
@@ -994,6 +1003,7 @@ def main() -> None:
     inspections: dict[str, dict] = {}
     first_results = []
     reused_paths = set()
+    reused_clean_paths = set()
     # Only exact authenticated prior transformations are eligible. The final
     # independent staged PDF audit and all registry/provenance gates still run.
     if transform_snapshot is not None and transform_mode == "reuse":
@@ -1012,6 +1022,15 @@ def main() -> None:
             except (OSError, ValueError, TypeError, KeyError):
                 continue
             if data is None:
+                continue
+            if row["strategy"] == "unchanged_clean":
+                # No mutation or synthetic hardening row: the prior clean
+                # candidate-free path is byte-identical to both audited mirrors.
+                # All final independent staged audits still run.
+                if row["source_sha256"] != row["public_sha256"] or sha256_file(path) != row["source_sha256"]:
+                    continue
+                reused_paths.add(rel)
+                reused_clean_paths.add(rel)
                 continue
             stage = create_candidate_stage(path)
             try:
@@ -1040,6 +1059,7 @@ def main() -> None:
             })
             reused_paths.add(rel)
         print(json.dumps({"event": "pdf-transform-reuse", "reused": len(reused_paths),
+                          "reused_clean": len(reused_clean_paths),
                           "remaining": len(rel_paths) - len(reused_paths),
                           "fresh_final_audit_required": True}), flush=True)
     first_rel = next((rel for rel, pin in pins.items()
@@ -1141,7 +1161,7 @@ def main() -> None:
     if transform_snapshot is not None and transform_mode == "shadow":
         try:
             from pdf_transform_runtime import compare_with_prior
-            compare_with_prior(transform_snapshot, candidate_results, WEB)
+            compare_with_prior(transform_snapshot, candidate_results, WEB, inspections)
         except Exception as exc:
             print("::warning::Optional transform shadow comparison unavailable: " + type(exc).__name__, flush=True)
 

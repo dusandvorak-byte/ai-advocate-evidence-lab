@@ -170,7 +170,7 @@ jobs:
 
       - name: Spustit pouze syntetické privacy regrese bez repository Secrets
         run: |
-          bash scripts/ensure-ci-pdf-tools.sh qpdf
+          bash scripts/ensure-ci-pdf-tools.sh qpdf poppler-utils
           python3 test/publication_redaction.test.py
 
       - name: Fail closed on canonical PDF records without SHA-256 provenance

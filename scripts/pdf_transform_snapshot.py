@@ -115,7 +115,28 @@ def build_reuse_plan(*, snapshot, report, stage, expected_origin):
         source = original["source_sha256"]
         rows = hard.get(rel, [])
         ids = original["ids"]
-        if not rows or sorted(r["id"] for r in rows if r.get("registered") is True and isinstance(r.get("id"), str)) != ids or len(rows) != len(ids):
+        # No hardening row is emitted for an inspected PDF requiring no
+        # candidate work. Admit only exact source bytes independently audited
+        # in both mirrors, with no XMP, and an unambiguous registered identity.
+        # A later positive fresh shadow must establish that it still requires
+        # no candidate work before any inspection may be reused.
+        if not rows:
+            a, b = final.get(rel), final.get("web/" + rel)
+            if (not ids or not a or not b or
+                    any(x["sha256"] != source or x["xmp_present"] is not False or
+                        sorted(x["registry_ids"]) != ids or x["page_count"] != a["page_count"]
+                        for x in (a, b))):
+                skip("unchanged_final_audit_mismatch")
+                continue
+            require(file_sha(stage / rel) == source and file_sha(stage / "web" / rel) == source,
+                    "stage bytes changed or mirror mismatch")
+            entries.append({"rel": rel, "source_sha256": source, "public_sha256": source,
+                            "context_sha256": original["context_sha256"], "ids": ids,
+                            "page_count": a["page_count"], "strategy": "unchanged_clean",
+                            "redaction_matches": [], "trigger_reasons": [],
+                            "audit_checks": a["checks"], "human_review_required": True})
+            continue
+        if sorted(r["id"] for r in rows if r.get("registered") is True and isinstance(r.get("id"), str)) != ids or len(rows) != len(ids):
             skip("missing_registered_transform")
             continue
         row = rows[0]
