@@ -95,7 +95,11 @@ await run('scripts/materialize-os-praha4-public-copy.mjs');
 await run('scripts/reconcile-public-pdfs.mjs');
 // Read-only checkpoint: verify historical source provenance around privacy hardening.
 await run('scripts/diagnose-interpelace-380.mjs', 'before-hardening');
-await runPython('scripts/harden-public-pdf-privacy.py');
+if (process.env.EVIDENCE_LAB_PDF_RUNTIME_MATERIALIZE === '1') {
+  await timedChild('bash', 'ops/pdf-runtime/run-offline-transform.sh', ['harden']);
+} else {
+  await runPython('scripts/harden-public-pdf-privacy.py');
+}
 await run('scripts/diagnose-interpelace-380.mjs', 'after-hardening');
 await run('scripts/reconcile-public-pdfs.mjs');
 await runPython('scripts/sync-deterministic-public-sha.py');
