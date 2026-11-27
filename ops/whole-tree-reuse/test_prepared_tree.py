@@ -148,11 +148,27 @@ class WholeTreeReuseTests(unittest.TestCase):
             self.assertEqual(p.prepare(self.root / "rejected"), "full")
             restore.assert_not_called()
 
+    def test_reconstruct_before_restore_and_fail_closed(self):
+        calls = []
+        with patch.object(p, "trusted_origin", return_value=self.origin), patch.object(p, "inputs", return_value=self.facts), \
+                patch.object(p, "find_prior", return_value=(self.tree, self.origin)), \
+                patch.object(p, "reconstruct_source_provenance", side_effect=lambda: calls.append("source")), \
+                patch.object(p, "restore", side_effect=lambda tree: calls.append("restore")):
+            self.assertEqual(p.prepare(self.root / "replay"), "reuse")
+        self.assertEqual(calls, ["source", "restore"])
+        with patch.object(p, "trusted_origin", return_value=self.origin), patch.object(p, "inputs", return_value=self.facts), \
+                patch.object(p, "find_prior", return_value=(self.tree, self.origin)), \
+                patch.object(p, "reconstruct_source_provenance", side_effect=OSError("source failure")), \
+                patch.object(p, "restore") as restore:
+            with self.assertRaises(OSError):
+                p.prepare(self.root / "failed-replay")
+            restore.assert_not_called()
+
     def test_lookup_failure_falls_back_but_restore_failure_is_fatal(self):
         with patch.object(p, "trusted_origin", return_value=self.origin), patch.object(p, "inputs", return_value=self.facts):
             with patch.object(p, "find_prior", side_effect=ValueError("private details")):
                 self.assertEqual(p.prepare(self.root / "miss"), "full")
-            with patch.object(p, "find_prior", return_value=(self.tree, self.origin)), patch.object(p, "restore", side_effect=OSError("failure")):
+            with patch.object(p, "find_prior", return_value=(self.tree, self.origin)), patch.object(p, "reconstruct_source_provenance"), patch.object(p, "restore", side_effect=OSError("failure")):
                 with self.assertRaises(OSError):
                     p.prepare(self.root / "fatal")
 
