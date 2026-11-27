@@ -2,6 +2,6 @@
   "schema_version": 1,
   "authorization_scope": "publish-evidence-lab-gh-pages",
   "authorized": true,
-  "authorized_target_sha": "527bf97e3800ae0e0696b8381bb5a79fc651763d",
-  "note": "Owner authorized GFAA anonymized document and technical publication without repeated technical consent. #330 metadata-only repair exact-head CI and independent review clean. Trusted run 45797179343, full 45797179445 and preflight 45797179545 successful. Scope verified against previously deployed tree: 818 PDF paths, zero additions/removals, 22 existing PDFs technically normalized with identical extracted text and rendered pixels on all 81 pages, unchanged GFAA public PDF, 380 registry IDs unchanged, four attachment pins exact, no ID69. Existing human content/privacy approvals retained, no new approval claimed. Artifact 15105949876, report 15110761875, verification receipt issue #293 comment 7192052770. Publish only through standard protected workflow."
+  "authorized_target_sha": "c39727ec94acf2ce62a5a8e787a5b6ce07d8bb5a",
+  "note": "Owner explicitly requested publication on 2026-11-27. Existing human content/privacy approvals apply to previously approved source documents only; no new content approval claimed. Comparison with previously authorized source 527bf97e3800ae0e0696b8381bb5a79fc651763d shows technical files and authorization record changes only. Exact main audit 45992881006 attempt 1: 818 final staged PDF paths, zero hard failures, exact staged set, ID69 excluded; canonical provenance and approved CT digest gates passed. Full validation 45992881245 and protected preflight 45992881035 succeeded. Exact audited tree artifact 15194574613, report 15195084415. Publish only through unchanged protected release workflow."
 }
