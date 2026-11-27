@@ -1089,6 +1089,7 @@ def main() -> None:
         except Exception as exc:
             print("::warning::Optional transform capture unavailable: " + type(exc).__name__, flush=True)
     inspections: dict[str, dict] = preflight_rrku_exact_originals(registry)
+    exact_original_paths = set(inspections)
     first_results = []
     reused_paths = set()
     reused_clean_paths = set()
@@ -1103,7 +1104,7 @@ def main() -> None:
             prior_stage, reuse_entries = None, {}
         for rel, row in sorted(reuse_entries.items()):
             path = WEB / rel
-            if rel in pins or rel not in by_path or rel not in rel_paths:
+            if rel in exact_original_paths or rel in pins or rel not in by_path or rel not in rel_paths:
                 continue
             try:
                 data = verified_candidate_bytes(path, row, prior_stage)
@@ -1188,7 +1189,7 @@ def main() -> None:
 
     candidates = []
     for rel in rel_paths:
-        if rel == first_rel or rel in reused_paths:
+        if rel == first_rel or rel in reused_paths or rel in exact_original_paths:
             continue
         items = by_path.get(rel, [])
         inspection = inspections[rel]
