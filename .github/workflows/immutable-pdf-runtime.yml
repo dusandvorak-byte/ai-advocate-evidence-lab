@@ -1,0 +1,67 @@
+name: Build one immutable PDF runtime
+on:
+  pull_request:
+    paths: ['ops/pdf-runtime/**', '.github/workflows/immutable-pdf-runtime.yml']
+  push:
+    branches: [main]
+    paths: ['ops/pdf-runtime/**', '.github/workflows/immutable-pdf-runtime.yml']
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    outputs:
+      image_id: ${{ steps.build.outputs.image_id }}
+      archive_sha: ${{ steps.build.outputs.archive_sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Build exact dependency-only runtime
+        id: build
+        run: |
+          set -euo pipefail
+          docker build --no-cache -f ops/pdf-runtime/Dockerfile.candidate -t evidence-runtime:local ops/pdf-runtime
+          mkdir "$RUNNER_TEMP/runtime-export"
+          docker save evidence-runtime:local | gzip -1 > "$RUNNER_TEMP/runtime-export/runtime.tar.gz"
+          image_id=$(docker image inspect evidence-runtime:local --format '{{.Id}}')
+          archive_sha=$(sha256sum "$RUNNER_TEMP/runtime-export/runtime.tar.gz" | cut -d' ' -f1)
+          echo "image_id=$image_id" >> "$GITHUB_OUTPUT"
+          echo "archive_sha=$archive_sha" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dependency-only-pdf-runtime
+          path: ${{ runner.temp }}/runtime-export/runtime.tar.gz
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
+  verify:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: dependency-only-pdf-runtime
+          path: ${{ runner.temp }}/runtime-export
+      - name: Load identical image without installing packages
+        env:
+          EXPECTED_ARCHIVE: ${{ needs.build.outputs.archive_sha }}
+          EXPECTED_IMAGE: ${{ needs.build.outputs.image_id }}
+        run: |
+          set -euo pipefail
+          archive="$RUNNER_TEMP/runtime-export/runtime.tar.gz"
+          [[ "$EXPECTED_ARCHIVE" =~ ^[0-9a-f]{64}$ && "$EXPECTED_IMAGE" =~ ^sha256:[0-9a-f]{64}$ ]]
+          printf '%s  %s\n' "$EXPECTED_ARCHIVE" "$archive" | sha256sum -c
+          docker load -i "$archive"
+          test "$(docker image inspect evidence-runtime:local --format '{{.Id}}')" = "$EXPECTED_IMAGE"
+          font=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
+          printf '%s  %s\n' ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280 "$font" | sha256sum -c
+          args=(run --rm --user "$(id -u):$(id -g)" --network none --read-only --cap-drop ALL --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev,size=2g -e HOME=/tmp -e PYTHONDONTWRITEBYTECODE=1 -v "$font:/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:ro" -v "$GITHUB_WORKSPACE:/repo:ro" -w /repo "$EXPECTED_IMAGE")
+          docker "${args[@]}" bash -ec 'python --version; qpdf --version; pdftotext -v; mutool -v; python -c "import fitz; import reportlab; import PIL"'
+          docker "${args[@]}" python test/publication_redaction.test.py
+          echo 'Identical runtime verified on a second runner; no publication authorization.'
