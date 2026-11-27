@@ -206,8 +206,18 @@ jobs:
           cp project-memory/documents-2026.json "$RUNNER_TEMP/canonical-documents-2026-prebuild.json"
           echo "EVIDENCE_LAB_CANONICAL_REGISTRY=$RUNNER_TEMP/canonical-documents-2026-prebuild.json" >> "$GITHUB_ENV"
 
+      - name: Verify synthetic privacy regressions before either build path
+        run: python3 test/publication_redaction.test.py
+
+      - name: Select verified prepared tree or canonical materialization
+        id: tree_reuse
+        if: vars.EVIDENCE_LAB_TRUSTED_TREE_REUSE == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 ops/whole-tree-reuse/prepared_tree.py prepare "$RUNNER_TEMP/whole-tree-reuse"
+
       - name: Prepare optional transformation measurement or explicit reuse
-        if: vars.EVIDENCE_LAB_PDF_TRANSFORM_SHADOW == '1'
+        if: vars.EVIDENCE_LAB_PDF_TRANSFORM_SHADOW == '1' && steps.tree_reuse.outputs.mode != 'reuse'
         env:
           GH_TOKEN: ${{ github.token }}
           PDF_TRANSFORM_REUSE_OPT_IN: ${{ vars.EVIDENCE_LAB_PDF_TRANSFORM_REUSE }}
@@ -245,16 +255,6 @@ jobs:
           fi
           echo "EVIDENCE_LAB_PDF_TRANSFORM_MODE=$mode" >> "$GITHUB_ENV"
           echo "PDF transformation mode: $mode (fresh final audit required)"
-
-      - name: Select verified prepared tree or canonical materialization
-        id: tree_reuse
-        if: vars.EVIDENCE_LAB_TRUSTED_TREE_REUSE == '1'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: python3 ops/whole-tree-reuse/prepared_tree.py prepare "$RUNNER_TEMP/whole-tree-reuse"
-
-      - name: Verify synthetic privacy regressions before either build path
-        run: python3 test/publication_redaction.test.py
 
       - name: Materialize trusted public tree
         if: steps.tree_reuse.outputs.mode != 'reuse'
@@ -319,6 +319,10 @@ jobs:
 
       - name: Enforce exact approved CT digest on both staged trees
         run: node scripts/verify-approved-ct-pilot.mjs --staged
+
+      - name: Verify reused tree date boundary before audit upload
+        if: steps.tree_reuse.outputs.mode == 'reuse'
+        run: python3 ops/whole-tree-reuse/prepared_tree.py check-date "$RUNNER_TEMP/whole-tree-reuse"
 
       - name: Seal full materialization input and output evidence (optional)
         id: whole_tree_stamp
