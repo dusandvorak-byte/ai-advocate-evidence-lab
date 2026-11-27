@@ -1,0 +1,22 @@
+name: Whole prepared tree reuse synthetic tests
+on:
+  pull_request:
+    paths: ['ops/whole-tree-reuse/**', '.github/workflows/trusted-pdf-shard-diagnostic.yml', '.github/workflows/whole-tree-reuse-tests.yml']
+  push:
+    branches: [main]
+    paths: ['ops/whole-tree-reuse/**', '.github/workflows/trusted-pdf-shard-diagnostic.yml', '.github/workflows/whole-tree-reuse-tests.yml']
+permissions:
+  contents: read
+jobs:
+  synthetic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - name: Test full-tree input and output binding, fallback, and tamper rejection
+        run: python3 -m unittest discover -s ops/whole-tree-reuse -p 'test_*.py'
