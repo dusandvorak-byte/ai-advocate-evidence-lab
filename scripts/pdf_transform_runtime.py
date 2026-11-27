@@ -91,7 +91,7 @@ def comparable_entries(current, prior):
     return entries
 
 
-def compare_fresh_results(current, prior, results, web):
+def compare_fresh_results(current, prior, results, web, inspections=None):
     from pdf_audit_ledger import file_sha
     entries = comparable_entries(current, prior)
     by_rel = {r["rel"]: r for r in results}
@@ -103,6 +103,19 @@ def compare_fresh_results(current, prior, results, web):
                  result["before_pages"] == row["page_count"] and result["after_pages"] == row["page_count"] and
                  result.get("strategy") == row["strategy"] and result["matches"] == row["redaction_matches"] and
                  result.get("text_fallback") is None and file_sha(Path(web) / rel) == row["public_sha256"])
+        if row["strategy"] == "unchanged_clean":
+            inspection = (inspections or {}).get(rel, {})
+            equal = (result is None and inspection.get("reasons") == [] and
+                     inspection.get("source_sha256") == row["source_sha256"] and
+                     inspection.get("page_count") == row["page_count"] and
+                     inspection.get("xmp_present") is False and
+                     inspection.get("decoded_scan_ok") is True and
+                     inspection.get("decoded_private_hits") == [] and
+                     inspection.get("text_scan_ok") is True and
+                     inspection.get("qpdf_structurally_valid") is True and
+                     inspection.get("pdf_revision_markers_bound") is True and
+                     inspection.get("pdf_single_revision_only") is True and
+                     file_sha(Path(web) / rel) == row["source_sha256"] == row["public_sha256"])
         hits += int(equal)
         mismatches += int(not equal)
     # Diagnostic counts only. Matching per-path identity does not authorize
@@ -147,7 +160,7 @@ def load_verified_prior():
     return verified, base / "tree/release-site"
 
 
-def compare_with_prior(snapshot, results, web):
+def compare_with_prior(snapshot, results, web, inspections=None):
     if snapshot is None:
         return
     loaded = load_verified_prior()
@@ -155,7 +168,7 @@ def compare_with_prior(snapshot, results, web):
         print(json.dumps({"event": "pdf-transform-shadow", "prior_available": False, "skipped": 0}), flush=True)
         return
     verified, _ = loaded
-    print(json.dumps(compare_fresh_results(snapshot, verified, results, web)), flush=True)
+    print(json.dumps(compare_fresh_results(snapshot, verified, results, web, inspections)), flush=True)
 
 
 def prepare_reuse(snapshot):
