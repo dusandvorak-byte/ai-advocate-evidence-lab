@@ -49,7 +49,7 @@ class WholeTreeReuseTests(unittest.TestCase):
                                                "checks": dict.fromkeys(CHECKS, True)}
                                               for rel in ("docs/a.pdf", "web/docs/a.pdf")]}
         self.write("report/release-evidence-audit.json", p.canonical(self.report))
-        self.stamp = {"schema": 1, "scope": "full-materialization-inputs", "mode": "full",
+        self.stamp = {"schema": 2, "scope": "full-materialization-inputs", "mode": "full",
                       "origin": self.origin, "inputs": self.facts, "outputs": p.output_evidence(self.tree, archived=True)}
 
     def write(self, name, data):
@@ -64,6 +64,36 @@ class WholeTreeReuseTests(unittest.TestCase):
         self.assertNotEqual(p.build_input_sha(a), p.build_input_sha(a+b.replace(p.HEARTBEAT.encode(), b"ops/other.md")))
         with self.assertRaises(ValueError):
             p.build_input_sha(a+b.replace(b"100644", b"120000"))
+
+    def test_authorization_is_separate_from_materialization_identity(self):
+        def row(name, sha):
+            return b"100644 blob " + sha.encode()*40 + b"\t" + name.encode() + b"\0"
+        web = row("web/index.html", "a")
+        auth = row(p.AUTHORIZATION, "b")
+        self.assertEqual(p.build_input_sha(web+auth), p.build_input_sha(web+row(p.AUTHORIZATION, "c")))
+        with self.assertRaises(ValueError):
+            p.build_input_sha(web+auth.replace(b"100644", b"120000"))
+        self.assertNotEqual(p.build_input_sha(web+auth), p.build_input_sha(web+row("scripts/build-site.mjs", "c")))
+
+    def test_exact_v1_seed_migration(self):
+        def row(name, sha):
+            return b"100644 blob " + sha.encode()*40 + b"\t" + name.encode() + b"\0"
+        web = row("web/index.html", "a")
+        old = web + row(p.AUTHORIZATION, "b") + row("ops/whole-tree-reuse/prepared_tree.py", "c")
+        new = web + row(p.AUTHORIZATION, "d") + row("ops/whole-tree-reuse/prepared_tree.py", "e")
+        facts = self.facts | {"source_tree": p.build_input_sha(new)}
+        original_facts = facts | {"source_tree": p.build_input_sha(old, {p.HEARTBEAT})}
+        origin = self.origin | {"source_commit": p.LEGACY_SEED}
+        stamp = self.stamp | {"schema": 1, "origin": origin, "inputs": original_facts}
+        with patch.object(p, "git", side_effect=[old, new]):
+            expected = p.prior_expected_facts(stamp, origin, facts)
+            self.assertEqual(expected, original_facts)
+            self.assertTrue(p.matching_stamp(stamp, origin, expected))
+            self.assertFalse(p.matching_stamp(stamp | {"inputs": facts}, origin, expected))
+        changed = new.replace(web, row("web/index.html", "f"))
+        with patch.object(p, "git", side_effect=[old, changed]):
+            self.assertIsNone(p.prior_expected_facts(stamp, origin, facts | {"source_tree": p.build_input_sha(changed)}))
+        self.assertIsNone(p.prior_expected_facts(stamp, self.origin, facts))
 
     def test_midnight_prague_and_utc_are_distinct(self):
         self.assertEqual(p.days(datetime(2026, 11, 27, 23, 30, tzinfo=timezone.utc)),

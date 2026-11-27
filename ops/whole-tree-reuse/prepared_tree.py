@@ -26,6 +26,15 @@ spec.loader.exec_module(helper)
 
 # Explicitly non-build input. No blanket docs/ops exclusion.
 HEARTBEAT = "ops/whole-tree-reuse/refresh-request.json"
+AUTHORIZATION = ".release/evidence-lab-publication-authorization.json"
+NON_BUILD_INPUTS = frozenset({HEARTBEAT, AUTHORIZATION})
+# One-time compatibility with the first successfully audited v1 stamp.
+# Only this exact historical checkout is eligible for the schema transition.
+LEGACY_SEED = "c39727ec94acf2ce62a5a8e787a5b6ce07d8bb5a"
+LEGACY_MIGRATION_PATHS = NON_BUILD_INPUTS | {
+    "ops/whole-tree-reuse/prepared_tree.py",
+    "ops/whole-tree-reuse/test_prepared_tree.py",
+}
 HIDDEN_SOURCE = "documents/2026-11-04/.gitattributes"
 STAGE_MARKERS = {".source-commit", "web/.source-commit", ".nojekyll", "web/.nojekyll"}
 HEX = re.compile(r"[0-9a-f]{64}")
@@ -54,14 +63,14 @@ def git(*args):
     return subprocess.check_output(["git", "-C", str(ROOT), *args], timeout=30)
 
 
-def build_input_sha(tree):
+def build_input_sha(tree, exclusions=NON_BUILD_INPUTS):
     records = []
     for entry in tree.split(b"\0"):
         if not entry:
             continue
         meta, name = entry.split(b"\t", 1)
-        if name == HEARTBEAT.encode():
-            require(meta.startswith(b"100644 blob "), "invalid refresh request file type")
+        if name in {path.encode() for path in exclusions}:
+            require(meta.startswith(b"100644 blob "), "invalid excluded operational file type")
             continue
         records.append(entry)
     return digest(b"\0".join(records) + b"\0")
@@ -135,12 +144,32 @@ def output_evidence(root, *, archived=False):
 
 
 def matching_stamp(stamp, origin, facts):
-    return (stamp.get("schema") == 1 and stamp.get("scope") == "full-materialization-inputs"
+    return (stamp.get("schema") in (1, 2) and stamp.get("scope") == "full-materialization-inputs"
             and stamp.get("mode") == "full" and stamp.get("origin") == origin
             and stamp.get("inputs") == facts and facts.get("dates") == days()
             and isinstance(stamp.get("outputs"), dict)
             and set(stamp["outputs"]) == {"web_sha", "stage_sha", "registry_sha", "hardening_sha"}
             and all(isinstance(v, str) and HEX.fullmatch(v) for v in stamp["outputs"].values()))
+
+
+def prior_expected_facts(stamp, origin, facts):
+    """Reconstruct v1 source identity, not a relabelled or weakened stamp.
+
+    Current and historical Git trees must match except the narrowly enumerated
+    operational paths and this selector/test migration. All other authenticated
+    inputs, artifact verification, final audit and publication gates stay exact.
+    """
+    if stamp.get("schema") == 2:
+        return facts
+    if stamp.get("schema") != 1 or origin["source_commit"] != LEGACY_SEED:
+        return None
+    prior_tree = git("ls-tree", "-r", "-z", origin["source_commit"])
+    current_tree = git("ls-tree", "-r", "-z", "HEAD")
+    if (build_input_sha(current_tree) != facts["source_tree"]
+            or build_input_sha(prior_tree, LEGACY_MIGRATION_PATHS)
+            != build_input_sha(current_tree, LEGACY_MIGRATION_PATHS)):
+        return None
+    return facts | {"source_tree": build_input_sha(prior_tree, {HEARTBEAT})}
 
 
 def artifact(listing, name):
@@ -205,7 +234,8 @@ def find_prior(root, current, facts):
                       run_attempt=1, source_commit=sha)
         with tempfile.TemporaryDirectory(dir=root) as tmp:
             stamp = download_stamp(Path(tmp), stamp_item)
-        if not matching_stamp(stamp, origin, facts):
+        expected_facts = prior_expected_facts(stamp, origin, facts)
+        if expected_facts is None or not matching_stamp(stamp, origin, expected_facts):
             continue
         try:
             helper.fetch(root, "prior", run["id"], sha, {"tree": tree, "report": report})
@@ -214,7 +244,7 @@ def find_prior(root, current, facts):
             # rejection. Translate only inside the read-only lookup boundary.
             raise ValueError("prior artifact verification rejected") from exc
         prior = root / "prior"
-        verify_prior(prior, stamp, origin, facts)
+        verify_prior(prior, stamp, origin, expected_facts)
         actual = helper.api(f"actions/runs/{run['id']}")
         require(actual.get("id") == run["id"] and actual.get("head_sha") == sha and
                 actual.get("run_attempt") == 1 and actual.get("status") == "completed" and
@@ -269,7 +299,7 @@ def seal(root):
     pending = json.loads((root / "pending.json").read_text())
     require(pending["origin"] == trusted_origin() and pending["inputs"]["dates"] == days(),
             "materialization crossed date boundary or changed run")
-    stamp = {"schema": 1, "scope": "full-materialization-inputs", "mode": "full",
+    stamp = {"schema": 2, "scope": "full-materialization-inputs", "mode": "full",
              **pending, "outputs": output_evidence(ROOT)}
     (root / "stamp.json").write_bytes(canonical(stamp))
 
