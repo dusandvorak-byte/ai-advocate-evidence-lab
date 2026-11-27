@@ -34,10 +34,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12.16'
-      - name: Install audit dependencies
-        run: |
-          bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
-          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
       - name: Select pinned runtime for the expensive hardening phase
         if: vars.EVIDENCE_LAB_PDF_RUNTIME_MATERIALIZE == '1'
         env:
@@ -57,6 +53,24 @@ jobs:
           echo "EVIDENCE_LAB_RUNTIME_ENGINE_SHA256=$engine" >> "$GITHUB_ENV"
           echo "EVIDENCE_LAB_PDF_RUNTIME_IMAGE=$EVIDENCE_LAB_PDF_RUNTIME_IMAGE" >> "$GITHUB_ENV"
           echo 'EVIDENCE_LAB_PDF_RUNTIME_MATERIALIZE=1' >> "$GITHUB_ENV"
+
+      - name: Install only necessary host orchestration dependencies
+        env:
+          RUNTIME_MATERIALIZE: ${{ vars.EVIDENCE_LAB_PDF_RUNTIME_MATERIALIZE }}
+        run: |
+          set -euo pipefail
+          # The verified image supplies MuPDF for hardening and fallback.
+          # Host Node validators still need Poppler, and Python privacy
+          # regressions use qpdf. Never download the 49 MB MuPDF package
+          # on the host when the immutable hardening pilot is enabled.
+          if [[ "$RUNTIME_MATERIALIZE" == 1 ]]; then
+            test "$EVIDENCE_LAB_PDF_RUNTIME_MATERIALIZE" = 1
+            test -n "$EVIDENCE_LAB_RUNTIME_ENGINE_SHA256"
+            bash scripts/ensure-ci-pdf-tools.sh poppler-utils qpdf
+          else
+            bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
+          fi
+          python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 reportlab==5.1.0 pillow==13.0.0 pymupdf==2.1
 
       - name: Ověřit syntaxi kritických WEB validátorů
         run: |
