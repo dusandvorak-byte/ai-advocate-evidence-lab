@@ -153,26 +153,25 @@ class TransformEvidenceTests(unittest.TestCase):
 
 class WorkflowOptInTests(unittest.TestCase):
     def test_default_shadow_and_explicit_reuse_only(self):
-        import os
-        import subprocess
-        workflow = (Path(__file__).resolve().parents[1] /
-                    ".github/workflows/trusted-pdf-shard-diagnostic.yml").read_text()
+        import importlib.util
+        root = Path(__file__).resolve().parents[1]
+        workflow = (root / ".github/workflows/trusted-pdf-shard-diagnostic.yml").read_text()
         start = workflow.index("      - name: Prepare optional transformation measurement or explicit reuse")
         end = workflow.index("      - name: Materialize trusted public tree", start)
         step = workflow[start:end]
         self.assertIn("if: vars.EVIDENCE_LAB_PDF_TRANSFORM_SHADOW == '1'", step)
         self.assertIn("PDF_TRANSFORM_REUSE_OPT_IN: ${{ vars.EVIDENCE_LAB_PDF_TRANSFORM_REUSE }}", step)
-        first = step.index("          mode=shadow")
-        last = step.index('          echo "EVIDENCE_LAB_PDF_TRANSFORM_MODE=$mode"', first)
-        script = "\n".join(line.strip() for line in step[first:last].splitlines()) + '\nprintf "%s" "$mode"'
+        # Reuse the isolated production-shell harness: no network or private policy.
+        spec = importlib.util.spec_from_file_location("pilot_gate", root / "ops/cache-activation-readiness/test_pilot_gate.py")
+        pilot = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(pilot)
+        harness = pilot.PilotGateTests()
         for flag, expected in ((None, "shadow"), ("", "shadow"), ("0", "shadow"),
                                ("true", "shadow"), ("1", "reuse"), ("1; exit 1", "shadow")):
-            env = os.environ.copy()
-            env.pop("PDF_TRANSFORM_REUSE_OPT_IN", None)
-            if flag is not None:
-                env["PDF_TRANSFORM_REUSE_OPT_IN"] = flag
-            self.assertEqual(subprocess.check_output(["bash", "-eu", "-c", script],
-                                                     env=env, text=True), expected)
+            with self.subTest(flag=flag):
+                self.assertEqual(harness.exercise(opt_in=flag), expected)
+                self.assertEqual(harness.exercise(opt_in=flag, fetch_ok=False), "shadow")
+                self.assertEqual(harness.exercise(opt_in=flag, diagnostic_ok=False), "shadow")
 
     def test_fresh_final_audit_not_conditional_on_reuse(self):
         workflow = (Path(__file__).resolve().parents[1] /

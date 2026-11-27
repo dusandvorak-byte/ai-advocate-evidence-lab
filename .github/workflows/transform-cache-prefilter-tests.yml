@@ -1,0 +1,24 @@
+name: Transform cache prefilter synthetic tests
+on:
+  pull_request:
+    paths:
+      - 'scripts/fetch-pdf-transform-evidence.py'
+      - 'ops/transform-cache-prefilter/**'
+      - '.github/workflows/transform-cache-prefilter-tests.yml'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.16'
+      - run: |
+          python3 -m py_compile scripts/fetch-pdf-transform-evidence.py
+          python3 ops/transform-cache-prefilter/test_prefilter.py
