@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "batch_date": "2026-11-27",
+  "description": "Item 25 of the original 45-item inventory",
+  "documents": [
+    {
+      "id": "doc-cz-batch-2026-11-27-25-os-prostejov-3104-prelozeni",
+      "user_title": "Okresní soud v Prostějově – vyrozumění o přeložení veřejného zasedání, 15 Nt 3104/2026",
+      "issue_date": "2026-11-12",
+      "received_date": null,
+      "institution_id": "CZ-OS-PRO",
+      "reference": "15 Nt 3104/2026",
+      "case_ids": [
+        "case-cz-os-pro-2t104-2010-obnova"
+      ],
+      "document_type": "state_record",
+      "submission_side": "incoming_from_state_or_public_institution",
+      "submission_side_basis": "Source PDF identifies the court, case and issuance date; receipt date is not established by this copy",
+      "topics": [
+        "obnova řízení",
+        "přeložení veřejného zasedání",
+        "15 Nt 3104/2026"
+      ],
+      "relations": [],
+      "public": {
+        "html": "listiny/doc-cz-batch-2026-11-27-25-os-prostejov-3104-prelozeni.html",
+        "pdf": "documents/2026-11-12/25-os-prostejov-3104-prelozeni-verejna-kopie.pdf",
+        "intended_pdf": "documents/2026-11-12/25-os-prostejov-3104-prelozeni-verejna-kopie.pdf",
+        "sha256": "44062f740b5d9da88431aea9283175a42381c19b489356339e21e76ad118671b",
+        "source_original_sha256": "e6e2e7566779d4652d973477d36a9058409ee143453be67d679acf2696f5ccf5",
+        "source_original_size_bytes": 1795393,
+        "source_original_page_count": 1,
+        "source_public_size_bytes": 172050,
+        "verification_status": "redacted_original_from_user_binary; source_and_public_sha256_verified; visual_reviewed_public_candidate",
+        "source_manifest": "project-memory/documents-2026-supplement-2026-11-27-item25.json",
+        "public_copy_note": "Redigovaná veřejná kopie, nikoli byte-identický originál. Viditelná úřední jména zachována; původní elektronický podpis není součástí veřejné kopie."
+      },
+      "evidence_note": "Vyrozumění ze dne 12. 11. 2026 ve věci 15 Nt 3104/2026: přeložení veřejného zasedání z 30. 11. 2026 na 18. 1. 2027 v 8:30. Položka 25 soupisu; samostatný zdroj od položky 26, u níž je rozpor mezi doručenou obálkou a spisovou značkou v PDF."
+    }
+  ]
+}

@@ -422,6 +422,12 @@
       "path": "project-memory/documents-2026-supplement-2026-11-25-approved-five.json",
       "role": "batch",
       "batch_date": "2026-11-25"
+    },
+    {
+      "path": "project-memory/documents-2026-supplement-2026-11-27-item25.json",
+      "role": "batch",
+      "batch_date": "2026-11-27",
+      "public_status": "one visually reviewed public copy; original not uploaded"
     }
   ]
 }
