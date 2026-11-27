@@ -94,6 +94,58 @@ class PublicationRedactionTests(unittest.TestCase):
         self.policy_path.write_text(json.dumps(payload), "utf-8")
         os.environ["EVIDENCE_LAB_PRIVATE_REDACTION_POLICY"] = str(self.policy_path)
 
+    def test_rrku_exact_original_preflight_refuses_mutation_and_sanitizes_failures(self):
+        import contextlib
+        import io
+        ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"))
+        preflight = ns["preflight_rrku_exact_originals"]
+        root = self.tmpdir
+        web = root / "web"
+        manifest = root / "project-memory/documents-2026-supplement-2026-11-04-rrku54-annexes.json"
+        manifest.parent.mkdir(parents=True)
+        docs, scans = [], {}
+        for n in range(2, 6):
+            rel = f"documents/2026-11-04/rr-ku-54-2021-priloha-{n}.pdf"
+            path = web / rel
+            path.parent.mkdir(parents=True, exist_ok=True)
+            data = f"%PDF-1.4 synthetic fixture {n}".encode()
+            path.write_bytes(data)
+            sha = hashlib.sha256(data).hexdigest()
+            docs.append({"id": f"doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-{n}",
+                         "annex_index": n, "document_type": "state_record_attachment",
+                         "submission_side": "incoming_from_state_or_public_institution",
+                         "issue_date": "2026-11-04",
+                         "public": {"pdf": rel, "sha256": sha,
+                                    "source_original_sha256": sha, "source_original_page_count": 1}})
+            scans[rel] = {"inspection": {"source_sha256": sha, "page_count": 1, "reasons": [],
+                                          "decoded_scan_ok": True, "decoded_private_hits": [],
+                                          "visible_private_hits": [], "raw_private_hits": [],
+                                          "embedded_file_count": 0, "text_scan_ok": True,
+                                          "qpdf_structurally_valid": True, "pdf_revision_markers_bound": True,
+                                          "pdf_single_revision_only": True, "xmp_present": False}}
+        registry = {"documents": docs}
+        manifest.write_text(json.dumps(registry), "utf-8")
+        with mock.patch.dict(preflight.__globals__, {"ROOT": root, "WEB": web,
+                "run_isolated_worker": lambda mode, rel, timeout: scans[rel]}):
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                self.assertEqual(set(preflight(registry)), set(scans))
+            rel = docs[0]["public"]["pdf"]
+            original = (web / rel).read_bytes()
+            scans[rel]["inspection"]["raw_private_hits"] = ["synthetic secret"]
+            scans[rel]["inspection"]["reasons"] = ["private_match"]
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out), self.assertRaisesRegex(SystemExit, "annexes: 2"):
+                preflight(registry)
+            self.assertNotIn("synthetic secret", out.getvalue())
+            self.assertIn('"raw_match_count": 1', out.getvalue())
+            self.assertEqual((web / rel).read_bytes(), original)
+            scans[rel]["inspection"]["raw_private_hits"] = []
+            scans[rel]["inspection"]["reasons"] = []
+            docs[0]["public"]["sha256"] = "f"*64
+            with contextlib.redirect_stdout(io.StringIO()), self.assertRaisesRegex(SystemExit, "annexes: 2"):
+                preflight(registry)
+
     def test_shadow_worker_supplies_real_decoded_scan_evidence(self):
         import contextlib
         import io

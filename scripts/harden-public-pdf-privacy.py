@@ -808,6 +808,11 @@ def inspections_placeholder(rel: str) -> dict:
     }
 
 
+def worker_deep_inspect(rel: str) -> None:
+    result = inspect_pdf_deep(WEB / rel, prepared_private_byte_matchers())
+    print(json.dumps({"inspection": result}, ensure_ascii=False))
+
+
 def worker_inspect(rel: str) -> None:
     path = WEB / rel
     matchers = prepared_private_byte_matchers()
@@ -967,6 +972,89 @@ def worker_candidate(
     }
     print(json.dumps({"candidate": candidate}, ensure_ascii=False))
 
+def preflight_rrku_exact_originals(registry: dict) -> dict[str, dict]:
+    """Fail early if exact approved RR KU originals cannot survive hardening.
+
+    Never weaken the privacy policy or silently replace an approved original
+    with a derivative. Report only fixed reason codes and counts.
+    """
+    manifest = ROOT / "project-memory/documents-2026-supplement-2026-11-04-rrku54-annexes.json"
+    if not manifest.is_file():
+        return {}
+    docs = json.loads(manifest.read_text("utf-8"))["documents"]
+    expected_ids = {f"doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-{n}" for n in range(2, 6)}
+    if len(docs) != 4 or {d["id"] for d in docs} != expected_ids:
+        raise SystemExit("RR KU exact-original manifest identity mismatch")
+    inspected = {}
+    failures = []
+    for doc in sorted(docs, key=lambda d: d["id"]):
+        n = doc["annex_index"]
+        public = doc["public"]
+        rel = f"documents/2026-11-04/rr-ku-54-2021-priloha-{n}.pdf"
+        sha = public["source_original_sha256"]
+        rows = [r for r in registry["documents"] if r["id"] == doc["id"]]
+        identity_ok = (
+            n in range(2, 6) and doc["id"].endswith("-" + str(n))
+            and public["pdf"] == rel and public["sha256"] == sha
+            and re.fullmatch(r"[a-f0-9]{64}", sha)
+            and len(rows) == 1 and rows[0].get("release_excluded") is not True
+            and rows[0].get("document_type") == "state_record_attachment"
+            and rows[0].get("submission_side") == "incoming_from_state_or_public_institution"
+            and rows[0].get("issue_date") == "2026-11-04"
+            and rows[0].get("public", {}).get("pdf") == rel
+            and rows[0].get("public", {}).get("sha256") == sha
+            and (WEB / rel).is_file() and not (WEB / rel).is_symlink()
+            and sha256_file(WEB / rel) == sha
+        )
+        if not identity_ok:
+            print(json.dumps({"event": "rrku-exact-original-preflight", "annex": n,
+                              "identity_ok": False}), flush=True)
+            failures.append(n)
+            continue
+        result = run_isolated_worker("--worker-deep-inspect", rel, timeout=90)
+        scan = result.get("inspection") or {}
+        # Only known fixed reason codes. Never emit raw worker errors, policy
+        # identifiers, text, or metadata values into public logs.
+        allowed = {"revision_envelope", "private_match", "embedded_content",
+                   "suspicious_metadata", "text_scan_failed", "qpdf_invalid",
+                   "decoded_scan_failed"}
+        reasons = sorted(set(scan.get("reasons") or []) & allowed)
+        clean = (
+            not result.get("error")
+            and scan.get("source_sha256") == sha
+            and scan.get("page_count") == public["source_original_page_count"]
+            and scan.get("reasons") == []
+            and scan.get("decoded_scan_ok") is True
+            and scan.get("decoded_private_hits") == []
+            and scan.get("visible_private_hits") == []
+            and scan.get("raw_private_hits") == []
+            and scan.get("embedded_file_count") == 0
+            and scan.get("text_scan_ok") is True
+            and scan.get("qpdf_structurally_valid") is True
+            and scan.get("pdf_revision_markers_bound") is True
+            and scan.get("pdf_single_revision_only") is True
+            and not (derivative_doc(rows[0]) and scan.get("xmp_present"))
+        )
+        print(json.dumps({"event": "rrku-exact-original-preflight", "annex": n,
+                          "identity_ok": True, "clean": clean, "reasons": reasons,
+                          "inspection_failed": bool(result.get("error")),
+                          "raw_match_count": len(scan.get("raw_private_hits") or []),
+                          "visible_match_count": len(scan.get("visible_private_hits") or []),
+                          "decoded_match_count": len(scan.get("decoded_private_hits") or []),
+                          "text_match_count": len(scan.get("text_private_hits") or []),
+                          "metadata_match_count": len(scan.get("metadata_private_hits") or []),
+                          "xmp_present": scan.get("xmp_present") is True,
+                          "qpdf_ok": scan.get("qpdf_structurally_valid") is True}), flush=True)
+        if not clean:
+            failures.append(n)
+        else:
+            inspected[rel] = scan
+    if failures:
+        raise SystemExit("RR KU approved exact-original preflight failed for annexes: " +
+                         ", ".join(str(n) for n in failures))
+    return inspected
+
+
 def main() -> None:
     registry = json.loads(REGISTRY.read_text("utf-8"))
     if not isinstance(registry.get("documents"), list):
@@ -1000,7 +1088,8 @@ def main() -> None:
             transform_snapshot = capture_current(WEB, by_path, policy_sha, authenticated_policy_identity, pins)
         except Exception as exc:
             print("::warning::Optional transform capture unavailable: " + type(exc).__name__, flush=True)
-    inspections: dict[str, dict] = {}
+    inspections: dict[str, dict] = preflight_rrku_exact_originals(registry)
+    exact_original_paths = set(inspections)
     first_results = []
     reused_paths = set()
     reused_clean_paths = set()
@@ -1015,7 +1104,7 @@ def main() -> None:
             prior_stage, reuse_entries = None, {}
         for rel, row in sorted(reuse_entries.items()):
             path = WEB / rel
-            if rel in pins or rel not in by_path or rel not in rel_paths:
+            if rel in exact_original_paths or rel in pins or rel not in by_path or rel not in rel_paths:
                 continue
             try:
                 data = verified_candidate_bytes(path, row, prior_stage)
@@ -1075,7 +1164,7 @@ def main() -> None:
             raise SystemExit("Pinned NSZ preflight public digest mismatch")
         first_results.append(result)
         print("Pinned NSZ preflight passed before general PDF queue", flush=True)
-    remaining_paths = [path for path in physical_paths if path.relative_to(WEB).as_posix() != first_rel and path.relative_to(WEB).as_posix() not in reused_paths]
+    remaining_paths = [path for path in physical_paths if path.relative_to(WEB).as_posix() != first_rel and path.relative_to(WEB).as_posix() not in reused_paths and path.relative_to(WEB).as_posix() not in inspections]
     worker_count = min(8, max(1, len(remaining_paths)))
     with ThreadPoolExecutor(max_workers=worker_count) as executor:
         future_map = {
@@ -1100,7 +1189,7 @@ def main() -> None:
 
     candidates = []
     for rel in rel_paths:
-        if rel == first_rel or rel in reused_paths:
+        if rel == first_rel or rel in reused_paths or rel in exact_original_paths:
             continue
         items = by_path.get(rel, [])
         inspection = inspections[rel]
@@ -1334,6 +1423,8 @@ def main() -> None:
 if __name__ == "__main__":
     if len(sys.argv) >= 3 and sys.argv[1] == "--worker-inspect":
         worker_inspect(sys.argv[2])
+    elif len(sys.argv) == 3 and sys.argv[1] == "--worker-deep-inspect":
+        worker_deep_inspect(sys.argv[2])
     elif len(sys.argv) >= 3 and sys.argv[1] == "--worker-visible":
         forbidden_hits_worker(sys.argv[2])
     elif len(sys.argv) >= 6 and sys.argv[1] == "--worker-candidate":
