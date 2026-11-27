@@ -63,7 +63,7 @@ jobs:
           printf '%s  %s\n' ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280 "$font" | sha256sum -c
           args=(run --rm --user "$(id -u):$(id -g)" --network none --read-only --cap-drop ALL --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev,size=2g -e HOME=/tmp -e PYTHONDONTWRITEBYTECODE=1 -v "$font:/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:ro" -v "$GITHUB_WORKSPACE:/repo:ro" -w /repo "$EXPECTED_IMAGE")
           docker "${args[@]}" bash -ec 'python --version; qpdf --version; pdftotext -v; mutool -v; python -c "import fitz; import reportlab; import PIL"'
-          docker "${args[@]}" bash -ec 'mkdir /tmp/synthetic-repo; cp -a /repo/scripts /repo/test /repo/project-memory /tmp/synthetic-repo/; cd /tmp/synthetic-repo; python test/publication_redaction.test.py'
+          docker "${args[@]}" bash -ec 'mkdir /tmp/synthetic-repo; cp -a /repo/scripts /repo/test /repo/project-memory /tmp/synthetic-repo/; mkdir -p /tmp/synthetic-repo/web/data; cp /repo/web/data/documents-2026.json /tmp/synthetic-repo/web/data/; cd /tmp/synthetic-repo; python test/publication_redaction.test.py'
           echo 'Identical runtime verified on a second runner; no publication authorization.'
 
   publish_image:
