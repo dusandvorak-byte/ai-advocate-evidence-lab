@@ -508,6 +508,9 @@ jobs:
         run: |
           bash scripts/ensure-ci-pdf-tools.sh mupdf-tools poppler-utils qpdf
           python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 pymupdf==2.1 reportlab==5.1.0 pillow==13.0.0
+      - name: Install only host unpacker Python dependency
+        if: vars.EVIDENCE_LAB_PDF_RUNTIME_IMAGE != ''
+        run: python3 -m pip install --disable-pip-version-check --timeout 20 --retries 1 pymupdf==2.1
       - name: Provision private redaction policy
         env:
           PRIVATE_POLICY_B64: ${{ secrets.EVIDENCE_LAB_PRIVATE_REDACTION_POLICY_B64 }}
