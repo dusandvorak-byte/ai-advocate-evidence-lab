@@ -175,6 +175,33 @@ class TransformEvidenceTests(unittest.TestCase):
         self.assertEqual(compare_fresh_results(self.capture(), plan, [], self.web)["identity_mismatches"], [])
 
 
+class OfflineFragmentIdentityTests(unittest.TestCase):
+    def test_exact_detached_head_and_reject_mismatch(self):
+        import os
+        from unittest.mock import patch
+        from fragment_checkout_identity import exact_checkout_sha
+        repo = "dusandvorak-byte/ai-advocate-evidence-lab"
+        env = dict(EVIDENCE_LAB_OFFLINE_FRAGMENT="1", GITHUB_ACTIONS="true",
+                   GITHUB_EVENT_NAME="push", GITHUB_REF="refs/heads/main",
+                   GITHUB_REPOSITORY=repo, GITHUB_RUN_ID="1", GITHUB_SHA="a"*40,
+                   GITHUB_WORKFLOW_REF=repo+"/.github/workflows/trusted-pdf-shard-diagnostic.yml@refs/heads/main")
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, env, clear=True):
+            root = Path(tmp)
+            (root / ".git").mkdir()
+            head = root / ".git/HEAD"
+            head.write_text("a"*40+"\n")
+            with patch.object(sys, "argv", ["sliced.py", "pdf-shard", "0", "16"]):
+                self.assertEqual(exact_checkout_sha(root), "a"*40)
+                for bad in ("b"*40+"\n", "ref: refs/heads/main\n"):
+                    head.write_text(bad)
+                    with self.assertRaises(ValueError):
+                        exact_checkout_sha(root)
+            head.write_text("a"*40+"\n")
+            with patch.object(sys, "argv", ["sliced.py", "assemble", "16"]):
+                with self.assertRaises(ValueError):
+                    exact_checkout_sha(root)
+
+
 class WorkflowOptInTests(unittest.TestCase):
     def test_default_shadow_and_explicit_reuse_only(self):
         import importlib.util
