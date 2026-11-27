@@ -1,0 +1,36 @@
+name: Evidence Lab 3.0 - isolated archive bootstrap
+on:
+  push:
+    branches: ['evidence-lab-v3/bootstrap']
+    paths:
+      - 'ops/publication-v3/**'
+      - '.github/workflows/evidence-lab-v3-bootstrap.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  bootstrap:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Synthetic fail-closed tests
+        run: python3 ops/publication-v3/test_bootstrap.py
+      - uses: actions/checkout@v4
+        with:
+          ref: cfec9efdd31c21648e843aaa02f2ac5b63931960
+          path: published-baseline
+          persist-credentials: false
+      - name: Independently match the historical audit to published Git bytes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 ops/publication-v3/bootstrap.py published-baseline "$RUNNER_TEMP/v3-seed.json"
+      - name: Retain hashes-only historical archive manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: v3-historical-published-seed-${{ github.sha }}
+          path: ${{ runner.temp }}/v3-seed.json
+          if-no-files-found: error
+          retention-days: 90
