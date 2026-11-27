@@ -101,6 +101,23 @@ class WholeTreeReuseTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             p.output_evidence(self.tree, archived=True)
 
+    def test_legacy_fetch_validation_exit_falls_back_before_restore(self):
+        run = {"id": 1, "run_attempt": 1, "head_sha": "a"*40}
+        current = self.origin | {"run_id": 2, "source_commit": "f"*40}
+        listing = {"artifacts": [
+            {"id": i, "name": name + run["head_sha"], "expired": False, "digest": "sha256:"+"f"*64}
+            for i, name in enumerate(("whole-tree-inputs-", "trusted-public-tree-",
+                                      "evidence-lab-pdf-shard-diagnostic-"), 1)]}
+        with patch.object(p, "trusted_origin", return_value=current), patch.object(p, "inputs", return_value=self.facts), \
+                patch.object(p.helper, "api", side_effect=[{"workflow_runs": [run]}, listing]), \
+                patch.object(p.subprocess, "run") as git, \
+                patch.object(p, "download_stamp", return_value=self.stamp), \
+                patch.object(p.helper, "fetch", side_effect=SystemExit("artifact mismatch")), \
+                patch.object(p, "restore") as restore:
+            git.return_value.returncode = 0
+            self.assertEqual(p.prepare(self.root / "rejected"), "full")
+            restore.assert_not_called()
+
     def test_lookup_failure_falls_back_but_restore_failure_is_fatal(self):
         with patch.object(p, "trusted_origin", return_value=self.origin), patch.object(p, "inputs", return_value=self.facts):
             with patch.object(p, "find_prior", side_effect=ValueError("private details")):
