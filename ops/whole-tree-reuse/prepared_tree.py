@@ -210,6 +210,10 @@ def find_prior(root, current, facts):
         helper.fetch(root, "prior", run["id"], sha, {"tree": tree, "report": report})
         prior = root / "prior"
         verify_prior(prior, stamp, origin, facts)
+        actual = helper.api(f"actions/runs/{run['id']}")
+        require(actual.get("id") == run["id"] and actual.get("head_sha") == sha and
+                actual.get("run_attempt") == 1 and actual.get("status") == "completed" and
+                actual.get("conclusion") == "success", "prior run changed during retrieval")
         return prior / "tree", origin
     return None
 
@@ -266,7 +270,7 @@ def seal(root):
 
 
 if __name__ == "__main__":
-    require(len(sys.argv) == 3 and sys.argv[1] in ("prepare", "seal"), "usage: prepare|seal RUNNER_TEMP_DIR")
+    require(len(sys.argv) == 3 and sys.argv[1] in ("prepare", "seal", "check-date"), "usage: prepare|seal|check-date RUNNER_TEMP_DIR")
     root = Path(sys.argv[2]).resolve()
     require(root.is_relative_to(Path(os.environ["RUNNER_TEMP"]).resolve()) and not root.is_relative_to(ROOT),
             "unsafe cache destination")
@@ -274,5 +278,9 @@ if __name__ == "__main__":
         mode = prepare(root)
         with open(os.environ["GITHUB_OUTPUT"], "a") as out:
             out.write("mode=" + mode + "\n")
-    else:
+    elif sys.argv[1] == "seal":
         seal(root)
+    else:
+        pending = json.loads((root / "pending.json").read_text())
+        require(pending["origin"] == trusted_origin() and pending["inputs"]["dates"] == days(),
+                "reused prepared tree crossed date boundary")
