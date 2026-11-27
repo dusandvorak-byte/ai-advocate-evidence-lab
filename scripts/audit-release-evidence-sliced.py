@@ -7,6 +7,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from audit_git_lineage import check_lineage
+from fragment_checkout_identity import exact_checkout_sha
 from registry_pdf_fact_reuse import root_rows_by_path, registry_facts_from_row, validate_stage_rows, require_trusted_registry_reuse
 import time
 
@@ -22,12 +23,7 @@ spec.loader.exec_module(audit)
 
 
 def current_checkout_sha():
-    return subprocess.run(
-        ["git", "rev-parse", "HEAD"],
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout.strip()
+    return exact_checkout_sha(ROOT)
 
 
 def write_fragment(name, data, failures):
