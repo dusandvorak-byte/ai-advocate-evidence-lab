@@ -812,6 +812,15 @@ def worker_inspect(rel: str) -> None:
     path = WEB / rel
     matchers = prepared_private_byte_matchers()
     result = inspect_pdf_fast(path, matchers)
+    # A clean-candidate shadow comparison must have actual decoded scan
+    # evidence. Do not change scheduling/reasons or authorize reuse here.
+    if (os.environ.get("EVIDENCE_LAB_PDF_TRANSFORM_MODE") == "shadow"
+            and result.get("reasons") == [] and result.get("xmp_present") is False):
+        hits, ok = decoded_private_hits(path, matchers)
+        result["decoded_private_hits"] = hits
+        result["decoded_scan_ok"] = ok
+        if sha256_file(path) != result.get("source_sha256"):
+            result["decoded_scan_ok"] = False
     print(json.dumps({"inspection": result}, ensure_ascii=False))
 
 
