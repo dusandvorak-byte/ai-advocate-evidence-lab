@@ -16,7 +16,7 @@ for package in "$@"; do
 done
 if (( ${#missing[@]} )); then
   printf 'Missing PDF tool packages: %s\n' "${missing[*]}"
-  apt=(sudo env DEBIAN_FRONTEND=noninteractive apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=15 -o Acquire::https::Timeout=15)
+  apt=(sudo env DEBIAN_FRONTEND=noninteractive apt-get -o DPkg::Lock::Timeout=60 -o Acquire::Retries=1 -o Acquire::http::Timeout=15 -o Acquire::https::Timeout=15)
   # The regional EC2 mirror repeatedly stalls on the 49 MB mupdf-tools
   # archive. Use only the signed Ubuntu archive on the supported Noble runner,
   # excluding third-party indexes; never disable package signature verification.
@@ -30,16 +30,16 @@ if (( ${#missing[@]} )); then
       'deb [signed-by=/usr/share/keyrings/ubuntu-archive-keyring.gpg] https://archive.ubuntu.com/ubuntu noble-updates main universe' \
       'deb [signed-by=/usr/share/keyrings/ubuntu-archive-keyring.gpg] https://security.ubuntu.com/ubuntu noble-security main universe' > "$sources"
     official=("${apt[@]}" -o "Dir::Etc::sourcelist=$sources" -o Dir::Etc::sourceparts=- -o Acquire::Languages=none)
-    if timeout -k 5s 75s "${official[@]}" update && timeout -k 5s 75s "${official[@]}" install -y --no-install-recommends "${missing[@]}"; then
+    if timeout -k 5s 75s "${official[@]}" update && timeout -k 15s 180s "${official[@]}" install -y --no-install-recommends "${missing[@]}"; then
       echo 'Installed PDF dependencies from signed official Ubuntu archive.'
     else
       echo 'Official archive unavailable; trying existing runner indexes once.' >&2
-      timeout -k 5s 75s "${apt[@]}" install -y --no-install-recommends "${missing[@]}"
+      timeout -k 15s 180s "${apt[@]}" install -y --no-install-recommends "${missing[@]}"
     fi
   else
-    if ! timeout -k 5s 75s "${apt[@]}" install -y --no-install-recommends "${missing[@]}"; then
+    if ! timeout -k 15s 180s "${apt[@]}" install -y --no-install-recommends "${missing[@]}"; then
       timeout -k 5s 75s "${apt[@]}" update
-      timeout -k 5s 75s "${apt[@]}" install -y --no-install-recommends "${missing[@]}"
+      timeout -k 15s 180s "${apt[@]}" install -y --no-install-recommends "${missing[@]}"
     fi
   fi
 else
