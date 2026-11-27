@@ -207,7 +207,12 @@ def find_prior(root, current, facts):
             stamp = download_stamp(Path(tmp), stamp_item)
         if not matching_stamp(stamp, origin, facts):
             continue
-        helper.fetch(root, "prior", run["id"], sha, {"tree": tree, "report": report})
+        try:
+            helper.fetch(root, "prior", run["id"], sha, {"tree": tree, "report": report})
+        except SystemExit as exc:
+            # The legacy helper uses SystemExit for metadata/digest/extraction
+            # rejection. Translate only inside the read-only lookup boundary.
+            raise ValueError("prior artifact verification rejected") from exc
         prior = root / "prior"
         verify_prior(prior, stamp, origin, facts)
         actual = helper.api(f"actions/runs/{run['id']}")
