@@ -78,6 +78,30 @@ class TransformEvidenceTests(unittest.TestCase):
         self.assertEqual(verified_candidate_bytes(self.web / self.rel, row, self.stage), self.output)
         self.assertEqual((self.web / self.rel).read_bytes(), self.original)
 
+    def test_clean_unchanged_requires_two_exact_audits_and_fresh_inspection(self):
+        self.report["privacy_hardening"]["documents"] = []
+        for row in self.report["all_final_web_pdfs"]:
+            row["sha256"] = self.source_sha
+        for path in (self.stage / self.rel, self.stage / "web" / self.rel):
+            self.write(path, self.original)
+        plan = self.plan()
+        self.assertEqual(len(plan["entries"]), 1)
+        row = plan["entries"][0]
+        self.assertEqual(row["strategy"], "unchanged_clean")
+        self.assertEqual(verified_candidate_bytes(self.web / self.rel, row, self.stage), self.original)
+        clean = dict(source_sha256=self.source_sha, page_count=1, reasons=[], xmp_present=False,
+                     decoded_scan_ok=True, decoded_private_hits=[], text_scan_ok=True,
+                     qpdf_structurally_valid=True, pdf_revision_markers_bound=True,
+                     pdf_single_revision_only=True)
+        for inspection, expected in (({}, 0), (clean, 1),
+                                     (dict(clean, reasons=["private_match"]), 0),
+                                     (dict(clean, xmp_present=True), 0)):
+            stats = compare_fresh_results(self.snapshot, plan, [], self.web, {self.rel: inspection})
+            self.assertEqual(stats["exact_matches"], expected)
+            self.assertEqual(stats["skipped"], 0)
+        self.report["all_final_web_pdfs"][1]["sha256"] = self.output_sha
+        self.assertEqual(self.plan()["entries"], [])
+
     def test_changed_policy_tool_context_or_source_is_miss(self):
         plan = self.plan()
         for field in ("policy_sha", "identity", "engine_sha", "path_policy_sha"):
