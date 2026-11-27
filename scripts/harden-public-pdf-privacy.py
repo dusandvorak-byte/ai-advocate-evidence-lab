@@ -972,6 +972,16 @@ def worker_candidate(
     }
     print(json.dumps({"candidate": candidate}, ensure_ascii=False))
 
+# Exact owner-approved original digests, independently pinned in datedBatchPins.
+# The supplement and canonical registry may not redefine these approvals.
+RRKU_APPROVED_ORIGINAL_SHA256 = {
+    2: "6a4fa57cd3a12ad6f74643b0815c60b0431682b35f194993d47567b9b0533213",
+    3: "9e1d37506d0d991a17cb91c7dae43ceccbb4c531c3f0d0f6d947323afd57eea6",
+    4: "411b87167b8d33eea1e60c12eae3de1841209bde6316116101a51790052abe52",
+    5: "93c20a560730900e050815f87281815eb526d9b0341bc9df4916531a335a8664",
+}
+
+
 def preflight_rrku_exact_originals(registry: dict) -> dict[str, dict]:
     """Fail early if exact approved RR KU originals cannot survive hardening.
 
@@ -979,8 +989,8 @@ def preflight_rrku_exact_originals(registry: dict) -> dict[str, dict]:
     with a derivative. Report only fixed reason codes and counts.
     """
     manifest = ROOT / "project-memory/documents-2026-supplement-2026-11-04-rrku54-annexes.json"
-    if not manifest.is_file():
-        return {}
+    if not manifest.is_file() or manifest.is_symlink():
+        raise SystemExit("RR KU required exact-original manifest unavailable")
     docs = json.loads(manifest.read_text("utf-8"))["documents"]
     expected_ids = {f"doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-{n}" for n in range(2, 6)}
     if len(docs) != 4 or {d["id"] for d in docs} != expected_ids:
@@ -996,6 +1006,7 @@ def preflight_rrku_exact_originals(registry: dict) -> dict[str, dict]:
         identity_ok = (
             n in range(2, 6) and doc["id"].endswith("-" + str(n))
             and public["pdf"] == rel and public["sha256"] == sha
+            and sha == RRKU_APPROVED_ORIGINAL_SHA256.get(n)
             and re.fullmatch(r"[a-f0-9]{64}", sha)
             and len(rows) == 1 and rows[0].get("release_excluded") is not True
             and rows[0].get("document_type") == "state_record_attachment"
