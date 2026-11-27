@@ -24,6 +24,7 @@ sys.path.insert(0, str(ROOT / "ops/shard-planning"))
 sys.path.insert(0, str(ROOT / "scripts"))
 from cost_planner import schedule, load_observations
 from registry_pdf_fact_reuse import require_trusted_registry_reuse
+from fragment_checkout_identity import exact_checkout_sha
 
 HEX = re.compile(r"[0-9a-f]{64}")
 SHA = re.compile(r"[0-9a-f]{40}")
@@ -46,8 +47,7 @@ def json_bytes(data):
 def trusted_identity():
     run = require_trusted_registry_reuse(os.environ)
     sha = os.environ.get("GITHUB_SHA", "")
-    if not SHA.fullmatch(sha) or subprocess.check_output(
-        ["git","rev-parse","HEAD"], cwd=ROOT, text=True).strip() != sha:
+    if not SHA.fullmatch(sha) or exact_checkout_sha(ROOT) != sha:
         raise ValueError("compact transport requires exact trusted main")
     return sha, run
 
