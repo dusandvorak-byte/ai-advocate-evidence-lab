@@ -94,6 +94,32 @@ class PublicationRedactionTests(unittest.TestCase):
         self.policy_path.write_text(json.dumps(payload), "utf-8")
         os.environ["EVIDENCE_LAB_PRIVATE_REDACTION_POLICY"] = str(self.policy_path)
 
+    def test_shadow_worker_supplies_real_decoded_scan_evidence(self):
+        import contextlib
+        import io
+        self.write_policy_and_contract()
+        pdf = self.tmpdir / "clean-worker.pdf"
+        doc = fitz.open()
+        doc.new_page().insert_text((72, 72), "synthetic public text")
+        doc.save(pdf)
+        doc.close()
+        ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"))
+        worker = ns["worker_inspect"]
+        with mock.patch.dict(worker.__globals__, {"WEB": self.tmpdir}):
+            for mode in ("shadow", "reuse"):
+                with mock.patch.dict(os.environ, {"EVIDENCE_LAB_PDF_TRANSFORM_MODE": mode}):
+                    out = io.StringIO()
+                    with contextlib.redirect_stdout(out):
+                        worker(pdf.name)
+                    inspection = json.loads(out.getvalue())["inspection"]
+                    self.assertEqual(inspection["reasons"], [])
+                    self.assertEqual(inspection["source_sha256"], hashlib.sha256(pdf.read_bytes()).hexdigest())
+                    if mode == "shadow":
+                        self.assertIs(inspection["decoded_scan_ok"], True)
+                        self.assertEqual(inspection["decoded_private_hits"], [])
+                    else:
+                        self.assertNotIn("decoded_scan_ok", inspection)
+
     def test_real_qpdf_stdout_is_scanned_from_sealed_fd(self):
         # Runs in the no-secrets synthetic privacy job after qpdf installation.
         pdf = self.tmpdir / "synthetic-decoded.pdf"
