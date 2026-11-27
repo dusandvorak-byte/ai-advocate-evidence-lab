@@ -1,0 +1,33 @@
+name: Evidence Lab 3.0 - clean single-document rehearsal
+on:
+  push:
+    branches: ['evidence-lab-v3/clean']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  rehearsal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Synthetic tests
+        run: python3 test_rehearsal.py
+      - uses: actions/checkout@v4
+        with:
+          ref: cfec9efdd31c21648e843aaa02f2ac5b63931960
+          path: published-baseline
+          persist-credentials: false
+      - name: Build one-document delta without rebuilding historical PDFs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 rehearsal.py published-baseline "$RUNNER_TEMP" "$RUNNER_TEMP/v3-preview-delta"
+      - name: Save isolated preview delta
+        uses: actions/upload-artifact@v4
+        with:
+          name: v3-single-document-preview
+          path: ${{ runner.temp }}/v3-preview-delta
+          if-no-files-found: error
+          retention-days: 7
