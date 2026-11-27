@@ -125,7 +125,9 @@ class PublicationRedactionTests(unittest.TestCase):
                                           "pdf_single_revision_only": True, "xmp_present": False}}
         registry = {"documents": docs}
         manifest.write_text(json.dumps(registry), "utf-8")
+        fixed_pins = {d["annex_index"]: d["public"]["sha256"] for d in docs}
         with mock.patch.dict(preflight.__globals__, {"ROOT": root, "WEB": web,
+                "RRKU_APPROVED_ORIGINAL_SHA256": fixed_pins,
                 "run_isolated_worker": lambda mode, rel, timeout: scans[rel]}):
             out = io.StringIO()
             with contextlib.redirect_stdout(out):
@@ -145,6 +147,29 @@ class PublicationRedactionTests(unittest.TestCase):
             docs[0]["public"]["sha256"] = "f"*64
             with contextlib.redirect_stdout(io.StringIO()), self.assertRaisesRegex(SystemExit, "annexes: 2"):
                 preflight(registry)
+
+            # A coordinated replacement of source, manifest, and registry
+            # remains unapproved, even when its inspection is clean.
+            replacement = b"%PDF-1.4 replacement synthetic bytes"
+            (web / rel).write_bytes(replacement)
+            sha = hashlib.sha256(replacement).hexdigest()
+            docs[0]["public"]["sha256"] = sha
+            docs[0]["public"]["source_original_sha256"] = sha
+            scans[rel]["inspection"]["source_sha256"] = sha
+            manifest.write_text(json.dumps(registry), "utf-8")
+            with contextlib.redirect_stdout(io.StringIO()), self.assertRaisesRegex(SystemExit, "annexes: 2"):
+                preflight(registry)
+            manifest.unlink()
+            with self.assertRaisesRegex(SystemExit, "required exact-original manifest unavailable"):
+                preflight(registry)
+
+    def test_rrku_approval_pins_match_final_dated_batch(self):
+        import re
+        ns = runpy.run_path(str(ROOT / "scripts/harden-public-pdf-privacy.py"))
+        finalizer = (ROOT / "scripts/finalize-state-attachment-surfaces.mjs").read_text("utf-8")
+        matches = re.findall(r"'doc-cz-pcr-ku-2026-11-04-rr-ku-54-2021-priloha-([2-5])','documents/2026-11-04/rr-ku-54-2021-priloha-[2-5]\.pdf','([0-9a-f]{64})'", finalizer)
+        self.assertEqual(len(matches), 4)
+        self.assertEqual({int(n): sha for n, sha in matches}, ns["RRKU_APPROVED_ORIGINAL_SHA256"])
 
     def test_shadow_worker_supplies_real_decoded_scan_evidence(self):
         import contextlib
